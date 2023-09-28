@@ -1,0 +1,369 @@
+syntax = "proto3";
+
+package social_service.v2;
+
+import "social_service/v2/message.proto";
+import "social_service/v2/mongo.proto";
+import "google/api/field_behavior.proto";
+import "google/protobuf/timestamp.proto";
+// import "google/protobuf/timestamp.proto";
+import "validate/validate.proto";
+
+option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/generated/social_service/v2";
+
+enum NotificationType {
+  NOTIFICATION_TYPE_UNSPECIFIED = 0;
+  NOTIFICATION_TYPE_REPLIED_TO_POST = 1;
+  NOTIFICATION_TYPE_MENTIONED_IN_POST = 2;
+  NOTIFICATION_TYPE_REPLIED_TO_COMMENT = 3;
+  NOTIFICATION_TYPE_MENTIONED_IN_COMMENT = 4;
+  NOTIFICATION_TYPE_SHARED_POST = 5;
+  NOTIFICATION_TYPE_REACTED_TO_POST = 6;
+  NOTIFICATION_TYPE_REACTED_TO_COMMENT = 7;
+  NOTIFICATION_TYPE_FOLLOW_REQUEST = 8;
+}
+
+// UserProfileRequestPayload encompasses the request object necessary to
+// perform operations against a user profile
+message UserProfileRequestPayload {
+  // Profile name is the name tied to the user profile
+  string profile_name = 2 [
+    (validate.rules).string.min_len = 1,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // Private defines wether only approved followers can see what this profile
+  // posts
+  bool private = 3;
+  // Profileimage_url witholds the url of a given profile image
+  string profile_image_url = 4 [
+    (validate.rules).string.min_len = 1,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+// TopicsRequestPayload encompasses the request object necessary to perform operations
+// against topics
+message TopicsRequestPayload {
+  // Topic name refers to the name of a given topic
+  string topic_name = 1 [
+    (validate.rules).string.min_len = 1,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // description refers to details about the topic
+  string description = 2 [
+    (validate.rules).string.min_len = 50,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // Refers to the image tied to the created topic of interest
+  string image_url = 3 [
+    (validate.rules).string.min_len = 1,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+// CommunityProfileRpc encompasses the client side request object
+// to perform operations against communities
+message CommunityProfileRequestPayload {
+  string community_name = 3 [
+    (validate.rules).string.min_len = 1,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // Desscription defines additional info about the community
+  string description = 4 [
+    (validate.rules).string.min_len = 50,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // Private defines wether only approved followers can see what this profile
+  // posts
+  bool private = 5;
+  // Visible defines wether just about anyone can find this group
+  bool visible = 6;
+  // Defines rules community members must abide by
+  string community_rules = 9 [
+    (validate.rules).string.min_len = 50,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // Defines topics assoociated with the community of interest
+  repeated TopicsRequestPayload topics = 10;
+  // Profileimage_url witholds the url of a given profile image
+  string profile_image_url = 11 [
+    (validate.rules).string.min_len = 1,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+// PostRequestPayload encompasses the client side post object sent to perform
+// operations pertinent to posts
+message PostRequestPayload {
+  // Content refers to the content in the post object.
+  string content = 1 [
+    (validate.rules).string.min_len = 50,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // Title refers to the high level description of the post content
+  string title = 2;
+  // Extra are any additional metadata included in the post
+  map<string, string> extra = 3;
+  // Post type refers to the type of post: Achievement, Post, Poll ...
+  PostType post_type = 4 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).enum = {not_in: [0]}
+    ];
+  // topic_name is native to community accounts and can be associated to posts
+  string topic_name = 5;
+  // tags are additional points of details ties to the post
+  repeated string tags = 6;
+  // Username of the person making the comment
+  string author_user_name = 7 [
+    (validate.rules).string.min_len = 1,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // Profile image of the person making this comment
+  string author_profile_image = 8 [
+    (validate.rules).string.min_len = 1,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // Backgroundimage_url signifies an image to associate to a post object.
+  // Such urls are only associated when a post is an article or short story
+  string background_image_url = 9;
+}
+
+// PollRequestPayload encompasses the client side poll object sent to perform
+// operations pertinent to polls (special posts)
+message PollRequestPayload {
+  // Content refers to the content in the post object.
+  string content = 1 [
+    (validate.rules).string.min_len = 50,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // Title refers to the high level description of the post content
+  string title = 2;
+  // Extra are any additional metadata included in the post
+  map<string, string> extra = 3;
+  // Post type refers to the type of post: Achievement, Post, Poll ...
+  PostType post_type = 4 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).enum = {not_in: [0]}
+  ];
+  // topic_name is native to community accounts and can be associated to posts
+  string topic_name = 5;
+  // tags are additional points of details ties to the post
+  repeated string tags = 6;
+  // Username of the person making the comment
+  string author_user_name = 7 [
+    (validate.rules).string.min_len = 1,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // Profile image of the person making this comment
+  string author_profile_image = 8 [
+    (validate.rules).string.min_len = 1,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // Backgroundimage_url signifies an image to associate to a post object.
+  // Such urls are only associated when a post is an article or short story
+  string background_image_url = 9;
+
+  // The set of options the poll witholds
+  repeated string poll_options = 10 [
+    (validate.rules).repeated.min_items = 2,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The end date of a given poll
+  google.protobuf.Timestamp poll_end_date = 11 [(validate.rules).timestamp.required = true];
+}
+
+// CommentRequestObject encompasses the request object sent by the
+// client to the service in order to add a new comment
+message CommentRequestPayload {
+  // Content encompasses the comment payload
+  string content = 1 [
+    (validate.rules).string.min_len = 1,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // Extra refers to addional metadata tied to the comment
+  map<string, string> extra = 2;
+  // Username of the person making the comment
+  string author_username = 3 [
+    (validate.rules).string.min_len = 1,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // Profile image of the person making this comment
+  string author_profile_image = 4 [
+    (validate.rules).string.min_len = 1,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+// ReactionType outlines the types of reactions an action can have associated
+// with it
+enum ReactionType {
+  REACTION_TYPE_UNSPECIFIED = 0;
+  // Like action
+  REACTION_TYPE_LIKE = 1;
+  // Dislike action
+  REACTION_TYPE_DISLIKE = 2;
+  // Star action
+  REACTION_TYPE_STAR = 3;
+}
+
+// FeedType encompasses the various types of feeds a profile can have
+// (in conjuction) with getstream.
+enum FeedType {
+  FEED_TYPE_UNSPECIFIED = 0;
+  // UserFeed is a profile's personal feed
+  FEED_TYPE_PERSONAL = 1;
+  // NewsFeed is a profile's timeline
+  FEED_TYPE_NEWS = 2;
+  // NotificationFeed encompasses a profile's notification feed
+  FEED_TYPE_NOTIFICATION = 3;
+}
+
+// Actor references the profile performing an operation
+message Actor {
+  oneof actor {
+    // UserProfile is the user profile who's performing a given operation
+    UserProfile user_profile = 1  [
+      (validate.rules).message.required = true,
+      (google.api.field_behavior) = REQUIRED
+    ];
+    // Communtiy is the community profile who's performing a given operation
+    CommunityProfile community = 2  [
+      (validate.rules).message.required = true,
+      (google.api.field_behavior) = REQUIRED
+    ];
+  }
+  // AccountType is the type of account this actor is
+  AccountType actor_type = 3 [(google.api.field_behavior) = REQUIRED];
+}
+
+message BaseTimeline {
+  repeated FeedActivity activities = 1;
+}
+
+message NotificationTimeline {
+  repeated NotificationFeedGroup activities = 1;
+}
+
+// FeedActivity references an actvitiy present in a given user's timeline
+message FeedActivity {
+  // Actor refers to profile who created the object in the Activity
+  Actor actor = 1 [
+    (validate.rules).message.required = true,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // Identifies the action that the activity describes.
+  PostType verb = 2 [(validate.rules).enum = {not_in: [0]}];
+  // Object refers to the activity payload
+  oneof post {
+    Post regular_post = 3;
+    SharedPost shared_post = 4;
+    PollPost poll_post = 5;
+  }
+
+  // ForeignID is used as a reference identifier between our datastore
+  // and getstream
+  string foreign_id = 7;
+  // Object	Describes the target of the activity. The precise meaning of the
+  // activity's target is dependent on the activities verb, but will often be
+  // the object the English preposition "to". For instance, in the activity,
+  // "John saved a movie to his wishlist", the target of the activity is
+  // "wishlist".
+  string target = 8;
+  // Time is the time this activity was created at
+  string time = 9;
+  string origin = 10;
+  // The TO field allows you to specify a list of feeds to which the activity
+  // should be copied. One way to think about it is as the CC functionality of
+  // email.
+  repeated string to = 11;
+  // Score associated to an activity
+  uint64 score = 12;
+  // Extra encompasses any additional activity metadata
+  map<string, string> extra = 13;
+  // The ID of the activity from the context of getstream
+  string getstream_activity_id = 14 [
+    (validate.rules).string.min_len = 1,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message NotificationFeedGroup {
+  uint64 activity_count = 1;
+  uint64 actor_count = 2;
+  string created_at = 3;
+  string group = 4;
+  string feed_group_id = 5;
+  bool is_read = 6;
+  bool is_seen = 7;
+  string updated_at = 8;
+  string verb = 9;
+  repeated NotificationActivity activities = 10;
+}
+
+message NotificationActivity {
+  string actor_name = 1;
+  string foreign_id = 2;
+  string activity_id = 3;
+  string verb = 4;
+  string time = 5;
+  string target = 6;
+  string origin = 7;
+  string object = 8;
+}
+
+// PendingFollowRequest defines the record describing the given pending follow
+// relationship
+message PendingFollowRequest {
+  // The ID of the follow request
+  uint64 follow_request_id = 1;
+  // The profile who initiated follow request
+  UserProfile follower_requestion_to_follow = 2 [
+    (validate.rules).message.required = true,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // The time the follow request originated
+  string created_at = 3 [
+    (validate.rules).string.min_len = 1,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message SocialRelationshipMetadata {
+  message SocialProfileMetadata {
+    AccountType profile_type = 1;
+    uint64 profile_id = 2;
+  }
+
+  SocialProfileMetadata source_profile = 1 [
+    (validate.rules).message.required = true,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  SocialProfileMetadata target_profile = 2 [
+    (validate.rules).message.required = true,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  bool following = 3;
+  string following_since = 4;
+}
+
+message FeedActivityPostRecord {
+  oneof post {
+    Post regular_post = 1;
+    SharedPost shared_post = 2;
+    PollPost poll_post = 3;
+  }
+
+  PostType post_type = 4 [(validate.rules).enum = {not_in: [0]}];
+  string post_id = 5;
+}
+
+
+message FeedActorRecord {
+  oneof actor {
+    UserProfile user_profile = 1;
+    CommunityProfile community_profile = 2;
+  }
+
+  AccountType actor_type = 3;
+}

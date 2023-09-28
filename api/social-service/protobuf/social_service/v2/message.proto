@@ -1,0 +1,461 @@
+syntax = "proto3";
+
+package social_service.v2;
+
+import "google/api/field_behavior.proto";
+import "protoc-gen-gorm/options/gorm.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+// import "google/protobuf/timestamp.proto";
+import "validate/validate.proto";
+
+option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/generated/social_service/v2";
+
+/*
+    VirtualProfile: Every user/community has a virtual profile account id
+   associated with it. A virtual profile abstracts a grouping of separate social
+   accounts a user can have (useful as we scale the types of users we support on
+   the platform - finfluencers, .. etc). All child account types withhold a
+   mapping to a parent virtual profile and in the relational world, this is
+   enforced through primary keys.
+   
+    Example: A user may have 1 or 2 types of social profiles (finfluencers |
+   regular | community). A virtual profile encompasses all such profiles and
+   associates such to user records. (in our case N = 2)
+*/
+message VirtualProfile {
+  option (gorm.opts) = {ormable: true};
+  // virtual account id
+  uint64 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+  // UserID id from the context of the user service (UserID is relegated across
+  // all services and is maintained as the source of truth from an indentity
+  // perspective)
+  uint64 user_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (validate.rules).uint64.gt = 0
+  ];
+  // ID of the user profile tied to this virtual account
+  UserProfile user = 7 [(gorm.field).has_one = {
+    disable_association_autocreate: false
+    disable_association_autoupdate: false
+    preload: true
+  }];
+  // ID of the community profile tied to this virtual account
+  repeated CommunityProfile communities = 8 [
+    (gorm.field).has_many = {
+      disable_association_autocreate: false
+      disable_association_autoupdate: false
+      preload: true
+    },
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // Active defines wether the account is a/ctive or not
+  bool activated = 9;
+}
+
+/*
+   UserProfile: The profile object tied to a given user
+*/
+message UserProfile {
+  option (gorm.opts) = {ormable: true};
+  // User profile ID
+  uint64 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+  // Tags are interests
+  repeated Tags tags = 2 [
+    (gorm.field).has_many = {
+      disable_association_autocreate: false
+      disable_association_autoupdate: false
+      preload: true
+    },
+    (validate.rules).repeated.min_items = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // Profile name is the name tied to the user profile
+  // user name must be at least 5 characters long
+  string name = 3 [
+    (validate.rules).string = {min_bytes: 5},
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"test-user\""
+    },
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // Private defines wether only approved followers can see what this profile
+  // posts
+  bool private = 4 [(google.api.field_behavior) = REQUIRED];
+  // Followers outlines the number of followers this user profile has
+  int64 followers = 5 [(google.api.field_behavior) = REQUIRED];
+  // Number of people account is following
+  int64 following = 9 [(google.api.field_behavior) = REQUIRED];
+  // Notification timeline Id. Notification for anything a user/group is
+  // following
+  string notification_feed_timeline_id = 10 [
+    (validate.rules).string = {min_bytes: 1},
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"asndlkhaskhdhasgdahsf-feed-id\""
+    },
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // Personal timeline ID Has activities for a user that can be followed
+  string personal_feed_timeline_id = 11 [
+    (validate.rules).string = {min_bytes: 1},
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"asndlkhaskhdhasgdahsf-feed-id\""
+    },
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // Newsfeed timeline ID Displays all followed and group activities the user
+  // follows
+  string news_feed_timeline_id = 12 [
+    (validate.rules).string = {min_bytes: 1},
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"asndlkhaskhdhasgdahsf-feed-id\""
+    },
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // ProfileImageUrl witholds the url of a given profile image
+  string profile_image_url = 13 [
+    (validate.rules).string = {min_bytes: 1},
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"asndlkhaskhdhasgdahsf.jpg\""
+    },
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // all the bookmarked pieces of content on the platform
+  Bookmark bookmarks = 14 [
+    (gorm.field).belongs_to = {
+      disable_association_autocreate: false
+      disable_association_autoupdate: false
+      preload: true
+    },
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The id of the algolia record referencing this user
+  string algolia_id = 15 [
+    (validate.rules).string = {min_bytes: 0},
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"asndlkhaskhdhasgdahsf-feed-id\""
+    },
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+/*
+   CommunityProfile: The profile object tied to a given community
+*/
+message CommunityProfile {
+  option (gorm.opts) = {ormable: true};
+  // Community profile ID
+  uint64 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+  // Community name is the name tied to the community profile
+  // community name must be at least 5 characters long
+  string name = 3 [
+    (validate.rules).string = {min_bytes: 5},
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"test-community\""
+    },
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // Desscription defines additional info about the community
+  // community description must be at least 50 characters long
+  string description = 4 [
+    (validate.rules).string = {min_bytes: 50},
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"community description useful for generating a test community that we can test against. a community is really cool and ideal\""
+    },
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // Private defines wether only approved followers can see what this profile
+  // posts
+  bool private = 5 [(google.api.field_behavior) = REQUIRED];
+  // Visible defines wether just about anyone can find this group
+  bool visible = 6 [(google.api.field_behavior) = REQUIRED];
+  // Followers outlines the number of followers this user profile has
+  int64 followers = 8 [(google.api.field_behavior) = REQUIRED];
+  // Defines rules community members must abide by
+  // community rules must be at least 50 characters long
+  string community_rules = 9 [
+    (validate.rules).string = {min_bytes: 50},
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"community rules useful for generating a test community that we can test against. a community is really cool and ideal\""
+    },
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // Defines topics assoociated with the community of interest
+  // must create at least 1 topic
+  repeated Topic topics = 10 [
+    (gorm.field).has_many = {
+      disable_association_autocreate: false
+      disable_association_autoupdate: false
+      preload: true
+    },
+    (validate.rules).repeated.min_items = 1
+  ];
+  // Notification timeline Id. Notification for anything a user/group is
+  // following
+  string notification_feed_timeline_id = 11 [
+    (validate.rules).string = {min_bytes: 1},
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"asndlkhaskhdhasgdahsf-feed-id\""
+    },
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // Personal timeline ID Has activities for a user that can be followed
+  string personal_feed_timeline_id = 12 [
+    (validate.rules).string = {min_bytes: 1},
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"asndlkhaskhdhasgdahsf-feed-id\""
+    },
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // Newsfeed timeline ID Displays all followed and group activities the user
+  // follows
+  string news_feed_timeline_id = 13 [
+    (validate.rules).string = {min_bytes: 1},
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"asndlkhaskhdhasgdahsf-feed-id\""
+    },
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // ProfileImageUrl witholds the url of a given profile image
+  string profile_image_url = 14 [
+    (validate.rules).string = {min_bytes: 1},
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"asndlkhaskhdhasgdahsf.jpg\""
+    },
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // The id of the algolia record referencing this community
+  string algolia_id = 15 [
+    (validate.rules).string = {min_bytes: 0},
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"asndlkhaskhdhasgdahsf-feed-id\""
+    },
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+// Follower: The follower record establishing a follow relationship between 2
+// profiles
+message Follower {
+  enum TargetFollowerProfileType {
+    TARGET_FOLLOWER_PROFILE_TYPE_UNSPECIFIED = 0;
+    TARGET_FOLLOWER_PROFILE_TYPE_COMMUNITY_PROFILE = 1;
+    TARGET_FOLLOWER_PROFILE_TYPE_USER_PROFILE = 2;
+  }
+
+  option (gorm.opts) = {ormable: true};
+  // the id of the follower
+  uint64 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+  // the id of the profile being followed
+  uint64 profile_followed_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // the id of the profile following the profile being followed
+  uint64 profile_following_id = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // whther or not the follow request has been approved
+  bool request_approved = 4;
+
+  // when the follow request was created
+  string created_at = 5;
+
+  // when the follow request was approved
+  string approved_at = 6;
+
+  // the type of profile being followed
+  TargetFollowerProfileType target_follower_type = 7 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+/*
+   Tags: tags that can be associated to a record
+*/
+message Tags {
+  option (gorm.opts) = {ormable: true};
+
+  // the id of the tag record
+  uint64 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+  // the name of the tag ... tag must be at least 5 characters long
+  string tag_name = 2 [
+    (validate.rules).string = {min_bytes: 5},
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"test-tagname\""
+    },
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // the description of the tag ... tag must be at least 50 characters long
+  string description = 3 [
+    (validate.rules).string = {min_bytes: 50},
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"test-description sakjlDKJGSAHGHFDHSGJHFGAHDFJKGSHAJDLgAKSGDHAS CSVDJKSADASKJHDASFDGJKJLHSAHGFJDSAHD kjskhdgfhgdhfgkhsdfdsdfdssdfsdf\""
+    },
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+// Topic: topic that can be associated to a record
+message Topic {
+  option (gorm.opts) = {ormable: true};
+  // the id of the topic
+  uint64 id = 1;
+  // the name of the topic
+  string topic_name = 2 [
+    (validate.rules).string = {min_bytes: 5},
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"test-tagname\""
+    },
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // the description of the topic
+  string description = 3 [
+    (validate.rules).string = {min_bytes: 50},
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"test-description sakjlDKJGSAHGHFDHSGJHFGAHDFJKGSHAJDLgAKSGDHAS CSVDJKSADASKJHDASFDGJKJLHSAHGFJDSAHD kjskhdgfhgdhfgkhsdfdsdfdssdfsdf\""
+    },
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // the url of the topic image
+  // the image url is required
+  string image_url = 4 [
+    (validate.rules).string = {min_bytes: 1},
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 1,
+      example: "\"test-tagname\""
+    },
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+// Blocked: blocked relationship between 2 profiles
+message Blocked {
+  enum BlockedProfileType {
+    BLOCKED_PROFILE_TYPE_UNSPECIFIED = 0;
+    BLOCKED_PROFILE_TYPE_COMMUNITY_PROFILE = 1;
+    BLOCKED_PROFILE_TYPE_USER_PROFILE = 2;
+  }
+  option (gorm.opts) = {ormable: true};
+  // the id of the blocked record
+  uint64 id = 1;
+  // the id of the profile being blocked
+  uint64 profile_blocked_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // the id of the profile blocking the profile being blocked
+  uint64 profile_blocking_id = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // when the block request was created
+  string created_at = 4;
+  // the type of profile being blocked
+  BlockedProfileType profile_blocked_type = 5 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // the type of profile blocking the profile being blocked
+  BlockedProfileType profile_blocking_type = 6 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message Bookmark {
+  option (gorm.opts) = {ormable: true};
+  // the id of the blocked record
+  uint64 id = 1;
+  repeated string post_ids = 2;
+  repeated Publication publications = 3 [
+    (gorm.field).has_many = {
+      disable_association_autocreate: false
+      disable_association_autoupdate: false
+      preload: true
+    }
+  ];
+}
+
+enum PublicationType {
+  PUBLICATION_TYPE_UNSPECIFIED = 0;
+  // a publication with a fixed publication staff that posts stories around a specific topic
+  PUBLICATION_TYPE_MAGAZINE = 1;
+  // a publication that accepts stories published around simfiny
+  PUBLICATION_TYPE_PLATFORM = 2;
+  // A community blog, a publication that is created specifically to share subset (community) news
+  PUBLICATION_TYPE_BLOG = 3;
+  // A collection of individual stories by a set of authors that are part of a whole
+  PUBLICATION_TYPE_SUBJECTS = 4;
+}
+
+// A Publication is a collections of stories based around a common theme. Anyone can create them
+// As the creator of a publication, you're an editor by default, which means you have the ability to
+// a) add writers to your publication,
+// b) edit and publish the stories that are submitted by your writers, and
+// c) review the metrics for all of the stories that are part of your publication.
+// As the publication's creator, you'll also have the ability
+// to appoint new editors (so they can do all of that stuff I just mentioned)
+//
+// Use Case
+// - An online magazine, a publication with a fixed publication staff that posts stories around a specific topic
+// - A community publication, a publication that accepts stories published around Medium
+// - A company blog, a publication that is created specifically to share company news
+// - A collection of individual stories by a single author that are parts of a larger whole
+message Publication {
+  option (gorm.opts) = {ormable: true};
+  uint64 id = 1;
+  // stories are post that can be submitted only by the publication editors
+  repeated string post_ids = 2 [(validate.rules).repeated = {max_items: 15}];
+  UserProfile admin = 3 [
+    (validate.rules).message.required = true,  
+    (gorm.field).has_one = {
+      disable_association_autocreate: false
+      disable_association_autoupdate: false
+      preload: true
+    }];
+  uint64 admin_simfiny_platform_user_id = 4 [(validate.rules).uint64.gt = 0,  (google.api.field_behavior) = REQUIRED];
+  repeated string tags = 6 [(validate.rules).repeated = {min_items: 3},  (google.api.field_behavior) = REQUIRED];
+  repeated UserProfile editors = 7  [
+    (gorm.field).has_many = {
+      disable_association_autocreate: false
+      disable_association_autoupdate: false
+      preload: true
+    }
+  ];
+  repeated string subjects = 8 [(validate.rules).repeated = {min_items: 3},(google.api.field_behavior) = REQUIRED];
+  string description = 9 [(validate.rules).string.min_len = 1];
+  string created_at = 10 ;
+  PublicationType type = 11[  (google.api.field_behavior) = REQUIRED];
+  string publication_name = 13 [(validate.rules).string.min_len = 1,  (google.api.field_behavior) = REQUIRED];
+}

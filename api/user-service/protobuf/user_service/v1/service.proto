@@ -1,0 +1,312 @@
+syntax = "proto3";
+
+package user_service.v1;
+
+import "user_service/v1/request_response.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "google/api/annotations.proto";
+// import "google/api/field_behavior.proto";
+// import "google/protobuf/timestamp.proto";
+// import "google/protobuf/wrappers.proto";
+option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/generated/user_service/v1";
+
+// UserService API.
+service UserService {
+    rpc GetUser(GetUserRequest) returns (GetUserResponse) {
+        option (google.api.http) = {get: "/api/v1/user/{user_id}"};
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Gets a user account"
+            tags: ["user account"]
+            operation_id: "GetUser"
+            description: "Queries and obtains a user account based on the provided parameters"
+            responses: {
+                key: "200"
+                value: {
+                    description: "A successful response."
+                    schema: {
+                        json_schema: {ref: ".api.v1.GetUserResponse"}
+                    }
+                }
+            }
+        };
+    }
+
+    rpc GetUserByUsername(GetUserByUsernameRequest) returns (GetUserByUsernameResponse) {
+        option (google.api.http) = {get: "/api/v1/user/username/{username}"};
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Gets a user account by user name"
+            tags: ["user account"]
+            operation_id: "GetUserByUsername"
+            description: "Queries and obtains a user account based on the username"
+            responses: {
+                key: "200"
+                value: {
+                    description: "A successful response."
+                    schema: {
+                        json_schema: {ref: ".api.v1.GetUserByUsernameResponse"}
+                    }
+                }
+            }
+        };
+    }
+
+    rpc GetUserByEmail(GetUserByEmailRequest) returns (GetUserByEmailResponse) {
+        option (google.api.http) = {get: "/api/v1/user/email/{email}"};
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Gets a user account by email"
+            tags: ["user account"]
+            operation_id: "GetUserByEmail"
+            description: "Queries and obtains a user account based on the email"
+            responses: {
+                key: "200"
+                value: {
+                    description: "A successful response."
+                    schema: {
+                        json_schema: {ref: ".api.v1.GetUserByEmailResponse"}
+                    }
+                }
+            }
+        };
+    }
+
+    rpc CheckUsernameExists(CheckUsernameExistsRequest) returns (CheckUsernameExistsResponse) {
+        option (google.api.http) = {get: "/api/v1/user/username/{username}/exists"};
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Checks that a username exists or not"
+            tags: ["user account"]
+            operation_id: "CheckUsernameExists"
+            description: "Checks if a username exists or not"
+            responses: {
+                key: "200"
+                value: {
+                    description: "A successful response."
+                    schema: {
+                        json_schema: {ref: ".api.v1.CheckUsernameExistsResponse"}
+                    }
+                }
+            }
+        };
+    }
+
+    rpc CheckEmailExists(CheckEmailExistsRequest) returns (CheckEmailExistsResponse) {
+        option (google.api.http) = {get: "/api/v1/user/email/{email}/exists"};
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Checks that an email exists or not"
+            tags: ["user account"]
+            operation_id: "CheckEmailExists"
+            description: "Checks if an email exists or not"
+            responses: {
+                key: "200"
+                value: {
+                    description: "A successful response."
+                    schema: {
+                        json_schema: {ref: ".api.v1.CheckEmailExistsResponse"}
+                    }
+                }
+            }
+        };
+    }
+
+    rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse) {
+        option (google.api.http) = {delete: "/api/v1/user/{user_id}"};
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "deletes a user account"
+            tags: ["user account"]
+            operation_id: "DeleteUser"
+            description: 
+                "This endpoint performs a delete operation on a user account based on the provided parameters"
+                "This deletion operation spans multiple services as user details are stored across a suite of our backend services"
+                "The operation itself is an atomic one of nature. Either all services successfully delete the recod or we fail the request"
+                "Divergent state is not expected to be encountered with this endpoint."
+            responses: {
+                key: "200"
+                value: {
+                    description: "A successful response."
+                    schema: {
+                        json_schema: {ref: ".api.v1.DeleteUserResponse"}
+                    }
+                }
+            }
+        };
+    }
+
+    rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse) {
+        option (google.api.http) = {
+            put: "/api/v1/user" 
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "update a user account"
+            tags: ["user account"]
+            operation_id: "UpdateUser"
+            description: 
+                "This endpoint performs an updates operation on a user account based on the provided parameters"
+                "This update operation can span multiple services on specific cases (such as when the client is explicitly attempting to update the email of the user)"
+                "All update operations are atomic by nature hence we should not expect any form of divergent state"
+            responses: {
+                key: "200"
+                value: {
+                    description: "A successful response."
+                    schema: {
+                        json_schema: {ref: ".api.v1.UpdateUserResponse"}
+                    }
+                }
+            }
+        };
+    }
+    rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/user" 
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "create a user account"
+            tags: ["user account"]
+            operation_id: "CreateUser"
+            description: 
+                "This endpoint performs an a creation operation of a user account based on the provided parameters"
+                "This operation is implemented as a distributed transactions as this operation spans multiple services"
+            responses: {
+                key: "200"
+                value: {
+                    description: "A successful response."
+                    schema: {
+                        json_schema: {ref: ".api.v1.CreateUserResponse"}
+                    }
+                }
+            }
+        };
+    }
+    rpc GetUserId(GetUserIdRequest) returns (GetUserIdResponse) {
+        option (google.api.http) = {
+            get: "/api/v1/user" 
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "get a user account id"
+            tags: ["user account"]
+            operation_id: "GetUserId"
+            description: 
+                "This endpoint returns the user record id if the user record exists"
+                "\n"
+                "example: /api/v1/user?email=testuser@gmail.com&&username=testuser"
+            responses: {
+                key: "200"
+                value: {
+                    description: "A successful response."
+                    schema: {
+                        json_schema: {ref: ".api.v1.GetUserIdResponse"}
+                    }
+                }
+            }
+        };
+       
+    }
+    rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse) {
+        option (google.api.http) = {
+            get: "/api/v1/user/health" 
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "health check"
+            tags: ["service health"]
+            operation_id: "HealthCheck"
+            description: 
+                "This endpoint performs a healc check on the service"
+            responses: {
+                key: "200"
+                value: {
+                    description: "A successful response."
+                    schema: {
+                        json_schema: {ref: ".api.v1.HealthCheckResponse"}
+                    }
+                }
+            }
+        };
+    }
+    rpc ReadynessCheck(ReadynessCheckRequest) returns (ReadynessCheckResponse) {
+        option (google.api.http) = {
+            get: "/api/v1/user/ready" 
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "readyness check"
+            tags: ["service readyness"]
+            operation_id: "ReadynessCheck"
+            description: 
+                "This endpoint performs a readiness check on the service"
+            responses: {
+                key: "200"
+                value: {
+                    description: "A successful response."
+                    schema: {
+                        json_schema: {ref: ".api.v1.ReadynessCheckResponse"}
+                    }
+                }
+            }
+        };
+    }
+
+    rpc GetUserByEmailOrUsername(GetUserByEmailOrUsernameRequest) returns (GetUserByEmailOrUsernameResponse) {
+        option (google.api.http) = {
+            get: "/api/v1/user/account" 
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "gets a user account by either email or username"
+            tags: ["user account"]
+            operation_id: "GetUserByEmailOrUsername"
+            description: 
+                "This endpoint returns a user account by either provided email or username"
+            responses: {
+                key: "200"
+                value: {
+                    description: "A successful response."
+                    schema: {
+                        json_schema: {ref: ".api.v1.VerifyUserResponse"}
+                    }
+                }
+            }
+        };
+    }
+
+    rpc VerifyUser(VerifyUserRequest) returns (VerifyUserResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/user/verification/{user_id}" 
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "user verification"
+            tags: ["user account"]
+            operation_id: "Verification"
+            description: 
+                "This endpoint performs verification of a user account email"
+            responses: {
+                key: "200"
+                value: {
+                    description: "A successful response."
+                    schema: {
+                        json_schema: {ref: ".api.v1.VerifyUserResponse"}
+                    }
+                }
+            }
+        };
+    }
+
+    rpc PasswordResetWebhook(PasswordResetWebhookRequest) returns (PasswordResetWebhookResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/user/webhook/password-reset" 
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "password reset"
+            tags: ["password reset"]
+            operation_id: "PasswordReset"
+            description: 
+                "This endpoint performs password reset for a given user account"
+            responses: {
+                key: "200"
+                value: {
+                    description: "A successful response."
+                    schema: {
+                        json_schema: {ref: ".api.v1.PasswordResetResponse"}
+                    }
+                }
+            }
+        };
+    }
+}

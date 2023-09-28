@@ -1,0 +1,1744 @@
+syntax = "proto3";
+
+package financial_service.v1;
+
+import "financial_service/v1/request_response_financial_analytics_service.proto";
+import "financial_service/v1/request_response_financial_service.proto";
+
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+// import "google/api/field_behavior.proto";
+// import "google/protobuf/timestamp.proto";
+// import "google/protobuf/wrappers.proto";
+option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/generated/financial_service/v1";
+
+// FinancialService API.
+service FinancialService {
+  /**
+    Link utilizes a series of token exchanges to securely authenticate your users' integrations.
+      1. Get a link_token to initialize a Link session for your end user.
+      2. Make Link appear in your frontend.
+      3. Swap for an account_token, which authenticates future requests to the Unified API.
+
+    MergeGetPublicLinkToken enables the client to get a link_token to initialize a Link session for your end user.
+  **/
+  rpc MergeGetPublicLinkToken(MergeGetPublicLinkTokenRequest) returns (MergeGetPublicLinkTokenResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/merge/initiate-token-exchange"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: ""
+      tags: ["merge"]
+      operation_id: "MergeGetPublicLinkToken"
+      description: ""
+      responses: {
+        key: "200"
+        value: {
+          description: ""
+          schema: {
+            json_schema: {ref: ".api.v1.MergeGetPublicLinkTokenResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc MergeExchangePublicLinkTokenForAccountToken(MergeExchangePublicLinkTokenForAccountTokenRequest) returns (MergeExchangePublicLinkTokenForAccountTokenResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/merge/exchange-token"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: ""
+      tags: ["merge"]
+      operation_id: "MergeExchangePublicLinkTokenForAccountToken"
+      description: ""
+      responses: {
+        key: "200"
+        value: {
+          description: ""
+          schema: {
+            json_schema: {ref: ".api.v1.MergeExchangePublicLinkTokenForAccountTokenResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc PlaidInitiateTokenExchange(PlaidInitiateTokenExchangeRequest) returns (PlaidInitiateTokenExchangeResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/plaid/initiate-token-exchange"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "initiate plaid setup"
+      tags: ["plaid link token"]
+      operation_id: "InitiatePlaidSetup"
+      description: "This endpoint initiates a plaid link token creation"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.PlaidSetupResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc PlaidInitiateTokenUpdate(PlaidInitiateTokenUpdateRequest) returns (PlaidInitiateTokenUpdateResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/plaid/initiate-token-update"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "initiate plaid link token update"
+      tags: ["plaid link token"]
+      operation_id: "InitiatePlaidTokenUpdate"
+      description: "This endpoint initiates a plaid link token update"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.PlaidInitiateTokenUpdateResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc PlaidExchangeToken(PlaidExchangeTokenRequest) returns (PlaidExchangeTokenResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/plaid/exchange-token"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "exchange plaid token"
+      tags: ["plaid link token"]
+      operation_id: "ExchangePlaidToken"
+      description: "This endpoint exchanges a plaid link token for a plaid access token"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.PlaidExchangeTokenResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc CreateUserProfile(CreateUserProfileRequest) returns (CreateUserProfileResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/profile"
+      body: "*"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "create a user profile"
+      tags: ["user profile"]
+      operation_id: "CreateUserProfile"
+      description:
+        "This endpoint performs an a creation operation of a user profile based on the provided parameters"
+        "This operation is implemented as a distributed transactions as this operation can span multiple services"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.CreateUserProfileResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc GetUserProfile(GetUserProfileRequest) returns (GetUserProfileResponse) {
+    option (google.api.http) = {get: "/api/v1/profile/{user_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Gets a user profile"
+      tags: ["user profile"]
+      operation_id: "GetUserProfile"
+      description: "Queries and obtains a user profile based on the provided parameters"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.GetUserProfileResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc DeleteUserProfile(DeleteUserProfileRequest) returns (DeleteUserProfileResponse) {
+    option (google.api.http) = {delete: "/api/v1/profile/{user_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "deletes a user profile"
+      tags: ["user profile"]
+      operation_id: "DeleteUserProfile"
+      description:
+        "This endpoint performs a delete operation on a user profile based on the provided parameters"
+        "This deletion operation spans multiple services (plaid) as user details are stored across a suite of our backend services"
+        "The operation itself is an atomic one of nature. Either all services successfully delete the recod or we fail the request"
+        "Divergent state is not expected to be encountered with this endpoint."
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.DeleteUserProfileResponse"}
+          }
+        }
+      }
+    };
+  }
+  rpc UpdateUserProfile(UpdateUserProfileRequest) returns (UpdateUserProfileResponse) {
+    option (google.api.http) = {
+      put: "/api/v1/profile"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "update a user profile"
+      tags: ["user profile"]
+      operation_id: "UpdateUserProfile"
+      description:
+        "This endpoint performs an updates operation on a user profile based on the provided parameters"
+        "This update operation can span multiple services on specific cases (such as when the client is explicitly attempting to update the email of the user)"
+        "All update operations are atomic by nature hence we should not expect any form of divergent state"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.UpdateUserResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc CreateBankAccount(CreateBankAccountRequest) returns (CreateBankAccountResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/bank-account/profile/{user_id}"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "create a bank account for a given user profile"
+      tags: ["bank account"]
+      operation_id: "CreateBankAccount"
+      description: "This endpoint creates a bank account for a given user profile"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.CreateUserResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc GetBankAccount(GetBankAccountRequest) returns (GetBankAccountResponse) {
+    option (google.api.http) = {get: "/api/v1/bank-account/{bank_account_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "get a bank account for a given user profile"
+      tags: ["bank account"]
+      operation_id: "GetBankAccount"
+      description:
+        "This endpoint returns the bank account if the user record id and bank account id exists"
+        "\n"
+        "example: /api/v1/bank-account?user_id=xxxxxx&&bank_account_id=xxxxxxx"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.GetBankAccountResponse"}
+          }
+        }
+      }
+    };
+  }
+
+
+  rpc UpdateBankAccount(UpdateBankAccountRequest) returns (UpdateBankAccountResponse) {
+    option (google.api.http) = {
+      put: "/api/v1/bank-account"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "update a bank account for a given user profile"
+      tags: ["bank account"]
+      operation_id: "UpdateBankAccount"
+      description: "This endpoint updates a bank account if the user record id and bank account id exists"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.UpdateBankAccountResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc DeleteBankAccount(DeleteBankAccountRequest) returns (DeleteBankAccountResponse) {
+    option (google.api.http) = {delete: "/api/v1/bank-account/{bank_account_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "deletes a bank account for a given user profile"
+      tags: ["bank account"]
+      operation_id: "DeleteUserProfile"
+      description:
+        "This endpoint performs a delete operation on a user profile based on the provided parameters"
+        "This deletion operation spans multiple services (plaid) as user details are stored across a suite of our backend services"
+        "The operation itself is an atomic one of nature. Either all services successfully delete the recod or we fail the request"
+        "Divergent state is not expected to be encountered with this endpoint."
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.DeleteBankAccountResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc GetPocket(GetPocketRequest) returns (GetPocketResponse) {
+    option (google.api.http) = {get: "/api/v1/pocket/{pocket_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "get a pocket"
+      tags: ["pocket"]
+      operation_id: "GetPocket"
+      description:
+        "This endpoint returns the pocket if the pocket exists"
+        "\n"
+        "example: /api/v1/pocket/xxxxxxx"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.GetPocketResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc GetSmartGoalsByPocketId(GetSmartGoalsByPocketIdRequest) returns (GetSmartGoalsByPocketIdResponse) {
+    option (google.api.http) = {get: "/api/v1/smart-goal/pocket/{pocket_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "get smart goals by pocket id"
+      tags: ["smart goals"]
+      operation_id: "GetSmartGoalsByPocketId"
+      description: "This endpoint returns the smart goals if the pocket exists"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.GetSmartGoalsByPocketIdResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc CreateSmartGoal(CreateSmartGoalRequest) returns (CreateSmartGoalResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/smart-goal"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "create a smart goal"
+      tags: ["smart goals"]
+      operation_id: "CreateSmartGoal"
+      description: "This endpoint creates a smart goal"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.CreateSmartGoalResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc UpdateSmartGoal(UpdateSmartGoalRequest) returns (UpdateSmartGoalResponse) {
+    option (google.api.http) = {
+      put: "/api/v1/smart-goal"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "update a smart goal"
+      tags: ["smart goals"]
+      operation_id: "UpdateSmartGoal"
+      description: "This endpoint updates a smart goal"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.UpdateSmartGoalResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc DeleteSmartGoal(DeleteSmartGoalRequest) returns (DeleteSmartGoalResponse) {
+    option (google.api.http) = {delete: "/api/v1/smart-goal/{smart_goal_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "delete a smart goal"
+      tags: ["smart goals"]
+      operation_id: "DeleteSmartGoal"
+      description: "This endpoint deletes a smart goal"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.DeleteSmartGoalResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc CreateMilestone(CreateMilestoneRequest) returns (CreateMilestoneResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/milestone"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "create a milestone"
+      tags: ["milestone"]
+      operation_id: "CreateMilestone"
+      description: "This endpoint creates a milestone"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.CreateMilestoneResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc DeleteMilestone(DeleteMilestoneRequest) returns (DeleteMilestoneResponse) {
+    option (google.api.http) = {delete: "/api/v1/milestone/{milestone_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "delete a milestone"
+      tags: ["milestone"]
+      operation_id: "DeleteMilestone"
+      description: "This endpoint deletes a milestone"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.DeleteMilestoneResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc UpdateMilestone(UpdateMilestoneRequest) returns (UpdateMilestoneResponse) {
+    option (google.api.http) = {
+      put: "/api/v1/milestone"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "updates a milestone"
+      tags: ["milestone"]
+      operation_id: "UpdatesMilestone"
+      description: "This endpoint updates a milestone"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.UpdateMilestoneResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc GetMilestone(GetMilestoneRequest) returns (GetMilestoneResponse) {
+    option (google.api.http) = {get: "/api/v1/milestone/{milestone_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "get milestone by id"
+      tags: ["milestone"]
+      operation_id: "GetMilestone"
+      description: "This endpoint returns the milestone if the milestone exists"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.GetMilestoneByIdResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc GetMilestonesBySmartGoalId(GetMilestonesBySmartGoalIdRequest) returns (GetMilestonesBySmartGoalIdResponse) {
+    option (google.api.http) = {get: "/api/v1/milestone/smart-goal/{smart_goal_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "get milestones by smart goal id"
+      tags: ["milestone"]
+      operation_id: "GetMilestones"
+      description: "This endpoint returns the milestones if the smart goal exists"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.GetMilestonesBySmartGoalIdResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc GetForecast(GetForecastRequest) returns (GetForecastResponse) {
+    option (google.api.http) = {get: "/api/v1/forecast/{smart_goal_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "get forecast by id"
+      tags: ["forecast"]
+      operation_id: "GetForecast"
+      description: "This endpoint returns the forecast if the forecast exists"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.GetForecastResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc CreateBudget(CreateBudgetRequest) returns (CreateBudgetResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/budget"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "create a budget"
+      tags: ["budget"]
+      operation_id: "CreateBudget"
+      description: "This endpoint creates a budget"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.CreateBudgetResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc UpdateBudget(UpdateBudgetRequest) returns (UpdateBudgetResponse) {
+    option (google.api.http) = {
+      put: "/api/v1/budget"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "updates a budget"
+      tags: ["budget"]
+      operation_id: "UpdatesBudget"
+      description: "This endpoint updates a budget"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.UpdateBudgetResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc DeleteBudget(DeleteBudgetRequest) returns (DeleteBudgetResponse) {
+    option (google.api.http) = {delete: "/api/v1/budget/{budget_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "delete a budget"
+      tags: ["budget"]
+      operation_id: "DeleteBudget"
+      description: "This endpoint deletes a budget"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.DeleteBudgetResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc GetBudget(GetBudgetRequest) returns (GetBudgetResponse) {
+    option (google.api.http) = {get: "/api/v1/budget/{budget_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "get budget by id"
+      tags: ["budget"]
+      operation_id: "GetBudget"
+      description: "This endpoint returns the budget if the budget exists"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.GetBudgetResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc GetAllBudgets(GetAllBudgetsRequest) returns (GetAllBudgetsResponse) {
+    option (google.api.http) = {get: "/api/v1/budget"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "get all budgets"
+      tags: ["budget"]
+      operation_id: "GetAllBudgets"
+      description: "This endpoint returns all budgets"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.GetAllBudgetsResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse) {
+    option (google.api.http) = {get: "/api/v1/health"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "health check"
+      tags: ["service health"]
+      operation_id: "HealthCheck"
+      description: "This endpoint performs a healc check on the service"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.HealthCheckResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc ReadynessCheck(ReadynessCheckRequest) returns (ReadynessCheckResponse) {
+    option (google.api.http) = {get: "/api/v1/ready"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "readyness check"
+      tags: ["service readyness"]
+      operation_id: "ReadynessCheck"
+      description: "This endpoint performs a readiness check on the service"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.ReadynessCheckResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc GetInvestmentAcccount(GetInvestmentAcccountRequest) returns (GetInvestmentAcccountResponse) {
+    option (google.api.http) = {get: "/api/v1/account/{user_id}/investment/{investment_account_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "get investment account by id"
+      tags: ["investment account"]
+      operation_id: "GetInvestmentAccount"
+      description: "This endpoint returns the investment account if the investment account exists"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.GetInvestmentAccountResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc GetMortgageAccount(GetMortgageAccountRequest) returns (GetMortgageAccountResponse) {
+    option (google.api.http) = {get: "/api/v1/account/{user_id}/mortgage/{mortgage_account_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "get mortgage account by id"
+      tags: ["mortgage account"]
+      operation_id: "GetMortageAccount"
+      description: "This endpoint returns the mortgage account if the mortgage account exists"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.GetMortageAccountResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc GetLiabilityAccount(GetLiabilityAccountRequest) returns (GetLiabilityAccountResponse) {
+    option (google.api.http) = {get: "/api/v1/account/{user_id}/liability/{liability_account_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "get liability account by id"
+      tags: ["liability account"]
+      operation_id: "GetLiabilityAccount"
+      description: "This endpoint returns the liability account if the liability account exists"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.GetLiabilityAccountResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc GetStudentLoanAccount(GetStudentLoanAccountRequest) returns (GetStudentLoanAccountResponse) {
+    option (google.api.http) = {get: "/api/v1/account/{user_id}/student-loan/{student_loan_account_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "get student loan account by id"
+      tags: ["student loan account"]
+      operation_id: "GetStudentLoanAccount"
+      description: "This endpoint returns the student loan account if the student loan account exists"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.GetStudentLoanAccountResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc CreateManualLink(CreateManualLinkRequest) returns (CreateManualLinkResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/link"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "create link"
+      tags: ["link"]
+      operation_id: "CreateLink"
+      description: "This endpoint creates a link"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.CreateLinkResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc GetLink(GetLinkRequest) returns (GetLinkResponse) {
+    option (google.api.http) = {get: "/api/v1/link/{link_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "get link by id"
+      tags: ["link"]
+      operation_id: "GetLink"
+      description: "This endpoint returns the link if the link exists"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.GetLinkResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc GetLinks(GetLinksRequest) returns (GetLinksResponse) {
+    option (google.api.http) = {get: "/api/v1/links/{user_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "get links"
+      tags: ["link"]
+      operation_id: "GetLinks"
+      description: "This endpoint returns the links"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.GetLinksResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc DeleteLink(DeleteLinkRequest) returns (DeleteLinkResponse) {
+    option (google.api.http) = {delete: "/api/v1/link/{link_id}/user/{user_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "delete link by id"
+      tags: ["link"]
+      operation_id: "DeleteLink"
+      description: "This endpoint deletes the link if the link exists"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.DeleteLinkResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  /**
+    Description: This endpoint enables end users to get recurring transactions
+    Parameters:
+      - user_id - user id of the user whose recurring transaction we seek to fetch
+    API Version: 1.
+    API: /api/v1/transactions/recurring-transactions/{user_id}
+  **/
+  rpc GetReCurringTransactions(GetReCurringTransactionsRequest) returns (GetReCurringTransactionsResponse) {
+    option (google.api.http) = {get: "/api/v1/transactions/recurring-transactions/{user_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "get recurring transactions"
+      tags: ["recurring transactions"]
+      operation_id: "GetRecurringTransactions"
+      description: "This endpoint returns the recurring transactions for a given user id"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {json_schema: {ref: ".api.v1.GetRecurringTransactionsResponse"}}
+        }
+      }
+    };
+  }
+
+  /**
+    Description: This endpoint enables end users to get transactions in a paginated manner
+    Parameters:
+      - user_id - user id of the user whose recurring transaction we seek to fetch
+      - page_number - page number of the transaction we want to fetch (page number)
+      - page_size - page size of the transaction we want to fetch (number of transactions)
+    API Version: 1.
+    API: /api/v1/transactions/{user_id}/pageNumber/{page_number}/pageSize/{page_size}
+  **/
+  rpc GetTransactions(GetTransactionsRequest) returns (GetTransactionsResponse) {
+    option (google.api.http) = {get: "/api/v1/transactions/{user_id}/pageNumber/{page_number}/pageSize/{page_size}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "get transactions"
+      tags: ["transactions"]
+      operation_id: "GetTransactions"
+      description: "This endpoint returns the transactions for a given user id"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {json_schema: {ref: ".api.v1.GetTransactionsResponse"}}
+        }
+      }
+    };
+  }
+
+  /**
+    Description: This endpoint enables us to process plaid webhooks
+    Body:
+      - {
+          "webhookType": "string",
+          "webhookCode": "string",
+          "itemId": "string",
+          "initialUpdateComplete": true,
+          "historicalUpdateComplete": "string",
+          "environment": "string",
+          "newTransactions": [
+            "string"
+          ],
+          "removedTransactions": [
+            "string"
+          ],
+          "error": {
+            "additionalProp1": {
+              "@type": "string",
+              "additionalProp1": "string",
+              "additionalProp2": "string",
+              "additionalProp3": "string"
+            },
+            "additionalProp2": {
+              "@type": "string",
+              "additionalProp1": "string",
+              "additionalProp2": "string",
+              "additionalProp3": "string"
+            },
+            "additionalProp3": {
+              "@type": "string",
+              "additionalProp1": "string",
+              "additionalProp2": "string",
+              "additionalProp3": "string"
+            }
+          },
+          "accountIds": [
+            "string"
+          ],
+          "consentExpirationTime": "string",
+          "accountIdsWithNewLiabilities": [
+            "string"
+          ],
+          "accountIdsWithUpdatedLiabilities": [
+            "string"
+          ],
+          "newHoldings": "string",
+          "updatedHoldings": "string"
+        }
+    API Version: 1.
+    API: /api/v1/plaid/webhook
+  **/
+  rpc ProcessWebhook(ProcessWebhookRequest) returns (ProcessWebhookResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/plaid/webhook"
+      body: "*"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Processes a webhook obtained from plaid"
+      tags: ["webhook"]
+      operation_id: "ProcessWebhook"
+      description: "This endpoint enabled simfiny to process triggered webhooks"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.ProcessWebhookResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  /**
+    Description: This endpoint enables us to process stripe webhooks
+    Body:
+      - {
+          "body": "string",
+          "signature": "string"
+        }
+    API Version: 1.
+    API: /api/v1/stripe/webhook
+  **/
+  rpc StripeWebhook(StripeWebhookRequest) returns (StripeWebhookResponse){
+    option (google.api.http) = {
+      post: "/api/v1/stripe/webhook"
+      body: "*"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Processes a webhook obtained from stripe"
+      tags: ["webhook"]
+      operation_id: "ProcessStripeWebhook"
+      description: "This endpoint enabled simfiny to process triggered webhooks from stripe"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.StripeWebhookResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  /**
+    Description: This endpoint enables end users to get transactions in a paginated manner
+    Body:
+      - {
+          userId*	string($uint64)
+          priceId*	string
+        }
+    API Version: 1.
+    API: /api/v1/stripe/subscription
+  **/
+  rpc CreateSubscription(CreateSubscriptionRequest) returns (CreateSubscriptionResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/stripe/subscription"
+      body: "*"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Creates a new subscription for a given customer against stripe"
+      tags: ["payment"]
+      operation_id: "CreateSubscription"
+      description: "This endpoint enabled a user to create a new subscription against stripe"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.CreateSubscriptionResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  // Transaction Aggregates By Various parameters
+  /**
+    Description: This endpoint enables end users to get transaction aggregated by month
+    Parameters:
+      - user_id - user id of the user whose recurring transaction we seek to fetch
+    Optional Parameters:
+      - month - month of the transaction
+      - personalFinanceCategoryPrimary - personal financial category
+      - locationCity - location of the transaction
+      - paymentChannel - payment channel
+      - merchantName - merchant name
+      - pageNumber - page number
+      - pageSize - page size
+    API Version: 1.
+    API: /api/v1/analytics/transaction-aggregates/{user_id}?pageNumber={page_number}&pageSize={page_size}&merchantName={merchant_name}&paymentChannel={payment_channel}&locationCity={location_city}&personalFinanceCategoryPrimary={personal_finance_category_primary}&month={month}
+  **/
+  rpc GetTransactionAggregates(GetTransactionAggregatesRequest) returns (GetTransactionAggregatesResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/analytics/transaction-aggregates/{user_id}"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Returns the aggregated transactions for a user and month"
+      tags: ["analytics","transaction", "category"]
+      operation_id: "TransactionAggregates"
+      description: "This API could accept user_id and month as input parameters and return the aggregated transactions for that user and month."
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.GetTransactionAggregatesResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  /**
+    Description: This endpoint enables end users to get the historical account balances for all accounts the user has
+    Parameters:
+      - user_id - user id of the user whose recurring transaction we seek to fetch
+      - page_number - page number of the request
+      - page_size - page size of the request
+    API Version: 1.
+    API: /api/v1/analytics/balance-history/user/{user_id}/pagenumber/{page_number}/pagesize/{page_size}
+  **/
+  rpc GetUserAccountBalanceHistory(GetUserAccountBalanceHistoryRequest) returns (GetUserAccountBalanceHistoryResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/analytics/balance-history/user/{user_id}/pagenumber/{page_number}/pagesize/{page_size}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Returns the account balance history for a user"
+      tags: ["analytics","balance-history"]
+      operation_id: "GetUserAccountBalanceHistory"
+      description: "This API could accept user_id as input parameters and return the account balance history for that user."
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.GetUserAccountBalanceHistoryResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  /**
+    Description: This endpoint enables end users to get the historical account balances for a given account the user has
+    Parameters:
+      - plaid_account_id - plaid account id of the account
+      - page_number - page number of the request
+      - page_size - page size of the request
+    API Version: 1.
+    API: /api/v1/analytics/balance-history/account/{plaid_account_id}/pagenumber/{page_number}/pagesize/{page_size}
+  **/
+  rpc GetAccountBalanceHistory(GetAccountBalanceHistoryRequest) returns (GetAccountBalanceHistoryResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/analytics/balance-history/account/{plaid_account_id}/pagenumber/{page_number}/pagesize/{page_size}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Returns the account balance history for an account"
+      tags: ["analytics","balance-history"]
+      operation_id: "GetAccountBalanceHistory"
+      description: "This API could accept account_id as input parameters and return the account balance history for that account."
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.GetAccountBalanceHistoryResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  /**
+    Description: This endpoint enables end users to get their categorized monthly expenditures
+    Parameters:
+      - user_id - user id of the user
+    Optional Parameters:
+      - personalFinanceCategoryPrimary - category of the personal finance
+      - month - month
+      - pageNumber - page number of the request
+      - pageSize - page size of the request
+    API Version: 1.
+    API: /api/v1/analytics/category-monthly-expenditure/user/{user_id}?personalFinanceCategoryPrimary={personal_finance_category_}&month={month}&pageNumber={page_number}&pageSize={page_size}
+  **/
+  rpc GetUserCategoryMonthlyExpenditure(GetUserCategoryMonthlyExpenditureRequest) returns (GetUserCategoryMonthlyExpenditureResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/analytics/category-monthly-expenditure/user/{user_id}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Returns the monthly category expenditure for a user"
+      tags: ["analytics","category", "expense"]
+      operation_id: "GetUserCategoryMonthlyExpenditure"
+      description: "This API could accept user_id as an input parameter and return the monthly category expenditure for that user."
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.GetUserCategoryMonthlyExpenditureResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  /**
+    Description: Get CategoryMonthlyIncome by Category and User - This would return all CategoryMonthlyIncome records for a specific user for a specific personal finance category
+    Parameters:
+      - user_id - user id of the user
+    Optional Parameters:
+      - personalFinanceCategoryPrimary - category of the personal finance
+      - month - month
+      - pageNumber - page number of the request
+      - pageSize - page size of the request
+    API Version: 1.
+    API: /api/v1/analytics/category-monthly-income/user/{user_id}?personalFinanceCategoryPrimary={personal_finance_category_}&month={month}&pageNumber={page_number}&pageSize={page_size}
+  **/
+  rpc GetUserCategoryMonthlyIncome(GetUserCategoryMonthlyIncomeRequest) returns (GetUserCategoryMonthlyIncomeResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/analytics/category-monthly-income/user/{user_id}"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get monthly income by user for a specific category"
+      tags: ["analytics","category", "income"]
+      operation_id: "GetUserCategoryMonthlyIncome"
+      responses: {
+        key: "200"
+        value: {
+          description: "Successful operation"
+          schema: {
+            json_schema: {ref: ".api.v1.GetUserCategoryMonthlyIncomeResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  /**
+    Description: Get CategoryMonthlyTransactionCount by User - This would return all CategoryMonthlyTransactionCount records for a specific user
+    Parameters:
+      - user_id - user id of the user
+    Optional Parameters:
+      - personalFinanceCategoryPrimary - category of the personal finance
+      - month - month
+      - pageNumber - page number of the request
+      - pageSize - page size of the request
+    API Version: 1.
+    API: /api/v1/analytics//category-monthly-transaction-count/user/{user_id}?personalFinanceCategoryPrimary={personal_finance_category_}&month={month}&pageNumber={page_number}&pageSize={page_size}
+  **/
+  rpc GetCategoryMonthlyTransactionCount(GetCategoryMonthlyTransactionCountRequest) returns (GetCategoryMonthlyTransactionCountResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/analytics/category-monthly-transaction-count/user/{user_id}"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get monthly transaction count by user, month, and category"
+      tags: ["analytics","category", "transactions"]
+      operation_id: "GetCategoryMonthlyTransactionCount"
+      responses: {
+        key: "200"
+        value: {
+          description: "Successful operation"
+          schema: {
+            json_schema: {ref: ".api.v1.GetCategoryMonthlyTransactionCountResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  /**
+    Description: Get debt to income ratio
+    Parameters:
+      - user_id - user id of the user
+    Optional Parameters:
+      - month - month
+      - pageNumber - page number of the request
+      - pageSize - page size of the request
+    API Version: 1.
+    API: /api/v1/analytics/debt-to-income-ratio/user/{user_id}?month={month}&pageNumber={page_number}&pageSize={page_size}
+  **/
+  rpc GetDebtToIncomeRatio(GetDebtToIncomeRatioRequest) returns (GetDebtToIncomeRatioResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/analytics/debt-to-income-ratio/user/{user_id}"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get Debt-to-Income ratio by user and month"
+      tags: ["analytics","debt"]
+      operation_id: "GetDebtToIncomeRatio"
+      responses: {
+        key: "200"
+        value: {
+          description: "Successful operation"
+          schema: {
+            json_schema: {ref: ".api.v1.GetDebtToIncomeRatioResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  /**
+    Description: Get expense metrics
+    Parameters:
+      - user_id - user id of the user
+    Optional Parameters:
+      - personalFinanceCategoryPrimary - category of the personal finance
+      - month - month
+      - pageNumber - page number of the request
+      - pageSize - page size of the request
+    API Version: 1.
+    API: /api/v1/analytics/expenses/user/{user_id}?personalFinanceCategoryPrimary={personal_finance_category_}&month={month}&pageNumber={page_number}&pageSize={page_size}
+  **/
+  rpc GetExpenseMetrics(GetExpenseMetricsRequest) returns (GetExpenseMetricsResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/analytics/expenses/user/{user_id}"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get Expense Metrics by user, month and category"
+      tags: ["analytics","expense"]
+      operation_id: "GetExpenseMetrics"
+      responses: {
+        key: "200"
+        value: {
+          description: "Successful operation"
+          schema: {
+            json_schema: {ref: ".api.v1.GetExpenseMetricsResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  /**
+    Description: Get financial profile
+    Parameters:
+      - user_id - user id of the user
+    Optional Parameters:
+      - month - month
+      - pageNumber - page number of the request
+      - pageSize - page size of the request
+    API Version: 1.
+    API: /api/v1/analytics/finance-profile/user/{user_id}?month={month}&pageNumber={page_number}&pageSize={page_size}
+  **/
+  rpc GetFinancialProfile(GetFinancialProfileRequest) returns (GetFinancialProfileResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/analytics/finance-profile/user/{user_id}"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get Financial Profile by user and month"
+      tags: ["analytics","finance-profile"]
+      operation_id: "GetFinancialProfile"
+      responses: {
+        key: "200"
+        value: {
+          description: "Successful operation"
+          schema: {
+            json_schema: {ref: ".api.v1.GetFinancialProfileResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  /**
+    Description: Get income expense ratio
+    Parameters:
+      - user_id - user id of the user
+    Optional Parameters:
+      - month - month
+      - pageNumber - page number of the request
+      - pageSize - page size of the request
+    API Version: 1.
+    API: /api/v1/analytics/income-expense-ratio/user/{user_id}?month={month}&pageNumber={page_number}&pageSize={page_size}
+  **/
+  rpc GetIncomeExpenseRatio(GetIncomeExpenseRatioRequest) returns (GetIncomeExpenseRatioResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/analytics/income-expense-ratio/user/{user_id}"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get Income Expense Ratio by user and month"
+      tags: ["analytics","income"]
+      operation_id: "GetIncomeExpenseRatio"
+      responses: {
+        key: "200"
+        value: {
+          description: "Successful operation"
+          schema: {
+            json_schema: {ref: ".api.v1.GetIncomeExpenseRatioResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  /**
+    Description: Get income metrics
+    Parameters:
+      - user_id - user id of the user
+    Optional Parameters:
+      - month - month
+      - personalFinanceCategoryPrimary - category of the personal finance
+      - pageNumber - page number of the request
+      - pageSize - page size of the request
+    API Version: 1.
+    API: /api/v1/analytics/income/user/{user_id}?personalFinanceCategoryPrimary={personalFinanceCategoryPrimary}&month={month}&pageNumber={page_number}&pageSize={page_size}
+  **/
+  rpc GetIncomeMetrics(GetIncomeMetricsRequest) returns (GetIncomeMetricsResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/analytics/income/user/{user_id}"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get Income Metrics by user, month and category"
+      tags: ["analytics","income"]
+      operation_id: "GetIncomeMetrics"
+      responses: {
+        key: "200"
+        value: {
+          description: "Successful operation"
+          schema: {
+            json_schema: {ref: ".api.v1.GetIncomeMetricsResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  /**
+    Description: Get merchant monthly expenditures
+    Parameters:
+      - user_id - user id of the user
+    Optional Parameters:
+      - month - month
+      - merchantName - merchant_name
+      - pageNumber - page number of the request
+      - pageSize - page size of the request
+    API Version: 1.
+    API: /api/v1/analytics/merchant-monthly-expenditure/user/{user_id}?merchantName={merchant_name}&month={month}&pageNumber={page_number}&pageSize={page_size}
+  **/
+  rpc GetMerchantMonthlyExpenditure(GetMerchantMonthlyExpenditureRequest) returns (GetMerchantMonthlyExpenditureResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/analytics/merchant-monthly-expenditure/user/{user_id}"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get Merchant Monthly Expenditure by user, month and merchant name"
+      tags: ["analytics","expense"]
+      operation_id: "GetMerchantMonthlyExpenditure"
+      responses: {
+        key: "200"
+        value: {
+          description: "Successful operation"
+          schema: {
+            json_schema: {ref: ".api.v1.GetMerchantMonthlyExpenditureResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  /**
+    Description: Get monthly balance
+    Parameters:
+      - user_id - user id of the user
+    Optional Parameters:
+      - month - month
+      - pageNumber - page number of the request
+      - pageSize - page size of the request
+    API Version: 1.
+    API: /api/v1/analytics/monthly-balance/user/{user_id}?month={month}&pageNumber={page_number}&pageSize={page_size}
+  **/
+  rpc GetMonthlyBalance(GetMonthlyBalanceRequest) returns (GetMonthlyBalanceResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/analytics/monthly-balance/user/{user_id}"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get Monthly Balance by user and month"
+      tags: ["analytics","balance"]
+      operation_id: "GetMonthlyBalance"
+      responses: {
+        key: "200"
+        value: {
+          description: "Successful operation"
+          schema: {
+            json_schema: {ref: ".api.v1.GetMonthlyBalanceResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  /**
+    Description: Get monthly expenditures
+    Parameters:
+      - user_id - user id of the user
+    Optional Parameters:
+      - month - month
+      - pageNumber - page number of the request
+      - pageSize - page size of the request
+    API Version: 1.
+    API: /api/v1/analytics/monthly-expenditure/user/{user_id}?month={month}&pageNumber={page_number}&pageSize={page_size}
+  **/
+  rpc GetMonthlyExpenditure(GetMonthlyExpenditureRequest) returns (GetMonthlyExpenditureResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/analytics/monthly-expenditure/user/{user_id}"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get Monthly Expenditure by user and month"
+      tags: ["analytics","expense"]
+      operation_id: "GetMonthlyExpenditure"
+      responses: {
+        key: "200"
+        value: {
+          description: "Successful operation"
+          schema: {
+            json_schema: {ref: ".api.v1.GetMonthlyExpenditureResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  /**
+    Description: Get monthly Income
+    Parameters:
+      - user_id - user id of the user
+    Optional Parameters:
+      - month - month
+      - pageNumber - page number of the request
+      - pageSize - page size of the request
+    API Version: 1.
+    API: /api/v1/analytics/monthly-income/user/{user_id}?month={month}&pageNumber={page_number}&pageSize={page_size}
+  **/
+  rpc GetMonthlyIncome(GetMonthlyIncomeRequest) returns (GetMonthlyIncomeResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/analytics/monthly-income/user/{user_id}"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get Monthly Income by user and month"
+      tags: ["analytics","income"]
+      operation_id: "GetMonthlyIncome"
+      responses: {
+        key: "200"
+        value: {
+          description: "Successful operation"
+          schema: {
+            json_schema: {ref: ".api.v1.GetMonthlyIncomeResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  /**
+    Description: Get monthly savings
+    Parameters:
+      - user_id - user id of the user
+    Optional Parameters:
+      - month - month
+      - pageNumber - page number of the request
+      - pageSize - page size of the request
+    API Version: 1.
+    API: /api/v1/analytics/monthly-savings/user/user/{user_id}?month={month}&pageNumber={page_number}&pageSize={page_size}
+  **/
+  rpc GetMonthlySavings(GetMonthlySavingsRequest) returns (GetMonthlySavingsResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/analytics/monthly-savings/{user_id}"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get Monthly Savings by user and month"
+      tags: ["analytics","savings"]
+      operation_id: "GetMonthlySavings"
+      responses: {
+        key: "200"
+        value: {
+          description: "Successful operation"
+          schema: {
+            json_schema: {ref: ".api.v1.GetMonthlySavingsResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  /**
+    Description: Get monthly total quantity by security and user
+    Parameters:
+      - user_id - user id of the user
+    Optional Parameters:
+      - month - month
+      - pageNumber - page number of the request
+      - security_id - security id of the security
+      - pageSize - page size of the request
+    API Version: 1.
+    API: /api/v1/analytics/monthly-total-quantity-by-security-and-user/user/user/{user_id}?securityId={security_id}&month={month}&pageNumber={page_number}&pageSize={page_size}
+  **/
+  rpc GetMonthlyTotalQuantityBySecurityAndUser(GetMonthlyTotalQuantityBySecurityAndUserRequest) returns (GetMonthlyTotalQuantityBySecurityAndUserResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/analytics/monthly-total-quantity-by-security-and-user/user/{user_id}"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get Monthly Total Quantity of Security by user, month and security"
+      tags: ["analytics","securities"]
+      operation_id: "GetMonthlyTotalQuantityBySecurityAndUser"
+      responses: {
+        key: "200"
+        value: {
+          description: "Successful operation"
+          schema: {
+            json_schema: {ref: ".api.v1.GetMonthlyTotalQuantityBySecurityAndUserResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  /**
+    Description: Get monthly transaction
+    Parameters:
+      - user_id - user id of the user
+    Optional Parameters:
+      - month - month
+      - pageNumber - page number of the request
+      - pageSize - page size of the request
+    API Version: 1.
+    API: /api/v1/analytics/monthly-transaction-count/user/user/{user_id}?month={month}&pageNumber={page_number}&pageSize={page_size}
+  **/
+  rpc GetMonthlyTransactionCount(GetMonthlyTransactionCountRequest) returns (GetMonthlyTransactionCountResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/analytics/monthly-transaction-count/user/{user_id}"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get Monthly Transaction Count by user and month"
+      tags: ["analytics","transaction"]
+      operation_id: "GetMonthlyTransactionCount"
+      responses: {
+        key: "200"
+        value: {
+          description: "Successful operation"
+          schema: {
+            json_schema: {ref: ".api.v1.GetMonthlyTransactionCountResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  /**
+    Description: Get monthly channel expenditure
+    Parameters:
+      - user_id - user id of the user
+    Optional Parameters:
+      - month - month
+      - paymentChannel - payment channel
+      - pageNumber - page number of the request
+      - pageSize - page size of the request
+    API Version: 1.
+    API: /api/v1/analytics/payment-channel-expenditure/user/user/{user_id}?paymentChannel={payment_channel}&month={month}&pageNumber={page_number}&pageSize={page_size}
+  **/
+  rpc GetPaymentChannelMonthlyExpenditure(GetPaymentChannelMonthlyExpenditureRequest) returns (GetPaymentChannelMonthlyExpenditureResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/analytics/payment-channel-expenditure/user/{user_id}"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get Payment Channel Monthly Expenditure by user, month, and payment channel"
+      tags: ["analytics","expense"]
+      operation_id: "GetPaymentChannelMonthlyExpenditure"
+      responses: {
+        key: "200"
+        value: {
+          description: "Successful operation"
+          schema: {
+            json_schema: {ref: ".api.v1.GetPaymentChannelMonthlyExpenditureResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  /**
+    Description: Get total investment security
+    Parameters:
+      - user_id - user id of the user
+    Optional Parameters:
+      - securityId - payment channel
+      - pageNumber - page number of the request
+      - pageSize - page size of the request
+    API Version: 1.
+    API:/api/v1/analytics/total-investment/user/{user_id}?securityId={securityId}&pageNumber={page_number}&pageSize={page_size}
+  **/
+  rpc GetTotalInvestmentBySecurity(GetTotalInvestmentBySecurityRequest) returns (GetTotalInvestmentBySecurityResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/analytics/total-investment/user/{user_id}"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get Total Investment by user and security"
+      tags: ["analytics","security"]
+      operation_id: "GetTotalInvestmentBySecurity"
+      responses: {
+        key: "200"
+        value: {
+          description: "Successful operation"
+          schema: {
+            json_schema: {ref: ".api.v1.GetTotalInvestmentBySecurityResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  /**
+    Description: Get financial context
+    Parameters:
+      - user_id - user id of the user
+    API Version: 1.
+    API:/api/v1/analytics/melody-financial-context/user/{user_id}
+  **/
+  rpc GetMelodyFinancialContext(GetMelodyFinancialContextRequest) returns (GetMelodyFinancialContextResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/analytics/melody-financial-context/user/{user_id}"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get Melody Financial Context"
+      tags: ["analytics","financial-context"]
+      operation_id: "GetMelodyFinancialContext"
+      responses: {
+        key: "200"
+        value: {
+          description: "Successful operation"
+          schema: {
+            json_schema: {ref: ".api.v1.GetMelodyFinancialContextResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  /**
+    Description: Get bank transaction counts
+    Parameters:
+      - user_id - user id of the user
+    API Version: 1.
+    API:/api/v1/analytics/melody-financial-context/user/{user_id}
+  **/
+  rpc GetTransactionsForBankAccount(GetTransactionsForBankAccountRequest) returns (GetTransactionsForBankAccountResponse) {
+    option (google.api.http) = {get: "/api/v1/transactions/user/{user_id}/plaid-account-id/{plaid_account_id}/pageNumber/{page_number}/pageSize/{page_size}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "get transactions tied to a bank account and account id"
+      tags: ["analytics","transactions"]
+      operation_id: "GetTransactions"
+      description: "This endpoint returns the transactions for a given user id and a business account id"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {json_schema: {ref: ".api.v1.GetTransactionsForBankAccountResponse"}}
+        }
+      }
+    };
+  }
+
+  rpc GetHistoricalAccountBalance(GetHistoricalAccountBalanceRequest) returns (GetHistoricalAccountBalanceResponse) {
+    option (google.api.http) = {get: "/api/v1/historical-account-balance/user/{user_id}/plaid-account-id/{plaid_account_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "gets account balance of an account"
+      tags: ["analytics","account-balance"]
+      operation_id: "GetAccountBalance"
+      description: "This endpoint returns the historical balance for a given account"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {json_schema: {ref: ".api.v1.GetAccountBalanceResponse"}}
+        }
+      }
+    };
+  }
+}

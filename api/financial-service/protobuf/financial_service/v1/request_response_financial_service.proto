@@ -1,0 +1,960 @@
+syntax = "proto3";
+
+package financial_service.v1;
+
+import "financial_service/v1/message_financial_service.proto";
+import "financial_service/v1/clickhouse_financial_service.proto";
+option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/generated/financial_service/v1";
+import "validate/validate.proto";
+import "google/api/field_behavior.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "google/protobuf/any.proto";
+import "gogoproto/gogo.proto";
+
+option (gogoproto.gostring_all) = true;
+option (gogoproto.equal_all) = true;
+option (gogoproto.verbose_equal_all) = true;
+option (gogoproto.goproto_stringer_all) = false;
+option (gogoproto.stringer_all) =  true;
+option (gogoproto.populate_all) = true;
+option (gogoproto.testgen_all) = true;
+option (gogoproto.benchgen_all) = true;
+option (gogoproto.marshaler_all) = true;
+option (gogoproto.sizer_all) = true;
+option (gogoproto.unmarshaler_all) = true;
+
+
+// CreateUserProfileRequest: Represents the request object invoked against the user
+// service to create a user profile
+message CreateUserProfileRequest {
+  // User profile to create
+  // Validations:
+  // - cannot be nil hence required
+  UserProfile profile = 1 [
+    (validate.rules).message.required = true,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // the email of the account to create
+  string email = 2 [
+    (validate.rules).string.email = true,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+// CreateUserProfileResponse: Represents the response object returned as a response to
+// the `create user profile` request
+message CreateUserProfileResponse {
+  uint64 user_id = 1;
+}
+
+// GetUserProfileRequest: Represents the request object invoked against the user
+// service to get a user profile
+message GetUserProfileRequest {
+  // The account ID associated with the user.
+  // NOTE: This user_id is the simfiny backend platform wide user id
+  // Validations:
+  // - user_id must be greater than 0
+  uint64 user_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+// GetUserProfileResponse: Represents the response object returned as a response to
+// the `get user profile` request
+message GetUserProfileResponse {
+  UserProfile profile = 1;
+    // financial context for the user
+  MelodyFinancialContext financial_context = 2 [
+    (validate.rules).message.required = true,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+// teUserProfileRequest: Represents the request object invoked against the user
+// service to delete a user profile
+message DeleteUserProfileRequest {
+  // The account ID associated with the user.
+  // NOTE: This user_id is the simfiny backend platform wide user id
+  // Validations:
+  // - user_id must be greater than 0
+  uint64 user_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+// DeleteUserProfileResponse: Represents the response object returned as a response to
+// the `delete user profile` request
+message DeleteUserProfileResponse {
+  bool profile_deleted = 1;
+}
+
+// UpdateUserProfileRequest: Represents the request object invoked against the user
+// service to update a user profile
+message UpdateUserProfileRequest {
+  // User profile to update
+  // Validation:
+  // - cannot nil hence required
+  UserProfile profile = 1 [
+    (validate.rules).message.required = true,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+// UpdateUserProfileResponse: Represents the response object returned as a response to
+// the `update user profile` request
+message UpdateUserProfileResponse {
+  bool profile_updated = 1;
+  UserProfile profile = 2;
+}
+
+// CreateBankAccountRequest: Represents the request object invoked against the financial
+// service to create a bank account for a given user
+message CreateBankAccountRequest {
+  // The account ID associated with the user
+  // Validations:
+  // - user_id must be greater than 0
+  uint64 user_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // The bank account to create
+  // Validations:
+  // - cannot be nil hence required
+  BankAccount bank_account = 2 [
+    (validate.rules).message.required = true,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+// CreateBankAccountResponse: Represents the response object returned as a response to
+// the `create bank account` request
+message CreateBankAccountResponse {
+  // The bank account id
+  uint64 bank_account_id = 1;
+}
+
+// GetBankAccountRequest: Represents the request object invoked against the financial
+// service to get a bank account for a given user and bank account id
+message GetBankAccountRequest {
+  // The bank account id
+  // Validations:
+  // - bank_account_id must be greater than 0
+  uint64 bank_account_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+// GetBankAccountResponse: Represents the response object returned as a response to
+// the `get bank account` request
+message GetBankAccountResponse {
+  // The bank account
+  BankAccount bank_account = 1;
+}
+
+message DeleteBankAccountRequest {
+  // The account ID associated with the user
+  // Validations:
+  // - user_id must be greater than 0
+  uint64 user_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // The bank account id
+  // Validations:
+  // - bank_account_id must be greater than 0
+  uint64 bank_account_id = 2 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message DeleteBankAccountResponse {
+  // The bank account id
+  bool deleted = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"true\""
+    } 
+  ];
+}
+
+message UpdateBankAccountRequest {
+  // The bank account to update
+  // Validations:
+  // - cannot be nil hence required
+  BankAccount bank_account = 3 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message UpdateBankAccountResponse {
+  // The bank account id
+  bool updated = 1;
+  // The bank account
+  BankAccount bank_account = 2;
+}
+
+message GetPocketRequest {
+  // The pocket account id
+  // Validations:
+  // - pocket_account_id must be greater than 0
+  uint64 pocket_id = 2 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message GetPocketResponse {
+  // The pocket account
+  Pocket pocket = 1;
+}
+
+message GetSmartGoalsByPocketIdRequest {
+  // The pocket account id
+  // Validations:
+  // - pocket_account_id must be greater than 0
+  uint64 pocket_id = 2 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message GetSmartGoalsByPocketIdResponse {
+  // The smart goals
+  repeated SmartGoal smart_goals = 1;
+}
+
+message CreateSmartGoalRequest {
+  // The pocket account id
+  // Validations:
+  // - pocket_account_id must be greater than 0
+  uint64 pocket_id = 2 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // The smart goal to create
+  // Validations:
+  // - cannot be nil hence required
+  SmartGoal smart_goal = 3 [
+    (validate.rules).message.required = true,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message CreateSmartGoalResponse {
+  // The smart goal id
+  uint64 smart_goal_id = 1;
+}
+
+message UpdateSmartGoalRequest {
+  // The smart goal to update
+  // Validations:
+  // - cannot be nil hence required
+  SmartGoal smart_goal = 3 [
+    (validate.rules).message.required = true,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message UpdateSmartGoalResponse {
+  // The smart goal id
+  uint64 smart_goal_id = 1;
+}
+
+message DeleteSmartGoalRequest {
+  // The smart goal id
+  // Validations:
+  // - smart_goal_id must be greater than 0
+  uint64 smart_goal_id = 2 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message DeleteSmartGoalResponse {
+  // The smart goal id
+  bool deleted = 1;
+}
+
+message CreateMilestoneRequest {
+  // The smart goal id
+  // Validations:
+  // - smart_goal_id must be greater than 0
+  uint64 smart_goal_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // The milestone to create
+  // Validations:
+  // - cannot be nil hence required
+  Milestone milestone = 2 [
+    (validate.rules).message.required = true,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message CreateMilestoneResponse {
+  // The milestone id
+  uint64 milestone_id = 1;
+}
+
+message DeleteMilestoneRequest {
+  // The milestone id
+  // Validations:
+  // - milestone_id must be greater than 0
+  uint64 milestone_id = 2 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message DeleteMilestoneResponse {
+  // The milestone id
+  bool deleted = 1;
+}
+
+message UpdateMilestoneRequest {
+  // The milestone to update
+  // Validations:
+  // - cannot be nil hence required
+  Milestone milestone = 2 [
+    (validate.rules).message.required = true,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message UpdateMilestoneResponse {
+  // The milestone id
+  Milestone milestone = 1;
+}
+
+message GetMilestonesBySmartGoalIdRequest {
+  // The smart goal id
+  // Validations:
+  // - smart_goal_id must be greater than 0
+  uint64 smart_goal_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message GetMilestonesBySmartGoalIdResponse {
+  // The milestones
+  repeated Milestone milestones = 1;
+}
+
+message GetMilestoneRequest {
+  // The milestone id
+  // Validations:
+  // - milestone_id must be greater than 0
+  uint64 milestone_id = 2 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message GetMilestoneResponse {
+  // The milestone
+  Milestone milestone = 1;
+}
+
+message GetForecastRequest {
+  // The smart goal id
+  // Validations:
+  // - smart_goal_id must be greater than 0
+  uint64 smart_goal_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message GetForecastResponse {
+  // The forecast
+  Forecast forecast = 1;
+}
+
+message CreateBudgetRequest {
+  // The milestone to associate this budget with
+  uint64 milestrone_id = 2 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The budget to create
+  // Validations:
+  // - cannot be nil hence required
+  Budget budget = 3 [
+    (validate.rules).message.required = true,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message CreateBudgetResponse {
+  // The budget id
+  uint64 budget_id = 1;
+}
+
+message UpdateBudgetRequest {
+  // The budget to update
+  // Validations:
+  // - cannot be nil hence required
+  Budget budget = 2 [
+    (validate.rules).message.required = true,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message UpdateBudgetResponse {
+  // The budget id
+  Budget budget = 1;
+}
+
+message DeleteBudgetRequest {
+  // The budget id
+  // Validations:
+  // - budget_id must be greater than 0
+  uint64 budget_id = 2 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message DeleteBudgetResponse {
+  // The budget id
+  bool deleted = 1;
+}
+
+message GetBudgetRequest {
+  // The budget id
+  // Validations:
+  // - budget_id must be greater than 0
+  uint64 budget_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message GetBudgetResponse {
+  // The budget
+  Budget budget = 1;
+}
+
+message GetAllBudgetsRequest {
+  // The pocket account id
+  // Validations:
+  // - pocket_account_id must be greater than 0
+  uint64 pocket_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The smart goal id
+  // Validations:
+  // - smart_goal_id must be greater than 0
+  uint64 smart_goal_id = 2 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The milestone id
+  // Validations:
+  // - milestone_id must be greater than 0
+  uint64 milestone_id = 3 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message GetAllBudgetsResponse {
+  // The budgets
+  repeated Budget budgets = 1;
+}
+
+message HealthCheckRequest {}
+
+message HealthCheckResponse {
+  bool healthy = 1;
+}
+
+message ReadynessCheckRequest {}
+
+message ReadynessCheckResponse {
+  bool healthy = 1;
+}
+
+message MergeGetPublicLinkTokenRequest {
+  // The user id
+  // Validations:
+  // - user_id must be greater than 0
+  // This unique identifier typically represents the ID for your end user in your product's database. T
+  // his value must be distinct from other Linked Accounts' unique identifiers.
+  uint64 user_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // Your end user's organization.
+  string organization_name	= 2 [
+    (validate.rules).string.min_len = 1,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // Your end user's email address. This is purely for
+  // identification purposes - setting this value will not cause any emails to be sent.
+  string email	= 3 [
+    (validate.rules).string.min_len = 1,
+    (google.api.field_behavior) = REQUIRED
+  ]; 
+}
+
+message MergeGetPublicLinkTokenResponse {
+  string link_token = 1;
+  string integration_name = 2;
+  string magic_link_url	 = 3;
+  string end_user_origin_id = 4;
+  string organization_name = 5;
+}
+
+message MergeExchangePublicLinkTokenForAccountTokenRequest {
+  // The user id
+  // Validations:
+  // - user_id must be greater than 0
+  uint64 user_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  string public_token = 2 [
+    (validate.rules).string.min_len = 1,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  string end_user_origin_id = 3  [
+    (validate.rules).string.min_len = 1,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  string organization_name = 4  [
+    (validate.rules).string.min_len = 1,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message MergeExchangePublicLinkTokenForAccountTokenResponse {
+  bool success = 1 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message PlaidInitiateTokenExchangeRequest {
+  // A unique ID representing the end user. Typically this will be a user ID number from your application.
+  // Personally identifiable information, such as an email address or phone number, 
+  //should not be used in the `client_user_id`. It is currently used as a means of searching logs 
+  // for the given user in the Plaid Dashboard.
+  // Validations:
+  // - user_id must be greater than 0
+  uint64 user_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The user's full legal name. This is an optional field used in 
+  // the [returning user experience](https://plaid.com/docs/link/returning-user) to associate Items to the user.
+  string full_name = 2 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The user's email address. This field is optional, but required to enable the 
+  // [pre-authenticated returning user flow](https://plaid.com/docs/link/returning-user/#enabling-the-returning-user-experience).
+  string email = 3 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The user's phone number in [E.164](https://en.wikipedia.org/wiki/E.164) format.
+  // This field is optional, but required to enable the [returning user experience](https://plaid.com/docs/link/returning-user).
+  string phone_number = 4 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message PlaidInitiateTokenExchangeResponse {
+  string link_token = 1;
+  string expiration = 2;
+  string plaid_request_id = 3;
+}
+
+message PlaidInitiateTokenUpdateRequest {
+  // The user id
+  // Validations:
+  // - user_id must be greater than 0
+  uint64 user_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // The link id we want to update for
+  // Validations:
+  // - cannot be nil hence required
+  uint64 link_id = 2 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message PlaidInitiateTokenUpdateResponse {
+  string link_token = 1;
+  string expiration = 2;
+}
+
+message PlaidExchangeTokenRequest {
+  // The user id
+  // Validations:
+  // - user_id must be greater than 0
+  uint64 user_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // The public token
+  // Validations:
+  // - cannot be nil hence required
+  string public_token = 2 [
+    (validate.rules).string.min_len = 1,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The institution id
+  string institution_id = 3;
+  // The institution name
+  string institution_name = 4;
+}
+
+message PlaidExchangeTokenResponse {
+  // wether the operation was successful
+  bool success = 1 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message GetInvestmentAcccountRequest {
+  // The user id
+  // Validations:
+  // - user_id must be greater than 0
+  uint64 user_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // The investment account id
+  // Validations:
+  // - investment_account_id must be greater than 0
+  uint64 investment_account_id = 2 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message GetInvestmentAcccountResponse {
+  // The investment account
+  InvestmentAccount investment_account = 1;
+}
+
+message GetMortgageAccountRequest {
+  // The user id
+  // Validations:
+  // - user_id must be greater than 0
+  uint64 user_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // The mortage account id
+  // Validations:
+  // - mortage_account_id must be greater than 0
+  uint64 mortgage_account_id = 2 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message GetMortgageAccountResponse {
+  // The mortage account
+  MortgageAccount mortage_account = 1;
+}
+
+message GetLiabilityAccountRequest {
+  // The user id
+  // Validations:
+  // - user_id must be greater than 0
+  uint64 user_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // The liability account id
+  // Validations:
+  // - liability_account_id must be greater than 0
+  uint64 liability_account_id = 2 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message GetLiabilityAccountResponse {
+  // The liability account
+  CreditAccount liability_account = 1;
+}
+
+message GetStudentLoanAccountRequest {
+  // The user id
+  // Validations:
+  // - user_id must be greater than 0
+  uint64 user_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // The student loan account id
+  // Validations:
+  // - student_loan_account_id must be greater than 0
+  uint64 student_loan_account_id = 2 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message GetStudentLoanAccountResponse {
+  // The student loan account
+  StudentLoanAccount student_loan_account = 1;
+}
+
+message CreateManualLinkRequest {
+  // The user id
+  // Validations:
+  // - user_id must be greater than 0
+  uint64 user_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The manual account link
+  Link manual_account_link = 2 [
+    (validate.rules).message.required = true,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message CreateManualLinkResponse {
+  // The link's id
+  uint64 link_id = 1;
+}
+
+message GetLinkRequest {
+  // The user id
+  // Validations:
+  // - user_id must be greater than 0
+  uint64 user_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The link id
+  // Validations:
+  // - link_id must be greater than 0
+  uint64 link_id = 2 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message GetLinkResponse {
+  // The link
+  Link link = 1;
+}
+
+
+message GetLinksRequest {
+  // The user id
+  // Validations:
+  // - user_id must be greater than 0
+  uint64 user_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message GetLinksResponse {
+  // The links
+  repeated Link links = 1;
+}
+
+message DeleteLinkRequest {
+  // The user id
+  // Validations:
+  // - user_id must be greater than 0
+  uint64 user_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The link id
+  // Validations:
+  // - link_id must be greater than 0
+  uint64 link_id = 2 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message DeleteLinkResponse {
+  // The link's id
+  uint64 link_id = 1;
+}
+
+message GetReCurringTransactionsRequest {
+  // The user id
+  // Validations:
+  // - user_id must be greater than 0
+  uint64 user_id = 2 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message GetReCurringTransactionsResponse {
+  message ParticipantReCurringTransactions {
+  // The participant id
+  string reocurring_transaction_id = 1;
+  // The transactions
+  repeated Transaction transactions = 2;
+}
+  // The re-occuring transactions
+  repeated ReOccuringTransaction re_ccuring_transactions = 1;
+}
+
+message GetTransactionsRequest {
+  // The user id
+  // Validations:
+  // - user_id must be greater than 0
+  uint64 user_id = 2 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  uint64 page_number = 3;
+  uint64 page_size = 4;  
+}
+
+message GetTransactionsResponse {
+  // The transactions
+  repeated Transaction transactions = 1;
+  uint64 next_page_number = 2;
+}
+
+message ProcessWebhookRequest {
+  string webhook_type = 1 [
+    (validate.rules).string.min_len = 1,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  string webhook_code = 2 [
+    (validate.rules).string.min_len = 1,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The item_id of the Item associated with this webhook, warning, or error
+  string item_id = 3;
+
+  // Indicates if initial pull information is available.
+  bool initial_update_complete = 4;
+
+  // Indicates if historical pull information is available.
+  string historical_update_complete = 5;
+
+  // The Plaid environment the webhook was sent from
+  string environment = 6;
+
+  // The number of new, unfetched transactions available
+  repeated string new_transactions = 7;
+
+  // An array of transaction_ids corresponding to the removed transactions
+  repeated string removed_transactions = 8;
+  
+  // We use standard HTTP response codes for success and failure notifications, 
+  // and our errors are further classified by error_type. In general, 200 HTTP codes 
+  // correspond to success, 40X codes are for developer- or user-related failures, and 
+  // 50X codes are for Plaid-related issues. An Item with a non-null error object will 
+  // only be part of an API response when calling /item/get to view Item status. Otherwise, 
+  // error fields will be null if no error has occurred; if an error has occurred, an error 
+  // code will be returned instead.
+  map<string, google.protobuf.Any> error = 9;
+
+  // A list of account_ids for accounts that have new or updated recurring transactions data.
+  repeated string account_ids = 10;
+
+  // The time at which the user's access_token will expire. This field will only be present
+  string consent_expiration_time = 11;
+
+  // An array of account_id's for accounts that contain new liabilities.'
+  repeated string account_ids_with_new_liabilities = 12;
+
+  // An object with keys of account_id's that are mapped to their respective liabilities fields that changed.
+  repeated string account_ids_with_updated_liabilities = 13;
+
+  // The number of new holdings reported since the last time this webhook was fired.
+  uint64 new_holdings = 14;
+
+  // The number of updated holdings reported since the last time this webhook was fired.
+  // @gotag: json:"updated_holdings"
+  uint64 updated_holdings = 15;
+}
+
+message ProcessWebhookResponse{}
+
+message StripeWebhookRequest{
+  string body = 1;
+  string signature = 2;
+}
+
+message StripeWebhookResponse{
+  string message = 1;
+}
+
+message CreateSubscriptionRequest {
+  uint64 user_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  string price_id = 2[
+    (validate.rules).string.min_len = 1,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message CreateSubscriptionResponse {
+  string subscription_id = 1;
+  string payment_intent_client_secret = 2;
+}
+
+
+message GetTransactionsForBankAccountRequest {
+  // The user id
+  // Validations:
+  // - user_id must be greater than 0
+  uint64 user_id = 2 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  string plaid_account_id = 1 [
+    (validate.rules).string.min_len = 1,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  uint64 page_number = 3;
+  uint64 page_size = 4;  
+}
+
+
+message GetTransactionsForBankAccountResponse {
+  // The transactions
+  repeated Transaction transactions = 1;
+  uint64 next_page_number = 2;
+}

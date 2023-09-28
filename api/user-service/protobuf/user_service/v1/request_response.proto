@@ -1,0 +1,241 @@
+syntax = "proto3";
+
+package user_service.v1;
+
+import "user_service/v1/message.proto";
+import "validate/validate.proto";
+import "google/api/field_behavior.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/generated/user_service/v1";
+
+// GetUserRequest: Represents the request object invoked against the user
+// service to obtain a user account
+message GetUserRequest {
+  // The account ID associated with the user
+  // Validations:
+  // - user_id must be greater than 0
+  uint64 user_id = 1  [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED   
+  ];
+}
+
+// GetUserResponse: Represents the object returned as a response to `get-user`
+// request
+message GetUserResponse { UserAccount account = 1; }
+
+// DeleteUserRequest: Represents the request object invoked against the user
+// service to delete a user account
+message DeleteUserRequest {  
+  // The account ID associated with the user to delete
+  // Validations:
+  // - user_id must be greater than 0
+  uint64 user_id = 1  [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED  
+  ];
+}
+
+// DeleteUserResponse: Represents the object returned as a response to
+// `delete-user` request
+message DeleteUserResponse { bool account_deleted = 1; }
+
+// UpdateUserRequest: Represents the request object invoked against the user
+// service to update a given user account
+message UpdateUserRequest { 
+  // UserAccount to update
+  // Validation:
+  // - cannot nil hence required
+  UserAccount account = 1 [
+    (validate.rules).message.required = true,
+    (google.api.field_behavior) = REQUIRED  
+  ]; 
+}
+
+// UpdateUserResponse: Represents the response object returned as a response to
+// the `update-user` request
+message UpdateUserResponse {
+  bool account_updated = 1;
+  UserAccount account = 2;
+}
+
+// CreateUserRequest: Represents the request object invoked against the user
+// service to create a user account
+message CreateUserRequest {
+  // User account to create 
+  // Validations:
+  // - cannot be nil hence required
+  UserAccount account = 1 [
+    (validate.rules).message.required = true, 
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // set of community IDs to follow 
+  // Validations:
+  // - at least 0 and at most 20 community ids supported at one time
+  repeated uint64 community_ids_to_follow = 2 [(validate.rules).repeated = {min_items: 0, max_items: 20}];
+  // The profile image of the user
+  // Validations:
+  // - must be a valid URI
+  string profile_image = 3 [
+    (validate.rules).string.uri_ref = true,
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"lksdjhfgsdhfghdsgfhgdh.com\""
+    } 
+  ];
+  // The password  of the user
+  // Validations:
+  // - must be a at least 10 characters long
+  string password = 4 [
+    (validate.rules).string = {
+      min_bytes: 10,
+    },
+     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"tesdfkdkfhsdgd\""
+    },
+    (google.api.field_behavior) = REQUIRED  
+  ];
+}
+
+// CreateUserResponse: Represents the response object returned as a response to
+// the `create-user` request
+message CreateUserResponse { uint64 user_id = 1; }
+
+// GetUserIdRequest: Represents the request object invoked against the user
+// service to obtain the id of the user
+message GetUserIdRequest {
+  // The email of the user of interest
+  string email = 1 [
+    (validate.rules).string = {
+      min_bytes: 0,
+    },
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"email:testuser@gmail.com\""
+    }
+  ];
+  // The username of the user of interest
+  string username = 2 [
+    (validate.rules).string = {
+      min_bytes: 0,
+    },
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"username:testuser\""
+    }
+  ];
+}
+
+// GetUserIdResponse: Represents the response object returned as a product of
+// calling the `get-user-id` request
+message GetUserIdResponse {
+  // The account ID associated with the user
+  uint64 user_id = 1 ;
+}
+
+message HealthCheckRequest {}
+
+message HealthCheckResponse { bool healthy = 1; }
+
+message ReadynessCheckRequest {}
+
+message ReadynessCheckResponse { bool healthy = 1; }
+
+message GetUserByEmailOrUsernameRequest {
+  // The email of the user of interest
+  string email = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"email:testuser@gmail.com\""
+    }
+  ];
+  // The username of the user of interest
+  string username = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"username:testuser\""
+    }
+  ];
+}
+
+message GetUserByEmailOrUsernameResponse {
+  // The account ID associated with the user
+  UserAccount account = 1;
+}
+
+message VerifyUserRequest {
+  // The account ID associated with the user
+  uint64 user_id = 1 [(validate.rules).uint64.gt = 0];
+}
+
+message VerifyUserResponse { bool account_verified = 1; }
+
+message GetUserByUsernameRequest {
+  // The username of the user of interest
+  string username = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 1,
+      example: "\"username:testuser\""
+    }
+  ];
+}
+
+message GetUserByUsernameResponse {
+  // The account ID associated with the user
+  UserAccount account = 1;
+}
+
+message CheckUsernameExistsRequest {
+  // The username of the user of interest
+  string username = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 1,
+      example: "\"username:testuser\""
+    }
+  ];
+}
+
+message CheckUsernameExistsResponse { bool exists = 1; }
+
+message CheckEmailExistsRequest {
+    // The email of the user of interest
+  string email = 1 [
+    (validate.rules).string.email = true,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"email:testuser@gmail.com\""
+    }
+  ];
+}
+
+message CheckEmailExistsResponse { bool exists = 1; }
+
+message GetUserByEmailRequest {
+      // The email of the user of interest
+  string email = 1 [
+    (validate.rules).string.email = true,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"email:testuser@gmail.com\""
+    }
+  ];
+}
+
+message GetUserByEmailResponse {
+  // The account ID associated with the user
+  UserAccount account = 1;
+}
+
+message PasswordResetWebhookRequest {
+  uint64 account_id = 1 [(validate.rules).uint64.gt = 0];
+  string token = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 1,
+      example: "\"username:testuser\""
+    }
+  ];
+}
+
+message PasswordResetWebhookResponse { bool success = 1; }

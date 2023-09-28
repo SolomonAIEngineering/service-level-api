@@ -1,0 +1,1148 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Simfiny",
+    "description": "With our AI-driven financial recommendations track your spending, create a budget, save for the future, all while connecting with others who are on the same financial journey as you !",
+    "version": "0.1",
+    "contact": {
+      "name": "YoanYomba",
+      "url": "https://simfiny.co",
+      "email": "yoan@simfinii.com"
+    },
+    "license": {
+      "name": "Apache-2.0",
+      "url": "https://github.com/openfga/openfga/blob/main/LICENSE"
+    }
+  },
+  "tags": [
+    {
+      "name": "UserService"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v1/user": {
+      "get": {
+        "summary": "get a user account id",
+        "description": "This endpoint returns the user record id if the user record exists\nexample: /api/v1/user?email=testuser@gmail.com\u0026\u0026username=testuser",
+        "operationId": "GetUserId",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.GetUserIdResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "email",
+            "description": "The email of the user of interest",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "username",
+            "description": "The username of the user of interest",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "user account"
+        ]
+      },
+      "post": {
+        "summary": "create a user account",
+        "description": "This endpoint performs an a creation operation of a user account based on the provided parametersThis operation is implemented as a distributed transactions as this operation spans multiple services",
+        "operationId": "CreateUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.CreateUserResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateUserRequest"
+            }
+          }
+        ],
+        "tags": [
+          "user account"
+        ]
+      },
+      "put": {
+        "summary": "update a user account",
+        "description": "This endpoint performs an updates operation on a user account based on the provided parametersThis update operation can span multiple services on specific cases (such as when the client is explicitly attempting to update the email of the user)All update operations are atomic by nature hence we should not expect any form of divergent state",
+        "operationId": "UpdateUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.UpdateUserResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateUserRequest"
+            }
+          }
+        ],
+        "tags": [
+          "user account"
+        ]
+      }
+    },
+    "/api/v1/user/account": {
+      "get": {
+        "summary": "gets a user account by either email or username",
+        "description": "This endpoint returns a user account by either provided email or username",
+        "operationId": "GetUserByEmailOrUsername",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.VerifyUserResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "email",
+            "description": "The email of the user of interest",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "username",
+            "description": "The username of the user of interest",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "user account"
+        ]
+      }
+    },
+    "/api/v1/user/email/{email}": {
+      "get": {
+        "summary": "Gets a user account by email",
+        "description": "Queries and obtains a user account based on the email",
+        "operationId": "GetUserByEmail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.GetUserByEmailResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "email",
+            "description": "The email of the user of interest",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "user account"
+        ]
+      }
+    },
+    "/api/v1/user/email/{email}/exists": {
+      "get": {
+        "summary": "Checks that an email exists or not",
+        "description": "Checks if an email exists or not",
+        "operationId": "CheckEmailExists",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.CheckEmailExistsResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "email",
+            "description": "The email of the user of interest",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "user account"
+        ]
+      }
+    },
+    "/api/v1/user/health": {
+      "get": {
+        "summary": "health check",
+        "description": "This endpoint performs a healc check on the service",
+        "operationId": "HealthCheck",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.HealthCheckResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "tags": [
+          "service health"
+        ]
+      }
+    },
+    "/api/v1/user/ready": {
+      "get": {
+        "summary": "readyness check",
+        "description": "This endpoint performs a readiness check on the service",
+        "operationId": "ReadynessCheck",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.ReadynessCheckResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "tags": [
+          "service readyness"
+        ]
+      }
+    },
+    "/api/v1/user/username/{username}": {
+      "get": {
+        "summary": "Gets a user account by user name",
+        "description": "Queries and obtains a user account based on the username",
+        "operationId": "GetUserByUsername",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.GetUserByUsernameResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "username",
+            "description": "The username of the user of interest",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "user account"
+        ]
+      }
+    },
+    "/api/v1/user/username/{username}/exists": {
+      "get": {
+        "summary": "Checks that a username exists or not",
+        "description": "Checks if a username exists or not",
+        "operationId": "CheckUsernameExists",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.CheckUsernameExistsResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "username",
+            "description": "The username of the user of interest",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "user account"
+        ]
+      }
+    },
+    "/api/v1/user/verification/{userId}": {
+      "post": {
+        "summary": "user verification",
+        "description": "This endpoint performs verification of a user account email",
+        "operationId": "Verification",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.VerifyUserResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "description": "The account ID associated with the user",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "user account"
+        ]
+      }
+    },
+    "/api/v1/user/webhook/password-reset": {
+      "post": {
+        "summary": "password reset",
+        "description": "This endpoint performs password reset for a given user account",
+        "operationId": "PasswordReset",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.PasswordResetResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "password reset"
+        ]
+      }
+    },
+    "/api/v1/user/{userId}": {
+      "get": {
+        "summary": "Gets a user account",
+        "description": "Queries and obtains a user account based on the provided parameters",
+        "operationId": "GetUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.GetUserResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "description": "The account ID associated with the user\nValidations:\n- user_id must be greater than 0",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "user account"
+        ]
+      },
+      "delete": {
+        "summary": "deletes a user account",
+        "description": "This endpoint performs a delete operation on a user account based on the provided parametersThis deletion operation spans multiple services as user details are stored across a suite of our backend servicesThe operation itself is an atomic one of nature. Either all services successfully delete the recod or we fail the requestDivergent state is not expected to be encountered with this endpoint.",
+        "operationId": "DeleteUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.DeleteUserResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "description": "The account ID associated with the user to delete\nValidations:\n- user_id must be greater than 0",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "user account"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "Address": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "address id"
+        },
+        "address": {
+          "type": "string",
+          "example": "1234 5th Ave",
+          "title": "the address field\nValidations:\n- must be at least 5 character long (meaning cannot be empty)"
+        },
+        "unit": {
+          "type": "string",
+          "example": "Apt 1",
+          "title": "the unit if the address is an apartment\nValidations:\n- must be at least 1 character long (meaning cannot be empty)"
+        },
+        "zipcode": {
+          "type": "string",
+          "example": "12345",
+          "title": "the address zipcode\nValidations: \n- must be exactly 5 characters"
+        },
+        "city": {
+          "type": "string",
+          "example": "New York",
+          "title": "the city\nValidations:\n- must be at least 3 characters long (meaning cannot be empty)"
+        },
+        "state": {
+          "type": "string",
+          "example": "New York",
+          "title": "the state/municipality\nValidations\n- must be at least 2 characters long"
+        },
+        "longitude": {
+          "type": "string",
+          "example": "-73.987654",
+          "title": "longitude\nValidations: None - can be empty"
+        },
+        "lattitude": {
+          "type": "string",
+          "example": "40.123456",
+          "title": "latittude\nValidations: None - can be empty"
+        }
+      },
+      "title": "Address: represents an account's address"
+    },
+    "Any": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "CheckEmailExistsResponse": {
+      "type": "object",
+      "properties": {
+        "exists": {
+          "type": "boolean"
+        }
+      }
+    },
+    "CheckUsernameExistsResponse": {
+      "type": "object",
+      "properties": {
+        "exists": {
+          "type": "boolean"
+        }
+      }
+    },
+    "CreateUserRequest": {
+      "type": "object",
+      "properties": {
+        "account": {
+          "$ref": "#/definitions/UserAccount",
+          "title": "User account to create \nValidations:\n- cannot be nil hence required"
+        },
+        "communityIdsToFollow": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uint64"
+          },
+          "title": "set of community IDs to follow \nValidations:\n- at least 0 and at most 20 community ids supported at one time"
+        },
+        "profileImage": {
+          "type": "string",
+          "example": "lksdjhfgsdhfghdsgfhgdh.com",
+          "title": "The profile image of the user\nValidations:\n- must be a valid URI"
+        },
+        "password": {
+          "type": "string",
+          "example": "tesdfkdkfhsdgd",
+          "title": "The password  of the user\nValidations:\n- must be a at least 10 characters long"
+        }
+      },
+      "title": "CreateUserRequest: Represents the request object invoked against the user\nservice to create a user account",
+      "required": [
+        "account",
+        "profileImage",
+        "password"
+      ]
+    },
+    "CreateUserResponse": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "format": "uint64"
+        }
+      },
+      "title": "CreateUserResponse: Represents the response object returned as a response to\nthe `create-user` request"
+    },
+    "DeleteUserResponse": {
+      "type": "object",
+      "properties": {
+        "accountDeleted": {
+          "type": "boolean"
+        }
+      },
+      "title": "DeleteUserResponse: Represents the object returned as a response to\n`delete-user` request"
+    },
+    "GetUserByEmailOrUsernameResponse": {
+      "type": "object",
+      "properties": {
+        "account": {
+          "$ref": "#/definitions/UserAccount",
+          "title": "The account ID associated with the user"
+        }
+      }
+    },
+    "GetUserByEmailResponse": {
+      "type": "object",
+      "properties": {
+        "account": {
+          "$ref": "#/definitions/UserAccount",
+          "title": "The account ID associated with the user"
+        }
+      }
+    },
+    "GetUserByUsernameResponse": {
+      "type": "object",
+      "properties": {
+        "account": {
+          "$ref": "#/definitions/UserAccount",
+          "title": "The account ID associated with the user"
+        }
+      }
+    },
+    "GetUserIdResponse": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "The account ID associated with the user"
+        }
+      },
+      "title": "GetUserIdResponse: Represents the response object returned as a product of\ncalling the `get-user-id` request"
+    },
+    "GetUserResponse": {
+      "type": "object",
+      "properties": {
+        "account": {
+          "$ref": "#/definitions/UserAccount"
+        }
+      },
+      "title": "GetUserResponse: Represents the object returned as a response to `get-user`\nrequest"
+    },
+    "HealthCheckResponse": {
+      "type": "object",
+      "properties": {
+        "healthy": {
+          "type": "boolean"
+        }
+      }
+    },
+    "PasswordResetWebhookResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        }
+      }
+    },
+    "ProfileType": {
+      "type": "string",
+      "enum": [
+        "PROFILE_TYPE_UNSPECIFIED",
+        "PROFILE_TYPE_USER",
+        "PROFILE_TYPE_BUSINESS"
+      ],
+      "default": "PROFILE_TYPE_UNSPECIFIED",
+      "title": "ProfileType: represents the type of account tied to a given profile"
+    },
+    "ReadynessCheckResponse": {
+      "type": "object",
+      "properties": {
+        "healthy": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Status": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/Any"
+          }
+        }
+      }
+    },
+    "Tags": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "tag id"
+        },
+        "tagName": {
+          "type": "string",
+          "example": "testtagname",
+          "title": "name of tag\nvalidations: \n- cannot be empty\n- must be at least 3 characters long"
+        },
+        "tagDescription": {
+          "type": "string",
+          "example": "testtagdescription",
+          "title": "description of tag\nvalidations: \n- cannot be empty\n- must be at least 10 characters long"
+        },
+        "metadata": {
+          "type": "array",
+          "example": [
+            "testmetadata1",
+            "testmetadata2"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "title": "metadata associated with tag\nvalidations:\n- must provide between 1 and 10 metadata tags"
+        }
+      },
+      "title": "Tags: represents metadata tags associated to an account"
+    },
+    "UpdateUserRequest": {
+      "type": "object",
+      "properties": {
+        "account": {
+          "$ref": "#/definitions/UserAccount",
+          "title": "UserAccount to update\nValidation:\n- cannot nil hence required"
+        }
+      },
+      "title": "UpdateUserRequest: Represents the request object invoked against the user\nservice to update a given user account",
+      "required": [
+        "account"
+      ]
+    },
+    "UpdateUserResponse": {
+      "type": "object",
+      "properties": {
+        "accountUpdated": {
+          "type": "boolean"
+        },
+        "account": {
+          "$ref": "#/definitions/UserAccount"
+        }
+      },
+      "title": "UpdateUserResponse: Represents the response object returned as a response to\nthe `update-user` request"
+    },
+    "UserAccount": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "account id"
+        },
+        "email": {
+          "type": "string",
+          "example": "lksdjhfgsdhfghdsgfhgdh@gmail.com",
+          "title": "account email\nValidations:\n- must be an email and required"
+        },
+        "address": {
+          "$ref": "#/definitions/Address",
+          "title": "the address associated with the user\nValidations:\n- can be empty"
+        },
+        "bio": {
+          "type": "string",
+          "example": "lksdjhfgsdhfghdsgfhgdha;hdgjsdfhaghsldfhagjkh;sdafjhsdjflhgjhjsfhgjsdhfjfkgjhsdfhgjhjdfhgjsdhjglsdjjghjdfhsjghjsadfhgjsdfhjghsdfkjghdfj",
+          "title": "simple description specific to account should be less than 200 characters\nValidations:\n- can be empty"
+        },
+        "headline": {
+          "type": "string",
+          "example": "lksdjhfgsdhfghdsgfhgdha;hdgjsdfhaghsldfhagjkh;sdafjhsdjflhgjhjsfhgjsdhfjfkgjhsdfhgjhjdfhgjsdhjglsdjjghjdfhsjghjsadfhgjsdfhjghsdfkjghdfj",
+          "title": "profile headline\nValidations:\n- can be empty"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "example": "6513424124",
+          "title": "account phone number\nValidations:\n- mcan be empty"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/Tags"
+          },
+          "title": "sample tags easily associable to account\naccount first name\nValidations:\n- must be at provide between 1 and 10 tags"
+        },
+        "authnAccountId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "authentication service account id"
+        },
+        "isActive": {
+          "type": "boolean",
+          "example": true,
+          "title": "infers wether the account is active"
+        },
+        "firstname": {
+          "type": "string",
+          "example": "testuser96",
+          "title": "account first name\nValidations:\n- can be empty"
+        },
+        "lastname": {
+          "type": "string",
+          "example": "testuserlastname",
+          "title": "account last name\nValidations:\n- can be empty"
+        },
+        "username": {
+          "type": "string",
+          "example": "testuser9696",
+          "title": "account user name\nValidations:\n- must be at least 10 character"
+        },
+        "isPrivate": {
+          "type": "boolean",
+          "example": false,
+          "title": "account is private"
+        },
+        "isEmailVerified": {
+          "type": "boolean",
+          "example": false,
+          "title": "isEmailVerified is a field denoting wether or not the user account has\nindeed verified their email address"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "verifiedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "profileType": {
+          "$ref": "#/definitions/ProfileType",
+          "title": "ProfileType is the type of profile associated to this user account"
+        },
+        "companyName": {
+          "type": "string",
+          "title": "Company Name is the name of the company profile"
+        },
+        "companyEstablishedDate": {
+          "type": "string",
+          "title": "Established Date is the date the company was created"
+        },
+        "companyIndustryType": {
+          "type": "string",
+          "title": "Industry Type is the type of business associated to this business"
+        },
+        "companyWebsiteUrl": {
+          "type": "string",
+          "title": "Website url of the business"
+        },
+        "companyDescription": {
+          "type": "string",
+          "title": "Company description"
+        }
+      },
+      "title": "UserAccount: represents a user account in the context of simfinni"
+    },
+    "VerifyUserResponse": {
+      "type": "object",
+      "properties": {
+        "accountVerified": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,270 @@
+syntax = "proto3";
+
+package user_service.v1;
+
+import "protoc-gen-gorm/options/gorm.proto";
+import "google/protobuf/timestamp.proto";
+import "validate/validate.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/generated/user_service/v1";
+
+/*
+  ProfileType: represents the type of account tied to a given profile
+*/
+enum ProfileType {
+  PROFILE_TYPE_UNSPECIFIED = 0;
+  PROFILE_TYPE_USER = 1;
+  PROFILE_TYPE_BUSINESS = 2;
+}
+
+/*
+ UserAccount: represents a user account in the context of simfinni
+*/
+message UserAccount {
+  option (gorm.opts) = {
+    ormable : true,
+  };
+  // account id
+  uint64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: ""
+    }
+  ];
+  // account email
+  // Validations:
+  // - must be an email and required 
+  string email = 2 [
+    (validate.rules).string.email = true,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"lksdjhfgsdhfghdsgfhgdh@gmail.com\""
+    } 
+  ];
+  // the address associated with the user
+  // Validations:
+  // - can be empty
+  Address address = 7 [
+    (gorm.field).has_one.preload = true,
+    (validate.rules).message.required = false
+  ];
+  // simple description specific to account should be less than 200 characters
+  // Validations:
+  // - can be empty
+  string bio = 12 [
+    (validate.rules).string.min_len = 0,
+     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"lksdjhfgsdhfghdsgfhgdha;hdgjsdfhaghsldfhagjkh;sdafjhsdjflhgjhjsfhgjsdhfjfkgjhsdfhgjhjdfhgjsdhjglsdjjghjdfhsjghjsadfhgjsdfhjghsdfkjghdfj\""
+    } 
+  ];
+  // profile headline
+  // Validations:
+  // - can be empty
+  string headline = 13 [
+    (validate.rules).string.min_len = 0,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"lksdjhfgsdhfghdsgfhgdha;hdgjsdfhaghsldfhagjkh;sdafjhsdjflhgjhjsfhgjsdhfjfkgjhsdfhgjhjdfhgjsdhjglsdjjghjdfhsjghjsadfhgjsdfhjghsdfkjghdfj\""
+    } 
+  ];
+  // account phone number
+  // Validations:
+  // - mcan be empty
+  string phone_number = 14 [
+    (validate.rules).string.min_len = 0,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"6513424124\""
+    } 
+  ];
+  // sample tags easily associable to account
+  // account first name
+  // Validations:
+  // - must be at provide between 1 and 10 tags
+  repeated Tags tags = 15 [
+    (gorm.field).has_many.preload = true,
+    (validate.rules).repeated.min_items = 1,
+    (validate.rules).repeated.max_items = 10
+  ];
+  // authentication service account id
+  uint64 authn_account_id = 18 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: ""
+    }
+  ];
+  // infers wether the account is active
+  bool is_active = 22 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "true"
+    }
+  ];
+  // account first name
+  // Validations:
+  // - can be empty
+  string firstname = 26 [
+    (validate.rules).string.min_len = 0,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"testuser96\""
+    } 
+  ];
+  // account last name
+  // Validations:
+  // - can be empty
+  string lastname = 27 [
+    (validate.rules).string.min_len = 0,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"testuserlastname\""
+    } 
+  ];
+  // account user name
+  // Validations:
+  // - must be at least 10 character
+  string username = 28 [
+    (validate.rules).string.min_len = 10,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"testuser9696\""
+    }
+  ];
+  // account is private
+  bool is_private = 29 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "false"
+    }
+  ];
+  // isEmailVerified is a field denoting wether or not the user account has
+  // indeed verified their email address
+  bool is_email_verified = 30 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "false"
+    }
+  ];
+  google.protobuf.Timestamp created_at = 31;
+  google.protobuf.Timestamp verified_at = 32;
+
+  // ProfileType is the type of profile associated to this user account 
+  ProfileType profile_type = 33;
+
+  // Company Name is the name of the company profile
+  string company_name = 34;
+  
+  // Established Date is the date the company was created
+  string company_established_date = 35;
+  // Industry Type is the type of business associated to this business
+  string company_industry_type = 36;
+  // Website url of the business
+  string company_website_url = 37;
+  // Company description 
+  string company_description = 38;
+}
+
+/*
+ Address: represents an account's address
+*/
+message Address {
+  option (gorm.opts) = {
+    ormable : true,
+  };
+  // address id
+  uint64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: ""
+    }
+  ];
+  // the address field
+  // Validations:
+  // - must be at least 5 character long (meaning cannot be empty)
+  string address = 2 [
+    (validate.rules).string.min_len = 0,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"1234 5th Ave\""
+    }
+  ];
+  // the unit if the address is an apartment
+  // Validations:
+  // - must be at least 1 character long (meaning cannot be empty)
+  string unit = 3 
+  [(validate.rules).string.min_len = 0,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"Apt 1\""
+    }
+  ];
+  // the address zipcode
+  // Validations: 
+  // - must be exactly 5 characters
+  string zipcode = 4 [
+    (validate.rules).string.len = 0,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"12345\""
+    }  
+  ];
+  // the city
+  // Validations:
+  // - must be at least 3 characters long (meaning cannot be empty)
+  string city = 5 [
+    (validate.rules).string.min_len = 0,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"New York\""
+    }
+  ];
+  // the state/municipality
+  // Validations
+  // - must be at least 2 characters long 
+  string state = 6 [
+    (validate.rules).string.min_len = 0,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"New York\""
+    }
+  ];
+  // longitude
+  // Validations: None - can be empty
+  string longitude = 7 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"-73.987654\""
+    }
+  ];
+  // latittude
+  // Validations: None - can be empty
+  string lattitude = 8 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"40.123456\""
+    }
+  ];
+}
+
+/*
+ Tags: represents metadata tags associated to an account
+*/
+message Tags {
+  option (gorm.opts) = {
+    ormable : true,
+  };
+  // tag id
+  uint64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: ""
+    }
+  ];
+  // name of tag
+  // validations: 
+  // - cannot be empty
+  // - must be at least 3 characters long
+  string tag_name = 2  [(validate.rules).string.min_len = 3,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"testtagname\""
+    }
+  ];
+  // description of tag
+  // validations: 
+  // - cannot be empty
+  // - must be at least 10 characters long
+  string tag_description = 3 [(validate.rules).string.min_len = 10,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"testtagdescription\""
+    }
+  ];
+  // metadata associated with tag
+  // validations:
+  // - must provide between 1 and 10 metadata tags
+  repeated string metadata = 4 [(validate.rules).repeated = {min_items: 1, max_items: 10},
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "[\"testmetadata1\", \"testmetadata2\"]"
+    }
+  ];
+}

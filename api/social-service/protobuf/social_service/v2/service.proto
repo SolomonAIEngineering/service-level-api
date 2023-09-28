@@ -1,0 +1,1445 @@
+syntax = "proto3";
+
+package social_service.v2;
+
+import "social_service/v2/request_response.proto";
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+// import "google/api/field_behavior.proto";
+// import "google/protobuf/timestamp.proto";
+// import "google/protobuf/wrappers.proto";
+option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/generated/social_service/v2";
+
+// SocialService API.
+service SocialService {
+  rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse) {
+    option (google.api.http) = {get: "/api/v1/health"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "health check"
+      tags: ["service health"]
+      operation_id: "HealthCheck"
+      description: "This endpoint performs a healc check on the service"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.HealthCheckResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc ReadynessCheck(ReadynessCheckRequest) returns (ReadynessCheckResponse) {
+    option (google.api.http) = {get: "/api/v1/ready"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "readyness check"
+      tags: ["service readyness"]
+      operation_id: "ReadynessCheck"
+      description: "This endpoint performs a readiness check on the service"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.ReadynessCheckResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  // EditUserProfile: Used to perform an update operation on a given user profile
+  // For the update operation to successfully pass, the profile payload must be valid and
+  // the user id tied to the profile being updated must exist and be an active profile
+  rpc EditUserProfile(EditUserProfileRequest) returns (EditUserProfileResponse) {
+    option (google.api.http) = {
+      put: "/api/v1/user/{user_id}"
+      body: "profile"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "update a user profile"
+      tags: ["user profile"]
+      operation_id: "EditUserProfile"
+      description:
+        "This endpoint performs an updates operation on a user profile based on the provided parameters"
+        "This update operation can span multiple services on specific cases (such as when the client is explicitly attempting to update the email of the user)"
+        "All update operations are atomic by nature hence we should not expect any form of divergent state"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.UpdateUserResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  // The get user profile request obtains a user profile from the service and
+  // all other associated records
+  rpc GetUserProfile(GetUserProfileRequest) returns (GetUserProfileResponse) {
+    option (google.api.http) = {get: "/v1/social/user/{user_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "gets a user profile"
+      tags: ["user profile"]
+      operation_id: "GetUserProfile"
+      description: "This endpoint performs a query against the social service to obtain a user profile"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.GetUserProfileResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  // The get user profile request obtains a user profile from the service and
+  // all other associated records
+  rpc CreateUserProfile(CreateUserProfileRequest) returns (CreateUserProfileResponse) {
+    option (google.api.http) = {
+      post: "/v1/social/user/{user_id}"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "creates a user profile"
+      tags: ["user profile"]
+      operation_id: "CreateUserProfile"
+      description: "This endpoint enables a client to create a user profile"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.CreateUserProfileResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  // DeleteUserProfile: Used to delete a user profile account.
+  rpc DeleteUserProfile(DeleteUserProfileRequest) returns (DeleteUserProfileResponse) {
+    option (google.api.http) = {delete: "/v1/social/user/{user_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "deletes a user profile"
+      tags: ["user profile"]
+      operation_id: "DeleteUserProfile"
+      description: "This endpoint enables a client to delete a user profile"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.DeleteProfileResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  // BlockUserProfile: Used to perform a block operation against another account. For the
+  // block operation to successfully pass, the profile initiating the block operation must exist
+  // as well as the profile being blocked. Additionally, a block record cannot already exist
+  // between both accounts
+  rpc BlockUserProfile(BlockUserProfileRequest) returns (BlockUserProfileResponse) {
+    option (google.api.http) = {post: "/v1/social/user/{source_user_id}/block/target-user-id/{target_user_id}"};
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "blocks a user profile"
+      tags: ["user profile"]
+      operation_id: "BlockUserProfile"
+      description: "This endpoint enables a client to block a user profile"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.BlockUserProfileResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  // FollowProfile: Used to follow a given target profile. A follow request must be valid
+  // meaning the profile initiating the follow request must exist as well as the profile being targeted.
+  // Additionally, a follow relationship cannot already exist between both accounts as well as
+  // a block record.
+  //
+  // NOTE: if the target profile is a private account, the follow request is
+  // put in "standby" mode meaning a follow request is sent to the target profile
+  // for approval
+  rpc FollowProfile(FollowProfileRequest) returns (FollowProfileResponse) {
+    option (google.api.http) = {post: "/v1/social/user/{source_user_id}/follow/target-user-id/{target_user_id}"};
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "follow a user profile"
+      tags: ["user profile"]
+      operation_id: "FollowUserProfile"
+      description: "This endpoint enables a client to follow a user profile"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.FollowProfileResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  // AcceptFollowRequest: Used to accept a follow request. This operation is successful only
+  // if the record tied to this follow request already exists
+  rpc AcceptFollowProfile(AcceptFollowProfileRequest) returns (AcceptFollowProfileResponse) {
+    option (google.api.http) = {post: "/v1/social/user/follow/accept/{follow_record_id}"};
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Accepts a user's follow request"
+      tags: ["user profile"]
+      operation_id: "AcceptFollowRequest"
+      description: "This endpoint enables a client to accept a follow request from a source a user profile"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.AcceptFollowProfileResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc GetUserProfiles(GetUserProfilesRequest) returns (GetUserProfilesResponse) {
+    option (google.api.http) = {get: "/v1/social/users/page-size/{page_size}/page-number/{page_number}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Gets a set of user profiles"
+      tags: ["user profile"]
+      operation_id: "GetUserProfiles"
+      description: "This endpoint enables a client to get a number of user profiles in a paginated manner"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.GetUserProfilesResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc DiscoverProfiles(DiscoverProfilesRequest) returns (DiscoverProfilesResponse) {
+    option (google.api.http) = {get: "/v1/social/user/{user_id}/discover/limit/{limit}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Discover Profiles"
+      tags: ["discover"]
+      operation_id: "Discover Profiles"
+      description: "This endpoint enables a client to discover a set of profiles he/she does not follow"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.DiscoverProfilesResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  // Used to obtain a community profile by id. Operation is successful only under the condition
+  // that the community profile actually exists
+  rpc GetCommunityProfile(GetCommunityProfileRequest) returns (GetCommunityProfileResponse) {
+    option (google.api.http) = {get: "/v1/social/community/{community_id}/requestor/{requestor_profile_id}/type/{requestor_profile_type}"};
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get a community Profile"
+      tags: ["community profile"]
+      operation_id: "GetCommunityProfile"
+      description: "This endpoint enables a client to get a community profile"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.GetCommunityProfileResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  // Used to create a community profile. Operation is successfull if and only if the community profile payload is
+  // valid and the user attempting to create the community profile exists
+  rpc CreateCommunityProfile(CreateCommunityProfileRequest) returns (CreateCommunityProfileResponse) {
+    option (google.api.http) = {
+      post: "/v1/social/user/{user_id}/community"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Create a community Profile"
+      tags: ["community profile"]
+      operation_id: "CreateCommunityProfile"
+      description: "This endpoint enables a client to create a community profile"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.CreateCommunityProfileResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc GetCommunitiesUserFollows(GetCommunitiesUserFollowsRequest) returns (GetCommunitiesUserFollowsResponse) {
+    option (google.api.http) = {get: "/v1/social/user/{user_id}/follow/communities"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Gets all the communities a user follows"
+      tags: ["community profile"]
+      operation_id: "GetCommunitiesUserFollows"
+      description: "This endpoint enables a client to get all the communities a user follows"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.GetCommunitiesUserFollowsResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc FollowCommunityProfile(FollowCommunityProfileRequest) returns (FollowCommunityProfileResponse) {
+    option (google.api.http) = {post: "/v1/social/user/{source_user_id}/follow/community/{target_community_profile_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Follows A Community Profile"
+      tags: ["community profile"]
+      operation_id: "FollowCommunityProfile"
+      description: "This endpoint enables a client to follow a community profile"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.FollowCommunityProfileResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc GetCommunityProfiles(GetCommunityProfilesRequest) returns (GetCommunityProfilesResponse) {
+    option (google.api.http) = {get: "/v1/social/communities/page-size/{page_size}/page-number/{page_number}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get Community Profiles"
+      tags: ["community profile"]
+      operation_id: "GetCommunityProfiles"
+      description: "This endpoint enables a client to get community profiles"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.GetCommunitiesProfilesResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc DeleteCommunityProfile(DeleteCommunityProfileRequest) returns (DeleteCommunityProfileResponse) {
+    option (google.api.http) = {delete: "/v1/social/user/{user_id}/community/{community_profile_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Delete Community Profile"
+      tags: ["community profile"]
+      operation_id: "DeleteCommunityProfile"
+      description: "This endpoint enables a client to delete a community profile"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.GetCommunitiesProfilesResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc EditCommunityProfile(EditCommunityProfileRequest) returns (EditCommunityProfileResponse) {
+    option (google.api.http) = {
+      put: "/v1/social/user/{user_id}/community/{community_profile_id}"
+      body: "profile"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Edit a community Profile"
+      tags: ["community profile"]
+      operation_id: "EditCommunityProfile"
+      description: "This endpoint enables a client to update a community profile"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.EditCommunityProfileRequest"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc CreatePost(CreatePostRequest) returns (CreatePostResponse) {
+    option (google.api.http) = {
+      post: "/v1/social/user/{user_id}/post"
+      body: "post"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Create a post"
+      tags: ["post"]
+      operation_id: "CreatePost"
+      description: "This endpoint enables a client to create a post"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.CreatePostResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc DeletePost(DeletePostRequest) returns (DeletePostResponse) {
+    option (google.api.http) = {delete: "/v1/social/user/{user_id}/post/{post_id}/type/{post_type}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Delete a post"
+      tags: ["post"]
+      operation_id: "DeletePost"
+      description: "This endpoint enables a client to delete a post"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.DeletePostResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc GetPost(GetPostRequest) returns (GetPostResponse) {
+    option (google.api.http) = {get: "/v1/social/user/{user_id}/post/{post_id}/type/{post_type}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get a post"
+      tags: ["post"]
+      operation_id: "GetPost"
+      description: "This endpoint enables a client to get a post"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.GetPostResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc GetPostsByTopic(GetPostsByTopicRequest) returns (GetPostsByTopicResponse) {
+    option (google.api.http) = {get: "/v1/social/community/{community_profile_id}/topic/{topic_name}/posts"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get all posts associated with a topic"
+      tags: ["post"]
+      operation_id: "GetPost"
+      description: "This endpoint enables a client to get all posts tied to a topic"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.GetPostsByTopicResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc EditPost(EditPostRequest) returns (EditPostResponse) {
+    option (google.api.http) = {
+      put: "/v1/social/user/post/{post_id}/type/{post_type}"
+      body: "post"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Edits a post by id"
+      tags: ["post"]
+      operation_id: "GetPost"
+      description: "This endpoint enables a client to edit a post by id"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.EditPostResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc ReportPost(ReportPostRequest) returns (ReportPostResponse) {
+    option (google.api.http) = {post: "/v1/social/user/{user_id}/post/{post_id}/type/{post_type}/report"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Report a post"
+      tags: ["post"]
+      operation_id: "ReportPost"
+      description: "This endpoint enables a client to report a post"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.ReportPostResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc SharePost(SharePostRequest) returns (SharePostResponse) {
+    option (google.api.http) = {
+      post: "/v1/social/user/{user_id}/post/{parent_post_id}/type/{parent_post_type}/share"
+      body: "content"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Share a post"
+      tags: ["feed"]
+      operation_id: "SharePost"
+      description: "This endpoint enables a client to share a post"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.SharePostResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc AddPostToThread(AddPostToThreadRequest) returns (AddPostToThreadResponse) {
+    option (google.api.http) = {
+      post: "/v1/social/user/{user_id}/post/{parent_post_id}/type/{post_type}/thread"
+      body: "post"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Adds A Post To A Thread"
+      tags: ["thread"]
+      operation_id: "Add Post To A Thread"
+      description: "This endpoint enables a client to add a post to a thread"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.AddPostToThreadResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc RemovePostFromThread(RemovePostFromThreadRequest) returns (RemovePostFromThreadResponse) {
+    option (google.api.http) = {delete: "/v1/social/user/{user_id}/post/{parent_post_id}/type/{post_type}/thread/target/{participant_post_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Deletes A Post From A Thread"
+      tags: ["thread"]
+      operation_id: "Deletes A Post From A Thread"
+      description: "This endpoint enables a client to delete a post from a thread"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.RemovePostFromThreadResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc GetPostThread(GetPostThreadRequest) returns (GetPostThreadResponse) {
+    option (google.api.http) = {get: "/v1/social/user/{user_id}/post/{post_id}/thread"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Gets A Post's Thread"
+      tags: ["thread"]
+      operation_id: "Gets A Post's Thread"
+      description: "This endpoint enables a client to query a post's thread"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.GetPostThreadResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc AddPostQualityScore(AddPostQualityScoreRequest) returns (AddPostQualityScoreResponse) {
+    option (google.api.http) = {
+      post: "/v1/social/user/{user_id}/post/{post_id}/quality"
+      body: "quality_score"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Adds a quality score to a post"
+      tags: ["post"]
+      operation_id: "AddQualityScore"
+      description: "This endpoint enables a client add a quality score to a post"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.AddPostQualityScoreResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc ReactToPost(ReactToPostRequest) returns (ReactToPostResponse) {
+    option (google.api.http) = {post: "/v1/social/user/{user_id}/post/{post_id}/account-type/{account_type}/reaction/{reaction}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Reacts to a post"
+      tags: ["reaction"]
+      operation_id: "ReactToPost"
+      description: "This endpoint enables a client to react to a post"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.AddPostReactionResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc ReactToComment(ReactToCommentRequest) returns (ReactToCommentResponse) {
+    option (google.api.http) = {post: "/v1/social/user/{user_id}/post/{post_id}/comment/{comment_id}/account-type/{account_type}/reaction/{reaction}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Reacts to a comment"
+      tags: ["reaction"]
+      operation_id: "ReactToComment"
+      description: "This endpoint enables a client to react to a comment"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.ReactToCommentResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc ReactToCommentReply(ReactToCommentReplyRequest) returns (ReactToCommentReplyResponse) {
+    option (google.api.http) = {post: "/v1/social/user/{user_id}/post/{post_id}/comment/{comment_id}/reply/{reply_id}/account-type/{account_type}/reaction/{reaction}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Reacts to a comment reply"
+      tags: ["reaction"]
+      operation_id: "ReactToComment"
+      description: "This endpoint enables a client to react to a comment reply"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.ReactToCommentReplyResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc GetBlogPostsByTag(GetBlogPostsByTagRequest) returns (GetBlogPostsByTagResponse) {
+    option (google.api.http) = {get: "/v1/social/posts/blog/tag/{tag}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get blog posts by tag"
+      tags: ["post"]
+      operation_id: "GetBlogPostsByTag"
+      description: "This endpoint enables a client to query a set of blog posts tied to a tag"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.GetBlogPostsByTagResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc GetCommunityBlogPosts(GetCommunityBlogPostsRequest) returns (GetCommunityBlogPostsResponse) {
+    option (google.api.http) = {get: "/v1/social/community/{community_profile_id}/posts/blog"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get community blog posts"
+      tags: ["post"]
+      operation_id: "GetCommunityBlogPosts"
+      description: "This endpoint enables a client to get community blog posts"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.GetCommunityBlogPostsResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc GetUserFeed(GetUserFeedRequest) returns (GetUserFeedResponse) {
+    option (google.api.http) = {get: "/v1/social/user/{user_id}/timeline"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Gets A Userfeed"
+      tags: ["feed"]
+      operation_id: "GetUserFeed"
+      description: "This endpoint enables a client query a user feed"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.GetUserFeedResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc GetCommunityFeed(GetCommunityFeedRequest) returns (GetCommunityFeedResponse) {
+    option (google.api.http) = {get: "/v1/social/community/{community_profile_id}/timeline"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Gets A Community Feed"
+      tags: ["feed"]
+      operation_id: "GetCommunityFeed"
+      description: "This endpoint enables a client query a community feed"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.GetCommunityFeedResponse"}
+          }
+        }
+      }
+    };
+  }
+
+
+  rpc CreateComment(CreateCommentRequest) returns (CreateCommentResponse) {
+    option (google.api.http) = {
+      post: "/v1/social/{user_id}/post/{post_id}/comment"
+      body: "comment"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Create A Commnet"
+      tags: ["comment"]
+      operation_id: "CreateComment"
+      description: "This endpoint enables a client to create a comment"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.CreateCommentResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc DeleteComment(DeleteCommentRequest) returns (DeleteCommentResponse) {
+    option (google.api.http) = {delete: "/v1/social/post/{post_id}/comment/{comment_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Delete A Comment"
+      tags: ["comment"]
+      operation_id: "Delete Comment"
+      description: "This endpoint enables a client to delete a comment"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.CreateCommentResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc ReportComment(ReportCommentRequest) returns (ReportCommentResponse) {
+    option (google.api.http) = {
+      post: "/v1/social/user/{user_id}/post/{post_id}/comment/{comment_id}/report"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Report A Comment"
+      tags: ["comment"]
+      operation_id: "Report Comment"
+      description: "This endpoint enables a client to report a comment"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.ReportCommentResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc AddCommentQualityScore(AddCommentQualityScoreRequest) returns (AddCommentQualityScoreResponse) {
+    option (google.api.http) = {
+      post: "/v1/social/user/{user_id}/post/{post_id}/comment/{comment_id}/quality"
+      body: "quality_score"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Add Comment Quality Score"
+      tags: ["comment"]
+      operation_id: "Add Comment Quality Score"
+      description: "This endpoint enables a client to add a quality score to a comment"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.AddCommentQualityScoreResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc CreateCommentReply(CreateCommentReplyRequest) returns (CreateCommentReplyResponse) {
+    option (google.api.http) = {
+      post: "/v1/social/user/{user_id}/post/{post_id}/comment/{comment_id}/reply"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Reply To A Comment"
+      tags: ["comment reply"]
+      operation_id: "Replies To A Comment"
+      description: "This endpoint enables a client to reply to a comment"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.CreateCommentReplyResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc DeleteCommentReply(DeleteCommentReplyRequest) returns (DeleteCommentReplyResponse) {
+    option (google.api.http) = {delete: "/v1/social/user/{user_id}/post/{post_id}/comment/{comment_id}/reply/{reply_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Delete A Comment Reply"
+      tags: ["comment reply"]
+      operation_id: "Delete Comment Reply"
+      description: "This endpoint enables a client to delete a comment reply"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.DeleteCommentReplyResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc EditCommentReply(EditCommentReplyRequest) returns (EditCommentReplyResponse) {
+    option (google.api.http) = {
+      put: "/v1/social/user/{user_id}/post/{post_id}/comment/{comment_id}/reply/{reply_id}"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Edit A Comment Reply"
+      tags: ["comment reply"]
+      operation_id: "Edit Comment Reply"
+      description: "This endpoint enables a client to edit a comment reply"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.EditCommentReplyResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc GetCommentReplies(GetCommentRepliesRequest) returns (GetCommentRepliesResponse) {
+    option (google.api.http) = {get: "/v1/social/user/{user_id}/post/{post_id}/comment/{comment_id}/replies"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get Comment Replies"
+      tags: ["comment reply"]
+      operation_id: "Get Comment Replies"
+      description: "This endpoint enables a client to get comment replies"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.GetCommentRepliesResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc ReportCommentReply(ReportCommentReplyRequest) returns (ReportCommentReplyResponse) {
+    option (google.api.http) = {
+      post: "/v1/social/user/{user_id}/post/{post_id}/comment/{comment_id}/reply/{reply_id}/report"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Report A Comment Reply"
+      tags: ["comment reply"]
+      operation_id: "Report Comment Reply"
+      description: "This endpoint enables a client to report a comment reply"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.ReportCommentReplyResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc CreateTopic(CreateTopicRequest) returns (CreateTopicResponse) {
+    option (google.api.http) = {
+      post: "/v1/social/user/{user_id}/community/{community_profile_id}/topic"
+      body: "topic"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Create A Topic"
+      tags: ["topic"]
+      operation_id: "Delete Comment"
+      description: "This endpoint enables a client to create a topic"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.CreateTopicResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc GetTopicsOfCommunitiesUserFollows(GetTopicsOfCommunitiesUserFollowsRequest) returns (GetTopicsOfCommunitiesUserFollowsResponse) {
+    option (google.api.http) = {get: "/v1/social/user/{user_id}/topics"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get Topics Of Communities User Follows"
+      tags: ["topic"]
+      operation_id: "Get Topics"
+      description: "This endpoint enables a client to get topics of communities a user follows"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.GetTopicsOfCommunitiesUserFollowsResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc GetPendingFollows(GetPendingFollowsRequest) returns (GetPendingFollowsResponse) {
+    option (google.api.http) = {get: "/v1/social/user/{user_id}/follow/pending-requests"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get Pending Follow Requests"
+      tags: ["follow"]
+      operation_id: "Get Topics"
+      description: "This endpoint enables a client to get all the pending follow requests"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.GetPendingFollowsResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc GetFollowers(GetFollowersRequest) returns (GetFollowersResponse) {
+    option (google.api.http) = {get: "/v1/social/user/{user_id}/profile/{profile_id}/followers"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get Users Following you"
+      tags: ["follow"]
+      operation_id: "Get Topics"
+      description: "This endpoint enables a client to get all the followers following a given user"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.GetFollowersResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc GetAccountsFollowing(GetAccountsFollowingRequest) returns (GetAccountsFollowingResponse) {
+    option (google.api.http) = {get: "/v1/social/user/{user_id}/profile/{profile_id}/account-type/{account_type}/following"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get Communities and users you are following"
+      tags: ["follow"]
+      operation_id: "Get Users And Communities Following"
+      description: "This endpoint enables a client to get all the accounts a given user follows"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.GetAccountsFollowingResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc CreatePoll(CreatePollRequest) returns (CreatePollResponse) {
+    option (google.api.http) = {
+      post: "/v1/social/user/{user_id}/poll"
+      body: "poll"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Create a poll"
+      tags: ["poll"]
+      operation_id: "CreatePoll"
+      description: "This endpoint enables a client to create a poll"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.CreatePollResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc DeletePoll(DeletePollRequest) returns (DeletePollResponse) {
+    option (google.api.http) = {delete: "/v1/social/user/{user_id}/poll/{post_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Delete a poll"
+      tags: ["poll"]
+      operation_id: "DeletePoll"
+      description: "This endpoint enables a client to delete a poll"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.DeletePollResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc GetPoll(GetPollRequest) returns (GetPollResponse) {
+    option (google.api.http) = {get: "/v1/social/user/{user_id}/poll/{post_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get a poll"
+      tags: ["poll"]
+      operation_id: "GetPoll"
+      description: "This endpoint enables a client to query a poll by id"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.GetPollResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc GetPolls(GetPollsRequest) returns (GetPollsResponse) {
+    option (google.api.http) = {get: "/v1/social/user/{user_id}/polls"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get all the polls of a given user"
+      tags: ["poll"]
+      operation_id: "GetPolls"
+      description: "This endpoint enables a client to query all polls tied to a given user id"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.GetPollsResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc RespondToPoll(RespondToPollRequest) returns (RespondToPollResponse) {
+    option (google.api.http) = {
+      post: "/v1/social/user/{user_id}/poll/{poll_id}"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Adds a user response to a given poll by a user"
+      tags: ["poll"]
+      operation_id: "RespondToPoll"
+      description: "This endpoint enables a client to response to a poll"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.RespondToPollResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc CreateNote(CreateNoteRequest) returns (CreateNoteResponse) {
+    option (google.api.http) = {
+      post: "/v1/social/user/{user_id}/post/{post_id}/note"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Creates and associates a note to a given post"
+      tags: ["note"]
+      operation_id: "Create Note"
+      description: "This endpoint enables a client to create and associate a not to a post"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.CreateNoteResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc DeleteNote(DeleteNoteRequest) returns (DeleteNoteResponse) {
+    option (google.api.http) = {delete: "/v1/social/user/{user_id}/post/{post_id}/note/{note_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Delete a note"
+      tags: ["note"]
+      operation_id: "Delete Note"
+      description: "This endpoint enables a client to delete a note"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.DeleteNoteResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc EditNote(EditNoteRequest) returns (EditNoteResponse) {
+    option (google.api.http) = {
+      put: "/v1/social/user/{user_id}/post/{post_id}/note/{note_id}"
+      body: "note"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Update a note"
+      tags: ["note"]
+      operation_id: "Update Note"
+      description: "This endpoint enables a client to update a note"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.EditNoteResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc CreatePublication(CreatePublicationRequest) returns (CreatePublicationResponse) {
+    option (google.api.http) = {
+      post: "/v1/social/user/{user_id}/publication"
+      body: "publication"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Creates a publication"
+      tags: ["publication"]
+      operation_id: "Create Publication"
+      description: "This endpoint enables a client to creare a publication"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.CreatePublicationResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc GetPublication(GetPublicationRequest) returns (GetPublicationResponse) {
+    option (google.api.http) = {get: "/v1/social/user/{user_id}/publication/{publication_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Gets a publication"
+      tags: ["publication"]
+      operation_id: "Get Publication"
+      description: "This endpoint enables a client to get a publication"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.GetPublicationResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc DeletePublication(DeletePublicationRequest) returns (DeletePublicationResponse) {
+    option (google.api.http) = {delete: "/v1/social/user/{admin_user_id}/publication/{publication_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Deletes a publication"
+      tags: ["publication"]
+      operation_id: "Get Publication"
+      description: "This endpoint enables a client to delete a publication"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.DeletePublicationResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc AddPublicationEditor(AddPublicationEditorRequest) returns (AddPublicationEditorResponse) {
+    option (google.api.http) = {put: "/v1/social/user/{admin_user_id}/publication/{publication_id}/editor/{editor_user_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Adds an editor to a publication"
+      tags: ["publication"]
+      operation_id: "Add Editor To A Publication"
+      description: "This endpoint enables a client to add an editor to a publication"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.AddPublicationEditorResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc DeletePublicationEditor(DeletePublicationEditorRequest) returns (DeletePublicationEditorResponse) {
+    option (google.api.http) = {delete: "/v1/social/user/{admin_user_id}/publication/{publication_id}/editor/{editor_user_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Deletes an editor to a publication"
+      tags: ["publication"]
+      operation_id: "Delete Editor To A Publication"
+      description: "This endpoint enables a client to add an editor to a publication"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.DeletePublicationEditorResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc AddPostToPublication(AddPostToPublicationRequest) returns (AddPostToPublicationResponse) {
+    option (google.api.http) = {
+      post: "/v1/social/user/{editor_user_id}/publication/{publication_id}"
+      body: "post"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Add a post to a publication"
+      tags: ["publication"]
+      operation_id: "AddPostTo Publication"
+      description: "This endpoint enables a client to add a post to a publication"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.AddPostToPublicationResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc DeletePostFromPublication(DeletePostFromPublicationRequest) returns (DeletePostFromPublicationResponse) {
+    option (google.api.http) = {delete: "/v1/social/user/{editor_user_id}/publication/{publication_id}/post/{post_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Deletes a post from a publication"
+      tags: ["publication"]
+      operation_id: "Delete a post from a publication"
+      description: "This endpoint enables a client to delete a post from a publication"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.DeletePostFromPublicationResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc BookmarkPost(BookmarkPostRequest) returns (BookmarkPostResponse) {
+    option (google.api.http) = {post: "/v1/social/user/{user_id}/post/{post_id}/bookmark"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Bookmarks a post"
+      tags: ["bookmark"]
+      operation_id: "Bookmark a post"
+      description: "This endpoint enables a client to bookmark a post"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.BookmarkPostResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc BookmarkPublication(BookmarkPublicationRequest) returns (BookmarkPublicationResponse) {
+    option (google.api.http) = {post: "/v1/social/user/{user_id}/publication/{publication_id}/bookmark"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Bookmarks a publication"
+      tags: ["bookmark"]
+      operation_id: "Bookmark a publication"
+      description: "This endpoint enables a client to bookmark a publication"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.BookmarkPublicationResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc RemoveBookmarkedPost(RemoveBookmarkedPostRequest) returns (RemoveBookmarkedPostResponse) {
+    option (google.api.http) = {delete: "/v1/social/user/{user_id}/post/{post_id}/bookmark"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Deletes A Bookmarked Post"
+      tags: ["bookmark"]
+      operation_id: "Deletes A Bookmarked Posts"
+      description: "This endpoint enables a client to delete a bookmarked post"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.RemoveBookmarkedPostResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc RemoveBookmarkedPublication(RemoveBookmarkedPublicationRequest) returns (RemoveBookmarkedPublicationResponse) {
+    option (google.api.http) = {delete: "/v1/social/user/{user_id}/publication/{publication_id}/bookmark"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Deletes A Bookmarked Publication"
+      tags: ["bookmark"]
+      operation_id: "Deletes A Bookmarked Publication"
+      description: "This endpoint enables a client to delete a bookmarked publication"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.RemoveBookmarkedPostResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc GetBookmarkedPosts(GetBookmarkedPostsRequest) returns (GetBookmarkedPostsResponse) {
+     option (google.api.http) = {get: "/v1/social/user/bookmarks/{user_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get Bookmarked Posts"
+      tags: ["bookmarks"]
+      operation_id: "GetBookmarkedPosts"
+      description: "This endpoint enables a client to get all bookmarked posts of a given user"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v2.GetBookmarkedPostsResponse"}
+          }
+        }
+      }
+    };
+  }
+}

@@ -1,0 +1,556 @@
+syntax = "proto3";
+
+package financial_service.v1;
+
+option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/generated/financial_service/v1";
+import "protoc-gen-gorm/options/gorm.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "validate/validate.proto";
+import "gogoproto/gogo.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/any.proto";
+import "financial_service/v1/message_financial_service.proto";
+
+option (gogoproto.gostring_all) = true;
+option (gogoproto.equal_all) = true;
+option (gogoproto.verbose_equal_all) = true;
+option (gogoproto.goproto_stringer_all) = false;
+option (gogoproto.stringer_all) =  true;
+option (gogoproto.populate_all) = true;
+option (gogoproto.testgen_all) = true;
+option (gogoproto.benchgen_all) = true;
+option (gogoproto.marshaler_all) = true;
+option (gogoproto.sizer_all) = true;
+option (gogoproto.unmarshaler_all) = true;
+
+enum ReOccuringTransactionsFrequency {
+    RE_OCCURING_TRANSACTIONS_FREQUENCY_UNSPECIFIED = 0;
+    RE_OCCURING_TRANSACTIONS_FREQUENCY_WEEKLY = 1;
+    RE_OCCURING_TRANSACTIONS_FREQUENCY_BIWEEKLY = 2;
+    RE_OCCURING_TRANSACTIONS_FREQUENCY_SEMI_MONTHLY = 3;
+    RE_OCCURING_TRANSACTIONS_FREQUENCY_MONTHLY = 4;
+    RE_OCCURING_TRANSACTIONS_FREQUENCY_ANNUALLY = 5;
+}
+
+enum ReOccuringTransactionsStatus {
+    RE_OCCURING_TRANSACTIONS_STATUS_UNSPECIFIED = 0;
+    // A MATURE recurring stream should have at least 3 transactions and happen
+    //  on a regular cadence (For Annual recurring stream, we will mark it MATURE after 2 instances).
+    RE_OCCURING_TRANSACTIONS_STATUS_MATURE = 1;
+    // When a recurring transaction first appears in the transaction history and before it fulfills
+    // the requirement of a mature stream, the status will be EARLY_DETECTION.
+    RE_OCCURING_TRANSACTIONS_STATUS_EARLY_DETECTION = 2;
+    // A stream that was previously in the EARLY_DETECTION status will move to the TOMBSTONED
+    // status when no further transactions were found at the next expected date.
+    RE_OCCURING_TRANSACTIONS_STATUS_TOMBSTONED = 3;
+}
+
+
+enum ReCurringFlow {
+    RE_CURRING_FLOW_UNSPECIFIED = 0;
+    RE_CURRING_FLOW_INFLOW = 1;
+    RE_CURRING_FLOW_OUTFLOW = 2;
+}
+
+message InvestmentTransaction {
+    // @gotag: ch:"account_id"
+    string account_id = 1;
+    // @gotag: ch:"amount"
+    string ammount = 2;
+    // @gotag: ch:"investment_transaction_id"
+    string investment_transaction_id = 3;
+    // @gotag: ch:"security_id"
+    string security_id = 4;
+    // @gotag: ch:"date"
+    string current_date = 5;
+    // @gotag: ch:"name"
+    string name = 6;
+    // @gotag: ch:"quantity"
+    double quantity = 7;
+    // @gotag: ch:"amount"
+    double amount = 8;
+    // @gotag: ch:"price"
+    double price = 9;
+    // @gotag: ch:"fees"
+    double fees = 10;
+    // @gotag: ch:"type"
+    string type = 11;
+    // @gotag: ch:"subtype"
+    string subtype = 12;
+    // @gotag: ch:"iso_currency_code"
+    string iso_currency_code = 13;
+    // @gotag: ch:"unofficial_currency_code"
+    string unofficial_currency_code = 14;
+     // @gotag: ch:"link_id"
+    uint64 link_id = 15 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+        (validate.rules).uint64.gt = 0
+    ];
+    // @gotag: ch:"id"
+    string id = 16 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+    ];
+        // @gotag: ch:"user_id"
+    uint64 user_id = 17 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+        (validate.rules).uint64.gt = 0
+    ];
+
+    string created_at = 18;
+    option (gorm.opts) = {ormable: true};
+    int32 sign = 19;
+    google.protobuf.Timestamp time = 20;
+    google.protobuf.Any additional_properties = 21;
+}
+
+message ReOccuringTransaction {
+    // @gotag: ch:"account_id"
+    string account_id = 1;
+    // @gotag: ch:"stream_id"
+    string stream_id = 2;
+    // @gotag: ch:"category_id"
+    string category_id = 4;
+    // @gotag: ch:"description"
+    string description = 5;
+    // @gotag: ch:"merchant_name"
+    string merchant_name = 6;
+    // @gotag: ch:"personal_finance_category_primary"
+    string personal_finance_category_primary = 7;
+    // @gotag: ch:"personal_finance_category_detailed"
+    string personal_finance_category_detailed = 8;
+    // @gotag: ch:"first_date"
+    string first_date = 9;
+    // @gotag: ch:"last_date"
+    string last_date = 10;
+    // @gotag: ch:"frequency"
+    ReOccuringTransactionsFrequency frequency = 11;
+    // @gotag: ch:"transaction_ids,array"
+    string transaction_ids = 12;
+    // @gotag: ch:"average_amount"
+    string average_amount = 13;
+    // @gotag: ch:"average_amount_iso_currency_code"
+    string average_amount_iso_currency_code = 14;
+    // @gotag: ch:"last_amount"
+    string last_amount = 15;
+    // @gotag: ch:"last_amount_iso_currency_code"
+    string last_amount_iso_currency_code = 16;
+    // @gotag: ch:"is_active"
+    bool is_active = 17;
+    // @gotag: ch:"status"
+    ReOccuringTransactionsStatus status = 18;
+    // @gotag: ch:"updated_time"
+    string updated_time = 19;
+    // @gotag: ch:"user_id"
+    uint64 user_id = 20 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+        (validate.rules).uint64.gt = 0
+    ];
+    // @gotag: ch:"link_id"
+    uint64 link_id = 21 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+        (validate.rules).uint64.gt = 0
+    ];
+    // @gotag: ch:"id"
+    string id = 22 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+    ];
+    // @gotag: ch:"flow"
+    ReCurringFlow flow = 23;
+    option (gorm.opts) = {ormable: true};
+    int32 sign = 24;
+    google.protobuf.Timestamp time = 25;
+    google.protobuf.Any additional_properties = 26;
+}
+
+message Transaction {
+    option (gorm.opts) = {ormable: true};
+    // @gotag: ch:"account_id"
+    string account_id = 1;
+    // @gotag: ch:"amount"
+    double amount = 2;
+    // @gotag: ch:"iso_currency_code"
+    string iso_currency_code = 3;
+    // @gotag: ch:"unofficial_currency_code"
+    string unofficial_currency_code = 4;
+    // @gotag: ch:"category_id"
+    string category_id = 6;
+    // @gotag: ch:"check_number"
+    string check_number = 7;
+    // @gotag: ch:"date"
+    string current_date = 8;
+    // @gotag: ch:"datetime"
+    string current_datetime = 9;
+    // @gotag: ch:"authorized_date"
+    string authorized_date = 10;
+    // @gotag: ch:"authorized_datetime"
+    string authorized_datetime = 11;
+    // @gotag: ch:"name"
+    string name = 13;
+    // @gotag: ch:"merchant_name"
+    string merchant_name = 14;
+    // @gotag: ch:"payment_channel"
+    string payment_channel = 16;
+    // @gotag: ch:"pending"
+    bool pending = 17;
+    // @gotag: ch:"pending_transaction_id"
+    string pending_transaction_id = 18;
+    // @gotag: ch:"account_owner"
+    string account_owner = 19;
+    // @gotag: ch:"transaction_id"
+    string transaction_id = 20;
+    // @gotag: ch:"transaction_code"
+    string transaction_code = 21;
+    string id = 22 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+    ];
+    // @gotag: ch:"user_id"
+    uint64 user_id = 23 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+        (validate.rules).uint64.gt = 0
+    ];
+    // @gotag: ch:"link_id"
+    uint64 link_id = 24 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+        (validate.rules).uint64.gt = 0
+    ];
+    int32 sign = 25;
+        // @gotag: ch:"personal_finance_category_primary"
+    string personal_finance_category_primary = 26;
+    // @gotag: ch:"personal_finance_category_detailed"
+    string personal_finance_category_detailed = 27;
+    string location_address = 28;
+    string location_city = 29;
+    string location_region = 30;
+    string location_postal_code = 31;
+    string location_country = 32;
+    double location_lat = 33;
+    double location_lon = 34;
+    string location_store_number = 35;
+    string payment_meta_by_order_of = 36;
+    string payment_meta_payee = 37;
+    string payment_meta_payer = 38;
+    string payment_meta_payment_method = 39;
+    string payment_meta_payment_processor = 40;
+    string payment_meta_ppd_id = 41;
+    string payment_meta_reason = 42;
+    string payment_meta_reference_number = 43;
+    google.protobuf.Timestamp time = 44;
+    google.protobuf.Any additional_properties = 45;
+    repeated string categories = 46;
+}
+
+
+// Account Balance History
+// This message is used to represent the balance history of an account.
+message AccountBalanceHistory {
+    option (gorm.opts) = {ormable: true};
+    google.protobuf.Timestamp time = 1;
+    string account_id = 2;
+    string iso_currency_code = 3;
+    double balance = 4;
+    uint64 user_id = 5;
+    uint32 sign = 6;
+    string id = 7 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+    ];
+}
+
+// CategoryMetricsFinancialSubProfile
+// This message is used to represent the financial sub profile of a category.
+message CategoryMetricsFinancialSubProfile {
+    option (gorm.opts) = {ormable: true};
+    uint32 month = 1;
+    string personal_finance_category_primary = 2;
+    uint64 transaction_count = 3;
+    double spent_last_week = 4;
+    double spent_last_two_weeks = 5;
+    double spent_last_month = 6;
+    double spent_last_six_months = 7;
+    double spent_last_year = 8;
+    double spent_last_two_years = 9;
+    uint64 user_id = 10;
+}
+
+// CategoryMonthlyExpenditure represents the monthly expenditure of a category.
+// This message is used to represent the monthly expenditure of a category.
+message CategoryMonthlyExpenditure {
+    option (gorm.opts) = {ormable: true};
+    uint32 month = 1;
+    string personal_finance_category_primary = 2;
+    double total_spending = 3;
+    uint64 user_id = 4;
+}
+
+// CategoryMonthlyIncome
+// This message is used to represent the monthly income of a category.
+message CategoryMonthlyIncome {
+    option (gorm.opts) = {ormable: true};
+    uint32 month = 1;
+    string personal_finance_category_primary = 2;
+    double total_income = 3;
+    uint64 user_id = 4;
+}
+
+// CategoryMonthlyTransactionCount
+// This message is used to represent the monthly transaction count of a category.
+message CategoryMonthlyTransactionCount {
+    option (gorm.opts) = {ormable: true};
+    uint32 month = 1;
+    string personal_finance_category_primary = 2;
+    uint32 transaction_count = 3;
+    uint64 user_id = 4;
+}
+
+// DebtToIncomeRatio
+// This message is used to represent the debt to income ratio of a user.
+message DebtToIncomeRatio {
+    option (gorm.opts) = {ormable: true};
+    uint32 month = 1;
+    double ratio = 2;
+    uint64 user_id = 3;
+}
+
+// ExpenseMetrics
+// This message is used to represent the expense metrics of a user.
+message ExpenseMetrics {
+    option (gorm.opts) = {ormable: true};
+    uint32 month = 1;
+    string personal_finance_category_primary = 2;
+    uint64 transaction_count = 3;
+    double total_expenses = 4;
+    uint64 user_id = 8;
+}
+
+
+// ExpenseMetricsFinancialSubProfileMetrics
+// This message is used to represent the financial sub profile metrics of a user.
+message ExpenseMetricsFinancialSubProfileMetrics {
+    option (gorm.opts) = {ormable: true};
+    uint32 month = 1;
+    double spent_last_week = 2;
+    double spent_last_month = 3;
+    double spent_last_six_months = 7;
+    double average_monthly_discretionary_spending = 8;
+    double average_monthly_recurring_spending = 9;
+    uint64 user_id = 10;
+}
+
+// FinancialProfile
+// This message is used to represent the financial profile of a user.
+message FinancialProfile {
+    option (gorm.opts) = {ormable: true};
+    uint32 month = 1;
+    double total_income = 2;
+    double total_expenses = 3;
+    uint64 number_of_transactions = 5;
+    string most_expensive_category = 6;
+    uint64 user_id = 9;
+}
+
+// IncomeExpenseRatio
+// This message is used to represent the income expense ratio of a user.
+message IncomeExpenseRatio {
+    option (gorm.opts) = {ormable: true};
+    uint32 month = 1;
+    double ratio = 2;
+    uint64 user_id = 3;
+}
+
+// IncomeMetrics
+// This message is used to represent the income metrics of a user.
+message IncomeMetrics {
+    option (gorm.opts) = {ormable: true};
+    uint32 month = 1;
+    string personal_finance_category_primary = 2;
+    uint64 transaction_count = 3;
+    double total_income = 4;
+    uint64 user_id = 8;
+}
+
+// IncomeMetricsFinancialSubProfile
+// This message is used to represent the financial sub profile of a user.
+message IncomeMetricsFinancialSubProfile {
+    option (gorm.opts) = {ormable: true};
+    uint32 month = 1;
+    double income_last_two_weeks = 2;
+    double income_last_month = 3;
+    double income_last_two_months = 4;
+    double income_last_six_months = 5;
+    double income_last_year = 6;
+    uint64 user_id = 8;
+}
+
+// LocationFinancialSubProfile
+// This message is used to represent the financial sub profile of a location.
+message LocationFinancialSubProfile {
+    option (gorm.opts) = {ormable: true};
+    string location_city = 1;
+    uint64 transaction_count = 2;
+    double spent_last_week = 3;
+    double spent_last_two_weeks = 4;
+    double spent_last_month = 5;
+    double spent_last_six_months = 6;
+    double spent_last_year = 7;
+    double spent_last_two_years = 8;
+    uint64 user_id = 9;
+    uint32 month = 10;
+}
+
+// MerchantFinancialSubProfile
+// This message is used to represent the financial sub profile of a merchant.
+message MerchantMetricsFinancialSubProfile {
+    option (gorm.opts) = {ormable: true};
+    string merchant_name = 1;
+    double spent_last_week = 3;
+    double spent_last_two_weeks = 4;
+    double spent_last_month = 5;
+    double spent_last_six_months = 6;
+    double spent_last_year = 7;
+    double spent_last_two_years = 8;
+    uint64 user_id = 9;
+    uint32 month = 10;
+}
+
+// MerchantMonthlyExpenditure
+// This message is used to represent the monthly expenditure of a merchant.
+message MerchantMonthlyExpenditure {
+    option (gorm.opts) = {ormable: true};
+    uint32 month = 1;
+    string merchant_name = 2;
+    double total_spending = 3;
+    uint64 user_id = 4;
+}
+
+// MonthlyBalance
+// This message is used to represent the monthly balance of a user.
+message MonthlyBalance {
+    option (gorm.opts) = {ormable: true};
+    uint32 month = 1;
+    double net_balance = 2;
+    uint64 user_id = 3;
+}
+
+// MonthlyExpenditure
+// This message is used to represent the monthly expenditure of a user.
+message MonthlyExpenditure {
+    option (gorm.opts) = {ormable: true};
+    uint32 month = 1;
+    double total_spending = 2;
+    uint64 user_id = 3;
+}
+
+// MonthlyIncome
+// This message is used to represent the monthly income of a user.
+message MonthlyIncome {
+    option (gorm.opts) = {ormable: true};
+    uint32 month = 1;
+    double total_income = 2;
+    uint64 user_id = 3;
+}
+
+// MonthlySavings
+// This message is used to represent the monthly savings of a user.
+message MonthlySavings {
+    option (gorm.opts) = {ormable: true};
+    uint32 month = 1;
+    double net_savings = 2;
+    uint64 user_id = 3;
+}
+
+// MonthlyTotalQuantityBySecurityAndUser
+// This message is used to represent the monthly total quantity of a security.
+message MonthlyTotalQuantityBySecurityAndUser {
+    option (gorm.opts) = {ormable: true};
+    uint32 month = 1;
+    string security_id = 2;
+    double total_quantity = 3;
+    uint64 user_id = 4;
+}
+
+// MonthlyTransactionCount
+// This message is used to represent the monthly transaction count of a user.
+message MonthlyTransactionCount {
+    option (gorm.opts) = {ormable: true};
+    uint32 month = 1;
+    uint64 transaction_count = 2;
+    uint64 user_id = 3;
+}
+
+// PaymentChannelMetricsFinancialSubProfile
+// This message is used to represent the financial sub profile of a payment channel.
+message PaymentChannelMetricsFinancialSubProfile {
+    option (gorm.opts) = {ormable: true};
+    string payment_channel = 1;
+    double spent_last_week = 2;
+    double spent_last_two_weeks = 3;
+    double spent_last_month = 4;
+    double spent_last_six_months = 5;
+    double spent_last_year = 6;
+    double spent_last_two_years = 7;
+    uint64 user_id = 8;
+    uint32 month = 9;
+    uint64 transaction_count = 10;
+}
+
+// PaymentChannelMonthlyExpenditure
+// This message is used to represent the monthly expenditure of a payment channel.
+message PaymentChannelMonthlyExpenditure {
+    option (gorm.opts) = {ormable: true};
+    uint32 month = 1;
+    string payment_channel = 2;
+    double total_spending = 3;
+    uint64 user_id = 4;
+}
+
+// TotalInvestmentBySecurity
+// This message is used to represent the total investment of a security.
+message TotalInvestmentBySecurity {
+    option (gorm.opts) = {ormable: true};
+    string security_id = 1;
+    double total_investment = 2;
+    uint64 user_id = 3;
+}
+
+
+// TransactionAggregatesByMonth
+// This message is used to represent the transaction aggregates of a user.
+message TransactionAggregatesByMonth {
+    option (gorm.opts) = {ormable: true};
+    uint32 month = 1;
+    string personal_finance_category_primary = 2;
+    string location_city = 3;
+    string payment_channel = 4;
+    string merchant_name = 5;
+    uint64 transaction_count = 6;
+    double total_amount = 7;
+    uint64 user_id = 8;
+}
+
+// UserFinancialHealthMetricsTable
+// This message is used to represent the financial health metrics of a user.
+message UserFinancialHealthMetricsTable {
+    option (gorm.opts) = {ormable: true};
+    google.protobuf.Timestamp time = 1;
+    uint64 user_id = 2;
+    double monthly_income = 3;
+    double monthly_expenses = 4;
+    uint64 transaction_diversity = 5;
+    double debt_to_income_ratio = 6;
+    uint64 overdraft_frequency = 7;
+}
+
+// MelodyFinancialContext represents the financial context of a user.
+// This message is used to represent the financial context of a user.
+message MelodyFinancialContext{
+   repeated CategoryMetricsFinancialSubProfile categories = 1;
+   repeated ExpenseMetricsFinancialSubProfileMetrics expenses = 2;
+   repeated IncomeMetricsFinancialSubProfile income = 3;
+   repeated LocationFinancialSubProfile locations = 4;
+   repeated MerchantMetricsFinancialSubProfile merchants = 5;
+   repeated PaymentChannelMetricsFinancialSubProfile payment_channels = 6;
+   repeated BankAccount bank_accounts = 7;
+   repeated InvestmentAccount investment_accounts = 8;
+   repeated CreditAccount credit_accounts = 9;
+   repeated MortgageAccount mortgage_loan_accounts = 10;
+   repeated StudentLoanAccount student_loan_accounts = 11;
+}

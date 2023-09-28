@@ -1,0 +1,763 @@
+syntax = "proto3";
+
+package social_service.v2;
+
+import "gogoproto/gogo.proto";
+import "google/api/field_behavior.proto";
+import "google/protobuf/timestamp.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "validate/validate.proto";
+
+option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/generated/social_service/v2";
+option (gogoproto.gostring_all) = true;
+option (gogoproto.equal_all) = true;
+option (gogoproto.verbose_equal_all) = true;
+option (gogoproto.goproto_stringer_all) = false;
+option (gogoproto.stringer_all) =  true;
+option (gogoproto.populate_all) = true;
+option (gogoproto.testgen_all) = true;
+option (gogoproto.benchgen_all) = true;
+option (gogoproto.marshaler_all) = true;
+option (gogoproto.sizer_all) = true;
+option (gogoproto.unmarshaler_all) = true;
+
+message ContentInsights {
+  uint64 sentence_count = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "10"}];
+  uint64 word_count = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+  string language = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+  float language_confidence = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+  repeated Entities entities = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+  Sentiment sentiment = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+}
+
+message Entities {
+  string text = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+  string label = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+}
+
+message Sentiment {
+  float negative = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "30"}];
+  float neutral = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "50"}];
+  float positive = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "89"}];
+  float compound = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "93"}];
+}
+
+enum MediaResize {
+  MEDIA_RESIZE_UNSPECIFIED = 0;
+  MEDIA_RESIZE_CLIP = 1;
+  MEDIA_RESIZE_CROP = 2;
+  MEDIA_RESIZE_SCALE = 3;
+}
+
+enum MediaCrop {
+  MEDIA_CROP_UNSPECIFIED = 0;
+  MEDIA_CROP_TOP = 1;
+  MEDIA_CROP_BOTTOM = 2;
+  MEDIA_CROP_LEFT = 3;
+  MEDIA_CROP_RIGHT = 4;
+  MEDIA_CROP_CENTER = 5;
+}
+
+enum MediaType {
+  MEDIA_TYPE_UNSPECIFIED = 0;
+  MEDIA_TYPE_IMAGE = 1;
+  MEDIA_TYPE_VIDEO = 2;
+}
+
+message MediaMetadata {
+  string id = 1;
+  MediaResize resize = 2;
+  MediaCrop crop = 3;
+  int64 image_width = 4;
+  int64 image_height = 5;
+  MediaType type = 6;
+}
+
+message Media {
+  string id = 1;
+  string created_at = 2;
+  string link = 3;
+  MediaMetadata metadata = 4;
+}
+
+// PostType defines the type of content present in a post
+enum PostType {
+  POST_TYPE_UNSPECIFIED = 0;
+  POST_TYPE_POST = 1;
+  POST_TYPE_REPOST = 2;
+  POST_TYPE_QUESTION = 3;
+  POST_TYPE_ACHIEVEMENT = 4;
+  POST_TYPE_ANNOUNCEMENT = 5;
+  POST_TYPE_POLL = 6;
+  POST_TYPE_ARTICLE = 7;
+  POST_TYPE_SHORT_STORY = 8;
+}
+
+// AccountType used to differ the type of profile an operation
+// is being performed against
+enum AccountType {
+  ACCOUNT_TYPE_UNSPECIFIED = 0;
+  ACCOUNT_TYPE_USER = 1;
+  ACCOUNT_TYPE_COMMUNITY = 2;
+}
+
+enum ThreadParticipantType {
+  THREAD_PARTICIPANT_TYPE_UNSPECIFIED = 0;
+  THREAD_PARTICIPANT_TYPE_PARENT = 1;
+  THREAD_PARTICIPANT_TYPE_PARTICIPANT = 2;
+}
+
+enum Reaction {
+  REACTION_UNSPECIFIED = 0;
+  REACTION_LIKE = 1;
+  REACTION_LOVE = 2;
+  REACTION_HAHA = 3;
+  REACTION_WOW = 4;
+  REACTION_SAD = 5;
+  REACTION_ANGRY = 6;
+  REACTION_DISLIKE = 7;
+}
+
+/*
+    Posts: Critical to activities and define the content sent over by users and
+   communities
+*/
+message Post {
+  // Post ID
+  // @gotag: bson:"_id,omitempty"
+  string id = 1;
+  // Time post was created at
+  // @gotag: bson:"createdAt"
+  string created_at = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+  // PostType defines the intent of the post
+  // @gotag: bson:"action"
+  PostType action = 3 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).enum = { in: [1, 3,4, 5, 7, 8]},
+    (validate.rules).enum.defined_only = true
+  ];
+  // Content is the content the post witholds
+  // Content is a string of text that is at least 50 characters long
+  // @gotag: bson:"content"
+  string content = 4 [
+    (validate.rules).string = {min_bytes: 50},
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // Profiles mentioned in the post
+  // @gotag: bson:"mentions"
+  repeated string mentions = 5;
+  // Hashtags defined in the post
+  // @gotag: bson:"hashtags"  
+  repeated string hashtags = 6;
+  // Media associated with the post
+  // @gotag: bson:"media"
+  Media media = 7;
+  // Blob of extra content tied to the post
+  // @gotag: bson:"extra"
+  map<string, string> extra = 9;
+  // Comments tied to the post
+  // @gotag: bson:"comments"
+  repeated Comment comments = 10;
+  // ID of the user creating the post
+  // @gotag: bson:"simfinyPlatformUserId"
+  uint64 simfiny_platform_user_id = 11 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (validate.rules).uint64.gt = 0
+  ];
+  // @gotag: bson:"profileId"
+  uint64 profile_id = 12 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (validate.rules).uint64.gt = 0
+  ];
+  // @gotag: bson:"title"
+  string title = 13;
+  // @gotag: bson:"tags"
+  repeated string tags = 14;
+  // The topic to which this post is currently associated to. For non-community
+  // profiles, posts are not associated to any topic. However for the commmunity
+  // case, posts are associated to topic
+  // @gotag: bson:"topicName"
+  string topic_name = 15;
+  // Username of the person making the comment
+  // @gotag: bson:"authorUsername"
+  string author_username = 16 [(validate.rules).string.min_len = 1];
+  // Profile image of the person making this comment
+  // @gotag: bson:"authorProfileImage"
+  string author_profile_image = 17;
+  // AffinityScore is the average rating users on the platform associate with a
+  // piece of content. It is taken as the weighted average across all reactions
+  // for the particular post
+  // @gotag: bson:"affinityScore"
+  uint64 affinity_score = 18;
+  // QualityScore is the quality of the given piece of content.
+  // @gotag: bson:"qualityScore"
+  uint64 quality_score = 19;
+  // UserIDToAffinityScoreMap witholds a mapping of all user profiles who left
+  // an affinity score
+  // @gotag: bson:"userIdToAffinityScoreMap"
+  map<uint64, uint64> user_id_to_affinity_score_map = 20;
+  // @gotag: bson:"insights"
+  ContentInsights insights = 21;
+  // ReportCount details the number of reports were associated with a post
+  // A report is used as a signal to disclose the post's content are in
+  // violation of platform rules
+  // @gotag: bson:"userIdToReportsMap"
+  map<uint64, uint64> user_id_to_reports_map = 22;
+  // ReadingTime outlines the number of minutes it would take to read the
+  // contents of this post
+  // @gotag: bson:"readingTime"
+  string reading_time = 23;
+  // BackgroundImageUrl signifies an image to associate to a post object.
+  // Such urls are only associated when a post is an article or short story
+  // @gotag: bson:"backgroundImageUrl"
+  string background_image_url = 24;
+  // AccountType is the account type of the creator of this piece of
+  // content
+  // @gotag: bson:"authorAccountType"
+  AccountType author_account_type = 25 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+
+  // the set of notes associated to this piece of content
+  // @gotag: bson:"notes"
+  repeated Note notes = 30;
+
+  // a thread a is a continuation of posts associated to a singular post
+  // @gotag: bson:"thread"
+  Thread thread = 31;
+  // thread participant posts are not sent to get stream to be part of the social graph.
+  // posts that are the parent of their thread are sent to get stream to comprise the social graph
+  // @gotag: bson:"threadParticipantType"
+  ThreadParticipantType thread_participant_type = 32;
+
+  // a map of user ids to reactions left by users
+  // @gotag: bson:"userIdToReactionMap"
+  map<uint64, Reaction> user_id_to_reaction_map = 33;
+
+  // if the post is a question, this field will hold the response to the question by the ai
+  // @gotag: bson:"aiGeneratedQuestionResponse"
+  string ai_generated_question_response = 34;
+}
+
+message PollPost {
+  // Post ID
+  // @gotag: bson:"_id,omitempty"
+  string id = 1;
+  // Time post was created at
+  // @gotag: bson:"createdAt"
+  string created_at = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+  // PostType defines the intent of the post
+  // @gotag: bson:"action"
+  PostType action = 3 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).enum.const = 6,
+    (validate.rules).enum.defined_only = true
+  ];
+  // Content is the content the post witholds
+  // Content is a string of text that is at least 50 characters long
+  // @gotag: bson:"content"
+  string content = 4 [
+    (validate.rules).string = {min_bytes: 50},
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // Profiles mentioned in the post
+  // @gotag: bson:"mentions"
+  repeated string mentions = 5;
+  // Hashtags defined in the post
+  // @gotag: bson:"hashtags"
+  repeated string hashtags = 6;
+  // Media associated with the post
+  // @gotag: bson:"media"
+  Media media = 7;
+  // Blob of extra content tied to the post
+  // @gotag: bson:"extra"
+  map<string, string> extra = 9;
+  // Comments tied to the post
+  // @gotag: bson:"comments"
+  repeated Comment comments = 10;
+  // ID of the user creating the post
+  // @gotag: bson:"simfinyPlatformUserId"
+  uint64 simfiny_platform_user_id = 11 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (validate.rules).uint64.gt = 0
+  ];
+  // ID of the profile creating the post
+  // @gotag: bson:"profileId"
+  uint64 profile_id = 12 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (validate.rules).uint64.gt = 0
+  ];
+  // Title of the post
+  // @gotag: bson:"title"
+  string title = 13;
+  // Tags associated with the post
+  // @gotag: bson:"tags"
+  repeated string tags = 14;
+  // The topic to which this post is currently associated to. For non-community
+  // profiles, posts are not associated to any topic. However for the commmunity
+  // case, posts are associated to topic
+  // @gotag: bson:"topicName"
+  string topic_name = 15;
+  // Username of the person making the comment
+   // @gotag: bson:"authorUsername" 
+  string author_username = 16 [(validate.rules).string.min_len = 1];
+  // Profile image of the person making this comment
+  // @gotag: bson:"authorProfileImage"
+  string author_profile_image = 17;
+  // AffinityScore is the average rating users on the platform associate with a
+  // piece of content. It is taken as the weighted average across all reactions
+  // for the particular post
+  // @gotag: bson:"affinityScore"
+  uint64 affinity_score = 18;
+  // QualityScore is the quality of the given piece of content.
+  // It is taken as the weighted average across all reactions for the particular
+  // post
+  // @gotag: bson:"qualityScore"
+  uint64 quality_score = 19;
+  // UserIDToAffinityScoreMap witholds a mapping of all user profiles who left
+  // an affinity score
+  // @gotag: bson:"userIdToAffinityScoreMap"
+  map<uint64, uint64> user_id_to_affinity_score_map = 20;
+  // Insights is a map of all insights associated to a post
+  // @gotag: bson:"insights"
+  ContentInsights insights = 21;
+  // ReportCount details the number of reports were associated with a post
+  // A report is used as a signal to disclose the post's content are in
+  // violation of platform rules
+  // @gotag: bson:"userIdToReportsMap"
+  map<uint64, uint64> user_id_to_reports_map = 22;
+  // BackgroundImageUrl signifies an image to associate to a post object.
+  // Such urls are only associated when a post is an article or short story
+  // @gotag: bson:"backgroundImageUrl"
+  string background_image_url = 24;
+  // AccountType is the account type of the creator of this piece of
+  // content
+  // @gotag: bson:"authorAccountType"
+  AccountType author_account_type = 25 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+
+  // A hash map of user ids to poll responses left by users
+  // @gotag: bson:"userIdToPollResponseMap"
+  map<uint64, PollResponse> user_id_to_poll_responses_map = 26;
+
+  // the set of options the poll witholds
+  // @gotag: bson:"pollOptions"
+  repeated string poll_options = 27 [
+    (validate.rules).repeated.min_items = 2,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // the distribution of poll responses (in percentage form)
+  // @gotag: bson:"pollDistribution"
+  map<string, double> poll_distribution = 28;
+
+  // the end date of the given poll
+  // @gotag: bson:"pollEndDate"
+  google.protobuf.Timestamp poll_end_date = 29;
+
+  // the set of notes associated to this piece of content
+  // @gotag: bson:"notes"
+  repeated Note notes = 30;
+
+  // a thread a is a continuation of posts associated to a singular post
+  // @gotag: bson:"thread"
+  Thread thread = 31;
+  // thread participant posts are not sent to get stream to be part of the social graph.
+  // posts that are the parent of their thread are sent to get stream to comprise the social graph
+  // @gotag: bson:"threadParticipantType"
+  ThreadParticipantType thread_participant_type = 32;
+
+  // a map of user ids to reactions left by users
+  // @gotag: bson:"userIdToReactionMap"
+  map<uint64, Reaction> user_id_to_reaction_map = 33;
+}
+
+message PollResponse {
+  // the id of the poll response
+  // @gotag: bson:"_id,omitempty"
+  string id = 1;
+  // the user id who left the poll response
+  // @gotag: bson:"userId"
+  uint64 user_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (validate.rules).uint64.gt = 0
+  ];
+  // the actual poll response left by the user
+  // @gotag: bson:"responseValue"
+  string response_value = 3;
+  // the index of the given response
+  // @gotag: bson:"responseIdx"
+  uint64 response_idx = 4;
+}
+
+// SharedPost: Posts reshared by other profiles
+// TODO: need to expose api endpoints to interact with shared posts
+message SharedPost {
+  // RePost ID
+  // @gotag: bson:"_id,omitempty"
+  string id = 1;
+  // Original Post ID
+  // @gotag: bson:"originalPostId"
+  string original_post_id = 2 [
+    (validate.rules).string = {min_len: 1},
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 1,
+      example: "\"test-user\""
+    },
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // The username of the original author
+  // @gotag: bson:"originalAuthorUsername"
+  string original_author_username = 3 [(validate.rules).string.min_len = 1];
+  // Time post was created at
+  // @gotag: bson:"createdAt"
+  string created_at = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+  // Content is the content the post witholds
+  // Content is a string of text that is at least 50 characters long
+  // @gotag: bson:"content"
+  string content = 6 [
+    (validate.rules).string = {min_bytes: 50},
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // Profiles mentioned in the post
+  // @gotag: bson:"mentions"
+  repeated string mentions = 7;
+  // Hashtags defined in the post
+  // @gotag: bson:"hashtags"
+  repeated string hashtags = 8;
+  // Blob of extra content tied to the post
+  // @gotag: bson:"extra"
+  map<string, string> extra = 10;
+  // Comments tied to the post
+  // @gotag: bson:"comments"
+  repeated Comment comments = 11;
+  // ID of the user resharing the post
+  // @gotag: bson:"simfinyPlatformUserId"
+  uint64 simfiny_platform_user_id = 12 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (validate.rules).uint64.gt = 0
+  ];
+  // ID of the profile resharing the post
+  // @gotag: bson:"profileId"
+  uint64 profile_id = 13 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (validate.rules).uint64.gt = 0
+  ];
+  // Tags associated with the post
+  // @gotag: bson:"tags"
+  repeated string tags = 15;
+  // Username of the person making the comment
+  // @gotag: bson:"authorUsername"
+  string author_username = 17 [(validate.rules).string.min_len = 1];
+  // AffinityScore is the average rating users on the platform associate with a
+  // piece of content. It is taken as the weighted average across all reactions
+  // for the particular post
+  // @gotag: bson:"affinityScore"
+  uint64 affinity_score = 19;
+  // QualityScore is the quality of the given piece of content.
+  // It is taken as the weighted average across all reactions for the particular
+  // post
+  // @gotag: bson:"qualityScore"
+  uint64 quality_score = 20;
+  // UserIDToAffinityScoreMap witholds a mapping of all user profiles who left
+  // an affinity score
+  // @gotag: bson:"userIdToAffinityScoreMap"
+  map<uint64, uint64> user_id_to_affinity_score_map = 21;
+  // ReportCount details the number of reports were associated with a post
+  // A report is used as a signal to disclose the post's content are in
+  // violation of platform rules
+  // @gotag: bson:"userIdToReportsMap"
+  map<uint64, uint64> user_id_to_reports_map = 23;
+  // AccountType is the account type of the creator of this piece of
+  // content
+
+  // the set of notes associated to this piece of content
+  // @gotag: bson:"notes"
+  repeated Note notes = 24;
+
+  // a thread a is a continuation of posts associated to a singular post
+  // @gotag: bson:"thread"
+  Thread thread = 25;
+
+  // AccountType is the account type of the creator of this piece of
+  // content
+  // @gotag: bson:"authorAccountType"
+  AccountType author_account_type = 26 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+
+  // a map of user ids to reactions left by users
+  // @gotag: bson:"userIdToReactionMap"
+  map<uint64, Reaction> user_id_to_reaction_map = 34;
+
+  // PostType defines the intent of the post
+  // @gotag: bson:"action"
+  PostType action = 35 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).enum.const = 2,
+    (validate.rules).enum.defined_only = true
+  ];
+  // The profile Id of the user who owned the original post
+  // @gotag: bson:"originalPostUserProfileId"
+  uint64 originalPostUserProfileId = 36 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (validate.rules).uint64.gt = 0
+  ];
+  // The simfiny wide user id of the profile who owned the original post
+  // @gotag: bson:"originalPostUserSimfinyPlaformId"
+  uint64 originalPostUserSimfinyPlaformId = 37 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (validate.rules).uint64.gt = 0
+  ];
+
+    // originalPostType defines the intent of the post
+  // @gotag: bson:"originalPostAction"
+  PostType originalPostAction = 38 [
+    (google.api.field_behavior) = REQUIRED,
+    // original post must have an action that is not unspecified and not shared (cannot share a post that is already shared)
+    (validate.rules).enum = {in: [1,3,4,5,6,7,8]},
+    (validate.rules).enum.defined_only = true
+  ];
+}
+
+message Thread {
+  // Thread ID
+  // @gotag: bson:"_id,omitempty"
+  string id = 1;
+  // a list of post ids associated to this thread
+  // @gotag: bson:"postIds"
+  repeated string post_ids = 2;
+  // the id of the parent post
+  // @gotag: bson:"parentPostId"
+  string parent_post_id =3 [(validate.rules).string.min_len = 1];
+  // @gotag: bson:"createdAt"
+  string created_at = 4;
+  // @gotag: bson:"updatedAt"
+  string updated_at = 5;
+}
+
+// A note is a response a user can leave on another user's piece of content. Notes can
+// only be seen by the user who created the content (private) and should serve as some form of
+// intimate feedback protocol
+message Note {
+  // Note ID
+  // @gotag: bson:"_id,omitempty"
+  string id = 1;
+  // Platform wide ID of the user creating the note
+  // @gotag: bson:"simfinyPlatformUserId"
+  uint64 simfiny_platform_user_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (validate.rules).uint64.gt = 0
+  ];
+  // ID of either the user profile or the community profile creating the note
+  // @gotag: bson:"profileId"
+  uint64 profile_id = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (validate.rules).uint64.gt = 0
+  ];
+  // Media payload tied to the note
+  // @gotag: bson:"media"
+  Media media = 4;
+  // Profiles mentioned in the note - NOTE: only the creator of the article whom this
+  // note is attached to and the mentioned members will be notified. Additionally, this note
+  // will only be viewable by those folks
+  // @gotag: bson:"mentions"
+  repeated string mentions = 6;
+  // Hashtags defined in the note
+  // @gotag: bson:"hashtags"
+  repeated string hashtags = 7;
+  // Time when the note was created
+  // @gotag: bson:"createdAt"
+  string created_at = 8;
+  // Content defining the note
+  // @gotag: bson:"content"
+  string content = 9 [
+    (validate.rules).string = {min_bytes: 50},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // AccountType is the account type of the creator of this piece of
+  // content
+  // @gotag: bson:"authorAccountType"
+  AccountType author_account_type = 23 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+
+  // Username of the person making the note
+  // @gotag: bson:"authorUserName"
+  string author_user_name = 24 [
+    (validate.rules).string = {min_bytes: 1},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // Profile image of the person making this note
+  // @gotag: bson:"authorProfileImage"
+  string author_profile_image = 25 [
+    (validate.rules).string = {min_bytes: 1},
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message Comment {
+  // Comment ID
+  // @gotag: bson:"_id,omitempty"
+  string id = 1;
+  // Platform wide ID of the user creating the comment
+  // @gotag: bson:"simfinyPlatformUserId"
+  uint64 simfiny_platform_user_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (validate.rules).uint64.gt = 0
+  ];
+  // ID of either the user profile or the community profile creating the comment
+  // @gotag: bson:"profileId"
+  uint64 profile_id = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (validate.rules).uint64.gt = 0
+  ];
+  // Media payload tied to the comment
+  // @gotag: bson:"media"
+  Media media = 4;
+  // Profiles mentioned in the comment
+  // @gotag: bson:"mentions"
+  repeated string mentions = 6;
+  // Hashtags defined in the comment
+  // @gotag: bson:"hashtags"
+  repeated string hashtags = 7;
+  // Time when the comment was created
+  // @gotag: bson:"createdAt"
+  string created_at = 8;
+  // Content defining the comment
+  // @gotag: bson:"content"
+  string content = 9;
+  // Responses to a given comment
+  // @gotag: bson:"replies"
+  repeated CommentReply replies = 10;
+  // Blob of extra content tied to the comment
+  // @gotag: bson:"extra"
+  map<string, string> extra = 11;
+  // Username of the person making the comment
+  // @gotag: bson:"authorUsername"
+  string author_username = 12 [
+    (validate.rules).string = {min_bytes: 1},
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 1,
+      example: "\"test-user\""
+    },
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // Profile image of the person making this comment
+  // @gotag: bson:"authorProfileImage"
+  string author_profile_image = 13 [
+    (validate.rules).string = {min_bytes: 1},
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 1,
+      example: "\"test-user\""
+    },
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // AffinityScore is the average rating users on the platform associate with a
+  // piece of content. It is taken as the weighted average across all reactions
+  // for the particular post
+  // @gotag: bson:"affinityScore"
+  uint64 affinity_score = 14;
+  // QualityScore is the quality of the given piece of content.
+  // It is taken as the weighted average across all reactions for the particular
+  // post
+  // @gotag: bson:"qualityScore"
+  uint64 quality_score = 15;
+  // UserIDToAffinityScoreMap witholds a mapping of all user profiles who left
+  // an affinity score
+  // @gotag: bson:"userIdToAffinityScoreMap"
+  map<uint64, uint64> user_id_to_affinity_score_map = 16;
+  // ReportCount details the number of reports were associated with a post
+  // A report is used as a signal to disclose the post's content are in
+  // violation of platform rules
+  // @gotag: bson:"userIdToReportsMap"
+  map<uint64, uint64> user_id_to_reports_map = 22;
+  // AccountType is the account type of the creator of this piece of
+  // content
+  // @gotag: bson:"authorAccountType"
+  AccountType author_account_type = 23 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+
+  // a map of user ids to reactions left by users
+  // @gotag: bson:"userIdToReactionMap"
+  map<uint64, Reaction> user_id_to_reaction_map = 24;
+  // the set of notes associated to this piece of content
+  // @gotag: bson:"notes"
+  repeated Note notes = 25;
+}
+
+message CommentReply {
+  // Response ID
+  // @gotag: bson:"_id,omitempty"
+  string id = 1;
+  // ID of the user creating the comment response
+  // @gotag: bson:"simfinyPlatformUserId"
+  uint64 simfiny_platform_user_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (validate.rules).uint64.gt = 0
+  ];
+  // ID of either the user profile or the community profile creating the comment response
+  // @gotag: bson:"profileId"
+  uint64 profile_id = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (validate.rules).uint64.gt = 0
+  ];
+  // Media payload associated to the response
+  // @gotag: bson:"media"
+  Media media = 4;
+  // Profiles mentioned in the comment
+  // @gotag: bson:"mentions"
+  repeated string mentions = 6;
+  // Hashtags defined in the comment
+  // @gotag: bson:"hashtags"
+  repeated string hashtags = 7;
+  // Time when the comment was created
+  // @gotag: bson:"createdAt"
+  string created_at = 8;
+  // Content defining the comment
+  // @gotag: bson:"content"
+  string content = 9;
+  // Blob of extra content tied to the comment response
+  // @gotag: bson:"extra"
+  map<string, string> extra = 10;
+  // Username of the person making the comment
+  // @gotag: bson:"authorUsername"
+  string author_username = 11 [
+    (validate.rules).string = {min_bytes: 1},
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 1,
+      example: "\"test-user\""
+    },
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // Profile image of the person making this comment
+  // @gotag: bson:"authorProfileImage"
+  string author_profile_image = 12 [
+    (validate.rules).string = {min_bytes: 1},
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 1,
+      example: "\"test-user\""
+    },
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // AffinityScore is the average rating users on the platform associate with a
+  // piece of content. It is taken as the weighted average across all reactions
+  // for the particular post
+  // @gotag: bson:"affinityScore"
+  uint64 affinity_score = 14;
+  // QualityScore is the quality of the given piece of content.
+  // It is taken as the weighted average across all reactions for the particular
+  // post
+  // @gotag: bson:"qualityScore"
+  uint64 quality_score = 15;
+  // UserIDToAffinityScoreMap witholds a mapping of all user profiles who left
+  // an affinity score
+  // @gotag: bson:"userIdToAffinityScoreMap"
+  map<uint64, uint64> user_id_to_affinity_score_map = 16;
+  // AccountType is the account type of the creator of this piece of
+  // content
+  // @gotag: bson:"authorAccountType"
+  AccountType author_account_type = 17 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+
+  // a map of user ids to reactions left by users
+  // @gotag: bson:"userIdToReactionMap"
+  map<uint64, Reaction> user_id_to_reaction_map = 18;
+
+  // the report count for this comment reply
+  // @gotag: bson:"userIdToReportsMap"
+  map<uint64, uint64> user_id_to_reports_map = 22;
+}
