@@ -8,7 +8,6 @@
     "lint": "npm run lint:eslint && npm run lint:ts",
     "lint:fix": "npm run lint:eslint -- --fix",
     "test": "vitest run",
-    "prepare": "husky install",
     "commit": "commit"
   },
   "type": "module",
@@ -39,7 +38,7 @@
     "@semantic-release/release-notes-generator": "12.0.0",
     "eslint-config-prettier": "8.10.0",
     "eslint-plugin-prettier": "4.2.1",
-    "husky": "8.0.3",
+    "husky": "^8.0.3",
     "prettier": "2.8.8",
     "semantic-release": "22.0.5",
     "typescript": "5.1.6",
