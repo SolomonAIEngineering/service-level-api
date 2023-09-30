@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/SolomonAIEngineering/service-proto-definitions/compare/v1.0.0...v1.0.1) (2023-09-30)
+
+
+### Bug Fixes
+
+* fix build configuration ([9309c44](https://github.com/SolomonAIEngineering/service-proto-definitions/commit/9309c445ff27a89fc23e941509be961038edff66))
+
 ## 1.0.0 (2023-09-30)
 
 
