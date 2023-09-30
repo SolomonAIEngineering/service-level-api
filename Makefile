@@ -109,5 +109,7 @@ fmt:
 lint: 
 	golangci-lint run ./...
 
-test: fmt lint
+test: 
 	set -o pipefail && go test -v ./... -json | tparse -all
+
+precommit: fmt lint test
