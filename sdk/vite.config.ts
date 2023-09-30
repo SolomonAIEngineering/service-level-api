@@ -1,63 +1,58 @@
-import { resolve } from "path";
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import tsconfigPaths from 'vite-tsconfig-paths';
+import path from 'path';
+import { typescriptPaths } from 'rollup-plugin-typescript-paths';
+import typescript from '@rollup/plugin-typescript';
 
-import dts from "vite-plugin-dts";
-import { defineConfig } from "vitest/config";
-
-// import packageJson from "./package.json";
-
-// eslint-disable-next-line import/no-default-export
+// https://vitejs.dev/config/
 export default defineConfig({
-	build: {
-		lib: {
-			entry: resolve(__dirname, "src/index.ts"),
-			name: "YourProjectName",
-			fileName: "your-project-name",
-		},
-		rollupOptions: {
-			/**
-			 * Uncomment these lines (and import above) if you add any direct or peer dependencies.
-			 * This ensures they are not included directly in package but instead imported from node modules
-			 */
-			// external: Object.keys(packageJson.dependencies).flatMap((dep) => [
-			// 	dep,
-			// 	// Include all dependency paths, not just root
-			// 	new RegExp(`^${dep}/`),
-			// ]),
-			output: {
-				// Ensure we can tree-shake properly
-				preserveModules: true,
-				// Ensures import/require works in all environments
-				interop: "auto",
-				// Must be `false` for `preserveModules: true`
-				inlineDynamicImports: false,
-			},
-
-			/**
-			 * The Rollup building process does not break on some warning, this one ensures it returns
-			 * correct exit status code so the GitHub Actions can break.
-			 */
-			onwarn(warning) {
-				throw Object.assign(new Error(), warning);
-			},
-		},
-		commonjsOptions: {
-			// Assumes all external dependencies are ESM dependencies. Just ensures
-			// we then import those dependencies correctly in CJS as well.
-			esmExternals: true,
-		},
-	},
-	test: {
-		globals: true,
-	},
-	plugins: [
-		dts({
-			afterDiagnostic: (diagnostics) => {
-				if (diagnostics.length > 0) {
-					throw new Error("Have issues with generating types", {
-						cause: diagnostics,
-					});
-				}
-			},
-		}),
-	],
+  base: './',
+  plugins: [tsconfigPaths(), react()],
+  resolve: {
+    alias: [
+      {
+        find: '~',
+        replacement: path.resolve(__dirname, './src'),
+      },
+      {
+        find: '@',
+        replacement: path.resolve(__dirname, './src'),
+      },
+    ],
+  },
+  server: {
+    port: 3000,
+  },
+  build: {
+    manifest: true,
+    minify: true,
+    reportCompressedSize: true,
+    sourcemap: true,
+    lib: {
+      entry: path.resolve(__dirname, 'src/index.ts'),
+      name: 'index',
+      formats: ['es', 'cjs', 'umd', 'iife'],
+      fileName: (format) => `main.${format}.js`,
+    },
+    rollupOptions: {
+      external: ['react', 'react-dom'],
+      output: {
+        globals: {
+          react: 'React',
+          'react-dom': 'ReactDOM',
+        },
+      },
+      plugins: [
+        typescriptPaths({
+          preserveExtensions: true,
+        }),
+        typescript({
+          sourceMap: true,
+          declaration: true,
+          outDir: 'dist',
+        }),
+      ],
+    },
+  },
 });
