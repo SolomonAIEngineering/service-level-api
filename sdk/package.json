@@ -1,5 +1,5 @@
 {
-  "name": "@lokalise/your-project-name",
+  "name": "@solomon-ai/data-contracts",
   "version": "1.0.0",
   "scripts": {
     "build": "vite build",
@@ -14,12 +14,12 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/your-project-name.umd.cjs",
-  "module": "./dist/your-project-name.js",
+  "main": "./dist/data-contracts.umd.cjs",
+  "module": "./dist/data-contracts.js",
   "exports": {
     ".": {
-      "import": "./dist/your-project-name.js",
-      "require": "./dist/your-project-name.umd.cjs"
+      "import": "./dist/data-contracts.js",
+      "require": "./dist/data-contracts.umd.cjs"
     }
   },
   "publishConfig": {
