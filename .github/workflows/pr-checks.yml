@@ -3,7 +3,7 @@ on: pull_request
 
 defaults:
  run:
-  working-directory: ./sdk
+  working-directory: ./component-library
 
 jobs:
   pr-checks-build:

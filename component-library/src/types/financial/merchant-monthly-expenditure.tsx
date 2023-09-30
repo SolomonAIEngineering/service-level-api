@@ -1,0 +1,44 @@
+/**
+ * Represents the monthly expenditure of a merchant.
+ *
+ * @remarks
+ * This class encapsulates the monthly financial metrics related to a specific merchant's transactions. It provides insights into how much a user spends with a particular merchant on a monthly basis.
+ *
+ * @example Constructing a `MerchantMonthlyExpenditure` instance:
+ *
+ * ```ts
+ * const expenditureData = {
+ *   month: 7,
+ *   merchantName: 'Amazon',
+ *   totalSpending: 500,
+ *   userId: 12345,
+ * };
+ *
+ * const monthlyExpenditure = new MerchantMonthlyExpenditure(expenditureData);
+ * ```
+ *
+ * @property month - The month for which this expenditure is reported.
+ * @property merchantName - The name of the merchant.
+ * @property totalSpending - The total amount spent with the merchant during the month.
+ * @property userId - The user ID associated with this expenditure.
+ */
+class MerchantMonthlyExpenditure {
+  month: number;
+  merchantName: string;
+  totalSpending: number;
+  userId: number;
+
+  /**
+   * Constructs a new MerchantMonthlyExpenditure instance.
+   *
+   * @param data - Initialization data for the merchant monthly expenditure.
+   */
+  constructor(data: Partial<MerchantMonthlyExpenditure> = {}) {
+    this.month = data.month ?? 0;
+    this.merchantName = data.merchantName ?? '';
+    this.totalSpending = data.totalSpending ?? 0;
+    this.userId = data.userId ?? 0;
+  }
+}
+
+export { MerchantMonthlyExpenditure };

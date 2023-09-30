@@ -9,7 +9,7 @@ permissions:
 
 defaults:
  run:
-  working-directory: ./sdk
+  working-directory: ./component-library
   
 jobs:
   release:

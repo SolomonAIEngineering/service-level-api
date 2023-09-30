@@ -1,5 +1,5 @@
 {
-  "name": "@solomon-ai/data-contracts",
+  "name": "SolomonAIComponentLibrary",
   "version": "1.0.0",
   "scripts": {
     "build": "vite build",
@@ -14,12 +14,12 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/data-contracts.umd.cjs",
-  "module": "./dist/data-contracts.js",
+  "main": "./dist/SolomonAIComponentLibrary.umd.cjs",
+  "module": "./dist/SolomonAIComponentLibrary.js",
   "exports": {
     ".": {
-      "import": "./dist/data-contracts.js",
-      "require": "./dist/data-contracts.umd.cjs"
+      "import": "./dist/SolomonAIComponentLibrary.js",
+      "require": "./dist/SolomonAIComponentLibrary.umd.cjs"
     }
   },
   "publishConfig": {

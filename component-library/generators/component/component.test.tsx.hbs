@@ -1,0 +1,41 @@
+import React from 'react';
+import { render, screen, fireEvent } from '@testing-library/react';
+import {{properCase name}} from './{{name}}'; // Adjust path accordingly
+
+describe('{{properCase name}}', () => {
+test('renders greeting and default counter', () => {
+render(
+<{{properCase name}} data="Test Data" />);
+expect(screen.getByText(/Hello from {{properCase name}}!/i)).toBeInTheDocument();
+// Adjust other assertions as required for the component specifics
+});
+
+test('increments counter on button click', () => {
+render(
+<{{properCase name}} data="Test Data" />);
+const button = screen.getByText(/Increment/i);
+fireEvent.click(button);
+expect(screen.getByText(/Counter: 1/i)).toBeInTheDocument();
+});
+
+test('renders passed data prop', () => {
+render(
+<{{properCase name}} data="Custom Test Data" />);
+expect(screen.getByText(/Custom Test Data/i)).toBeInTheDocument();
+});
+
+test('uses default context value', () => {
+render(
+<{{properCase name}} data="Test Data" />);
+expect(screen.getByText(/defaultContextValue/i)).toBeInTheDocument();
+});
+
+test('applies custom className', () => {
+render(
+<{{properCase name}} data="Test Data" className="custom-class" />);
+const divElement = screen.getByText(
+/Hello from {{properCase name}}!/i,
+).parentElement;
+expect(divElement).toHaveClass('custom-class');
+});
+});
