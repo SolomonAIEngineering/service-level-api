@@ -1,3 +1,10 @@
+## [1.3.0](https://github.com/SolomonAIEngineering/service-proto-definitions/compare/v1.2.0...v1.3.0) (2023-09-30)
+
+
+### Features
+
+* update permissions ([567421f](https://github.com/SolomonAIEngineering/service-proto-definitions/commit/567421fc3b878e05eab290aec315ffe0f852a525))
+
 ## [1.2.0](https://github.com/SolomonAIEngineering/service-proto-definitions/compare/v1.1.0...v1.2.0) (2023-09-30)
 
 
