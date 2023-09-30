@@ -1,3 +1,22 @@
+## [1.1.0](https://github.com/SolomonAIEngineering/service-proto-definitions/compare/v1.0.0...v1.1.0) (2023-09-30)
+
+
+### Features
+
+* add component library for proper deployment to npm registry ([ec70ef5](https://github.com/SolomonAIEngineering/service-proto-definitions/commit/ec70ef59a51408fa4b24cd44f6016d165bc31c51))
+* check ([fb3d14d](https://github.com/SolomonAIEngineering/service-proto-definitions/commit/fb3d14d8ad70ba54a4ae0fabfbcaa80331b22bf6))
+* checkpoint ([eba9e90](https://github.com/SolomonAIEngineering/service-proto-definitions/commit/eba9e90cb93ae18689320554c772675a57cc16aa))
+* update package.lock file ([3367042](https://github.com/SolomonAIEngineering/service-proto-definitions/commit/336704257d3e34c9ee5cba63c31c2f75d9041915))
+* update test script ([431fb72](https://github.com/SolomonAIEngineering/service-proto-definitions/commit/431fb72b1bc32a231e9369baa4aa2f9df95fe9f0))
+
+
+### Bug Fixes
+
+* fix build configuration ([9309c44](https://github.com/SolomonAIEngineering/service-proto-definitions/commit/9309c445ff27a89fc23e941509be961038edff66))
+* fixing component library build ([74aba30](https://github.com/SolomonAIEngineering/service-proto-definitions/commit/74aba30c4d584d9095cdb6ed61a11e49db6b9f71))
+* semantic release ([8594185](https://github.com/SolomonAIEngineering/service-proto-definitions/commit/8594185135c290aa42575272d138752e6ac1a75a))
+* semantic release ([36cf8cf](https://github.com/SolomonAIEngineering/service-proto-definitions/commit/36cf8cf11861691c0a59eb6a698de662f2f6e8fd))
+
 ## 1.0.0 (2023-09-30)
 
 
