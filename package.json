@@ -7,7 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "cd component-library && npm run build",
+    "test": "cd component-library && npm run test",
     "prepare": "husky install"
   },
   "author": "",
