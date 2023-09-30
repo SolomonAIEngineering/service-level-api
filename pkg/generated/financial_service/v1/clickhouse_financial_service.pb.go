@@ -198,39 +198,39 @@ type InvestmentTransaction struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @gotag: ch:"account_id"
-	AccountId string `protobuf:"bytes,1,opt,name=account_id,json=accountId,proto3" json:"account_id,omitempty" ch:"account_id"`
+	AccountId string `protobuf:"bytes,1,opt,name=account_id,json=accountId,proto3" json:"account_id,omitempty"`
 	// @gotag: ch:"amount"
-	Ammount string `protobuf:"bytes,2,opt,name=ammount,proto3" json:"ammount,omitempty" ch:"amount"`
+	Ammount string `protobuf:"bytes,2,opt,name=ammount,proto3" json:"ammount,omitempty"`
 	// @gotag: ch:"investment_transaction_id"
-	InvestmentTransactionId string `protobuf:"bytes,3,opt,name=investment_transaction_id,json=investmentTransactionId,proto3" json:"investment_transaction_id,omitempty" ch:"investment_transaction_id"`
+	InvestmentTransactionId string `protobuf:"bytes,3,opt,name=investment_transaction_id,json=investmentTransactionId,proto3" json:"investment_transaction_id,omitempty"`
 	// @gotag: ch:"security_id"
-	SecurityId string `protobuf:"bytes,4,opt,name=security_id,json=securityId,proto3" json:"security_id,omitempty" ch:"security_id"`
+	SecurityId string `protobuf:"bytes,4,opt,name=security_id,json=securityId,proto3" json:"security_id,omitempty"`
 	// @gotag: ch:"date"
-	CurrentDate string `protobuf:"bytes,5,opt,name=current_date,json=currentDate,proto3" json:"current_date,omitempty" ch:"date"`
+	CurrentDate string `protobuf:"bytes,5,opt,name=current_date,json=currentDate,proto3" json:"current_date,omitempty"`
 	// @gotag: ch:"name"
-	Name string `protobuf:"bytes,6,opt,name=name,proto3" json:"name,omitempty" ch:"name"`
+	Name string `protobuf:"bytes,6,opt,name=name,proto3" json:"name,omitempty"`
 	// @gotag: ch:"quantity"
-	Quantity float64 `protobuf:"fixed64,7,opt,name=quantity,proto3" json:"quantity,omitempty" ch:"quantity"`
+	Quantity float64 `protobuf:"fixed64,7,opt,name=quantity,proto3" json:"quantity,omitempty"`
 	// @gotag: ch:"amount"
-	Amount float64 `protobuf:"fixed64,8,opt,name=amount,proto3" json:"amount,omitempty" ch:"amount"`
+	Amount float64 `protobuf:"fixed64,8,opt,name=amount,proto3" json:"amount,omitempty"`
 	// @gotag: ch:"price"
-	Price float64 `protobuf:"fixed64,9,opt,name=price,proto3" json:"price,omitempty" ch:"price"`
+	Price float64 `protobuf:"fixed64,9,opt,name=price,proto3" json:"price,omitempty"`
 	// @gotag: ch:"fees"
-	Fees float64 `protobuf:"fixed64,10,opt,name=fees,proto3" json:"fees,omitempty" ch:"fees"`
+	Fees float64 `protobuf:"fixed64,10,opt,name=fees,proto3" json:"fees,omitempty"`
 	// @gotag: ch:"type"
-	Type string `protobuf:"bytes,11,opt,name=type,proto3" json:"type,omitempty" ch:"type"`
+	Type string `protobuf:"bytes,11,opt,name=type,proto3" json:"type,omitempty"`
 	// @gotag: ch:"subtype"
-	Subtype string `protobuf:"bytes,12,opt,name=subtype,proto3" json:"subtype,omitempty" ch:"subtype"`
+	Subtype string `protobuf:"bytes,12,opt,name=subtype,proto3" json:"subtype,omitempty"`
 	// @gotag: ch:"iso_currency_code"
-	IsoCurrencyCode string `protobuf:"bytes,13,opt,name=iso_currency_code,json=isoCurrencyCode,proto3" json:"iso_currency_code,omitempty" ch:"iso_currency_code"`
+	IsoCurrencyCode string `protobuf:"bytes,13,opt,name=iso_currency_code,json=isoCurrencyCode,proto3" json:"iso_currency_code,omitempty"`
 	// @gotag: ch:"unofficial_currency_code"
-	UnofficialCurrencyCode string `protobuf:"bytes,14,opt,name=unofficial_currency_code,json=unofficialCurrencyCode,proto3" json:"unofficial_currency_code,omitempty" ch:"unofficial_currency_code"`
+	UnofficialCurrencyCode string `protobuf:"bytes,14,opt,name=unofficial_currency_code,json=unofficialCurrencyCode,proto3" json:"unofficial_currency_code,omitempty"`
 	// @gotag: ch:"link_id"
-	LinkId uint64 `protobuf:"varint,15,opt,name=link_id,json=linkId,proto3" json:"link_id,omitempty" ch:"link_id"`
+	LinkId uint64 `protobuf:"varint,15,opt,name=link_id,json=linkId,proto3" json:"link_id,omitempty"`
 	// @gotag: ch:"id"
-	Id string `protobuf:"bytes,16,opt,name=id,proto3" json:"id,omitempty" ch:"id"`
+	Id string `protobuf:"bytes,16,opt,name=id,proto3" json:"id,omitempty"`
 	// @gotag: ch:"user_id"
-	UserId               uint64                 `protobuf:"varint,17,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty" ch:"user_id"`
+	UserId               uint64                 `protobuf:"varint,17,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	CreatedAt            string                 `protobuf:"bytes,18,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
 	Sign                 int32                  `protobuf:"varint,19,opt,name=sign,proto3" json:"sign,omitempty"`
 	Time                 *timestamppb.Timestamp `protobuf:"bytes,20,opt,name=time,proto3" json:"time,omitempty"`
@@ -422,49 +422,49 @@ type ReOccuringTransaction struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @gotag: ch:"account_id"
-	AccountId string `protobuf:"bytes,1,opt,name=account_id,json=accountId,proto3" json:"account_id,omitempty" ch:"account_id"`
+	AccountId string `protobuf:"bytes,1,opt,name=account_id,json=accountId,proto3" json:"account_id,omitempty"`
 	// @gotag: ch:"stream_id"
-	StreamId string `protobuf:"bytes,2,opt,name=stream_id,json=streamId,proto3" json:"stream_id,omitempty" ch:"stream_id"`
+	StreamId string `protobuf:"bytes,2,opt,name=stream_id,json=streamId,proto3" json:"stream_id,omitempty"`
 	// @gotag: ch:"category_id"
-	CategoryId string `protobuf:"bytes,4,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty" ch:"category_id"`
+	CategoryId string `protobuf:"bytes,4,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
 	// @gotag: ch:"description"
-	Description string `protobuf:"bytes,5,opt,name=description,proto3" json:"description,omitempty" ch:"description"`
+	Description string `protobuf:"bytes,5,opt,name=description,proto3" json:"description,omitempty"`
 	// @gotag: ch:"merchant_name"
-	MerchantName string `protobuf:"bytes,6,opt,name=merchant_name,json=merchantName,proto3" json:"merchant_name,omitempty" ch:"merchant_name"`
+	MerchantName string `protobuf:"bytes,6,opt,name=merchant_name,json=merchantName,proto3" json:"merchant_name,omitempty"`
 	// @gotag: ch:"personal_finance_category_primary"
-	PersonalFinanceCategoryPrimary string `protobuf:"bytes,7,opt,name=personal_finance_category_primary,json=personalFinanceCategoryPrimary,proto3" json:"personal_finance_category_primary,omitempty" ch:"personal_finance_category_primary"`
+	PersonalFinanceCategoryPrimary string `protobuf:"bytes,7,opt,name=personal_finance_category_primary,json=personalFinanceCategoryPrimary,proto3" json:"personal_finance_category_primary,omitempty"`
 	// @gotag: ch:"personal_finance_category_detailed"
-	PersonalFinanceCategoryDetailed string `protobuf:"bytes,8,opt,name=personal_finance_category_detailed,json=personalFinanceCategoryDetailed,proto3" json:"personal_finance_category_detailed,omitempty" ch:"personal_finance_category_detailed"`
+	PersonalFinanceCategoryDetailed string `protobuf:"bytes,8,opt,name=personal_finance_category_detailed,json=personalFinanceCategoryDetailed,proto3" json:"personal_finance_category_detailed,omitempty"`
 	// @gotag: ch:"first_date"
-	FirstDate string `protobuf:"bytes,9,opt,name=first_date,json=firstDate,proto3" json:"first_date,omitempty" ch:"first_date"`
+	FirstDate string `protobuf:"bytes,9,opt,name=first_date,json=firstDate,proto3" json:"first_date,omitempty"`
 	// @gotag: ch:"last_date"
-	LastDate string `protobuf:"bytes,10,opt,name=last_date,json=lastDate,proto3" json:"last_date,omitempty" ch:"last_date"`
+	LastDate string `protobuf:"bytes,10,opt,name=last_date,json=lastDate,proto3" json:"last_date,omitempty"`
 	// @gotag: ch:"frequency"
-	Frequency ReOccuringTransactionsFrequency `protobuf:"varint,11,opt,name=frequency,proto3,enum=financial_service.v1.ReOccuringTransactionsFrequency" json:"frequency,omitempty" ch:"frequency"`
+	Frequency ReOccuringTransactionsFrequency `protobuf:"varint,11,opt,name=frequency,proto3,enum=financial_service.v1.ReOccuringTransactionsFrequency" json:"frequency,omitempty"`
 	// @gotag: ch:"transaction_ids,array"
-	TransactionIds string `protobuf:"bytes,12,opt,name=transaction_ids,json=transactionIds,proto3" json:"transaction_ids,omitempty" ch:"transaction_ids,array"`
+	TransactionIds string `protobuf:"bytes,12,opt,name=transaction_ids,json=transactionIds,proto3" json:"transaction_ids,omitempty"`
 	// @gotag: ch:"average_amount"
-	AverageAmount string `protobuf:"bytes,13,opt,name=average_amount,json=averageAmount,proto3" json:"average_amount,omitempty" ch:"average_amount"`
+	AverageAmount string `protobuf:"bytes,13,opt,name=average_amount,json=averageAmount,proto3" json:"average_amount,omitempty"`
 	// @gotag: ch:"average_amount_iso_currency_code"
-	AverageAmountIsoCurrencyCode string `protobuf:"bytes,14,opt,name=average_amount_iso_currency_code,json=averageAmountIsoCurrencyCode,proto3" json:"average_amount_iso_currency_code,omitempty" ch:"average_amount_iso_currency_code"`
+	AverageAmountIsoCurrencyCode string `protobuf:"bytes,14,opt,name=average_amount_iso_currency_code,json=averageAmountIsoCurrencyCode,proto3" json:"average_amount_iso_currency_code,omitempty"`
 	// @gotag: ch:"last_amount"
-	LastAmount string `protobuf:"bytes,15,opt,name=last_amount,json=lastAmount,proto3" json:"last_amount,omitempty" ch:"last_amount"`
+	LastAmount string `protobuf:"bytes,15,opt,name=last_amount,json=lastAmount,proto3" json:"last_amount,omitempty"`
 	// @gotag: ch:"last_amount_iso_currency_code"
-	LastAmountIsoCurrencyCode string `protobuf:"bytes,16,opt,name=last_amount_iso_currency_code,json=lastAmountIsoCurrencyCode,proto3" json:"last_amount_iso_currency_code,omitempty" ch:"last_amount_iso_currency_code"`
+	LastAmountIsoCurrencyCode string `protobuf:"bytes,16,opt,name=last_amount_iso_currency_code,json=lastAmountIsoCurrencyCode,proto3" json:"last_amount_iso_currency_code,omitempty"`
 	// @gotag: ch:"is_active"
-	IsActive bool `protobuf:"varint,17,opt,name=is_active,json=isActive,proto3" json:"is_active,omitempty" ch:"is_active"`
+	IsActive bool `protobuf:"varint,17,opt,name=is_active,json=isActive,proto3" json:"is_active,omitempty"`
 	// @gotag: ch:"status"
-	Status ReOccuringTransactionsStatus `protobuf:"varint,18,opt,name=status,proto3,enum=financial_service.v1.ReOccuringTransactionsStatus" json:"status,omitempty" ch:"status"`
+	Status ReOccuringTransactionsStatus `protobuf:"varint,18,opt,name=status,proto3,enum=financial_service.v1.ReOccuringTransactionsStatus" json:"status,omitempty"`
 	// @gotag: ch:"updated_time"
-	UpdatedTime string `protobuf:"bytes,19,opt,name=updated_time,json=updatedTime,proto3" json:"updated_time,omitempty" ch:"updated_time"`
+	UpdatedTime string `protobuf:"bytes,19,opt,name=updated_time,json=updatedTime,proto3" json:"updated_time,omitempty"`
 	// @gotag: ch:"user_id"
-	UserId uint64 `protobuf:"varint,20,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty" ch:"user_id"`
+	UserId uint64 `protobuf:"varint,20,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	// @gotag: ch:"link_id"
-	LinkId uint64 `protobuf:"varint,21,opt,name=link_id,json=linkId,proto3" json:"link_id,omitempty" ch:"link_id"`
+	LinkId uint64 `protobuf:"varint,21,opt,name=link_id,json=linkId,proto3" json:"link_id,omitempty"`
 	// @gotag: ch:"id"
-	Id string `protobuf:"bytes,22,opt,name=id,proto3" json:"id,omitempty" ch:"id"`
+	Id string `protobuf:"bytes,22,opt,name=id,proto3" json:"id,omitempty"`
 	// @gotag: ch:"flow"
-	Flow                 ReCurringFlow          `protobuf:"varint,23,opt,name=flow,proto3,enum=financial_service.v1.ReCurringFlow" json:"flow,omitempty" ch:"flow"`
+	Flow                 ReCurringFlow          `protobuf:"varint,23,opt,name=flow,proto3,enum=financial_service.v1.ReCurringFlow" json:"flow,omitempty"`
 	Sign                 int32                  `protobuf:"varint,24,opt,name=sign,proto3" json:"sign,omitempty"`
 	Time                 *timestamppb.Timestamp `protobuf:"bytes,25,opt,name=time,proto3" json:"time,omitempty"`
 	AdditionalProperties *anypb.Any             `protobuf:"bytes,26,opt,name=additional_properties,json=additionalProperties,proto3" json:"additional_properties,omitempty"`
@@ -683,51 +683,51 @@ type Transaction struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @gotag: ch:"account_id"
-	AccountId string `protobuf:"bytes,1,opt,name=account_id,json=accountId,proto3" json:"account_id,omitempty" ch:"account_id"`
+	AccountId string `protobuf:"bytes,1,opt,name=account_id,json=accountId,proto3" json:"account_id,omitempty"`
 	// @gotag: ch:"amount"
-	Amount float64 `protobuf:"fixed64,2,opt,name=amount,proto3" json:"amount,omitempty" ch:"amount"`
+	Amount float64 `protobuf:"fixed64,2,opt,name=amount,proto3" json:"amount,omitempty"`
 	// @gotag: ch:"iso_currency_code"
-	IsoCurrencyCode string `protobuf:"bytes,3,opt,name=iso_currency_code,json=isoCurrencyCode,proto3" json:"iso_currency_code,omitempty" ch:"iso_currency_code"`
+	IsoCurrencyCode string `protobuf:"bytes,3,opt,name=iso_currency_code,json=isoCurrencyCode,proto3" json:"iso_currency_code,omitempty"`
 	// @gotag: ch:"unofficial_currency_code"
-	UnofficialCurrencyCode string `protobuf:"bytes,4,opt,name=unofficial_currency_code,json=unofficialCurrencyCode,proto3" json:"unofficial_currency_code,omitempty" ch:"unofficial_currency_code"`
+	UnofficialCurrencyCode string `protobuf:"bytes,4,opt,name=unofficial_currency_code,json=unofficialCurrencyCode,proto3" json:"unofficial_currency_code,omitempty"`
 	// @gotag: ch:"category_id"
-	CategoryId string `protobuf:"bytes,6,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty" ch:"category_id"`
+	CategoryId string `protobuf:"bytes,6,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
 	// @gotag: ch:"check_number"
-	CheckNumber string `protobuf:"bytes,7,opt,name=check_number,json=checkNumber,proto3" json:"check_number,omitempty" ch:"check_number"`
+	CheckNumber string `protobuf:"bytes,7,opt,name=check_number,json=checkNumber,proto3" json:"check_number,omitempty"`
 	// @gotag: ch:"date"
-	CurrentDate string `protobuf:"bytes,8,opt,name=current_date,json=currentDate,proto3" json:"current_date,omitempty" ch:"date"`
+	CurrentDate string `protobuf:"bytes,8,opt,name=current_date,json=currentDate,proto3" json:"current_date,omitempty"`
 	// @gotag: ch:"datetime"
-	CurrentDatetime string `protobuf:"bytes,9,opt,name=current_datetime,json=currentDatetime,proto3" json:"current_datetime,omitempty" ch:"datetime"`
+	CurrentDatetime string `protobuf:"bytes,9,opt,name=current_datetime,json=currentDatetime,proto3" json:"current_datetime,omitempty"`
 	// @gotag: ch:"authorized_date"
-	AuthorizedDate string `protobuf:"bytes,10,opt,name=authorized_date,json=authorizedDate,proto3" json:"authorized_date,omitempty" ch:"authorized_date"`
+	AuthorizedDate string `protobuf:"bytes,10,opt,name=authorized_date,json=authorizedDate,proto3" json:"authorized_date,omitempty"`
 	// @gotag: ch:"authorized_datetime"
-	AuthorizedDatetime string `protobuf:"bytes,11,opt,name=authorized_datetime,json=authorizedDatetime,proto3" json:"authorized_datetime,omitempty" ch:"authorized_datetime"`
+	AuthorizedDatetime string `protobuf:"bytes,11,opt,name=authorized_datetime,json=authorizedDatetime,proto3" json:"authorized_datetime,omitempty"`
 	// @gotag: ch:"name"
-	Name string `protobuf:"bytes,13,opt,name=name,proto3" json:"name,omitempty" ch:"name"`
+	Name string `protobuf:"bytes,13,opt,name=name,proto3" json:"name,omitempty"`
 	// @gotag: ch:"merchant_name"
-	MerchantName string `protobuf:"bytes,14,opt,name=merchant_name,json=merchantName,proto3" json:"merchant_name,omitempty" ch:"merchant_name"`
+	MerchantName string `protobuf:"bytes,14,opt,name=merchant_name,json=merchantName,proto3" json:"merchant_name,omitempty"`
 	// @gotag: ch:"payment_channel"
-	PaymentChannel string `protobuf:"bytes,16,opt,name=payment_channel,json=paymentChannel,proto3" json:"payment_channel,omitempty" ch:"payment_channel"`
+	PaymentChannel string `protobuf:"bytes,16,opt,name=payment_channel,json=paymentChannel,proto3" json:"payment_channel,omitempty"`
 	// @gotag: ch:"pending"
-	Pending bool `protobuf:"varint,17,opt,name=pending,proto3" json:"pending,omitempty" ch:"pending"`
+	Pending bool `protobuf:"varint,17,opt,name=pending,proto3" json:"pending,omitempty"`
 	// @gotag: ch:"pending_transaction_id"
-	PendingTransactionId string `protobuf:"bytes,18,opt,name=pending_transaction_id,json=pendingTransactionId,proto3" json:"pending_transaction_id,omitempty" ch:"pending_transaction_id"`
+	PendingTransactionId string `protobuf:"bytes,18,opt,name=pending_transaction_id,json=pendingTransactionId,proto3" json:"pending_transaction_id,omitempty"`
 	// @gotag: ch:"account_owner"
-	AccountOwner string `protobuf:"bytes,19,opt,name=account_owner,json=accountOwner,proto3" json:"account_owner,omitempty" ch:"account_owner"`
+	AccountOwner string `protobuf:"bytes,19,opt,name=account_owner,json=accountOwner,proto3" json:"account_owner,omitempty"`
 	// @gotag: ch:"transaction_id"
-	TransactionId string `protobuf:"bytes,20,opt,name=transaction_id,json=transactionId,proto3" json:"transaction_id,omitempty" ch:"transaction_id"`
+	TransactionId string `protobuf:"bytes,20,opt,name=transaction_id,json=transactionId,proto3" json:"transaction_id,omitempty"`
 	// @gotag: ch:"transaction_code"
-	TransactionCode string `protobuf:"bytes,21,opt,name=transaction_code,json=transactionCode,proto3" json:"transaction_code,omitempty" ch:"transaction_code"`
+	TransactionCode string `protobuf:"bytes,21,opt,name=transaction_code,json=transactionCode,proto3" json:"transaction_code,omitempty"`
 	Id              string `protobuf:"bytes,22,opt,name=id,proto3" json:"id,omitempty"`
 	// @gotag: ch:"user_id"
-	UserId uint64 `protobuf:"varint,23,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty" ch:"user_id"`
+	UserId uint64 `protobuf:"varint,23,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	// @gotag: ch:"link_id"
-	LinkId uint64 `protobuf:"varint,24,opt,name=link_id,json=linkId,proto3" json:"link_id,omitempty" ch:"link_id"`
+	LinkId uint64 `protobuf:"varint,24,opt,name=link_id,json=linkId,proto3" json:"link_id,omitempty"`
 	Sign   int32  `protobuf:"varint,25,opt,name=sign,proto3" json:"sign,omitempty"`
 	// @gotag: ch:"personal_finance_category_primary"
-	PersonalFinanceCategoryPrimary string `protobuf:"bytes,26,opt,name=personal_finance_category_primary,json=personalFinanceCategoryPrimary,proto3" json:"personal_finance_category_primary,omitempty" ch:"personal_finance_category_primary"`
+	PersonalFinanceCategoryPrimary string `protobuf:"bytes,26,opt,name=personal_finance_category_primary,json=personalFinanceCategoryPrimary,proto3" json:"personal_finance_category_primary,omitempty"`
 	// @gotag: ch:"personal_finance_category_detailed"
-	PersonalFinanceCategoryDetailed string                 `protobuf:"bytes,27,opt,name=personal_finance_category_detailed,json=personalFinanceCategoryDetailed,proto3" json:"personal_finance_category_detailed,omitempty" ch:"personal_finance_category_detailed"`
+	PersonalFinanceCategoryDetailed string                 `protobuf:"bytes,27,opt,name=personal_finance_category_detailed,json=personalFinanceCategoryDetailed,proto3" json:"personal_finance_category_detailed,omitempty"`
 	LocationAddress                 string                 `protobuf:"bytes,28,opt,name=location_address,json=locationAddress,proto3" json:"location_address,omitempty"`
 	LocationCity                    string                 `protobuf:"bytes,29,opt,name=location_city,json=locationCity,proto3" json:"location_city,omitempty"`
 	LocationRegion                  string                 `protobuf:"bytes,30,opt,name=location_region,json=locationRegion,proto3" json:"location_region,omitempty"`

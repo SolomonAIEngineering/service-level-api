@@ -59,6 +59,7 @@ gen:
 	cd api/social-service && make && cd ..
 	cd api/user-service && make && cd ..
 	make gen-sdk
+	./generate.sh
 
 gen-sdk: 
 	npx swagger-typescript-api -p ./pkg/generated/user_service/v1/apidocs.swagger.json -o ./component-library/src/data-contracts/user-service \
@@ -101,5 +102,12 @@ gen-sdk:
 		--no-client \
 		--extract-request-body --api-class-name SocialService 
 
-test:
-	openapi-generator generate -i ./pkg/generated/user_service/v1/apidocs.swagger.json -g typescript-axios -o /tmp/test/
+fmt: 
+	go fmt ./...
+	gofumpt -l -w .
+
+lint: 
+	golangci-lint run ./...
+
+test: fmt lint
+	set -o pipefail && go test -v ./... -json | tparse -all

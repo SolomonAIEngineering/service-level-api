@@ -53,6 +53,7 @@ enum ReCurringFlow {
 }
 
 message InvestmentTransaction {
+    option (gorm.opts) = {ormable: true};
     // @gotag: ch:"account_id"
     string account_id = 1;
     // @gotag: ch:"amount"
@@ -97,13 +98,13 @@ message InvestmentTransaction {
     ];
 
     string created_at = 18;
-    option (gorm.opts) = {ormable: true};
     int32 sign = 19;
     google.protobuf.Timestamp time = 20;
     google.protobuf.Any additional_properties = 21;
 }
 
 message ReOccuringTransaction {
+    option (gorm.opts) = {ormable: true};
     // @gotag: ch:"account_id"
     string account_id = 1;
     // @gotag: ch:"stream_id"
@@ -156,7 +157,6 @@ message ReOccuringTransaction {
     ];
     // @gotag: ch:"flow"
     ReCurringFlow flow = 23;
-    option (gorm.opts) = {ormable: true};
     int32 sign = 24;
     google.protobuf.Timestamp time = 25;
     google.protobuf.Any additional_properties = 26;

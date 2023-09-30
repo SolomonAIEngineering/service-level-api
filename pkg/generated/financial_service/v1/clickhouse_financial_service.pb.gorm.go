@@ -3,6 +3,9 @@ package financial_servicev1
 import (
 	context "context"
 	fmt "fmt"
+	strings "strings"
+	time "time"
+
 	gorm1 "github.com/infobloxopen/atlas-app-toolkit/gorm"
 	errors "github.com/infobloxopen/protoc-gen-gorm/errors"
 	gorm "github.com/jinzhu/gorm"
@@ -10,8 +13,6 @@ import (
 	field_mask "google.golang.org/genproto/protobuf/field_mask"
 	anypb "google.golang.org/protobuf/types/known/anypb"
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
-	strings "strings"
-	time "time"
 )
 
 type InvestmentTransactionORM struct {
@@ -288,7 +289,7 @@ type TransactionORM struct {
 	Amount                          float64
 	AuthorizedDate                  string
 	AuthorizedDatetime              string
-	Categories                      pq.StringArray `gorm:"type:text[]"`
+	Categories                      pq.StringArray `gorm:"type:Array(String)"`
 	CategoryId                      string
 	CheckNumber                     string
 	CurrentDate                     string

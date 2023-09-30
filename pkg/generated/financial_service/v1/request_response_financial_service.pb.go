@@ -4457,7 +4457,7 @@ type ProcessWebhookRequest struct {
 	NewHoldings uint64 `protobuf:"varint,14,opt,name=new_holdings,json=newHoldings,proto3" json:"new_holdings,omitempty"`
 	// The number of updated holdings reported since the last time this webhook was fired.
 	// @gotag: json:"updated_holdings"
-	UpdatedHoldings uint64 `protobuf:"varint,15,opt,name=updated_holdings,json=updatedHoldings,proto3" json:"updated_holdings"`
+	UpdatedHoldings uint64 `protobuf:"varint,15,opt,name=updated_holdings,json=updatedHoldings,proto3" json:"updated_holdings,omitempty"`
 }
 
 func (x *ProcessWebhookRequest) Reset() {
