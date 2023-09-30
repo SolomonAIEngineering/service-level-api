@@ -45,5 +45,8 @@
     "vite": "4.4.9",
     "vite-plugin-dts": "3.6.0",
     "vitest": "0.34.5"
+  },
+  "dependencies": {
+    "axios": "^1.5.1"
   }
 }
