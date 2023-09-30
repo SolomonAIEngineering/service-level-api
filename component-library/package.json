@@ -29,7 +29,7 @@
     "release:minor": "npm version minor --no-commit-hooks && git push --follow-tags",
     "release:patch": "npm version patch --no-commit-hooks && git push --follow-tags",
     "storybook": "storybook dev -p 6006",
-    "test": "npm run build && jest --passWithNoTests"
+    "test": "npm ci && jest --passWithNoTests"
   },
   "dependencies": {
     "@heroicons/react": "^2.0.18",
