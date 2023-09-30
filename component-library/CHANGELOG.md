@@ -1,3 +1,10 @@
+## [1.4.0](https://github.com/SolomonAIEngineering/service-proto-definitions/compare/v1.3.0...v1.4.0) (2023-09-30)
+
+
+### Features
+
+* update exported types ([51669ae](https://github.com/SolomonAIEngineering/service-proto-definitions/commit/51669ae1be978c7e5132ea621faabfcf8905dbaf))
+
 ## [1.3.0](https://github.com/SolomonAIEngineering/service-proto-definitions/compare/v1.2.0...v1.3.0) (2023-09-30)
 
 
