@@ -1,4 +1,4 @@
-name: Golang PR Checks
+name: Golang Release
 
 defaults:
  run:
