@@ -325,6 +325,64 @@ func (m *UserAccount) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	if all {
+		switch v := interface{}(m.GetUserSettings()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, UserAccountValidationError{
+					field:  "UserSettings",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, UserAccountValidationError{
+					field:  "UserSettings",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetUserSettings()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UserAccountValidationError{
+				field:  "UserSettings",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetBusinessAccountSettings()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, UserAccountValidationError{
+					field:  "BusinessAccountSettings",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, UserAccountValidationError{
+					field:  "BusinessAccountSettings",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetBusinessAccountSettings()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UserAccountValidationError{
+				field:  "BusinessAccountSettings",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	if len(errors) > 0 {
 		return UserAccountMultiError(errors)
 	}
@@ -744,3 +802,1243 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = TagsValidationError{}
+
+// Validate checks the field values on UserSettings with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *UserSettings) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UserSettings with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in UserSettingsMultiError, or
+// nil if none found.
+func (m *UserSettings) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UserSettings) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	// no validation rules for AppTheme
+
+	// no validation rules for EmailNotifications
+
+	// no validation rules for PushNotifications
+
+	// no validation rules for SmsNotifications
+
+	// no validation rules for DefaultCurrency
+
+	// no validation rules for DatetimeFormat
+
+	// no validation rules for TwoFactorAuthenticationEnabled
+
+	// no validation rules for PreferredLanguage
+
+	// no validation rules for PublicProfile
+
+	// no validation rules for EnableGoalJournal
+
+	// no validation rules for InvestmentRiskTolerance
+
+	if len(errors) > 0 {
+		return UserSettingsMultiError(errors)
+	}
+
+	return nil
+}
+
+// UserSettingsMultiError is an error wrapping multiple validation errors
+// returned by UserSettings.ValidateAll() if the designated constraints aren't met.
+type UserSettingsMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UserSettingsMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UserSettingsMultiError) AllErrors() []error { return m }
+
+// UserSettingsValidationError is the validation error returned by
+// UserSettings.Validate if the designated constraints aren't met.
+type UserSettingsValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UserSettingsValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UserSettingsValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UserSettingsValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UserSettingsValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UserSettingsValidationError) ErrorName() string { return "UserSettingsValidationError" }
+
+// Error satisfies the builtin error interface
+func (e UserSettingsValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUserSettings.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UserSettingsValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UserSettingsValidationError{}
+
+// Validate checks the field values on BusinessAccountSettings with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *BusinessAccountSettings) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on BusinessAccountSettings with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// BusinessAccountSettingsMultiError, or nil if none found.
+func (m *BusinessAccountSettings) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *BusinessAccountSettings) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	if all {
+		switch v := interface{}(m.GetAccountInformation()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, BusinessAccountSettingsValidationError{
+					field:  "AccountInformation",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, BusinessAccountSettingsValidationError{
+					field:  "AccountInformation",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetAccountInformation()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return BusinessAccountSettingsValidationError{
+				field:  "AccountInformation",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetFinancialPreferences()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, BusinessAccountSettingsValidationError{
+					field:  "FinancialPreferences",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, BusinessAccountSettingsValidationError{
+					field:  "FinancialPreferences",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetFinancialPreferences()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return BusinessAccountSettingsValidationError{
+				field:  "FinancialPreferences",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetAiPoweredInsights()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, BusinessAccountSettingsValidationError{
+					field:  "AiPoweredInsights",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, BusinessAccountSettingsValidationError{
+					field:  "AiPoweredInsights",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetAiPoweredInsights()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return BusinessAccountSettingsValidationError{
+				field:  "AiPoweredInsights",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetIntegrationSettings()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, BusinessAccountSettingsValidationError{
+					field:  "IntegrationSettings",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, BusinessAccountSettingsValidationError{
+					field:  "IntegrationSettings",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetIntegrationSettings()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return BusinessAccountSettingsValidationError{
+				field:  "IntegrationSettings",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetNotifications()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, BusinessAccountSettingsValidationError{
+					field:  "Notifications",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, BusinessAccountSettingsValidationError{
+					field:  "Notifications",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetNotifications()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return BusinessAccountSettingsValidationError{
+				field:  "Notifications",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return BusinessAccountSettingsMultiError(errors)
+	}
+
+	return nil
+}
+
+// BusinessAccountSettingsMultiError is an error wrapping multiple validation
+// errors returned by BusinessAccountSettings.ValidateAll() if the designated
+// constraints aren't met.
+type BusinessAccountSettingsMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m BusinessAccountSettingsMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m BusinessAccountSettingsMultiError) AllErrors() []error { return m }
+
+// BusinessAccountSettingsValidationError is the validation error returned by
+// BusinessAccountSettings.Validate if the designated constraints aren't met.
+type BusinessAccountSettingsValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e BusinessAccountSettingsValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e BusinessAccountSettingsValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e BusinessAccountSettingsValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e BusinessAccountSettingsValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e BusinessAccountSettingsValidationError) ErrorName() string {
+	return "BusinessAccountSettingsValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e BusinessAccountSettingsValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sBusinessAccountSettings.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = BusinessAccountSettingsValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = BusinessAccountSettingsValidationError{}
+
+// Validate checks the field values on
+// BusinessAccountSettings_AccountInformation with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *BusinessAccountSettings_AccountInformation) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// BusinessAccountSettings_AccountInformation with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in
+// BusinessAccountSettings_AccountInformationMultiError, or nil if none found.
+func (m *BusinessAccountSettings_AccountInformation) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *BusinessAccountSettings_AccountInformation) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	// no validation rules for BusinessName
+
+	// no validation rules for BusinessType
+
+	// no validation rules for BusinessRegistrationNumber
+
+	if all {
+		switch v := interface{}(m.GetContactInfo()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, BusinessAccountSettings_AccountInformationValidationError{
+					field:  "ContactInfo",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, BusinessAccountSettings_AccountInformationValidationError{
+					field:  "ContactInfo",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetContactInfo()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return BusinessAccountSettings_AccountInformationValidationError{
+				field:  "ContactInfo",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return BusinessAccountSettings_AccountInformationMultiError(errors)
+	}
+
+	return nil
+}
+
+// BusinessAccountSettings_AccountInformationMultiError is an error wrapping
+// multiple validation errors returned by
+// BusinessAccountSettings_AccountInformation.ValidateAll() if the designated
+// constraints aren't met.
+type BusinessAccountSettings_AccountInformationMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m BusinessAccountSettings_AccountInformationMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m BusinessAccountSettings_AccountInformationMultiError) AllErrors() []error { return m }
+
+// BusinessAccountSettings_AccountInformationValidationError is the validation
+// error returned by BusinessAccountSettings_AccountInformation.Validate if
+// the designated constraints aren't met.
+type BusinessAccountSettings_AccountInformationValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e BusinessAccountSettings_AccountInformationValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e BusinessAccountSettings_AccountInformationValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e BusinessAccountSettings_AccountInformationValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e BusinessAccountSettings_AccountInformationValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e BusinessAccountSettings_AccountInformationValidationError) ErrorName() string {
+	return "BusinessAccountSettings_AccountInformationValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e BusinessAccountSettings_AccountInformationValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sBusinessAccountSettings_AccountInformation.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = BusinessAccountSettings_AccountInformationValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = BusinessAccountSettings_AccountInformationValidationError{}
+
+// Validate checks the field values on
+// BusinessAccountSettings_FinancialPreferences with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *BusinessAccountSettings_FinancialPreferences) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// BusinessAccountSettings_FinancialPreferences with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in
+// BusinessAccountSettings_FinancialPreferencesMultiError, or nil if none found.
+func (m *BusinessAccountSettings_FinancialPreferences) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *BusinessAccountSettings_FinancialPreferences) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	// no validation rules for CurrencyPreference
+
+	if all {
+		switch v := interface{}(m.GetTaxSettings()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, BusinessAccountSettings_FinancialPreferencesValidationError{
+					field:  "TaxSettings",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, BusinessAccountSettings_FinancialPreferencesValidationError{
+					field:  "TaxSettings",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTaxSettings()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return BusinessAccountSettings_FinancialPreferencesValidationError{
+				field:  "TaxSettings",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for FinancialYearStart
+
+	if len(errors) > 0 {
+		return BusinessAccountSettings_FinancialPreferencesMultiError(errors)
+	}
+
+	return nil
+}
+
+// BusinessAccountSettings_FinancialPreferencesMultiError is an error wrapping
+// multiple validation errors returned by
+// BusinessAccountSettings_FinancialPreferences.ValidateAll() if the
+// designated constraints aren't met.
+type BusinessAccountSettings_FinancialPreferencesMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m BusinessAccountSettings_FinancialPreferencesMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m BusinessAccountSettings_FinancialPreferencesMultiError) AllErrors() []error { return m }
+
+// BusinessAccountSettings_FinancialPreferencesValidationError is the
+// validation error returned by
+// BusinessAccountSettings_FinancialPreferences.Validate if the designated
+// constraints aren't met.
+type BusinessAccountSettings_FinancialPreferencesValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e BusinessAccountSettings_FinancialPreferencesValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e BusinessAccountSettings_FinancialPreferencesValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e BusinessAccountSettings_FinancialPreferencesValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e BusinessAccountSettings_FinancialPreferencesValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e BusinessAccountSettings_FinancialPreferencesValidationError) ErrorName() string {
+	return "BusinessAccountSettings_FinancialPreferencesValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e BusinessAccountSettings_FinancialPreferencesValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sBusinessAccountSettings_FinancialPreferences.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = BusinessAccountSettings_FinancialPreferencesValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = BusinessAccountSettings_FinancialPreferencesValidationError{}
+
+// Validate checks the field values on
+// BusinessAccountSettings_AIPoweredInsights with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *BusinessAccountSettings_AIPoweredInsights) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// BusinessAccountSettings_AIPoweredInsights with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in
+// BusinessAccountSettings_AIPoweredInsightsMultiError, or nil if none found.
+func (m *BusinessAccountSettings_AIPoweredInsights) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *BusinessAccountSettings_AIPoweredInsights) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	// no validation rules for InsightFrequency
+
+	// no validation rules for DataSharing
+
+	if len(errors) > 0 {
+		return BusinessAccountSettings_AIPoweredInsightsMultiError(errors)
+	}
+
+	return nil
+}
+
+// BusinessAccountSettings_AIPoweredInsightsMultiError is an error wrapping
+// multiple validation errors returned by
+// BusinessAccountSettings_AIPoweredInsights.ValidateAll() if the designated
+// constraints aren't met.
+type BusinessAccountSettings_AIPoweredInsightsMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m BusinessAccountSettings_AIPoweredInsightsMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m BusinessAccountSettings_AIPoweredInsightsMultiError) AllErrors() []error { return m }
+
+// BusinessAccountSettings_AIPoweredInsightsValidationError is the validation
+// error returned by BusinessAccountSettings_AIPoweredInsights.Validate if the
+// designated constraints aren't met.
+type BusinessAccountSettings_AIPoweredInsightsValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e BusinessAccountSettings_AIPoweredInsightsValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e BusinessAccountSettings_AIPoweredInsightsValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e BusinessAccountSettings_AIPoweredInsightsValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e BusinessAccountSettings_AIPoweredInsightsValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e BusinessAccountSettings_AIPoweredInsightsValidationError) ErrorName() string {
+	return "BusinessAccountSettings_AIPoweredInsightsValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e BusinessAccountSettings_AIPoweredInsightsValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sBusinessAccountSettings_AIPoweredInsights.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = BusinessAccountSettings_AIPoweredInsightsValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = BusinessAccountSettings_AIPoweredInsightsValidationError{}
+
+// Validate checks the field values on
+// BusinessAccountSettings_IntegrationSettings with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *BusinessAccountSettings_IntegrationSettings) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// BusinessAccountSettings_IntegrationSettings with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in
+// BusinessAccountSettings_IntegrationSettingsMultiError, or nil if none found.
+func (m *BusinessAccountSettings_IntegrationSettings) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *BusinessAccountSettings_IntegrationSettings) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	// no validation rules for BankAccountLinking
+
+	if len(errors) > 0 {
+		return BusinessAccountSettings_IntegrationSettingsMultiError(errors)
+	}
+
+	return nil
+}
+
+// BusinessAccountSettings_IntegrationSettingsMultiError is an error wrapping
+// multiple validation errors returned by
+// BusinessAccountSettings_IntegrationSettings.ValidateAll() if the designated
+// constraints aren't met.
+type BusinessAccountSettings_IntegrationSettingsMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m BusinessAccountSettings_IntegrationSettingsMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m BusinessAccountSettings_IntegrationSettingsMultiError) AllErrors() []error { return m }
+
+// BusinessAccountSettings_IntegrationSettingsValidationError is the validation
+// error returned by BusinessAccountSettings_IntegrationSettings.Validate if
+// the designated constraints aren't met.
+type BusinessAccountSettings_IntegrationSettingsValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e BusinessAccountSettings_IntegrationSettingsValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e BusinessAccountSettings_IntegrationSettingsValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e BusinessAccountSettings_IntegrationSettingsValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e BusinessAccountSettings_IntegrationSettingsValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e BusinessAccountSettings_IntegrationSettingsValidationError) ErrorName() string {
+	return "BusinessAccountSettings_IntegrationSettingsValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e BusinessAccountSettings_IntegrationSettingsValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sBusinessAccountSettings_IntegrationSettings.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = BusinessAccountSettings_IntegrationSettingsValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = BusinessAccountSettings_IntegrationSettingsValidationError{}
+
+// Validate checks the field values on BusinessAccountSettings_Notifications
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
+func (m *BusinessAccountSettings_Notifications) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on BusinessAccountSettings_Notifications
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// BusinessAccountSettings_NotificationsMultiError, or nil if none found.
+func (m *BusinessAccountSettings_Notifications) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *BusinessAccountSettings_Notifications) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	// no validation rules for NotificationType
+
+	// no validation rules for Alerts
+
+	if len(errors) > 0 {
+		return BusinessAccountSettings_NotificationsMultiError(errors)
+	}
+
+	return nil
+}
+
+// BusinessAccountSettings_NotificationsMultiError is an error wrapping
+// multiple validation errors returned by
+// BusinessAccountSettings_Notifications.ValidateAll() if the designated
+// constraints aren't met.
+type BusinessAccountSettings_NotificationsMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m BusinessAccountSettings_NotificationsMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m BusinessAccountSettings_NotificationsMultiError) AllErrors() []error { return m }
+
+// BusinessAccountSettings_NotificationsValidationError is the validation error
+// returned by BusinessAccountSettings_Notifications.Validate if the
+// designated constraints aren't met.
+type BusinessAccountSettings_NotificationsValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e BusinessAccountSettings_NotificationsValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e BusinessAccountSettings_NotificationsValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e BusinessAccountSettings_NotificationsValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e BusinessAccountSettings_NotificationsValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e BusinessAccountSettings_NotificationsValidationError) ErrorName() string {
+	return "BusinessAccountSettings_NotificationsValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e BusinessAccountSettings_NotificationsValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sBusinessAccountSettings_Notifications.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = BusinessAccountSettings_NotificationsValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = BusinessAccountSettings_NotificationsValidationError{}
+
+// Validate checks the field values on
+// BusinessAccountSettings_AccountInformation_ContactInformation with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *BusinessAccountSettings_AccountInformation_ContactInformation) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// BusinessAccountSettings_AccountInformation_ContactInformation with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// BusinessAccountSettings_AccountInformation_ContactInformationMultiError, or
+// nil if none found.
+func (m *BusinessAccountSettings_AccountInformation_ContactInformation) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *BusinessAccountSettings_AccountInformation_ContactInformation) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	// no validation rules for Email
+
+	// no validation rules for PhoneNumber
+
+	// no validation rules for Address
+
+	if len(errors) > 0 {
+		return BusinessAccountSettings_AccountInformation_ContactInformationMultiError(errors)
+	}
+
+	return nil
+}
+
+// BusinessAccountSettings_AccountInformation_ContactInformationMultiError is
+// an error wrapping multiple validation errors returned by
+// BusinessAccountSettings_AccountInformation_ContactInformation.ValidateAll()
+// if the designated constraints aren't met.
+type BusinessAccountSettings_AccountInformation_ContactInformationMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m BusinessAccountSettings_AccountInformation_ContactInformationMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m BusinessAccountSettings_AccountInformation_ContactInformationMultiError) AllErrors() []error {
+	return m
+}
+
+// BusinessAccountSettings_AccountInformation_ContactInformationValidationError
+// is the validation error returned by
+// BusinessAccountSettings_AccountInformation_ContactInformation.Validate if
+// the designated constraints aren't met.
+type BusinessAccountSettings_AccountInformation_ContactInformationValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e BusinessAccountSettings_AccountInformation_ContactInformationValidationError) Field() string {
+	return e.field
+}
+
+// Reason function returns reason value.
+func (e BusinessAccountSettings_AccountInformation_ContactInformationValidationError) Reason() string {
+	return e.reason
+}
+
+// Cause function returns cause value.
+func (e BusinessAccountSettings_AccountInformation_ContactInformationValidationError) Cause() error {
+	return e.cause
+}
+
+// Key function returns key value.
+func (e BusinessAccountSettings_AccountInformation_ContactInformationValidationError) Key() bool {
+	return e.key
+}
+
+// ErrorName returns error name.
+func (e BusinessAccountSettings_AccountInformation_ContactInformationValidationError) ErrorName() string {
+	return "BusinessAccountSettings_AccountInformation_ContactInformationValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e BusinessAccountSettings_AccountInformation_ContactInformationValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sBusinessAccountSettings_AccountInformation_ContactInformation.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = BusinessAccountSettings_AccountInformation_ContactInformationValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = BusinessAccountSettings_AccountInformation_ContactInformationValidationError{}
+
+// Validate checks the field values on
+// BusinessAccountSettings_FinancialPreferences_TaxSettings with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *BusinessAccountSettings_FinancialPreferences_TaxSettings) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// BusinessAccountSettings_FinancialPreferences_TaxSettings with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// BusinessAccountSettings_FinancialPreferences_TaxSettingsMultiError, or nil
+// if none found.
+func (m *BusinessAccountSettings_FinancialPreferences_TaxSettings) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *BusinessAccountSettings_FinancialPreferences_TaxSettings) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	// no validation rules for TaxPercentage
+
+	// no validation rules for TaxCode
+
+	if len(errors) > 0 {
+		return BusinessAccountSettings_FinancialPreferences_TaxSettingsMultiError(errors)
+	}
+
+	return nil
+}
+
+// BusinessAccountSettings_FinancialPreferences_TaxSettingsMultiError is an
+// error wrapping multiple validation errors returned by
+// BusinessAccountSettings_FinancialPreferences_TaxSettings.ValidateAll() if
+// the designated constraints aren't met.
+type BusinessAccountSettings_FinancialPreferences_TaxSettingsMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m BusinessAccountSettings_FinancialPreferences_TaxSettingsMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m BusinessAccountSettings_FinancialPreferences_TaxSettingsMultiError) AllErrors() []error {
+	return m
+}
+
+// BusinessAccountSettings_FinancialPreferences_TaxSettingsValidationError is
+// the validation error returned by
+// BusinessAccountSettings_FinancialPreferences_TaxSettings.Validate if the
+// designated constraints aren't met.
+type BusinessAccountSettings_FinancialPreferences_TaxSettingsValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e BusinessAccountSettings_FinancialPreferences_TaxSettingsValidationError) Field() string {
+	return e.field
+}
+
+// Reason function returns reason value.
+func (e BusinessAccountSettings_FinancialPreferences_TaxSettingsValidationError) Reason() string {
+	return e.reason
+}
+
+// Cause function returns cause value.
+func (e BusinessAccountSettings_FinancialPreferences_TaxSettingsValidationError) Cause() error {
+	return e.cause
+}
+
+// Key function returns key value.
+func (e BusinessAccountSettings_FinancialPreferences_TaxSettingsValidationError) Key() bool {
+	return e.key
+}
+
+// ErrorName returns error name.
+func (e BusinessAccountSettings_FinancialPreferences_TaxSettingsValidationError) ErrorName() string {
+	return "BusinessAccountSettings_FinancialPreferences_TaxSettingsValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e BusinessAccountSettings_FinancialPreferences_TaxSettingsValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sBusinessAccountSettings_FinancialPreferences_TaxSettings.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = BusinessAccountSettings_FinancialPreferences_TaxSettingsValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = BusinessAccountSettings_FinancialPreferences_TaxSettingsValidationError{}

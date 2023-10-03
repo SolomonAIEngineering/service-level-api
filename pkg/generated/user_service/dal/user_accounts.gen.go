@@ -55,6 +55,18 @@ func newUserAccountORM(db *gorm.DB, opts ...gen.DOOption) userAccountORM {
 		RelationField: field.NewRelation("Address", "user_servicev1.AddressORM"),
 	}
 
+	_userAccountORM.BusinessAccountSettings = userAccountORMHasOneBusinessAccountSettings{
+		db: db.Session(&gorm.Session{}),
+
+		RelationField: field.NewRelation("BusinessAccountSettings", "user_servicev1.BusinessAccountSettingsORM"),
+	}
+
+	_userAccountORM.UserSettings = userAccountORMHasOneUserSettings{
+		db: db.Session(&gorm.Session{}),
+
+		RelationField: field.NewRelation("UserSettings", "user_servicev1.UserSettingsORM"),
+	}
+
 	_userAccountORM.Tags = userAccountORMHasManyTags{
 		db: db.Session(&gorm.Session{}),
 
@@ -91,6 +103,10 @@ type userAccountORM struct {
 	Username               field.String
 	VerifiedAt             field.Time
 	Address                userAccountORMHasOneAddress
+
+	BusinessAccountSettings userAccountORMHasOneBusinessAccountSettings
+
+	UserSettings userAccountORMHasOneUserSettings
 
 	Tags userAccountORMHasManyTags
 
@@ -145,7 +161,7 @@ func (u *userAccountORM) GetFieldByName(fieldName string) (field.OrderExpr, bool
 }
 
 func (u *userAccountORM) fillFieldMap() {
-	u.fieldMap = make(map[string]field.Expr, 22)
+	u.fieldMap = make(map[string]field.Expr, 24)
 	u.fieldMap["authn_account_id"] = u.AuthnAccountId
 	u.fieldMap["bio"] = u.Bio
 	u.fieldMap["company_description"] = u.CompanyDescription
@@ -247,6 +263,148 @@ func (a userAccountORMHasOneAddressTx) Clear() error {
 }
 
 func (a userAccountORMHasOneAddressTx) Count() int64 {
+	return a.tx.Count()
+}
+
+type userAccountORMHasOneBusinessAccountSettings struct {
+	db *gorm.DB
+
+	field.RelationField
+}
+
+func (a userAccountORMHasOneBusinessAccountSettings) Where(conds ...field.Expr) *userAccountORMHasOneBusinessAccountSettings {
+	if len(conds) == 0 {
+		return &a
+	}
+
+	exprs := make([]clause.Expression, 0, len(conds))
+	for _, cond := range conds {
+		exprs = append(exprs, cond.BeCond().(clause.Expression))
+	}
+	a.db = a.db.Clauses(clause.Where{Exprs: exprs})
+	return &a
+}
+
+func (a userAccountORMHasOneBusinessAccountSettings) WithContext(ctx context.Context) *userAccountORMHasOneBusinessAccountSettings {
+	a.db = a.db.WithContext(ctx)
+	return &a
+}
+
+func (a userAccountORMHasOneBusinessAccountSettings) Session(session *gorm.Session) *userAccountORMHasOneBusinessAccountSettings {
+	a.db = a.db.Session(session)
+	return &a
+}
+
+func (a userAccountORMHasOneBusinessAccountSettings) Model(m *user_servicev1.UserAccountORM) *userAccountORMHasOneBusinessAccountSettingsTx {
+	return &userAccountORMHasOneBusinessAccountSettingsTx{a.db.Model(m).Association(a.Name())}
+}
+
+type userAccountORMHasOneBusinessAccountSettingsTx struct{ tx *gorm.Association }
+
+func (a userAccountORMHasOneBusinessAccountSettingsTx) Find() (result *user_servicev1.BusinessAccountSettingsORM, err error) {
+	return result, a.tx.Find(&result)
+}
+
+func (a userAccountORMHasOneBusinessAccountSettingsTx) Append(values ...*user_servicev1.BusinessAccountSettingsORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Append(targetValues...)
+}
+
+func (a userAccountORMHasOneBusinessAccountSettingsTx) Replace(values ...*user_servicev1.BusinessAccountSettingsORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Replace(targetValues...)
+}
+
+func (a userAccountORMHasOneBusinessAccountSettingsTx) Delete(values ...*user_servicev1.BusinessAccountSettingsORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Delete(targetValues...)
+}
+
+func (a userAccountORMHasOneBusinessAccountSettingsTx) Clear() error {
+	return a.tx.Clear()
+}
+
+func (a userAccountORMHasOneBusinessAccountSettingsTx) Count() int64 {
+	return a.tx.Count()
+}
+
+type userAccountORMHasOneUserSettings struct {
+	db *gorm.DB
+
+	field.RelationField
+}
+
+func (a userAccountORMHasOneUserSettings) Where(conds ...field.Expr) *userAccountORMHasOneUserSettings {
+	if len(conds) == 0 {
+		return &a
+	}
+
+	exprs := make([]clause.Expression, 0, len(conds))
+	for _, cond := range conds {
+		exprs = append(exprs, cond.BeCond().(clause.Expression))
+	}
+	a.db = a.db.Clauses(clause.Where{Exprs: exprs})
+	return &a
+}
+
+func (a userAccountORMHasOneUserSettings) WithContext(ctx context.Context) *userAccountORMHasOneUserSettings {
+	a.db = a.db.WithContext(ctx)
+	return &a
+}
+
+func (a userAccountORMHasOneUserSettings) Session(session *gorm.Session) *userAccountORMHasOneUserSettings {
+	a.db = a.db.Session(session)
+	return &a
+}
+
+func (a userAccountORMHasOneUserSettings) Model(m *user_servicev1.UserAccountORM) *userAccountORMHasOneUserSettingsTx {
+	return &userAccountORMHasOneUserSettingsTx{a.db.Model(m).Association(a.Name())}
+}
+
+type userAccountORMHasOneUserSettingsTx struct{ tx *gorm.Association }
+
+func (a userAccountORMHasOneUserSettingsTx) Find() (result *user_servicev1.UserSettingsORM, err error) {
+	return result, a.tx.Find(&result)
+}
+
+func (a userAccountORMHasOneUserSettingsTx) Append(values ...*user_servicev1.UserSettingsORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Append(targetValues...)
+}
+
+func (a userAccountORMHasOneUserSettingsTx) Replace(values ...*user_servicev1.UserSettingsORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Replace(targetValues...)
+}
+
+func (a userAccountORMHasOneUserSettingsTx) Delete(values ...*user_servicev1.UserSettingsORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Delete(targetValues...)
+}
+
+func (a userAccountORMHasOneUserSettingsTx) Clear() error {
+	return a.tx.Clear()
+}
+
+func (a userAccountORMHasOneUserSettingsTx) Count() int64 {
 	return a.tx.Count()
 }
 

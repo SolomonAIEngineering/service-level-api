@@ -746,6 +746,52 @@
     }
   },
   "definitions": {
+    "AIPoweredInsights": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "address id"
+        },
+        "insightFrequency": {
+          "$ref": "#/definitions/Frequency"
+        },
+        "areasOfInterest": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "List of areas for insights"
+        },
+        "dataSharing": {
+          "type": "boolean",
+          "title": "True if user agrees to share data for insights"
+        }
+      }
+    },
+    "AccountInformation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "address id"
+        },
+        "businessName": {
+          "type": "string"
+        },
+        "businessType": {
+          "$ref": "#/definitions/BusinessType"
+        },
+        "businessRegistrationNumber": {
+          "type": "string"
+        },
+        "contactInfo": {
+          "$ref": "#/definitions/ContactInformation"
+        }
+      }
+    },
     "Address": {
       "type": "object",
       "properties": {
@@ -801,6 +847,44 @@
       },
       "additionalProperties": {}
     },
+    "BusinessAccountSettings": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "address id"
+        },
+        "accountInformation": {
+          "$ref": "#/definitions/AccountInformation"
+        },
+        "financialPreferences": {
+          "$ref": "#/definitions/FinancialPreferences"
+        },
+        "aiPoweredInsights": {
+          "$ref": "#/definitions/AIPoweredInsights"
+        },
+        "integrationSettings": {
+          "$ref": "#/definitions/IntegrationSettings"
+        },
+        "notifications": {
+          "$ref": "#/definitions/Notifications"
+        }
+      },
+      "title": "Business Account Settings"
+    },
+    "BusinessType": {
+      "type": "string",
+      "enum": [
+        "BUSINESS_TYPE_UNSPECIFIED",
+        "BUSINESS_TYPE_SOLE_PROPRIETORSHIP",
+        "BUSINESS_TYPE_PARTNERSHIP",
+        "BUSINESS_TYPE_LLC",
+        "BUSINESS_TYPE_CORPORATION",
+        "BUSINESS_TYPE_OTHER"
+      ],
+      "default": "BUSINESS_TYPE_UNSPECIFIED"
+    },
     "CheckEmailExistsResponse": {
       "type": "object",
       "properties": {
@@ -814,6 +898,25 @@
       "properties": {
         "exists": {
           "type": "boolean"
+        }
+      }
+    },
+    "ContactInformation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "address id"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
         }
       }
     },
@@ -860,6 +963,18 @@
       },
       "title": "CreateUserResponse: Represents the response object returned as a response to\nthe `create-user` request"
     },
+    "DashboardWidget": {
+      "type": "string",
+      "enum": [
+        "DASHBOARD_WIDGET_TRANSACTIONS_UNSPECIFIED",
+        "DASHBOARD_WIDGET_TRANSACTIONS_OVERVIEW",
+        "DASHBOARD_WIDGET_INVESTMENT_SUMMARY",
+        "DASHBOARD_WIDGET_MONTHLY_SPENDING_REPORT",
+        "DASHBOARD_WIDGET_SAVINGS_TRACKER",
+        "DASHBOARD_WIDGET_CREDIT_SCORE_MONITOR"
+      ],
+      "default": "DASHBOARD_WIDGET_TRANSACTIONS_UNSPECIFIED"
+    },
     "DeleteUserResponse": {
       "type": "object",
       "properties": {
@@ -868,6 +983,35 @@
         }
       },
       "title": "DeleteUserResponse: Represents the object returned as a response to\n`delete-user` request"
+    },
+    "FinancialPreferences": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "address id"
+        },
+        "currencyPreference": {
+          "type": "string"
+        },
+        "taxSettings": {
+          "$ref": "#/definitions/TaxSettings"
+        },
+        "financialYearStart": {
+          "type": "string"
+        }
+      }
+    },
+    "Frequency": {
+      "type": "string",
+      "enum": [
+        "FREQUENCY_UNSPECIFIED",
+        "FREQUENCY_DAILY",
+        "FREQUENCY_WEEKLY",
+        "FREQUENCY_MONTHLY"
+      ],
+      "default": "FREQUENCY_UNSPECIFIED"
     },
     "GetUserByEmailOrUsernameResponse": {
       "type": "object",
@@ -924,6 +1068,53 @@
         }
       }
     },
+    "IntegrationSettings": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "address id"
+        },
+        "bankAccountLinking": {
+          "type": "boolean"
+        },
+        "thirdPartyApps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "List of connected third-party apps"
+        }
+      }
+    },
+    "Notifications": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "address id"
+        },
+        "notificationType": {
+          "$ref": "#/definitions/Notifications.Type"
+        },
+        "alerts": {
+          "type": "boolean",
+          "title": "True if user wants to be alerted for anomalies"
+        }
+      }
+    },
+    "Notifications.Type": {
+      "type": "string",
+      "enum": [
+        "TYPE_UNSPECIFIED",
+        "TYPE_EMAIL",
+        "TYPE_SMS",
+        "TYPE_IN_APP"
+      ],
+      "default": "TYPE_UNSPECIFIED"
+    },
     "PasswordResetWebhookResponse": {
       "type": "object",
       "properties": {
@@ -939,6 +1130,17 @@
           "type": "boolean"
         }
       }
+    },
+    "RiskTolerance": {
+      "type": "string",
+      "enum": [
+        "RISK_TOLERANCE_UNSPECIFIED",
+        "RISK_TOLERANCE_LOW",
+        "RISK_TOLERANCE_MEDIUM",
+        "RISK_TOLERANCE_HIGH"
+      ],
+      "default": "RISK_TOLERANCE_UNSPECIFIED",
+      "description": "Investment preferences."
     },
     "Status": {
       "type": "object",
@@ -990,6 +1192,33 @@
         }
       },
       "title": "Tags: represents metadata tags associated to an account"
+    },
+    "TaxSettings": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "address id"
+        },
+        "taxPercentage": {
+          "type": "number",
+          "format": "double"
+        },
+        "taxCode": {
+          "type": "string"
+        }
+      }
+    },
+    "Theme": {
+      "type": "string",
+      "enum": [
+        "THEME_UNSPECIFIED",
+        "THEME_LIGHT",
+        "THEME_DARK"
+      ],
+      "default": "THEME_UNSPECIFIED",
+      "description": "Display and interaction preferences."
     },
     "UpdateUserRequest": {
       "type": "object",
@@ -1126,9 +1355,73 @@
           "type": "string",
           "example": "solomon-ai",
           "title": "Company Name is the name of the company profile"
+        },
+        "userSettings": {
+          "$ref": "#/definitions/UserSettings"
+        },
+        "businessAccountSettings": {
+          "$ref": "#/definitions/BusinessAccountSettings"
         }
       },
       "title": "UserAccount: represents a user account in the context of simfinni"
+    },
+    "UserSettings": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "address id"
+        },
+        "appTheme": {
+          "$ref": "#/definitions/Theme"
+        },
+        "emailNotifications": {
+          "type": "boolean",
+          "description": "Notification preferences."
+        },
+        "pushNotifications": {
+          "type": "boolean"
+        },
+        "smsNotifications": {
+          "type": "boolean"
+        },
+        "defaultCurrency": {
+          "type": "string",
+          "description": "Currency preference."
+        },
+        "datetimeFormat": {
+          "type": "string",
+          "description": "Preferred date-time format."
+        },
+        "twoFactorAuthenticationEnabled": {
+          "type": "boolean",
+          "description": "Two-factor authentication status."
+        },
+        "preferredLanguage": {
+          "type": "string",
+          "description": "Language preference."
+        },
+        "publicProfile": {
+          "type": "boolean",
+          "description": "Privacy settings.\n\nWhether the user's profile is public."
+        },
+        "enableGoalJournal": {
+          "type": "boolean",
+          "description": "Option to share transaction history with friends/family."
+        },
+        "investmentRiskTolerance": {
+          "$ref": "#/definitions/RiskTolerance"
+        },
+        "dashboardWidgets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DashboardWidget"
+          },
+          "description": "Dashboard customization, e.g., specific widgets or reports."
+        }
+      },
+      "description": "User settings for the fintech application."
     },
     "VerifyUserResponse": {
       "type": "object",
