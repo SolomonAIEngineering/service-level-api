@@ -193,12 +193,6 @@ export interface PasswordResetWebhookResponse {
   success?: boolean;
 }
 
-/**
- * ProfileType: represents the type of account tied to a given profile
- * @default "PROFILE_TYPE_UNSPECIFIED"
- */
-export type ProfileType = "PROFILE_TYPE_UNSPECIFIED" | "PROFILE_TYPE_USER" | "PROFILE_TYPE_BUSINESS";
-
 export type ReadynessCheckData = any;
 
 export interface ReadynessCheckResponse {
@@ -288,15 +282,30 @@ export interface UserAccount {
    * @example "lksdjhfgsdhfghdsgfhgdha;hdgjsdfhaghsldfhagjkh;sdafjhsdjflhgjhjsfhgjsdhfjfkgjhsdfhgjhjdfhgjsdhjglsdjjghjdfhsjghjsadfhgjsdfhjghsdfkjghdfj"
    */
   bio?: string;
-  /** Company description */
+  /**
+   * Company description
+   * @example "we help businesses stay in business"
+   */
   companyDescription?: string;
-  /** Established Date is the date the company was created */
+  /**
+   * Established Date is the date the company was created
+   * optional field for business profile
+   */
   companyEstablishedDate?: string;
-  /** Industry Type is the type of business associated to this business */
+  /**
+   * Industry Type is the type of business associated to this business
+   * @example "fintech"
+   */
   companyIndustryType?: string;
-  /** Company Name is the name of the company profile */
+  /**
+   * Company Name is the name of the company profile
+   * @example "solomon-ai"
+   */
   companyName?: string;
-  /** Website url of the business */
+  /**
+   * Website url of the business
+   * @example "https://solomon-ai.io"
+   */
   companyWebsiteUrl?: string;
   /** @format date-time */
   createdAt?: string;
@@ -331,6 +340,8 @@ export interface UserAccount {
    * @example true
    */
   isActive?: boolean;
+  /** IsBusinessAccount enables us to check if this is a business account of interest */
+  isBusinessAccount?: boolean;
   /**
    * isEmailVerified is a field denoting wether or not the user account has
    * indeed verified their email address
@@ -356,8 +367,6 @@ export interface UserAccount {
    * @example "6513424124"
    */
   phoneNumber?: string;
-  /** ProfileType is the type of profile associated to this user account */
-  profileType?: ProfileType;
   /**
    * sample tags easily associable to account
    * account first name

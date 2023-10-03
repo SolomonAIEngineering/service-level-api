@@ -138,20 +138,40 @@ message UserAccount {
   google.protobuf.Timestamp created_at = 31;
   google.protobuf.Timestamp verified_at = 32;
 
-  // ProfileType is the type of profile associated to this user account 
-  ProfileType profile_type = 33;
-
-  // Company Name is the name of the company profile
-  string company_name = 34;
+  // IsBusinessAccount enables us to check if this is a business account of interest
+  bool is_business_account = 33;
   
   // Established Date is the date the company was created
+  // optional field for business profile
   string company_established_date = 35;
   // Industry Type is the type of business associated to this business
-  string company_industry_type = 36;
+  string company_industry_type = 36 [
+    (validate.rules).string.min_len = 0,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"fintech\""
+    } 
+  ];
   // Website url of the business
-  string company_website_url = 37;
+  string company_website_url = 37 [
+    (validate.rules).string.min_len = 0,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"https://solomon-ai.io\""
+    } 
+  ];
   // Company description 
-  string company_description = 38;
+  string company_description = 38[
+    (validate.rules).string.min_len = 0,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"we help businesses stay in business\""
+    } 
+  ];
+  // Company Name is the name of the company profile
+  string company_name = 39[
+    (validate.rules).string.min_len = 0,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"solomon-ai\""
+    } 
+  ];
 }
 
 /*

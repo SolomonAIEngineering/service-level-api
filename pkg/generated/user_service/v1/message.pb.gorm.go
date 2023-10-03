@@ -29,11 +29,11 @@ type UserAccountORM struct {
 	Headline               string
 	Id                     uint64
 	IsActive               bool
+	IsBusinessAccount      bool
 	IsEmailVerified        bool
 	IsPrivate              bool
 	Lastname               string
 	PhoneNumber            string
-	ProfileType            string
 	Tags                   []*TagsORM `gorm:"foreignkey:UserAccountId;association_foreignkey:Id;preload:true"`
 	Username               string
 	VerifiedAt             *time.Time
@@ -92,12 +92,12 @@ func (m *UserAccount) ToORM(ctx context.Context) (UserAccountORM, error) {
 		t := m.VerifiedAt.AsTime()
 		to.VerifiedAt = &t
 	}
-	to.ProfileType = ProfileType_name[int32(m.ProfileType)]
-	to.CompanyName = m.CompanyName
+	to.IsBusinessAccount = m.IsBusinessAccount
 	to.CompanyEstablishedDate = m.CompanyEstablishedDate
 	to.CompanyIndustryType = m.CompanyIndustryType
 	to.CompanyWebsiteUrl = m.CompanyWebsiteUrl
 	to.CompanyDescription = m.CompanyDescription
+	to.CompanyName = m.CompanyName
 	if posthook, ok := interface{}(m).(UserAccountWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -150,12 +150,12 @@ func (m *UserAccountORM) ToPB(ctx context.Context) (UserAccount, error) {
 	if m.VerifiedAt != nil {
 		to.VerifiedAt = timestamppb.New(*m.VerifiedAt)
 	}
-	to.ProfileType = ProfileType(ProfileType_value[m.ProfileType])
-	to.CompanyName = m.CompanyName
+	to.IsBusinessAccount = m.IsBusinessAccount
 	to.CompanyEstablishedDate = m.CompanyEstablishedDate
 	to.CompanyIndustryType = m.CompanyIndustryType
 	to.CompanyWebsiteUrl = m.CompanyWebsiteUrl
 	to.CompanyDescription = m.CompanyDescription
+	to.CompanyName = m.CompanyName
 	if posthook, ok := interface{}(m).(UserAccountWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -775,12 +775,8 @@ func DefaultApplyFieldMaskUserAccount(ctx context.Context, patchee *UserAccount,
 			patchee.VerifiedAt = patcher.VerifiedAt
 			continue
 		}
-		if f == prefix+"ProfileType" {
-			patchee.ProfileType = patcher.ProfileType
-			continue
-		}
-		if f == prefix+"CompanyName" {
-			patchee.CompanyName = patcher.CompanyName
+		if f == prefix+"IsBusinessAccount" {
+			patchee.IsBusinessAccount = patcher.IsBusinessAccount
 			continue
 		}
 		if f == prefix+"CompanyEstablishedDate" {
@@ -797,6 +793,10 @@ func DefaultApplyFieldMaskUserAccount(ctx context.Context, patchee *UserAccount,
 		}
 		if f == prefix+"CompanyDescription" {
 			patchee.CompanyDescription = patcher.CompanyDescription
+			continue
+		}
+		if f == prefix+"CompanyName" {
+			patchee.CompanyName = patcher.CompanyName
 			continue
 		}
 	}

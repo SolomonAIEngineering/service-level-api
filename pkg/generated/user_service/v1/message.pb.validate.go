@@ -277,17 +277,53 @@ func (m *UserAccount) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for ProfileType
-
-	// no validation rules for CompanyName
+	// no validation rules for IsBusinessAccount
 
 	// no validation rules for CompanyEstablishedDate
 
-	// no validation rules for CompanyIndustryType
+	if utf8.RuneCountInString(m.GetCompanyIndustryType()) < 0 {
+		err := UserAccountValidationError{
+			field:  "CompanyIndustryType",
+			reason: "value length must be at least 0 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for CompanyWebsiteUrl
+	if utf8.RuneCountInString(m.GetCompanyWebsiteUrl()) < 0 {
+		err := UserAccountValidationError{
+			field:  "CompanyWebsiteUrl",
+			reason: "value length must be at least 0 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for CompanyDescription
+	if utf8.RuneCountInString(m.GetCompanyDescription()) < 0 {
+		err := UserAccountValidationError{
+			field:  "CompanyDescription",
+			reason: "value length must be at least 0 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetCompanyName()) < 0 {
+		err := UserAccountValidationError{
+			field:  "CompanyName",
+			reason: "value length must be at least 0 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return UserAccountMultiError(errors)

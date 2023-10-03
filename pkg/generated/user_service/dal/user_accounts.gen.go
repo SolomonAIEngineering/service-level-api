@@ -42,11 +42,11 @@ func newUserAccountORM(db *gorm.DB, opts ...gen.DOOption) userAccountORM {
 	_userAccountORM.Headline = field.NewString(tableName, "headline")
 	_userAccountORM.Id = field.NewUint64(tableName, "id")
 	_userAccountORM.IsActive = field.NewBool(tableName, "is_active")
+	_userAccountORM.IsBusinessAccount = field.NewBool(tableName, "is_business_account")
 	_userAccountORM.IsEmailVerified = field.NewBool(tableName, "is_email_verified")
 	_userAccountORM.IsPrivate = field.NewBool(tableName, "is_private")
 	_userAccountORM.Lastname = field.NewString(tableName, "lastname")
 	_userAccountORM.PhoneNumber = field.NewString(tableName, "phone_number")
-	_userAccountORM.ProfileType = field.NewString(tableName, "profile_type")
 	_userAccountORM.Username = field.NewString(tableName, "username")
 	_userAccountORM.VerifiedAt = field.NewTime(tableName, "verified_at")
 	_userAccountORM.Address = userAccountORMHasOneAddress{
@@ -83,11 +83,11 @@ type userAccountORM struct {
 	Headline               field.String
 	Id                     field.Uint64
 	IsActive               field.Bool
+	IsBusinessAccount      field.Bool
 	IsEmailVerified        field.Bool
 	IsPrivate              field.Bool
 	Lastname               field.String
 	PhoneNumber            field.String
-	ProfileType            field.String
 	Username               field.String
 	VerifiedAt             field.Time
 	Address                userAccountORMHasOneAddress
@@ -122,11 +122,11 @@ func (u *userAccountORM) updateTableName(table string) *userAccountORM {
 	u.Headline = field.NewString(table, "headline")
 	u.Id = field.NewUint64(table, "id")
 	u.IsActive = field.NewBool(table, "is_active")
+	u.IsBusinessAccount = field.NewBool(table, "is_business_account")
 	u.IsEmailVerified = field.NewBool(table, "is_email_verified")
 	u.IsPrivate = field.NewBool(table, "is_private")
 	u.Lastname = field.NewString(table, "lastname")
 	u.PhoneNumber = field.NewString(table, "phone_number")
-	u.ProfileType = field.NewString(table, "profile_type")
 	u.Username = field.NewString(table, "username")
 	u.VerifiedAt = field.NewTime(table, "verified_at")
 
@@ -159,11 +159,11 @@ func (u *userAccountORM) fillFieldMap() {
 	u.fieldMap["headline"] = u.Headline
 	u.fieldMap["id"] = u.Id
 	u.fieldMap["is_active"] = u.IsActive
+	u.fieldMap["is_business_account"] = u.IsBusinessAccount
 	u.fieldMap["is_email_verified"] = u.IsEmailVerified
 	u.fieldMap["is_private"] = u.IsPrivate
 	u.fieldMap["lastname"] = u.Lastname
 	u.fieldMap["phone_number"] = u.PhoneNumber
-	u.fieldMap["profile_type"] = u.ProfileType
 	u.fieldMap["username"] = u.Username
 	u.fieldMap["verified_at"] = u.VerifiedAt
 

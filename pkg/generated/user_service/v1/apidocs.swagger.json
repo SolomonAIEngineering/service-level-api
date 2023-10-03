@@ -932,16 +932,6 @@
         }
       }
     },
-    "ProfileType": {
-      "type": "string",
-      "enum": [
-        "PROFILE_TYPE_UNSPECIFIED",
-        "PROFILE_TYPE_USER",
-        "PROFILE_TYPE_BUSINESS"
-      ],
-      "default": "PROFILE_TYPE_UNSPECIFIED",
-      "title": "ProfileType: represents the type of account tied to a given profile"
-    },
     "ReadynessCheckResponse": {
       "type": "object",
       "properties": {
@@ -1109,29 +1099,33 @@
           "type": "string",
           "format": "date-time"
         },
-        "profileType": {
-          "$ref": "#/definitions/ProfileType",
-          "title": "ProfileType is the type of profile associated to this user account"
-        },
-        "companyName": {
-          "type": "string",
-          "title": "Company Name is the name of the company profile"
+        "isBusinessAccount": {
+          "type": "boolean",
+          "title": "IsBusinessAccount enables us to check if this is a business account of interest"
         },
         "companyEstablishedDate": {
           "type": "string",
-          "title": "Established Date is the date the company was created"
+          "title": "Established Date is the date the company was created\noptional field for business profile"
         },
         "companyIndustryType": {
           "type": "string",
+          "example": "fintech",
           "title": "Industry Type is the type of business associated to this business"
         },
         "companyWebsiteUrl": {
           "type": "string",
+          "example": "https://solomon-ai.io",
           "title": "Website url of the business"
         },
         "companyDescription": {
           "type": "string",
+          "example": "we help businesses stay in business",
           "title": "Company description"
+        },
+        "companyName": {
+          "type": "string",
+          "example": "solomon-ai",
+          "title": "Company Name is the name of the company profile"
         }
       },
       "title": "UserAccount: represents a user account in the context of simfinni"
