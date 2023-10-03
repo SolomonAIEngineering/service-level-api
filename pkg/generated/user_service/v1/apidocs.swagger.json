@@ -762,7 +762,8 @@
           "items": {
             "type": "string"
           },
-          "title": "List of areas for insights"
+          "description": "List of areas for insights",
+          "title": "List of areas of interest for insights"
         },
         "dataSharing": {
           "type": "boolean",
@@ -867,8 +868,8 @@
         "integrationSettings": {
           "$ref": "#/definitions/IntegrationSettings"
         },
-        "notifications": {
-          "$ref": "#/definitions/Notifications"
+        "notificationSettings": {
+          "$ref": "#/definitions/NotificationSettings"
         }
       },
       "title": "Business Account Settings"
@@ -1011,7 +1012,8 @@
         "FREQUENCY_WEEKLY",
         "FREQUENCY_MONTHLY"
       ],
-      "default": "FREQUENCY_UNSPECIFIED"
+      "default": "FREQUENCY_UNSPECIFIED",
+      "title": "frequency by which insights should be generated"
     },
     "GetUserByEmailOrUsernameResponse": {
       "type": "object",
@@ -1077,18 +1079,20 @@
           "title": "address id"
         },
         "bankAccountLinking": {
-          "type": "boolean"
+          "type": "boolean",
+          "title": "wether to enable linking bank account for account"
         },
         "thirdPartyApps": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "title": "List of connected third-party apps"
+          "description": "List of connected third-party apps",
+          "title": "list of supported third party apps of interest"
         }
       }
     },
-    "Notifications": {
+    "NotificationSettings": {
       "type": "object",
       "properties": {
         "id": {
@@ -1097,7 +1101,7 @@
           "title": "address id"
         },
         "notificationType": {
-          "$ref": "#/definitions/Notifications.Type"
+          "$ref": "#/definitions/NotificationSettings.Type"
         },
         "alerts": {
           "type": "boolean",
@@ -1105,7 +1109,7 @@
         }
       }
     },
-    "Notifications.Type": {
+    "NotificationSettings.Type": {
       "type": "string",
       "enum": [
         "TYPE_UNSPECIFIED",
@@ -1113,7 +1117,9 @@
         "TYPE_SMS",
         "TYPE_IN_APP"
       ],
-      "default": "TYPE_UNSPECIFIED"
+      "default": "TYPE_UNSPECIFIED",
+      "description": "- TYPE_EMAIL: email based notification\n - TYPE_SMS: sms based notification\n - TYPE_IN_APP: app based notification",
+      "title": "type of enabled notification"
     },
     "PasswordResetWebhookResponse": {
       "type": "object",

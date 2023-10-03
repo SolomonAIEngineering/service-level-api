@@ -59,6 +59,47 @@ func newUserAccountORM(db *gorm.DB, opts ...gen.DOOption) userAccountORM {
 		db: db.Session(&gorm.Session{}),
 
 		RelationField: field.NewRelation("BusinessAccountSettings", "user_servicev1.BusinessAccountSettingsORM"),
+		AccountInformation: struct {
+			field.RelationField
+			ContactInfo struct {
+				field.RelationField
+			}
+		}{
+			RelationField: field.NewRelation("BusinessAccountSettings.AccountInformation", "user_servicev1.AccountInformationORM"),
+			ContactInfo: struct {
+				field.RelationField
+			}{
+				RelationField: field.NewRelation("BusinessAccountSettings.AccountInformation.ContactInfo", "user_servicev1.ContactInformationORM"),
+			},
+		},
+		AiPoweredInsights: struct {
+			field.RelationField
+		}{
+			RelationField: field.NewRelation("BusinessAccountSettings.AiPoweredInsights", "user_servicev1.AIPoweredInsightsORM"),
+		},
+		FinancialPreferences: struct {
+			field.RelationField
+			TaxSettings struct {
+				field.RelationField
+			}
+		}{
+			RelationField: field.NewRelation("BusinessAccountSettings.FinancialPreferences", "user_servicev1.FinancialPreferencesORM"),
+			TaxSettings: struct {
+				field.RelationField
+			}{
+				RelationField: field.NewRelation("BusinessAccountSettings.FinancialPreferences.TaxSettings", "user_servicev1.TaxSettingsORM"),
+			},
+		},
+		IntegrationSettings: struct {
+			field.RelationField
+		}{
+			RelationField: field.NewRelation("BusinessAccountSettings.IntegrationSettings", "user_servicev1.IntegrationSettingsORM"),
+		},
+		NotificationSettings: struct {
+			field.RelationField
+		}{
+			RelationField: field.NewRelation("BusinessAccountSettings.NotificationSettings", "user_servicev1.NotificationSettingsORM"),
+		},
 	}
 
 	_userAccountORM.UserSettings = userAccountORMHasOneUserSettings{
@@ -270,6 +311,28 @@ type userAccountORMHasOneBusinessAccountSettings struct {
 	db *gorm.DB
 
 	field.RelationField
+
+	AccountInformation struct {
+		field.RelationField
+		ContactInfo struct {
+			field.RelationField
+		}
+	}
+	AiPoweredInsights struct {
+		field.RelationField
+	}
+	FinancialPreferences struct {
+		field.RelationField
+		TaxSettings struct {
+			field.RelationField
+		}
+	}
+	IntegrationSettings struct {
+		field.RelationField
+	}
+	NotificationSettings struct {
+		field.RelationField
+	}
 }
 
 func (a userAccountORMHasOneBusinessAccountSettings) Where(conds ...field.Expr) *userAccountORMHasOneBusinessAccountSettings {

@@ -10,7 +10,10 @@
  */
 
 export interface AIPoweredInsights {
-  /** List of areas for insights */
+  /**
+   * List of areas of interest for insights
+   * List of areas for insights
+   */
   areasOfInterest?: Array<string>;
   /** True if user agrees to share data for insights */
   dataSharing?: boolean;
@@ -106,7 +109,7 @@ export interface BusinessAccountSettings {
    */
   id?: string;
   integrationSettings?: IntegrationSettings;
-  notifications?: Notifications;
+  notificationSettings?: NotificationSettings;
 }
 
 /** @default "BUSINESS_TYPE_UNSPECIFIED" */
@@ -215,7 +218,10 @@ export interface FinancialPreferences {
   taxSettings?: TaxSettings;
 }
 
-/** @default "FREQUENCY_UNSPECIFIED" */
+/**
+ * frequency by which insights should be generated
+ * @default "FREQUENCY_UNSPECIFIED"
+ */
 export type Frequency = "FREQUENCY_UNSPECIFIED" | "FREQUENCY_DAILY" | "FREQUENCY_WEEKLY" | "FREQUENCY_MONTHLY";
 
 export type GetUserByEmailData = any;
@@ -270,17 +276,21 @@ export interface HealthCheckResponse {
 }
 
 export interface IntegrationSettings {
+  /** wether to enable linking bank account for account */
   bankAccountLinking?: boolean;
   /**
    * address id
    * @format uint64
    */
   id?: string;
-  /** List of connected third-party apps */
+  /**
+   * list of supported third party apps of interest
+   * List of connected third-party apps
+   */
   thirdPartyApps?: Array<string>;
 }
 
-export interface Notifications {
+export interface NotificationSettings {
   /** True if user wants to be alerted for anomalies */
   alerts?: boolean;
   /**
@@ -288,11 +298,22 @@ export interface Notifications {
    * @format uint64
    */
   id?: string;
-  notificationType?: NotificationsType;
+  /**
+   * - TYPE_EMAIL: email based notification
+   *  - TYPE_SMS: sms based notification
+   *  - TYPE_IN_APP: app based notification
+   */
+  notificationType?: NotificationSettingsType;
 }
 
-/** @default "TYPE_UNSPECIFIED" */
-export type NotificationsType = "TYPE_UNSPECIFIED" | "TYPE_EMAIL" | "TYPE_SMS" | "TYPE_IN_APP";
+/**
+ * type of enabled notification
+ * - TYPE_EMAIL: email based notification
+ *  - TYPE_SMS: sms based notification
+ *  - TYPE_IN_APP: app based notification
+ * @default "TYPE_UNSPECIFIED"
+ */
+export type NotificationSettingsType = "TYPE_UNSPECIFIED" | "TYPE_EMAIL" | "TYPE_SMS" | "TYPE_IN_APP";
 
 export type PasswordResetData = any;
 
