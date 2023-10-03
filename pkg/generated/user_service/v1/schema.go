@@ -6,6 +6,16 @@ func GetDatabaseSchemas() []interface{} {
 	schemas = append(schemas,
 		UserAccountORM{},
 		AddressORM{},
-		TagsORM{})
+		TagsORM{},
+		UserSettingsORM{},
+		ContactInformationORM{},
+		AccountInformationORM{},
+		TaxSettingsORM{},
+		FinancialPreferencesORM{},
+		AIPoweredInsightsORM{},
+		IntegrationSettingsORM{},
+		NotificationSettingsORM{},
+		BusinessAccountSettingsORM{},
+	)
 	return schemas
 }

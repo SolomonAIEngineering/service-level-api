@@ -138,20 +138,47 @@ message UserAccount {
   google.protobuf.Timestamp created_at = 31;
   google.protobuf.Timestamp verified_at = 32;
 
-  // ProfileType is the type of profile associated to this user account 
-  ProfileType profile_type = 33;
-
-  // Company Name is the name of the company profile
-  string company_name = 34;
+  // IsBusinessAccount enables us to check if this is a business account of interest
+  bool is_business_account = 33;
   
   // Established Date is the date the company was created
+  // optional field for business profile
   string company_established_date = 35;
   // Industry Type is the type of business associated to this business
-  string company_industry_type = 36;
+  string company_industry_type = 36 [
+    (validate.rules).string.min_len = 0,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"fintech\""
+    } 
+  ];
   // Website url of the business
-  string company_website_url = 37;
+  string company_website_url = 37 [
+    (validate.rules).string.min_len = 0,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"https://solomon-ai.io\""
+    } 
+  ];
   // Company description 
-  string company_description = 38;
+  string company_description = 38[
+    (validate.rules).string.min_len = 0,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"we help businesses stay in business\""
+    } 
+  ];
+  // Company Name is the name of the company profile
+  string company_name = 39[
+    (validate.rules).string.min_len = 0,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"solomon-ai\""
+    } 
+  ];
+
+  UserSettings user_settings = 40 [
+    (gorm.field).has_one.preload = true
+  ];
+  BusinessAccountSettings business_account_settings = 41 [
+    (gorm.field).has_one.preload = true
+  ];
 }
 
 /*
@@ -266,5 +293,238 @@ message Tags {
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       example: "[\"testmetadata1\", \"testmetadata2\"]"
     }
+  ];
+}
+
+
+// User settings for the fintech application.
+message UserSettings {
+  option (gorm.opts) = {
+    ormable : true,
+  };
+  // address id
+  uint64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: ""
+    }
+  ];
+
+  // Display and interaction preferences.
+  enum Theme {
+    THEME_UNSPECIFIED = 0;
+    THEME_LIGHT = 1;
+    THEME_DARK = 2;
+  }
+
+  Theme app_theme = 2;
+
+  // Notification preferences.
+  bool email_notifications = 3;
+  bool push_notifications = 4;
+  bool sms_notifications = 5;
+
+  // Currency preference.
+  string default_currency = 6;
+
+  // Preferred date-time format.
+  string datetime_format = 7;
+
+  // Two-factor authentication status.
+  bool two_factor_authentication_enabled = 8;
+
+  // Language preference.
+  string preferred_language = 9;
+
+  // Privacy settings.
+  bool public_profile = 10;   // Whether the user's profile is public.
+  bool enable_goal_journal = 11;   // Option to share transaction history with friends/family.
+  
+  // Investment preferences.
+  enum RiskTolerance {
+    RISK_TOLERANCE_UNSPECIFIED = 0;
+    RISK_TOLERANCE_LOW = 1;
+    RISK_TOLERANCE_MEDIUM = 2;
+    RISK_TOLERANCE_HIGH = 3;
+  }
+
+  RiskTolerance investment_risk_tolerance = 12;
+
+  enum DashboardWidget {
+    DASHBOARD_WIDGET_TRANSACTIONS_UNSPECIFIED = 0;
+    DASHBOARD_WIDGET_TRANSACTIONS_OVERVIEW = 1;
+    DASHBOARD_WIDGET_INVESTMENT_SUMMARY = 2;
+    DASHBOARD_WIDGET_MONTHLY_SPENDING_REPORT = 3;
+    DASHBOARD_WIDGET_SAVINGS_TRACKER = 4;
+    DASHBOARD_WIDGET_CREDIT_SCORE_MONITOR = 5;
+  }
+  
+  // Dashboard customization, e.g., specific widgets or reports.
+  repeated DashboardWidget dashboard_widgets = 13;
+}
+
+message ContactInformation {
+  option (gorm.opts) = {
+    ormable : true,
+  };
+  // address id
+  uint64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: ""
+    }
+  ];
+  string email = 2;
+  string phone_number = 3;
+  string address = 4;
+}
+
+message AccountInformation {
+  option (gorm.opts) = {
+    ormable : true,
+  };
+  // address id
+  uint64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: ""
+    }
+  ];
+
+  string business_name = 2;
+  enum BusinessType {
+      BUSINESS_TYPE_UNSPECIFIED = 0;
+      BUSINESS_TYPE_SOLE_PROPRIETORSHIP = 1;
+      BUSINESS_TYPE_PARTNERSHIP = 2;
+      BUSINESS_TYPE_LLC = 3;
+      BUSINESS_TYPE_CORPORATION = 4;
+      BUSINESS_TYPE_OTHER = 5;
+  }
+  BusinessType business_type = 3;
+  string business_registration_number = 4;
+
+  ContactInformation contact_info = 5;
+}
+
+message TaxSettings {
+  option (gorm.opts) = {
+    ormable : true,
+  };
+  // address id
+  uint64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: ""
+    }
+  ];
+  double tax_percentage = 2;
+  string tax_code = 3;
+}
+
+message FinancialPreferences {
+  option (gorm.opts) = {
+    ormable : true,
+  };
+  // address id
+  uint64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: ""
+    }
+  ];
+
+  string currency_preference = 2;
+  TaxSettings tax_settings = 3 [
+    (gorm.field).has_one.preload = true
+  ];
+  string financial_year_start = 4;
+}
+
+message AIPoweredInsights {
+  option (gorm.opts) = {
+    ormable : true,
+  };
+  // address id
+  uint64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: ""
+    }
+  ];
+
+  // frequency by which insights should be generated
+  enum Frequency {
+      FREQUENCY_UNSPECIFIED = 0;
+      FREQUENCY_DAILY = 1;
+      FREQUENCY_WEEKLY = 2;
+      FREQUENCY_MONTHLY = 3;
+  }
+  Frequency insight_frequency = 2;
+
+  // List of areas of interest for insights
+  repeated string areas_of_interest = 3;  // List of areas for insights
+  bool data_sharing = 4;  // True if user agrees to share data for insights
+}
+
+message IntegrationSettings {
+  option (gorm.opts) = {
+    ormable : true,
+  };
+  // address id
+  uint64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: ""
+    }
+  ];
+  // wether to enable linking bank account for account
+  bool bank_account_linking = 2;
+
+  // list of supported third party apps of interest
+  repeated string third_party_apps = 3;  // List of connected third-party apps
+}
+
+message NotificationSettings {
+  option (gorm.opts) = {
+    ormable : true,
+  };
+  // address id
+  uint64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: ""
+    }
+  ];
+
+  // type of enabled notification
+  enum Type {
+      TYPE_UNSPECIFIED = 0;
+      // email based notification
+      TYPE_EMAIL = 1;
+      // sms based notification
+      TYPE_SMS = 2;
+      // app based notification
+      TYPE_IN_APP = 3;
+  }
+  Type notification_type = 2;
+  bool alerts = 3;  // True if user wants to be alerted for anomalies
+}
+
+// Business Account Settings
+message BusinessAccountSettings {
+  option (gorm.opts) = {
+    ormable : true,
+  };
+  // address id
+  uint64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: ""
+    }
+  ];
+
+  AccountInformation account_information = 2 [
+    (gorm.field).has_one.preload = true
+  ];
+  FinancialPreferences financial_preferences = 3;
+  AIPoweredInsights ai_powered_insights = 4 [
+    (gorm.field).has_one.preload = true
+  ];
+  IntegrationSettings integration_settings = 5 [
+    (gorm.field).has_one.preload = true
+  ];
+  NotificationSettings notification_settings = 6 [
+    (gorm.field).has_one.preload = true
   ];
 }
