@@ -288,7 +288,7 @@ type TransactionORM struct {
 	Amount                          float64
 	AuthorizedDate                  string
 	AuthorizedDatetime              string
-	Categories                      pq.StringArray `gorm:"type:Array(String)"`
+	Categories                      pq.StringArray `gorm:"type:text[]"`
 	CategoryId                      string
 	CheckNumber                     string
 	CurrentDate                     string
