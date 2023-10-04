@@ -796,99 +796,99 @@ type Post struct {
 
 	// Post ID
 	// @gotag: bson:"_id,omitempty"
-	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty" bson:"_id,omitempty"`
 	// Time post was created at
 	// @gotag: bson:"createdAt"
-	CreatedAt string `protobuf:"bytes,2,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	CreatedAt string `protobuf:"bytes,2,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty" bson:"createdAt"`
 	// PostType defines the intent of the post
 	// @gotag: bson:"action"
-	Action PostType `protobuf:"varint,3,opt,name=action,proto3,enum=social_service.v2.PostType" json:"action,omitempty"`
+	Action PostType `protobuf:"varint,3,opt,name=action,proto3,enum=social_service.v2.PostType" json:"action,omitempty" bson:"action"`
 	// Content is the content the post witholds
 	// Content is a string of text that is at least 50 characters long
 	// @gotag: bson:"content"
-	Content string `protobuf:"bytes,4,opt,name=content,proto3" json:"content,omitempty"`
+	Content string `protobuf:"bytes,4,opt,name=content,proto3" json:"content,omitempty" bson:"content"`
 	// Profiles mentioned in the post
 	// @gotag: bson:"mentions"
-	Mentions []string `protobuf:"bytes,5,rep,name=mentions,proto3" json:"mentions,omitempty"`
+	Mentions []string `protobuf:"bytes,5,rep,name=mentions,proto3" json:"mentions,omitempty" bson:"mentions"`
 	// Hashtags defined in the post
 	// @gotag: bson:"hashtags"
-	Hashtags []string `protobuf:"bytes,6,rep,name=hashtags,proto3" json:"hashtags,omitempty"`
+	Hashtags []string `protobuf:"bytes,6,rep,name=hashtags,proto3" json:"hashtags,omitempty" bson:"hashtags"`
 	// Media associated with the post
 	// @gotag: bson:"media"
-	Media *Media `protobuf:"bytes,7,opt,name=media,proto3" json:"media,omitempty"`
+	Media *Media `protobuf:"bytes,7,opt,name=media,proto3" json:"media,omitempty" bson:"media"`
 	// Blob of extra content tied to the post
 	// @gotag: bson:"extra"
-	Extra map[string]string `protobuf:"bytes,9,rep,name=extra,proto3" json:"extra,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	Extra map[string]string `protobuf:"bytes,9,rep,name=extra,proto3" json:"extra,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3" bson:"extra"`
 	// Comments tied to the post
 	// @gotag: bson:"comments"
-	Comments []*Comment `protobuf:"bytes,10,rep,name=comments,proto3" json:"comments,omitempty"`
+	Comments []*Comment `protobuf:"bytes,10,rep,name=comments,proto3" json:"comments,omitempty" bson:"comments"`
 	// ID of the user creating the post
 	// @gotag: bson:"simfinyPlatformUserId"
-	SimfinyPlatformUserId uint64 `protobuf:"varint,11,opt,name=simfiny_platform_user_id,json=simfinyPlatformUserId,proto3" json:"simfiny_platform_user_id,omitempty"`
+	SimfinyPlatformUserId uint64 `protobuf:"varint,11,opt,name=simfiny_platform_user_id,json=simfinyPlatformUserId,proto3" json:"simfiny_platform_user_id,omitempty" bson:"simfinyPlatformUserId"`
 	// @gotag: bson:"profileId"
-	ProfileId uint64 `protobuf:"varint,12,opt,name=profile_id,json=profileId,proto3" json:"profile_id,omitempty"`
+	ProfileId uint64 `protobuf:"varint,12,opt,name=profile_id,json=profileId,proto3" json:"profile_id,omitempty" bson:"profileId"`
 	// @gotag: bson:"title"
-	Title string `protobuf:"bytes,13,opt,name=title,proto3" json:"title,omitempty"`
+	Title string `protobuf:"bytes,13,opt,name=title,proto3" json:"title,omitempty" bson:"title"`
 	// @gotag: bson:"tags"
-	Tags []string `protobuf:"bytes,14,rep,name=tags,proto3" json:"tags,omitempty"`
+	Tags []string `protobuf:"bytes,14,rep,name=tags,proto3" json:"tags,omitempty" bson:"tags"`
 	// The topic to which this post is currently associated to. For non-community
 	// profiles, posts are not associated to any topic. However for the commmunity
 	// case, posts are associated to topic
 	// @gotag: bson:"topicName"
-	TopicName string `protobuf:"bytes,15,opt,name=topic_name,json=topicName,proto3" json:"topic_name,omitempty"`
+	TopicName string `protobuf:"bytes,15,opt,name=topic_name,json=topicName,proto3" json:"topic_name,omitempty" bson:"topicName"`
 	// Username of the person making the comment
 	// @gotag: bson:"authorUsername"
-	AuthorUsername string `protobuf:"bytes,16,opt,name=author_username,json=authorUsername,proto3" json:"author_username,omitempty"`
+	AuthorUsername string `protobuf:"bytes,16,opt,name=author_username,json=authorUsername,proto3" json:"author_username,omitempty" bson:"authorUsername"`
 	// Profile image of the person making this comment
 	// @gotag: bson:"authorProfileImage"
-	AuthorProfileImage string `protobuf:"bytes,17,opt,name=author_profile_image,json=authorProfileImage,proto3" json:"author_profile_image,omitempty"`
+	AuthorProfileImage string `protobuf:"bytes,17,opt,name=author_profile_image,json=authorProfileImage,proto3" json:"author_profile_image,omitempty" bson:"authorProfileImage"`
 	// AffinityScore is the average rating users on the platform associate with a
 	// piece of content. It is taken as the weighted average across all reactions
 	// for the particular post
 	// @gotag: bson:"affinityScore"
-	AffinityScore uint64 `protobuf:"varint,18,opt,name=affinity_score,json=affinityScore,proto3" json:"affinity_score,omitempty"`
+	AffinityScore uint64 `protobuf:"varint,18,opt,name=affinity_score,json=affinityScore,proto3" json:"affinity_score,omitempty" bson:"affinityScore"`
 	// QualityScore is the quality of the given piece of content.
 	// @gotag: bson:"qualityScore"
-	QualityScore uint64 `protobuf:"varint,19,opt,name=quality_score,json=qualityScore,proto3" json:"quality_score,omitempty"`
+	QualityScore uint64 `protobuf:"varint,19,opt,name=quality_score,json=qualityScore,proto3" json:"quality_score,omitempty" bson:"qualityScore"`
 	// UserIDToAffinityScoreMap witholds a mapping of all user profiles who left
 	// an affinity score
 	// @gotag: bson:"userIdToAffinityScoreMap"
-	UserIdToAffinityScoreMap map[uint64]uint64 `protobuf:"bytes,20,rep,name=user_id_to_affinity_score_map,json=userIdToAffinityScoreMap,proto3" json:"user_id_to_affinity_score_map,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3"`
+	UserIdToAffinityScoreMap map[uint64]uint64 `protobuf:"bytes,20,rep,name=user_id_to_affinity_score_map,json=userIdToAffinityScoreMap,proto3" json:"user_id_to_affinity_score_map,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3" bson:"userIdToAffinityScoreMap"`
 	// @gotag: bson:"insights"
-	Insights *ContentInsights `protobuf:"bytes,21,opt,name=insights,proto3" json:"insights,omitempty"`
+	Insights *ContentInsights `protobuf:"bytes,21,opt,name=insights,proto3" json:"insights,omitempty" bson:"insights"`
 	// ReportCount details the number of reports were associated with a post
 	// A report is used as a signal to disclose the post's content are in
 	// violation of platform rules
 	// @gotag: bson:"userIdToReportsMap"
-	UserIdToReportsMap map[uint64]uint64 `protobuf:"bytes,22,rep,name=user_id_to_reports_map,json=userIdToReportsMap,proto3" json:"user_id_to_reports_map,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3"`
+	UserIdToReportsMap map[uint64]uint64 `protobuf:"bytes,22,rep,name=user_id_to_reports_map,json=userIdToReportsMap,proto3" json:"user_id_to_reports_map,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3" bson:"userIdToReportsMap"`
 	// ReadingTime outlines the number of minutes it would take to read the
 	// contents of this post
 	// @gotag: bson:"readingTime"
-	ReadingTime string `protobuf:"bytes,23,opt,name=reading_time,json=readingTime,proto3" json:"reading_time,omitempty"`
+	ReadingTime string `protobuf:"bytes,23,opt,name=reading_time,json=readingTime,proto3" json:"reading_time,omitempty" bson:"readingTime"`
 	// BackgroundImageUrl signifies an image to associate to a post object.
 	// Such urls are only associated when a post is an article or short story
 	// @gotag: bson:"backgroundImageUrl"
-	BackgroundImageUrl string `protobuf:"bytes,24,opt,name=background_image_url,json=backgroundImageUrl,proto3" json:"background_image_url,omitempty"`
+	BackgroundImageUrl string `protobuf:"bytes,24,opt,name=background_image_url,json=backgroundImageUrl,proto3" json:"background_image_url,omitempty" bson:"backgroundImageUrl"`
 	// AccountType is the account type of the creator of this piece of
 	// content
 	// @gotag: bson:"authorAccountType"
-	AuthorAccountType AccountType `protobuf:"varint,25,opt,name=author_account_type,json=authorAccountType,proto3,enum=social_service.v2.AccountType" json:"author_account_type,omitempty"`
+	AuthorAccountType AccountType `protobuf:"varint,25,opt,name=author_account_type,json=authorAccountType,proto3,enum=social_service.v2.AccountType" json:"author_account_type,omitempty" bson:"authorAccountType"`
 	// the set of notes associated to this piece of content
 	// @gotag: bson:"notes"
-	Notes []*Note `protobuf:"bytes,30,rep,name=notes,proto3" json:"notes,omitempty"`
+	Notes []*Note `protobuf:"bytes,30,rep,name=notes,proto3" json:"notes,omitempty" bson:"notes"`
 	// a thread a is a continuation of posts associated to a singular post
 	// @gotag: bson:"thread"
-	Thread *Thread `protobuf:"bytes,31,opt,name=thread,proto3" json:"thread,omitempty"`
+	Thread *Thread `protobuf:"bytes,31,opt,name=thread,proto3" json:"thread,omitempty" bson:"thread"`
 	// thread participant posts are not sent to get stream to be part of the social graph.
 	// posts that are the parent of their thread are sent to get stream to comprise the social graph
 	// @gotag: bson:"threadParticipantType"
-	ThreadParticipantType ThreadParticipantType `protobuf:"varint,32,opt,name=thread_participant_type,json=threadParticipantType,proto3,enum=social_service.v2.ThreadParticipantType" json:"thread_participant_type,omitempty"`
+	ThreadParticipantType ThreadParticipantType `protobuf:"varint,32,opt,name=thread_participant_type,json=threadParticipantType,proto3,enum=social_service.v2.ThreadParticipantType" json:"thread_participant_type,omitempty" bson:"threadParticipantType"`
 	// a map of user ids to reactions left by users
 	// @gotag: bson:"userIdToReactionMap"
-	UserIdToReactionMap map[uint64]Reaction `protobuf:"bytes,33,rep,name=user_id_to_reaction_map,json=userIdToReactionMap,proto3" json:"user_id_to_reaction_map,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3,enum=social_service.v2.Reaction"`
+	UserIdToReactionMap map[uint64]Reaction `protobuf:"bytes,33,rep,name=user_id_to_reaction_map,json=userIdToReactionMap,proto3" json:"user_id_to_reaction_map,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3,enum=social_service.v2.Reaction" bson:"userIdToReactionMap"`
 	// if the post is a question, this field will hold the response to the question by the ai
 	// @gotag: bson:"aiGeneratedQuestionResponse"
-	AiGeneratedQuestionResponse string `protobuf:"bytes,34,opt,name=ai_generated_question_response,json=aiGeneratedQuestionResponse,proto3" json:"ai_generated_question_response,omitempty"`
+	AiGeneratedQuestionResponse string `protobuf:"bytes,34,opt,name=ai_generated_question_response,json=aiGeneratedQuestionResponse,proto3" json:"ai_generated_question_response,omitempty" bson:"aiGeneratedQuestionResponse"`
 }
 
 func (x *Post) Reset() {
@@ -1133,110 +1133,110 @@ type PollPost struct {
 
 	// Post ID
 	// @gotag: bson:"_id,omitempty"
-	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty" bson:"_id,omitempty"`
 	// Time post was created at
 	// @gotag: bson:"createdAt"
-	CreatedAt string `protobuf:"bytes,2,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	CreatedAt string `protobuf:"bytes,2,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty" bson:"createdAt"`
 	// PostType defines the intent of the post
 	// @gotag: bson:"action"
-	Action PostType `protobuf:"varint,3,opt,name=action,proto3,enum=social_service.v2.PostType" json:"action,omitempty"`
+	Action PostType `protobuf:"varint,3,opt,name=action,proto3,enum=social_service.v2.PostType" json:"action,omitempty" bson:"action"`
 	// Content is the content the post witholds
 	// Content is a string of text that is at least 50 characters long
 	// @gotag: bson:"content"
-	Content string `protobuf:"bytes,4,opt,name=content,proto3" json:"content,omitempty"`
+	Content string `protobuf:"bytes,4,opt,name=content,proto3" json:"content,omitempty" bson:"content"`
 	// Profiles mentioned in the post
 	// @gotag: bson:"mentions"
-	Mentions []string `protobuf:"bytes,5,rep,name=mentions,proto3" json:"mentions,omitempty"`
+	Mentions []string `protobuf:"bytes,5,rep,name=mentions,proto3" json:"mentions,omitempty" bson:"mentions"`
 	// Hashtags defined in the post
 	// @gotag: bson:"hashtags"
-	Hashtags []string `protobuf:"bytes,6,rep,name=hashtags,proto3" json:"hashtags,omitempty"`
+	Hashtags []string `protobuf:"bytes,6,rep,name=hashtags,proto3" json:"hashtags,omitempty" bson:"hashtags"`
 	// Media associated with the post
 	// @gotag: bson:"media"
-	Media *Media `protobuf:"bytes,7,opt,name=media,proto3" json:"media,omitempty"`
+	Media *Media `protobuf:"bytes,7,opt,name=media,proto3" json:"media,omitempty" bson:"media"`
 	// Blob of extra content tied to the post
 	// @gotag: bson:"extra"
-	Extra map[string]string `protobuf:"bytes,9,rep,name=extra,proto3" json:"extra,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	Extra map[string]string `protobuf:"bytes,9,rep,name=extra,proto3" json:"extra,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3" bson:"extra"`
 	// Comments tied to the post
 	// @gotag: bson:"comments"
-	Comments []*Comment `protobuf:"bytes,10,rep,name=comments,proto3" json:"comments,omitempty"`
+	Comments []*Comment `protobuf:"bytes,10,rep,name=comments,proto3" json:"comments,omitempty" bson:"comments"`
 	// ID of the user creating the post
 	// @gotag: bson:"simfinyPlatformUserId"
-	SimfinyPlatformUserId uint64 `protobuf:"varint,11,opt,name=simfiny_platform_user_id,json=simfinyPlatformUserId,proto3" json:"simfiny_platform_user_id,omitempty"`
+	SimfinyPlatformUserId uint64 `protobuf:"varint,11,opt,name=simfiny_platform_user_id,json=simfinyPlatformUserId,proto3" json:"simfiny_platform_user_id,omitempty" bson:"simfinyPlatformUserId"`
 	// ID of the profile creating the post
 	// @gotag: bson:"profileId"
-	ProfileId uint64 `protobuf:"varint,12,opt,name=profile_id,json=profileId,proto3" json:"profile_id,omitempty"`
+	ProfileId uint64 `protobuf:"varint,12,opt,name=profile_id,json=profileId,proto3" json:"profile_id,omitempty" bson:"profileId"`
 	// Title of the post
 	// @gotag: bson:"title"
-	Title string `protobuf:"bytes,13,opt,name=title,proto3" json:"title,omitempty"`
+	Title string `protobuf:"bytes,13,opt,name=title,proto3" json:"title,omitempty" bson:"title"`
 	// Tags associated with the post
 	// @gotag: bson:"tags"
-	Tags []string `protobuf:"bytes,14,rep,name=tags,proto3" json:"tags,omitempty"`
+	Tags []string `protobuf:"bytes,14,rep,name=tags,proto3" json:"tags,omitempty" bson:"tags"`
 	// The topic to which this post is currently associated to. For non-community
 	// profiles, posts are not associated to any topic. However for the commmunity
 	// case, posts are associated to topic
 	// @gotag: bson:"topicName"
-	TopicName string `protobuf:"bytes,15,opt,name=topic_name,json=topicName,proto3" json:"topic_name,omitempty"`
+	TopicName string `protobuf:"bytes,15,opt,name=topic_name,json=topicName,proto3" json:"topic_name,omitempty" bson:"topicName"`
 	// Username of the person making the comment
 	// @gotag: bson:"authorUsername"
-	AuthorUsername string `protobuf:"bytes,16,opt,name=author_username,json=authorUsername,proto3" json:"author_username,omitempty"`
+	AuthorUsername string `protobuf:"bytes,16,opt,name=author_username,json=authorUsername,proto3" json:"author_username,omitempty" bson:"authorUsername"`
 	// Profile image of the person making this comment
 	// @gotag: bson:"authorProfileImage"
-	AuthorProfileImage string `protobuf:"bytes,17,opt,name=author_profile_image,json=authorProfileImage,proto3" json:"author_profile_image,omitempty"`
+	AuthorProfileImage string `protobuf:"bytes,17,opt,name=author_profile_image,json=authorProfileImage,proto3" json:"author_profile_image,omitempty" bson:"authorProfileImage"`
 	// AffinityScore is the average rating users on the platform associate with a
 	// piece of content. It is taken as the weighted average across all reactions
 	// for the particular post
 	// @gotag: bson:"affinityScore"
-	AffinityScore uint64 `protobuf:"varint,18,opt,name=affinity_score,json=affinityScore,proto3" json:"affinity_score,omitempty"`
+	AffinityScore uint64 `protobuf:"varint,18,opt,name=affinity_score,json=affinityScore,proto3" json:"affinity_score,omitempty" bson:"affinityScore"`
 	// QualityScore is the quality of the given piece of content.
 	// It is taken as the weighted average across all reactions for the particular
 	// post
 	// @gotag: bson:"qualityScore"
-	QualityScore uint64 `protobuf:"varint,19,opt,name=quality_score,json=qualityScore,proto3" json:"quality_score,omitempty"`
+	QualityScore uint64 `protobuf:"varint,19,opt,name=quality_score,json=qualityScore,proto3" json:"quality_score,omitempty" bson:"qualityScore"`
 	// UserIDToAffinityScoreMap witholds a mapping of all user profiles who left
 	// an affinity score
 	// @gotag: bson:"userIdToAffinityScoreMap"
-	UserIdToAffinityScoreMap map[uint64]uint64 `protobuf:"bytes,20,rep,name=user_id_to_affinity_score_map,json=userIdToAffinityScoreMap,proto3" json:"user_id_to_affinity_score_map,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3"`
+	UserIdToAffinityScoreMap map[uint64]uint64 `protobuf:"bytes,20,rep,name=user_id_to_affinity_score_map,json=userIdToAffinityScoreMap,proto3" json:"user_id_to_affinity_score_map,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3" bson:"userIdToAffinityScoreMap"`
 	// Insights is a map of all insights associated to a post
 	// @gotag: bson:"insights"
-	Insights *ContentInsights `protobuf:"bytes,21,opt,name=insights,proto3" json:"insights,omitempty"`
+	Insights *ContentInsights `protobuf:"bytes,21,opt,name=insights,proto3" json:"insights,omitempty" bson:"insights"`
 	// ReportCount details the number of reports were associated with a post
 	// A report is used as a signal to disclose the post's content are in
 	// violation of platform rules
 	// @gotag: bson:"userIdToReportsMap"
-	UserIdToReportsMap map[uint64]uint64 `protobuf:"bytes,22,rep,name=user_id_to_reports_map,json=userIdToReportsMap,proto3" json:"user_id_to_reports_map,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3"`
+	UserIdToReportsMap map[uint64]uint64 `protobuf:"bytes,22,rep,name=user_id_to_reports_map,json=userIdToReportsMap,proto3" json:"user_id_to_reports_map,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3" bson:"userIdToReportsMap"`
 	// BackgroundImageUrl signifies an image to associate to a post object.
 	// Such urls are only associated when a post is an article or short story
 	// @gotag: bson:"backgroundImageUrl"
-	BackgroundImageUrl string `protobuf:"bytes,24,opt,name=background_image_url,json=backgroundImageUrl,proto3" json:"background_image_url,omitempty"`
+	BackgroundImageUrl string `protobuf:"bytes,24,opt,name=background_image_url,json=backgroundImageUrl,proto3" json:"background_image_url,omitempty" bson:"backgroundImageUrl"`
 	// AccountType is the account type of the creator of this piece of
 	// content
 	// @gotag: bson:"authorAccountType"
-	AuthorAccountType AccountType `protobuf:"varint,25,opt,name=author_account_type,json=authorAccountType,proto3,enum=social_service.v2.AccountType" json:"author_account_type,omitempty"`
+	AuthorAccountType AccountType `protobuf:"varint,25,opt,name=author_account_type,json=authorAccountType,proto3,enum=social_service.v2.AccountType" json:"author_account_type,omitempty" bson:"authorAccountType"`
 	// A hash map of user ids to poll responses left by users
 	// @gotag: bson:"userIdToPollResponseMap"
-	UserIdToPollResponsesMap map[uint64]*PollResponse `protobuf:"bytes,26,rep,name=user_id_to_poll_responses_map,json=userIdToPollResponsesMap,proto3" json:"user_id_to_poll_responses_map,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	UserIdToPollResponsesMap map[uint64]*PollResponse `protobuf:"bytes,26,rep,name=user_id_to_poll_responses_map,json=userIdToPollResponsesMap,proto3" json:"user_id_to_poll_responses_map,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3" bson:"userIdToPollResponseMap"`
 	// the set of options the poll witholds
 	// @gotag: bson:"pollOptions"
-	PollOptions []string `protobuf:"bytes,27,rep,name=poll_options,json=pollOptions,proto3" json:"poll_options,omitempty"`
+	PollOptions []string `protobuf:"bytes,27,rep,name=poll_options,json=pollOptions,proto3" json:"poll_options,omitempty" bson:"pollOptions"`
 	// the distribution of poll responses (in percentage form)
 	// @gotag: bson:"pollDistribution"
-	PollDistribution map[string]float64 `protobuf:"bytes,28,rep,name=poll_distribution,json=pollDistribution,proto3" json:"poll_distribution,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"fixed64,2,opt,name=value,proto3"`
+	PollDistribution map[string]float64 `protobuf:"bytes,28,rep,name=poll_distribution,json=pollDistribution,proto3" json:"poll_distribution,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"fixed64,2,opt,name=value,proto3" bson:"pollDistribution"`
 	// the end date of the given poll
 	// @gotag: bson:"pollEndDate"
-	PollEndDate *timestamppb.Timestamp `protobuf:"bytes,29,opt,name=poll_end_date,json=pollEndDate,proto3" json:"poll_end_date,omitempty"`
+	PollEndDate *timestamppb.Timestamp `protobuf:"bytes,29,opt,name=poll_end_date,json=pollEndDate,proto3" json:"poll_end_date,omitempty" bson:"pollEndDate"`
 	// the set of notes associated to this piece of content
 	// @gotag: bson:"notes"
-	Notes []*Note `protobuf:"bytes,30,rep,name=notes,proto3" json:"notes,omitempty"`
+	Notes []*Note `protobuf:"bytes,30,rep,name=notes,proto3" json:"notes,omitempty" bson:"notes"`
 	// a thread a is a continuation of posts associated to a singular post
 	// @gotag: bson:"thread"
-	Thread *Thread `protobuf:"bytes,31,opt,name=thread,proto3" json:"thread,omitempty"`
+	Thread *Thread `protobuf:"bytes,31,opt,name=thread,proto3" json:"thread,omitempty" bson:"thread"`
 	// thread participant posts are not sent to get stream to be part of the social graph.
 	// posts that are the parent of their thread are sent to get stream to comprise the social graph
 	// @gotag: bson:"threadParticipantType"
-	ThreadParticipantType ThreadParticipantType `protobuf:"varint,32,opt,name=thread_participant_type,json=threadParticipantType,proto3,enum=social_service.v2.ThreadParticipantType" json:"thread_participant_type,omitempty"`
+	ThreadParticipantType ThreadParticipantType `protobuf:"varint,32,opt,name=thread_participant_type,json=threadParticipantType,proto3,enum=social_service.v2.ThreadParticipantType" json:"thread_participant_type,omitempty" bson:"threadParticipantType"`
 	// a map of user ids to reactions left by users
 	// @gotag: bson:"userIdToReactionMap"
-	UserIdToReactionMap map[uint64]Reaction `protobuf:"bytes,33,rep,name=user_id_to_reaction_map,json=userIdToReactionMap,proto3" json:"user_id_to_reaction_map,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3,enum=social_service.v2.Reaction"`
+	UserIdToReactionMap map[uint64]Reaction `protobuf:"bytes,33,rep,name=user_id_to_reaction_map,json=userIdToReactionMap,proto3" json:"user_id_to_reaction_map,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3,enum=social_service.v2.Reaction" bson:"userIdToReactionMap"`
 }
 
 func (x *PollPost) Reset() {
@@ -1495,16 +1495,16 @@ type PollResponse struct {
 
 	// the id of the poll response
 	// @gotag: bson:"_id,omitempty"
-	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty" bson:"_id,omitempty"`
 	// the user id who left the poll response
 	// @gotag: bson:"userId"
-	UserId uint64 `protobuf:"varint,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	UserId uint64 `protobuf:"varint,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty" bson:"userId"`
 	// the actual poll response left by the user
 	// @gotag: bson:"responseValue"
-	ResponseValue string `protobuf:"bytes,3,opt,name=response_value,json=responseValue,proto3" json:"response_value,omitempty"`
+	ResponseValue string `protobuf:"bytes,3,opt,name=response_value,json=responseValue,proto3" json:"response_value,omitempty" bson:"responseValue"`
 	// the index of the given response
 	// @gotag: bson:"responseIdx"
-	ResponseIdx uint64 `protobuf:"varint,4,opt,name=response_idx,json=responseIdx,proto3" json:"response_idx,omitempty"`
+	ResponseIdx uint64 `protobuf:"varint,4,opt,name=response_idx,json=responseIdx,proto3" json:"response_idx,omitempty" bson:"responseIdx"`
 }
 
 func (x *PollResponse) Reset() {
@@ -1576,88 +1576,88 @@ type SharedPost struct {
 
 	// RePost ID
 	// @gotag: bson:"_id,omitempty"
-	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty" bson:"_id,omitempty"`
 	// Original Post ID
 	// @gotag: bson:"originalPostId"
-	OriginalPostId string `protobuf:"bytes,2,opt,name=original_post_id,json=originalPostId,proto3" json:"original_post_id,omitempty"`
+	OriginalPostId string `protobuf:"bytes,2,opt,name=original_post_id,json=originalPostId,proto3" json:"original_post_id,omitempty" bson:"originalPostId"`
 	// The username of the original author
 	// @gotag: bson:"originalAuthorUsername"
-	OriginalAuthorUsername string `protobuf:"bytes,3,opt,name=original_author_username,json=originalAuthorUsername,proto3" json:"original_author_username,omitempty"`
+	OriginalAuthorUsername string `protobuf:"bytes,3,opt,name=original_author_username,json=originalAuthorUsername,proto3" json:"original_author_username,omitempty" bson:"originalAuthorUsername"`
 	// Time post was created at
 	// @gotag: bson:"createdAt"
-	CreatedAt string `protobuf:"bytes,4,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	CreatedAt string `protobuf:"bytes,4,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty" bson:"createdAt"`
 	// Content is the content the post witholds
 	// Content is a string of text that is at least 50 characters long
 	// @gotag: bson:"content"
-	Content string `protobuf:"bytes,6,opt,name=content,proto3" json:"content,omitempty"`
+	Content string `protobuf:"bytes,6,opt,name=content,proto3" json:"content,omitempty" bson:"content"`
 	// Profiles mentioned in the post
 	// @gotag: bson:"mentions"
-	Mentions []string `protobuf:"bytes,7,rep,name=mentions,proto3" json:"mentions,omitempty"`
+	Mentions []string `protobuf:"bytes,7,rep,name=mentions,proto3" json:"mentions,omitempty" bson:"mentions"`
 	// Hashtags defined in the post
 	// @gotag: bson:"hashtags"
-	Hashtags []string `protobuf:"bytes,8,rep,name=hashtags,proto3" json:"hashtags,omitempty"`
+	Hashtags []string `protobuf:"bytes,8,rep,name=hashtags,proto3" json:"hashtags,omitempty" bson:"hashtags"`
 	// Blob of extra content tied to the post
 	// @gotag: bson:"extra"
-	Extra map[string]string `protobuf:"bytes,10,rep,name=extra,proto3" json:"extra,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	Extra map[string]string `protobuf:"bytes,10,rep,name=extra,proto3" json:"extra,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3" bson:"extra"`
 	// Comments tied to the post
 	// @gotag: bson:"comments"
-	Comments []*Comment `protobuf:"bytes,11,rep,name=comments,proto3" json:"comments,omitempty"`
+	Comments []*Comment `protobuf:"bytes,11,rep,name=comments,proto3" json:"comments,omitempty" bson:"comments"`
 	// ID of the user resharing the post
 	// @gotag: bson:"simfinyPlatformUserId"
-	SimfinyPlatformUserId uint64 `protobuf:"varint,12,opt,name=simfiny_platform_user_id,json=simfinyPlatformUserId,proto3" json:"simfiny_platform_user_id,omitempty"`
+	SimfinyPlatformUserId uint64 `protobuf:"varint,12,opt,name=simfiny_platform_user_id,json=simfinyPlatformUserId,proto3" json:"simfiny_platform_user_id,omitempty" bson:"simfinyPlatformUserId"`
 	// ID of the profile resharing the post
 	// @gotag: bson:"profileId"
-	ProfileId uint64 `protobuf:"varint,13,opt,name=profile_id,json=profileId,proto3" json:"profile_id,omitempty"`
+	ProfileId uint64 `protobuf:"varint,13,opt,name=profile_id,json=profileId,proto3" json:"profile_id,omitempty" bson:"profileId"`
 	// Tags associated with the post
 	// @gotag: bson:"tags"
-	Tags []string `protobuf:"bytes,15,rep,name=tags,proto3" json:"tags,omitempty"`
+	Tags []string `protobuf:"bytes,15,rep,name=tags,proto3" json:"tags,omitempty" bson:"tags"`
 	// Username of the person making the comment
 	// @gotag: bson:"authorUsername"
-	AuthorUsername string `protobuf:"bytes,17,opt,name=author_username,json=authorUsername,proto3" json:"author_username,omitempty"`
+	AuthorUsername string `protobuf:"bytes,17,opt,name=author_username,json=authorUsername,proto3" json:"author_username,omitempty" bson:"authorUsername"`
 	// AffinityScore is the average rating users on the platform associate with a
 	// piece of content. It is taken as the weighted average across all reactions
 	// for the particular post
 	// @gotag: bson:"affinityScore"
-	AffinityScore uint64 `protobuf:"varint,19,opt,name=affinity_score,json=affinityScore,proto3" json:"affinity_score,omitempty"`
+	AffinityScore uint64 `protobuf:"varint,19,opt,name=affinity_score,json=affinityScore,proto3" json:"affinity_score,omitempty" bson:"affinityScore"`
 	// QualityScore is the quality of the given piece of content.
 	// It is taken as the weighted average across all reactions for the particular
 	// post
 	// @gotag: bson:"qualityScore"
-	QualityScore uint64 `protobuf:"varint,20,opt,name=quality_score,json=qualityScore,proto3" json:"quality_score,omitempty"`
+	QualityScore uint64 `protobuf:"varint,20,opt,name=quality_score,json=qualityScore,proto3" json:"quality_score,omitempty" bson:"qualityScore"`
 	// UserIDToAffinityScoreMap witholds a mapping of all user profiles who left
 	// an affinity score
 	// @gotag: bson:"userIdToAffinityScoreMap"
-	UserIdToAffinityScoreMap map[uint64]uint64 `protobuf:"bytes,21,rep,name=user_id_to_affinity_score_map,json=userIdToAffinityScoreMap,proto3" json:"user_id_to_affinity_score_map,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3"`
+	UserIdToAffinityScoreMap map[uint64]uint64 `protobuf:"bytes,21,rep,name=user_id_to_affinity_score_map,json=userIdToAffinityScoreMap,proto3" json:"user_id_to_affinity_score_map,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3" bson:"userIdToAffinityScoreMap"`
 	// ReportCount details the number of reports were associated with a post
 	// A report is used as a signal to disclose the post's content are in
 	// violation of platform rules
 	// @gotag: bson:"userIdToReportsMap"
-	UserIdToReportsMap map[uint64]uint64 `protobuf:"bytes,23,rep,name=user_id_to_reports_map,json=userIdToReportsMap,proto3" json:"user_id_to_reports_map,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3"`
+	UserIdToReportsMap map[uint64]uint64 `protobuf:"bytes,23,rep,name=user_id_to_reports_map,json=userIdToReportsMap,proto3" json:"user_id_to_reports_map,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3" bson:"userIdToReportsMap"`
 	// the set of notes associated to this piece of content
 	// @gotag: bson:"notes"
-	Notes []*Note `protobuf:"bytes,24,rep,name=notes,proto3" json:"notes,omitempty"`
+	Notes []*Note `protobuf:"bytes,24,rep,name=notes,proto3" json:"notes,omitempty" bson:"notes"`
 	// a thread a is a continuation of posts associated to a singular post
 	// @gotag: bson:"thread"
-	Thread *Thread `protobuf:"bytes,25,opt,name=thread,proto3" json:"thread,omitempty"`
+	Thread *Thread `protobuf:"bytes,25,opt,name=thread,proto3" json:"thread,omitempty" bson:"thread"`
 	// AccountType is the account type of the creator of this piece of
 	// content
 	// @gotag: bson:"authorAccountType"
-	AuthorAccountType AccountType `protobuf:"varint,26,opt,name=author_account_type,json=authorAccountType,proto3,enum=social_service.v2.AccountType" json:"author_account_type,omitempty"`
+	AuthorAccountType AccountType `protobuf:"varint,26,opt,name=author_account_type,json=authorAccountType,proto3,enum=social_service.v2.AccountType" json:"author_account_type,omitempty" bson:"authorAccountType"`
 	// a map of user ids to reactions left by users
 	// @gotag: bson:"userIdToReactionMap"
-	UserIdToReactionMap map[uint64]Reaction `protobuf:"bytes,34,rep,name=user_id_to_reaction_map,json=userIdToReactionMap,proto3" json:"user_id_to_reaction_map,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3,enum=social_service.v2.Reaction"`
+	UserIdToReactionMap map[uint64]Reaction `protobuf:"bytes,34,rep,name=user_id_to_reaction_map,json=userIdToReactionMap,proto3" json:"user_id_to_reaction_map,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3,enum=social_service.v2.Reaction" bson:"userIdToReactionMap"`
 	// PostType defines the intent of the post
 	// @gotag: bson:"action"
-	Action PostType `protobuf:"varint,35,opt,name=action,proto3,enum=social_service.v2.PostType" json:"action,omitempty"`
+	Action PostType `protobuf:"varint,35,opt,name=action,proto3,enum=social_service.v2.PostType" json:"action,omitempty" bson:"action"`
 	// The profile Id of the user who owned the original post
 	// @gotag: bson:"originalPostUserProfileId"
-	OriginalPostUserProfileId uint64 `protobuf:"varint,36,opt,name=originalPostUserProfileId,proto3" json:"originalPostUserProfileId,omitempty"`
+	OriginalPostUserProfileId uint64 `protobuf:"varint,36,opt,name=originalPostUserProfileId,proto3" json:"originalPostUserProfileId,omitempty" bson:"originalPostUserProfileId"`
 	// The simfiny wide user id of the profile who owned the original post
 	// @gotag: bson:"originalPostUserSimfinyPlaformId"
-	OriginalPostUserSimfinyPlaformId uint64 `protobuf:"varint,37,opt,name=originalPostUserSimfinyPlaformId,proto3" json:"originalPostUserSimfinyPlaformId,omitempty"`
+	OriginalPostUserSimfinyPlaformId uint64 `protobuf:"varint,37,opt,name=originalPostUserSimfinyPlaformId,proto3" json:"originalPostUserSimfinyPlaformId,omitempty" bson:"originalPostUserSimfinyPlaformId"`
 	// originalPostType defines the intent of the post
 	// @gotag: bson:"originalPostAction"
-	OriginalPostAction PostType `protobuf:"varint,38,opt,name=originalPostAction,proto3,enum=social_service.v2.PostType" json:"originalPostAction,omitempty"`
+	OriginalPostAction PostType `protobuf:"varint,38,opt,name=originalPostAction,proto3,enum=social_service.v2.PostType" json:"originalPostAction,omitempty" bson:"originalPostAction"`
 }
 
 func (x *SharedPost) Reset() {
@@ -1874,17 +1874,17 @@ type Thread struct {
 
 	// Thread ID
 	// @gotag: bson:"_id,omitempty"
-	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty" bson:"_id,omitempty"`
 	// a list of post ids associated to this thread
 	// @gotag: bson:"postIds"
-	PostIds []string `protobuf:"bytes,2,rep,name=post_ids,json=postIds,proto3" json:"post_ids,omitempty"`
+	PostIds []string `protobuf:"bytes,2,rep,name=post_ids,json=postIds,proto3" json:"post_ids,omitempty" bson:"postIds"`
 	// the id of the parent post
 	// @gotag: bson:"parentPostId"
-	ParentPostId string `protobuf:"bytes,3,opt,name=parent_post_id,json=parentPostId,proto3" json:"parent_post_id,omitempty"`
+	ParentPostId string `protobuf:"bytes,3,opt,name=parent_post_id,json=parentPostId,proto3" json:"parent_post_id,omitempty" bson:"parentPostId"`
 	// @gotag: bson:"createdAt"
-	CreatedAt string `protobuf:"bytes,4,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	CreatedAt string `protobuf:"bytes,4,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty" bson:"createdAt"`
 	// @gotag: bson:"updatedAt"
-	UpdatedAt string `protobuf:"bytes,5,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	UpdatedAt string `protobuf:"bytes,5,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty" bson:"updatedAt"`
 }
 
 func (x *Thread) Reset() {
@@ -1964,40 +1964,40 @@ type Note struct {
 
 	// Note ID
 	// @gotag: bson:"_id,omitempty"
-	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty" bson:"_id,omitempty"`
 	// Platform wide ID of the user creating the note
 	// @gotag: bson:"simfinyPlatformUserId"
-	SimfinyPlatformUserId uint64 `protobuf:"varint,2,opt,name=simfiny_platform_user_id,json=simfinyPlatformUserId,proto3" json:"simfiny_platform_user_id,omitempty"`
+	SimfinyPlatformUserId uint64 `protobuf:"varint,2,opt,name=simfiny_platform_user_id,json=simfinyPlatformUserId,proto3" json:"simfiny_platform_user_id,omitempty" bson:"simfinyPlatformUserId"`
 	// ID of either the user profile or the community profile creating the note
 	// @gotag: bson:"profileId"
-	ProfileId uint64 `protobuf:"varint,3,opt,name=profile_id,json=profileId,proto3" json:"profile_id,omitempty"`
+	ProfileId uint64 `protobuf:"varint,3,opt,name=profile_id,json=profileId,proto3" json:"profile_id,omitempty" bson:"profileId"`
 	// Media payload tied to the note
 	// @gotag: bson:"media"
-	Media *Media `protobuf:"bytes,4,opt,name=media,proto3" json:"media,omitempty"`
+	Media *Media `protobuf:"bytes,4,opt,name=media,proto3" json:"media,omitempty" bson:"media"`
 	// Profiles mentioned in the note - NOTE: only the creator of the article whom this
 	// note is attached to and the mentioned members will be notified. Additionally, this note
 	// will only be viewable by those folks
 	// @gotag: bson:"mentions"
-	Mentions []string `protobuf:"bytes,6,rep,name=mentions,proto3" json:"mentions,omitempty"`
+	Mentions []string `protobuf:"bytes,6,rep,name=mentions,proto3" json:"mentions,omitempty" bson:"mentions"`
 	// Hashtags defined in the note
 	// @gotag: bson:"hashtags"
-	Hashtags []string `protobuf:"bytes,7,rep,name=hashtags,proto3" json:"hashtags,omitempty"`
+	Hashtags []string `protobuf:"bytes,7,rep,name=hashtags,proto3" json:"hashtags,omitempty" bson:"hashtags"`
 	// Time when the note was created
 	// @gotag: bson:"createdAt"
-	CreatedAt string `protobuf:"bytes,8,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	CreatedAt string `protobuf:"bytes,8,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty" bson:"createdAt"`
 	// Content defining the note
 	// @gotag: bson:"content"
-	Content string `protobuf:"bytes,9,opt,name=content,proto3" json:"content,omitempty"`
+	Content string `protobuf:"bytes,9,opt,name=content,proto3" json:"content,omitempty" bson:"content"`
 	// AccountType is the account type of the creator of this piece of
 	// content
 	// @gotag: bson:"authorAccountType"
-	AuthorAccountType AccountType `protobuf:"varint,23,opt,name=author_account_type,json=authorAccountType,proto3,enum=social_service.v2.AccountType" json:"author_account_type,omitempty"`
+	AuthorAccountType AccountType `protobuf:"varint,23,opt,name=author_account_type,json=authorAccountType,proto3,enum=social_service.v2.AccountType" json:"author_account_type,omitempty" bson:"authorAccountType"`
 	// Username of the person making the note
 	// @gotag: bson:"authorUserName"
-	AuthorUserName string `protobuf:"bytes,24,opt,name=author_user_name,json=authorUserName,proto3" json:"author_user_name,omitempty"`
+	AuthorUserName string `protobuf:"bytes,24,opt,name=author_user_name,json=authorUserName,proto3" json:"author_user_name,omitempty" bson:"authorUserName"`
 	// Profile image of the person making this note
 	// @gotag: bson:"authorProfileImage"
-	AuthorProfileImage string `protobuf:"bytes,25,opt,name=author_profile_image,json=authorProfileImage,proto3" json:"author_profile_image,omitempty"`
+	AuthorProfileImage string `protobuf:"bytes,25,opt,name=author_profile_image,json=authorProfileImage,proto3" json:"author_profile_image,omitempty" bson:"authorProfileImage"`
 }
 
 func (x *Note) Reset() {
@@ -2116,69 +2116,69 @@ type Comment struct {
 
 	// Comment ID
 	// @gotag: bson:"_id,omitempty"
-	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty" bson:"_id,omitempty"`
 	// Platform wide ID of the user creating the comment
 	// @gotag: bson:"simfinyPlatformUserId"
-	SimfinyPlatformUserId uint64 `protobuf:"varint,2,opt,name=simfiny_platform_user_id,json=simfinyPlatformUserId,proto3" json:"simfiny_platform_user_id,omitempty"`
+	SimfinyPlatformUserId uint64 `protobuf:"varint,2,opt,name=simfiny_platform_user_id,json=simfinyPlatformUserId,proto3" json:"simfiny_platform_user_id,omitempty" bson:"simfinyPlatformUserId"`
 	// ID of either the user profile or the community profile creating the comment
 	// @gotag: bson:"profileId"
-	ProfileId uint64 `protobuf:"varint,3,opt,name=profile_id,json=profileId,proto3" json:"profile_id,omitempty"`
+	ProfileId uint64 `protobuf:"varint,3,opt,name=profile_id,json=profileId,proto3" json:"profile_id,omitempty" bson:"profileId"`
 	// Media payload tied to the comment
 	// @gotag: bson:"media"
-	Media *Media `protobuf:"bytes,4,opt,name=media,proto3" json:"media,omitempty"`
+	Media *Media `protobuf:"bytes,4,opt,name=media,proto3" json:"media,omitempty" bson:"media"`
 	// Profiles mentioned in the comment
 	// @gotag: bson:"mentions"
-	Mentions []string `protobuf:"bytes,6,rep,name=mentions,proto3" json:"mentions,omitempty"`
+	Mentions []string `protobuf:"bytes,6,rep,name=mentions,proto3" json:"mentions,omitempty" bson:"mentions"`
 	// Hashtags defined in the comment
 	// @gotag: bson:"hashtags"
-	Hashtags []string `protobuf:"bytes,7,rep,name=hashtags,proto3" json:"hashtags,omitempty"`
+	Hashtags []string `protobuf:"bytes,7,rep,name=hashtags,proto3" json:"hashtags,omitempty" bson:"hashtags"`
 	// Time when the comment was created
 	// @gotag: bson:"createdAt"
-	CreatedAt string `protobuf:"bytes,8,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	CreatedAt string `protobuf:"bytes,8,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty" bson:"createdAt"`
 	// Content defining the comment
 	// @gotag: bson:"content"
-	Content string `protobuf:"bytes,9,opt,name=content,proto3" json:"content,omitempty"`
+	Content string `protobuf:"bytes,9,opt,name=content,proto3" json:"content,omitempty" bson:"content"`
 	// Responses to a given comment
 	// @gotag: bson:"replies"
-	Replies []*CommentReply `protobuf:"bytes,10,rep,name=replies,proto3" json:"replies,omitempty"`
+	Replies []*CommentReply `protobuf:"bytes,10,rep,name=replies,proto3" json:"replies,omitempty" bson:"replies"`
 	// Blob of extra content tied to the comment
 	// @gotag: bson:"extra"
-	Extra map[string]string `protobuf:"bytes,11,rep,name=extra,proto3" json:"extra,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	Extra map[string]string `protobuf:"bytes,11,rep,name=extra,proto3" json:"extra,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3" bson:"extra"`
 	// Username of the person making the comment
 	// @gotag: bson:"authorUsername"
-	AuthorUsername string `protobuf:"bytes,12,opt,name=author_username,json=authorUsername,proto3" json:"author_username,omitempty"`
+	AuthorUsername string `protobuf:"bytes,12,opt,name=author_username,json=authorUsername,proto3" json:"author_username,omitempty" bson:"authorUsername"`
 	// Profile image of the person making this comment
 	// @gotag: bson:"authorProfileImage"
-	AuthorProfileImage string `protobuf:"bytes,13,opt,name=author_profile_image,json=authorProfileImage,proto3" json:"author_profile_image,omitempty"`
+	AuthorProfileImage string `protobuf:"bytes,13,opt,name=author_profile_image,json=authorProfileImage,proto3" json:"author_profile_image,omitempty" bson:"authorProfileImage"`
 	// AffinityScore is the average rating users on the platform associate with a
 	// piece of content. It is taken as the weighted average across all reactions
 	// for the particular post
 	// @gotag: bson:"affinityScore"
-	AffinityScore uint64 `protobuf:"varint,14,opt,name=affinity_score,json=affinityScore,proto3" json:"affinity_score,omitempty"`
+	AffinityScore uint64 `protobuf:"varint,14,opt,name=affinity_score,json=affinityScore,proto3" json:"affinity_score,omitempty" bson:"affinityScore"`
 	// QualityScore is the quality of the given piece of content.
 	// It is taken as the weighted average across all reactions for the particular
 	// post
 	// @gotag: bson:"qualityScore"
-	QualityScore uint64 `protobuf:"varint,15,opt,name=quality_score,json=qualityScore,proto3" json:"quality_score,omitempty"`
+	QualityScore uint64 `protobuf:"varint,15,opt,name=quality_score,json=qualityScore,proto3" json:"quality_score,omitempty" bson:"qualityScore"`
 	// UserIDToAffinityScoreMap witholds a mapping of all user profiles who left
 	// an affinity score
 	// @gotag: bson:"userIdToAffinityScoreMap"
-	UserIdToAffinityScoreMap map[uint64]uint64 `protobuf:"bytes,16,rep,name=user_id_to_affinity_score_map,json=userIdToAffinityScoreMap,proto3" json:"user_id_to_affinity_score_map,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3"`
+	UserIdToAffinityScoreMap map[uint64]uint64 `protobuf:"bytes,16,rep,name=user_id_to_affinity_score_map,json=userIdToAffinityScoreMap,proto3" json:"user_id_to_affinity_score_map,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3" bson:"userIdToAffinityScoreMap"`
 	// ReportCount details the number of reports were associated with a post
 	// A report is used as a signal to disclose the post's content are in
 	// violation of platform rules
 	// @gotag: bson:"userIdToReportsMap"
-	UserIdToReportsMap map[uint64]uint64 `protobuf:"bytes,22,rep,name=user_id_to_reports_map,json=userIdToReportsMap,proto3" json:"user_id_to_reports_map,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3"`
+	UserIdToReportsMap map[uint64]uint64 `protobuf:"bytes,22,rep,name=user_id_to_reports_map,json=userIdToReportsMap,proto3" json:"user_id_to_reports_map,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3" bson:"userIdToReportsMap"`
 	// AccountType is the account type of the creator of this piece of
 	// content
 	// @gotag: bson:"authorAccountType"
-	AuthorAccountType AccountType `protobuf:"varint,23,opt,name=author_account_type,json=authorAccountType,proto3,enum=social_service.v2.AccountType" json:"author_account_type,omitempty"`
+	AuthorAccountType AccountType `protobuf:"varint,23,opt,name=author_account_type,json=authorAccountType,proto3,enum=social_service.v2.AccountType" json:"author_account_type,omitempty" bson:"authorAccountType"`
 	// a map of user ids to reactions left by users
 	// @gotag: bson:"userIdToReactionMap"
-	UserIdToReactionMap map[uint64]Reaction `protobuf:"bytes,24,rep,name=user_id_to_reaction_map,json=userIdToReactionMap,proto3" json:"user_id_to_reaction_map,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3,enum=social_service.v2.Reaction"`
+	UserIdToReactionMap map[uint64]Reaction `protobuf:"bytes,24,rep,name=user_id_to_reaction_map,json=userIdToReactionMap,proto3" json:"user_id_to_reaction_map,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3,enum=social_service.v2.Reaction" bson:"userIdToReactionMap"`
 	// the set of notes associated to this piece of content
 	// @gotag: bson:"notes"
-	Notes []*Note `protobuf:"bytes,25,rep,name=notes,proto3" json:"notes,omitempty"`
+	Notes []*Note `protobuf:"bytes,25,rep,name=notes,proto3" json:"notes,omitempty" bson:"notes"`
 }
 
 func (x *Comment) Reset() {
@@ -2353,61 +2353,61 @@ type CommentReply struct {
 
 	// Response ID
 	// @gotag: bson:"_id,omitempty"
-	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty" bson:"_id,omitempty"`
 	// ID of the user creating the comment response
 	// @gotag: bson:"simfinyPlatformUserId"
-	SimfinyPlatformUserId uint64 `protobuf:"varint,2,opt,name=simfiny_platform_user_id,json=simfinyPlatformUserId,proto3" json:"simfiny_platform_user_id,omitempty"`
+	SimfinyPlatformUserId uint64 `protobuf:"varint,2,opt,name=simfiny_platform_user_id,json=simfinyPlatformUserId,proto3" json:"simfiny_platform_user_id,omitempty" bson:"simfinyPlatformUserId"`
 	// ID of either the user profile or the community profile creating the comment response
 	// @gotag: bson:"profileId"
-	ProfileId uint64 `protobuf:"varint,3,opt,name=profile_id,json=profileId,proto3" json:"profile_id,omitempty"`
+	ProfileId uint64 `protobuf:"varint,3,opt,name=profile_id,json=profileId,proto3" json:"profile_id,omitempty" bson:"profileId"`
 	// Media payload associated to the response
 	// @gotag: bson:"media"
-	Media *Media `protobuf:"bytes,4,opt,name=media,proto3" json:"media,omitempty"`
+	Media *Media `protobuf:"bytes,4,opt,name=media,proto3" json:"media,omitempty" bson:"media"`
 	// Profiles mentioned in the comment
 	// @gotag: bson:"mentions"
-	Mentions []string `protobuf:"bytes,6,rep,name=mentions,proto3" json:"mentions,omitempty"`
+	Mentions []string `protobuf:"bytes,6,rep,name=mentions,proto3" json:"mentions,omitempty" bson:"mentions"`
 	// Hashtags defined in the comment
 	// @gotag: bson:"hashtags"
-	Hashtags []string `protobuf:"bytes,7,rep,name=hashtags,proto3" json:"hashtags,omitempty"`
+	Hashtags []string `protobuf:"bytes,7,rep,name=hashtags,proto3" json:"hashtags,omitempty" bson:"hashtags"`
 	// Time when the comment was created
 	// @gotag: bson:"createdAt"
-	CreatedAt string `protobuf:"bytes,8,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	CreatedAt string `protobuf:"bytes,8,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty" bson:"createdAt"`
 	// Content defining the comment
 	// @gotag: bson:"content"
-	Content string `protobuf:"bytes,9,opt,name=content,proto3" json:"content,omitempty"`
+	Content string `protobuf:"bytes,9,opt,name=content,proto3" json:"content,omitempty" bson:"content"`
 	// Blob of extra content tied to the comment response
 	// @gotag: bson:"extra"
-	Extra map[string]string `protobuf:"bytes,10,rep,name=extra,proto3" json:"extra,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	Extra map[string]string `protobuf:"bytes,10,rep,name=extra,proto3" json:"extra,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3" bson:"extra"`
 	// Username of the person making the comment
 	// @gotag: bson:"authorUsername"
-	AuthorUsername string `protobuf:"bytes,11,opt,name=author_username,json=authorUsername,proto3" json:"author_username,omitempty"`
+	AuthorUsername string `protobuf:"bytes,11,opt,name=author_username,json=authorUsername,proto3" json:"author_username,omitempty" bson:"authorUsername"`
 	// Profile image of the person making this comment
 	// @gotag: bson:"authorProfileImage"
-	AuthorProfileImage string `protobuf:"bytes,12,opt,name=author_profile_image,json=authorProfileImage,proto3" json:"author_profile_image,omitempty"`
+	AuthorProfileImage string `protobuf:"bytes,12,opt,name=author_profile_image,json=authorProfileImage,proto3" json:"author_profile_image,omitempty" bson:"authorProfileImage"`
 	// AffinityScore is the average rating users on the platform associate with a
 	// piece of content. It is taken as the weighted average across all reactions
 	// for the particular post
 	// @gotag: bson:"affinityScore"
-	AffinityScore uint64 `protobuf:"varint,14,opt,name=affinity_score,json=affinityScore,proto3" json:"affinity_score,omitempty"`
+	AffinityScore uint64 `protobuf:"varint,14,opt,name=affinity_score,json=affinityScore,proto3" json:"affinity_score,omitempty" bson:"affinityScore"`
 	// QualityScore is the quality of the given piece of content.
 	// It is taken as the weighted average across all reactions for the particular
 	// post
 	// @gotag: bson:"qualityScore"
-	QualityScore uint64 `protobuf:"varint,15,opt,name=quality_score,json=qualityScore,proto3" json:"quality_score,omitempty"`
+	QualityScore uint64 `protobuf:"varint,15,opt,name=quality_score,json=qualityScore,proto3" json:"quality_score,omitempty" bson:"qualityScore"`
 	// UserIDToAffinityScoreMap witholds a mapping of all user profiles who left
 	// an affinity score
 	// @gotag: bson:"userIdToAffinityScoreMap"
-	UserIdToAffinityScoreMap map[uint64]uint64 `protobuf:"bytes,16,rep,name=user_id_to_affinity_score_map,json=userIdToAffinityScoreMap,proto3" json:"user_id_to_affinity_score_map,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3"`
+	UserIdToAffinityScoreMap map[uint64]uint64 `protobuf:"bytes,16,rep,name=user_id_to_affinity_score_map,json=userIdToAffinityScoreMap,proto3" json:"user_id_to_affinity_score_map,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3" bson:"userIdToAffinityScoreMap"`
 	// AccountType is the account type of the creator of this piece of
 	// content
 	// @gotag: bson:"authorAccountType"
-	AuthorAccountType AccountType `protobuf:"varint,17,opt,name=author_account_type,json=authorAccountType,proto3,enum=social_service.v2.AccountType" json:"author_account_type,omitempty"`
+	AuthorAccountType AccountType `protobuf:"varint,17,opt,name=author_account_type,json=authorAccountType,proto3,enum=social_service.v2.AccountType" json:"author_account_type,omitempty" bson:"authorAccountType"`
 	// a map of user ids to reactions left by users
 	// @gotag: bson:"userIdToReactionMap"
-	UserIdToReactionMap map[uint64]Reaction `protobuf:"bytes,18,rep,name=user_id_to_reaction_map,json=userIdToReactionMap,proto3" json:"user_id_to_reaction_map,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3,enum=social_service.v2.Reaction"`
+	UserIdToReactionMap map[uint64]Reaction `protobuf:"bytes,18,rep,name=user_id_to_reaction_map,json=userIdToReactionMap,proto3" json:"user_id_to_reaction_map,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3,enum=social_service.v2.Reaction" bson:"userIdToReactionMap"`
 	// the report count for this comment reply
 	// @gotag: bson:"userIdToReportsMap"
-	UserIdToReportsMap map[uint64]uint64 `protobuf:"bytes,22,rep,name=user_id_to_reports_map,json=userIdToReportsMap,proto3" json:"user_id_to_reports_map,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3"`
+	UserIdToReportsMap map[uint64]uint64 `protobuf:"bytes,22,rep,name=user_id_to_reports_map,json=userIdToReportsMap,proto3" json:"user_id_to_reports_map,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3" bson:"userIdToReportsMap"`
 }
 
 func (x *CommentReply) Reset() {
