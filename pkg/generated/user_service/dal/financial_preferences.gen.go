@@ -8,6 +8,7 @@ import (
 	"context"
 	"strings"
 
+	user_servicev1 "github.com/SolomonAIEngineering/service-level-api/pkg/generated/user_service/v1"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 	"gorm.io/gorm/schema"
@@ -17,8 +18,6 @@ import (
 	"gorm.io/gen/helper"
 
 	"gorm.io/plugin/dbresolver"
-
-	user_servicev1 "github.com/SolomonAIEngineering/service-level-api/pkg/generated/user_service/v1"
 )
 
 func newFinancialPreferencesORM(db *gorm.DB, opts ...gen.DOOption) financialPreferencesORM {

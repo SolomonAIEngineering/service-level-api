@@ -224,6 +224,12 @@ export interface FinancialPreferences {
  */
 export type Frequency = "FREQUENCY_UNSPECIFIED" | "FREQUENCY_DAILY" | "FREQUENCY_WEEKLY" | "FREQUENCY_MONTHLY";
 
+export type GetBusinessSettingsData = any;
+
+export interface GetBusinessSettingsResponse {
+  businessSettings?: BusinessAccountSettings;
+}
+
 export type GetUserByEmailData = any;
 
 export type GetUserByEmailOrUsernameData = any;
@@ -392,6 +398,16 @@ export interface TaxSettings {
  * @default "THEME_UNSPECIFIED"
  */
 export type Theme = "THEME_UNSPECIFIED" | "THEME_LIGHT" | "THEME_DARK";
+
+export type UpdateBusinessSettingsData = any;
+
+export interface UpdateBusinessSettingsRequest {
+  businessSettings: BusinessAccountSettings;
+}
+
+export interface UpdateBusinessSettingsResponse {
+  success?: boolean;
+}
 
 export type UpdateUserData = any;
 

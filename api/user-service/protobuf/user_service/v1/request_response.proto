@@ -250,8 +250,10 @@ message GetBusinessSettingsResponse {
 }
 
 message UpdateBusinessSettingsRequest {
-  uint64 user_id = 1 [(validate.rules).uint64.gt = 0];
-  BusinessAccountSettings business_settings = 2;
+  BusinessAccountSettings business_settings = 1 [
+    (validate.rules).message.required = true,
+    (google.api.field_behavior) = REQUIRED  
+  ]; 
 }
 
 message UpdateBusinessSettingsResponse {

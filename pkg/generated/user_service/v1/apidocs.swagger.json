@@ -245,6 +245,110 @@
         ]
       }
     },
+    "/api/v1/user/business/settings": {
+      "put": {
+        "summary": "Updates business settings",
+        "description": "Updates business settings based on the provided parameters",
+        "operationId": "UpdateBusinessSettings",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.UpdateBusinessSettingsResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateBusinessSettingsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "business settings"
+        ]
+      }
+    },
+    "/api/v1/user/business/settings/{userId}": {
+      "get": {
+        "summary": "Gets a business accounts settings",
+        "description": "Queries and obtains business settings based on the provided parameters",
+        "operationId": "GetBusinessSettings",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.BusinessSettings"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "description": "The account ID associated with the user (business)",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "business settings"
+        ]
+      }
+    },
     "/api/v1/user/email/{email}": {
       "get": {
         "summary": "Gets a user account by email",
@@ -1015,6 +1119,14 @@
       "default": "FREQUENCY_UNSPECIFIED",
       "title": "frequency by which insights should be generated"
     },
+    "GetBusinessSettingsResponse": {
+      "type": "object",
+      "properties": {
+        "businessSettings": {
+          "$ref": "#/definitions/BusinessAccountSettings"
+        }
+      }
+    },
     "GetUserByEmailOrUsernameResponse": {
       "type": "object",
       "properties": {
@@ -1225,6 +1337,25 @@
       ],
       "default": "THEME_UNSPECIFIED",
       "description": "Display and interaction preferences."
+    },
+    "UpdateBusinessSettingsRequest": {
+      "type": "object",
+      "properties": {
+        "businessSettings": {
+          "$ref": "#/definitions/BusinessAccountSettings"
+        }
+      },
+      "required": [
+        "businessSettings"
+      ]
+    },
+    "UpdateBusinessSettingsResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        }
+      }
     },
     "UpdateUserRequest": {
       "type": "object",

@@ -33,6 +33,8 @@ const (
 	UserService_GetUserByEmailOrUsername_FullMethodName = "/user_service.v1.UserService/GetUserByEmailOrUsername"
 	UserService_VerifyUser_FullMethodName               = "/user_service.v1.UserService/VerifyUser"
 	UserService_PasswordResetWebhook_FullMethodName     = "/user_service.v1.UserService/PasswordResetWebhook"
+	UserService_GetBusinessSettings_FullMethodName      = "/user_service.v1.UserService/GetBusinessSettings"
+	UserService_UpdateBusinessSettings_FullMethodName   = "/user_service.v1.UserService/UpdateBusinessSettings"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -53,6 +55,10 @@ type UserServiceClient interface {
 	GetUserByEmailOrUsername(ctx context.Context, in *GetUserByEmailOrUsernameRequest, opts ...grpc.CallOption) (*GetUserByEmailOrUsernameResponse, error)
 	VerifyUser(ctx context.Context, in *VerifyUserRequest, opts ...grpc.CallOption) (*VerifyUserResponse, error)
 	PasswordResetWebhook(ctx context.Context, in *PasswordResetWebhookRequest, opts ...grpc.CallOption) (*PasswordResetWebhookResponse, error)
+	// Retrieve business settings.
+	GetBusinessSettings(ctx context.Context, in *GetBusinessSettingsRequest, opts ...grpc.CallOption) (*GetBusinessSettingsResponse, error)
+	// Update business settings.
+	UpdateBusinessSettings(ctx context.Context, in *UpdateBusinessSettingsRequest, opts ...grpc.CallOption) (*UpdateBusinessSettingsResponse, error)
 }
 
 type userServiceClient struct {
@@ -189,6 +195,24 @@ func (c *userServiceClient) PasswordResetWebhook(ctx context.Context, in *Passwo
 	return out, nil
 }
 
+func (c *userServiceClient) GetBusinessSettings(ctx context.Context, in *GetBusinessSettingsRequest, opts ...grpc.CallOption) (*GetBusinessSettingsResponse, error) {
+	out := new(GetBusinessSettingsResponse)
+	err := c.cc.Invoke(ctx, UserService_GetBusinessSettings_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) UpdateBusinessSettings(ctx context.Context, in *UpdateBusinessSettingsRequest, opts ...grpc.CallOption) (*UpdateBusinessSettingsResponse, error) {
+	out := new(UpdateBusinessSettingsResponse)
+	err := c.cc.Invoke(ctx, UserService_UpdateBusinessSettings_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServiceServer is the server API for UserService service.
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility
@@ -207,6 +231,10 @@ type UserServiceServer interface {
 	GetUserByEmailOrUsername(context.Context, *GetUserByEmailOrUsernameRequest) (*GetUserByEmailOrUsernameResponse, error)
 	VerifyUser(context.Context, *VerifyUserRequest) (*VerifyUserResponse, error)
 	PasswordResetWebhook(context.Context, *PasswordResetWebhookRequest) (*PasswordResetWebhookResponse, error)
+	// Retrieve business settings.
+	GetBusinessSettings(context.Context, *GetBusinessSettingsRequest) (*GetBusinessSettingsResponse, error)
+	// Update business settings.
+	UpdateBusinessSettings(context.Context, *UpdateBusinessSettingsRequest) (*UpdateBusinessSettingsResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -255,6 +283,12 @@ func (UnimplementedUserServiceServer) VerifyUser(context.Context, *VerifyUserReq
 }
 func (UnimplementedUserServiceServer) PasswordResetWebhook(context.Context, *PasswordResetWebhookRequest) (*PasswordResetWebhookResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PasswordResetWebhook not implemented")
+}
+func (UnimplementedUserServiceServer) GetBusinessSettings(context.Context, *GetBusinessSettingsRequest) (*GetBusinessSettingsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetBusinessSettings not implemented")
+}
+func (UnimplementedUserServiceServer) UpdateBusinessSettings(context.Context, *UpdateBusinessSettingsRequest) (*UpdateBusinessSettingsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateBusinessSettings not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 
@@ -521,6 +555,42 @@ func _UserService_PasswordResetWebhook_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_GetBusinessSettings_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetBusinessSettingsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).GetBusinessSettings(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_GetBusinessSettings_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).GetBusinessSettings(ctx, req.(*GetBusinessSettingsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_UpdateBusinessSettings_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateBusinessSettingsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).UpdateBusinessSettings(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_UpdateBusinessSettings_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).UpdateBusinessSettings(ctx, req.(*UpdateBusinessSettingsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -583,6 +653,14 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "PasswordResetWebhook",
 			Handler:    _UserService_PasswordResetWebhook_Handler,
+		},
+		{
+			MethodName: "GetBusinessSettings",
+			Handler:    _UserService_GetBusinessSettings_Handler,
+		},
+		{
+			MethodName: "UpdateBusinessSettings",
+			Handler:    _UserService_UpdateBusinessSettings_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
