@@ -6,7 +6,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { AskSolomonAILayout } from './AskSolomonAILayout';
 
 const meta: Meta<typeof AskSolomonAILayout> = {
-  title: 'Example/AskSolomonAi',
+  title: 'Component/AskSolomonAi',
   component: AskSolomonAILayout,
   parameters: {
     layout: 'centered',
