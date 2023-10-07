@@ -37,11 +37,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: npm install
-        #👇 Adds Chromatic as a step in the workflow
-      - uses: chromaui/action@v1
-        # Options required for Chromatic's GitHub Action
-        with:
-          #👇 Chromatic projectToken,
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          # token: ${{ secrets.GITHUB_TOKEN }}
-          workingDir: ./component-library
+      - run: cd component-library && npm run chromatic
