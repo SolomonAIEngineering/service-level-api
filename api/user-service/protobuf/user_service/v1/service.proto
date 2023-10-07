@@ -309,4 +309,49 @@ service UserService {
             }
         };
     }
+
+    // Retrieve business settings.
+  rpc GetBusinessSettings(GetBusinessSettingsRequest) returns (GetBusinessSettingsResponse) {
+        option (google.api.http) = {
+            get: "/api/v1/user/business/settings/{user_id}"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Gets a business accounts settings"
+            tags: ["business settings"]
+            operation_id: "GetBusinessSettings"
+            description: "Queries and obtains business settings based on the provided parameters"
+            responses: {
+                key: "200"
+                value: {
+                description: "A successful response."
+                schema: {
+                    json_schema: {ref: ".api.v1.BusinessSettings"}
+                }
+                }
+            }
+        };
+    }
+
+  // Update business settings.
+  rpc UpdateBusinessSettings(UpdateBusinessSettingsRequest) returns (UpdateBusinessSettingsResponse) {
+        option (google.api.http) = {
+            put: "/api/v1/user/business/settings"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Updates business settings"
+            tags: ["business settings"]
+            operation_id: "UpdateBusinessSettings"
+            description: "Updates business settings based on the provided parameters"
+            responses: {
+                key: "200"
+                value: {
+                description: "A successful response."
+                schema: {
+                    json_schema: {ref: ".api.v1.UpdateBusinessSettingsResponse"}
+                }
+                }
+            }
+        };
+    }
 }

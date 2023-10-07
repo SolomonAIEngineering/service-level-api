@@ -9,6 +9,34 @@
  * ---------------------------------------------------------------
  */
 
+export interface AIPoweredInsights {
+  /**
+   * List of areas of interest for insights
+   * List of areas for insights
+   */
+  areasOfInterest?: Array<string>;
+  /** True if user agrees to share data for insights */
+  dataSharing?: boolean;
+  /**
+   * address id
+   * @format uint64
+   */
+  id?: string;
+  insightFrequency?: Frequency;
+}
+
+export interface AccountInformation {
+  businessName?: string;
+  businessRegistrationNumber?: string;
+  businessType?: BusinessType;
+  contactInfo?: ContactInformation;
+  /**
+   * address id
+   * @format uint64
+   */
+  id?: string;
+}
+
 /** Address: represents an account's address */
 export interface Address {
   /**
@@ -70,6 +98,29 @@ export interface Any {
   [key: string]: any;
 }
 
+/** Business Account Settings */
+export interface BusinessAccountSettings {
+  accountInformation?: AccountInformation;
+  aiPoweredInsights?: AIPoweredInsights;
+  financialPreferences?: FinancialPreferences;
+  /**
+   * address id
+   * @format uint64
+   */
+  id?: string;
+  integrationSettings?: IntegrationSettings;
+  notificationSettings?: NotificationSettings;
+}
+
+/** @default "BUSINESS_TYPE_UNSPECIFIED" */
+export type BusinessType =
+  | "BUSINESS_TYPE_UNSPECIFIED"
+  | "BUSINESS_TYPE_SOLE_PROPRIETORSHIP"
+  | "BUSINESS_TYPE_PARTNERSHIP"
+  | "BUSINESS_TYPE_LLC"
+  | "BUSINESS_TYPE_CORPORATION"
+  | "BUSINESS_TYPE_OTHER";
+
 export type CheckEmailExistsData = any;
 
 export interface CheckEmailExistsResponse {
@@ -80,6 +131,17 @@ export type CheckUsernameExistsData = any;
 
 export interface CheckUsernameExistsResponse {
   exists?: boolean;
+}
+
+export interface ContactInformation {
+  address?: string;
+  email?: string;
+  /**
+   * address id
+   * @format uint64
+   */
+  id?: string;
+  phoneNumber?: string;
 }
 
 export type CreateUserData = any;
@@ -126,6 +188,15 @@ export interface CreateUserResponse {
   userId?: string;
 }
 
+/** @default "DASHBOARD_WIDGET_TRANSACTIONS_UNSPECIFIED" */
+export type DashboardWidget =
+  | "DASHBOARD_WIDGET_TRANSACTIONS_UNSPECIFIED"
+  | "DASHBOARD_WIDGET_TRANSACTIONS_OVERVIEW"
+  | "DASHBOARD_WIDGET_INVESTMENT_SUMMARY"
+  | "DASHBOARD_WIDGET_MONTHLY_SPENDING_REPORT"
+  | "DASHBOARD_WIDGET_SAVINGS_TRACKER"
+  | "DASHBOARD_WIDGET_CREDIT_SCORE_MONITOR";
+
 export type DeleteUserData = any;
 
 /**
@@ -134,6 +205,29 @@ export type DeleteUserData = any;
  */
 export interface DeleteUserResponse {
   accountDeleted?: boolean;
+}
+
+export interface FinancialPreferences {
+  currencyPreference?: string;
+  financialYearStart?: string;
+  /**
+   * address id
+   * @format uint64
+   */
+  id?: string;
+  taxSettings?: TaxSettings;
+}
+
+/**
+ * frequency by which insights should be generated
+ * @default "FREQUENCY_UNSPECIFIED"
+ */
+export type Frequency = "FREQUENCY_UNSPECIFIED" | "FREQUENCY_DAILY" | "FREQUENCY_WEEKLY" | "FREQUENCY_MONTHLY";
+
+export type GetBusinessSettingsData = any;
+
+export interface GetBusinessSettingsResponse {
+  businessSettings?: BusinessAccountSettings;
 }
 
 export type GetUserByEmailData = any;
@@ -187,26 +281,71 @@ export interface HealthCheckResponse {
   healthy?: boolean;
 }
 
+export interface IntegrationSettings {
+  /** wether to enable linking bank account for account */
+  bankAccountLinking?: boolean;
+  /**
+   * address id
+   * @format uint64
+   */
+  id?: string;
+  /**
+   * list of supported third party apps of interest
+   * List of connected third-party apps
+   */
+  thirdPartyApps?: Array<string>;
+}
+
+export interface NotificationSettings {
+  /** True if user wants to be alerted for anomalies */
+  alerts?: boolean;
+  /**
+   * address id
+   * @format uint64
+   */
+  id?: string;
+  /**
+   * - TYPE_EMAIL: email based notification
+   *  - TYPE_SMS: sms based notification
+   *  - TYPE_IN_APP: app based notification
+   */
+  notificationType?: NotificationSettingsType;
+}
+
+/**
+ * type of enabled notification
+ * - TYPE_EMAIL: email based notification
+ *  - TYPE_SMS: sms based notification
+ *  - TYPE_IN_APP: app based notification
+ * @default "TYPE_UNSPECIFIED"
+ */
+export type ProfileType =
+  | 'PROFILE_TYPE_UNSPECIFIED'
+  | 'PROFILE_TYPE_USER'
+  | 'PROFILE_TYPE_BUSINESS';
+export type NotificationSettingsType = "TYPE_UNSPECIFIED" | "TYPE_EMAIL" | "TYPE_SMS" | "TYPE_IN_APP";
+
 export type PasswordResetData = any;
 
 export interface PasswordResetWebhookResponse {
   success?: boolean;
 }
 
-/**
- * ProfileType: represents the type of account tied to a given profile
- * @default "PROFILE_TYPE_UNSPECIFIED"
- */
-export type ProfileType =
-  | 'PROFILE_TYPE_UNSPECIFIED'
-  | 'PROFILE_TYPE_USER'
-  | 'PROFILE_TYPE_BUSINESS';
-
 export type ReadynessCheckData = any;
 
 export interface ReadynessCheckResponse {
   healthy?: boolean;
 }
+
+/**
+ * Investment preferences.
+ * @default "RISK_TOLERANCE_UNSPECIFIED"
+ */
+export type RiskTolerance =
+  | "RISK_TOLERANCE_UNSPECIFIED"
+  | "RISK_TOLERANCE_LOW"
+  | "RISK_TOLERANCE_MEDIUM"
+  | "RISK_TOLERANCE_HIGH";
 
 export interface Status {
   /** @format int32 */
@@ -245,6 +384,33 @@ export interface Tags {
    * @example "testtagname"
    */
   tagName?: string;
+}
+
+export interface TaxSettings {
+  /**
+   * address id
+   * @format uint64
+   */
+  id?: string;
+  taxCode?: string;
+  /** @format double */
+  taxPercentage?: number;
+}
+
+/**
+ * Display and interaction preferences.
+ * @default "THEME_UNSPECIFIED"
+ */
+export type Theme = "THEME_UNSPECIFIED" | "THEME_LIGHT" | "THEME_DARK";
+
+export type UpdateBusinessSettingsData = any;
+
+export interface UpdateBusinessSettingsRequest {
+  businessSettings: BusinessAccountSettings;
+}
+
+export interface UpdateBusinessSettingsResponse {
+  success?: boolean;
 }
 
 export type UpdateUserData = any;
@@ -291,15 +457,31 @@ export interface UserAccount {
    * @example "lksdjhfgsdhfghdsgfhgdha;hdgjsdfhaghsldfhagjkh;sdafjhsdjflhgjhjsfhgjsdhfjfkgjhsdfhgjhjdfhgjsdhjglsdjjghjdfhsjghjsadfhgjsdfhjghsdfkjghdfj"
    */
   bio?: string;
-  /** Company description */
+  businessAccountSettings?: BusinessAccountSettings;
+  /**
+   * Company description
+   * @example "we help businesses stay in business"
+   */
   companyDescription?: string;
-  /** Established Date is the date the company was created */
+  /**
+   * Established Date is the date the company was created
+   * optional field for business profile
+   */
   companyEstablishedDate?: string;
-  /** Industry Type is the type of business associated to this business */
+  /**
+   * Industry Type is the type of business associated to this business
+   * @example "fintech"
+   */
   companyIndustryType?: string;
-  /** Company Name is the name of the company profile */
+  /**
+   * Company Name is the name of the company profile
+   * @example "solomon-ai"
+   */
   companyName?: string;
-  /** Website url of the business */
+  /**
+   * Website url of the business
+   * @example "https://solomon-ai.io"
+   */
   companyWebsiteUrl?: string;
   /** @format date-time */
   createdAt?: string;
@@ -334,6 +516,8 @@ export interface UserAccount {
    * @example true
    */
   isActive?: boolean;
+  /** IsBusinessAccount enables us to check if this is a business account of interest */
+  isBusinessAccount?: boolean;
   /**
    * isEmailVerified is a field denoting wether or not the user account has
    * indeed verified their email address
@@ -359,8 +543,6 @@ export interface UserAccount {
    * @example "6513424124"
    */
   phoneNumber?: string;
-  /** ProfileType is the type of profile associated to this user account */
-  profileType?: ProfileType;
   /**
    * sample tags easily associable to account
    * account first name
@@ -368,6 +550,8 @@ export interface UserAccount {
    * - must be at provide between 1 and 10 tags
    */
   tags?: Array<Tags>;
+  /** User settings for the fintech application. */
+  userSettings?: UserSettings;
   /**
    * account user name
    * Validations:
@@ -377,6 +561,41 @@ export interface UserAccount {
   username?: string;
   /** @format date-time */
   verifiedAt?: string;
+}
+
+/** User settings for the fintech application. */
+export interface UserSettings {
+  /** Display and interaction preferences. */
+  appTheme?: Theme;
+  /** Dashboard customization, e.g., specific widgets or reports. */
+  dashboardWidgets?: Array<DashboardWidget>;
+  /** Preferred date-time format. */
+  datetimeFormat?: string;
+  /** Currency preference. */
+  defaultCurrency?: string;
+  /** Notification preferences. */
+  emailNotifications?: boolean;
+  /** Option to share transaction history with friends/family. */
+  enableGoalJournal?: boolean;
+  /**
+   * address id
+   * @format uint64
+   */
+  id?: string;
+  /** Investment preferences. */
+  investmentRiskTolerance?: RiskTolerance;
+  /** Language preference. */
+  preferredLanguage?: string;
+  /**
+   * Privacy settings.
+   *
+   * Whether the user's profile is public.
+   */
+  publicProfile?: boolean;
+  pushNotifications?: boolean;
+  smsNotifications?: boolean;
+  /** Two-factor authentication status. */
+  twoFactorAuthenticationEnabled?: boolean;
 }
 
 export type VerificationData = any;
