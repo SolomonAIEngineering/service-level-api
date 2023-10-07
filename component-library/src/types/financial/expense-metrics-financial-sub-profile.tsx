@@ -1,3 +1,5 @@
+import { ExpenseMetricsFinancialSubProfileMetrics as ExpenseMetricsFinancialSubProfileMetrics } from 'src/data-contracts/financial-service/data-contracts';
+
 /**
  * Represents the financial sub-profile metrics related to a user's expenses.
  *
@@ -29,14 +31,16 @@
  * @property averageMonthlyRecurringSpending - The average monthly fixed expenses of the user.
  * @property userId - The user ID for whom the metrics are calculated.
  */
-class ExpenseMetricsFinancialSubProfileMetrics {
+class ExpenseMetricsFinancialSubProfileMetricsClass
+  implements ExpenseMetricsFinancialSubProfileMetrics
+{
   month: number;
   spentLastWeek: number;
   spentLastMonth: number;
   spentLastSixMonths: number;
   averageMonthlyDiscretionarySpending: number;
   averageMonthlyRecurringSpending: number;
-  userId: number;
+  userId: string;
 
   /**
    * Constructs a new ExpenseMetricsFinancialSubProfileMetrics instance.
@@ -52,8 +56,8 @@ class ExpenseMetricsFinancialSubProfileMetrics {
       data.averageMonthlyDiscretionarySpending ?? 0;
     this.averageMonthlyRecurringSpending =
       data.averageMonthlyRecurringSpending ?? 0;
-    this.userId = data.userId ?? 0;
+    this.userId = data.userId ?? '0';
   }
 }
 
-export { ExpenseMetricsFinancialSubProfileMetrics };
+export { ExpenseMetricsFinancialSubProfileMetricsClass };

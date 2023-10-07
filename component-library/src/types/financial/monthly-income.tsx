@@ -1,3 +1,5 @@
+import { MonthlyIncome as MonthlyIncome } from 'src/data-contracts/financial-service/data-contracts';
+
 /**
  * Represents the monthly income of a user.
  *
@@ -20,10 +22,10 @@
  * @property totalIncome - The total income of the user for the month.
  * @property userId - The user ID associated with this income record.
  */
-class MonthlyIncome {
+class MonthlyIncomeClass implements MonthlyIncome {
   month: number;
   totalIncome: number;
-  userId: number;
+  userId: string;
 
   /**
    * Constructs a new MonthlyIncome instance.
@@ -33,8 +35,8 @@ class MonthlyIncome {
   constructor(data: Partial<MonthlyIncome> = {}) {
     this.month = data.month ?? 0;
     this.totalIncome = data.totalIncome ?? 0;
-    this.userId = data.userId ?? 0;
+    this.userId = data.userId ?? '0';
   }
 }
 
-export { MonthlyIncome };
+export { MonthlyIncomeClass };

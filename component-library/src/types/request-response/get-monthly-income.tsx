@@ -1,5 +1,5 @@
+import { MonthlyIncome } from 'src/data-contracts/financial-service/data-contracts';
 import { ErrorResponse } from '../error';
-import { MonthlyIncome } from '../financial';
 
 /**
  * Represents the request for getting monthly income.

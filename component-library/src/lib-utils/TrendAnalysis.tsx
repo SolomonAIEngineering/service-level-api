@@ -1,4 +1,4 @@
-import { AccountBalanceHistory } from 'src/types';
+import { AccountBalanceHistory } from 'src/data-contracts/financial-service/data-contracts';
 
 class TrendAnalysis {
   /**
@@ -16,8 +16,10 @@ class TrendAnalysis {
 
     history.forEach((entry, index) => {
       sumX += index;
-      sumY += entry.balance;
-      sumXY += index * entry.balance;
+      if (entry.balance !== undefined) {
+        sumY += entry.balance;
+        sumXY += index * entry.balance;
+      }
       sumXX += index * index;
     });
 
@@ -38,7 +40,12 @@ class TrendAnalysis {
       const start = Math.max(0, index - windowSize + 1);
       const end = index + 1;
       const slice = arr.slice(start, end);
-      const sum = slice.reduce((acc, entry) => acc + entry.balance, 0);
+      const sum = slice.reduce((acc, entry) => {
+        if (entry.balance !== undefined) {
+          return acc + entry.balance;
+        }
+        return acc;
+      }, 0);
       return sum / slice.length;
     });
   }
@@ -48,12 +55,10 @@ class TrendAnalysis {
    */
   static computeGrowthRate(history: AccountBalanceHistory[]): number[] {
     return history.map((entry, index, arr) => {
-      if (index === 0) return 0;
-      return (
-        ((entry.balance - arr[index - 1].balance) /
-          Math.abs(arr[index - 1].balance)) *
-        100
-      );
+      if (index === 0 || !arr[index - 1]?.balance) return 0;
+      const prevBalance = arr[index - 1].balance as number;
+      const balance = entry.balance as number;
+      return ((balance - prevBalance) / Math.abs(prevBalance)) * 100;
     });
   }
 
@@ -67,8 +72,8 @@ class TrendAnalysis {
     const monthlyCounts = new Map<number, number>();
 
     history.forEach((entry) => {
-      if (entry.time) {
-        const month = entry.time.getMonth();
+      if (entry.time && entry.balance !== undefined) {
+        const month = new Date(entry.time).getMonth();
         monthlySums.set(month, (monthlySums.get(month) || 0) + entry.balance);
         monthlyCounts.set(month, (monthlyCounts.get(month) || 0) + 1);
       }
@@ -90,7 +95,9 @@ class TrendAnalysis {
   static computeCumulativeSum(history: AccountBalanceHistory[]): number[] {
     let sum = 0;
     return history.map((entry) => {
-      sum += entry.balance;
+      if (entry.balance !== undefined) {
+        sum += entry.balance;
+      }
       return sum;
     });
   }

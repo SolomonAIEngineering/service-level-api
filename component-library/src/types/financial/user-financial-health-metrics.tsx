@@ -32,7 +32,7 @@
  * @property overdraftFrequency - Number of times the user has had an overdraft in a specific period,
  *                                e.g., the past month or year.
  */
-class UserFinancialHealthMetricsTable {
+class UserFinancialHealthMetricsTableClass {
   time: Date | undefined;
   userId: number = 0;
   monthlyIncome: number = 0;
@@ -45,7 +45,7 @@ class UserFinancialHealthMetricsTable {
    * Creates an instance of UserFinancialHealthMetricsTable.
    * @param data - Object containing properties for UserFinancialHealthMetricsTable.
    */
-  constructor(data: Partial<UserFinancialHealthMetricsTable>) {
+  constructor(data: Partial<UserFinancialHealthMetricsTableClass>) {
     Object.assign(this, {
       ...data,
       time: data.time ? new Date(data.time) : undefined,
@@ -53,4 +53,4 @@ class UserFinancialHealthMetricsTable {
   }
 }
 
-export { UserFinancialHealthMetricsTable };
+export { UserFinancialHealthMetricsTableClass };

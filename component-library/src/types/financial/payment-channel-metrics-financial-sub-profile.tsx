@@ -1,3 +1,5 @@
+import { PaymentChannelMetricsFinancialSubProfile as PaymentChannelMetricsFinancialSubProfile } from 'src/data-contracts/financial-service/data-contracts';
+
 /**
  * Represents the financial sub profile of a payment channel.
  *
@@ -34,7 +36,9 @@
  * @property month - The month for which the data is reported.
  * @property transactionCount - Number of transactions made through this channel in the specified month.
  */
-class PaymentChannelMetricsFinancialSubProfile {
+class PaymentChannelMetricsFinancialSubProfileClass
+  implements PaymentChannelMetricsFinancialSubProfile
+{
   paymentChannel: string;
   spentLastWeek: number;
   spentLastTwoWeeks: number;
@@ -42,9 +46,9 @@ class PaymentChannelMetricsFinancialSubProfile {
   spentLastSixMonths: number;
   spentLastYear: number;
   spentLastTwoYears: number;
-  userId: number;
+  userId: string;
   month: number;
-  transactionCount: number;
+  transactionCount: string;
 
   /**
    * Constructs a new PaymentChannelMetricsFinancialSubProfile instance.
@@ -59,10 +63,10 @@ class PaymentChannelMetricsFinancialSubProfile {
     this.spentLastSixMonths = data.spentLastSixMonths ?? 0;
     this.spentLastYear = data.spentLastYear ?? 0;
     this.spentLastTwoYears = data.spentLastTwoYears ?? 0;
-    this.userId = data.userId ?? 0;
+    this.userId = data.userId ?? '0';
     this.month = data.month ?? 0;
-    this.transactionCount = data.transactionCount ?? 0;
+    this.transactionCount = data.transactionCount ?? '0';
   }
 }
 
-export { PaymentChannelMetricsFinancialSubProfile };
+export { PaymentChannelMetricsFinancialSubProfileClass };

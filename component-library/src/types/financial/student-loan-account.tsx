@@ -1,45 +1,6 @@
 import { getRandomNumber } from 'src/lib-utils/utils';
 
-export interface IStudentLoanAccount {
-  /** id */
-  id: number;
-  plaidAccountId: string;
-  disbursementDates: string[];
-  expectedPayoffDate: string;
-  guarantor: string;
-  interestRatePercentage: number;
-  isOverdue: boolean;
-  lastPaymentAmount: number;
-  lastPaymentDate: string;
-  lastStatementIssueDate: string;
-  loanName: string;
-  loanEndDate: string;
-  minimumPaymentAmount: number;
-  nextPaymentDueDate: string;
-  originationDate: string;
-  originationPrincipalAmount: number;
-  outstandingInterestAmount: number;
-  paymentReferenceNumber: string;
-  sequenceNumber: string;
-  ytdInterestPaid: number;
-  ytdPrincipalPaid: number;
-  loanType: string;
-  pslfStatusEstimatedEligibilityDate: string;
-  pslfStatusPaymentsMade: number;
-  pslfStatusPaymentsRemaining: number;
-  repaymentPlanType: string;
-  repaymentPlanDescription: string;
-  servicerAddressCity: string;
-  servicerAddressPostalCode: string;
-  servicerAddressState: string;
-  servicerAddressStreet: string;
-  servicerAddressRegion: string;
-  servicerAddressCountry: string;
-  /** the user id to which this bank account is tied to */
-  userId: number;
-  /** the account name */
-  name: string;
-}
+import { StudentLoanAccount as StudentLoanAccount } from 'src/data-contracts/financial-service/data-contracts';
 
 /*
  * Student Loan Account represents the Student Loan Account entity.
@@ -48,9 +9,9 @@ export interface IStudentLoanAccount {
  * @class StudentLoanAccount
  * @implements {IStudentLoanAccount}
  * */
-export class StudentLoanAccount implements IStudentLoanAccount {
+export class StudentLoanAccountClass implements StudentLoanAccount {
   /** id */
-  id = 0;
+  id = '0';
   plaidAccountId = '';
   disbursementDates: string[] = [];
   expectedPayoffDate = '';
@@ -84,7 +45,7 @@ export class StudentLoanAccount implements IStudentLoanAccount {
   servicerAddressRegion = '';
   servicerAddressCountry = '';
   /** the user id to which this bank account is tied to */
-  userId = 0;
+  userId = '0';
   /** the account name */
   name = '';
 
@@ -97,8 +58,8 @@ export class StudentLoanAccount implements IStudentLoanAccount {
   }
 
   static randomInstance(): StudentLoanAccount {
-    return new StudentLoanAccount({
-      id: getRandomNumber(1, 10000),
+    return new StudentLoanAccountClass({
+      id: getRandomNumber(1, 10000).toString(),
       plaidAccountId: getRandomNumber(1, 10000).toString(),
       disbursementDates: ['2028-01-01', '2028-02-01'],
       expectedPayoffDate: '2028-01-01',
@@ -132,7 +93,7 @@ export class StudentLoanAccount implements IStudentLoanAccount {
       servicerAddressStreet: 'Servicer Address Street',
       servicerAddressRegion: 'Servicer Address Region',
       servicerAddressCountry: 'Servicer Address Country',
-      userId: getRandomNumber(1, 10000),
+      userId: getRandomNumber(1, 10000).toString(),
       name: `Account ${getRandomNumber(1, 10000)}`,
     });
   }

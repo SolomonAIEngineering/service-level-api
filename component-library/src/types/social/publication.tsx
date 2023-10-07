@@ -1,20 +1,8 @@
-import { SocialUserProfile } from './social-user-profile';
-import { PublicationType } from './publication-type';
-
-export interface IPublication {
-  id: number;
-  /** stories are post that can be submitted only by the publication editors */
-  postIds: string[];
-  admin: SocialUserProfile | undefined;
-  adminSimfinyPlatformUserId: number;
-  tags: string[];
-  editors: SocialUserProfile[];
-  subjects: string[];
-  description: string;
-  createdAt: string;
-  type: PublicationType;
-  publicationName: string;
-}
+import {
+  Publication,
+  PublicationType,
+} from 'src/data-contracts/social-service/data-contracts';
+import { SocialUserProfileClass } from './social-user-profile';
 
 /**
  * A Publication is a collections of stories based around a common theme. Anyone can create them
@@ -68,20 +56,20 @@ export interface IPublication {
  * @property type - The type/category of the publication.
  * @property publicationName - The name/title of the publication.
  *
- * @implements {IPublication}
+ * @implements {Publication}
  * @author [Your Name or the Original Author's Name if you know it]
  */
-export class Publication implements IPublication {
-  id: number = 0;
+export class PublicationClass implements Publication {
+  id: string = '0';
   postIds: string[] = [];
-  admin: SocialUserProfile | undefined;
-  adminSimfinyPlatformUserId: number = 0;
+  admin: SocialUserProfileClass | undefined;
+  adminSimfinyPlatformUserId: string = '';
   tags: string[] = [];
-  editors: SocialUserProfile[] = [];
+  editors: SocialUserProfileClass[] = [];
   subjects: string[] = [];
   description: string = '';
-  createdAt: string = '';
-  type: PublicationType = PublicationType.PUBLICATION_TYPE_UNSPECIFIED;
+  createdAt: string | undefined = '';
+  type: PublicationType = 'PUBLICATION_TYPE_UNSPECIFIED';
   publicationName: string = '';
 
   constructor(data: Partial<Publication>) {
@@ -89,8 +77,12 @@ export class Publication implements IPublication {
       Object.assign(this, {
         ...data,
         admin:
-          data?.admin !== undefined ? new SocialUserProfile(data.admin) : null,
-        editors: data?.editors?.map((editor) => new SocialUserProfile(editor)),
+          data?.admin !== undefined
+            ? new SocialUserProfileClass(data.admin)
+            : null,
+        editors: data?.editors?.map(
+          (editor) => new SocialUserProfileClass(editor),
+        ),
       });
     }
   }

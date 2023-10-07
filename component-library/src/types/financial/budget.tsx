@@ -3,25 +3,9 @@ import {
   getRandomNumber,
   getRandomString,
 } from 'src/lib-utils/utils';
-import { Category } from './category';
-
-/**
- * The Budgets table stores information about each budget created by the user,
- * including the name of the budget, the start and end dates, and the user ID.
- */
-export interface IBudget {
-  /** id */
-  id: number;
-  /** The name of the budget */
-  name: string;
-  description: string;
-  /** the time the goal was created */
-  startDate: string;
-  /** the time the goal was updated */
-  endDate: string;
-  /** category associated with the goal */
-  category: Category | undefined;
-}
+import { Budget as Budget } from 'src/data-contracts/financial-service/data-contracts';
+import { Category as Category } from 'src/data-contracts/financial-service/data-contracts';
+import { CategoryClass } from './category';
 
 /*
  * The Budgets table stores information about each budget created by the user,
@@ -31,9 +15,9 @@ export interface IBudget {
  * @class Budget
  * @implements {IBudget}
  * */
-export class Budget implements IBudget {
+export class BudgetClass implements Budget {
   /** id */
-  id = 0;
+  id = '0';
   /** The name of the budget */
   name = '';
   description = '';
@@ -57,13 +41,14 @@ export class Budget implements IBudget {
    * @returns {Budget} A random Budget.
    */
   static randomInstance(): Budget {
-    return new Budget({
-      id: getRandomNumber(1, 10000),
+    return new BudgetClass({
+      id: getRandomNumber(1, 10000).toString(),
       name: getRandomString(5),
       description: getRandomString(10),
       startDate: getRandomDate(new Date(2020, 0, 1), new Date(2025, 0, 1)),
       endDate: getRandomDate(new Date(2020, 0, 1), new Date(2025, 0, 1)),
-      category: Math.random() > 0.5 ? Category.randomInstance() : undefined,
+      category:
+        Math.random() > 0.5 ? CategoryClass.randomInstance() : undefined,
     });
   }
 }

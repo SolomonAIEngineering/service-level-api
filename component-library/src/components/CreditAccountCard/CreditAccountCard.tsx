@@ -1,11 +1,6 @@
 import * as React from 'react';
 import { createContext, ReactNode, RefObject, Component } from 'react';
-import {
-  AccountBalanceHistory,
-  Apr,
-  CreditAccount,
-  FinancialProfile,
-} from 'src/types';
+
 import {
   Card,
   CardContent,
@@ -36,11 +31,18 @@ import { Button } from '../ui/button';
 import { CaretSortIcon } from '@radix-ui/react-icons';
 import { HistoricalAccountBalanceChart } from '../HistoricalAccountBalanceChart';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
+import {
+  AccountBalanceHistory,
+  Apr,
+  CreditAccount,
+  FinancialProfile,
+} from 'src/data-contracts/financial-service/data-contracts';
+import { CreditAccountClass, FinancialProfileClass } from 'src/index';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 /** @type {React.Context<CreditAccount>} */
 const CreditAccountCardContext = createContext<CreditAccount>(
-  new CreditAccount({}),
+  new CreditAccountClass({}),
 );
 
 export type CreditAccountCardProps<CreditAccount> = {
@@ -74,8 +76,8 @@ export class CreditAccountCard<T extends CreditAccount> extends Component<
   private myRef: RefObject<HTMLDivElement>;
 
   static defaultProps = {
-    creditAccount: new CreditAccount({}),
-    financialProfile: new FinancialProfile({}),
+    creditAccount: new CreditAccountClass({}),
+    financialProfile: new FinancialProfileClass({}),
     contextQuestions: [
       "What is my account's interest rate?",
       'What is my minimum payment, and when is it due?',
@@ -117,7 +119,7 @@ export class CreditAccountCard<T extends CreditAccount> extends Component<
       historicalAccountBalance,
     } = this.props;
     const account = enableDemoMode
-      ? CreditAccount.randomInstance()
+      ? CreditAccountClass.randomInstance()
       : this.state.creditAccount;
 
     return (
@@ -126,7 +128,7 @@ export class CreditAccountCard<T extends CreditAccount> extends Component<
           <CardHeader className="flex items-start gap-x-5 space-y-0">
             <div className="space-y-1">
               <CardTitle className="text-xs text-gray-600 dark:text-gray-200 font-bold">
-                ${formatNumber(account.currentFunds, 2)}
+                ${formatNumber(account.currentFunds ?? 0, 2)}
               </CardTitle>
               <CardTitle
                 className="text-xs font-bold"
@@ -178,7 +180,7 @@ export class CreditAccountCard<T extends CreditAccount> extends Component<
               </div>
               <div className="flex flex-col gap-1">
                 <Label className="text-2xl font-bold">
-                  Currently owe: ${formatNumber(account.balance, 2)}
+                  Currently owe: ${formatNumber(account.balance ?? 0, 2)}
                 </Label>
                 <p
                   style={{
@@ -194,8 +196,8 @@ export class CreditAccountCard<T extends CreditAccount> extends Component<
                   }}
                   className="font-bold"
                 >
-                  ${formatNumber(account.minimumPaymentAmount, 2)} due on{' '}
-                  {formatDate(account.nextPaymentDueDate)}
+                  ${formatNumber(account.minimumPaymentAmount ?? 0, 2)} due on{' '}
+                  {formatDate(account.nextPaymentDueDate ?? 0)}
                 </p>
               </div>
             </div>
@@ -204,7 +206,7 @@ export class CreditAccountCard<T extends CreditAccount> extends Component<
             <Tabs defaultValue="details" className="min-w-[400px]">
               <TabsList className="py-2 font-bold">
                 <TabsTrigger value="details">Details</TabsTrigger>
-                {account.aprs.length > 0 && (
+                {account.aprs && account.aprs.length > 0 && (
                   <TabsTrigger value="apr">Apr</TabsTrigger>
                 )}
               </TabsList>
@@ -214,7 +216,7 @@ export class CreditAccountCard<T extends CreditAccount> extends Component<
                   className="py-2"
                 />
               </TabsContent>
-              {account.aprs.length > 0 && (
+              {account.aprs && account.aprs.length > 0 && (
                 <TabsContent value="apr">
                   <CreditAccountAprs aprs={account.aprs} />
                 </TabsContent>
@@ -251,7 +253,7 @@ const CreditAccountAprs: React.FC<{
             <div className="flex flex-col">
               <div key={idx} className="flex flex-row gap-3">
                 <p className="text-xs font-bold">
-                  {removeUnderScores(apr.type)}
+                  {apr.type && removeUnderScores(apr.type)}
                 </p>
                 <p className="text-xs font-bold">{apr.percentage}%</p>
               </div>
@@ -339,7 +341,7 @@ const CreditCardCollapsibleDetails: React.FC<{
           <p className="text-xs"> Last Payed</p>
           <p className="text-xs">
             {' '}
-            {formatDate(creditAccount.lastPaymentDate)}{' '}
+            {formatDate(creditAccount.lastPaymentDate ?? '')}{' '}
           </p>
         </div>
       </div>
@@ -349,7 +351,7 @@ const CreditCardCollapsibleDetails: React.FC<{
             <p className="text-xs"> Last Issued</p>
             <p className="text-xs">
               {' '}
-              {formatDate(creditAccount.lastStatementIssueDate)}{' '}
+              {formatDate(creditAccount.lastStatementIssueDate ?? '')}{' '}
             </p>
           </div>
         </div>
@@ -358,7 +360,7 @@ const CreditCardCollapsibleDetails: React.FC<{
             <p className="text-xs"> Last Statement Balance</p>
             <p className="text-xs">
               {' '}
-              ${formatNumber(creditAccount.lastStatementBalance, 2)}{' '}
+              ${formatNumber(creditAccount.lastStatementBalance ?? 0, 2)}{' '}
             </p>
           </div>
         </div>
@@ -367,7 +369,7 @@ const CreditCardCollapsibleDetails: React.FC<{
             <p className="text-xs"> Last Payment Amount</p>
             <p className="text-xs">
               {' '}
-              ${formatNumber(creditAccount.lastPaymentAmount, 2)}{' '}
+              ${formatNumber(creditAccount.lastPaymentAmount ?? 0, 2)}{' '}
             </p>
           </div>
         </div>

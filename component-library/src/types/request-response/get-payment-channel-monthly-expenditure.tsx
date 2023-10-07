@@ -1,5 +1,5 @@
+import { PaymentChannelMonthlyExpenditure } from 'src/data-contracts/financial-service/data-contracts';
 import { ErrorResponse } from '../error';
-import { PaymentChannelMonthlyExpenditure } from '../financial';
 
 /**
  * Represents the request for getting payment channel monthly expenditure.

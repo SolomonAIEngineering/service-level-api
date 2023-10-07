@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { createContext, ReactNode, RefObject, Component } from 'react';
-import { BankAccount, CreditAccount, Transaction } from 'src/types';
 import {
   CaretSortIcon,
   ChevronDownIcon,
@@ -41,6 +40,11 @@ import {
 import { cn } from 'src/lib-utils/utils';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { BankAccountHoverLabel, CreditAccountHoverLabel } from '..';
+import {
+  BankAccount,
+  CreditAccount,
+  Transaction,
+} from 'src/data-contracts/financial-service/data-contracts';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 /** @type {React.Context<ransaction[]>} */
@@ -221,7 +225,9 @@ export const columns: ColumnDef<Transaction>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
+              onClick={() =>
+                payment.id && navigator.clipboard.writeText(payment.id)
+              }
             >
               Copy payment ID
             </DropdownMenuItem>
@@ -266,8 +272,9 @@ const SimpleDataTable: React.FC<{
     },
   });
 
-  const isInstanceOfBankAccount =
-    account instanceof BankAccount && account !== undefined;
+  const isCreditAccount = (account: BankAccount | CreditAccount): boolean => {
+    return (account as CreditAccount).aprs !== undefined;
+  };
 
   return (
     <Card className="w-full bg-white p-2">
@@ -277,7 +284,7 @@ const SimpleDataTable: React.FC<{
             Transactions
             {account !== undefined && (
               <div className="flex flex-row">
-                {isInstanceOfBankAccount ? (
+                {!isCreditAccount(account) ? (
                   <BankAccountHoverLabel bankAccount={account as BankAccount} />
                 ) : (
                   <CreditAccountHoverLabel

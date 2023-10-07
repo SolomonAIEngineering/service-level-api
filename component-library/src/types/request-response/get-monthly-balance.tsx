@@ -1,5 +1,5 @@
+import { MonthlyBalance } from 'src/data-contracts/financial-service/data-contracts';
 import { ErrorResponse } from '../error';
-import { MonthlyBalance } from '../financial';
 
 /**
  * Represents the request for getting monthly balance.

@@ -1,13 +1,14 @@
 import * as React from 'react';
 import { createContext, ReactNode, RefObject, Component } from 'react';
-import { InvestmentSecurity } from '../../types/financial/investment-security';
 import { Card, CardContent, CardFooter, CardHeader } from '../ui/card';
 import { cn, formatDate } from 'src/lib-utils/utils';
+import { InvestmentSecurity } from 'src/data-contracts/financial-service/data-contracts';
+import { InvestmentSecurityClass } from 'src/types';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 /** @type {React.Context<InvestmentSecurity>} */
 const InvestmentSecurityCardContext = createContext<InvestmentSecurity>(
-  new InvestmentSecurity({}),
+  new InvestmentSecurityClass({}),
 );
 
 export type InvestmentSecurityCardProps = {
@@ -35,7 +36,7 @@ export class InvestmentSecurityCard extends Component<
   private myRef: RefObject<HTMLDivElement>;
 
   static defaultProps = {
-    security: new InvestmentSecurity({}),
+    security: new InvestmentSecurityClass({}),
   };
 
   constructor(props: InvestmentSecurityCardProps) {

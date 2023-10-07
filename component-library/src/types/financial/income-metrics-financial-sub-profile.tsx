@@ -1,3 +1,5 @@
+import { IncomeMetricsFinancialSubProfile as IncomeMetricsFinancialSubProfile } from 'src/data-contracts/financial-service/data-contracts';
+
 /**
  * Represents the income metrics for a user's financial sub-profile.
  *
@@ -28,14 +30,16 @@
  * @property incomeLastYear - The total income for the last year.
  * @property userId - The user ID associated with these income metrics.
  */
-class IncomeMetricsFinancialSubProfile {
+class IncomeMetricsFinancialSubProfileClass
+  implements IncomeMetricsFinancialSubProfile
+{
   month: number;
   incomeLastTwoWeeks: number;
   incomeLastMonth: number;
   incomeLastTwoMonths: number;
   incomeLastSixMonths: number;
   incomeLastYear: number;
-  userId: number;
+  userId: string;
 
   /**
    * Constructs a new IncomeMetricsFinancialSubProfile instance.
@@ -49,8 +53,8 @@ class IncomeMetricsFinancialSubProfile {
     this.incomeLastTwoMonths = data.incomeLastTwoMonths ?? 0;
     this.incomeLastSixMonths = data.incomeLastSixMonths ?? 0;
     this.incomeLastYear = data.incomeLastYear ?? 0;
-    this.userId = data.userId ?? 0;
+    this.userId = data.userId ?? '0';
   }
 }
 
-export { IncomeMetricsFinancialSubProfile };
+export { IncomeMetricsFinancialSubProfileClass };

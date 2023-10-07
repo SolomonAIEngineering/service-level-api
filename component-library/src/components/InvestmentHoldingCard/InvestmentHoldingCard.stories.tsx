@@ -4,7 +4,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { InvestmentHoldingCard } from './InvestmentHoldingCard';
-import { AccountBalanceHistory, InvesmentHolding } from 'src/types';
+import { InvesmentHoldingClass } from 'src/index';
 
 const meta: Meta<typeof InvestmentHoldingCard> = {
   title: 'Component/InvestmentHoldingCard',
@@ -29,7 +29,7 @@ export const InvesmentHoldingDefault: Story = {
     // primary: true,
     // label: 'InvestmentHoldingCard',
     holdings: Array.from({ length: 20 }, () =>
-      InvesmentHolding.randomInstance(),
+      InvesmentHoldingClass.randomInstance(),
     ),
   },
 };
@@ -40,11 +40,11 @@ export const InvesmentHoldingWithAccountBalance: Story = {
     // primary: true,
     // label: 'InvestmentHoldingCard',
     holdings: Array.from({ length: 20 }, () =>
-      InvesmentHolding.randomInstance(),
+      InvesmentHoldingClass.randomInstance(),
     ),
     historicalAccountBalance: Array.from({ length: 20 }, () =>
-      AccountBalanceHistory.randomInstance(),
-    ).sort((a, b) => a.time!.getTime() - b.time!.getTime()),
+      InvesmentHoldingClass.randomInstance(),
+    ),
   },
 };
 

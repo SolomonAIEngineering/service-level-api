@@ -1,4 +1,4 @@
-export { Publication } from './publication';
-export { SocialUserProfile } from './social-user-profile';
-export { PublicationType } from './publication-type';
-export { SocialAccount } from './social-account';
+export * as SocialBookmark from './bookmark';
+export * from './publication';
+export * from './social-account';
+export * from './social-user-profile';

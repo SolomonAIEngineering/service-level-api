@@ -5,11 +5,11 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { RecurringTransactionCard } from './RecurringTransactionCard';
 import {
-  BankAccount,
-  CreditAccount,
-  ReOccuringTransaction,
-  Transaction,
-} from 'src/types';
+  BankAccountClass,
+  CreditAccountClass,
+  ReOccuringTransactionClass,
+  TransactionClass,
+} from 'src/index';
 
 const meta: Meta<typeof RecurringTransactionCard> = {
   title: 'Component/RecurringTransactionCard',
@@ -33,7 +33,7 @@ export const RecurringTransactionCardWithDetailedDisplayOff: Story = {
     // Adjust the default properties for each variant of your component
     // primary: true,
     // label: 'RecurringTransactionCard',
-    recurringTransaction: ReOccuringTransaction.randomInstance(),
+    recurringTransaction: ReOccuringTransactionClass.randomInstance(),
   },
 };
 
@@ -43,7 +43,7 @@ export const RecurringTransactionCardWithDetailedDisplayOn: Story = {
     // Adjust the default properties for each variant of your component
     // primary: true,
     // label: 'RecurringTransactionCard',
-    recurringTransaction: ReOccuringTransaction.randomInstance(),
+    recurringTransaction: ReOccuringTransactionClass.randomInstance(),
     enableDetailedDisplay: true,
   },
 };
@@ -54,11 +54,11 @@ export const RecurringTransactionCardWithTransactions: Story = {
     // Adjust the default properties for each variant of your component
     // primary: true,
     // label: 'RecurringTransactionCard',
-    recurringTransaction: ReOccuringTransaction.randomInstance(),
+    recurringTransaction: ReOccuringTransactionClass.randomInstance(),
     enableDetailedDisplay: true,
     participantTransactions: Array.from({ length: 20 }, () =>
-      Transaction.randomInstance(),
-    ).sort((a, b) => a.time!.getTime() - b.time!.getTime()),
+      TransactionClass.randomInstance(),
+    ).sort((a, b) => new Date(a.time!).getTime() - new Date(b.time!).getTime()),
   },
 };
 
@@ -67,12 +67,12 @@ export const RecurringTransactionCardWithTransactionsAndBankAccount: Story = {
     // Adjust the default properties for each variant of your component
     // primary: true,
     // label: 'RecurringTransactionCard',
-    recurringTransaction: ReOccuringTransaction.randomInstance(),
+    recurringTransaction: ReOccuringTransactionClass.randomInstance(),
     enableDetailedDisplay: true,
     participantTransactions: Array.from({ length: 20 }, () =>
-      Transaction.randomInstance(),
-    ).sort((a, b) => a.time!.getTime() - b.time!.getTime()),
-    account: BankAccount.randomInstance(),
+      TransactionClass.randomInstance(),
+    ).sort((a, b) => new Date(a.time!).getTime() - new Date(b.time!).getTime()),
+    account: BankAccountClass.randomInstance(),
   },
 };
 
@@ -81,11 +81,11 @@ export const RecurringTransactionCardWithTransactionsAndCreditAccount: Story = {
     // Adjust the default properties for each variant of your component
     // primary: true,
     // label: 'RecurringTransactionCard',
-    recurringTransaction: ReOccuringTransaction.randomInstance(),
+    recurringTransaction: ReOccuringTransactionClass.randomInstance(),
     enableDetailedDisplay: true,
     participantTransactions: Array.from({ length: 20 }, () =>
-      Transaction.randomInstance(),
-    ).sort((a, b) => a.time!.getTime() - b.time!.getTime()),
-    account: CreditAccount.randomInstance(),
+      TransactionClass.randomInstance(),
+    ).sort((a, b) => new Date(a.time!).getTime() - new Date(b.time!).getTime()),
+    account: CreditAccountClass.randomInstance(),
   },
 };

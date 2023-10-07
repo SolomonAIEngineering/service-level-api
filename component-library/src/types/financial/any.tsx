@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
+import { Any } from 'src/data-contracts/financial-service/data-contracts';
+
 /* eslint-disable @typescript-eslint/ban-types */
-class Any {
+class AnyClass implements Any {
   /**
    * A URL/resource name that uniquely identifies the type of the serialized
    * protocol buffer message. This string must contain at least
@@ -40,8 +43,8 @@ class Any {
     this.value = value;
   }
 
-  static fromJSON(object: any): Any {
-    return new Any(
+  static fromJSON(object: any): AnyClass {
+    return new AnyClass(
       isSet(object.typeUrl) ? String(object.typeUrl) : '',
       isSet(object.value) ? bytesFromBase64(object.value) : new Uint8Array(0),
     );
@@ -58,12 +61,14 @@ class Any {
     return obj;
   }
 
-  static create<I extends Exact<DeepPartial<Any>, I>>(base?: I): Any {
-    return Any.fromPartial(base ?? {});
+  static create<I extends Exact<DeepPartial<AnyClass>, I>>(base?: I): AnyClass {
+    return AnyClass.fromPartial(base ?? {});
   }
 
-  static fromPartial<I extends Exact<DeepPartial<Any>, I>>(object: I): Any {
-    const message = new Any('', new Uint8Array(0));
+  static fromPartial<I extends Exact<DeepPartial<AnyClass>, I>>(
+    object: I,
+  ): AnyClass {
+    const message = new AnyClass('', new Uint8Array(0));
     message.typeUrl = object.typeUrl ?? '';
     message.value = object.value ?? new Uint8Array(0);
     return message;
@@ -144,4 +149,4 @@ function isSet(value: any): boolean {
   return value !== null && value !== undefined;
 }
 
-export { Any };
+export { AnyClass };

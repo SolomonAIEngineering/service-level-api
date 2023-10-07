@@ -1,5 +1,5 @@
+import { TotalInvestmentBySecurity } from 'src/data-contracts/financial-service/data-contracts';
 import { ErrorResponse } from '../error';
-import { TotalInvestmentBySecurity } from '../financial';
 
 /**
  * Represents the request for getting total investment by security.

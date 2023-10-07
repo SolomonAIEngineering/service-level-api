@@ -2,8 +2,11 @@ import {
   getRandomBalance,
   getRandomDateInRange,
   getRandomNumber,
+  getRandomString,
   getRandomStringWithPrefix,
 } from 'src/lib-utils/utils';
+
+import { AccountBalanceHistory } from 'src/data-contracts/financial-service/data-contracts';
 
 /**
  * Represents the balance history of an account.
@@ -36,12 +39,12 @@ import {
  * @property sign - The sign indicating the balance change direction (e.g., +1 or -1).
  * @property id - The unique identifier for the balance history.
  */
-class AccountBalanceHistory {
-  time: Date | undefined = undefined;
+class AccountBalanceHistoryClass implements AccountBalanceHistory {
+  time: string = '';
   accountId = '';
   isoCurrencyCode = '';
   balance = 0;
-  userId = 0;
+  userId = '0';
   sign = 0;
   id = '';
 
@@ -54,7 +57,7 @@ class AccountBalanceHistory {
     if (data)
       Object.assign(this, {
         ...data,
-        time: data.time instanceof Date ? data.time : undefined,
+        time: data.time ? new Date(data.time).toISOString() : '',
       });
   }
 
@@ -63,18 +66,18 @@ class AccountBalanceHistory {
    * @returns {AccountBalanceHistory} A random AccountBalanceHistory.
    */
   static randomInstance(): AccountBalanceHistory {
-    return new AccountBalanceHistory({
+    return new AccountBalanceHistoryClass({
       id: getRandomStringWithPrefix(5, 'BAL-'),
-      time: getRandomDateInRange(2000, 2025),
+      time: getRandomDateInRange(2000, 2025).toISOString(),
       accountId: getRandomStringWithPrefix(5, 'ACC-'),
       isoCurrencyCode: ['USD', 'EUR', 'GBP', 'JPY', 'AUD'][
         getRandomNumber(0, 4)
       ],
       balance: getRandomBalance(),
-      userId: getRandomNumber(1, 100),
+      userId: getRandomString(10),
       sign: [1, -1][getRandomNumber(0, 1)],
     });
   }
 }
 
-export { AccountBalanceHistory };
+export { AccountBalanceHistoryClass };

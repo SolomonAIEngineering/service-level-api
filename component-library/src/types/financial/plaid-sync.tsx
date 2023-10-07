@@ -1,23 +1,14 @@
-export interface IPlaidSync {
-  /** id */
-  id: number;
-  timeStamp: string;
-  trigger: string;
-  nextCursor: string;
-  added: number;
-  removed: number;
-  modified: number;
-}
+import { PlaidSync as PlaidSync } from 'src/data-contracts/financial-service/data-contracts';
 
 /**
  * Represents synchronization information related to Plaid.
  */
-class PlaidSync implements IPlaidSync {
+class PlaidSyncClass implements PlaidSync {
   /**
    * The unique identifier for the Plaid synchronization.
    * @type {number}
    */
-  id: number;
+  id: string;
 
   /**
    * The timestamp of the synchronization.
@@ -41,19 +32,19 @@ class PlaidSync implements IPlaidSync {
    * The number of added items in the synchronization.
    * @type {number}
    */
-  added: number;
+  added: string;
 
   /**
-   * The number of removed items in the synchronization.
-   * @type {number}
+   * The string of removed items in the synchronization.
+   * @type {string}
    */
-  removed: number;
+  removed: string;
 
   /**
-   * The number of modified items in the synchronization.
-   * @type {number}
+   * The string of modified items in the synchronization.
+   * @type {string}
    */
-  modified: number;
+  modified: string;
 
   /**
    * Constructs a new PlaidSync object.
@@ -65,7 +56,7 @@ class PlaidSync implements IPlaidSync {
      * The unique identifier for the Plaid synchronization.
      * @type {number}
      */
-    this.id = data.id ?? 0;
+    this.id = data.id ?? '0';
 
     /**
      * The timestamp of the synchronization.
@@ -89,23 +80,23 @@ class PlaidSync implements IPlaidSync {
      * The number of added items in the synchronization.
      * @type {number}
      */
-    this.added = data.added ?? 0;
+    this.added = data.added ?? '0';
 
     /**
      * The number of removed items in the synchronization.
      * @type {number}
      */
-    this.removed = data.removed ?? 0;
+    this.removed = data.removed ?? '0';
 
     /**
      * The number of modified items in the synchronization.
      * @type {number}
      */
-    this.modified = data.modified ?? 0;
+    this.modified = data.modified ?? '0';
   }
 }
 
 /**
  * Export the PlaidSync class.
  */
-export { PlaidSync };
+export { PlaidSyncClass };

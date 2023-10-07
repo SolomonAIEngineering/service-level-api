@@ -1,3 +1,5 @@
+import { IncomeExpenseRatio as IncomeExpenseRatio } from 'src/data-contracts/financial-service/data-contracts';
+
 /**
  * Represents the income-expense ratio of a user for a particular month.
  *
@@ -20,10 +22,10 @@
  * @property ratio - The calculated ratio between total income and total expenses for the user for that month.
  * @property userId - The user ID associated with this income-expense ratio.
  */
-class IncomeExpenseRatio {
+class IncomeExpenseRatioClass implements IncomeExpenseRatio {
   month: number;
   ratio: number;
-  userId: number;
+  userId: string;
 
   /**
    * Constructs a new IncomeExpenseRatio instance.
@@ -33,8 +35,8 @@ class IncomeExpenseRatio {
   constructor(data: Partial<IncomeExpenseRatio> = {}) {
     this.month = data.month ?? 0;
     this.ratio = data.ratio ?? 0;
-    this.userId = data.userId ?? 0;
+    this.userId = data.userId ?? '0';
   }
 }
 
-export { IncomeExpenseRatio };
+export { IncomeExpenseRatioClass };

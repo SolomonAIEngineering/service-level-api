@@ -1,5 +1,5 @@
+import { CategoryMonthlyTransactionCount } from 'src/data-contracts/financial-service/data-contracts';
 import { ErrorResponse } from '../error';
-import { CategoryMonthlyTransactionCount } from '../financial';
 
 /**
  * Represents the request for getting category monthly transaction count.

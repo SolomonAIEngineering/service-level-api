@@ -21,9 +21,13 @@ import {
   Command,
 } from '../ui/command';
 import { Badge } from '../ui/badge';
-import { Milestone, SmartGoal } from 'src/types';
+import {
+  SmartGoal as ISmartGoal,
+  Milestone,
+} from 'src/data-contracts/financial-service/data-contracts';
 import React from 'react';
 import { Button } from '../ui/button';
+import { BankAccountClass } from 'src/types/financial/bank-account';
 
 interface IBankAccountCardContent {
   className?: string;
@@ -47,6 +51,7 @@ interface IBankAccountCardContent {
  * @example Basic Usage:
  * ```tsx
  * import { BankAccountCardContent } from './path-to-component';
+import { BankAccount as BankAccountInstance } from 'src/types/financial/bank-account';
  *
  * function BankAccountContentView() {
  *   return (
@@ -90,13 +95,10 @@ const BankAccountCardContent: React.FC<IBankAccountCardContent> = (props) => {
 };
 
 const AccountGoalsCommandSearch: React.FC = () => {
-  const bankAccount = useContext(BankAccountContext);
   const ref = React.useRef<HTMLDivElement | null>(null);
   const [inputValue, setInputValue] = React.useState('');
 
   const [pages, setPages] = React.useState<string[]>(['home']);
-  const activePage = pages[pages.length - 1];
-  const isHome = activePage === 'home';
 
   const popPage = React.useCallback(() => {
     setPages((pages) => {
@@ -105,6 +107,16 @@ const AccountGoalsCommandSearch: React.FC = () => {
       return x;
     });
   }, []);
+
+  const bankAccount = useContext(BankAccountContext);
+  if (bankAccount === undefined) {
+    return null;
+  }
+
+  const bankAccountClassInstance = new BankAccountClass(bankAccount);
+
+  const activePage = pages[pages.length - 1];
+  const isHome = activePage === 'home';
 
   function bounce() {
     if (ref.current) {
@@ -185,12 +197,14 @@ const AccountGoalsCommandSearch: React.FC = () => {
         <CommandSeparator />
         {activePage === 'smart-goals' && (
           <>
-            <GoalsCommandItems goals={bankAccount.getGoals()} />
+            <GoalsCommandItems goals={bankAccountClassInstance.getGoals()} />
           </>
         )}
         {activePage === 'milestones' && (
           <div className="py-4">
-            <GoalMilestones milestones={bankAccount.getMilestones()} />
+            <GoalMilestones
+              milestones={bankAccountClassInstance.getMilestones()}
+            />
           </div>
         )}
       </CommandList>
@@ -220,7 +234,7 @@ const GoalMilestones: React.FC<{
 };
 
 const GoalsCommandItems: React.FC<{
-  goals: SmartGoal[];
+  goals: ISmartGoal[];
 }> = ({ goals }) => {
   return (
     <>
@@ -248,14 +262,20 @@ const GoalsCommandItems: React.FC<{
 const AccountPockets: React.FC = () => {
   const [isOpen, setIsOpen] = React.useState(false);
   const bankAccount = useContext(BankAccountContext);
+  if (bankAccount === undefined) {
+    return null;
+  }
 
   // Check if there are pockets associated with the bank account.
-  if (bankAccount.getNumberOfPockets() === 0) {
+  if (bankAccount.pockets == undefined || bankAccount.pockets?.length === 0) {
     return null;
   }
 
   // get the first pocket name
-  const pocketName = bankAccount.pockets[0].type.toString();
+  const pocketName =
+    bankAccount.pockets[0].type !== undefined
+      ? bankAccount.pockets[0].type!.toString()
+      : '';
 
   return (
     <Collapsible
@@ -265,7 +285,7 @@ const AccountPockets: React.FC = () => {
     >
       <div className="flex items-center justify-between space-x-4 px-4">
         <h4 className="text-sm font-semibold">
-          {bankAccount.name} has {bankAccount.getNumberOfPockets()} pockets
+          {bankAccount.name} has {bankAccount.pockets?.length} pockets
         </h4>
         <CollapsibleTrigger asChild>
           <Button variant="ghost" size="sm">
@@ -277,18 +297,20 @@ const AccountPockets: React.FC = () => {
       <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
         {formatPocketName(pocketName.toString())}
       </div>
-      <CollapsibleContent className="space-y-2">
-        {bankAccount.pockets.slice(1).map((pocket) => {
-          return (
-            <div
-              key={pocket.id}
-              className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm"
-            >
-              {formatPocketName(pocket.type.toString())}
-            </div>
-          );
-        })}
-      </CollapsibleContent>
+      {bankAccount.pockets && bankAccount.pockets.length > 1 && (
+        <CollapsibleContent className="space-y-2">
+          {bankAccount.pockets.slice(1).map((pocket) => {
+            return (
+              <div
+                key={pocket.id}
+                className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm"
+              >
+                {pocket.type && formatPocketName(pocket.type.toString())}
+              </div>
+            );
+          })}
+        </CollapsibleContent>
+      )}
     </Collapsible>
   );
 };

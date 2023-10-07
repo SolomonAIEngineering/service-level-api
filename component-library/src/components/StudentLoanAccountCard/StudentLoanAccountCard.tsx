@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from 'react';
 import { createContext, ReactNode, RefObject, Component } from 'react';
-import { StudentLoanAccount } from 'src/types';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { cn, formatDate, formatNumber } from 'src/lib-utils/utils';
 import {
@@ -21,10 +20,12 @@ import {
 } from '../ui/collapsible';
 import { CaretSortIcon } from '@radix-ui/react-icons';
 import { Button } from '../ui/button';
+import { StudentLoanAccount } from 'src/data-contracts/financial-service/data-contracts';
+import { StudentLoanAccountClass } from 'src/index';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 /** @type {React.Context<StudentLoanAccount>} */
 const StudentLoanAccountCardContext = createContext<StudentLoanAccount>(
-  new StudentLoanAccount({}),
+  new StudentLoanAccountClass({}),
 );
 
 export type StudentLoanAccountCardProps = {
@@ -53,7 +54,7 @@ export class StudentLoanAccountCard extends Component<
   private myRef: RefObject<HTMLDivElement>;
 
   static defaultProps = {
-    studentLoanAccount: new StudentLoanAccount({}),
+    studentLoanAccount: new StudentLoanAccountClass({}),
     children: null,
     className: '',
   };
@@ -113,8 +114,10 @@ export class StudentLoanAccountCard extends Component<
               <p className="text-4xl text-black font-bold">
                 $
                 {formatNumber(
-                  studentLoanAccount.originationPrincipalAmount -
-                    studentLoanAccount.ytdPrincipalPaid,
+                  studentLoanAccount.originationPrincipalAmount != null
+                    ? studentLoanAccount.originationPrincipalAmount -
+                        (studentLoanAccount.ytdPrincipalPaid ?? 0)
+                    : 0,
                   2,
                 )}
                 <span className="ml-2 text-xs text-gray-500 font-bold">
@@ -161,7 +164,7 @@ export class StudentLoanAccountCard extends Component<
                 </div>
                 <div className="flex flex-col">
                   <p className="text-xl text-black">
-                    ${Math.abs(studentLoanAccount.ytdPrincipalPaid)}
+                    ${Math.abs(studentLoanAccount.ytdPrincipalPaid ?? 0)}
                   </p>
                   <p className="text-xs text-gray-500">Paid Balance</p>
                 </div>
@@ -202,9 +205,11 @@ const StudentLoanStatisticOverview: React.FC<{
   const { studentLoanAccount } = props;
 
   const principalPaidPercentage =
-    ((studentLoanAccount.originationPrincipalAmount -
-      studentLoanAccount.ytdPrincipalPaid) /
-      studentLoanAccount.originationPrincipalAmount) *
+    ((studentLoanAccount.originationPrincipalAmount
+      ? studentLoanAccount.originationPrincipalAmount -
+        (studentLoanAccount.ytdPrincipalPaid ?? 0)
+      : 0) /
+      (studentLoanAccount.originationPrincipalAmount || 1)) *
     100;
 
   const studentloanPaymentStanding = (
@@ -246,7 +251,7 @@ const StudentLoanStatisticOverview: React.FC<{
   const data: StudentLoanPieChartValue[] = [
     {
       name: 'Principal Paid Off',
-      metric: `${studentLoanAccount.ytdPrincipalPaid.toString()}`,
+      metric: `${studentLoanAccount.ytdPrincipalPaid?.toString() ?? '0'}`,
       status: paymentStanding.status,
       info: paymentStanding.info,
       value: principalPaidPercentage,

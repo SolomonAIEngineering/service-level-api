@@ -1,53 +1,9 @@
+import { getRandomNumber, getRandomString } from 'src/lib-utils/utils';
+import { AprClass } from './apr';
 import {
-  getRandomArrayItem,
-  getRandomNumber,
-  getRandomString,
-} from 'src/lib-utils/utils';
-import { Apr } from './apr';
-import { BankAccountType } from '.';
-
-export interface ICreditAccount {
-  /** id */
-  id: number;
-  /** the user id to which this bank account is tied to */
-  userId: number;
-  /** the account name */
-  name: string;
-  /** the bank account number */
-  number: string;
-  /** the bank account type */
-  type: string;
-  /** the bank account balance */
-  balance: number;
-  /** current funds on the account */
-  currentFunds: number;
-  /** balance limit */
-  balanceLimit: number;
-  /** plaid account id mapped to this bank account */
-  plaidAccountId: string;
-  /** accoint subtype */
-  subtype: string;
-  /** wether the account is overdue */
-  isOverdue: boolean;
-  /** the last payment amount */
-  lastPaymentAmount: number;
-  /** the last payment date */
-  lastPaymentDate: string;
-  /** the last statement issue date */
-  lastStatementIssueDate: string;
-  /** the minimum amount due date */
-  minimumAmountDueDate: number;
-  /** the next payment date */
-  nextPaymentDate: string;
-  /** the aprs */
-  aprs: Apr[];
-  /** the last statement balance */
-  lastStatementBalance: number;
-  /** the minimum payment amount */
-  minimumPaymentAmount: number;
-  /** the next payment due date */
-  nextPaymentDueDate: string;
-}
+  Apr,
+  CreditAccount as CreditAccount,
+} from 'src/data-contracts/financial-service/data-contracts';
 
 /*
  * CreditAccount represents the CreditAccount entity.
@@ -56,11 +12,11 @@ export interface ICreditAccount {
  * @class CreditAccount
  * @implements {ICreditAccount}
  * */
-export class CreditAccount implements ICreditAccount {
+export class CreditAccountClass implements CreditAccount {
   /** id */
-  id = 0;
+  id = '0';
   /** the user id to which this bank account is tied to */
-  userId = 0;
+  userId = '0';
   /** the account name */
   name = '';
   /** the bank account number */
@@ -72,7 +28,7 @@ export class CreditAccount implements ICreditAccount {
   /** current funds on the account */
   currentFunds = 0;
   /** balance limit */
-  balanceLimit = 0;
+  balanceLimit = '0';
   /** plaid account id mapped to this bank account */
   plaidAccountId = '';
   /** accoint subtype */
@@ -107,16 +63,14 @@ export class CreditAccount implements ICreditAccount {
   }
 
   static randomInstance(): CreditAccount {
-    return new CreditAccount({
-      userId: getRandomNumber(1, 10000),
+    return new CreditAccountClass({
+      userId: getRandomNumber(1, 10000).toString(),
       name: `Account ${getRandomString(5)}`,
       number: `xxxx-xxxx-xxxx-${getRandomString(4)}`, // A sample account number format
-      type: getRandomArrayItem(
-        Object.values(BankAccountType).slice(),
-      ).toString(),
+      type: 'Credit Card',
       balance: getRandomNumber(1000, 10000),
       currentFunds: getRandomNumber(500, 5000),
-      balanceLimit: getRandomNumber(0, 1000),
+      balanceLimit: getRandomNumber(0, 1000).toString(),
       plaidAccountId: getRandomString(10),
       subtype: `Subtype ${getRandomString(3)}`,
       isOverdue: Math.random() < 0.5,
@@ -126,7 +80,7 @@ export class CreditAccount implements ICreditAccount {
       minimumAmountDueDate: getRandomNumber(0, 1000),
       nextPaymentDate: getRandomString(10),
       aprs: Array.from({ length: getRandomNumber(0, 5) }, () =>
-        Apr.randomInstance(),
+        AprClass.randomInstance(),
       ),
       lastStatementBalance: getRandomNumber(0, 1000),
       minimumPaymentAmount: getRandomNumber(0, 1000),

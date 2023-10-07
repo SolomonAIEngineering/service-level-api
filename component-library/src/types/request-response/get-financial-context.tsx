@@ -1,5 +1,5 @@
+import { MelodyFinancialContext } from 'src/data-contracts/financial-service/data-contracts';
 import { ErrorResponse } from '../error';
-import { MelodyFinancialContext } from '../financial';
 
 /**
  * Represents the response for getting melody financial context.

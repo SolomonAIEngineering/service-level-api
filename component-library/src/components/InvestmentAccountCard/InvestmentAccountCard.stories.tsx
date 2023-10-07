@@ -4,7 +4,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { InvestmentAccountCard } from './InvestmentAccountCard';
-import { AccountBalanceHistory, InvestmentAccount } from 'src/types';
+import { AccountBalanceHistoryClass, InvestmentAccountClass } from 'src/index';
 
 const meta: Meta<typeof InvestmentAccountCard> = {
   title: 'Component/InvestmentAccountCard',
@@ -28,7 +28,7 @@ export const WithoutBalance: Story = {
     // Adjust the default properties for each variant of your component
     // primary: true,
     // label: 'InvestmentAccountCard',
-    investmentAccount: InvestmentAccount.randomInstance(),
+    investmentAccount: InvestmentAccountClass.randomInstance(),
   },
 };
 
@@ -37,10 +37,10 @@ export const WithAccountBalance: Story = {
     // Adjust the default properties for each variant of your component
     // primary: true,
     // label: 'InvestmentAccountCard',
-    investmentAccount: InvestmentAccount.randomInstance(),
+    investmentAccount: InvestmentAccountClass.randomInstance(),
     historicalAccountBalance: Array.from({ length: 20 }, () =>
-      AccountBalanceHistory.randomInstance(),
-    ).sort((a, b) => a.time!.getTime() - b.time!.getTime()),
+      AccountBalanceHistoryClass.randomInstance(),
+    ).sort((a, b) => new Date(a.time!).getTime() - new Date(b.time!).getTime()),
   },
 };
 

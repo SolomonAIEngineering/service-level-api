@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from 'react';
 import { createContext, ReactNode, RefObject, Component } from 'react';
-import { AccountBalanceHistory } from 'src/types';
 import {
   Card,
   CardContent,
@@ -14,6 +13,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
 import { StatisticalTests } from 'src/lib-utils/StatisticalTests';
 import { AreaChart } from '@tremor/react';
 import { BarChart } from 'lucide-react';
+import { AccountBalanceHistory } from 'src/data-contracts/financial-service/data-contracts';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 /** @type {React.Context<string>} */
@@ -133,15 +133,26 @@ export class HistoricalAccountBalanceChart<
   }
 
   private totalAccumulation(data: AccountBalanceHistory[]): number {
-    return data.reduce((accum, record) => accum + record.balance, 0);
+    return data.reduce((accum, record) => {
+      if (record.balance !== undefined) {
+        return accum + record.balance;
+      }
+      return accum;
+    }, 0);
   }
 
   private maxBalance(data: AccountBalanceHistory[]): number {
-    return Math.max(...data.map((record) => record.balance));
+    const balances = data
+      .map((record) => record.balance)
+      .filter((balance): balance is number => balance !== undefined);
+    return Math.max(...balances);
   }
 
   private minBalance(data: AccountBalanceHistory[]): number {
-    return Math.min(...data.map((record) => record.balance));
+    const balances = data
+      .map((record) => record.balance)
+      .filter((balance): balance is number => balance !== undefined);
+    return Math.min(...balances);
   }
 
   /**
@@ -159,7 +170,9 @@ export class HistoricalAccountBalanceChart<
     for (let i = 0; i <= data.length - windowSize; i++) {
       let sum = 0;
       for (let j = 0; j < windowSize; j++) {
-        sum += data[i + j].balance;
+        if (data[i + j]?.balance !== undefined) {
+          sum += data[i + j].balance ?? 0;
+        }
       }
       result.push(sum / windowSize);
     }
@@ -286,8 +299,8 @@ const AccountBalanceChart: React.FC<{
   ): ConvertedAccountHistory[] {
     return data.map((item) => {
       return {
-        date: item.time ? item.time.toISOString() : '',
-        'Account Balance': item.balance,
+        date: item.time ? item.time : '',
+        'Account Balance': item.balance !== undefined ? item.balance : 0,
       };
     });
   }

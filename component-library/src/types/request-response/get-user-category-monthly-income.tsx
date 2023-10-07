@@ -1,5 +1,5 @@
+import { CategoryMonthlyIncome } from 'src/data-contracts/financial-service/data-contracts';
 import { ErrorResponse } from '../error';
-import { CategoryMonthlyIncome } from '../financial';
 
 /**
  * Represents the request for getting user category monthly income.

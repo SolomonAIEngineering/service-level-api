@@ -1,3 +1,5 @@
+import { PaymentChannelMonthlyExpenditure as PaymentChannelMonthlyExpenditure } from 'src/data-contracts/financial-service/data-contracts';
+
 /**
  * Represents the monthly expenditure of a payment channel.
  *
@@ -22,23 +24,25 @@
  * @property totalSpending - Total amount spent by the user through this channel for the specified month.
  * @property userId - The user ID associated with this record.
  */
-class PaymentChannelMonthlyExpenditure {
+class PaymentChannelMonthlyExpenditureClass
+  implements PaymentChannelMonthlyExpenditure
+{
   month: number;
   paymentChannel: string;
   totalSpending: number;
-  userId: number;
+  userId: string;
 
   /**
    * Constructs a new PaymentChannelMonthlyExpenditure instance.
    *
    * @param data - Initialization data for the monthly expenditure of the payment channel.
    */
-  constructor(data: Partial<PaymentChannelMonthlyExpenditure> = {}) {
+  constructor(data: Partial<PaymentChannelMonthlyExpenditureClass> = {}) {
     this.month = data.month ?? 0;
     this.paymentChannel = data.paymentChannel ?? '';
     this.totalSpending = data.totalSpending ?? 0;
-    this.userId = data.userId ?? 0;
+    this.userId = data.userId ?? '0';
   }
 }
 
-export { PaymentChannelMonthlyExpenditure };
+export { PaymentChannelMonthlyExpenditureClass };

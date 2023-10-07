@@ -1,5 +1,5 @@
+import { IncomeExpenseRatio } from 'src/data-contracts/financial-service/data-contracts';
 import { ErrorResponse } from '../error';
-import { IncomeExpenseRatio } from '../financial';
 
 /**
  * Represents the request for getting income expense ratio.

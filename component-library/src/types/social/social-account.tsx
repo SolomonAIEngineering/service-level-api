@@ -1,5 +1,6 @@
-import { Tag } from '../common/tag';
-import { Bookmark } from './bookmark';
+import { Bookmark } from 'src/data-contracts/social-service/data-contracts';
+import { TagClass } from '../common/tag';
+import { Tags } from 'src/data-contracts/user-service/data-contracts';
 
 /**
  * Represents a social account in the platform.
@@ -65,7 +66,7 @@ class SocialAccount {
    *
    * @type {Tag[]}
    */
-  tags: Tag[] = [];
+  tags: Tags[] = [];
   /**
    * Deliniates wether the profile is a private or public one
    *
@@ -135,7 +136,7 @@ class SocialAccount {
    *
    * @returns {(Tag[] | string[])} The tags of the profile.
    */
-  getTags(): Tag[] | string[] {
+  getTags(): Tags[] | string[] {
     return this.tags;
   }
 
@@ -153,7 +154,7 @@ class SocialAccount {
    * @returns {string[]} The tag names of the profile.
    */
   getTagNames(): string[] {
-    return this.tags.map((tag) => (tag as Tag).getName());
+    return this.tags.map((tag) => (tag as TagClass).getName());
   }
 
   /**

@@ -5,6 +5,7 @@ import { Badge } from '../ui/badge';
 import { Label } from '../ui/label';
 
 import { formatNumber } from '../../lib-utils/utils';
+import { BankAccountClass } from 'src/types/financial/bank-account';
 
 /**
  * The `BankAccountCardHeader` component is responsible for rendering the header section of a bank account card in a user interface.
@@ -47,6 +48,12 @@ import { formatNumber } from '../../lib-utils/utils';
  */
 const BankAccountCardHeader: React.FC = () => {
   const bankAccount = useContext(BankAccountContext);
+  if (bankAccount === undefined) {
+    return null;
+  }
+
+  const bankAccountInstance = new BankAccountClass(bankAccount);
+
   const numberOfDecimalPointsToFormatNumbers = 2;
   return (
     <CardHeader className="grid grid-cols-[1fr_110px] items-start gap-4 space-y-0">
@@ -98,13 +105,13 @@ const BankAccountCardHeader: React.FC = () => {
             className="flex justify-center rounded-2xl text-xs"
             variant={'outline'}
           >
-            {bankAccount.getNumberOfPockets()} Pockets
+            {bankAccountInstance.getNumberOfPockets()} Pockets
           </Badge>
           <Badge
             className="flex justify-center rounded-2xl text-xs"
             variant={'outline'}
           >
-            {bankAccount.getNumberOfGoals()} Goals
+            {bankAccountInstance.getNumberOfGoals()} Goals
           </Badge>
         </div>
       </div>

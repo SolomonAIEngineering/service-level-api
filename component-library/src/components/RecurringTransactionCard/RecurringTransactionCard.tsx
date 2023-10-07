@@ -1,12 +1,6 @@
 import * as React from 'react';
 import { createContext, ReactNode, RefObject, Component } from 'react';
-import {
-  BankAccount,
-  CreditAccount,
-  ReOccuringTransaction,
-  ReOccuringTransactionsFrequency,
-  Transaction,
-} from 'src/types';
+
 import { Card, CardContent, CardHeader } from '../ui/card';
 import {
   cn,
@@ -30,11 +24,18 @@ import {
   HoverCardTrigger,
 } from '@radix-ui/react-hover-card';
 import { TransactionDataTable } from '../TransactionDataTable';
+import {
+  BankAccount,
+  CreditAccount,
+  ReOccuringTransaction,
+  Transaction,
+} from 'src/data-contracts/financial-service/data-contracts';
+import { ReOccuringTransactionClass } from 'src/index';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 /** @type {React.Context<ReOccuringTransaction>} */
 const RecurringTransactionCardContext = createContext<ReOccuringTransaction>(
-  new ReOccuringTransaction({}),
+  new ReOccuringTransactionClass({}),
 );
 
 export type RecurringTransactionCardProps = {
@@ -97,9 +98,7 @@ export class RecurringTransactionCard extends Component<
     const { transaction } = this.state;
     if (
       transaction.isActive === false ||
-      transaction.frequency ===
-        ReOccuringTransactionsFrequency.RE_OCCURING_TRANSACTIONS_FREQUENCY_UNSPECIFIED ||
-      transaction.frequency === ReOccuringTransactionsFrequency.UNRECOGNIZED
+      transaction.frequency === 'RE_OCCURING_TRANSACTIONS_FREQUENCY_UNSPECIFIED'
     ) {
       return true;
     }
@@ -149,7 +148,8 @@ export class RecurringTransactionCard extends Component<
                 <div className="col-span-3 pt-2">
                   <div className="flex flew-row gap-2 justify-between">
                     <p className="text-xs font-bold">
-                      {transaction.transactionIds.length} total transactions
+                      {transaction.transactionIds?.length ?? 0} total
+                      transactions
                     </p>
                     <div>
                       <Badge className="text-xs font-bold rounded-full">
@@ -169,7 +169,10 @@ export class RecurringTransactionCard extends Component<
                   className="text-xs font-bold rounded-2xl shadow-sm"
                   variant={'outline'}
                 >
-                  Billed {formatFrequency(transaction.frequency.toString())}
+                  {transaction.frequency &&
+                    `Billed ${formatFrequency(
+                      transaction.frequency.toString(),
+                    )}`}
                 </Badge>
                 <Badge
                   className="text-xs font-bold rounded-2xl shadow-sm"

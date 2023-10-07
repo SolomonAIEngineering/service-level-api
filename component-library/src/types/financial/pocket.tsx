@@ -1,24 +1,9 @@
-import { getRandomNumber, getRandomArrayItem } from 'src/lib-utils/utils';
-import { PocketType } from './pocket-type';
-import { SmartGoal } from './smart-goal';
+import { getRandomNumber } from 'src/lib-utils/utils';
 
-/**
- * Pocket is an abstraction of a over a bank account. A user can has at most 4 pockets per connected account
- * NOTE: these pockets are automatically created by the system and should not be exposed for mutation
- * by any client. The only operations that can be performed against a pocket are:
- * 1. Get the pocket
- * 2. Get the pocket's smart goals
- * 3. Adding a smart goal to the pocket
- */
-export interface IPocket {
-  /** id */
-  id: number;
-  /** the set of smart goals this user witholds */
-  goals: SmartGoal[];
-  /** The type of the pocket */
-  type: PocketType;
-}
-
+import { Pocket as Pocket } from 'src/data-contracts/financial-service/data-contracts';
+import { PocketType as PocketType } from 'src/data-contracts/financial-service/data-contracts';
+import { SmartGoal as SmartGoal } from 'src/data-contracts/financial-service/data-contracts';
+import { SmartGoalClass } from './smart-goal';
 /**
  * Pocket represents the Pocket entity.
  *
@@ -26,13 +11,13 @@ export interface IPocket {
  * @class Pocket
  * @implements {IPocket}
  * */
-export class Pocket implements IPocket {
+export class PocketClass implements Pocket {
   /** id */
-  id = 0;
+  id = '0';
   /** the set of smart goals this user witholds */
   goals: SmartGoal[] = [];
   /** The type of the pocket */
-  type: PocketType = PocketType.POCKET_TYPE_UNSPECIFIED;
+  type: PocketType = 'POCKET_TYPE_UNSPECIFIED';
 
   constructor(data: Partial<Pocket>) {
     Object.assign(this, data);
@@ -45,13 +30,13 @@ export class Pocket implements IPocket {
   static randomInstance(): Pocket {
     const numberOfGoals = getRandomNumber(0, 5); // Assuming a random number of goals between 0 to 5 for each pocket
     const goals = Array.from({ length: numberOfGoals }, () =>
-      SmartGoal.randomInstance(),
+      SmartGoalClass.randomInstance(),
     );
 
-    return new Pocket({
-      id: getRandomNumber(1, 10000),
+    return new PocketClass({
+      id: getRandomNumber(1, 10000).toString(),
       goals: goals,
-      type: getRandomArrayItem(Object.values(PocketType).slice()) as PocketType,
+      type: 'POCKET_TYPE_LONG_TERM_SAVINGS',
     });
   }
 }

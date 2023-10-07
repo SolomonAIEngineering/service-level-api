@@ -4,7 +4,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { CreditAccountCard } from './CreditAccountCard';
-import { AccountBalanceHistory, CreditAccount } from 'src/types';
+import { AccountBalanceHistoryClass, CreditAccountClass } from 'src/index';
 
 const meta: Meta<typeof CreditAccountCard> = {
   title: 'Component/CreditAccountCard',
@@ -28,7 +28,7 @@ export const CreditAccountCardDefault: Story = {
     // Adjust the default properties for each variant of your component
     // primary: true,
     // label: 'CreditAccountCard',
-    creditAccount: CreditAccount.randomInstance(),
+    creditAccount: CreditAccountClass.randomInstance(),
     enableDemoMode: false,
     institutionName: 'Chase',
   },
@@ -39,11 +39,11 @@ export const CreditAccountCardAccountBalanceHistory: Story = {
     // Adjust the default properties for each variant of your component
     // primary: true,
     // label: 'CreditAccountCard',
-    creditAccount: CreditAccount.randomInstance(),
+    creditAccount: CreditAccountClass.randomInstance(),
     enableDemoMode: false,
     institutionName: 'Chase',
     historicalAccountBalance: Array.from({ length: 20 }, () =>
-      AccountBalanceHistory.randomInstance(),
-    ).sort((a, b) => a.time!.getTime() - b.time!.getTime()),
+      AccountBalanceHistoryClass.randomInstance(),
+    ).sort((a, b) => new Date(a.time!).getTime() - new Date(b.time!).getTime()),
   },
 };

@@ -4,7 +4,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { InvestmentAccountHoverLabel } from './InvestmentAccountHoverLabel';
-import { AccountBalanceHistory, InvestmentAccount } from 'src/types';
+import { AccountBalanceHistoryClass, InvestmentAccountClass } from 'src/index';
 
 const meta: Meta<typeof InvestmentAccountHoverLabel> = {
   title: 'Component/InvestmentAccountHoverLabel',
@@ -28,17 +28,17 @@ export const InvestmentAccountDefault: Story = {
     // Adjust the default properties for each variant of your component
     // primary: true,
     // label: 'InvestmentAccountHoverLabel',
-    investmentAccount: InvestmentAccount.randomInstance(),
+    investmentAccount: InvestmentAccountClass.randomInstance(),
     enableDemoMode: false,
   },
 };
 
 export const InvestmentAccountWithBalance: Story = {
   args: {
-    investmentAccount: InvestmentAccount.randomInstance(),
+    investmentAccount: InvestmentAccountClass.randomInstance(),
     historicalAccountBalance: Array.from({ length: 20 }, () =>
-      AccountBalanceHistory.randomInstance(),
-    ).sort((a, b) => a.time!.getTime() - b.time!.getTime()),
+      AccountBalanceHistoryClass.randomInstance(),
+    ).sort((a, b) => new Date(a.time!).getTime() - new Date(b.time!).getTime()),
   },
 };
 

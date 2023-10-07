@@ -1,5 +1,5 @@
+import { MerchantMonthlyExpenditure } from 'src/data-contracts/financial-service/data-contracts';
 import { ErrorResponse } from '../error';
-import { MerchantMonthlyExpenditure } from '../financial';
 
 /**
  * Represents the request for getting merchant monthly expenditure.

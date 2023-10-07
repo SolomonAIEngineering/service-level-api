@@ -1,3 +1,5 @@
+import { ExpenseMetrics as ExpenseMetrics } from 'src/data-contracts/financial-service/data-contracts';
+
 /**
  * Represents the expense metrics related to a user's personal finance.
  *
@@ -24,12 +26,12 @@
  * @property totalExpenses - The total amount spent by the user in that month for the given category.
  * @property userId - The user ID for whom the metrics are calculated.
  */
-class ExpenseMetrics {
+class ExpenseMetricsClass implements ExpenseMetrics {
   month: number;
   personalFinanceCategoryPrimary: string;
-  transactionCount: number;
+  transactionCount: string;
   totalExpenses: number;
-  userId: number;
+  userId: string;
 
   /**
    * Constructs a new ExpenseMetrics instance.
@@ -40,10 +42,10 @@ class ExpenseMetrics {
     this.month = data.month ?? 0;
     this.personalFinanceCategoryPrimary =
       data.personalFinanceCategoryPrimary ?? '';
-    this.transactionCount = data.transactionCount ?? 0;
+    this.transactionCount = data.transactionCount ?? '0';
     this.totalExpenses = data.totalExpenses ?? 0;
-    this.userId = data.userId ?? 0;
+    this.userId = data.userId ?? '0';
   }
 }
 
-export { ExpenseMetrics };
+export { ExpenseMetricsClass };

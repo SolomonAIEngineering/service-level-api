@@ -1,11 +1,7 @@
-import { Publication } from './publication';
-
-export interface IBookmark {
-  /** the id of the blocked record */
-  id: number;
-  postIds: string[];
-  publications: Publication[];
-}
+import {
+  Bookmark as Bookmark,
+  Publication,
+} from 'src/data-contracts/social-service/data-contracts';
 
 /**
  * Represents a user's bookmarks within the application.
@@ -34,9 +30,9 @@ export interface IBookmark {
  * @implements {IBookmark}
  * @author [Your Name or the Original Author's Name if you know it]
  */
-export class Bookmark implements IBookmark {
+export class BookmarkClass implements Bookmark {
   /** the id of the blocked record */
-  id: number = 0;
+  id: string = '0';
   postIds: string[] = [];
   publications: Publication[] = [];
 

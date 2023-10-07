@@ -4,7 +4,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { StudentLoanAccountCard } from './StudentLoanAccountCard';
-import { StudentLoanAccount } from 'src/types';
+import { StudentLoanAccountClass } from 'src/index';
 
 const meta: Meta<typeof StudentLoanAccountCard> = {
   title: 'Component/StudentLoanAccountCard',
@@ -28,6 +28,6 @@ export const StudentLoanAccountDefault: Story = {
     // Adjust the default properties for each variant of your component
     // primary: true,
     // label: 'StudentLoanAccountCard',
-    studentLoanAccount: StudentLoanAccount.randomInstance(),
+    studentLoanAccount: StudentLoanAccountClass.randomInstance(),
   },
 };

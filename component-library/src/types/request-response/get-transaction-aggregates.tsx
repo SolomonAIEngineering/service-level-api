@@ -1,5 +1,5 @@
+import { TransactionAggregatesByMonth } from 'src/data-contracts/financial-service/data-contracts';
 import { ErrorResponse } from '../error';
-import { TransactionAggregatesByMonth } from '../financial';
 
 export class GetTransactionAggregatesResponse extends ErrorResponse {
   transactionAggregates: TransactionAggregatesByMonth[] = [];

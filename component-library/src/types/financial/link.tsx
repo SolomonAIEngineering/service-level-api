@@ -1,64 +1,16 @@
-import { BankAccount } from './bank-account';
-import { CreditAccount } from './credit-account';
-import { InvestmentAccount } from './investment-account';
-import { LinkStatus } from './link-status';
-import { LinkType } from './link-type';
-import { MortgageAccount } from './mortgage-account';
-import { PlaidLink } from './plaid-link';
-import { PlaidSync } from './plaid-sync';
-import { StudentLoanAccount } from './student-loan-account';
-import { Token } from './token';
-
-export interface ILink {
-  /** id */
-  id: number;
-  plaidSync: PlaidSync | undefined;
-  linkStatus: LinkStatus;
-  plaidLink: PlaidLink | undefined;
-  plaidNewAccountsAvailable: boolean;
-  expirationDate: string;
-  institutionName: string;
-  customInstitutionName: string;
-  description: string;
-  lastManualSync: string;
-  lastSuccessfulUpdate: string;
-  /**
-   * token object witholds an access token which is a token used to make API requests related to a specific Item. You will typically obtain an access_token
-   * by calling /item/public_token/exchange. For more details, see the Token exchange flow. An access_token does not expire,
-   * although it may require updating, such as when a user changes their password, or when working with European institutions
-   * that comply with PSD2's 90-day consent window. For more information, see When to use update mode.
-   * Access tokens should always be stored securely, and associated with the user whose data they represent.
-   * If compromised, an access_token can be rotated via /item/access_token/invalidate. If no longer needed,
-   * it can be revoked via /item/remove.(gorm.field).has_one = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
-   */
-  token: Token | undefined;
-  /**
-   * a link event - or client login event can have many connected bank accounts
-   * for example a log in link against one instition like chase can have many account (checking and savings)
-   * it is important though to ensure that if a link against an instition already exists, we dont fascilitate duplicated
-   */
-  bankAccounts: BankAccount[];
-  /**
-   * a link event - or client login event can have many connected investment accounts
-   * for example a log in link against one instition like fidelity can have many accounts (401k and investment account)
-   * it is important though to ensure that if a link against an instition already exists, we dont fascilitate duplicated
-   */
-  investmentAccounts: InvestmentAccount[];
-  /** credit accounts tied to a user */
-  creditAccounts: CreditAccount[];
-  /** mortgage accounts tied to a user */
-  mortgageAccounts: MortgageAccount[];
-  /** student loan accounts tied to a link */
-  studentLoanAccounts: StudentLoanAccount[];
-  /** the id of the institution this link is tied to and against */
-  plaidInstitutionId: string;
-  /** the type of link this is ... can be either a manual or plaid link type */
-  linkType: LinkType;
-  errorCode: string;
-  updatedAt: string;
-  newAccountsAvailable: boolean;
-  shouldBeUpdated: boolean;
-}
+import {
+  BankAccount,
+  CreditAccount,
+  InvestmentAccount,
+  Link as Link,
+  LinkStatus,
+  LinkType,
+  MortgageAccount,
+  PlaidLink,
+  PlaidSync,
+  StudentLoanAccount,
+  Token,
+} from 'src/data-contracts/financial-service/data-contracts';
 
 /*
  * A Link represents a login at a financial institution. A single end-user of your application might have accounts at different financial
@@ -71,12 +23,12 @@ export interface ILink {
  * @class Link
  * @implements {ILink}
  * */
-class Link implements ILink {
+class LinkClass implements Link {
   /**
    * The unique identifier for the link.
    * @type {number}
    */
-  id: number = 0;
+  id: string = '0';
 
   /**
    * Information about Plaid synchronization.
@@ -88,7 +40,7 @@ class Link implements ILink {
    * The status of the link.
    * @type {LinkStatus}
    */
-  linkStatus: LinkStatus = LinkStatus.LINK_STATUS_UNSPECIFIED;
+  linkStatus: LinkStatus = 'LINK_STATUS_UNSPECIFIED';
 
   /**
    * Information about Plaid linking.
@@ -181,7 +133,7 @@ class Link implements ILink {
    * The type of link.
    * @type {LinkType}
    */
-  linkType: LinkType = LinkType.LINK_TYPE_UNSPECIFIED;
+  linkType: LinkType = 'LINK_TYPE_UNSPECIFIED';
 
   /**
    * Error code associated with the link.
@@ -224,4 +176,4 @@ class Link implements ILink {
 /**
  * Export the Link class.
  */
-export { Link };
+export { LinkClass };

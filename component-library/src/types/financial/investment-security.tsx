@@ -1,23 +1,4 @@
-export interface IInvestmentSecurity {
-  /** id */
-  id: number;
-  closePrice: number;
-  closePriceAsOf: string;
-  cusip: string;
-  institutionId: string;
-  institutionSecurityId: string;
-  isCashEquivalent: boolean;
-  isin: string;
-  isoCurrencyCode: string;
-  name: string;
-  proxySecurityId: string;
-  securityId: string;
-  sedol: string;
-  tickerSymbol: string;
-  type: string;
-  unofficialCurrencyCode: string;
-  updateDatetime: string;
-}
+import { InvestmentSecurity as InvestmentSecurity } from 'src/data-contracts/financial-service/data-contracts';
 
 /*
  * InvestmentSecurity represents the InvestmentSecurity entity.
@@ -26,9 +7,9 @@ export interface IInvestmentSecurity {
  * @class InvestmentSecurity
  * @implements {IInvestmentSecurity}
  * */
-export class InvestmentSecurity implements IInvestmentSecurity {
+export class InvestmentSecurityClass implements InvestmentSecurity {
   /** id */
-  id = 0;
+  id = '0';
   closePrice = 0;
   closePriceAsOf = '';
   cusip = '';
@@ -55,8 +36,8 @@ export class InvestmentSecurity implements IInvestmentSecurity {
   }
 
   static randomInstance(): InvestmentSecurity {
-    return new InvestmentSecurity({
-      id: Math.floor(Math.random() * 1000),
+    return new InvestmentSecurityClass({
+      id: Math.floor(Math.random() * 1000).toString(),
       closePrice: +(Math.random() * 1000).toFixed(2),
       closePriceAsOf: new Date().toISOString(),
       cusip: Math.random().toString(36).substring(2),

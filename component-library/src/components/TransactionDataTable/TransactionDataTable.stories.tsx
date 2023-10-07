@@ -4,7 +4,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { TransactionDataTable } from './TransactionDataTable';
-import { BankAccount, CreditAccount, Transaction } from 'src/types';
+import {
+  BankAccountClass,
+  CreditAccountClass,
+  TransactionClass,
+} from 'src/index';
 
 const meta: Meta<typeof TransactionDataTable> = {
   title: 'Component/TransactionDataTable',
@@ -29,8 +33,8 @@ export const TransactionDataTableDefault: Story = {
     // primary: true,
     // label: 'TransactionDataTable',
     transactions: Array.from({ length: 20 }, () =>
-      Transaction.randomInstance(),
-    ).sort((a, b) => a.time!.getTime() - b.time!.getTime()),
+      TransactionClass.randomInstance(),
+    ).sort((a, b) => new Date(a.time!).getTime() - new Date(b.time!).getTime()),
   },
 };
 
@@ -40,9 +44,9 @@ export const TransactionDataTableWithBankAccount: Story = {
     // primary: true,
     // label: 'TransactionDataTable',
     transactions: Array.from({ length: 20 }, () =>
-      Transaction.randomInstance(),
-    ).sort((a, b) => a.time!.getTime() - b.time!.getTime()),
-    account: BankAccount.randomInstance(),
+      TransactionClass.randomInstance(),
+    ).sort((a, b) => new Date(a.time!).getTime() - new Date(b.time!).getTime()),
+    account: BankAccountClass.randomInstance(),
   },
 };
 
@@ -52,9 +56,9 @@ export const TransactionDataTableWithCreditAccount: Story = {
     // primary: true,
     // label: 'TransactionDataTable',
     transactions: Array.from({ length: 20 }, () =>
-      Transaction.randomInstance(),
-    ).sort((a, b) => a.time!.getTime() - b.time!.getTime()),
-    account: CreditAccount.randomInstance(),
+      TransactionClass.randomInstance(),
+    ).sort((a, b) => new Date(a.time!).getTime() - new Date(b.time!).getTime()),
+    account: CreditAccountClass.randomInstance(),
   },
 };
 // ... Repeat for other variants like Secondary, Large, Small, etc.
