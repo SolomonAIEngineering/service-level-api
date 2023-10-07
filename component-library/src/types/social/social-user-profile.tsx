@@ -1,7 +1,7 @@
 import {
   Bookmark,
   UserProfile,
-  Tags,
+  UserTags,
 } from 'src/data-contracts/social-service/data-contracts';
 import { BookmarkClass } from './bookmark';
 
@@ -53,7 +53,7 @@ export class SocialUserProfileClass implements UserProfile {
   /** User profile ID */
   id: string = '0';
   /** Tags are interests */
-  tags: Tags[] = [];
+  tags: UserTags[] = [];
   /**
    * Profile name is the name tied to the user profile
    * user name must be at least 5 characters long
