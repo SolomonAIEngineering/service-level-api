@@ -1,1 +1,1 @@
-export * as UserServiceDataContract from "./data-contracts"
+export * as UserServiceDataContract from './data-contracts';
