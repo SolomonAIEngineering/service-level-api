@@ -69,9 +69,9 @@ export function ChatLine({ role = 'assistant', content }: ChatGPTMessage) {
   msg.lang = 'en-US';
   if (selectedVoiceIndex !== null && voices[selectedVoiceIndex]) {
     msg.voice = voices[selectedVoiceIndex];
-    msg.pitch = 1.4;
+    msg.pitch = 0.9;
     msg.rate = 0.6;
-    msg.volume = 0.8;
+    msg.volume = 1;
   }
 
   const speechHandler = (data: string) => {
