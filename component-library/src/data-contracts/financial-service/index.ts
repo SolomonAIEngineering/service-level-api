@@ -1,1 +1,1 @@
-export * as FinancialServiceDataContract from "./data-contracts"
+export * as FinancialServiceDataContract from './data-contracts';

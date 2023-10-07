@@ -17,7 +17,7 @@
     - [1) Feature Branches (regular changes)](#1-feature-branches-regular-changes)
     - [2) Pre-Releases (Beta / Release Candidate branches for complex changes)](#2-pre-releases-beta-/-release-candidate-branches-for-complex-changes)
     - [3) Experimental Releases](#3-experimental-releases)
-  <!-- TOC -->
+    <!-- TOC -->
 
 ---
 
@@ -74,7 +74,7 @@ BREAKING CHANGE: "foo" export no longer available, use "bar".'
 
 #### Removing deprecated functionality
 
-If we followed suggestion from the [previous section](#how-to-approach-breaking-changes), we're likely to end up with a bunch of deprecated functionality that we don't want to maintain forever. Every once in a while we'll do a breaking change release where the only changes will be removal of deprecated features. 
+If we followed suggestion from the [previous section](#how-to-approach-breaking-changes), we're likely to end up with a bunch of deprecated functionality that we don't want to maintain forever. Every once in a while we'll do a breaking change release where the only changes will be removal of deprecated features.
 
 This should mean that, if consumers migrated deprecated features in timely manner, the breaking change should actually be painless.
 

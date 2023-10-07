@@ -66,7 +66,7 @@ export interface Address {
 }
 
 export interface Any {
-  "@type"?: string;
+  '@type'?: string;
   [key: string]: any;
 }
 
@@ -197,7 +197,10 @@ export interface PasswordResetWebhookResponse {
  * ProfileType: represents the type of account tied to a given profile
  * @default "PROFILE_TYPE_UNSPECIFIED"
  */
-export type ProfileType = "PROFILE_TYPE_UNSPECIFIED" | "PROFILE_TYPE_USER" | "PROFILE_TYPE_BUSINESS";
+export type ProfileType =
+  | 'PROFILE_TYPE_UNSPECIFIED'
+  | 'PROFILE_TYPE_USER'
+  | 'PROFILE_TYPE_BUSINESS';
 
 export type ReadynessCheckData = any;
 

@@ -20,6 +20,7 @@
     "build-component": "plop && npm run format",
     "build-storybook": "storybook build",
     "build:watch": "tsc && vite build --watch",
+    "chromatic": "npx chromatic --project-token=chpt_63172b6c6436641",
     "clean": "rimraf lib",
     "dev": "vite",
     "format": "sort-package-json && prettier --write '**/*.{ts,js,json,yml,md}' && eslint --fix .",
@@ -89,6 +90,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.46.2",
     "react-plaid-link": "^3.4.0",
+    "react-wrap-balancer": "^1.1.0",
     "recharts": "^2.7.3",
     "rollup-plugin-typescript-paths": "^1.4.0",
     "sass": "^1.66.1",
@@ -100,6 +102,7 @@
     "zod": "^3.22.2"
   },
   "devDependencies": {
+    "@storybook/addon-a11y": "^7.4.6",
     "@storybook/addon-essentials": "^7.3.2",
     "@storybook/addon-interactions": "^7.3.2",
     "@storybook/addon-links": "^7.3.2",
@@ -132,5 +135,7 @@
     "tailwindcss": "^3.3.3",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
-  }
+  },
+  "readme": "ERROR: No README data found!",
+  "_id": "@solomon-ai/component-library@1.4.0"
 }

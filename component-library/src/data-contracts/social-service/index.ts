@@ -1,1 +1,1 @@
-export * as SocialServiceDataContract from "./data-contracts"
+export * as SocialServiceDataContract from './data-contracts';
