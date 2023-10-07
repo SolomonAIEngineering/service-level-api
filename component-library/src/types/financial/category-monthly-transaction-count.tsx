@@ -1,3 +1,5 @@
+import { CategoryMonthlyTransactionCount as CategoryMonthlyTransactionCount } from 'src/data-contracts/financial-service/data-contracts';
+
 /**
  * Represents the monthly transaction count of a category.
  *
@@ -23,11 +25,13 @@
  * @property transactionCount - Total number of transactions in the specified month for this category.
  * @property userId - The user ID associated with these transactions.
  */
-class CategoryMonthlyTransactionCount {
+class CategoryMonthlyTransactionCountClass
+  implements CategoryMonthlyTransactionCount
+{
   month: number = 0;
   personalFinanceCategoryPrimary: string = '';
   transactionCount: number = 0;
-  userId: number = 0;
+  userId: string = '0';
 
   /**
    * Constructs a new CategoryMonthlyTransactionCount instance.
@@ -42,4 +46,4 @@ class CategoryMonthlyTransactionCount {
   }
 }
 
-export { CategoryMonthlyTransactionCount };
+export { CategoryMonthlyTransactionCountClass };

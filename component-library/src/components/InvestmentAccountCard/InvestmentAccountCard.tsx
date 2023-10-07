@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { createContext, ReactNode, RefObject, Component } from 'react';
 import { cn } from 'src/lib-utils/utils';
-import { AccountBalanceHistory, InvestmentAccount } from 'src/types';
 import { Card, CardHeader, CardContent, CardFooter } from '../ui/card';
 import { HistoricalAccountBalanceChart } from '../HistoricalAccountBalanceChart';
 import { Badge } from '../ui/badge';
@@ -10,11 +9,17 @@ import { HoverCardContent } from '../ui/hover-card';
 import { InvestmentHoldingCard } from '../InvestmentHoldingCard';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
 import { InvestmentSecurityCard } from '../InvestmentSecurityCard';
+import {
+  AccountBalanceHistory,
+  InvestmentAccount,
+  InvestmentSecurity,
+} from 'src/data-contracts/financial-service/data-contracts';
+import { InvestmentAccountClass } from 'src/index';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 /** @type {React.Context<InvestmentAccount>} */
 const InvestmentAccountCardContext = createContext<InvestmentAccount>(
-  new InvestmentAccount({}),
+  new InvestmentAccountClass({}),
 );
 
 export type InvestmentAccountCardProps = {
@@ -44,7 +49,7 @@ export class InvestmentAccountCard extends Component<
   private myRef: RefObject<HTMLDivElement>;
 
   static defaultProps = {
-    InvestmentAccount: new InvestmentAccount({}),
+    InvestmentAccount: new InvestmentAccountClass({}),
     historicalAccountBalance: [],
   };
 
@@ -79,7 +84,7 @@ export class InvestmentAccountCard extends Component<
   render(): ReactNode {
     const { className, enableDemoMode, historicalAccountBalance } = this.props;
     const investmentAccount = enableDemoMode
-      ? InvestmentAccount.randomInstance()
+      ? InvestmentAccountClass.randomInstance()
       : this.state.investmentAccount;
 
     return (
@@ -94,7 +99,9 @@ export class InvestmentAccountCard extends Component<
             <HoverCard>
               <p className="font-bold text-lg">
                 <HoverCardTrigger>
-                  {investmentAccount.name.toUpperCase()}
+                  {investmentAccount.name
+                    ? investmentAccount.name.toUpperCase()
+                    : ''}
                 </HoverCardTrigger>
                 <span
                   className="ml-1 text-xs"
@@ -108,14 +115,17 @@ export class InvestmentAccountCard extends Component<
               </p>
               <HoverCardContent className="w-fit rounded-2xl">
                 <InvestmentHoldingCard
-                  holdings={investmentAccount.holdings}
+                  holdings={investmentAccount.holdings || []}
                   className="border-none shadow-none"
                 />
               </HoverCardContent>
             </HoverCard>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
               <Badge className="bg-black font-bold text-white py-3 rounded-lg">
-                {investmentAccount.holdings.length} Holdings
+                {investmentAccount.holdings
+                  ? investmentAccount.holdings.length
+                  : 0}{' '}
+                Holdings
               </Badge>
               <Badge className="bg-black flex flex-col justify-start items-start text-white font-bold  border-gray-300 py-3 rounded-lg">
                 <span>{investmentAccount.type} </span>
@@ -171,7 +181,7 @@ export class InvestmentAccountCard extends Component<
                 )}
               <TabsContent value="holdings" className="py-3">
                 <InvestmentHoldingCard
-                  holdings={investmentAccount.holdings}
+                  holdings={investmentAccount.holdings ?? []}
                   historicalAccountBalance={historicalAccountBalance}
                 />
               </TabsContent>
@@ -181,7 +191,9 @@ export class InvestmentAccountCard extends Component<
               <div className="flex flex-row justify-between pt-3 md:pt-6">
                 <p className="font-bold text-lg">Total Value</p>
                 <p className="font-bold text-4xl">
-                  ${investmentAccount.currentFunds.toFixed(2)}
+                  $
+                  {investmentAccount.currentFunds &&
+                    investmentAccount.currentFunds.toFixed(2)}
                 </p>
               </div>
             </div>
@@ -194,11 +206,17 @@ export class InvestmentAccountCard extends Component<
                   <div className="flex flex-col h-48 w-48 md:h-64 md:w-64 lg:h-96 lg:w-96 xl:h-[500px] xl:w-[500px] 2xl:h-[600px] 2xl:w-[600px] overflow-scroll gap-2">
                     <p className="flex items-center text-lg font-bold">
                       Account {investmentAccount.name} Currently Holds{' '}
-                      {investmentAccount.securities.length} Securities
+                      {investmentAccount.securities
+                        ? investmentAccount.securities.length
+                        : 0}{' '}
+                      Securities
                     </p>
-                    {investmentAccount.securities.map((security) => (
-                      <InvestmentSecurityCard security={security} />
-                    ))}
+                    {investmentAccount.securities &&
+                      investmentAccount.securities.map(
+                        (security: InvestmentSecurity | undefined) => (
+                          <InvestmentSecurityCard security={security} />
+                        ),
+                      )}
                   </div>
                 </HoverCardContent>
               </HoverCard>

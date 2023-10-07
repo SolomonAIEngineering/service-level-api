@@ -1,5 +1,5 @@
+import { MonthlyTotalQuantityBySecurityAndUser } from 'src/data-contracts/financial-service/data-contracts';
 import { ErrorResponse } from '../error';
-import { MonthlyTotalQuantityBySecurityAndUser } from '../financial';
 
 /**
  * Represents the request for getting monthly total quantity by security and user.

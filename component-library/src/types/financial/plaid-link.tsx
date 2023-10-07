@@ -1,23 +1,14 @@
-export interface IPlaidLink {
-  /** id */
-  id: number;
-  products: string[];
-  webhookUrl: string;
-  institutionId: string;
-  institutionName: string;
-  usePlaidSync: boolean;
-  itemId: string;
-}
+import { PlaidLink as PlaidLink } from 'src/data-contracts/financial-service/data-contracts';
 
 /**
  * Represents linking information related to Plaid.
  */
-class PlaidLink implements IPlaidLink {
+class PlaidLinkClass implements PlaidLink {
   /**
    * The unique identifier for the Plaid link.
-   * @type {number}
+   * @type {string}
    */
-  id: number;
+  id: string;
 
   /**
    * An array of products associated with the Plaid link.
@@ -65,7 +56,7 @@ class PlaidLink implements IPlaidLink {
      * The unique identifier for the Plaid link.
      * @type {number}
      */
-    this.id = data.id ?? 0;
+    this.id = data.id ?? '0';
 
     /**
      * An array of products associated with the Plaid link.
@@ -108,4 +99,4 @@ class PlaidLink implements IPlaidLink {
 /**
  * Export the PlaidLink class.
  */
-export { PlaidLink };
+export { PlaidLinkClass };

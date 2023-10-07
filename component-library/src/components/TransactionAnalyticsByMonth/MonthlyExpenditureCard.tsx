@@ -1,6 +1,6 @@
 import React from 'react';
-import { Transaction } from 'src/types';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
+import { Transaction } from 'src/data-contracts/financial-service/data-contracts';
 
 type Props = {
   transactions: Transaction[];
@@ -12,52 +12,63 @@ const MonthlyExpenditureCard: React.FC<Props> = ({
   children,
 }) => {
   const totalExpenditure = transactions
-    .filter((txn) => txn.amount > 0)
-    .reduce((acc, txn) => acc + Math.abs(txn.amount), 0);
+    .filter((txn) => txn.amount && txn.amount > 0)
+    .reduce((acc, txn) => acc + Math.abs(txn.amount || 0), 0);
 
   // plaid treats negative amounts as income and positive amounts as expenditure
   const totalIncome = transactions
-    .filter((txn) => txn.amount < 0)
-    .reduce((acc, txn) => acc + Math.abs(txn.amount), 0);
+    .filter((txn) => txn.amount && txn.amount < 0)
+    .reduce((acc, txn) => acc + Math.abs(txn.amount || 0), 0);
 
   const netSavings = totalIncome - totalExpenditure;
   const averageTransactionSize =
     transactions.length > 0
-      ? transactions.reduce((acc, txn) => acc + txn.amount, 0) /
+      ? transactions.reduce((acc, txn) => acc + (txn.amount || 0), 0) /
         transactions.length
       : 0;
 
-  const largestTransaction = Math.max(...transactions.map((txn) => txn.amount));
+  const largestTransaction = Math.max(
+    ...transactions.map((txn) => txn.amount || 0),
+  );
   const smallestTransaction = Math.min(
-    ...transactions.map((txn) => txn.amount),
+    ...transactions.map((txn) => txn.amount || 0),
   );
 
   // Merchant Breakdown
   const merchantBreakdown: { [key: string]: number } = {};
   transactions.forEach((txn) => {
-    merchantBreakdown[txn.merchantName] =
-      (merchantBreakdown[txn.merchantName] || 0) + 1;
+    if (txn.merchantName) {
+      merchantBreakdown[txn.merchantName] =
+        (merchantBreakdown[txn.merchantName] || 0) + 1;
+    }
   });
 
   // Payment Method Breakdown
   const paymentMethodBreakdown: { [key: string]: number } = {};
   transactions.forEach((txn) => {
-    paymentMethodBreakdown[txn.paymentMetaPaymentMethod] =
-      (paymentMethodBreakdown[txn.paymentMetaPaymentMethod] || 0) + 1;
+    if (txn.paymentMetaPaymentMethod) {
+      paymentMethodBreakdown[txn.paymentMetaPaymentMethod] =
+        (paymentMethodBreakdown[txn.paymentMetaPaymentMethod] || 0) + 1;
+    }
   });
 
   // Frequency of Transactions
   const transactionFrequency: { [key: string]: number } = {};
   transactions.forEach((txn) => {
     const date = txn.currentDate; // Assuming currentDate represents the date of the transaction
-    transactionFrequency[date] = (transactionFrequency[date] || 0) + 1;
+    if (date) {
+      transactionFrequency[date] = (transactionFrequency[date] || 0) + 1;
+    }
   });
 
   // Cash Flow Analysis
   const cashFlowAnalysis: { [key: string]: number } = {};
   transactions.forEach((txn) => {
     const date = txn.currentDate;
-    cashFlowAnalysis[date] = (cashFlowAnalysis[date] || 0) + txn.amount;
+    if (date) {
+      cashFlowAnalysis[date] =
+        (cashFlowAnalysis[date] || 0) + (txn.amount || 0);
+    }
   });
 
   return (

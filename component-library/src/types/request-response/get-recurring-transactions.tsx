@@ -1,5 +1,5 @@
+import { ReOccuringTransaction } from 'src/data-contracts/financial-service/data-contracts';
 import { ErrorResponse } from '../error';
-import { ReOccuringTransaction } from '../financial';
 
 export class GetReCurringTransactionsRequest {
   /**

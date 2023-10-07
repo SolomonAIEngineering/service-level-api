@@ -1,3 +1,5 @@
+import { CategoryMonthlyIncome as CategoryMonthlyIncome } from 'src/data-contracts/financial-service/data-contracts';
+
 /**
  * Represents the monthly income of a category.
  *
@@ -23,11 +25,11 @@
  * @property totalIncome - Total income received in the specified month for this category.
  * @property userId - The user ID associated with this income.
  */
-class CategoryMonthlyIncome {
+class CategoryMonthlyIncomeClass implements CategoryMonthlyIncome {
   month: number = 0;
   personalFinanceCategoryPrimary: string = '';
   totalIncome: number = 0;
-  userId: number = 0;
+  userId: string = '0';
 
   /**
    * Constructs a new CategoryMonthlyIncome instance.
@@ -42,4 +44,4 @@ class CategoryMonthlyIncome {
   }
 }
 
-export { CategoryMonthlyIncome };
+export { CategoryMonthlyIncomeClass };

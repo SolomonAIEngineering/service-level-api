@@ -1,3 +1,5 @@
+import { MonthlyBalance as MonthlyBalance } from 'src/data-contracts/financial-service/data-contracts';
+
 /**
  * Represents the monthly balance of a user.
  *
@@ -20,10 +22,10 @@
  * @property netBalance - The net balance of the user for the month.
  * @property userId - The user ID associated with this balance.
  */
-class MonthlyBalance {
+class MonthlyBalanceClass implements MonthlyBalance {
   month: number;
   netBalance: number;
-  userId: number;
+  userId: string;
 
   /**
    * Constructs a new MonthlyBalance instance.
@@ -33,8 +35,8 @@ class MonthlyBalance {
   constructor(data: Partial<MonthlyBalance> = {}) {
     this.month = data.month ?? 0;
     this.netBalance = data.netBalance ?? 0;
-    this.userId = data.userId ?? 0;
+    this.userId = data.userId ?? '0';
   }
 }
 
-export { MonthlyBalance };
+export { MonthlyBalanceClass };

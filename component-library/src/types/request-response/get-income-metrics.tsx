@@ -1,5 +1,5 @@
+import { IncomeMetrics } from 'src/data-contracts/financial-service/data-contracts';
 import { ErrorResponse } from '../error';
-import { IncomeMetrics } from '../financial';
 
 /**
  * Represents the request for getting income metrics.

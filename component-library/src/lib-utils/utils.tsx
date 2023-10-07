@@ -35,7 +35,10 @@ export const processErrorIfPresent = (error: ErrorMessage) => {
  * @param input - The date string or the timestamp.
  * @returns The formatted date string.
  */
-export function formatDate(input: string | number): string {
+export function formatDate(input: string | number | undefined): string {
+  if (input === undefined) {
+    return '';
+  }
   const date = new Date(input);
   return date.toLocaleDateString('en-US', {
     month: 'long',
@@ -61,9 +64,13 @@ export const randomIntFromInterval = (min: number, max: number) => {
  * @returns The formatted number string.
  */
 export function formatNumber(
-  input: number,
+  input: number | undefined,
   numberOfDecimalPoint: number,
 ): string {
+  if (input === undefined) {
+    return '';
+  }
+
   return input.toFixed(numberOfDecimalPoint);
 }
 

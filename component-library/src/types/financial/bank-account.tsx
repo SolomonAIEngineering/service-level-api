@@ -3,57 +3,30 @@ import {
   getRandomString,
   getRandomArrayItem,
 } from 'src/lib-utils/utils';
-import { BankAccountStatus } from './bank-account-status';
-import { BankAccountType } from './bank-account-type';
-import { Pocket } from './pocket';
-import { Milestone, SmartGoal } from '.';
 
-export interface IBankAccount {
-  /** id */
-  id: number;
-  /** the user id to which this bank account is tied to */
-  userId: number;
-  /** the bank account name */
-  name: string;
-  /** the bank account number */
-  number: string;
-  /** the bank account type */
-  type: BankAccountType;
-  /** the bank account balance */
-  balance: number;
-  /** the bank account currency */
-  currency: string;
-  currentFunds: number;
-  balanceLimit: number;
-  /**
-   * the set of "virtualized accounts this user witholds"
-   * NOTE: these pockets are automatically created by the system
-   * when a user connects a bank account
-   */
-  pockets: Pocket[];
-  /** plaid account id mapped to this bank account */
-  plaidAccountId: string;
-  /** account subtype */
-  subtype: string;
-  /** the bank account status */
-  status: BankAccountStatus;
-}
+import { BankAccount as BankAccount } from 'src/data-contracts/financial-service/data-contracts';
+import { BankAccountStatus as BankAccountStatus } from 'src/data-contracts/financial-service/data-contracts';
+import { BankAccountType as BankAccountType } from 'src/data-contracts/financial-service/data-contracts';
+import { Pocket as Pocket } from 'src/data-contracts/financial-service/data-contracts';
+import { Milestone as Milestone } from 'src/data-contracts/financial-service/data-contracts';
+import { SmartGoal as SmartGoal } from 'src/data-contracts/financial-service/data-contracts';
+import { PocketClass } from './pocket';
 
 /**
  * Represents a bank account tied to a user.
  */
-class BankAccount implements IBankAccount {
+class BankAccountClass implements BankAccount {
   /**
    * The unique identifier for the bank account.
    * @type {number}
    */
-  id = 0;
+  id = '0';
 
   /**
    * The user ID to which this bank account is tied.
    * @type {number}
    */
-  userId = 0;
+  userId = '0';
 
   /**
    * The name of the bank account.
@@ -71,7 +44,7 @@ class BankAccount implements IBankAccount {
    * The type of bank account.
    * @type {BankAccountType}
    */
-  type: BankAccountType = BankAccountType.BANK_ACCOUNT_TYPE_UNSPECIFIED;
+  type: BankAccountType = 'BANK_ACCOUNT_TYPE_UNSPECIFIED';
 
   /**
    * The balance of the bank account.
@@ -95,7 +68,7 @@ class BankAccount implements IBankAccount {
    * The balance limit of the bank account.
    * @type {number}
    */
-  balanceLimit = 0;
+  balanceLimit = '0';
 
   /**
    * The set of virtualized pockets associated with this bank account.
@@ -119,7 +92,7 @@ class BankAccount implements IBankAccount {
    * The status of the bank account.
    * @type {BankAccountStatus}
    */
-  status: BankAccountStatus = BankAccountStatus.BANK_ACCOUNT_STATUS_UNSPECIFIED;
+  status: BankAccountStatus = 'BANK_ACCOUNT_STATUS_UNSPECIFIED';
 
   /**
    * Constructs a new BankAccount object.
@@ -146,7 +119,7 @@ class BankAccount implements IBankAccount {
    */
   getNumberOfGoals(): number {
     const numberOfGoals = this.pockets.reduce((acc, pocket) => {
-      return acc + pocket.goals.length;
+      return acc + (pocket.goals ? pocket.goals.length : 0);
     }, 0);
     return numberOfGoals;
   }
@@ -154,17 +127,27 @@ class BankAccount implements IBankAccount {
   // Returns all goals tied to the given bank account
   getGoals(): SmartGoal[] {
     const populatedPockets = this.pockets
-      .filter((pocket) => pocket.goals.length > 0)
+      .filter((pocket) => pocket.goals && pocket.goals.length > 0)
       .flat();
-    const goals = populatedPockets.map((pocket) => pocket.goals).flat();
+
+    const goals = populatedPockets
+      .map((pocket) => pocket.goals)
+      .flat()
+      .filter((goal) => goal !== undefined) as SmartGoal[];
+
     return goals;
   }
 
   // Returns all milestones tied to a particular bank account
   getMilestones(): Milestone[] {
     const goals = this.getGoals();
-    const populatedGoals = goals.filter((goal) => goal.milestones.length > 0);
-    const milestones = populatedGoals.map((goal) => goal.milestones).flat();
+    const populatedGoals = goals.filter(
+      (goal) => goal.milestones && goal.milestones.length > 0,
+    );
+    const milestones = populatedGoals
+      .map((goal) => goal.milestones)
+      .flat()
+      .filter((milestone) => milestone !== undefined) as Milestone[];
     return milestones;
   }
 
@@ -175,27 +158,23 @@ class BankAccount implements IBankAccount {
   static randomInstance(): BankAccount {
     const numberOfPocketsToGenerate = getRandomNumber(0, 5); // Assuming a random number of goals between 0 to 5 for each pocket
     const pockets = Array.from({ length: numberOfPocketsToGenerate }, () =>
-      Pocket.randomInstance(),
+      PocketClass.randomInstance(),
     );
 
-    return new BankAccount({
-      id: getRandomNumber(1, 10000),
-      userId: getRandomNumber(1, 10000),
+    return new BankAccountClass({
+      id: getRandomNumber(1, 10000).toString(),
+      userId: getRandomNumber(1, 10000).toString(),
       name: `Account ${getRandomString(5)}`,
       number: `xxxx-xxxx-xxxx-${getRandomString(4)}`, // A sample account number format
-      type: getRandomArrayItem(
-        Object.values(BankAccountType).slice(),
-      ) as BankAccountType,
+      type: 'BANK_ACCOUNT_TYPE_PLAID',
       balance: getRandomNumber(1000, 10000),
       currency: getRandomArrayItem(['USD', 'EUR', 'GBP', 'JPY']),
       currentFunds: getRandomNumber(500, 5000),
-      balanceLimit: getRandomNumber(0, 1000),
+      balanceLimit: getRandomNumber(0, 1000).toString(),
       pockets: pockets,
       plaidAccountId: getRandomString(10),
       subtype: `Subtype ${getRandomString(3)}`,
-      status: getRandomArrayItem(
-        Object.values(BankAccountStatus).slice(),
-      ) as BankAccountStatus,
+      status: 'BANK_ACCOUNT_STATUS_ACTIVE',
     });
   }
 }
@@ -203,4 +182,4 @@ class BankAccount implements IBankAccount {
 /**
  * Export the BankAccount class.
  */
-export { BankAccount };
+export { BankAccountClass };

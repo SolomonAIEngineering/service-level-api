@@ -1,3 +1,5 @@
+import { LocationFinancialSubProfile as LocationFinancialSubProfile } from 'src/data-contracts/financial-service/data-contracts';
+
 /**
  * Represents the financial sub profile of a location.
  *
@@ -28,16 +30,16 @@
  * @property userId - The user ID associated with this financial profile.
  * @property month - The month for which this financial profile is reported.
  */
-class LocationFinancialSubProfile {
+class LocationFinancialSubProfileClass implements LocationFinancialSubProfile {
   locationCity: string;
-  transactionCount: number;
+  transactionCount: string;
   spentLastWeek: number;
   spentLastTwoWeeks: number;
   spentLastMonth: number;
   spentLastSixMonths: number;
   spentLastYear: number;
   spentLastTwoYears: number;
-  userId: number;
+  userId: string;
   month: number;
 
   /**
@@ -47,16 +49,16 @@ class LocationFinancialSubProfile {
    */
   constructor(data: Partial<LocationFinancialSubProfile> = {}) {
     this.locationCity = data.locationCity ?? '';
-    this.transactionCount = data.transactionCount ?? 0;
+    this.transactionCount = data.transactionCount ?? '0';
     this.spentLastWeek = data.spentLastWeek ?? 0;
     this.spentLastTwoWeeks = data.spentLastTwoWeeks ?? 0;
     this.spentLastMonth = data.spentLastMonth ?? 0;
     this.spentLastSixMonths = data.spentLastSixMonths ?? 0;
     this.spentLastYear = data.spentLastYear ?? 0;
     this.spentLastTwoYears = data.spentLastTwoYears ?? 0;
-    this.userId = data.userId ?? 0;
+    this.userId = data.userId ?? '0';
     this.month = data.month ?? 0;
   }
 }
 
-export { LocationFinancialSubProfile };
+export { LocationFinancialSubProfileClass };

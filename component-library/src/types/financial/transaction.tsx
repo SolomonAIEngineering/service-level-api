@@ -1,10 +1,13 @@
 import {
+  Any,
+  Transaction,
+} from 'src/data-contracts/financial-service/data-contracts';
+import {
   getRandomArrayItem,
   getRandomDate,
   getRandomNumber,
   getRandomString,
 } from 'src/lib-utils/utils';
-import { Any } from '.';
 
 /**
  * Represents a financial transaction.
@@ -73,7 +76,7 @@ import { Any } from '.';
  * @property additionalProperties - Any extra or miscellaneous properties related to the transaction.
  * @property categories - List of categories associated with the transaction.
  */
-class Transaction {
+class TransactionClass implements Transaction {
   public accountId = '';
   public amount = 0;
   public isoCurrencyCode = '';
@@ -93,8 +96,8 @@ class Transaction {
   public transactionId = '';
   public transactionCode = '';
   public id = '';
-  public userId = 0;
-  public linkId = 0;
+  public userId = '0';
+  public linkId = '0';
   public sign = 0;
   public personalFinanceCategoryPrimary = '';
   public personalFinanceCategoryDetailed = '';
@@ -114,7 +117,7 @@ class Transaction {
   public paymentMetaPpdId = '';
   public paymentMetaReason = '';
   public paymentMetaReferenceNumber = '';
-  public time: Date | undefined;
+  public time: string;
   public additionalProperties: Any | undefined; // Replaced 'Any' with 'any' as TypeScript uses 'any'
   public categories: string[] = []; // Replaced 'any' with 'string[]' as TypeScript uses 'any'
 
@@ -123,13 +126,13 @@ class Transaction {
    *
    * @param data - Object with details for Transaction.
    */
-  constructor(data: Partial<Transaction>) {
+  constructor(data: Partial<TransactionClass>) {
     Object.assign(this, data);
-    this.time = data.time ? new Date(data.time) : undefined;
+    this.time = data.time ? new Date(data.time).toISOString() : '';
   }
 
-  static randomInstance(): Transaction {
-    return new Transaction({
+  static randomInstance(): TransactionClass {
+    return new TransactionClass({
       accountId: getRandomString(10),
       amount: getRandomNumber(1, 10000),
       isoCurrencyCode: 'USD', // For simplicity, using a fixed value; can be randomized as needed
@@ -168,8 +171,8 @@ class Transaction {
       transactionId: getRandomString(10),
       transactionCode: getRandomString(5),
       id: getRandomString(10),
-      userId: getRandomNumber(1, 10000),
-      linkId: getRandomNumber(1, 10000),
+      userId: getRandomNumber(1, 10000).toString(),
+      linkId: getRandomNumber(1, 10000).toString(),
       sign: getRandomNumber(0, 2) === 0 ? -1 : 1,
       personalFinanceCategoryPrimary: getRandomArrayItem([
         'Food',
@@ -195,10 +198,10 @@ class Transaction {
       paymentMetaPpdId: getRandomString(10),
       paymentMetaReason: getRandomString(20),
       paymentMetaReferenceNumber: getRandomString(8),
-      time: new Date(2022, 0, 1),
+      time: new Date(2022, 0, 1).toISOString(),
       categories: [getRandomString(10), getRandomString(10)],
     });
   }
 }
 
-export { Transaction };
+export { TransactionClass };

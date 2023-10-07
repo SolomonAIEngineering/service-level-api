@@ -4,7 +4,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { TransactionAnalyticsByMonth } from './TransactionAnalyticsByMonth';
-import { Transaction } from 'src/types';
+import { TransactionClass } from 'src/index';
 
 const meta: Meta<typeof TransactionAnalyticsByMonth> = {
   title: 'Example/TransactionAnalyticsByMonth',
@@ -29,7 +29,7 @@ export const TransactionAnalyticsByMonthDefault: Story = {
     // primary: true,
     // label: 'TransactionAnalyticsByMonth',
     transactions: Array.from({ length: 30 }, () =>
-      Transaction.randomInstance(),
-    ).sort((a, b) => a.time!.getTime() - b.time!.getTime()),
+      TransactionClass.randomInstance(),
+    ).sort((a, b) => new Date(a.time!).getTime() - new Date(b.time!).getTime()),
   },
 };

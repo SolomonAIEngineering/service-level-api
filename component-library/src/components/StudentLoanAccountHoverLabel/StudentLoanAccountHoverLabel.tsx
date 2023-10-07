@@ -6,18 +6,19 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from '../ui/hover-card';
-import {
-  AccountBalanceHistory,
-  BankAccount,
-  StudentLoanAccount,
-} from 'src/types';
+
 import { StudentLoanAccountCard } from '..';
 import { HoverCardArrow } from '@radix-ui/react-hover-card';
+import {
+  AccountBalanceHistory,
+  StudentLoanAccount,
+} from 'src/data-contracts/financial-service/data-contracts';
+import { BankAccountClass, StudentLoanAccountClass } from 'src/index';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 /** @type {React.Context<StudentLoanAccount>} */
 const StudentLoanAccountHoverLabelContext = createContext<StudentLoanAccount>(
-  new StudentLoanAccount({}),
+  new StudentLoanAccountClass({}),
 );
 
 export type StudentLoanAccountHoverLabelProps<T extends StudentLoanAccount> = {
@@ -75,7 +76,7 @@ export class StudentLoanAccountHoverLabel<
    * Default properties for the StudentLoanAccountHoverLabel component.
    */
   static defaultProps = {
-    bankAccount: new BankAccount({}),
+    bankAccount: new BankAccountClass({}),
     contextQuestions: [
       'How much money do I owe?',
       'When is my next payment due?',
@@ -119,7 +120,7 @@ export class StudentLoanAccountHoverLabel<
   render(): ReactNode {
     const { className, enableDemoMode } = this.props;
     const studentLoanAccount = enableDemoMode
-      ? StudentLoanAccount.randomInstance()
+      ? StudentLoanAccountClass.randomInstance()
       : this.state.studentLoanAccount;
     return (
       <StudentLoanAccountHoverLabelContext.Provider value={studentLoanAccount}>

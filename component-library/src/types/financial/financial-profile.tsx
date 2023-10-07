@@ -1,6 +1,13 @@
-import { ActionableInsight } from './actionable-insight';
-import { Link } from './link';
-import { StripeSubscription } from './stripe-subscription';
+import {
+  ActionableInsight,
+  UserProfile as UserProfile,
+  Link,
+  StripeSubscription,
+} from 'src/data-contracts/financial-service/data-contracts';
+
+import { ActionableInsightClass } from './actionable-insight';
+import { StripeSubscriptionClass } from './stripe-subscription';
+import { LinkClass } from './link';
 
 /**
  * Represents a user's financial profile.
@@ -32,11 +39,11 @@ import { StripeSubscription } from './stripe-subscription';
  * @property link - Array of linked financial institutions associated with the user's profile.
  * @property actionableInsights - Array of insights derived from the user's financial data.
  */
-class FinancialProfile {
+class FinancialProfileClass implements UserProfile {
   /** id */
   userFinancialProfileID = 0;
   /** the user id tied to the profile */
-  userId = 0;
+  userId = '0';
   stripeCustomerId = '';
   /** the stripe subscriptions the user profile actively maintains */
   stripeSubscriptions: StripeSubscription | undefined;
@@ -44,17 +51,19 @@ class FinancialProfile {
   link: Link[] = [];
   actionableInsights: ActionableInsight[] = [];
 
-  constructor(data?: Partial<FinancialProfile>) {
+  constructor(data?: Partial<UserProfile>) {
     if (data)
       Object.assign(this, {
         ...data,
-        stripeSubscriptions: new StripeSubscription(data?.stripeSubscriptions),
-        link: data?.link?.map((link) => new Link(link)),
+        stripeSubscriptions: new StripeSubscriptionClass(
+          data?.stripeSubscriptions,
+        ),
+        link: data?.link?.map((link) => new LinkClass(link)),
         actionableInsights: data?.actionableInsights?.map(
-          (insight) => new ActionableInsight(insight),
+          (insight) => new ActionableInsightClass(insight),
         ),
       });
   }
 }
 
-export { FinancialProfile };
+export { FinancialProfileClass };

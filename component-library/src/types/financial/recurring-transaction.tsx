@@ -1,7 +1,10 @@
-import { ReCurringFlow } from './recurring-flow';
-import { ReOccuringTransactionsStatus } from './recurring-transactions-status';
-import { ReOccuringTransactionsFrequency } from './recurring-transactions-frequency';
-import { Any } from '.';
+import {
+  Any,
+  ReCurringFlow,
+  ReOccuringTransaction as ReOccuringTransaction,
+  ReOccuringTransactionsFrequency,
+  ReOccuringTransactionsStatus,
+} from 'src/data-contracts/financial-service/data-contracts';
 
 /**
  * Represents a recurring financial transaction for a user.
@@ -53,7 +56,7 @@ import { Any } from '.';
  * @property time - The exact timestamp of the transaction.
  * @property additionalProperties - Any extra data or properties associated with the transaction.
  */
-class ReOccuringTransaction {
+class ReOccuringTransactionClass implements ReOccuringTransaction {
   /** The unique identifier of the account associated with the transaction. */
   public accountId = '';
 
@@ -83,7 +86,7 @@ class ReOccuringTransaction {
 
   /** The frequency of the recurring transaction. */
   public frequency: ReOccuringTransactionsFrequency =
-    ReOccuringTransactionsFrequency.RE_OCCURING_TRANSACTIONS_FREQUENCY_UNSPECIFIED;
+    'RE_OCCURING_TRANSACTIONS_FREQUENCY_UNSPECIFIED';
 
   /** A comma-separated list of transaction IDs. */
   public transactionIds = '';
@@ -105,28 +108,28 @@ class ReOccuringTransaction {
 
   /** The status of the recurring transaction. */
   public status: ReOccuringTransactionsStatus =
-    ReOccuringTransactionsStatus.RE_OCCURING_TRANSACTIONS_STATUS_UNSPECIFIED;
+    'RE_OCCURING_TRANSACTIONS_STATUS_UNSPECIFIED';
 
   /** The last time the transaction was updated. */
   public updatedTime = '';
 
   /** The unique identifier of the user associated with the transaction. */
-  public userId = 0;
+  public userId = '0';
 
   /** The unique identifier of the linked transaction. */
-  public linkId = 0;
+  public linkId = '0';
 
   /** The unique identifier of the transaction. */
   public id = '';
 
   /** The flow of the recurring transaction. */
-  public flow: ReCurringFlow = ReCurringFlow.UNRECOGNIZED;
+  public flow: ReCurringFlow = 'RE_CURRING_FLOW_UNSPECIFIED';
 
   /** A numerical sign associated with the transaction. */
   public sign = 0;
 
   /** The date and time of the transaction. */
-  public time: Date | undefined;
+  public time: string | undefined;
 
   /** Additional properties associated with the transaction. */
   public additionalProperties: Any | undefined;
@@ -142,7 +145,7 @@ class ReOccuringTransaction {
    * };
    * const recurringTransaction = new ReOccuringTransaction(transactionData);
    */
-  constructor(data: Partial<ReOccuringTransaction>) {
+  constructor(data: Partial<ReOccuringTransactionClass>) {
     if (data) {
       Object.assign(this, {
         ...data,
@@ -151,8 +154,8 @@ class ReOccuringTransaction {
     }
   }
 
-  static randomInstance(): ReOccuringTransaction {
-    return new ReOccuringTransaction({
+  static randomInstance(): ReOccuringTransactionClass {
+    return new ReOccuringTransactionClass({
       accountId: 'account123',
       streamId: 'stream123',
       categoryId: 'category123',
@@ -163,25 +166,23 @@ class ReOccuringTransaction {
       personalFinanceCategoryDetailed: 'Streaming Services',
       firstDate: '2020-01-01',
       lastDate: '2020-12-31',
-      frequency:
-        ReOccuringTransactionsFrequency.RE_OCCURING_TRANSACTIONS_FREQUENCY_MONTHLY,
+      frequency: 'RE_OCCURING_TRANSACTIONS_FREQUENCY_WEEKLY',
       transactionIds: 'transaction123',
       averageAmount: '14.99',
       averageAmountIsoCurrencyCode: 'USD',
       lastAmount: '14.99',
       lastAmountIsoCurrencyCode: 'USD',
       isActive: true,
-      status:
-        ReOccuringTransactionsStatus.RE_OCCURING_TRANSACTIONS_STATUS_MATURE,
+      status: 'RE_OCCURING_TRANSACTIONS_STATUS_MATURE',
       updatedTime: '2020-01-01',
-      userId: 123,
-      linkId: 123,
+      userId: '123',
+      linkId: '123',
       id: 'transaction123',
-      flow: ReCurringFlow.UNRECOGNIZED,
+      flow: 'RE_CURRING_FLOW_INFLOW',
       sign: 0,
-      time: new Date(),
+      time: new Date().toISOString(),
     });
   }
 }
 
-export { ReOccuringTransaction };
+export { ReOccuringTransactionClass };

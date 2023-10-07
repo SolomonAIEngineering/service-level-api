@@ -1,3 +1,5 @@
+import { Tags } from 'src/data-contracts/user-service/data-contracts';
+
 /**
  * Represents a metadata tag.
  *
@@ -29,7 +31,7 @@
  *
  * @author Yoan Yomba
  */
-class Tag {
+class TagClass implements Tags {
   id?: string;
   tagName?: string;
   tagDescription?: string;
@@ -39,7 +41,7 @@ class Tag {
    * Initializes a new instance of the `Tag` class.
    * @param {Partial<Tag>} [data] - Data used to populate the properties of the class.
    */
-  constructor(data?: Partial<Tag>) {
+  constructor(data?: Partial<Tags>) {
     if (data)
       Object.assign(this, {
         ...data,
@@ -72,4 +74,4 @@ class Tag {
   }
 }
 
-export { Tag };
+export { TagClass };

@@ -1,5 +1,5 @@
+import { CategoryMonthlyExpenditure } from 'src/data-contracts/financial-service/data-contracts';
 import { ErrorResponse } from '../error';
-import { CategoryMonthlyExpenditure } from '../financial';
 
 /**
  * Represents the request for getting user category monthly expenditure.

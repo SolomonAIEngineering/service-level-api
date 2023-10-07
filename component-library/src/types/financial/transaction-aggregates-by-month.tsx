@@ -1,3 +1,5 @@
+import { TransactionAggregatesByMonth as TransactionAggregatesByMonth } from 'src/data-contracts/financial-service/data-contracts';
+
 /**
  * Represents the aggregated transactions of a user by month.
  *
@@ -33,23 +35,25 @@
  * @property totalAmount - The total amount spent in the specified month.
  * @property userId - Identifier of the user associated with these transactions.
  */
-class TransactionAggregatesByMonth {
+class TransactionAggregatesByMonthClass
+  implements TransactionAggregatesByMonth
+{
   month: number = 0;
   personalFinanceCategoryPrimary: string = '';
   locationCity: string = '';
   paymentChannel: string = '';
   merchantName: string = '';
-  transactionCount: number = 0;
+  transactionCount: string = '';
   totalAmount: number = 0;
-  userId: number = 0;
+  userId: string = '';
 
   /**
    * Creates an instance of TransactionAggregatesByMonth.
    * @param data - Object containing properties for TransactionAggregatesByMonth.
    */
-  constructor(data: Partial<TransactionAggregatesByMonth>) {
+  constructor(data: Partial<TransactionAggregatesByMonthClass>) {
     Object.assign(this, data);
   }
 }
 
-export { TransactionAggregatesByMonth };
+export { TransactionAggregatesByMonthClass };

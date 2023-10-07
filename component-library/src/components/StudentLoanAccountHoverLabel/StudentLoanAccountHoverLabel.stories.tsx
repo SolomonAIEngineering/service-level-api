@@ -4,7 +4,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { StudentLoanAccountHoverLabel } from './StudentLoanAccountHoverLabel';
-import { StudentLoanAccount } from 'src/types';
+import { StudentLoanAccountClass } from 'src/index';
 
 const meta: Meta<typeof StudentLoanAccountHoverLabel> = {
   title: 'Component/StudentLoanAccountHoverLabel',
@@ -28,7 +28,7 @@ export const StudentLoanAccountDefault: Story = {
     // Adjust the default properties for each variant of your component
     // primary: true,
     // label: 'StudentLoanAccountHoverLabel',
-    studentLoanAccount: StudentLoanAccount.randomInstance(),
+    studentLoanAccount: StudentLoanAccountClass.randomInstance(),
     enableDemoMode: false,
   },
 };

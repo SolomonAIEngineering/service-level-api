@@ -1,5 +1,5 @@
+import { ExpenseMetrics } from 'src/data-contracts/financial-service/data-contracts';
 import { ErrorResponse } from '../error';
-import { ExpenseMetrics } from '../financial';
 
 /**
  * Represents the request for getting expense metrics.

@@ -1,21 +1,27 @@
 import * as React from 'react';
 import { createContext, ReactNode, RefObject, Component } from 'react';
-import { AccountBalanceHistory, BankAccount, FinancialProfile } from 'src';
+import {
+  AccountBalanceHistory,
+  FinancialProfile,
+  BankAccount as IBankAccount,
+} from 'src/data-contracts/financial-service/data-contracts';
 import { Card } from '../ui/card';
 import { BankAccountCardHeader } from './BankAccountCardHeader';
 import { BankAccountCardContent } from './BankAccountCardContent';
 import { BankAccountCardFooter } from './BankAccountCardFooter';
 import { cn } from 'src/lib-utils/utils';
+import { FinancialProfileClass } from 'src/types/financial/financial-profile';
+import { BankAccountClass } from 'src/types';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-/** @type {React.Context<T extends BankAccount>} */
-const BankAccountContext = createContext<BankAccount>(new BankAccount({}));
+/** @type {React.Context<T extends IBankAccount>} */
+const BankAccountContext = createContext<IBankAccount | undefined>(undefined);
 const FinancialProfileContext = createContext<FinancialProfile>(
-  new FinancialProfile({}),
+  new FinancialProfileClass({}),
 );
 const AccountBalanceHistoryContext = createContext<AccountBalanceHistory[]>([]);
 
-export type BankAccountCardProps<T extends BankAccount> = {
+export type BankAccountCardProps<T extends IBankAccount> = {
   bankAccount: T;
   financialProfile: FinancialProfile;
   className?: string;
@@ -25,7 +31,7 @@ export type BankAccountCardProps<T extends BankAccount> = {
   historicalAccountBalance?: AccountBalanceHistory[];
 };
 
-export type BankAccountCardState<T extends BankAccount> = {
+export type BankAccountCardState<T extends IBankAccount> = {
   bankAccount: T;
 };
 
@@ -38,15 +44,15 @@ export type BankAccountCardState<T extends BankAccount> = {
  * with TSDoc annotations. It has various features like context usage,
  * dynamic styles, generic props, and more.
  */
-export class BankAccountCard<T extends BankAccount> extends Component<
+export class BankAccountCard<T extends IBankAccount> extends Component<
   BankAccountCardProps<T>,
   BankAccountCardState<T>
 > {
   private myRef: RefObject<HTMLDivElement>;
 
   static defaultProps = {
-    bankAccount: new BankAccount({}),
-    financialProfile: new FinancialProfile({}),
+    bankAccount: new BankAccountClass({}),
+    financialProfile: new FinancialProfileClass({}),
     contextQuestions: [
       'How much money do I have in my account?',
       'Am l spending too much in my account?',
@@ -64,11 +70,6 @@ export class BankAccountCard<T extends BankAccount> extends Component<
     };
 
     this.myRef = React.createRef();
-  }
-
-  /** Lifecycle method when the component is about to mount. */
-  componentWillMount() {
-    // Deprecated lifecycle, use with caution!
   }
 
   /**
@@ -97,7 +98,9 @@ export class BankAccountCard<T extends BankAccount> extends Component<
     return (
       <BankAccountContext.Provider
         value={
-          enableDemoMode ? BankAccount.randomInstance() : this.state.bankAccount
+          enableDemoMode
+            ? BankAccountClass.randomInstance()
+            : this.state.bankAccount
         }
       >
         <FinancialProfileContext.Provider value={financialProfile}>

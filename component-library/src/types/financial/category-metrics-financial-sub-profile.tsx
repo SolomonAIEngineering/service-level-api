@@ -1,3 +1,5 @@
+import { CategoryMetricsFinancialSubProfile as CategoryMetricsFinancialSubProfile } from 'src/data-contracts/financial-service/data-contracts';
+
 /**
  * Represents the financial sub-profile of a category.
  *
@@ -35,17 +37,19 @@
  * @property spentLastTwoYears - Amount spent in the last two years for this category.
  * @property userId - The user ID associated with these metrics.
  */
-class CategoryMetricsFinancialSubProfile {
+class CategoryMetricsFinancialSubProfileClass
+  implements CategoryMetricsFinancialSubProfile
+{
   month: number = 0;
   personalFinanceCategoryPrimary: string = '';
-  transactionCount: number = 0;
+  transactionCount: string = '0';
   spentLastWeek: number = 0;
   spentLastTwoWeeks: number = 0;
   spentLastMonth: number = 0;
   spentLastSixMonths: number = 0;
   spentLastYear: number = 0;
   spentLastTwoYears: number = 0;
-  userId: number = 0;
+  userId: string = '0';
 
   /**
    * Constructs a new CategoryMetricsFinancialSubProfile instance.
@@ -60,4 +64,4 @@ class CategoryMetricsFinancialSubProfile {
   }
 }
 
-export { CategoryMetricsFinancialSubProfile };
+export { CategoryMetricsFinancialSubProfileClass };

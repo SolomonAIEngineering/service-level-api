@@ -6,18 +6,19 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from '../ui/hover-card';
-import {
-  AccountBalanceHistory,
-  BankAccount,
-  InvestmentAccount,
-} from 'src/types';
+
 import { InvestmentAccountCard } from '..';
 import { HoverCardArrow } from '@radix-ui/react-hover-card';
+import {
+  AccountBalanceHistory,
+  InvestmentAccount,
+} from 'src/data-contracts/financial-service/data-contracts';
+import { BankAccountClass, InvestmentAccountClass } from 'src/index';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 /** @type {React.Context<InvestmentAccount>} */
 const InvestmentAccountHoverLabelContext = createContext<InvestmentAccount>(
-  new InvestmentAccount({}),
+  new InvestmentAccountClass({}),
 );
 
 export type InvestmentAccountHoverLabelProps<T extends InvestmentAccount> = {
@@ -75,7 +76,7 @@ export class InvestmentAccountHoverLabel<
    * Default properties for the InvestmentAccountHoverLabel component.
    */
   static defaultProps = {
-    bankAccount: new BankAccount({}),
+    bankAccount: new BankAccountClass({}),
     contextQuestions: [
       'How much money do I have in my account?',
       'Am l spending too much in my account?',
@@ -119,7 +120,7 @@ export class InvestmentAccountHoverLabel<
   render(): ReactNode {
     const { className, historicalAccountBalance, enableDemoMode } = this.props;
     const investmentAccount = enableDemoMode
-      ? InvestmentAccount.randomInstance()
+      ? InvestmentAccountClass.randomInstance()
       : this.state.investmentAccount;
     return (
       <InvestmentAccountHoverLabelContext.Provider value={investmentAccount}>

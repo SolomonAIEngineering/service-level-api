@@ -1,22 +1,14 @@
-export interface IToken {
-  /** id */
-  id: number;
-  /** the id of the item the token is tied to */
-  itemId: string;
-  keyId: string;
-  accessToken: string;
-  version: string;
-}
+import { Token as Token } from 'src/data-contracts/financial-service/data-contracts';
 
 /**
  * Token object holding an access token used to make API requests related to a specific Item.
  */
-class Token implements IToken {
+class TokenClass implements Token {
   /**
    * The unique identifier for the token.
-   * @type {number}
+   * @type {string}
    */
-  id: number;
+  id: string;
 
   /**
    * The ID of the item the token is tied to.
@@ -47,12 +39,12 @@ class Token implements IToken {
    * @constructor
    * @param {Partial<Token>} data - Optional data for initializing the token.
    */
-  constructor(data: Partial<Token> = {}) {
+  constructor(data: Partial<TokenClass> = {}) {
     /**
      * The unique identifier for the token.
      * @type {number}
      */
-    this.id = data.id ?? 0;
+    this.id = data.id ?? '0';
 
     /**
      * The ID of the item the token is tied to.
@@ -83,4 +75,4 @@ class Token implements IToken {
 /**
  * Export the Token class.
  */
-export { Token };
+export { TokenClass };

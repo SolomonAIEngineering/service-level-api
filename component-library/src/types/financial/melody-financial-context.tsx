@@ -1,14 +1,17 @@
-import { BankAccount } from './bank-account';
-import { CategoryMetricsFinancialSubProfile } from './category-metrics-financial-sub-profile';
-import { CreditAccount } from './credit-account';
-import { ExpenseMetricsFinancialSubProfileMetrics } from './expense-metrics-financial-sub-profile';
-import { IncomeMetricsFinancialSubProfile } from './income-metrics-financial-sub-profile';
-import { InvestmentAccount } from './investment-account';
-import { LocationFinancialSubProfile } from './location-metrics-financial-sub-profile';
-import { MerchantMetricsFinancialSubProfile } from './merchant-metrics-financial-sub-profile';
-import { MortgageAccount } from './mortgage-account';
-import { PaymentChannelMetricsFinancialSubProfile } from './payment-channel-metrics-financial-sub-profile';
-import { StudentLoanAccount } from './student-loan-account';
+import {
+  BankAccount,
+  CategoryMetricsFinancialSubProfile,
+  CreditAccount,
+  ExpenseMetricsFinancialSubProfileMetrics,
+  IncomeMetricsFinancialSubProfile,
+  InvestmentAccount,
+  LocationFinancialSubProfile,
+  MelodyFinancialContext as MelodyFinancialContext,
+  MerchantMetricsFinancialSubProfile,
+  MortgageAccount,
+  PaymentChannelMetricsFinancialSubProfile,
+  StudentLoanAccount,
+} from 'src/data-contracts/financial-service/data-contracts';
 
 /**
  * Represents the comprehensive financial context of a user.
@@ -44,7 +47,7 @@ import { StudentLoanAccount } from './student-loan-account';
  * @property mortgageLoanAccounts - Array of user's mortgage accounts.
  * @property studentLoanAccounts - Array of user's student loan accounts.
  */
-class MelodyFinancialContext {
+class MelodyFinancialContextClass implements MelodyFinancialContext {
   categories: CategoryMetricsFinancialSubProfile[] = [];
   expenses: ExpenseMetricsFinancialSubProfileMetrics[] = [];
   income: IncomeMetricsFinancialSubProfile[] = [];
@@ -66,4 +69,4 @@ class MelodyFinancialContext {
   }
 }
 
-export { MelodyFinancialContext };
+export { MelodyFinancialContextClass };

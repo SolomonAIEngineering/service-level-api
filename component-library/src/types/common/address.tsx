@@ -1,3 +1,5 @@
+import { Address as AddressContract } from 'src/data-contracts/user-service/data-contracts';
+
 /**
  * Represents a geographic address.
  *
@@ -32,7 +34,7 @@
  * @property longitude - The geographic longitude of the address.
  * @property id - A unique identifier for the address.
  */
-class Address {
+class AddressClass implements AddressContract {
   address?: string = '';
   city?: string = '';
   state?: string = '';
@@ -46,7 +48,7 @@ class Address {
    * Initializes a new instance of the `Address` class.
    * @param [data] - The data used to populate the properties of the class.
    */
-  constructor(data?: Partial<Address>) {
+  constructor(data?: Partial<AddressContract>) {
     if (data) {
       Object.assign(this, {
         ...data,
@@ -70,4 +72,4 @@ class Address {
   }
 }
 
-export { Address };
+export { AddressClass };

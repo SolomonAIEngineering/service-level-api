@@ -1,3 +1,5 @@
+import { MonthlyExpenditure as MonthlyExpenditure } from 'src/data-contracts/financial-service/data-contracts';
+
 /**
  * Represents the monthly expenditure of a user.
  *
@@ -20,10 +22,10 @@
  * @property totalSpending - The total expenditure of the user for the month.
  * @property userId - The user ID associated with this expenditure record.
  */
-class MonthlyExpenditure {
+class MonthlyExpenditureClass implements MonthlyExpenditure {
   month: number;
   totalSpending: number;
-  userId: number;
+  userId: string;
 
   /**
    * Constructs a new MonthlyExpenditure instance.
@@ -33,8 +35,8 @@ class MonthlyExpenditure {
   constructor(data: Partial<MonthlyExpenditure> = {}) {
     this.month = data.month ?? 0;
     this.totalSpending = data.totalSpending ?? 0;
-    this.userId = data.userId ?? 0;
+    this.userId = data.userId ?? '0';
   }
 }
 
-export { MonthlyExpenditure };
+export { MonthlyExpenditureClass };

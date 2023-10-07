@@ -1,5 +1,10 @@
-import { Address } from '../common/address';
-import { Tag } from '../common/tag';
+import { AddressClass } from '../common/address';
+import { TagClass } from '../common/tag';
+import {
+  Address,
+  UserAccount as UserAccountContract,
+} from 'src/data-contracts/user-service/data-contracts';
+import { Tags as TagContract } from 'src/data-contracts/user-service/data-contracts';
 
 /**
  * Represents a user's account in simfiny's backend.
@@ -45,8 +50,15 @@ import { Tag } from '../common/tag';
  *
  * @author Yoan Yomba
  */
-class UserAccount {
-  address?: Address = new Address();
+
+interface UserAccountContractWithAccountID {
+  userAccountID?: string;
+}
+
+class UserAccount
+  implements UserAccountContract, UserAccountContractWithAccountID
+{
+  address?: Address = new AddressClass();
   bio?: string = '';
   email = '';
   firstname?: string;
@@ -57,7 +69,7 @@ class UserAccount {
   userAccountID?: string;
   userAuthnAccountID?: string;
   id = '';
-  tags: Tag[] = [];
+  tags: TagContract[] = [];
   created_at?: string;
   isEmailVerified?: boolean;
   isPrivate?: boolean;
@@ -75,11 +87,11 @@ class UserAccount {
       Object.assign(this, {
         ...data,
         // address: new Address(data?.address),
-        tags: data?.tags?.map((tag) => new Tag(tag)),
+        tags: data?.tags?.map((tag) => new TagClass(tag)),
         id: data?.userAccountID !== undefined ? data?.userAccountID : data?.id,
         authnAccountId:
-          data?.userAuthnAccountID !== undefined
-            ? data?.userAuthnAccountID
+          data?.authnAccountId !== undefined
+            ? data?.authnAccountId
             : data?.authnAccountId,
       });
   }
@@ -100,7 +112,7 @@ class UserAccount {
    * @return {*}  {Tag[]}
    * @memberof UserAccount
    */
-  getTags(): Tag[] {
+  getTags(): TagContract[] {
     return this.tags;
   }
 

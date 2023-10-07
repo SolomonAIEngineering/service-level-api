@@ -4,23 +4,7 @@ import {
   getRandomString,
 } from 'src/lib-utils/utils';
 
-export interface IInvesmentHolding {
-  /** id */
-  id: number;
-  /** The name of the investment holding */
-  name: string;
-  /** plaid account id */
-  plaidAccountId: string;
-  costBasis: number;
-  institutionPrice: number;
-  institutionPriceAsOf: string;
-  institutionPriceDatetime: string;
-  institutionValue: number;
-  isoCurrencyCode: string;
-  quantity: number;
-  securityId: string;
-  unofficialCurrencyCode: string;
-}
+import { InvesmentHolding as InvesmentHolding } from 'src/data-contracts/financial-service/data-contracts';
 
 /*
  * InvesmentHolding represents the InvesmentHolding entity.
@@ -29,9 +13,9 @@ export interface IInvesmentHolding {
  * @class InvesmentHolding
  * @implements {IInvesmentHolding}
  * */
-export class InvesmentHolding implements IInvesmentHolding {
+export class InvesmentHoldingClass implements InvesmentHolding {
   /** id */
-  id = 0;
+  id = '0';
   /** The name of the investment holding */
   name = '';
   /** plaid account id */
@@ -55,8 +39,8 @@ export class InvesmentHolding implements IInvesmentHolding {
   }
 
   static randomInstance(): InvesmentHolding {
-    return new InvesmentHolding({
-      id: getRandomNumber(1, 100),
+    return new InvesmentHoldingClass({
+      id: getRandomNumber(1, 100).toString(),
       name: getRandomString(10),
       plaidAccountId: getRandomString(10),
       costBasis: getRandomBalance(),

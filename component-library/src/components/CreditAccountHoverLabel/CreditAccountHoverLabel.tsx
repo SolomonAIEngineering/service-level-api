@@ -7,14 +7,18 @@ import {
   HoverCardTrigger,
 } from '../ui/hover-card';
 import { Avatar, AvatarFallback } from '../ui/avatar';
-import { AccountBalanceHistory, CreditAccount } from 'src/types';
 import { CreditAccountCard } from '..';
 import { HoverCardArrow } from '@radix-ui/react-hover-card';
+import {
+  AccountBalanceHistory,
+  CreditAccount,
+} from 'src/data-contracts/financial-service/data-contracts';
+import { CreditAccountClass } from 'src/index';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 /** @type {React.Context<CreditAccount>} */
 const CreditAccountHoverLabelContext = createContext<CreditAccount>(
-  new CreditAccount({}),
+  new CreditAccountClass({}),
 );
 
 export type CreditAccountHoverLabelProps<T extends CreditAccount> = {
@@ -119,14 +123,14 @@ export class CreditAccountHoverLabel<T extends CreditAccount> extends Component<
       institutionName,
     } = this.props;
     const creditAccount = enableDemoMode
-      ? CreditAccount.randomInstance()
+      ? CreditAccountClass.randomInstance()
       : this.state.creditAccount;
     return (
       <CreditAccountHoverLabelContext.Provider value={creditAccount}>
         <HoverCard>
           <HoverCardTrigger asChild className={className}>
             <Button variant="link" className="underline">
-              {creditAccount.name}
+              {creditAccount?.name}
             </Button>
           </HoverCardTrigger>
           <HoverCardContent className="w-fit rounded-2xl">
@@ -134,7 +138,7 @@ export class CreditAccountHoverLabel<T extends CreditAccount> extends Component<
             <div className="flex justify-between space-x-4">
               <Avatar>
                 <AvatarFallback className="bg-black text-white font-bold">
-                  {creditAccount.name.toUpperCase().slice(0, 2)}{' '}
+                  {creditAccount?.name?.toUpperCase().slice(0, 2)}{' '}
                 </AvatarFallback>
               </Avatar>
               <div className="space-y-1">

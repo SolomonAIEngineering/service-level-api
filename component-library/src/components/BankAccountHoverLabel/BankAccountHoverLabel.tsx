@@ -7,14 +7,18 @@ import {
   HoverCardTrigger,
 } from '../ui/hover-card';
 import { Avatar, AvatarFallback } from '../ui/avatar';
-import { AccountBalanceHistory, BankAccount } from 'src/types';
 import { HistoricalAccountBalanceChart } from '../HistoricalAccountBalanceChart';
 import { HoverCardArrow } from '@radix-ui/react-hover-card';
+import {
+  AccountBalanceHistory,
+  BankAccount,
+} from 'src/data-contracts/financial-service/data-contracts';
+import { BankAccountClass } from 'src/types/financial/bank-account';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 /** @type {React.Context<BankAccount>} */
 const BankAccountHoverLabelContext = createContext<BankAccount>(
-  new BankAccount({}),
+  BankAccountClass.randomInstance(),
 );
 
 export type BankAccountHoverLabelProps<T extends BankAccount> = {
@@ -111,9 +115,10 @@ export class BankAccountHoverLabel<T extends BankAccount> extends Component<
    */
   render(): ReactNode {
     const { className, historicalAccountBalance, enableDemoMode } = this.props;
-    const bankAccount = enableDemoMode
-      ? BankAccount.randomInstance()
-      : this.state.bankAccount;
+    const bankAccount: BankAccountClass = enableDemoMode
+      ? (BankAccountClass.randomInstance() as BankAccountClass)
+      : new BankAccountClass(this.state.bankAccount);
+
     return (
       <BankAccountHoverLabelContext.Provider value={bankAccount}>
         <HoverCard>

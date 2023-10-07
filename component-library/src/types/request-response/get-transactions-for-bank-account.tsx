@@ -1,5 +1,5 @@
+import { Transaction } from 'src/data-contracts/financial-service/data-contracts';
 import { ErrorResponse } from '../error';
-import { Transaction } from '../financial';
 
 /**
  * Represents the response for getting transactions for a bank account.

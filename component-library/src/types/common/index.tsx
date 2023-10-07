@@ -1,2 +1,2 @@
-export { Address } from './address';
-export { Tag } from './tag';
+export { AddressClass } from './address';
+export { TagClass } from './tag';

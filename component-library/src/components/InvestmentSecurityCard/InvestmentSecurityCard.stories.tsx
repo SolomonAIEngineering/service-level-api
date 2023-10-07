@@ -4,7 +4,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { InvestmentSecurityCard } from './InvestmentSecurityCard';
-import { InvestmentSecurity } from 'src/types';
+import { InvestmentSecurityClass } from 'src/types';
 
 const meta: Meta<typeof InvestmentSecurityCard> = {
   title: 'Component/InvestmentSecurityCard',
@@ -28,7 +28,7 @@ export const InvestmentSecurityCardDefault: Story = {
     // Adjust the default properties for each variant of your component
     // primary: true,
     // label: 'InvestmentSecurityCard',
-    security: InvestmentSecurity.randomInstance(),
+    security: InvestmentSecurityClass.randomInstance(),
   },
 };
 

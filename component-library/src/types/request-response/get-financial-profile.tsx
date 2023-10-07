@@ -1,5 +1,5 @@
+import { FinancialProfile } from 'src/data-contracts/financial-service/data-contracts';
 import { ErrorResponse } from '../error';
-import { FinancialProfile } from '../financial';
 
 /**
  * Represents the request for getting financial profile.

@@ -1,45 +1,9 @@
-import { Tag } from '../common/tag';
-import { Bookmark } from './bookmark';
-
-/** SocialUserProfile: The social  profile object tied to a given user */
-export interface ISocialUserProfile {
-  /** User profile ID */
-  id: number;
-  /** Tags are interests */
-  tags: Tag[];
-  /**
-   * Profile name is the name tied to the user profile
-   * user name must be at least 5 characters long
-   */
-  name: string;
-  /**
-   * Private defines wether only approved followers can see what this profile
-   * posts
-   */
-  private: boolean;
-  /** Followers outlines the number of followers this user profile has */
-  followers: number;
-  /** Number of people account is following */
-  following: number;
-  /**
-   * Notification timeline Id. Notification for anything a user/group is
-   * following
-   */
-  notificationFeedTimelineId: string;
-  /** Personal timeline ID Has activities for a user that can be followed */
-  personalFeedTimelineId: string;
-  /**
-   * Newsfeed timeline ID Displays all followed and group activities the user
-   * follows
-   */
-  newsFeedTimelineId: string;
-  /** ProfileImageUrl witholds the url of a given profile image */
-  profileImageUrl: string;
-  /** all the bookmarked pieces of content on the platform */
-  bookmarks: Bookmark | undefined;
-  /** The id of the algolia record referencing this user */
-  algoliaId: string;
-}
+import {
+  Bookmark,
+  UserProfile,
+  Tags,
+} from 'src/data-contracts/social-service/data-contracts';
+import { BookmarkClass } from './bookmark';
 
 /**
  * Represents a user's social profile on the platform.
@@ -85,11 +49,11 @@ export interface ISocialUserProfile {
  * @implements {ISocialUserProfile}
  * @author ["yoan yomba"]
  */
-export class SocialUserProfile implements ISocialUserProfile {
+export class SocialUserProfileClass implements UserProfile {
   /** User profile ID */
-  id: number = 0;
+  id: string = '0';
   /** Tags are interests */
-  tags: Tag[] = [];
+  tags: Tags[] = [];
   /**
    * Profile name is the name tied to the user profile
    * user name must be at least 5 characters long
@@ -101,9 +65,9 @@ export class SocialUserProfile implements ISocialUserProfile {
    */
   private: boolean = false;
   /** Followers outlines the number of followers this user profile has */
-  followers: number = 0;
+  followers: string = '0';
   /** Number of people account is following */
-  following: number = 0;
+  following: string = '0';
   /**
    * Notification timeline Id. Notification for anything a user/group is
    * following
@@ -119,11 +83,11 @@ export class SocialUserProfile implements ISocialUserProfile {
   /** ProfileImageUrl witholds the url of a given profile image */
   profileImageUrl: string = '';
   /** all the bookmarked pieces of content on the platform */
-  bookmarks: Bookmark | undefined;
+  bookmarks: Bookmark = new BookmarkClass({});
   /** The id of the algolia record referencing this user */
   algoliaId: string = '';
 
-  constructor(data: Partial<SocialUserProfile>) {
+  constructor(data: Partial<UserProfile>) {
     if (data) {
       Object.assign(this, {
         ...data,

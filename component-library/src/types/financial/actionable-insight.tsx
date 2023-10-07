@@ -1,14 +1,4 @@
-export interface IActionableInsight {
-  id: number;
-  /** for each user we generate a detailed actionable insights for them to see */
-  detailedAction: string;
-  /** for each user we generate a summarized insight targeted at optimizing a certain condition */
-  summarizedAction: string;
-  /** the time the insight was generated */
-  generatedTime: string | undefined;
-  /** associated tags with the generated insights */
-  tags: string[];
-}
+import { ActionableInsight } from 'src/data-contracts/financial-service/data-contracts';
 
 /*
  * An actionable insight serves as a basic insight users
@@ -18,24 +8,24 @@ export interface IActionableInsight {
  * @export
  *
  * */
-class ActionableInsight implements IActionableInsight {
+class ActionableInsightClass implements ActionableInsight {
   /**
    * The unique identifier for the actionable insight.
    * @type {number}
    */
-  id: number;
+  id: string | undefined;
 
   /**
    * A detailed actionable insight generated for the user to act upon.
    * @type {string}
    */
-  detailedAction: string;
+  detailedAction: string | undefined;
 
   /**
    * A summarized insight targeting optimization of a certain condition.
    * @type {string}
    */
-  summarizedAction: string;
+  summarizedAction: string | undefined;
 
   /**
    * The time at which the insight was generated.
@@ -47,7 +37,7 @@ class ActionableInsight implements IActionableInsight {
    * An array of associated tags with the generated insights.
    * @type {string[]}
    */
-  tags: string[];
+  tags: Array<string>;
 
   /**
    * Constructs a new ActionableInsight object.
@@ -59,7 +49,7 @@ class ActionableInsight implements IActionableInsight {
      * The unique identifier for the actionable insight.
      * @type {number}
      */
-    this.id = data.id ?? 0;
+    this.id = data.id ?? '0';
 
     /**
      * A detailed actionable insight generated for the user to act upon.
@@ -90,4 +80,4 @@ class ActionableInsight implements IActionableInsight {
 /**
  * Export the ActionableInsight class.
  */
-export { ActionableInsight };
+export { ActionableInsightClass };

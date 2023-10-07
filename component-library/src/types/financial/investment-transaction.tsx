@@ -1,4 +1,4 @@
-import { Any } from './any';
+import { Any } from 'src/data-contracts/financial-service/data-contracts';
 
 /**
  * Represents an investment transaction.
@@ -41,7 +41,7 @@ import { Any } from './any';
  * @property time - The exact time of the transaction.
  * @property additionalProperties - Any additional properties that might be associated with the transaction.
  */
-class InvestmentTransaction {
+class InvestmentTransactionClass {
   accountId: string;
   ammount: string;
   investmentTransactionId: string;
@@ -69,7 +69,7 @@ class InvestmentTransaction {
    *
    * @param data - Initialization data for the investment transaction.
    */
-  constructor(data: Partial<InvestmentTransaction> = {}) {
+  constructor(data: Partial<InvestmentTransactionClass> = {}) {
     this.accountId = data.accountId ?? '';
     this.ammount = data.ammount ?? ''; // Note: There's a typo here, consider renaming to 'amount'
     this.investmentTransactionId = data.investmentTransactionId ?? '';
@@ -94,4 +94,4 @@ class InvestmentTransaction {
   }
 }
 
-export { InvestmentTransaction };
+export { InvestmentTransactionClass };

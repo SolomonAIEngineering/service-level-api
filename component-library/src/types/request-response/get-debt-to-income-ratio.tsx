@@ -1,5 +1,5 @@
+import { DebtToIncomeRatio } from 'src/data-contracts/financial-service/data-contracts';
 import { ErrorResponse } from '../error';
-import { DebtToIncomeRatio } from '../financial';
 
 /**
  * Represents the request for getting debt to income ratio.

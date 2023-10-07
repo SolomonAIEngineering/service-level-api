@@ -4,7 +4,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { CreditAccountHoverLabel } from './CreditAccountHoverLabel';
-import { AccountBalanceHistory, CreditAccount } from 'src/types';
+import { AccountBalanceHistoryClass, CreditAccountClass } from 'src/index';
 
 const meta: Meta<typeof CreditAccountHoverLabel> = {
   title: 'Component/CreditAccountHoverLabel',
@@ -28,7 +28,7 @@ export const CreditAccountHoverLabelDefault: Story = {
     // Adjust the default properties for each variant of your component
     // primary: true,
     // label: 'CreditAccountHoverLabel',
-    creditAccount: CreditAccount.randomInstance(),
+    creditAccount: CreditAccountClass.randomInstance(),
     enableDemoMode: false,
     institutionName: 'Chase',
   },
@@ -36,9 +36,9 @@ export const CreditAccountHoverLabelDefault: Story = {
 
 export const RegularHoverLabelWithHistoricalAccountBalance: Story = {
   args: {
-    creditAccount: CreditAccount.randomInstance(),
+    creditAccount: CreditAccountClass.randomInstance(),
     historicalAccountBalance: Array.from({ length: 20 }, () =>
-      AccountBalanceHistory.randomInstance(),
-    ).sort((a, b) => a.time!.getTime() - b.time!.getTime()),
+      AccountBalanceHistoryClass.randomInstance(),
+    ).sort((a, b) => new Date(a.time!).getTime() - new Date(b.time!).getTime()),
   },
 };

@@ -1,3 +1,5 @@
+import { MonthlySavings as MonthlySavings } from 'src/data-contracts/financial-service/data-contracts';
+
 /**
  * Represents the monthly savings of a user.
  *
@@ -20,10 +22,10 @@
  * @property netSavings - The net savings amount of the user for the month.
  * @property userId - The user ID associated with this savings record.
  */
-class MonthlySavings {
+class MonthlySavingsClass implements MonthlySavings {
   month: number;
   netSavings: number;
-  userId: number;
+  userId: string;
 
   /**
    * Constructs a new MonthlySavings instance.
@@ -33,8 +35,8 @@ class MonthlySavings {
   constructor(data: Partial<MonthlySavings> = {}) {
     this.month = data.month ?? 0;
     this.netSavings = data.netSavings ?? 0;
-    this.userId = data.userId ?? 0;
+    this.userId = data.userId ?? '0';
   }
 }
 
-export { MonthlySavings };
+export { MonthlySavingsClass };

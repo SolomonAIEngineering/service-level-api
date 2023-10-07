@@ -1,4 +1,4 @@
-import { Tag } from '../common';
+import { Tags } from 'src/data-contracts/user-service/data-contracts';
 
 import { IRequest } from './IRequest';
 
@@ -42,7 +42,7 @@ export class UserRegistrationAccountDetails {
    * Validations:
    * - must be at provide between 1 and 10 tags
    */
-  tags: Tag[] = [];
+  tags: Tags[] = [];
   /** authentication service account id */
   authnAccountId = 0;
   /** infers wether the account is active */

@@ -1,3 +1,5 @@
+import { MonthlyTotalQuantityBySecurityAndUser as MonthlyTotalQuantityBySecurityAndUser } from 'src/data-contracts/financial-service/data-contracts';
+
 /**
  * Represents the monthly total quantity of a security by user.
  *
@@ -22,11 +24,13 @@
  * @property totalQuantity - The total quantity of the security held by the user for the month.
  * @property userId - The user ID associated with this record.
  */
-class MonthlyTotalQuantityBySecurityAndUser {
+class MonthlyTotalQuantityBySecurityAndUserClass
+  implements MonthlyTotalQuantityBySecurityAndUser
+{
   month: number;
   securityId: string;
   totalQuantity: number;
-  userId: number;
+  userId: string;
 
   /**
    * Constructs a new MonthlyTotalQuantityBySecurityAndUser instance.
@@ -37,8 +41,8 @@ class MonthlyTotalQuantityBySecurityAndUser {
     this.month = data.month ?? 0;
     this.securityId = data.securityId || '';
     this.totalQuantity = data.totalQuantity ?? 0;
-    this.userId = data.userId ?? 0;
+    this.userId = data.userId ?? '0';
   }
 }
 
-export { MonthlyTotalQuantityBySecurityAndUser };
+export { MonthlyTotalQuantityBySecurityAndUserClass };

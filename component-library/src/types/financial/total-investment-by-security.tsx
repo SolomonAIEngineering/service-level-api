@@ -1,3 +1,5 @@
+import { TotalInvestmentBySecurity as TotalInvestmentBySecurity } from 'src/data-contracts/financial-service/data-contracts';
+
 /**
  * Represents the total investment in a particular security.
  *
@@ -23,17 +25,19 @@
  * @property totalInvestment - The total monetary amount invested in the security.
  * @property userId - The identifier of the user who made the investment.
  */
-export class TotalInvestmentBySecurity {
+export class TotalInvestmentBySecurityClass
+  implements TotalInvestmentBySecurity
+{
   public securityId: string = '';
   public totalInvestment: number = 0;
-  public userId: number = 0;
+  public userId: string = '';
 
   /**
    * Creates an instance of TotalInvestmentBySecurity.
    *
    * @param data - Object containing properties for TotalInvestmentBySecurity.
    */
-  constructor(data: Partial<TotalInvestmentBySecurity>) {
+  constructor(data: Partial<TotalInvestmentBySecurityClass>) {
     if (data)
       Object.assign(this, {
         ...data,

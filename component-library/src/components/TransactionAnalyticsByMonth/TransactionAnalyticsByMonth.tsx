@@ -17,7 +17,6 @@ import {
 } from '@tremor/react';
 import * as React from 'react';
 import { createContext, ReactNode, RefObject, Component } from 'react';
-import { Transaction } from 'src/types';
 import {
   Card,
   CardContent,
@@ -32,6 +31,7 @@ import { RocketIcon } from 'lucide-react';
 import { TabsContent, TabsList } from '@radix-ui/react-tabs';
 import { Tabs, TabsTrigger } from '../ui/tabs';
 import { MonthlyExpenditureCard } from './MonthlyExpenditureCard';
+import { Transaction } from 'src/data-contracts/financial-service/data-contracts';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 /** @type {React.Context<Transaction[]>} */
@@ -115,18 +115,19 @@ export class TransactionAnalyticsByMonth extends Component<
     const categoriesMap = new Map<string, TransactionCategory>();
 
     for (const transaction of transactions) {
-      const categoryName = transaction.personalFinanceCategoryPrimary;
+      const categoryName = transaction.personalFinanceCategoryPrimary || '';
       const currentCategory = categoriesMap.get(categoryName) || {
         name: categoryName,
         numTransactions: 0,
         amount: 0,
-        transactions: [],
+        transactions: [] as Transaction[],
       };
 
       currentCategory.numTransactions++;
       const currentAmount = currentCategory.amount;
+      const transactionAmount = transaction.amount || 0;
       currentCategory.amount = parseFloat(
-        (currentAmount + transaction.amount).toFixed(2),
+        (currentAmount + transactionAmount).toFixed(2),
       );
       currentCategory.transactions.push(transaction);
       categoriesMap.set(categoryName, currentCategory);
@@ -144,8 +145,10 @@ export class TransactionAnalyticsByMonth extends Component<
     const monthlyTransactions = new Map<string, Transaction[]>();
 
     for (const transaction of transactions) {
-      const monthYear = `${transaction.currentDate.split('-')[1]}-${
-        transaction.currentDate.split('-')[0]
+      const currentDate = transaction.currentDate;
+      if (!currentDate) continue;
+      const monthYear = `${currentDate.split('-')[1]}-${
+        currentDate.split('-')[0]
       }`;
       const monthData = monthlyTransactions.get(monthYear) || [];
       monthData.push(transaction);
@@ -170,7 +173,7 @@ export class TransactionAnalyticsByMonth extends Component<
     const categorySet = new Set<string>();
 
     this.state.transactions.forEach((transaction) => {
-      categorySet.add(transaction.personalFinanceCategoryPrimary);
+      return categorySet.add(transaction.personalFinanceCategoryPrimary || '');
     });
 
     // Convert category names to the desired format
@@ -264,10 +267,13 @@ const TransactionsCategorizePieChart: React.FC<{
     const counts: { [category: string]: number } = {};
 
     transactions.forEach((transaction) => {
-      if (!counts[transaction.personalFinanceCategoryPrimary]) {
-        counts[transaction.personalFinanceCategoryPrimary] = 0;
+      const category = transaction.personalFinanceCategoryPrimary;
+      if (category && !counts[category]) {
+        counts[category] = 0;
       }
-      counts[transaction.personalFinanceCategoryPrimary] += transaction.amount;
+      if (category && transaction.amount) {
+        counts[category] += transaction.amount;
+      }
     });
 
     const result = Object.entries(counts).map(([categoryName, count]) => {
@@ -287,18 +293,23 @@ const TransactionsCategorizePieChart: React.FC<{
 
     transactions.forEach((transaction) => {
       const merchant = transaction.merchantName;
-      if (!merchantCounts[merchant]) {
+      if (merchant && !merchantCounts[merchant]) {
         merchantCounts[merchant] = 0;
       }
-      merchantCounts[merchant]++;
+      if (merchant) {
+        merchantCounts[merchant]++;
+      }
     });
 
     const result: { merchantName: string; count: number }[] = [];
+
     for (const merchant in merchantCounts) {
-      result.push({
-        merchantName: merchant,
-        count: merchantCounts[merchant],
-      });
+      if (Object.prototype.hasOwnProperty.call(merchantCounts, merchant)) {
+        result.push({
+          merchantName: merchant,
+          count: merchantCounts[merchant],
+        });
+      }
     }
 
     return result;
@@ -631,7 +642,9 @@ const ProgressBarHelperComponent: React.FC<{
   transactions: Transaction[];
 }> = ({ txn, merchantToTransactionMap, transactions }) => {
   const { merchantName } = txn;
-  const { count } = getMerchantMetadata(merchantName, merchantToTransactionMap);
+  const { count } = merchantName
+    ? getMerchantMetadata(merchantName, merchantToTransactionMap)
+    : { count: 0 };
   const percentage = computePercentage(transactions.length, count);
 
   return (

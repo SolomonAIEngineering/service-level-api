@@ -1,3 +1,5 @@
+import { MerchantMonthlyExpenditure as MerchantMonthlyExpenditure } from 'src/data-contracts/financial-service/data-contracts';
+
 /**
  * Represents the monthly expenditure of a merchant.
  *
@@ -22,11 +24,11 @@
  * @property totalSpending - The total amount spent with the merchant during the month.
  * @property userId - The user ID associated with this expenditure.
  */
-class MerchantMonthlyExpenditure {
+class MerchantMonthlyExpenditureClass implements MerchantMonthlyExpenditure {
   month: number;
   merchantName: string;
   totalSpending: number;
-  userId: number;
+  userId: string;
 
   /**
    * Constructs a new MerchantMonthlyExpenditure instance.
@@ -37,8 +39,8 @@ class MerchantMonthlyExpenditure {
     this.month = data.month ?? 0;
     this.merchantName = data.merchantName ?? '';
     this.totalSpending = data.totalSpending ?? 0;
-    this.userId = data.userId ?? 0;
+    this.userId = data.userId ?? '0';
   }
 }
 
-export { MerchantMonthlyExpenditure };
+export { MerchantMonthlyExpenditureClass };

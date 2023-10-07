@@ -4,16 +4,7 @@ import {
   getRandomAmount,
 } from 'src/lib-utils/utils';
 
-export interface IForecast {
-  /** id */
-  id: number;
-  /** the forecasted amount of the goal */
-  forecastedAmount: string;
-  /** the forecasted completion date of the goal */
-  forecastedCompletionDate: string;
-  /** the forecasted variance of the goal between the forecasted and target amounts */
-  varianceAmount: string;
-}
+import { Forecast as Forecast } from 'src/data-contracts/financial-service/data-contracts';
 
 /*
  * The Forecast table stores information about each forecast generated for a particular goal,
@@ -25,9 +16,9 @@ export interface IForecast {
  * @class Forecast
  * @implements {IForecast}
  * */
-export class Forecast implements IForecast {
+export class ForecastClass implements Forecast {
   /** id */
-  id = 0;
+  id = '0';
   /** the forecasted amount of the goal */
   forecastedAmount = '';
   /** the forecasted completion date of the goal */
@@ -48,8 +39,8 @@ export class Forecast implements IForecast {
    * @returns {Forecast} A random Forecast.
    */
   static randomInstance(): Forecast {
-    return new Forecast({
-      id: getRandomNumber(1, 10000),
+    return new ForecastClass({
+      id: getRandomNumber(1, 10000).toString(),
       forecastedAmount: getRandomAmount(),
       forecastedCompletionDate: getRandomDate(
         new Date(2020, 0, 1),

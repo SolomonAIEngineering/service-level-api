@@ -1,3 +1,5 @@
+import { CategoryMonthlyExpenditure as CategoryMonthlyExpenditure } from 'src/data-contracts/financial-service/data-contracts';
+
 /**
  * Represents the monthly expenditure of a category.
  *
@@ -23,11 +25,11 @@
  * @property totalSpending - Total amount spent in the specified month for this category.
  * @property userId - The user ID associated with this expenditure.
  */
-class CategoryMonthlyExpenditure {
+class CategoryMonthlyExpenditureClass implements CategoryMonthlyExpenditure {
   month: number = 0;
   personalFinanceCategoryPrimary: string = '';
   totalSpending: number = 0;
-  userId: number = 0;
+  userId: string = '0';
 
   /**
    * Constructs a new CategoryMonthlyExpenditure instance.
@@ -42,4 +44,4 @@ class CategoryMonthlyExpenditure {
   }
 }
 
-export { CategoryMonthlyExpenditure };
+export { CategoryMonthlyExpenditureClass };

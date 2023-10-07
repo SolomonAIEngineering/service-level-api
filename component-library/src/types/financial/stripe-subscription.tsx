@@ -1,14 +1,15 @@
-import { StripeSubscriptionStatus } from './stripe-subscription-status';
+import { StripeSubscriptionStatus } from 'src/data-contracts/financial-service/data-contracts';
+import { StripeSubscription as StripeSubscription } from 'src/data-contracts/financial-service/data-contracts';
 
 /**
  * Represents a subscription managed through the Stripe payment platform.
  */
-class StripeSubscription {
+class StripeSubscriptionClass implements StripeSubscription {
   /**
    * The unique identifier for the subscription.
-   * @type {number}
+   * @type {string}
    */
-  id: number;
+  id: string;
 
   /**
    * The ID of the subscription in the Stripe system tied to the customer.
@@ -50,7 +51,7 @@ class StripeSubscription {
      * The unique identifier for the subscription.
      * @type {number}
      */
-    this.id = data.id ?? 0;
+    this.id = data.id ?? '0';
 
     /**
      * The ID of the subscription in the Stripe system tied to the customer.
@@ -86,4 +87,4 @@ class StripeSubscription {
   }
 }
 
-export { StripeSubscription };
+export { StripeSubscriptionClass };

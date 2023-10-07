@@ -1,3 +1,5 @@
+import { MerchantMetricsFinancialSubProfile as MerchantMetricsFinancialSubProfile } from 'src/data-contracts/financial-service/data-contracts';
+
 /**
  * Represents the financial sub profile of a merchant.
  *
@@ -27,7 +29,9 @@
  * @property userId - The user ID associated with this financial profile.
  * @property month - The month for which this financial profile is reported.
  */
-class MerchantMetricsFinancialSubProfile {
+class MerchantMetricsFinancialSubProfileClass
+  implements MerchantMetricsFinancialSubProfile
+{
   merchantName: string;
   spentLastWeek: number;
   spentLastTwoWeeks: number;
@@ -35,7 +39,7 @@ class MerchantMetricsFinancialSubProfile {
   spentLastSixMonths: number;
   spentLastYear: number;
   spentLastTwoYears: number;
-  userId: number;
+  userId: string;
   month: number;
 
   /**
@@ -51,9 +55,9 @@ class MerchantMetricsFinancialSubProfile {
     this.spentLastSixMonths = data.spentLastSixMonths ?? 0;
     this.spentLastYear = data.spentLastYear ?? 0;
     this.spentLastTwoYears = data.spentLastTwoYears ?? 0;
-    this.userId = data.userId ?? 0;
+    this.userId = data.userId ?? '0';
     this.month = data.month ?? 0;
   }
 }
 
-export { MerchantMetricsFinancialSubProfile };
+export { MerchantMetricsFinancialSubProfileClass };

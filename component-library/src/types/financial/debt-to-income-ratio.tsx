@@ -1,3 +1,5 @@
+import { DebtToIncomeRatio as DebtToIncomeRatio } from 'src/data-contracts/financial-service/data-contracts';
+
 /**
  * Represents the debt to income ratio of a user.
  *
@@ -21,10 +23,10 @@
  * @property ratio - Represents the proportion of debt to income for the user. It's typically a value between 0 and 1, with higher values indicating more debt relative to income.
  * @property userId - The user ID for whom the ratio is calculated.
  */
-class DebtToIncomeRatio {
+class DebtToIncomeRatioClass implements DebtToIncomeRatio {
   month: number;
   ratio: number;
-  userId: number;
+  userId: string;
 
   /**
    * Constructs a new DebtToIncomeRatio instance.
@@ -34,8 +36,8 @@ class DebtToIncomeRatio {
   constructor(data: Partial<DebtToIncomeRatio> = {}) {
     this.month = data.month ?? 0;
     this.ratio = data.ratio ?? 0;
-    this.userId = data.userId ?? 0;
+    this.userId = data.userId ?? '0';
   }
 }
 
-export { DebtToIncomeRatio };
+export { DebtToIncomeRatioClass };

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { createContext, ReactNode, RefObject, Component } from 'react';
-import { AccountBalanceHistory, InvesmentHolding } from 'src/types';
 import {
   Card,
   CardContent,
@@ -12,6 +11,10 @@ import { formatNumber } from 'src/lib-utils/utils';
 import { HistoricalAccountBalanceChart } from '../HistoricalAccountBalanceChart';
 import { ScatterChart, Card as TremorCard } from '@tremor/react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
+import {
+  AccountBalanceHistory,
+  InvesmentHolding,
+} from 'src/data-contracts/financial-service/data-contracts';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 /** @type {React.Context<string>} */
@@ -81,17 +84,22 @@ export class InvestmentHoldingCard extends Component<
   }
 
   private computeTotalCostBasis(holdings: InvesmentHolding[]): number {
-    return holdings.reduce((total, holding) => total + holding.costBasis, 0);
+    return holdings.reduce((total, holding) => {
+      if (holding.costBasis !== undefined && holding.costBasis !== null) {
+        return total + holding.costBasis;
+      }
+      return total;
+    }, 0);
   }
 
   private computeAverageCostBasis(holdings: InvesmentHolding[]): number {
     const totalCostBasis = this.computeTotalCostBasis(holdings);
-    return totalCostBasis / holdings.length;
+    return holdings.length > 0 ? totalCostBasis / holdings.length : 0;
   }
 
   private computeTotalInstitutionValue(holdings: InvesmentHolding[]): number {
     return holdings.reduce(
-      (total, holding) => total + holding.institutionValue,
+      (total, holding) => total + (holding.institutionValue ?? 0),
       0,
     );
   }
@@ -107,7 +115,11 @@ export class InvestmentHoldingCard extends Component<
   ): InvesmentHolding | null {
     if (holdings.length === 0) return null;
     return holdings.reduce((prev, current) =>
-      prev.institutionValue > current.institutionValue ? prev : current,
+      current.institutionValue !== undefined &&
+      (prev.institutionValue === undefined ||
+        current.institutionValue > prev.institutionValue)
+        ? current
+        : prev,
     );
   }
 
@@ -116,7 +128,11 @@ export class InvestmentHoldingCard extends Component<
   ): InvesmentHolding | null {
     if (holdings.length === 0) return null;
     return holdings.reduce((prev, current) =>
-      prev.institutionValue < current.institutionValue ? prev : current,
+      current.institutionValue !== undefined &&
+      (prev.institutionValue === undefined ||
+        current.institutionValue < prev.institutionValue)
+        ? current
+        : prev,
     );
   }
   /**

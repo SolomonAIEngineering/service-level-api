@@ -1,3 +1,5 @@
+import { MonthlyTransactionCount as MonthlyTransactionCount } from 'src/data-contracts/financial-service/data-contracts';
+
 /**
  * Represents the monthly transaction count of a user.
  *
@@ -20,10 +22,10 @@
  * @property transactionCount - The total number of transactions made by the user for the month.
  * @property userId - The user ID associated with this record.
  */
-class MonthlyTransactionCount {
+class MonthlyTransactionCountClass implements MonthlyTransactionCount {
   month: number;
-  transactionCount: number;
-  userId: number;
+  transactionCount: string;
+  userId: string;
 
   /**
    * Constructs a new MonthlyTransactionCount instance.
@@ -32,9 +34,9 @@ class MonthlyTransactionCount {
    */
   constructor(data: Partial<MonthlyTransactionCount> = {}) {
     this.month = data.month ?? 0;
-    this.transactionCount = data.transactionCount ?? 0;
-    this.userId = data.userId ?? 0;
+    this.transactionCount = data.transactionCount ?? '0';
+    this.userId = data.userId ?? '0';
   }
 }
 
-export { MonthlyTransactionCount };
+export { MonthlyTransactionCountClass };

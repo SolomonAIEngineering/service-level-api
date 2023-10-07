@@ -1,9 +1,14 @@
+import {
+  FinancialProfile,
+  MelodyFinancialContext,
+} from 'src/data-contracts/financial-service/data-contracts';
 import { ErrorResponse } from '../error';
-import { FinancialProfile, MelodyFinancialContext } from '../financial';
-import { SocialUserProfile } from '../social';
 import { UserAccount } from '../user';
 import { IRequest } from './IRequest';
-
+import { MelodyFinancialContextClass } from '../financial/melody-financial-context';
+import { FinancialProfileClass } from '../financial/financial-profile';
+import { SocialUserProfileClass } from '../social';
+import { UserProfile } from 'src/data-contracts/social-service/data-contracts';
 /**
  * @description The request to authenticate a user
  * @author Yoan Yomba
@@ -52,10 +57,10 @@ class AuthenticationResponse extends ErrorResponse {
   err = '';
   token = '';
   user_account: UserAccount = new UserAccount();
-  user_profile: SocialUserProfile = new SocialUserProfile({});
+  user_profile: UserProfile = new SocialUserProfileClass({});
   user_financial_profile: FinancialProfileResponse = {
-    profile: new FinancialProfile(),
-    financialContext: new MelodyFinancialContext({}),
+    profile: new FinancialProfileClass(),
+    financialContext: new MelodyFinancialContextClass({}),
   };
 
   constructor(data?: Partial<AuthenticationResponse>) {
@@ -66,11 +71,13 @@ class AuthenticationResponse extends ErrorResponse {
         user_account: new UserAccount(data?.user_account),
         user_profile:
           data.user_profile !== undefined
-            ? new SocialUserProfile(data.user_profile)
-            : new SocialUserProfile({}),
+            ? new SocialUserProfileClass(data.user_profile)
+            : new SocialUserProfileClass({}),
         user_financial_profile: {
-          profile: new FinancialProfile(data?.user_financial_profile?.profile),
-          financialContext: new MelodyFinancialContext(
+          profile: new FinancialProfileClass(
+            data?.user_financial_profile?.profile,
+          ),
+          financialContext: new MelodyFinancialContextClass(
             data?.user_financial_profile?.financialContext ?? {},
           ),
         },

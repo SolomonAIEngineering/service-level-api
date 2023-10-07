@@ -4,7 +4,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { HistoricalAccountBalanceChart } from './HistoricalAccountBalanceChart';
-import { AccountBalanceHistory } from 'src/types';
+import { AccountBalanceHistoryClass } from 'src/index';
 
 const meta: Meta<typeof HistoricalAccountBalanceChart> = {
   title: 'Component/HistoricalAccountBalanceChart',
@@ -26,7 +26,7 @@ type Story = StoryObj<typeof meta>;
 export const Primary: Story = {
   args: {
     historicalAccountBalance: Array.from({ length: 20 }, () =>
-      AccountBalanceHistory.randomInstance(),
-    ).sort((a, b) => a.time!.getTime() - b.time!.getTime()),
+      AccountBalanceHistoryClass.randomInstance(),
+    ).sort((a, b) => new Date(a.time!).getTime() - new Date(b.time!).getTime()),
   },
 };

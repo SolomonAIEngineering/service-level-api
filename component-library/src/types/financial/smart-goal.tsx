@@ -2,55 +2,14 @@ import {
   getRandomNumber,
   getRandomString,
   getRandomBoolean,
-  getRandomArrayItem,
   getRandomDate,
 } from 'src/lib-utils/utils';
-import { Forecast } from './forecast';
-import { GoalType } from './goal-type';
-import { Milestone } from './milestone';
-
-export interface ISmartGoal {
-  /** id */
-  id: number;
-  /** the user id to which this goal is tied to */
-  userId: number;
-  /**
-   * The name of the goal
-   * Validations:
-   * - must be at least 3 characters long
-   */
-  name: string;
-  /**
-   * The description of the goal
-   * Validations:
-   * - must be at least 3 characters long
-   */
-  description: string;
-  /** wether the goal has been achieved or not */
-  isCompleted: boolean;
-  /** The type of the goal */
-  goalType: GoalType;
-  /** The duration of the goal */
-  duration: string;
-  /** the start date of the goal */
-  startDate: string;
-  /** the end date of the goal */
-  endDate: string;
-  /**
-   * the target amount of the goal
-   * amount of money the user wants to save or invest
-   */
-  targetAmount: string;
-  /**
-   * the current amount of the goal
-   * current amount of money saved or invested towards the goal
-   */
-  currentAmount: string;
-  /** Milestones associated with the goal */
-  milestones: Milestone[];
-  /** Forecasts associated with the goal */
-  forecasts: Forecast | undefined;
-}
+import { Milestone as Milestone } from 'src/data-contracts/financial-service/data-contracts';
+import { SmartGoal as SmartGoal } from 'src/data-contracts/financial-service/data-contracts';
+import { Forecast as Forecast } from 'src/data-contracts/financial-service/data-contracts';
+import { GoalType as GoalType } from 'src/data-contracts/financial-service/data-contracts';
+import { ForecastClass } from './forecast';
+import { MilestoneClass } from './milestone';
 
 /*
  * SmartGoal: The Goals table stores information about each financial goal, including the name of the goal,
@@ -65,11 +24,11 @@ export interface ISmartGoal {
  * @class SmartGoal
  * @implements {ISmartGoal}
  * */
-export class SmartGoal implements ISmartGoal {
+export class SmartGoalClass implements SmartGoal {
   /** id */
-  id = 0;
+  id = '0';
   /** the user id to which this goal is tied to */
-  userId = 0;
+  userId = '0';
   /**
    * The name of the goal
    * Validations:
@@ -85,7 +44,7 @@ export class SmartGoal implements ISmartGoal {
   /** wether the goal has been achieved or not */
   isCompleted = false;
   /** The type of the goal */
-  goalType: GoalType = GoalType.GOAL_TYPE_UNSPECIFIED;
+  goalType: GoalType = 'GOAL_TYPE_UNSPECIFIED';
   /** The duration of the goal */
   duration = '';
   /** the start date of the goal */
@@ -122,23 +81,24 @@ export class SmartGoal implements ISmartGoal {
   static randomInstance(): SmartGoal {
     const numberOfMilestones = getRandomNumber(0, 5); // Assuming a random number of milestones between 0 to 5 for each goal
     const milestones = Array.from({ length: numberOfMilestones }, () =>
-      Milestone.randomInstance(),
+      MilestoneClass.randomInstance(),
     );
 
-    return new SmartGoal({
-      id: getRandomNumber(1, 10000),
-      userId: getRandomNumber(1, 10000),
+    return new SmartGoalClass({
+      id: getRandomNumber(1, 10000).toString(),
+      userId: getRandomNumber(1, 10000).toString(),
       name: getRandomString(5),
       description: getRandomString(10),
       isCompleted: getRandomBoolean(),
-      goalType: getRandomArrayItem(Object.values(GoalType).slice()) as GoalType,
+      goalType: 'GOAL_TYPE_INVESTMENT',
       duration: `${getRandomNumber(1, 5)} weeks`,
       startDate: getRandomDate(new Date(2020, 0, 1), new Date(2025, 0, 1)),
       endDate: getRandomDate(new Date(2022, 0, 1), new Date(2030, 0, 1)),
       targetAmount: `$${getRandomNumber(500, 10000)}`,
       currentAmount: `$${getRandomNumber(0, 5000)}`,
       milestones: milestones,
-      forecasts: Math.random() > 0.5 ? Forecast.randomInstance() : undefined,
+      forecasts:
+        Math.random() > 0.5 ? ForecastClass.randomInstance() : undefined,
     });
   }
 }

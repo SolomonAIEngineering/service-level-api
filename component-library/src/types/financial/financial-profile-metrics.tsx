@@ -26,7 +26,7 @@
  * @property mostExpensiveCategory - The category in which the user spent the most during that month.
  * @property userId - The user ID associated with this financial profile.
  */
-class FinancialProfileMetrics {
+class FinancialProfileMetricsClass {
   month: number;
   totalIncome: number;
   totalExpenses: number;
@@ -39,7 +39,7 @@ class FinancialProfileMetrics {
    *
    * @param data - Initialization data for the financial profile.
    */
-  constructor(data: Partial<FinancialProfileMetrics> = {}) {
+  constructor(data: Partial<FinancialProfileMetricsClass> = {}) {
     this.month = data.month ?? 0;
     this.totalIncome = data.totalIncome ?? 0;
     this.totalExpenses = data.totalExpenses ?? 0;
@@ -49,4 +49,4 @@ class FinancialProfileMetrics {
   }
 }
 
-export { FinancialProfileMetrics };
+export { FinancialProfileMetricsClass };
