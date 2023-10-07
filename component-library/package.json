@@ -25,6 +25,7 @@
     "dev": "vite",
     "format": "sort-package-json && prettier --write '**/*.{ts,js,json,yml,md}' && eslint --fix .",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "precommit": "npm install --package-lock && npm run format",
     "preview": "vite preview",
     "release:major": "npm version major --no-commit-hooks && git push --follow-tags",
     "release:minor": "npm version minor --no-commit-hooks && git push --follow-tags",
