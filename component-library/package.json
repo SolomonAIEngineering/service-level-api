@@ -1,6 +1,6 @@
 {
   "name": "@solomon-ai/component-library",
-  "version": "1.27.0",
+  "version": "1.27.2",
   "private": false,
   "type": "module",
   "exports": {
@@ -140,6 +140,5 @@
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
   },
-  "readme": "ERROR: No README data found!",
-  "_id": "@solomon-ai/component-library@1.4.0"
+  "readme": "ERROR: No README data found!"
 }
