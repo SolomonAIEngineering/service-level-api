@@ -13,3 +13,4 @@ export * from './StudentLoanAccountCard';
 export * from './StudentLoanAccountHoverLabel';
 export * from './TransactionDataTable';
 export * from './TransactionAnalyticsByMonth';
+export * from './AskSolomonAi';

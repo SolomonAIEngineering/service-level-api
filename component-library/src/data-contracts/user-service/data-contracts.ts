@@ -94,7 +94,7 @@ export interface Address {
 }
 
 export interface Any {
-  '@type'?: string;
+  "@type"?: string;
   [key: string]: any;
 }
 
@@ -319,10 +319,6 @@ export interface NotificationSettings {
  *  - TYPE_IN_APP: app based notification
  * @default "TYPE_UNSPECIFIED"
  */
-export type ProfileType =
-  | 'PROFILE_TYPE_UNSPECIFIED'
-  | 'PROFILE_TYPE_USER'
-  | 'PROFILE_TYPE_BUSINESS';
 export type NotificationSettingsType = "TYPE_UNSPECIFIED" | "TYPE_EMAIL" | "TYPE_SMS" | "TYPE_IN_APP";
 
 export type PasswordResetData = any;
