@@ -37,4 +37,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: npm install
-      - run: cd component-library && npm run chromatic
+      - run: npm run chromatic
