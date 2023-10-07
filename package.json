@@ -14,5 +14,9 @@
   "license": "ISC",
   "devDependencies": {
     "husky": "^8.0.0"
+  },
+  "dependencies": {
+    "eventsource-parser": "^1.1.1",
+    "primereact": "^10.0.2"
   }
 }

@@ -167,10 +167,9 @@ const AskSolomonAILayout: React.FC<{
   sampleQuestions,
   userKey,
   financialContext,
-  userAccount,
 }) => {
   const processor = new ChatProcessor();
-  const promptCtx = new PromptContext(financialContext, userAccount);
+  const promptCtx = new PromptContext(financialContext);
 
   /**
    * State variable for the messages in the chat.

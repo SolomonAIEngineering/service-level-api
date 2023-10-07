@@ -3,7 +3,6 @@
  */
 
 import { MelodyFinancialContext } from 'src/data-contracts/financial-service/data-contracts';
-import { UserAccount } from 'src/data-contracts/user-service/data-contracts';
 
 /**
  * IContextPrompt interface defines a contract for the PromptContext class.
@@ -34,26 +33,12 @@ class PromptContext implements IContextPrompt {
   private _globalContext: MelodyFinancialContext = {};
 
   /**
-   * A private static instance of the PromptContext for Singleton implementation.
-   */
-  private static instance: PromptContext;
-
-  /**
-   * A private instance of UserAccount.
-   */
-  private _userAccount = {};
-
-  /**
    * The constructor of the PromptContext class.
    * @param globalContext The global financial context.
    * @param userAccount The user account.
    */
-  public constructor(
-    globalContext: MelodyFinancialContext,
-    userAccount: UserAccount,
-  ) {
+  public constructor(globalContext: MelodyFinancialContext) {
     this._globalContext = globalContext;
-    this._userAccount = userAccount;
   }
 
   /**
