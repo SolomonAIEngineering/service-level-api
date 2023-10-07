@@ -8,7 +8,8 @@
   },
   "scripts": {
     "test": "make precommit && cd component-library && npm ci",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "build-storybook" : "cd component-library && npm run build-storybook"
   },
   "author": "",
   "license": "ISC",
