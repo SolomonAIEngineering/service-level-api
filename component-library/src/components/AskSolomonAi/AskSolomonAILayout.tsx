@@ -29,7 +29,7 @@ import { PromptContext } from 'src/lib-utils/PromptGenerator';
 const initialAnalyticMessage: ChatGPTMessage[] = [
   {
     role: 'assistant',
-    content: `Hey l'm solomon. Ask me anything 🦾`,
+    content: `Hey I am Solomon AI. Ask me anything!`,
   },
 ];
 

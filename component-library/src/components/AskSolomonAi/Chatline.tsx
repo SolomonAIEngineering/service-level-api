@@ -1,6 +1,8 @@
 import clsx from 'clsx';
 import Balancer from 'react-wrap-balancer';
 import { ChatGPTMessage } from 'src/lib-utils/Stream';
+import { Mic, MicOff } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 // wrap Balancer to remove type errors :( - @TODO - fix this ugly hack
 /* eslint-disable  @typescript-eslint/no-explicit-any */
@@ -38,10 +40,61 @@ const convertNewLines = (text: string) =>
   ));
 
 export function ChatLine({ role = 'assistant', content }: ChatGPTMessage) {
+  const [speechState, setSpeechState] = useState<
+    'speaking' | 'paused' | 'stopped'
+  >('stopped');
+  const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
+  const [selectedVoiceIndex, setSelectedVoiceIndex] = useState<number | null>(
+    null,
+  ); // Index of the selected voice
+
+  useEffect(() => {
+    if ('speechSynthesis' in window) {
+      const availableVoices = window.speechSynthesis.getVoices();
+      for (let i = 0; i < availableVoices.length; i++) {
+        console.log(availableVoices[i].name, i);
+      }
+
+      setVoices(availableVoices);
+
+      // Optionally, set a default voice. Here, we're setting the first voice as default.
+      if (availableVoices.length > 0 && availableVoices[8]) {
+        setSelectedVoiceIndex(8);
+      }
+    }
+  }, []);
+
+  const formatteMessage = convertNewLines(content);
+  const msg = new SpeechSynthesisUtterance();
+  msg.lang = 'en-US';
+  if (selectedVoiceIndex !== null && voices[selectedVoiceIndex]) {
+    msg.voice = voices[selectedVoiceIndex];
+    msg.pitch = 1.4;
+    msg.rate = 0.6;
+    msg.volume = 0.8;
+  }
+
+  const speechHandler = (data: string) => {
+    switch (speechState) {
+      case 'stopped':
+        msg.text = data;
+        window.speechSynthesis.speak(msg);
+        setSpeechState('speaking');
+        break;
+      case 'speaking':
+        window.speechSynthesis.pause();
+        setSpeechState('paused');
+        break;
+      case 'paused':
+        window.speechSynthesis.resume();
+        setSpeechState('speaking');
+        break;
+    }
+  };
+
   if (!content) {
     return null;
   }
-  const formatteMessage = convertNewLines(content);
 
   return (
     <div
@@ -59,6 +112,26 @@ export function ChatLine({ role = 'assistant', content }: ChatGPTMessage) {
                   {role == 'assistant' ? 'Solomon AI' : 'You'}
                 </a>
               </p>
+              {role == 'assistant' && (
+                <div>
+                  {speechState === 'speaking' ? (
+                    <MicOff
+                      className="pt-1 w-4 h-4"
+                      onClick={() => speechHandler(content)}
+                    />
+                  ) : speechState === 'paused' ? (
+                    <Mic
+                      className="pt-1 w-4 h-4"
+                      onClick={() => speechHandler(content)}
+                    />
+                  ) : (
+                    <Mic
+                      className="pt-1 w-4 h-4"
+                      onClick={() => speechHandler(content)}
+                    />
+                  )}
+                </div>
+              )}
             </div>
 
             <p
