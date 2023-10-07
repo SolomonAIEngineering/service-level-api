@@ -4,7 +4,7 @@ package social_servicev2
 func GetDatabaseSchemas() []interface{} {
 	models := []interface{}{
 		FollowerORM{},
-		TagsORM{},
+		UserTagsORM{},
 		TopicORM{},
 		BlockedORM{},
 		VirtualProfileORM{},

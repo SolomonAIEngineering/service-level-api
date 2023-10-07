@@ -82,9 +82,9 @@ func Test_WithContext(t *testing.T) {
 		qCtx.CommunityProfileORM.UnderlyingDB().Statement.Context,
 		qCtx.FollowerORM.UnderlyingDB().Statement.Context,
 		qCtx.PublicationORM.UnderlyingDB().Statement.Context,
-		qCtx.TagsORM.UnderlyingDB().Statement.Context,
 		qCtx.TopicORM.UnderlyingDB().Statement.Context,
 		qCtx.UserProfileORM.UnderlyingDB().Statement.Context,
+		qCtx.UserTagsORM.UnderlyingDB().Statement.Context,
 		qCtx.VirtualProfileORM.UnderlyingDB().Statement.Context,
 	} {
 		if v := ctx.Value(key); v != value {

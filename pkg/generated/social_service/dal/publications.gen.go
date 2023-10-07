@@ -80,7 +80,7 @@ func newPublicationORM(db *gorm.DB, opts ...gen.DOOption) publicationORM {
 		Tags: struct {
 			field.RelationField
 		}{
-			RelationField: field.NewRelation("Admin.Tags", "social_servicev2.TagsORM"),
+			RelationField: field.NewRelation("Admin.Tags", "social_servicev2.UserTagsORM"),
 		},
 	}
 

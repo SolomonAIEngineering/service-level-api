@@ -63,7 +63,7 @@ func newBookmarkORM(db *gorm.DB, opts ...gen.DOOption) bookmarkORM {
 			Tags: struct {
 				field.RelationField
 			}{
-				RelationField: field.NewRelation("Publications.Admin.Tags", "social_servicev2.TagsORM"),
+				RelationField: field.NewRelation("Publications.Admin.Tags", "social_servicev2.UserTagsORM"),
 			},
 		},
 		Editors: struct {

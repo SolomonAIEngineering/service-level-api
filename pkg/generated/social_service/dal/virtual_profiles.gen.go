@@ -74,7 +74,7 @@ func newVirtualProfileORM(db *gorm.DB, opts ...gen.DOOption) virtualProfileORM {
 		Tags: struct {
 			field.RelationField
 		}{
-			RelationField: field.NewRelation("User.Tags", "social_servicev2.TagsORM"),
+			RelationField: field.NewRelation("User.Tags", "social_servicev2.UserTagsORM"),
 		},
 	}
 

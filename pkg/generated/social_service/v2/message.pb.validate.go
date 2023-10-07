@@ -821,21 +821,22 @@ var _ interface {
 	ErrorName() string
 } = FollowerValidationError{}
 
-// Validate checks the field values on Tags with the rules defined in the proto
-// definition for this message. If any rules are violated, the first error
-// encountered is returned, or nil if there are no violations.
-func (m *Tags) Validate() error {
+// Validate checks the field values on UserTags with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *UserTags) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on Tags with the rules defined in the
-// proto definition for this message. If any rules are violated, the result is
-// a list of violation errors wrapped in TagsMultiError, or nil if none found.
-func (m *Tags) ValidateAll() error {
+// ValidateAll checks the field values on UserTags with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in UserTagsMultiError, or nil
+// if none found.
+func (m *UserTags) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *Tags) validate(all bool) error {
+func (m *UserTags) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -845,7 +846,7 @@ func (m *Tags) validate(all bool) error {
 	// no validation rules for Id
 
 	if len(m.GetTagName()) < 5 {
-		err := TagsValidationError{
+		err := UserTagsValidationError{
 			field:  "TagName",
 			reason: "value length must be at least 5 bytes",
 		}
@@ -856,7 +857,7 @@ func (m *Tags) validate(all bool) error {
 	}
 
 	if len(m.GetDescription()) < 50 {
-		err := TagsValidationError{
+		err := UserTagsValidationError{
 			field:  "Description",
 			reason: "value length must be at least 50 bytes",
 		}
@@ -867,18 +868,18 @@ func (m *Tags) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return TagsMultiError(errors)
+		return UserTagsMultiError(errors)
 	}
 
 	return nil
 }
 
-// TagsMultiError is an error wrapping multiple validation errors returned by
-// Tags.ValidateAll() if the designated constraints aren't met.
-type TagsMultiError []error
+// UserTagsMultiError is an error wrapping multiple validation errors returned
+// by UserTags.ValidateAll() if the designated constraints aren't met.
+type UserTagsMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m TagsMultiError) Error() string {
+func (m UserTagsMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -887,11 +888,11 @@ func (m TagsMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m TagsMultiError) AllErrors() []error { return m }
+func (m UserTagsMultiError) AllErrors() []error { return m }
 
-// TagsValidationError is the validation error returned by Tags.Validate if the
-// designated constraints aren't met.
-type TagsValidationError struct {
+// UserTagsValidationError is the validation error returned by
+// UserTags.Validate if the designated constraints aren't met.
+type UserTagsValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -899,22 +900,22 @@ type TagsValidationError struct {
 }
 
 // Field function returns field value.
-func (e TagsValidationError) Field() string { return e.field }
+func (e UserTagsValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e TagsValidationError) Reason() string { return e.reason }
+func (e UserTagsValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e TagsValidationError) Cause() error { return e.cause }
+func (e UserTagsValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e TagsValidationError) Key() bool { return e.key }
+func (e UserTagsValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e TagsValidationError) ErrorName() string { return "TagsValidationError" }
+func (e UserTagsValidationError) ErrorName() string { return "UserTagsValidationError" }
 
 // Error satisfies the builtin error interface
-func (e TagsValidationError) Error() string {
+func (e UserTagsValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -926,14 +927,14 @@ func (e TagsValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sTags.%s: %s%s",
+		"invalid %sUserTags.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = TagsValidationError{}
+var _ error = UserTagsValidationError{}
 
 var _ interface {
 	Field() string
@@ -941,7 +942,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = TagsValidationError{}
+} = UserTagsValidationError{}
 
 // Validate checks the field values on Topic with the rules defined in the
 // proto definition for this message. If any rules are violated, the first

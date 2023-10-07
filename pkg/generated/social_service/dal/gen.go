@@ -22,9 +22,9 @@ var (
 	CommunityProfileORM *communityProfileORM
 	FollowerORM         *followerORM
 	PublicationORM      *publicationORM
-	TagsORM             *tagsORM
 	TopicORM            *topicORM
 	UserProfileORM      *userProfileORM
+	UserTagsORM         *userTagsORM
 	VirtualProfileORM   *virtualProfileORM
 )
 
@@ -35,9 +35,9 @@ func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
 	CommunityProfileORM = &Q.CommunityProfileORM
 	FollowerORM = &Q.FollowerORM
 	PublicationORM = &Q.PublicationORM
-	TagsORM = &Q.TagsORM
 	TopicORM = &Q.TopicORM
 	UserProfileORM = &Q.UserProfileORM
+	UserTagsORM = &Q.UserTagsORM
 	VirtualProfileORM = &Q.VirtualProfileORM
 }
 
@@ -49,9 +49,9 @@ func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 		CommunityProfileORM: newCommunityProfileORM(db, opts...),
 		FollowerORM:         newFollowerORM(db, opts...),
 		PublicationORM:      newPublicationORM(db, opts...),
-		TagsORM:             newTagsORM(db, opts...),
 		TopicORM:            newTopicORM(db, opts...),
 		UserProfileORM:      newUserProfileORM(db, opts...),
+		UserTagsORM:         newUserTagsORM(db, opts...),
 		VirtualProfileORM:   newVirtualProfileORM(db, opts...),
 	}
 }
@@ -64,9 +64,9 @@ type Query struct {
 	CommunityProfileORM communityProfileORM
 	FollowerORM         followerORM
 	PublicationORM      publicationORM
-	TagsORM             tagsORM
 	TopicORM            topicORM
 	UserProfileORM      userProfileORM
+	UserTagsORM         userTagsORM
 	VirtualProfileORM   virtualProfileORM
 }
 
@@ -80,9 +80,9 @@ func (q *Query) clone(db *gorm.DB) *Query {
 		CommunityProfileORM: q.CommunityProfileORM.clone(db),
 		FollowerORM:         q.FollowerORM.clone(db),
 		PublicationORM:      q.PublicationORM.clone(db),
-		TagsORM:             q.TagsORM.clone(db),
 		TopicORM:            q.TopicORM.clone(db),
 		UserProfileORM:      q.UserProfileORM.clone(db),
+		UserTagsORM:         q.UserTagsORM.clone(db),
 		VirtualProfileORM:   q.VirtualProfileORM.clone(db),
 	}
 }
@@ -103,9 +103,9 @@ func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 		CommunityProfileORM: q.CommunityProfileORM.replaceDB(db),
 		FollowerORM:         q.FollowerORM.replaceDB(db),
 		PublicationORM:      q.PublicationORM.replaceDB(db),
-		TagsORM:             q.TagsORM.replaceDB(db),
 		TopicORM:            q.TopicORM.replaceDB(db),
 		UserProfileORM:      q.UserProfileORM.replaceDB(db),
+		UserTagsORM:         q.UserTagsORM.replaceDB(db),
 		VirtualProfileORM:   q.VirtualProfileORM.replaceDB(db),
 	}
 }
@@ -116,9 +116,9 @@ type queryCtx struct {
 	CommunityProfileORM ICommunityProfileORMDo
 	FollowerORM         IFollowerORMDo
 	PublicationORM      IPublicationORMDo
-	TagsORM             ITagsORMDo
 	TopicORM            ITopicORMDo
 	UserProfileORM      IUserProfileORMDo
+	UserTagsORM         IUserTagsORMDo
 	VirtualProfileORM   IVirtualProfileORMDo
 }
 
@@ -129,9 +129,9 @@ func (q *Query) WithContext(ctx context.Context) *queryCtx {
 		CommunityProfileORM: q.CommunityProfileORM.WithContext(ctx),
 		FollowerORM:         q.FollowerORM.WithContext(ctx),
 		PublicationORM:      q.PublicationORM.WithContext(ctx),
-		TagsORM:             q.TagsORM.WithContext(ctx),
 		TopicORM:            q.TopicORM.WithContext(ctx),
 		UserProfileORM:      q.UserProfileORM.WithContext(ctx),
+		UserTagsORM:         q.UserTagsORM.WithContext(ctx),
 		VirtualProfileORM:   q.VirtualProfileORM.WithContext(ctx),
 	}
 }

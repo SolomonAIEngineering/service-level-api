@@ -90,7 +90,7 @@ message CreateUserProfileRequest {
     (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
-  repeated Tags tags = 5 [
+  repeated UserTags tags = 5 [
     (validate.rules).repeated.min_items = 0,
     (google.api.field_behavior) = REQUIRED
   ];

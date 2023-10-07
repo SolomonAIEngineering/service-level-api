@@ -45,7 +45,7 @@ func newUserProfileORM(db *gorm.DB, opts ...gen.DOOption) userProfileORM {
 	_userProfileORM.Tags = userProfileORMHasManyTags{
 		db: db.Session(&gorm.Session{}),
 
-		RelationField: field.NewRelation("Tags", "social_servicev2.TagsORM"),
+		RelationField: field.NewRelation("Tags", "social_servicev2.UserTagsORM"),
 	}
 
 	_userProfileORM.Bookmarks = userProfileORMBelongsToBookmarks{
@@ -86,7 +86,7 @@ func newUserProfileORM(db *gorm.DB, opts ...gen.DOOption) userProfileORM {
 				Tags: struct {
 					field.RelationField
 				}{
-					RelationField: field.NewRelation("Bookmarks.Publications.Admin.Tags", "social_servicev2.TagsORM"),
+					RelationField: field.NewRelation("Bookmarks.Publications.Admin.Tags", "social_servicev2.UserTagsORM"),
 				},
 			},
 			Editors: struct {
@@ -232,11 +232,11 @@ func (a userProfileORMHasManyTags) Model(m *social_servicev2.UserProfileORM) *us
 
 type userProfileORMHasManyTagsTx struct{ tx *gorm.Association }
 
-func (a userProfileORMHasManyTagsTx) Find() (result []*social_servicev2.TagsORM, err error) {
+func (a userProfileORMHasManyTagsTx) Find() (result []*social_servicev2.UserTagsORM, err error) {
 	return result, a.tx.Find(&result)
 }
 
-func (a userProfileORMHasManyTagsTx) Append(values ...*social_servicev2.TagsORM) (err error) {
+func (a userProfileORMHasManyTagsTx) Append(values ...*social_servicev2.UserTagsORM) (err error) {
 	targetValues := make([]interface{}, len(values))
 	for i, v := range values {
 		targetValues[i] = v
@@ -244,7 +244,7 @@ func (a userProfileORMHasManyTagsTx) Append(values ...*social_servicev2.TagsORM)
 	return a.tx.Append(targetValues...)
 }
 
-func (a userProfileORMHasManyTagsTx) Replace(values ...*social_servicev2.TagsORM) (err error) {
+func (a userProfileORMHasManyTagsTx) Replace(values ...*social_servicev2.UserTagsORM) (err error) {
 	targetValues := make([]interface{}, len(values))
 	for i, v := range values {
 		targetValues[i] = v
@@ -252,7 +252,7 @@ func (a userProfileORMHasManyTagsTx) Replace(values ...*social_servicev2.TagsORM
 	return a.tx.Replace(targetValues...)
 }
 
-func (a userProfileORMHasManyTagsTx) Delete(values ...*social_servicev2.TagsORM) (err error) {
+func (a userProfileORMHasManyTagsTx) Delete(values ...*social_servicev2.UserTagsORM) (err error) {
 	targetValues := make([]interface{}, len(values))
 	for i, v := range values {
 		targetValues[i] = v

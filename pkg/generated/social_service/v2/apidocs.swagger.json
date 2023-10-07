@@ -1534,7 +1534,7 @@
                   "type": "array",
                   "items": {
                     "type": "object",
-                    "$ref": "#/definitions/Tags"
+                    "$ref": "#/definitions/UserTags"
                   }
                 },
                 "isPrivate": {
@@ -7191,31 +7191,6 @@
         }
       }
     },
-    "Tags": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "format": "uint64",
-          "title": "the id of the tag record"
-        },
-        "tagName": {
-          "type": "string",
-          "example": "test-tagname",
-          "title": "the name of the tag ... tag must be at least 5 characters long"
-        },
-        "description": {
-          "type": "string",
-          "example": "test-description sakjlDKJGSAHGHFDHSGJHFGAHDFJKGSHAJDLgAKSGDHAS CSVDJKSADASKJHDASFDGJKJLHSAHGFJDSAHD kjskhdgfhgdhfgkhsdfdsdfdssdfsdf",
-          "title": "the description of the tag ... tag must be at least 50 characters long"
-        }
-      },
-      "title": "Tags: tags that can be associated to a record",
-      "required": [
-        "tagName",
-        "description"
-      ]
-    },
     "Thread": {
       "type": "object",
       "properties": {
@@ -7297,7 +7272,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/Tags"
+            "$ref": "#/definitions/UserTags"
           },
           "title": "Tags are interests"
         },
@@ -7363,6 +7338,31 @@
         "profileImageUrl",
         "bookmarks",
         "algoliaId"
+      ]
+    },
+    "UserTags": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "the id of the tag record"
+        },
+        "tagName": {
+          "type": "string",
+          "example": "test-tagname",
+          "title": "the name of the tag ... tag must be at least 5 characters long"
+        },
+        "description": {
+          "type": "string",
+          "example": "test-description sakjlDKJGSAHGHFDHSGJHFGAHDFJKGSHAJDLgAKSGDHAS CSVDJKSADASKJHDASFDGJKJLHSAHGFJDSAHD kjskhdgfhgdhfgkhsdfdsdfdssdfsdf",
+          "title": "the description of the tag ... tag must be at least 50 characters long"
+        }
+      },
+      "title": "Tags: tags that can be associated to a record",
+      "required": [
+        "tagName",
+        "description"
       ]
     }
   }
