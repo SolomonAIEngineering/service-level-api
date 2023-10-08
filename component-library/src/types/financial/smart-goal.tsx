@@ -79,7 +79,7 @@ export class SmartGoalClass implements SmartGoal {
    * @returns {SmartGoal} A random SmartGoal.
    */
   static randomInstance(): SmartGoal {
-    const numberOfMilestones = getRandomNumber(0, 5); // Assuming a random number of milestones between 0 to 5 for each goal
+    const numberOfMilestones = getRandomNumber(5, 10); // Assuming a random number of milestones between 0 to 5 for each goal
     const milestones = Array.from({ length: numberOfMilestones }, () =>
       MilestoneClass.randomInstance(),
     );
@@ -98,7 +98,7 @@ export class SmartGoalClass implements SmartGoal {
       currentAmount: `$${getRandomNumber(0, 5000)}`,
       milestones: milestones,
       forecasts:
-        Math.random() > 0.5 ? ForecastClass.randomInstance() : undefined,
+        Math.random() > 0.1 ? ForecastClass.randomInstance() : undefined,
     });
   }
 }

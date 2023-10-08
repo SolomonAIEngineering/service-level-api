@@ -1,4 +1,5 @@
 import { IncomeMetrics as IncomeMetrics } from 'src/data-contracts/financial-service/data-contracts';
+import { getRandomNumber } from 'src/lib-utils/utils';
 
 /**
  * Represents the income metrics for a user.
@@ -45,6 +46,38 @@ class IncomeMetricsClass implements IncomeMetrics {
     this.transactionCount = data.transactionCount ?? '0';
     this.totalIncome = data.totalIncome ?? 0;
     this.userId = data.userId ?? '0';
+  }
+
+  /**
+   * Creates a random instance of the income metrics class with all fields populated.
+   * @returns {IncomeMetrics} A random IncomeMetrics.
+   */
+  static randomInstance(): IncomeMetrics {
+    const categories = [
+      'Dining',
+      'Travel',
+      'Groceries',
+      'Entertainment',
+      'Utilities',
+      'Rent',
+      'Shopping',
+      'Transportation',
+      'Healthcare',
+      'Education',
+      // ... add any other categories here
+    ];
+
+    const randomCategory =
+      categories[Math.floor(Math.random() * categories.length)];
+
+    return new IncomeMetricsClass({
+      month: getRandomNumber(1, 12),
+      // randomize the category
+      personalFinanceCategoryPrimary: randomCategory,
+      transactionCount: Math.floor(Math.random() * 100).toString(),
+      totalIncome: Math.floor(Math.random() * 10000),
+      userId: '123',
+    });
   }
 }
 

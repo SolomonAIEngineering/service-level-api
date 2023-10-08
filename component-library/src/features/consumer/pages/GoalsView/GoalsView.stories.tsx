@@ -79,4 +79,19 @@ export const Primary: Story = {
   },
 };
 
+export const GaolView: Story = {
+  args: {
+    // Adjust the default properties for each variant of your component
+    // primary: true,
+    // label: 'GoalsView',
+    goal: SmartGoalClass.randomInstance(),
+    timeline: sampleTimeline,
+    transactions: Array.from({ length: 50 }, () =>
+      TransactionClass.randomInstance(),
+    ).sort((a, b) => new Date(a.time!).getTime() - new Date(b.time!).getTime()),
+    addBudgetCallback: () => {},
+    addMilestoneCallback: () => {},
+  },
+};
+
 // ... Repeat for other variants like Secondary, Large, Small, etc.

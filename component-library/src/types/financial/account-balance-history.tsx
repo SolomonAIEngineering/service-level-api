@@ -68,7 +68,7 @@ class AccountBalanceHistoryClass implements AccountBalanceHistory {
   static randomInstance(): AccountBalanceHistory {
     return new AccountBalanceHistoryClass({
       id: getRandomStringWithPrefix(5, 'BAL-'),
-      time: getRandomDateInRange(2000, 2025).toISOString(),
+      time: getRandomDateInRange(2021, 2023).toISOString(),
       accountId: getRandomStringWithPrefix(5, 'ACC-'),
       isoCurrencyCode: ['USD', 'EUR', 'GBP', 'JPY', 'AUD'][
         getRandomNumber(0, 4)

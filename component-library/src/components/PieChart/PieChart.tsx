@@ -39,13 +39,46 @@ const CustomPieChart: React.FC<ICustomPieChartProps> = ({
   label,
   className,
 }) => {
+  const RADIAN = Math.PI / 180;
+  const renderCustomizedLabel = ({
+    cx,
+    cy,
+    midAngle,
+    innerRadius,
+    outerRadius,
+    percent,
+  }: {
+    cx: number;
+    cy: number;
+    midAngle: number;
+    innerRadius: number;
+    outerRadius: number;
+    percent: number;
+    index: number;
+  }) => {
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+    return (
+      <text
+        x={x}
+        y={y}
+        fill="white"
+        textAnchor={x > cx ? 'start' : 'end'}
+        dominantBaseline="central"
+      >
+        {`${(percent * 100).toFixed(0)}%`}
+      </text>
+    );
+  };
   return (
-    <Card className={cn('w-full sm:min-w-[250px] md:min-w-[400px]', className)}>
+    <Card className={cn('w-full')}>
       <CardHeader>
         <CardTitle className="text-sm sm:text-base">{label}</CardTitle>
       </CardHeader>
       <CardContent className="pl-2">
-        <PieChart width={730} height={250}>
+        <PieChart width={730} height={250} className={className}>
           <Pie
             data={data01}
             dataKey="value"
@@ -54,6 +87,7 @@ const CustomPieChart: React.FC<ICustomPieChartProps> = ({
             cy="50%"
             outerRadius={50}
             fill="#000000"
+            label={renderCustomizedLabel}
           />
           {data02 && (
             <Pie
@@ -65,7 +99,7 @@ const CustomPieChart: React.FC<ICustomPieChartProps> = ({
               innerRadius={60}
               outerRadius={80}
               fill="#708090"
-              label
+              label={renderCustomizedLabel}
             />
           )}
         </PieChart>

@@ -94,7 +94,6 @@ export class HistoricalAccountBalanceChart<
 
   static defaultProps = {
     className: '',
-    historicalAccountBalance: [],
     disableLabel: false,
   };
 
@@ -128,7 +127,7 @@ export class HistoricalAccountBalanceChart<
   }
 
   private averageBalance(data: AccountBalanceHistory[]): number {
-    if (data.length === 0) return 0;
+    if (data == undefined || data.length === 0) return 0;
     return this.totalAccumulation(data) / data.length;
   }
 
@@ -188,7 +187,7 @@ export class HistoricalAccountBalanceChart<
     const { historicalAccountBalance, className, disableLabel } = this.props;
 
     if (
-      historicalAccountBalance === null ||
+      historicalAccountBalance === undefined ||
       historicalAccountBalance.length === 0
     ) {
       return null;

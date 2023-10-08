@@ -1,9 +1,8 @@
 ## [1.39.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.38.0...v1.39.0) (2023-10-08)
 
-
 ### Features
 
-* add goals view ([#16](https://github.com/SolomonAIEngineering/service-level-api/issues/16)) ([c2b91bc](https://github.com/SolomonAIEngineering/service-level-api/commit/c2b91bcfc8e291c78ed76f7d6ede0485191c0f68))
+- add goals view ([#16](https://github.com/SolomonAIEngineering/service-level-api/issues/16)) ([c2b91bc](https://github.com/SolomonAIEngineering/service-level-api/commit/c2b91bcfc8e291c78ed76f7d6ede0485191c0f68))
 
 ## [1.38.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.37.0...v1.38.0) (2023-10-08)
 

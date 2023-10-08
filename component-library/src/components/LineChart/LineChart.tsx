@@ -14,7 +14,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 /**
  * Represents individual data points for the chart.
  */
-interface ChartData {
+export interface ChartData {
   /** The name for this data point (typically represents a unit on the X-axis, like month or day). */
   name: string;
 

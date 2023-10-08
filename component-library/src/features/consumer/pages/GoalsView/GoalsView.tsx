@@ -11,11 +11,11 @@ import {
 import { cn } from 'src/lib-utils/utils';
 import { SmartGoalClass } from 'src/types';
 import GoalTimeline, { TimelineEvent } from './GoalTimeline';
-import DonutStatisticCard from 'src/components/DonutStatisticCard/DonutStatisticCard';
 import { Card } from 'src/components/ui/card';
 import { Button } from 'src/components/ui/button';
 import { PlusIcon } from 'lucide-react';
 import { Calendar } from 'src/components/ui/calendar';
+import GoalSummaryCard from 'src/components/GoalSummaryCard/GoalSummaryCard';
 
 /** Context to provide a default value for the component. */
 const GoalsViewContext = createContext<SmartGoal | undefined>(undefined);
@@ -167,15 +167,13 @@ export class GoalsView<T extends SmartGoal> extends Component<
                     ]}
                   />
                 </Card>
-                <Card className="pt-[15%] px-3 rounded-2xl">
-                  <DonutStatisticCard
-                    percentage={this.computePercentage(
-                      goal.currentAmount!,
-                      goal.targetAmount!,
-                    )}
-                    label={'% Of Goal Completed'}
+                <div className="px-3 rounded-2xl">
+                  <GoalSummaryCard
+                    goal={goal}
+                    currentAmount={Number(goal.currentAmount ?? 0)}
+                    targetAmount={Number(goal.targetAmount ?? 0)}
                   />
-                </Card>
+                </div>
               </div>
             </div>
 
