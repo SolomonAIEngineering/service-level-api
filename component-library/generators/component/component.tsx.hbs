@@ -1,102 +1,93 @@
-{{!-- import * as React from "react"; export type
-{{properCase name}}Props = {} // eslint-disable-next-line @typescript-eslint/no-unused-vars export
-const
-{{properCase name}}
-= (props:
-{{properCase name}}Props) => { return (
-<div>
-  {{properCase name}}
-</div>
-); }; --}}
+{{!-- import * as React from "react"; --}}
 
 import * as React from "react";
-import { createContext, ReactNode, RefObject, Component } from 'react';
+import { createContext, ReactNode, RefObject, Component, ButtonHTMLAttributes } from 'react';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-/** @type {React.Context<string>} */
-const {{properCase name}}Context = createContext<string>('{{properCase name}}ContextValue');
+/** Context to provide a default value for the component. */
+const {{properCase name}}Context = createContext<string>('{{properCase name}}ContextDefaultValue');
 
 export type {{properCase name}}Props<T> = {
+  /** Primary data to be displayed or processed by the component. */
   data: T;
+
+  /** Optional greeting text. Defaults to 'Hello'. */
   greeting?: string;
+
+  /** Optional CSS classes for styling the component. */
   className?: string;
 };
 
 export type {{properCase name}}State = {
-  counter: number;
+/** Counter to keep track of the number of button clicks. */
+counter: number;
 };
 
 /**
- * @class {{properCase name}}
- * @extends {Component<{{properCase name}}Props, {{properCase name}}State>}
- *
- * @description
- * This is a templated advanced React class component written in TypeScript
- * with TSDoc annotations. It has various features like context usage,
- * dynamic styles, generic props, and more.
- */
-export class {{properCase name}}<T> extends Component<{{properCase name}}Props<T>, {{properCase name}}State> {
-  private myRef: RefObject<HTMLDivElement>;
+* @class {{properCase name}}
+* @extends {Component<{{properCase name}}Props, {{properCase name}}State>}
+  *
+  * @description
+  * This is a templated advanced React class component written in TypeScript.
+  * It demonstrates context usage, dynamic styles, generic props, and more.
+  */
+  export class {{properCase name}}<T> extends Component<{{properCase name}}Props<T>, {{properCase name}}State> {
+      /** Reference to the main div element of the component. */
+      private myRef: RefObject<HTMLDivElement>;
 
-  static defaultProps = {
-    greeting: 'Hello',
-  };
+        static defaultProps = {
+        greeting: 'Hello',
+        };
 
-  constructor(props: {{properCase name}}Props<T>) {
-    super(props);
-    this.state = {
-      counter: 0,
-    };
+        constructor(props: {{properCase name}}Props<T>) {
+          super(props);
+          this.state = {
+          counter: 0,
+          };
 
-    this.myRef = React.createRef();
-    this.incrementCounter = this.incrementCounter.bind(this);
+          this.myRef = React.createRef();
+          this.incrementCounter = this.incrementCounter.bind(this);
+          }
+
+          /**
+          * Lifecycle method that runs after the component has been mounted.
+          */
+          componentDidMount() {
+          // You can use the ref here, for example:
+          if (this.myRef.current) {
+          this.myRef.current.focus();
+          }
+          }
+
+          /**
+          * Increments the counter state property.
+          * @private
+          */
+          private incrementCounter(event: React.MouseEvent<HTMLButtonElement>): void {
+            event.preventDefault();
+            this.setState((prevState) => ({ counter: prevState.counter + 1 }));
+            }
+
+            /**
+            * Renders the component.
+            * @returns {ReactNode}
+            */
+            render(): ReactNode {
+            const { greeting, data, className } = this.props;
+            const { counter } = this.state;
+
+            return (
+            <{{properCase name}}Context.Consumer>
+              {(contextValue) => (
+              <div role="presentation" className={className} ref={this.myRef}>
+                {greeting} from {{properCase name}}! Context Value: {contextValue}
+                <p>Counter: {counter}</p>
+                <p>Data Prop Value: {JSON.stringify(data)}</p>
+                <button onClick={this.incrementCounter} aria-label="Increment counter">
+                  Increment
+                </button>
+              </div>
+              )}
+            </{{properCase name}}Context.Consumer>
+            );
+      }
   }
-
-  /** Lifecycle method when the component is about to mount. */
-  componentWillMount() {
-    // Deprecated lifecycle, use with caution!
-  }
-
-  /**
-   * Lifecycle method that runs after the component has been mounted.
-   */
-  componentDidMount() {
-    // You can use the ref here, for example:
-    if (this.myRef.current) {
-      this.myRef.current.focus();
-    }
-  }
-
-  /**
-   * Increments the counter state property.
-   * @private
-   */
-  private incrementCounter(): void {
-    this.setState((prevState) => ({ counter: prevState.counter + 1 }));
-  }
-
-  /**
-   * Renders the component.
-   * @returns {ReactNode}
-   */
-  render(): ReactNode {
-    const { greeting, data, className } = this.props;
-    const { counter } = this.state;
-
-    return (
-      <{{properCase name}}Context.Consumer>
-        {(contextValue) => (
-          <div
-            className={className}
-            ref={this.myRef}
-          >
-            {greeting} from {{properCase name}}! Context Value: {contextValue}
-            <p>Counter: {counter}</p>
-            <p>{`Data Prop Value: ${data}`}</p>
-            <button onClick={this.incrementCounter}>Increment</button>
-          </div>
-        )}
-      </{{properCase name}}Context.Consumer>
-    );
-  }
-}

@@ -1,16 +1,14 @@
 ## [1.38.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.37.0...v1.38.0) (2023-10-08)
 
-
 ### Features
 
-* add various charting graphs ([#14](https://github.com/SolomonAIEngineering/service-level-api/issues/14)) ([c24ff37](https://github.com/SolomonAIEngineering/service-level-api/commit/c24ff3794f14dcd5be3b95271f272d3655008160))
+- add various charting graphs ([#14](https://github.com/SolomonAIEngineering/service-level-api/issues/14)) ([c24ff37](https://github.com/SolomonAIEngineering/service-level-api/commit/c24ff3794f14dcd5be3b95271f272d3655008160))
 
 ## [1.37.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.36.0...v1.37.0) (2023-10-08)
 
-
 ### Features
 
-* update go-release command ([3ef397c](https://github.com/SolomonAIEngineering/service-level-api/commit/3ef397c139de7e43159678470234a40f934d64df))
+- update go-release command ([3ef397c](https://github.com/SolomonAIEngineering/service-level-api/commit/3ef397c139de7e43159678470234a40f934d64df))
 
 ## [1.36.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.35.0...v1.36.0) (2023-10-08)
 

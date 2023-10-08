@@ -37,7 +37,7 @@ const SimpleStatsCard: React.FC<SimpleStatsCardProps> = ({
   className,
 }) => (
   <div
-    className={`rounded-lg shadow-md bg-white p-4 md:p-6 space-y-3 ${
+    className={`rounded-lg shadow-md bg-white border p-4 md:p-6 space-y-3 ${
       className || ''
     }`}
   >

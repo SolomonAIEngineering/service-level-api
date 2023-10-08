@@ -35,7 +35,7 @@ module.exports = {
     const componentGeneratePath =
       !answers.feature || answers.feature === 'ROOT'
         ? 'src/components/{{folder}}'
-        : 'src/features/{{feature}}/components';
+        : 'src/features/{{feature}}/pages';
     return [
       {
         type: 'add',
