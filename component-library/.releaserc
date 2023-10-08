@@ -14,21 +14,25 @@
     [
       "@semantic-release/commit-analyzer",
       {
-        "preset": "conventionalcommits",
+        "preset": "conventionalcommits",        
         "parserOpts": {
           "noteKeywords": [
             "BREAKING CHANGE",
             "BREAKING CHANGES"
           ]
-        },
+        },       
         "releaseRules": [
           {
             "type": "chore",
-            "release": false
+            "release": "false"
           },
           {
             "type": "refactor",
             "release": "patch"
+          },
+          {
+            "type": "feat",
+            "release": "minor"
           }
         ]
       }
