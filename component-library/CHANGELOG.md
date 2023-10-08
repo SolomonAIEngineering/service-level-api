@@ -1,3 +1,10 @@
+## [1.38.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.37.0...v1.38.0) (2023-10-08)
+
+
+### Features
+
+* add various charting graphs ([#14](https://github.com/SolomonAIEngineering/service-level-api/issues/14)) ([c24ff37](https://github.com/SolomonAIEngineering/service-level-api/commit/c24ff3794f14dcd5be3b95271f272d3655008160))
+
 ## [1.37.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.36.0...v1.37.0) (2023-10-08)
 
 
