@@ -1,23 +1,46 @@
 import * as React from 'react';
 import { createContext, ReactNode, RefObject, Component } from 'react';
+import BudgetCard from 'src/components/BudgetCard/BudgetCard';
+import SimpleStatsCard from 'src/components/StatisticCard/SimpleStatisticCard';
+import { TransactionDataTable } from 'src/components/TransactionDataTable';
+import { Label } from 'src/components/ui/label';
+import {
+  SmartGoal,
+  Transaction,
+} from 'src/data-contracts/financial-service/data-contracts';
+import { cn } from 'src/lib-utils/utils';
+import { SmartGoalClass } from 'src/types';
+import GoalTimeline, { TimelineEvent } from './GoalTimeline';
+import DonutStatisticCard from 'src/components/DonutStatisticCard/DonutStatisticCard';
+import { Card } from 'src/components/ui/card';
+import { Button } from 'src/components/ui/button';
+import { PlusIcon } from 'lucide-react';
+import { Calendar } from 'src/components/ui/calendar';
 
 /** Context to provide a default value for the component. */
-const GoalsViewContext = createContext<string>('GoalsViewContextDefaultValue');
+const GoalsViewContext = createContext<SmartGoal | undefined>(undefined);
 
-export type GoalsViewProps<T> = {
+export type GoalsViewProps<T extends SmartGoal> = {
   /** Primary data to be displayed or processed by the component. */
-  data: T;
-
-  /** Optional greeting text. Defaults to 'Hello'. */
-  greeting?: string;
+  goal: T;
 
   /** Optional CSS classes for styling the component. */
   className?: string;
+
+  // enable demo mode in order to use spoofed data instead of real data
+  enableDemoMode?: boolean;
+
+  // recent transactions tied to the goal of interest
+  transactions?: Transaction[];
+
+  timeline?: TimelineEvent[];
+  addBudgetCallback: () => void;
+  addMilestoneCallback: () => void;
 };
 
-export type GoalsViewState = {
+export type GoalsViewState<T extends SmartGoal> = {
   /** Counter to keep track of the number of button clicks. */
-  counter: number;
+  goal: T;
 };
 
 /**
@@ -28,22 +51,25 @@ export type GoalsViewState = {
  * This is a templated advanced React class component written in TypeScript.
  * It demonstrates context usage, dynamic styles, generic props, and more.
  */
-export class GoalsView<T> extends Component<GoalsViewProps<T>, GoalsViewState> {
+export class GoalsView<T extends SmartGoal> extends Component<
+  GoalsViewProps<T>,
+  GoalsViewState<T>
+> {
   /** Reference to the main div element of the component. */
   private myRef: RefObject<HTMLDivElement>;
 
-  static defaultProps = {
-    greeting: 'Hello',
-  };
+  static defaultProps = {};
 
   constructor(props: GoalsViewProps<T>) {
     super(props);
     this.state = {
-      counter: 0,
+      goal: props.goal,
     };
 
     this.myRef = React.createRef();
-    this.incrementCounter = this.incrementCounter.bind(this);
+    this.getMilestones = this.getMilestones.bind(this);
+    this.getBudgets = this.getBudgets.bind(this);
+    this.computePercentage = this.computePercentage.bind(this);
   }
 
   /**
@@ -56,13 +82,43 @@ export class GoalsView<T> extends Component<GoalsViewProps<T>, GoalsViewState> {
     }
   }
 
+  // function used to get all milestones tied to the current goal
+  getMilestones() {
+    const { goal } = this.state;
+
+    return goal.milestones;
+  }
+
+  // function used to get all budgets across all milestones tied to the current goal
+  getBudgets() {
+    const { goal } = this.state;
+
+    if (!goal.milestones) {
+      return [];
+    }
+
+    return goal.milestones.map((milestone) => milestone.budget);
+  }
+
   /**
-   * Increments the counter state property.
-   * @private
+   * Computes the percentage of two numbers represented as strings, potentially prefixed with `$`.
+   *
+   * @param numeratorStr - The numerator as a string.
+   * @param denominatorStr - The denominator as a string.
+   * @returns The percentage (numerator/denominator * 100) or NaN if inputs are not valid numbers.
    */
-  private incrementCounter(event: React.MouseEvent<HTMLButtonElement>): void {
-    event.preventDefault();
-    this.setState((prevState) => ({ counter: prevState.counter + 1 }));
+  computePercentage(numeratorStr: string, denominatorStr: string): number {
+    // Remove potential `$` prefix and parse strings to numbers
+    const numerator = parseFloat(numeratorStr.replace('$', ''));
+    const denominator = parseFloat(denominatorStr.replace('$', ''));
+
+    // Check if both values are valid numbers
+    if (isNaN(numerator) || isNaN(denominator) || denominator === 0) {
+      return NaN;
+    }
+
+    // Compute and return the percentage
+    return Number(((numerator / denominator) * 100).toFixed(2));
   }
 
   /**
@@ -70,25 +126,127 @@ export class GoalsView<T> extends Component<GoalsViewProps<T>, GoalsViewState> {
    * @returns {ReactNode}
    */
   render(): ReactNode {
-    const { greeting, data, className } = this.props;
-    const { counter } = this.state;
+    const {
+      className,
+      enableDemoMode,
+      transactions,
+      timeline,
+      addMilestoneCallback,
+      addBudgetCallback,
+    } = this.props;
+    const { goal } = this.state;
+    const budgets = this.getBudgets();
+    const milestones = this.getMilestones();
 
     return (
-      <GoalsViewContext.Consumer>
-        {(contextValue) => (
-          <div role="presentation" className={className} ref={this.myRef}>
-            {greeting} from GoalsView! Context Value: {contextValue}
-            <p>Counter: {counter}</p>
-            <p>Data Prop Value: {JSON.stringify(data)}</p>
-            <button
-              onClick={this.incrementCounter}
-              aria-label="Increment counter"
-            >
-              Increment
-            </button>
+      <GoalsViewContext.Provider
+        value={enableDemoMode ? SmartGoalClass.randomInstance() : goal}
+      >
+        <div className={cn('w-fit', className)} ref={this.myRef}>
+          {/** left column which will display most of goal level data */}
+          <div className="md:col-span-2">
+            <div className="flex flex-row justify-between">
+              <Label>
+                <div className="font-semibold">
+                  {' '}
+                  <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+                    {goal.name || 'Goal Name'}
+                  </h1>
+                  <p className="mt-6 text-lg leading-8 text-gray-600">
+                    {goal.description || 'Goal Description'}
+                  </p>
+                </div>
+              </Label>
+              <div className="flex flex-row gap-2">
+                <Card className="rounded-2xl">
+                  <Calendar
+                    mode="multiple"
+                    selected={[
+                      new Date(goal.startDate ?? ''),
+                      new Date(goal.endDate ?? ''),
+                    ]}
+                  />
+                </Card>
+                <Card className="pt-[15%] px-3 rounded-2xl">
+                  <DonutStatisticCard
+                    percentage={this.computePercentage(
+                      goal.currentAmount!,
+                      goal.targetAmount!,
+                    )}
+                    label={'% Of Goal Completed'}
+                  />
+                </Card>
+              </div>
+            </div>
+
+            {milestones && milestones.length > 0 && (
+              <div className="flex flex-col py-5">
+                <div className="flex flex-row gap-3 py-2">
+                  <Label className="text-2xl font-bold">Milestones</Label>
+                  <Button onClick={() => addMilestoneCallback()}>
+                    <PlusIcon className="w-4 h-4" />
+                    <div className="text-sm font-semibold">Add Milestone</div>
+                  </Button>
+                </div>
+                <div className="flex flex-row">
+                  <div className="flex flex-wrap gap-3">
+                    {milestones?.map((milestone) => (
+                      <SimpleStatsCard
+                        title={milestone.name ?? 'milestone name'}
+                        metric={milestone.targetAmount ?? 0}
+                        subtext="milestone target amount"
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <div className="grid grid-cols-2 gap-3">
+              {budgets && budgets.length > 0 && (
+                <div>
+                  <div className="py-[5%]">
+                    <div className="flex flex-row gap-3 py-2">
+                      <Label className="text-2xl font-bold">Budgets</Label>
+                      <Button onClick={() => addBudgetCallback()}>
+                        <PlusIcon className="w-4 h-4" />
+                        <div className="text-sm font-semibold">Add Budget</div>
+                      </Button>
+                    </div>
+                    <div className="flex flex-row">
+                      <div className="grid grid-cols-2 gap-3">
+                        {budgets.map((budget) => {
+                          if (budget === undefined) return null;
+
+                          return <BudgetCard budget={budget} />;
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+              {timeline && timeline.length > 0 && (
+                <div>
+                  <GoalTimeline timeline={timeline ?? []} />
+                </div>
+              )}
+            </div>
+
+            <div className="py-[5%]">
+              <Label>
+                <div className="text-2xl font-semibold">
+                  Transactions That May Impact Your Goal
+                </div>
+              </Label>
+              <TransactionDataTable
+                transactions={transactions || []}
+                className="w-full"
+              />
+            </div>
           </div>
-        )}
-      </GoalsViewContext.Consumer>
+          {/** right column which will display goal progress */}
+        </div>
+      </GoalsViewContext.Provider>
     );
   }
 }
