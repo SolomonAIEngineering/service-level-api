@@ -22,3 +22,8 @@ export * from './GoalSummaryCard';
 export * from './StatisticCard';
 export * from './TransactionCard';
 export * from './Container';
+export * from './BarGraph';
+export * from './LineChart';
+export * from './PieChart';
+export * from './AreaChart';
+export * from './ScatterChart';
