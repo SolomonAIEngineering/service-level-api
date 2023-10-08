@@ -42,7 +42,7 @@ const SimpleStatsCard: React.FC<SimpleStatsCardProps> = ({
     }`}
   >
     <h2 className="text-lg md:text-xl font-semibold">{title}</h2>
-    <div className="text-3xl font-bold">{metric}</div>
+    <div className="text-2xl font-bold">{metric}</div>
     {subtext && <p className="text-gray-600 md:text-gray-700">{subtext}</p>}
   </div>
 );

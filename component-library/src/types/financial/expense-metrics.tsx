@@ -1,4 +1,5 @@
 import { ExpenseMetrics as ExpenseMetrics } from 'src/data-contracts/financial-service/data-contracts';
+import { getRandomNumber } from 'src/lib-utils/utils';
 
 /**
  * Represents the expense metrics related to a user's personal finance.
@@ -45,6 +46,38 @@ class ExpenseMetricsClass implements ExpenseMetrics {
     this.transactionCount = data.transactionCount ?? '0';
     this.totalExpenses = data.totalExpenses ?? 0;
     this.userId = data.userId ?? '0';
+  }
+
+  /**
+   * Creates a random instance of the expense metrics class with all fields populated.
+   * @returns {ExpenseMetrics} A random ExpenseMetrics.
+   */
+  static randomInstance(): ExpenseMetrics {
+    const categories = [
+      'Dining',
+      'Travel',
+      'Groceries',
+      'Entertainment',
+      'Utilities',
+      'Rent',
+      'Shopping',
+      'Transportation',
+      'Healthcare',
+      'Education',
+      // ... add any other categories here
+    ];
+
+    const randomCategory =
+      categories[Math.floor(Math.random() * categories.length)];
+
+    return new ExpenseMetricsClass({
+      month: getRandomNumber(1, 12),
+      // randomize the category
+      personalFinanceCategoryPrimary: randomCategory,
+      transactionCount: Math.floor(Math.random() * 100).toString(),
+      totalExpenses: Math.floor(Math.random() * 10000),
+      userId: '123',
+    });
   }
 }
 
