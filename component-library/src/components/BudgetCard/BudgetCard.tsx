@@ -47,7 +47,7 @@ const BudgetCard: React.FC<BudgetProps> = ({ budget }) => {
           <p className="text-xs font-semibold">Category</p>
           <h3 className="text-lg font-bold">{budget.category.name}</h3>
           <p className="text-gray-700 text-sm">{budget.category.description}</p>
-          <ul className="flex flex-row gap-2">
+          <ul className="flex flex-wrap gap-2">
             {budget.category.subcategories?.map((sub, index) => (
               <Label
                 key={index}
