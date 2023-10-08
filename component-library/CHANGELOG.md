@@ -1,3 +1,10 @@
+## [1.37.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.36.0...v1.37.0) (2023-10-08)
+
+
+### Features
+
+* update go-release command ([3ef397c](https://github.com/SolomonAIEngineering/service-level-api/commit/3ef397c139de7e43159678470234a40f934d64df))
+
 ## [1.36.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.35.0...v1.36.0) (2023-10-08)
 
 
