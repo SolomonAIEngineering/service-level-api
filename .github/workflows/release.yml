@@ -1,9 +1,14 @@
-name: Npm Release
+name: Golang and Npm Release
+
 on:
   push:
     branches:
       - main
-
+  pull_request:
+    branches:
+      - main
+    types:
+      - closed
 
 permissions:
   actions: write
@@ -21,27 +26,52 @@ permissions:
   statuses: write
 
 defaults:
- run:
-  working-directory: ./component-library
-  
+  run:
+    working-directory: .
+
 jobs:
-  release:
-    name: release
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v4
+        with:
+          go-version: 1.21
+      - run: go test -v ./...
+
+  release-golang:
+    needs: test
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3 # This action checks-out your repository under $GITHUB_WORKSPACE, so your workflow can access it.
+        uses: actions/checkout@v4
+      - uses: go-semantic-release/action@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          changelog-file: CHANGELOG.md
+          update-file: pkg/version/version.go
+          dry: true
+
+  release-component-library:
+    needs: release-golang
+    name: npm-release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
-          registry-url: "https://registry.npmjs.org" # This registry URL is necessary for publishing on NPM
+          registry-url: "https://registry.npmjs.org"
       - name: Install Dependencies
+        working-directory: ./component-library
         run: npm ci
       - name: Release
+        working-directory: ./component-library
         env:
-          HUSKY: 0 # skip the husky hooks
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # should be set in Github repo, need this to publish on NPM
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # automatically provided by Github Actions, need this to create a GitHub Release
-        run: |
-          npx semantic-release
+          HUSKY: 0
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
