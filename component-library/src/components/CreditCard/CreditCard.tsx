@@ -30,7 +30,7 @@ const CreditCard: React.FC<CreditCardProps> = ({
         <div>{cardholderName}</div>
         <div>{expiryDate}</div>
       </div>
-      <div className="text-sm">CVV: {cvv}</div>
+      <div className="text-sm">CVV: {cvv.length > 0 ? cvv : 'XXXX'}</div>
     </div>
   );
 };

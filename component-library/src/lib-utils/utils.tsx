@@ -8,6 +8,7 @@ import {
   PlaidLinkOnEventMetadata,
   PlaidLinkError,
 } from 'react-plaid-link';
+import { PocketType } from 'src/data-contracts/financial-service/data-contracts';
 
 /**
  * Creates a string of CSS classes.
@@ -332,5 +333,28 @@ export const formatFrequency = (frequency: string): string => {
       return 'Unrecognized';
     default:
       return 'Unknown';
+  }
+};
+
+export const formatPocketType = (type: PocketType): string => {
+  switch (type) {
+    case 'POCKET_TYPE_UNSPECIFIED':
+      return 'Unspecified';
+    case 'POCKET_TYPE_DISCRETIONARY_SPENDING':
+      return 'Discretionary Spending';
+    case 'POCKET_TYPE_FUN_MONEY':
+      return 'Fun Money';
+    case 'POCKET_TYPE_DEBT_REDUCTION':
+      return 'Debt Reduction';
+    case 'POCKET_TYPE_EMERGENCY_FUND':
+      return 'Emergency Fund';
+    case 'POCKET_TYPE_INVESTMENT':
+      return 'Investment';
+    case 'POCKET_TYPE_SHORT_TERM_SAVINGS':
+      return 'Short Term Savings';
+    case 'POCKET_TYPE_LONG_TERM_SAVINGS':
+      return 'Long Term Savings';
+    default:
+      return 'Unknown Type';
   }
 };
