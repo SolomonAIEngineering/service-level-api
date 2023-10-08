@@ -272,7 +272,7 @@ const AskSolomonAILayout: React.FC<{
             <BrainCircuit className="h-6 w-6 bg-white text-black font-bold rounded-md p-1" />
             <SelectValue placeholder="Ask Solomon AI" />
           </SelectTrigger>
-          <SelectContent className="relative p-1 w-fit md:h-[400px]  md:min-w-[500px] md:max-w-md lg:h-[400px] rounded-2xl bg-white border-4 border-gray-300 shadow-md overflow-auto">
+          <SelectContent className="relative p-1 md:h-[400px]  md:max-w-[350px] md:min-w-[500px] md:max-w-md lg:h-[400px] rounded-2xl bg-white border-4 border-gray-300 shadow-md overflow-auto">
             <SelectGroup className="p-2">
               <ScrollArea>
                 {messages.map(({ content, role }, index) => (
