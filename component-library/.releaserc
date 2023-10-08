@@ -24,7 +24,7 @@
         "releaseRules": [
           {
             "type": "chore",
-            "release": "false"
+            "release": "prepatch"
           },
           {
             "type": "refactor",
