@@ -57,6 +57,7 @@ func GetDatabaseSchemas() []interface{} {
 		TransactionLineItemORM{},
 		VendorCreditORM{},
 		VendorCreditLineORM{},
+		PersonalActionableInsightORM{},
 	}
 
 	return models

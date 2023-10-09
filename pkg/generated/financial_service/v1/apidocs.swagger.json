@@ -8026,6 +8026,67 @@
       },
       "description": "PaymentChannelMonthlyExpenditure\nThis message is used to represent the monthly expenditure of a payment channel."
     },
+    "PersonalActionableInsight": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "insightName": {
+          "$ref": "#/definitions/PersonalActionableInsightName",
+          "title": "insight name"
+        },
+        "description": {
+          "type": "string",
+          "title": "insight description"
+        },
+        "takeaway": {
+          "type": "string",
+          "title": "insight takeaway"
+        },
+        "action": {
+          "type": "string",
+          "title": "insight action"
+        },
+        "expectedBenefit": {
+          "type": "string",
+          "title": "insight expected benefit"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "insight tags"
+        },
+        "generatedTime": {
+          "type": "string",
+          "format": "date-time",
+          "title": "insight generated time"
+        },
+        "metricsToOptimizeFor": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "metrics to optimize for"
+        }
+      }
+    },
+    "PersonalActionableInsightName": {
+      "type": "string",
+      "enum": [
+        "PERSONAL_ACTIONABLE_INSIGHT_NAME_UNSPECIFIED",
+        "PERSONAL_ACTIONABLE_INSIGHT_NAME_EXPENSE",
+        "PERSONAL_ACTIONABLE_INSIGHT_NAME_EMERGENCY_FUND",
+        "PERSONAL_ACTIONABLE_INSIGHT_NAME_DEBT_PRIORITIZATION",
+        "PERSONAL_ACTIONABLE_INSIGHT_NAME_NON_ESSENTIAL_EXPENSES",
+        "PERSONAL_ACTIONABLE_INSIGHT_NAME_NON_SUBSCRIPTIONS",
+        "PERSONAL_ACTIONABLE_INSIGHT_NAME_DISCRETIONARY_SPENDING"
+      ],
+      "default": "PERSONAL_ACTIONABLE_INSIGHT_NAME_UNSPECIFIED"
+    },
     "PlaidExchangeTokenRequest": {
       "type": "object",
       "properties": {
@@ -9597,6 +9658,13 @@
           "items": {
             "type": "object",
             "$ref": "#/definitions/MergeLink"
+          }
+        },
+        "actionablePersonalInsights": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/PersonalActionableInsight"
           }
         }
       },
