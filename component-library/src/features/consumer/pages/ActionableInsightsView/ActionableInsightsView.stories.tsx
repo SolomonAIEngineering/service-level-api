@@ -4,6 +4,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { ActionableInsightsView } from './ActionableInsightsView';
+import { PersonalActionableInsightClass } from 'src/types/financial/personal-actionable-insight';
+import { FinancialProfileMetricsClass } from 'src/types';
+import { PersonalActionableInsight } from 'src/data-contracts/financial-service/data-contracts';
 
 const meta: Meta<typeof ActionableInsightsView> = {
   title: 'Features/ActionableInsightsView',
@@ -15,19 +18,37 @@ const meta: Meta<typeof ActionableInsightsView> = {
   argTypes: {
     // Customize the controls for the properties of your component as needed
     // Example:
-    // backgroundColor: { control: 'color' },
+    // className: { control: 'text' },
   },
 } satisfies Meta<typeof ActionableInsightsView>;
 
 export default meta;
+
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
+const generateUniqueInsights = (length: number) => {
+  const insights: PersonalActionableInsight[] = [];
+  const existingNames: Set<string> = new Set();
+
+  while (insights.length < length) {
+    const insight = PersonalActionableInsightClass.randomInstance();
+    if (insight.insightName && !existingNames.has(insight.insightName)) {
+      existingNames.add(insight.insightName);
+      insights.push(insight);
+    }
+  }
+
+  return insights;
+};
+
+export const DefaultInsightsView: Story = {
   args: {
-    // Adjust the default properties for each variant of your component
-    // primary: true,
-    // label: 'ActionableInsightsView',
+    insights: generateUniqueInsights(5),
+
+    historicalFinancialProfile: Array.from({ length: 20 }, () =>
+      FinancialProfileMetricsClass.randomInstance(),
+    ),
   },
 };
 
-// ... Repeat for other variants like Secondary, Large, Small, etc.
+// Add more stories as needed
