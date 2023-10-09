@@ -56,7 +56,7 @@ export const Income: Story = {
     ).sort((a, b) => new Date(a.time!).getTime() - new Date(b.time!).getTime()),
     data: Array.from(
       { length: 20 },
-      () => IncomeMetricsClass.randomInstance() as ExpenseMetricsClass,
+      () => IncomeMetricsClass.randomInstance() as IncomeMetricsClass,
     ).sort((a, b) => (a.month && b.month ? a.month - b.month : 0)),
     transactions: Array.from({ length: 20 }, () =>
       TransactionClass.randomInstance(),
