@@ -1,3 +1,10 @@
+## [1.42.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.41.0...v1.42.0) (2023-10-09)
+
+
+### Features
+
+* add actionable insight ([d4f306d](https://github.com/SolomonAIEngineering/service-level-api/commit/d4f306dec21c5e515250e08f55c0659bca12d24d))
+
 ## [1.41.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.40.0...v1.41.0) (2023-10-09)
 
 ### Features
