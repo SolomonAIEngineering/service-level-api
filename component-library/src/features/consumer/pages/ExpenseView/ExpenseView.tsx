@@ -87,6 +87,19 @@ export class ExpenseIncomeView<T extends CompoundMetricType> extends Component<
       selectedDateRangeOfEvaluation: '30 Days',
     };
 
+    this.convertToChartData = this.convertToChartData.bind(this);
+    this.getNumberOfTransactionsPerCategory =
+      this.getNumberOfTransactionsPerCategory.bind(this);
+    this.aggregateTransactionsByMonthAndConvertToChartData =
+      this.aggregateTransactionsByMonthAndConvertToChartData.bind(this);
+    this.setSelectedDateRangeOfEvaluation =
+      this.setSelectedDateRangeOfEvaluation.bind(this);
+    this.monthNumberToString = this.monthNumberToString.bind(this);
+    this.getMetricsForMonth = this.getMetricsForMonth.bind(this);
+    this.getTopCategories = this.getTopCategories.bind(this);
+    this.getHistoricalAccountBalance =
+      this.getHistoricalAccountBalance.bind(this);
+
     this.myRef = React.createRef();
   }
 
