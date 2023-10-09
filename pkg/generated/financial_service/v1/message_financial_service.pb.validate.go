@@ -319,6 +319,40 @@ func (m *UserProfile) validate(all bool) error {
 
 	}
 
+	for idx, item := range m.GetActionablePersonalInsights() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, UserProfileValidationError{
+						field:  fmt.Sprintf("ActionablePersonalInsights[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, UserProfileValidationError{
+						field:  fmt.Sprintf("ActionablePersonalInsights[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return UserProfileValidationError{
+					field:  fmt.Sprintf("ActionablePersonalInsights[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
 	if len(errors) > 0 {
 		return UserProfileMultiError(errors)
 	}
@@ -532,6 +566,149 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ActionableInsightValidationError{}
+
+// Validate checks the field values on PersonalActionableInsight with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *PersonalActionableInsight) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PersonalActionableInsight with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// PersonalActionableInsightMultiError, or nil if none found.
+func (m *PersonalActionableInsight) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PersonalActionableInsight) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	// no validation rules for InsightName
+
+	// no validation rules for Description
+
+	// no validation rules for Takeaway
+
+	// no validation rules for Action
+
+	// no validation rules for ExpectedBenefit
+
+	if all {
+		switch v := interface{}(m.GetGeneratedTime()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PersonalActionableInsightValidationError{
+					field:  "GeneratedTime",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PersonalActionableInsightValidationError{
+					field:  "GeneratedTime",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetGeneratedTime()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PersonalActionableInsightValidationError{
+				field:  "GeneratedTime",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return PersonalActionableInsightMultiError(errors)
+	}
+
+	return nil
+}
+
+// PersonalActionableInsightMultiError is an error wrapping multiple validation
+// errors returned by PersonalActionableInsight.ValidateAll() if the
+// designated constraints aren't met.
+type PersonalActionableInsightMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PersonalActionableInsightMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PersonalActionableInsightMultiError) AllErrors() []error { return m }
+
+// PersonalActionableInsightValidationError is the validation error returned by
+// PersonalActionableInsight.Validate if the designated constraints aren't met.
+type PersonalActionableInsightValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PersonalActionableInsightValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PersonalActionableInsightValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PersonalActionableInsightValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PersonalActionableInsightValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PersonalActionableInsightValidationError) ErrorName() string {
+	return "PersonalActionableInsightValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e PersonalActionableInsightValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPersonalActionableInsight.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PersonalActionableInsightValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PersonalActionableInsightValidationError{}
 
 // Validate checks the field values on Link with the rules defined in the proto
 // definition for this message. If any rules are violated, the first error

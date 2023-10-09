@@ -8,7 +8,10 @@ import {
   PlaidLinkOnEventMetadata,
   PlaidLinkError,
 } from 'react-plaid-link';
-import { PocketType } from 'src/data-contracts/financial-service/data-contracts';
+import {
+  PersonalActionableInsightName,
+  PocketType,
+} from 'src/data-contracts/financial-service/data-contracts';
 
 /**
  * Creates a string of CSS classes.
@@ -357,4 +360,17 @@ export const formatPocketType = (type: PocketType): string => {
     default:
       return 'Unknown Type';
   }
+};
+
+export const convertToReadablePersonalInsightName = (
+  insightName: PersonalActionableInsightName,
+): string => {
+  // Splitting based on underscore
+  const words = insightName.split('_');
+
+  // Removing redundant prefix and returning the cleaned, joined string
+  return words
+    .slice(3)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(' ');
 };

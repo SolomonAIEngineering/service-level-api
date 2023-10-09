@@ -87,6 +87,17 @@ enum CategoryType {
     CATEGORY_TYPE_CLASS = 2;
 }
 
+enum PersonalActionableInsightName {
+  PERSONAL_ACTIONABLE_INSIGHT_NAME_UNSPECIFIED = 0;
+  PERSONAL_ACTIONABLE_INSIGHT_NAME_EXPENSE = 1;
+  PERSONAL_ACTIONABLE_INSIGHT_NAME_EMERGENCY_FUND = 2;
+  PERSONAL_ACTIONABLE_INSIGHT_NAME_DEBT_PRIORITIZATION = 3;
+  PERSONAL_ACTIONABLE_INSIGHT_NAME_NON_ESSENTIAL_EXPENSES = 4;
+  PERSONAL_ACTIONABLE_INSIGHT_NAME_NON_SUBSCRIPTIONS = 5;
+  PERSONAL_ACTIONABLE_INSIGHT_NAME_DISCRETIONARY_SPENDING = 6;
+
+}
+
 // StripeSubscription stores high level stripe subscription details of which the user profile has
 message StripeSubscription {
   option (gorm.opts) = {ormable: true};
@@ -125,6 +136,7 @@ message UserProfile {
   repeated ActionableInsight actionable_insights = 7 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
   string email = 8;
   repeated MergeLink merge_liink = 9;
+  repeated PersonalActionableInsight actionable_personal_insights = 10 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
 }
 
 
@@ -141,6 +153,27 @@ message ActionableInsight {
   google.protobuf.Timestamp generated_time = 4;
   // associated tags with the generated insights
   repeated string tags = 5;
+}
+
+message PersonalActionableInsight {
+  option (gorm.opts) = {ormable: true};
+  uint64 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+  // insight name
+  PersonalActionableInsightName insight_name = 2;
+  // insight description
+  string description = 3;
+  // insight takeaway
+  string takeaway = 4;
+  // insight action
+  string action = 5;
+  // insight expected benefit
+  string expected_benefit = 6;
+  // insight tags
+  repeated string tags = 7;
+  // insight generated time
+  google.protobuf.Timestamp generated_time = 8;
+  // metrics to optimize for
+  repeated string metrics_to_optimize_for = 9;
 }
 
 // A Link represents a login at a financial institution. A single end-user of your application might have accounts at different financial

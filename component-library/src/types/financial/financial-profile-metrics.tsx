@@ -1,3 +1,5 @@
+import { FinancialProfile } from 'src/data-contracts/financial-service/data-contracts';
+
 /**
  * Represents the comprehensive financial profile of a user.
  *
@@ -26,26 +28,49 @@
  * @property mostExpensiveCategory - The category in which the user spent the most during that month.
  * @property userId - The user ID associated with this financial profile.
  */
-class FinancialProfileMetricsClass {
-  month: number;
-  totalIncome: number;
-  totalExpenses: number;
-  numberOfTransactions: number;
-  mostExpensiveCategory: string;
-  userId: number;
-
+class FinancialProfileMetricsClass implements FinancialProfile {
   /**
    * Constructs a new FinancialProfileMetrics instance.
    *
    * @param data - Initialization data for the financial profile.
    */
   constructor(data: Partial<FinancialProfileMetricsClass> = {}) {
-    this.month = data.month ?? 0;
-    this.totalIncome = data.totalIncome ?? 0;
-    this.totalExpenses = data.totalExpenses ?? 0;
-    this.numberOfTransactions = data.numberOfTransactions ?? 0;
-    this.mostExpensiveCategory = data.mostExpensiveCategory ?? '';
-    this.userId = data.userId ?? 0;
+    if (data) {
+      Object.assign(this, {
+        ...data,
+      });
+    }
+  }
+
+  static randomInstance(): FinancialProfile {
+    const randomMonth = (): number => Math.floor(Math.random() * 12) + 1;
+
+    const categories = [
+      'Dining',
+      'Entertainment',
+      'Groceries',
+      'Travel',
+      'Utilities',
+      'Rent',
+    ];
+
+    const randomCategory = (): string =>
+      categories[Math.floor(Math.random() * categories.length)];
+
+    const randomAmount = (): number =>
+      parseFloat((Math.random() * 10000).toFixed(2));
+
+    const randomTransactionCount = (): string =>
+      Math.floor(Math.random() * 1000).toString();
+
+    return new FinancialProfileMetricsClass({
+      month: randomMonth(),
+      mostExpensiveCategory: randomCategory(),
+      numberOfTransactions: randomTransactionCount(),
+      totalExpenses: randomAmount(),
+      totalIncome: randomAmount(),
+      userId: Math.floor(Math.random() * 100000).toString(),
+    });
   }
 }
 
