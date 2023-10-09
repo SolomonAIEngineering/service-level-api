@@ -1,3 +1,10 @@
+## [1.41.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.40.0...v1.41.0) (2023-10-09)
+
+
+### Features
+
+* add income and expense views storybook ([92910f8](https://github.com/SolomonAIEngineering/service-level-api/commit/92910f8d8e0092a0c635d26e3d685059b8a8d23b))
+
 ## [1.40.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.39.0...v1.40.0) (2023-10-08)
 
 
