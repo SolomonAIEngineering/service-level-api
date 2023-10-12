@@ -3,3 +3,5 @@
 ./component-library/coverage/*
 node_modules
 node_modules/*
+dist
+dist/*

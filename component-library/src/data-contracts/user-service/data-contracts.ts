@@ -94,7 +94,7 @@ export interface Address {
 }
 
 export interface Any {
-  '@type'?: string;
+  "@type"?: string;
   [key: string]: any;
 }
 
@@ -114,12 +114,12 @@ export interface BusinessAccountSettings {
 
 /** @default "BUSINESS_TYPE_UNSPECIFIED" */
 export type BusinessType =
-  | 'BUSINESS_TYPE_UNSPECIFIED'
-  | 'BUSINESS_TYPE_SOLE_PROPRIETORSHIP'
-  | 'BUSINESS_TYPE_PARTNERSHIP'
-  | 'BUSINESS_TYPE_LLC'
-  | 'BUSINESS_TYPE_CORPORATION'
-  | 'BUSINESS_TYPE_OTHER';
+  | "BUSINESS_TYPE_UNSPECIFIED"
+  | "BUSINESS_TYPE_SOLE_PROPRIETORSHIP"
+  | "BUSINESS_TYPE_PARTNERSHIP"
+  | "BUSINESS_TYPE_LLC"
+  | "BUSINESS_TYPE_CORPORATION"
+  | "BUSINESS_TYPE_OTHER";
 
 export type CheckEmailExistsData = any;
 
@@ -190,12 +190,12 @@ export interface CreateUserResponse {
 
 /** @default "DASHBOARD_WIDGET_TRANSACTIONS_UNSPECIFIED" */
 export type DashboardWidget =
-  | 'DASHBOARD_WIDGET_TRANSACTIONS_UNSPECIFIED'
-  | 'DASHBOARD_WIDGET_TRANSACTIONS_OVERVIEW'
-  | 'DASHBOARD_WIDGET_INVESTMENT_SUMMARY'
-  | 'DASHBOARD_WIDGET_MONTHLY_SPENDING_REPORT'
-  | 'DASHBOARD_WIDGET_SAVINGS_TRACKER'
-  | 'DASHBOARD_WIDGET_CREDIT_SCORE_MONITOR';
+  | "DASHBOARD_WIDGET_TRANSACTIONS_UNSPECIFIED"
+  | "DASHBOARD_WIDGET_TRANSACTIONS_OVERVIEW"
+  | "DASHBOARD_WIDGET_INVESTMENT_SUMMARY"
+  | "DASHBOARD_WIDGET_MONTHLY_SPENDING_REPORT"
+  | "DASHBOARD_WIDGET_SAVINGS_TRACKER"
+  | "DASHBOARD_WIDGET_CREDIT_SCORE_MONITOR";
 
 export type DeleteUserData = any;
 
@@ -222,11 +222,7 @@ export interface FinancialPreferences {
  * frequency by which insights should be generated
  * @default "FREQUENCY_UNSPECIFIED"
  */
-export type Frequency =
-  | 'FREQUENCY_UNSPECIFIED'
-  | 'FREQUENCY_DAILY'
-  | 'FREQUENCY_WEEKLY'
-  | 'FREQUENCY_MONTHLY';
+export type Frequency = "FREQUENCY_UNSPECIFIED" | "FREQUENCY_DAILY" | "FREQUENCY_WEEKLY" | "FREQUENCY_MONTHLY";
 
 export type GetBusinessSettingsData = any;
 
@@ -323,11 +319,7 @@ export interface NotificationSettings {
  *  - TYPE_IN_APP: app based notification
  * @default "TYPE_UNSPECIFIED"
  */
-export type NotificationSettingsType =
-  | 'TYPE_UNSPECIFIED'
-  | 'TYPE_EMAIL'
-  | 'TYPE_SMS'
-  | 'TYPE_IN_APP';
+export type NotificationSettingsType = "TYPE_UNSPECIFIED" | "TYPE_EMAIL" | "TYPE_SMS" | "TYPE_IN_APP";
 
 export type PasswordResetData = any;
 
@@ -346,10 +338,10 @@ export interface ReadynessCheckResponse {
  * @default "RISK_TOLERANCE_UNSPECIFIED"
  */
 export type RiskTolerance =
-  | 'RISK_TOLERANCE_UNSPECIFIED'
-  | 'RISK_TOLERANCE_LOW'
-  | 'RISK_TOLERANCE_MEDIUM'
-  | 'RISK_TOLERANCE_HIGH';
+  | "RISK_TOLERANCE_UNSPECIFIED"
+  | "RISK_TOLERANCE_LOW"
+  | "RISK_TOLERANCE_MEDIUM"
+  | "RISK_TOLERANCE_HIGH";
 
 export interface Status {
   /** @format int32 */
@@ -405,7 +397,7 @@ export interface TaxSettings {
  * Display and interaction preferences.
  * @default "THEME_UNSPECIFIED"
  */
-export type Theme = 'THEME_UNSPECIFIED' | 'THEME_LIGHT' | 'THEME_DARK';
+export type Theme = "THEME_UNSPECIFIED" | "THEME_LIGHT" | "THEME_DARK";
 
 export type UpdateBusinessSettingsData = any;
 
