@@ -1,4 +1,4 @@
-const config = {
+module.exports =  {
   entries: [
     {
       filePath: './src/main.tsx',
@@ -7,5 +7,3 @@ const config = {
     },
   ],
 };
-
-module.exports = config;

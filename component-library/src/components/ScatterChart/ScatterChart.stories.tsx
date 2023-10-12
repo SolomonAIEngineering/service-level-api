@@ -1,4 +1,3 @@
-import React from 'react';
 import { Story, Meta } from '@storybook/react';
 
 import CustomScatterChart, { ICustomScatterChartProps } from './ScatterChart'; // Update the import path accordingly
