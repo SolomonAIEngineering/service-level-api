@@ -75,5 +75,31 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          npm run build
           npx semantic-release
+
+  publish-npm-library:
+    needs: ['release-component-library']
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          registry-url: 'https://registry.npmjs.org'
+      - name: Install dependencies
+        working-directory: ./component-library
+        run: npm install
+      - name: Download build
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+      - name: Unarchive build
+        working-directory: ./component-library
+        run: tar -xzf ./lib.tar.gz
+      - name: Publish
+        working-directory: ./component-library
+        run: npm publish --ignore-scripts
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # Create a repository secret named NPM_TOKEN containing an npm access token
