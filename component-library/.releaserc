@@ -40,8 +40,7 @@
     [
       "@semantic-release/npm",
       {
-        "npmPublish": true,
-        "pkgRoot": "dist"
+        "npmPublish": true
       }
     ],
     [
@@ -97,11 +96,12 @@
         "assets": [
           "CHANGELOG.md",
           "package.json",
-          "package-lock.json"
+          "package-lock.json",
+          "dist/**"
         ]
       }
     ],
-    [
+   [
       "@semantic-release/github",
       {
         "assets": ["dist/**"]
