@@ -38,13 +38,6 @@
       }
     ],
     [
-      "@semantic-release/npm",
-      {
-        "npmPublish": false,
-        "pkgRoot": "./dist"
-      }
-    ],
-    [
       "@semantic-release/release-notes-generator",
       {
         "preset": "conventionalcommits",
@@ -98,16 +91,10 @@
           "CHANGELOG.md",
           "package.json",
           "README.md",
-          "package-lock.json",
-          "dist/**"
+          "package-lock.json"
         ]
       }
     ],
-   [
-      "@semantic-release/github",
-      {
-        "assets": ["dist/**"]
-      }
-    ]
+    "@semantic-release/github"
   ]
 }
