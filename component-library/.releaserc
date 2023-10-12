@@ -38,6 +38,12 @@
       }
     ],
     [
+      "@semantic-release/exec",
+      {
+        "prepareCmd": "./update-helm-chart-version.sh ${nextRelease.version}"
+      }
+    ],
+    [
       "@semantic-release/npm",
       {
         "npmPublish": true
