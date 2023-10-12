@@ -16,7 +16,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc && vite build && dts-bundle-generator --config ./dts-bundle-generator.config.ts",
+    "build": "rm -rf dists && tsc && vite build && dts-bundle-generator --config ./dts-bundle-generator.config.ts  && cp package.json dist/package.json",
     "build-component": "plop && npm run format",
     "build-storybook": "storybook build",
     "build:watch": "tsc && vite build --watch",
