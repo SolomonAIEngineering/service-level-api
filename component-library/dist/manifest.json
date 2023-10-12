@@ -1,0 +1,11 @@
+{
+  "src/main.tsx": {
+    "file": "main.iife.js",
+    "isEntry": true,
+    "src": "src/main.tsx"
+  },
+  "style.css": {
+    "file": "style.css",
+    "src": "style.css"
+  }
+}

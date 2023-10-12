@@ -1,0 +1,10 @@
+import type { Meta, StoryObj } from '@storybook/react';
+import { RecurringTransactionCard } from './RecurringTransactionCard';
+declare const meta: Meta<typeof RecurringTransactionCard>;
+export default meta;
+type Story = StoryObj<typeof meta>;
+export declare const RecurringTransactionCardWithDetailedDisplayOff: Story;
+export declare const RecurringTransactionCardWithDetailedDisplayOn: Story;
+export declare const RecurringTransactionCardWithTransactions: Story;
+export declare const RecurringTransactionCardWithTransactionsAndBankAccount: Story;
+export declare const RecurringTransactionCardWithTransactionsAndCreditAccount: Story;

@@ -1,0 +1,36 @@
+import { MortgageAccount as MortgageAccount } from 'src/data-contracts/financial-service/data-contracts';
+export declare class MortgageAccountClass implements MortgageAccount {
+    id: string;
+    plaidAccountId: string;
+    accountNumber: string;
+    currentLateFee: number;
+    escrowBalance: number;
+    hasPmi: boolean;
+    hasPrepaymentPenalty: boolean;
+    lastPaymentAmount: number;
+    lastPaymentDate: string;
+    loanTerm: string;
+    loanTypeDescription: string;
+    maturityDate: string;
+    nextMonthlyPayment: number;
+    nextPaymentDueDate: string;
+    originalPrincipalBalance: number;
+    originalPropertyValue: number;
+    outstandingPrincipalBalance: number;
+    paymentAmount: number;
+    paymentDate: string;
+    originationDate: string;
+    originationPrincipalAmount: number;
+    pastDueAmount: number;
+    ytdInterestPaid: number;
+    ytdPrincipalPaid: number;
+    propertyAddressCity: string;
+    propertyAddressState: string;
+    propertyAddressStreet: string;
+    propertyAddressPostalCode: string;
+    propertyRegion: string;
+    propertyCountry: string;
+    interestRatePercentage: number;
+    interestRateType: string;
+    constructor(data: Partial<MortgageAccount>);
+}

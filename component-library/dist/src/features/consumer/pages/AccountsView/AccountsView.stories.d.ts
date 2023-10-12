@@ -1,0 +1,12 @@
+import type { Meta, StoryObj } from '@storybook/react';
+import { AccountsView } from './AccountsView';
+declare const meta: Meta<typeof AccountsView>;
+export default meta;
+type Story = StoryObj<typeof meta>;
+export declare const BankAccountStory: Story;
+export declare const CreditAccountStory: Story;
+export declare const StudentLoanAccountStory: Story;
+export declare const InvestmentAccountStory: Story;
+export declare const WithTransactions: Story;
+export declare const WithDemoMode: Story;
+export declare const WithHistoricalAccountBalance: Story;
