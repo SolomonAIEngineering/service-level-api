@@ -151,7 +151,7 @@ export class BankAccountHoverLabel<T extends BankAccount> extends Component<
                 </p>
                 <div className="w-fit">
                   <HistoricalAccountBalanceChart
-                    historicalAccountBalance={historicalAccountBalance}
+                    historicalAccountBalance={historicalAccountBalance ?? []}
                   />
                 </div>
               </div>

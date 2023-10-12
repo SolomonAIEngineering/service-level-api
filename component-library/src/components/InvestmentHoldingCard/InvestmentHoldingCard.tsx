@@ -227,7 +227,7 @@ export class InvestmentHoldingCard extends Component<
               </TabsList>
               <TabsContent value="accountBalance">
                 <HistoricalAccountBalanceChart
-                  historicalAccountBalance={historicalAccountBalance}
+                  historicalAccountBalance={historicalAccountBalance ?? []}
                   disableLabel={true}
                   className="contain"
                 />

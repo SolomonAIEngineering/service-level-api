@@ -1,4 +1,4 @@
-import React, { FC, ReactElement } from 'react';
+import { FC, ReactElement } from 'react';
 import { Label } from 'src/components/ui/label';
 
 // Define the event type, assuming each event in the timeline has these properties

@@ -225,7 +225,7 @@ export class CreditAccountCard<T extends CreditAccount> extends Component<
           </CardContent>
           <CardFooter>
             <HistoricalAccountBalanceChart
-              historicalAccountBalance={historicalAccountBalance}
+              historicalAccountBalance={historicalAccountBalance ?? []}
             />
           </CardFooter>
         </Card>
