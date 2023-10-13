@@ -1,3 +1,10 @@
+# [1.49.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.48.0...v1.49.0) (2023-10-13)
+
+
+### Features
+
+* update npm release ref ([8f18b53](https://github.com/SolomonAIEngineering/service-level-api/commit/8f18b5352ff5a1c7b0b18441efa00edb2068b96f))
+
 # [1.48.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.47.0...v1.48.0) (2023-10-12)
 
 
