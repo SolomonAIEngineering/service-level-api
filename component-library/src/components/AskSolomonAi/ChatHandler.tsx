@@ -54,10 +54,10 @@ export class ChatProcessor {
     messages.push(...last10messages);
 
     const payload: OpenAIStreamPayload = {
-      model: 'gpt-3.5-turbo',
+      model: 'gpt-4',
       messages: messages,
       temperature: 0.7,
-      max_tokens: 800,
+      max_tokens: 900,
       top_p: 1,
       frequency_penalty: 0,
       presence_penalty: 0,
