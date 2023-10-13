@@ -51,10 +51,6 @@ export function ChatLine({ role = 'assistant', content }: ChatGPTMessage) {
   useEffect(() => {
     if ('speechSynthesis' in window) {
       const availableVoices = window.speechSynthesis.getVoices();
-      for (let i = 0; i < availableVoices.length; i++) {
-        console.log(availableVoices[i].name, i);
-      }
-
       setVoices(availableVoices);
 
       // Optionally, set a default voice. Here, we're setting the first voice as default.
