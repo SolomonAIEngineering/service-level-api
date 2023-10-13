@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { CardFooter } from '../ui/card';
 import { AccountBalanceHistoryContext } from '.';
-import React from 'react';
+import * as React from 'react';
 import { HistoricalAccountBalanceChart } from '../HistoricalAccountBalanceChart';
 
 interface IBankAccountCardFooter {

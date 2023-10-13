@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Transaction } from 'src/data-contracts/financial-service/data-contracts';
 

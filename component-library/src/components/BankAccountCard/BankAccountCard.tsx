@@ -3,7 +3,7 @@ import { createContext, ReactNode, RefObject, Component } from 'react';
 import {
   AccountBalanceHistory,
   FinancialProfile,
-  BankAccount as IBankAccount,
+  BankAccount,
 } from 'src/data-contracts/financial-service/data-contracts';
 import { Card } from '../ui/card';
 import { BankAccountCardHeader } from './BankAccountCardHeader';
@@ -14,14 +14,14 @@ import { FinancialProfileClass } from 'src/types/financial/financial-profile';
 import { BankAccountClass } from 'src/types';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-/** @type {React.Context<T extends IBankAccount>} */
-const BankAccountContext = createContext<IBankAccount | undefined>(undefined);
+/** @type {React.Context<T extends BankAccount>} */
+const BankAccountContext = createContext<BankAccount | undefined>(undefined);
 const FinancialProfileContext = createContext<FinancialProfile>(
   new FinancialProfileClass({}),
 );
 const AccountBalanceHistoryContext = createContext<AccountBalanceHistory[]>([]);
 
-export type BankAccountCardProps<T extends IBankAccount> = {
+export type BankAccountCardProps<T extends BankAccount> = {
   bankAccount: T;
   financialProfile: FinancialProfile;
   className?: string;
@@ -31,7 +31,7 @@ export type BankAccountCardProps<T extends IBankAccount> = {
   historicalAccountBalance?: AccountBalanceHistory[];
 };
 
-export type BankAccountCardState<T extends IBankAccount> = {
+export type BankAccountCardState<T extends BankAccount> = {
   bankAccount: T;
 };
 
@@ -44,7 +44,7 @@ export type BankAccountCardState<T extends IBankAccount> = {
  * with TSDoc annotations. It has various features like context usage,
  * dynamic styles, generic props, and more.
  */
-export class BankAccountCard<T extends IBankAccount> extends Component<
+export class BankAccountCard<T extends BankAccount> extends Component<
   BankAccountCardProps<T>,
   BankAccountCardState<T>
 > {

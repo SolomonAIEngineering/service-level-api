@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { PieChart, Pie } from 'recharts';
 import { cn } from 'src/lib-utils/utils';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';

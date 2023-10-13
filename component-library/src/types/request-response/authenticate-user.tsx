@@ -1,6 +1,6 @@
 import {
-  FinancialProfile,
   MelodyFinancialContext,
+  FinancialUserProfile,
 } from 'src/data-contracts/financial-service/data-contracts';
 import { ErrorResponse } from '../error';
 import { IRequest } from './IRequest';
@@ -8,7 +8,7 @@ import { MelodyFinancialContextClass } from '../financial/melody-financial-conte
 import { FinancialProfileClass } from '../financial/financial-profile';
 import { SocialUserProfileClass } from '../social';
 import { UserProfile } from 'src/data-contracts/social-service/data-contracts';
-import { UserAccount } from 'src/data-contracts/user-service/data-contracts';
+import { UserAccountClass } from '../user/user-account';
 /**
  * @description The request to authenticate a user
  * @author Yoan Yomba
@@ -41,7 +41,7 @@ class AuthenticateRequest implements IRequest {
 }
 
 type FinancialProfileResponse = {
-  profile: FinancialProfile;
+  profile: FinancialUserProfile;
   financialContext: MelodyFinancialContext;
 };
 
@@ -56,7 +56,7 @@ class AuthenticationResponse extends ErrorResponse {
   code = 0;
   err = '';
   token = '';
-  user_account: UserAccount = {};
+  user_account: UserAccountClass = new UserAccountClass({});
   user_profile: UserProfile = new SocialUserProfileClass({});
   user_financial_profile: FinancialProfileResponse = {
     profile: new FinancialProfileClass(),
