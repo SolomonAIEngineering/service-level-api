@@ -19,7 +19,7 @@ import './tailwind.css';
 // import { setupIonicReact } from '@ionic/react';
 
 // setupIonicReact();
-
 export * from './types';
-// export * from './components';
+export * from './components';
 export * from './data-contracts';
+export * from './features';
