@@ -1,3 +1,10 @@
+# [1.52.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.51.0...v1.52.0) (2023-10-13)
+
+
+### Features
+
+* update component lib ([6ba79fa](https://github.com/SolomonAIEngineering/service-level-api/commit/6ba79faf7f133f84fe5d79f09b0c6bbefe0e9b38))
+
 # [1.51.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.50.0...v1.51.0) (2023-10-13)
 
 
