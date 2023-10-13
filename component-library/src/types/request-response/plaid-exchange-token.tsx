@@ -1,6 +1,6 @@
 import { ErrorResponse } from '../error';
 
-export class PlaidExchangeTokenRequest {
+export class PlaidExchangeTokenRequestClass {
   /**
    * The user id
    * Validations:
@@ -18,7 +18,7 @@ export class PlaidExchangeTokenRequest {
   /** The institution name */
   institutionName: string = '';
 
-  constructor(data?: Partial<PlaidExchangeTokenRequest>) {
+  constructor(data?: Partial<PlaidExchangeTokenRequestClass>) {
     if (data) {
       Object.assign(this, {
         ...data,
@@ -27,11 +27,11 @@ export class PlaidExchangeTokenRequest {
   }
 }
 
-export class PlaidExchangeTokenResponse extends ErrorResponse {
+export class PlaidExchangeTokenResponseClass extends ErrorResponse {
   /** wether the operation was successful */
   success = false;
 
-  constructor(data?: Partial<PlaidExchangeTokenResponse>) {
+  constructor(data?: Partial<PlaidExchangeTokenResponseClass>) {
     super();
     if (data) {
       Object.assign(this, {

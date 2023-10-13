@@ -110,14 +110,14 @@ export class UserRegistrationAccountDetails {
  * @export
  * @class CreateAccountRequest
  */
-export class CreateAccountRequest implements IRequest {
+export class CreateAccountRequestClass implements IRequest {
   account: UserRegistrationAccountDetails =
     new UserRegistrationAccountDetails();
   communityIdsToFollow: number[] = [];
   profileImage = '';
   password = '';
 
-  constructor(data?: Partial<CreateAccountRequest>) {
+  constructor(data?: Partial<CreateAccountRequestClass>) {
     if (data) {
       Object.assign(this, {
         ...data,

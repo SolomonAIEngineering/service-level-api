@@ -7,11 +7,11 @@ import { IRequest } from './IRequest';
  * @class CheckUsernameExistsRequest
  * @implements {IRequest}
  * */
-export class CheckUsernameExistsRequest implements IRequest {
+export class CheckUsernameExistsRequestClass implements IRequest {
   /** The username of the user of interest */
   username: string = '';
 
-  constructor(data?: Partial<CheckUsernameExistsRequest>) {
+  constructor(data?: Partial<CheckUsernameExistsRequestClass>) {
     if (data) {
       Object.assign(this, {
         ...data,
@@ -39,10 +39,10 @@ export class CheckUsernameExistsRequest implements IRequest {
  * @class CheckUsernameExistsResponse
  * @extends {ErrorResponse}
  * */
-export class CheckUsernameExistsResponse extends ErrorResponse {
+export class CheckUsernameExistsResponseClass extends ErrorResponse {
   exists = false;
 
-  constructor(data?: Partial<CheckUsernameExistsResponse>) {
+  constructor(data?: Partial<CheckUsernameExistsResponseClass>) {
     super();
     if (data) {
       this.create(data);
@@ -50,15 +50,15 @@ export class CheckUsernameExistsResponse extends ErrorResponse {
   }
 
   private create(
-    base?: Partial<CheckUsernameExistsResponse>,
-  ): CheckUsernameExistsResponse {
+    base?: Partial<CheckUsernameExistsResponseClass>,
+  ): CheckUsernameExistsResponseClass {
     return this.fromPartial(base ?? {});
   }
 
   private fromPartial(
-    object: Partial<CheckUsernameExistsResponse>,
-  ): CheckUsernameExistsResponse {
-    const message = new CheckUsernameExistsResponse();
+    object: Partial<CheckUsernameExistsResponseClass>,
+  ): CheckUsernameExistsResponseClass {
+    const message = new CheckUsernameExistsResponseClass();
     message.exists = object.exists ?? false;
     return message;
   }

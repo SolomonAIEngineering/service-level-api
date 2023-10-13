@@ -1,6 +1,6 @@
 import { ErrorResponse } from '../error';
 
-export class PlaidLinkRequest {
+export class PlaidLinkRequestClass {
   /**
    * A unique ID representing the end user. Typically this will be a user ID number from your application.
    * Personally identifiable information, such as an email address or phone number,
@@ -26,7 +26,7 @@ export class PlaidLinkRequest {
    */
   phoneNumber: string = '';
 
-  constructor(data?: Partial<PlaidLinkRequest>) {
+  constructor(data?: Partial<PlaidLinkRequestClass>) {
     if (data) {
       Object.assign(this, {
         ...data,
@@ -35,12 +35,12 @@ export class PlaidLinkRequest {
   }
 }
 
-export class PlaidLinkResponse extends ErrorResponse {
+export class PlaidLinkResponseClass extends ErrorResponse {
   linkToken = '';
   expiration = '';
   plaidRequestId = '';
 
-  constructor(data?: Partial<PlaidLinkResponse>) {
+  constructor(data?: Partial<PlaidLinkResponseClass>) {
     super();
     if (data) {
       Object.assign(this, {

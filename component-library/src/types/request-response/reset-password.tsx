@@ -1,7 +1,7 @@
 /**
  * Represents a request to reset a password.
  */
-export interface ResetPasswordRequest {
+export interface ResetPasswordRequestClass {
   /**
    * The new password that the user wants to set.
    */
@@ -16,7 +16,7 @@ export interface ResetPasswordRequest {
 /**
  * Represents a response containing a token.
  */
-export class ResetPasswordResponse {
+export class ResetPasswordResponseClass {
   /**
    * The token returned by the server, typically used for authentication purposes.
    */
@@ -37,7 +37,7 @@ export class ResetPasswordResponse {
    *
    * @param data - An object containing any subset of the `TokenResponse` properties.
    */
-  constructor(data: Partial<ResetPasswordResponse>) {
+  constructor(data: Partial<ResetPasswordResponseClass>) {
     this.token = data.token || "";
     this.code = data.code || 0;
     this.err = data.err || "";

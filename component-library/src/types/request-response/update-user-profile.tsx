@@ -6,7 +6,7 @@ import { IRequest } from './IRequest';
  * UpdateUserRequest: Represents the request object invoked against the user
  * service to update a given user account
  */
-export class UpdateUserAccountRequest implements IRequest {
+export class UpdateUserAccountRequestClass implements IRequest {
   /**
    * UserAccount to update
    * Validation:
@@ -14,7 +14,7 @@ export class UpdateUserAccountRequest implements IRequest {
    */
   account: UserAccount | undefined = undefined;
 
-  constructor(data?: Partial<UpdateUserAccountRequest>) {
+  constructor(data?: Partial<UpdateUserAccountRequestClass>) {
     if (data) {
       Object.assign(this, {
         ...data,
@@ -28,11 +28,11 @@ export class UpdateUserAccountRequest implements IRequest {
   }
 }
 
-export class UpdateUserAccountResponse extends ErrorResponse {
+export class UpdateUserAccountResponseClass extends ErrorResponse {
   accountUpdated = false;
   account: UserAccount | undefined;
 
-  constructor(data?: Partial<UpdateUserAccountResponse>) {
+  constructor(data?: Partial<UpdateUserAccountResponseClass>) {
     super();
     if (data) {
       Object.assign(this, {

@@ -4,7 +4,7 @@ import { ErrorResponse } from '../error';
 /**
  * Represents the response for getting transactions for a bank account.
  */
-export class GetTransactionsForBankAccountResponse extends ErrorResponse {
+export class GetTransactionsForBankAccountResponseClass extends ErrorResponse {
   /**
    * An array of transactions for the bank account.
    */
@@ -20,7 +20,7 @@ export class GetTransactionsForBankAccountResponse extends ErrorResponse {
    * @param transactions An array of transactions for the bank account.
    * @param nextPageNumber The page number of the next set of transactions.
    */
-  constructor(data: GetTransactionsForBankAccountResponse) {
+  constructor(data: GetTransactionsForBankAccountResponseClass) {
     super();
     if (data) {
       Object.assign(this, {
@@ -33,7 +33,7 @@ export class GetTransactionsForBankAccountResponse extends ErrorResponse {
 /**
  * Class representing a request to get transactions for a bank account.
  */
-export class GetTransactionsForBankAccountRequest {
+export class GetTransactionsForBankAccountRequestClass {
   /** The user id */
   userId: number = 0;
 
@@ -50,7 +50,7 @@ export class GetTransactionsForBankAccountRequest {
    * Create a request to get transactions for a bank account.
    * @param {Partial<GetTransactionsForBankAccountRequest>} data - Object containing any properties of a request.
    */
-  constructor(data: Partial<GetTransactionsForBankAccountRequest>) {
+  constructor(data: Partial<GetTransactionsForBankAccountRequestClass>) {
     if (data) {
       Object.assign(this, {
         ...data,

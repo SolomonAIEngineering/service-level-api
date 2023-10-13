@@ -1,13 +1,13 @@
 import { ErrorResponse } from '../error';
 
-export interface RequestPasswordResetRequest {
+export interface RequestPasswordResetRequestClass {
   email: string;
 }
 
-export class RequestPasswordResetResponse extends ErrorResponse {
+export class RequestPasswordResetResponseClass extends ErrorResponse {
   success: boolean = false;
 
-  constructor(data: Partial<RequestPasswordResetResponse>) {
+  constructor(data: Partial<RequestPasswordResetResponseClass>) {
     super(data);
     if (data) {
       Object.assign(this, data);

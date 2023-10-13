@@ -6,7 +6,7 @@ import { ErrorResponse } from '../error';
  *
  * Represents a request for getting transactions.
  */
-export class GetTransactionsRequest {
+export class GetTransactionsRequestClass {
   /**
    * The user ID.
    * Validations:
@@ -29,7 +29,7 @@ export class GetTransactionsRequest {
    *
    * @param data - The data to initialize the request.
    */
-  constructor(data: Partial<GetTransactionsRequest>) {
+  constructor(data: Partial<GetTransactionsRequestClass>) {
     if (data) {
       Object.assign(this, {
         ...data,
@@ -38,11 +38,11 @@ export class GetTransactionsRequest {
   }
 }
 
-export class GetTransactionsResponse extends ErrorResponse {
+export class GetTransactionsResponseClass extends ErrorResponse {
   nextPageNumber: number | undefined;
   transactions: Transaction[] | undefined;
 
-  constructor(data: Partial<GetTransactionsResponse>) {
+  constructor(data: Partial<GetTransactionsResponseClass>) {
     super();
     if (data) {
       Object.assign(this, {

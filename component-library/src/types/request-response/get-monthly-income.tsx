@@ -4,7 +4,7 @@ import { ErrorResponse } from '../error';
 /**
  * Represents the request for getting monthly income.
  */
-export class GetMonthlyIncomeRequest {
+export class GetMonthlyIncomeRequestClass {
   /**
    * The user ID associated with the request.
    */
@@ -31,7 +31,7 @@ export class GetMonthlyIncomeRequest {
    * @remarks You can use this constructor to create a partial instance of GetMonthlyIncomeRequest.
    *          You can later populate the additional properties manually if needed.
    */
-  constructor(partialRequest: Partial<GetMonthlyIncomeRequest>) {
+  constructor(partialRequest: Partial<GetMonthlyIncomeRequestClass>) {
     this.userId = partialRequest.userId || 0;
     this.month = partialRequest.month || 0;
     this.pageNumber = partialRequest.pageNumber || 1;
@@ -42,7 +42,7 @@ export class GetMonthlyIncomeRequest {
 /**
  * Represents the response for getting monthly income.
  */
-export class GetMonthlyIncomeResponse extends ErrorResponse {
+export class GetMonthlyIncomeResponseClass extends ErrorResponse {
   /**
    * List of monthly incomes.
    */
@@ -58,7 +58,7 @@ export class GetMonthlyIncomeResponse extends ErrorResponse {
    * @param monthlyIncomes List of monthly incomes.
    * @param nextPageNumber The page number of the next set of data.
    */
-  constructor(data?: Partial<GetMonthlyIncomeResponse>) {
+  constructor(data?: Partial<GetMonthlyIncomeResponseClass>) {
     super();
     if (data) {
       Object.assign(this, {

@@ -4,7 +4,7 @@ import { ErrorResponse } from '../error';
 /**
  * Represents the request for getting total investment by security.
  */
-export class GetTotalInvestmentBySecurityRequest {
+export class GetTotalInvestmentBySecurityRequestClass {
   /**
    * The user ID associated with the request.
    */
@@ -31,7 +31,9 @@ export class GetTotalInvestmentBySecurityRequest {
    * @remarks You can use this constructor to create a partial instance of GetTotalInvestmentBySecurityRequest.
    *          You can later populate the additional properties manually if needed.
    */
-  constructor(partialRequest: Partial<GetTotalInvestmentBySecurityRequest>) {
+  constructor(
+    partialRequest: Partial<GetTotalInvestmentBySecurityRequestClass>,
+  ) {
     this.userId = partialRequest.userId || 0;
     this.securityId = partialRequest.securityId || '';
     this.pageNumber = partialRequest.pageNumber || 1;
@@ -42,7 +44,7 @@ export class GetTotalInvestmentBySecurityRequest {
 /**
  * Represents the response for getting total investment by security.
  */
-export class GetTotalInvestmentBySecurityResponse extends ErrorResponse {
+export class GetTotalInvestmentBySecurityResponseClass extends ErrorResponse {
   /**
    * List of total investment by security.
    */
@@ -58,7 +60,7 @@ export class GetTotalInvestmentBySecurityResponse extends ErrorResponse {
    * @param totalInvestmentBySecurity List of total investment by security.
    * @param nextPageNumber The page number of the next set of data.
    */
-  constructor(data?: Partial<GetTotalInvestmentBySecurityResponse>) {
+  constructor(data?: Partial<GetTotalInvestmentBySecurityResponseClass>) {
     super();
     if (data) {
       Object.assign(this, {

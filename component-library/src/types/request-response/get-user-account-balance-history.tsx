@@ -4,13 +4,13 @@ import { ErrorResponse } from '../error';
 /**
  * Represents the response for getting user account balance history.
  */
-export class GetUserAccountBalanceHistoryResponse extends ErrorResponse {
+export class GetUserAccountBalanceHistoryResponseClass extends ErrorResponse {
   /**
    * List of account balance history records.
    */
   accountBalanceHistory: AccountBalanceHistory[] = [];
 
-  constructor(data: Partial<GetUserAccountBalanceHistoryResponse>) {
+  constructor(data: Partial<GetUserAccountBalanceHistoryResponseClass>) {
     super();
     if (data) {
       Object.assign(this, {
@@ -23,7 +23,7 @@ export class GetUserAccountBalanceHistoryResponse extends ErrorResponse {
 /**
  * Represents the request for getting user account balance history.
  */
-export class GetUserAccountBalanceHistoryRequest {
+export class GetUserAccountBalanceHistoryRequestClass {
   /**
    * The user ID associated with the request.
    */
@@ -45,7 +45,9 @@ export class GetUserAccountBalanceHistoryRequest {
    * @remarks You can use this constructor to create a partial instance of GetUserAccountBalanceHistoryRequest.
    *          You can later populate the additional properties manually if needed.
    */
-  constructor(partialRequest: Partial<GetUserAccountBalanceHistoryRequest>) {
+  constructor(
+    partialRequest: Partial<GetUserAccountBalanceHistoryRequestClass>,
+  ) {
     this.userId = partialRequest.userId || 0;
     this.pageNumber = partialRequest.pageNumber || 1;
     this.pageSize = partialRequest.pageSize || 10;

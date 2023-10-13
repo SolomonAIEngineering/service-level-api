@@ -1,7 +1,7 @@
 import { ReOccuringTransaction } from 'src/data-contracts/financial-service/data-contracts';
 import { ErrorResponse } from '../error';
 
-export class GetReCurringTransactionsRequest {
+export class GetReCurringTransactionsRequestClass {
   /**
    * The user id
    * Validations:
@@ -9,17 +9,17 @@ export class GetReCurringTransactionsRequest {
    */
   userId: number = 0;
 
-  constructor(data?: Partial<GetReCurringTransactionsRequest>) {
+  constructor(data?: Partial<GetReCurringTransactionsRequestClass>) {
     if (data) {
       Object.assign(this, data);
     }
   }
 }
 
-export class GetReCurringTransactionsResponse extends ErrorResponse {
+export class GetReCurringTransactionsResponseClass extends ErrorResponse {
   reCcuringTransactions: ReOccuringTransaction[] = [];
 
-  constructor(data: Partial<GetReCurringTransactionsResponse>) {
+  constructor(data: Partial<GetReCurringTransactionsResponseClass>) {
     super(data);
     if (data?.reCcuringTransactions) {
       this.reCcuringTransactions = data.reCcuringTransactions;

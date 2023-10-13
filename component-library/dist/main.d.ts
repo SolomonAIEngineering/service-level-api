@@ -1257,6 +1257,167 @@ export interface Contacts {
 	/** The contact's tax number. */
 	taxNumber?: string;
 }
+export type CreateBankAccountData = any;
+/**
+ * CreateBankAccountRequest: Represents the request object invoked against the financial
+ * service to create a bank account for a given user
+ */
+export interface CreateBankAccountPayload {
+	/**
+	 * The bank account to create
+	 * Validations:
+	 * - cannot be nil hence required
+	 */
+	bankAccount: BankAccount;
+}
+/**
+ * CreateBankAccountResponse: Represents the response object returned as a response to
+ * the `create bank account` request
+ */
+export interface CreateBankAccountResponse {
+	/**
+	 * The bank account id
+	 * @format uint64
+	 */
+	bankAccountId?: string;
+}
+export type CreateBudgetData = any;
+export interface CreateBudgetRequest {
+	/**
+	 * The budget to create
+	 * Validations:
+	 * - cannot be nil hence required
+	 * The Budgets table stores information about each budget created by the user,
+	 * including the name of the budget, the start and end dates, and the user ID.
+	 */
+	budget: Budget;
+	/**
+	 * The milestone to associate this budget with
+	 * @format uint64
+	 */
+	milestroneId: string;
+}
+export interface CreateBudgetResponse {
+	/**
+	 * The budget id
+	 * @format uint64
+	 */
+	budgetId?: string;
+}
+export type CreateLinkData = any;
+export interface CreateManualLinkRequest {
+	/**
+	 * The manual account link
+	 * A Link represents a login at a financial institution. A single end-user of your application might have accounts at different financial
+	 * institutions, which means they would have multiple different Items. An Item is not the same as a financial institution account,
+	 * although every account will be associated with an Item. For example, if a user has one login at their bank that allows them to access
+	 * both their checking account and their savings account, a single Item would be associated with both of those accounts. Each Item
+	 * linked within your application will have a corresponding access_token, which is a token that you can use to make API requests related
+	 * to that specific Item.
+	 * Two Items created for the same set of credentials at the same institution will be considered different and not share the same item_id.
+	 */
+	manualAccountLink: Link;
+	/**
+	 * The user id
+	 * Validations:
+	 * - user_id must be greater than 0
+	 * @format uint64
+	 */
+	userId: string;
+}
+export interface CreateManualLinkResponse {
+	/**
+	 * The link's id
+	 * @format uint64
+	 */
+	linkId?: string;
+}
+export type CreateMilestoneData = any;
+export interface CreateMilestoneRequest {
+	/**
+	 * The milestone to create
+	 * Validations:
+	 * - cannot be nil hence required
+	 */
+	milestone: Milestone;
+	/**
+	 * The smart goal id
+	 * Validations:
+	 * - smart_goal_id must be greater than 0
+	 * @format uint64
+	 */
+	smartGoalId: string;
+}
+export interface CreateMilestoneResponse {
+	/**
+	 * The milestone id
+	 * @format uint64
+	 */
+	milestoneId?: string;
+}
+export type CreateSmartGoalData = any;
+export interface CreateSmartGoalRequest {
+	/**
+	 * The pocket account id
+	 * Validations:
+	 * - pocket_account_id must be greater than 0
+	 * @format uint64
+	 */
+	pocketId: string;
+	/**
+	 * The smart goal to create
+	 * Validations:
+	 * - cannot be nil hence required
+	 * SmartGoal: The Goals table stores information about each financial goal, including the name of the goal,
+	 * its description, the target amount of money the user wants to save or invest, and the expected date of completion.
+	 *
+	 * The Goals table also includes columns for the start date of the goal, the current amount of money saved or
+	 * invested towards the goal, and a boolean flag indicating whether the goal has been achieved.
+	 * These additional columns allow the user to track their progress towards the goal and see how much
+	 * more they need to save or invest to reach their target amount.
+	 */
+	smartGoal: SmartGoal;
+}
+export interface CreateSmartGoalResponse {
+	/**
+	 * The smart goal id
+	 * @format uint64
+	 */
+	smartGoalId?: string;
+}
+export type CreateSubscriptionData = any;
+export interface CreateSubscriptionRequest {
+	priceId: string;
+	/** @format uint64 */
+	userId: string;
+}
+export interface CreateSubscriptionResponse {
+	paymentIntentClientSecret?: string;
+	subscriptionId?: string;
+}
+export type CreateUserProfileData = any;
+/**
+ * CreateUserProfileRequest: Represents the request object invoked against the user
+ * service to create a user profile
+ */
+export interface CreateUserProfileRequest {
+	/** the email of the account to create */
+	email: string;
+	/**
+	 * User profile to create
+	 * Validations:
+	 * - cannot be nil hence required
+	 */
+	profile: FinancialUserProfile;
+}
+/**
+ * CreateUserProfileResponse: Represents the response object returned as a response to
+ * the `create user profile` request
+ */
+export interface CreateUserProfileResponse {
+	/** @format uint64 */
+	userId?: string;
+}
 export interface CreditAccount {
 	/** the aprs */
 	aprs?: Array<Apr>;
@@ -1435,6 +1596,46 @@ export interface DebtToIncomeRatio {
 	/** @format uint64 */
 	userId?: string;
 }
+export interface DeleteBankAccountResponse {
+	/**
+	 * The bank account id
+	 * @example "true"
+	 */
+	deleted?: boolean;
+}
+export type DeleteBudgetData = any;
+export interface DeleteBudgetResponse {
+	/** The budget id */
+	deleted?: boolean;
+}
+export type DeleteLinkData = any;
+export interface DeleteLinkResponse {
+	/**
+	 * The link's id
+	 * @format uint64
+	 */
+	linkId?: string;
+}
+export type DeleteMilestoneData = any;
+export interface DeleteMilestoneResponse {
+	/** The milestone id */
+	deleted?: boolean;
+}
+export type DeleteSmartGoalData = any;
+export interface DeleteSmartGoalResponse {
+	/** The smart goal id */
+	deleted?: boolean;
+}
+export type DeleteUserProfile2Data = any;
+export type DeleteUserProfileData = any;
+/**
+ * DeleteUserProfileResponse: Represents the response object returned as a response to
+ * the `delete user profile` request
+ */
+export interface DeleteUserProfileResponse {
+	profileDeleted?: boolean;
+}
+export type ExchangePlaidTokenData = any;
 /**
  * The Expense object is used to represent a purchase made from a business which can be made with a check, credit card, or cash.
  * Each expense object is dedicated to a grouping of expenses, with each expense recorded in the lines object.
@@ -1658,8 +1859,268 @@ export interface Forecast {
 	 */
 	varianceAmount?: string;
 }
+export type GetAccountBalanceData = any;
+export type GetAccountBalanceHistoryData = any;
+export interface GetAccountBalanceHistoryResponse {
+	/** List of account balance history records for specific account */
+	accountBalanceHistory?: Array<AccountBalanceHistory>;
+}
+export type GetAllBudgetsData = any;
+export interface GetAllBudgetsResponse {
+	/** The budgets */
+	budgets?: Array<Budget>;
+}
+export type GetBankAccountData = any;
+/**
+ * GetBankAccountResponse: Represents the response object returned as a response to
+ * the `get bank account` request
+ */
+export interface GetBankAccountResponse {
+	/** The bank account */
+	bankAccount?: BankAccount;
+}
+export type GetBudgetData = any;
+export interface GetBudgetResponse {
+	/**
+	 * The budget
+	 * The Budgets table stores information about each budget created by the user,
+	 * including the name of the budget, the start and end dates, and the user ID.
+	 */
+	budget?: Budget;
+}
+export type GetCategoryMonthlyTransactionCountData = any;
+export interface GetCategoryMonthlyTransactionCountResponse {
+	categoryMonthlyTransactionCount?: Array<CategoryMonthlyTransactionCount>;
+	/** @format int64 */
+	nextPageNumber?: string;
+}
+export type GetDebtToIncomeRatioData = any;
+export interface GetDebtToIncomeRatioResponse {
+	debtToIncomeRatios?: Array<DebtToIncomeRatio>;
+	/** @format int64 */
+	nextPageNumber?: string;
+}
+export type GetExpenseMetricsData = any;
+export interface GetExpenseMetricsResponse {
+	expenseMetrics?: Array<ExpenseMetrics>;
+	/** @format int64 */
+	nextPageNumber?: string;
+}
+export type GetFinancialProfileData = any;
+export interface GetFinancialProfileResponse {
+	financialProfiles?: Array<FinancialProfile>;
+	/** @format int64 */
+	nextPageNumber?: string;
+}
+export type GetForecastData = any;
+export interface GetForecastResponse {
+	/**
+	 * The forecast
+	 * The Forecast table stores information about each forecast generated for a particular goal,
+	 * including the forecast date, the forecasted amount of money saved or invested for the
+	 * goal by the target date, and the variance between the forecasted and target amounts.
+	 * This allows the user to track how well they are progressing towards their goal and make adjustments as needed.
+	 */
+	forecast?: Forecast;
+}
+export interface GetHistoricalAccountBalanceResponse {
+	historicalAccountBalance?: Array<AccountBalanceHistory>;
+}
+export type GetIncomeExpenseRatioData = any;
+export interface GetIncomeExpenseRatioResponse {
+	incomeExpenseRatios?: Array<IncomeExpenseRatio>;
+	/** @format int64 */
+	nextPageNumber?: string;
+}
+export type GetIncomeMetricsData = any;
+export interface GetIncomeMetricsResponse {
+	incomeMetrics?: Array<IncomeMetrics>;
+	/** @format int64 */
+	nextPageNumber?: string;
+}
+export interface GetInvestmentAcccountResponse {
+	/** The investment account */
+	investmentAccount?: InvestmentAccount;
+}
+export type GetInvestmentAccountData = any;
+export type GetLiabilityAccountData = any;
+export interface GetLiabilityAccountResponse {
+	/** The liability account */
+	liabilityAccount?: CreditAccount;
+}
+export type GetLinkData = any;
+export interface GetLinkResponse {
+	/**
+	 * The link
+	 * A Link represents a login at a financial institution. A single end-user of your application might have accounts at different financial
+	 * institutions, which means they would have multiple different Items. An Item is not the same as a financial institution account,
+	 * although every account will be associated with an Item. For example, if a user has one login at their bank that allows them to access
+	 * both their checking account and their savings account, a single Item would be associated with both of those accounts. Each Item
+	 * linked within your application will have a corresponding access_token, which is a token that you can use to make API requests related
+	 * to that specific Item.
+	 * Two Items created for the same set of credentials at the same institution will be considered different and not share the same item_id.
+	 */
+	link?: Link;
+}
+export type GetLinksData = any;
+export interface GetLinksResponse {
+	/** The links */
+	links?: Array<Link>;
+}
+export type GetMelodyFinancialContextData = any;
+export interface GetMelodyFinancialContextResponse {
+	/**
+	 * MelodyFinancialContext represents the financial context of a user.
+	 * This message is used to represent the financial context of a user.
+	 */
+	melodyFinancialContext?: MelodyFinancialContext;
+}
+export type GetMerchantMonthlyExpenditureData = any;
+export interface GetMerchantMonthlyExpenditureResponse {
+	merchantMonthlyExpenditures?: Array<MerchantMonthlyExpenditure>;
+	/** @format int64 */
+	nextPageNumber?: string;
+}
+export type GetMilestoneData = any;
+export interface GetMilestoneResponse {
+	/** The milestone */
+	milestone?: Milestone;
+}
+export interface GetMilestonesBySmartGoalIdResponse {
+	/** The milestones */
+	milestones?: Array<Milestone>;
+}
+export type GetMilestonesData = any;
+export type GetMonthlyBalanceData = any;
+export interface GetMonthlyBalanceResponse {
+	monthlyBalances?: Array<MonthlyBalance>;
+	/** @format int64 */
+	nextPageNumber?: string;
+}
+export type GetMonthlyExpenditureData = any;
+export interface GetMonthlyExpenditureResponse {
+	monthlyExpenditures?: Array<MonthlyExpenditure>;
+	/** @format int64 */
+	nextPageNumber?: string;
+}
+export type GetMonthlyIncomeData = any;
+export interface GetMonthlyIncomeResponse {
+	monthlyIncomes?: Array<MonthlyIncome>;
+	/** @format int64 */
+	nextPageNumber?: string;
+}
+export type GetMonthlySavingsData = any;
+export interface GetMonthlySavingsResponse {
+	monthlySavings?: Array<MonthlySavings>;
+	/** @format int64 */
+	nextPageNumber?: string;
+}
+export type GetMonthlyTotalQuantityBySecurityAndUserData = any;
+export interface GetMonthlyTotalQuantityBySecurityAndUserResponse {
+	monthlyTotalQuantityBySecurityAndUser?: Array<MonthlyTotalQuantityBySecurityAndUser>;
+	/** @format int64 */
+	nextPageNumber?: string;
+}
+export type GetMonthlyTransactionCountData = any;
+export interface GetMonthlyTransactionCountResponse {
+	monthlyTransactionCounts?: Array<MonthlyTransactionCount>;
+	/** @format int64 */
+	nextPageNumber?: string;
+}
+export type GetMortageAccountData = any;
+export interface GetMortgageAccountResponse {
+	/** The mortage account */
+	mortageAccount?: MortgageAccount;
+}
+export type GetPaymentChannelMonthlyExpenditureData = any;
+export interface GetPaymentChannelMonthlyExpenditureResponse {
+	/** @format int64 */
+	nextPageNumber?: string;
+	paymentChannelMonthlyExpenditure?: Array<PaymentChannelMonthlyExpenditure>;
+}
+export type GetPocketData = any;
+export interface GetPocketResponse {
+	/** The pocket account */
+	pocket?: Pocket;
+}
+export interface GetReCurringTransactionsResponse {
+	/** The re-occuring transactions */
+	reCcuringTransactions?: Array<ReOccuringTransaction>;
+}
+export type GetRecurringTransactionsData = any;
+export type GetSmartGoalsByPocketIdData = any;
+export interface GetSmartGoalsByPocketIdResponse {
+	/** The smart goals */
+	smartGoals?: Array<SmartGoal>;
+}
+export type GetStudentLoanAccountData = any;
+export interface GetStudentLoanAccountResponse {
+	/** The student loan account */
+	studentLoanAccount?: StudentLoanAccount;
+}
+export type GetTotalInvestmentBySecurityData = any;
+export interface GetTotalInvestmentBySecurityResponse {
+	/** @format int64 */
+	nextPageNumber?: string;
+	totalInvestmentBySecurity?: Array<TotalInvestmentBySecurity>;
+}
+export interface GetTransactionAggregatesResponse {
+	/** @format int64 */
+	nextPageNumber?: string;
+	transactionAggregates?: Array<TransactionAggregatesByMonth>;
+}
+export type GetTransactions2Data = any;
+export type GetTransactionsData = any;
+export interface GetTransactionsForBankAccountResponse {
+	/** @format uint64 */
+	nextPageNumber?: string;
+	/** The transactions */
+	transactions?: Array<Transaction>;
+}
+export interface GetTransactionsResponse {
+	/** @format uint64 */
+	nextPageNumber?: string;
+	/** The transactions */
+	transactions?: Array<Transaction>;
+}
+export type GetUserAccountBalanceHistoryData = any;
+export interface GetUserAccountBalanceHistoryResponse {
+	/** List of account balance history records */
+	accountBalanceHistory?: Array<AccountBalanceHistory>;
+}
+export type GetUserCategoryMonthlyExpenditureData = any;
+export interface GetUserCategoryMonthlyExpenditureResponse {
+	/** List of CategoryMonthlyExpenditure records for the user */
+	categoryMonthlyExpenditure?: Array<CategoryMonthlyExpenditure>;
+	/** @format int64 */
+	nextPageNumber?: string;
+}
+export type GetUserCategoryMonthlyIncomeData = any;
+export interface GetUserCategoryMonthlyIncomeResponse {
+	categoryMonthlyIncome?: Array<CategoryMonthlyIncome>;
+	/** @format int64 */
+	nextPageNumber?: string;
+}
+export type GetUserProfileData = any;
+/**
+ * GetUserProfileResponse: Represents the response object returned as a response to
+ * the `get user profile` request
+ */
+export interface GetUserProfileResponse {
+	/**
+	 * financial context for the user
+	 * MelodyFinancialContext represents the financial context of a user.
+	 * This message is used to represent the financial context of a user.
+	 */
+	financialContext: MelodyFinancialContext;
+	profile?: FinancialUserProfile;
+}
 /** @default "GOAL_TYPE_UNSPECIFIED" */
 export type GoalType = "GOAL_TYPE_UNSPECIFIED" | "GOAL_TYPE_SAVINGS" | "GOAL_TYPE_INVESTMENT" | "GOAL_TYPE_DEBT" | "GOAL_TYPE_EXPENSE";
+export type HealthCheckData = any;
+export interface HealthCheckResponse {
+	healthy?: boolean;
+}
 /**
  * IncomeExpenseRatio
  * This message is used to represent the income expense ratio of a user.
@@ -1763,6 +2224,8 @@ export interface IncomeStatement {
 	 */
 	startPeriod?: string;
 }
+export type InitiatePlaidSetupData = any;
+export type InitiatePlaidTokenUpdateData = any;
 export interface InvesmentHolding {
 	/**
 	 * @format double
@@ -2288,6 +2751,48 @@ export interface MerchantMonthlyExpenditure {
 	/** @format uint64 */
 	userId?: string;
 }
+export type MergeExchangePublicLinkTokenForAccountTokenData = any;
+export interface MergeExchangePublicLinkTokenForAccountTokenRequest {
+	endUserOriginId: string;
+	organizationName: string;
+	publicToken: string;
+	/**
+	 * The user id
+	 * Validations:
+	 * - user_id must be greater than 0
+	 * @format uint64
+	 */
+	userId: string;
+}
+export interface MergeExchangePublicLinkTokenForAccountTokenResponse {
+	success: boolean;
+}
+export type MergeGetPublicLinkTokenData = any;
+export interface MergeGetPublicLinkTokenRequest {
+	/**
+	 * Your end user's email address. This is purely for
+	 * identification purposes - setting this value will not cause any emails to be sent.
+	 */
+	email: string;
+	/** Your end user's organization. */
+	organizationName: string;
+	/**
+	 * The user id
+	 * Validations:
+	 * - user_id must be greater than 0
+	 * This unique identifier typically represents the ID for your end user in your product's database. T
+	 * his value must be distinct from other Linked Accounts' unique identifiers.
+	 * @format uint64
+	 */
+	userId: string;
+}
+export interface MergeGetPublicLinkTokenResponse {
+	endUserOriginId?: string;
+	integrationName?: string;
+	linkToken?: string;
+	magicLinkUrl?: string;
+	organizationName?: string;
+}
 /** =============================== */
 export interface MergeLink {
 	/**
@@ -2588,6 +3093,81 @@ export interface PersonalActionableInsight {
 }
 /** @default "PERSONAL_ACTIONABLE_INSIGHT_NAME_UNSPECIFIED" */
 export type PersonalActionableInsightName = "PERSONAL_ACTIONABLE_INSIGHT_NAME_UNSPECIFIED" | "PERSONAL_ACTIONABLE_INSIGHT_NAME_EXPENSE" | "PERSONAL_ACTIONABLE_INSIGHT_NAME_EMERGENCY_FUND" | "PERSONAL_ACTIONABLE_INSIGHT_NAME_DEBT_PRIORITIZATION" | "PERSONAL_ACTIONABLE_INSIGHT_NAME_NON_ESSENTIAL_EXPENSES" | "PERSONAL_ACTIONABLE_INSIGHT_NAME_NON_SUBSCRIPTIONS" | "PERSONAL_ACTIONABLE_INSIGHT_NAME_DISCRETIONARY_SPENDING";
+export interface PlaidExchangeTokenRequest {
+	/** The institution id */
+	institutionId?: string;
+	/** The institution name */
+	institutionName?: string;
+	/**
+	 * The public token
+	 * Validations:
+	 * - cannot be nil hence required
+	 */
+	publicToken: string;
+	/**
+	 * The user id
+	 * Validations:
+	 * - user_id must be greater than 0
+	 * @format uint64
+	 */
+	userId: string;
+}
+export interface PlaidExchangeTokenResponse {
+	/** wether the operation was successful */
+	success: boolean;
+}
+export interface PlaidInitiateTokenExchangeRequest {
+	/**
+	 * The user's email address. This field is optional, but required to enable the
+	 * [pre-authenticated returning user flow](https://plaid.com/docs/link/returning-user/#enabling-the-returning-user-experience).
+	 */
+	email: string;
+	/**
+	 * The user's full legal name. This is an optional field used in
+	 * the [returning user experience](https://plaid.com/docs/link/returning-user) to associate Items to the user.
+	 */
+	fullName: string;
+	/**
+	 * The user's phone number in [E.164](https://en.wikipedia.org/wiki/E.164) format.
+	 * This field is optional, but required to enable the [returning user experience](https://plaid.com/docs/link/returning-user).
+	 */
+	phoneNumber: string;
+	/**
+	 * A unique ID representing the end user. Typically this will be a user ID number from your application.
+	 * Personally identifiable information, such as an email address or phone number,
+	 * should not be used in the `client_user_id`. It is currently used as a means of searching logs
+	 * for the given user in the Plaid Dashboard.
+	 * Validations:
+	 * - user_id must be greater than 0
+	 * @format uint64
+	 */
+	userId: string;
+}
+export interface PlaidInitiateTokenExchangeResponse {
+	expiration?: string;
+	linkToken?: string;
+	plaidRequestId?: string;
+}
+export interface PlaidInitiateTokenUpdateRequest {
+	/**
+	 * The link id we want to update for
+	 * Validations:
+	 * - cannot be nil hence required
+	 * @format uint64
+	 */
+	linkId: string;
+	/**
+	 * The user id
+	 * Validations:
+	 * - user_id must be greater than 0
+	 * @format uint64
+	 */
+	userId: string;
+}
+export interface PlaidInitiateTokenUpdateResponse {
+	expiration?: string;
+	linkToken?: string;
+}
 export interface PlaidLink {
 	/**
 	 * id
@@ -2638,6 +3218,54 @@ export interface Pocket {
 }
 /** @default "POCKET_TYPE_UNSPECIFIED" */
 export type PocketType = "POCKET_TYPE_UNSPECIFIED" | "POCKET_TYPE_DISCRETIONARY_SPENDING" | "POCKET_TYPE_FUN_MONEY" | "POCKET_TYPE_DEBT_REDUCTION" | "POCKET_TYPE_EMERGENCY_FUND" | "POCKET_TYPE_INVESTMENT" | "POCKET_TYPE_SHORT_TERM_SAVINGS" | "POCKET_TYPE_LONG_TERM_SAVINGS";
+export type ProcessStripeWebhookData = any;
+export type ProcessWebhookData = any;
+export interface ProcessWebhookRequest {
+	/** A list of account_ids for accounts that have new or updated recurring transactions data. */
+	accountIds?: Array<string>;
+	/** An array of account_id's for accounts that contain new liabilities.' */
+	accountIdsWithNewLiabilities?: Array<string>;
+	/** An object with keys of account_id's that are mapped to their respective liabilities fields that changed. */
+	accountIdsWithUpdatedLiabilities?: Array<string>;
+	/** The time at which the user's access_token will expire. This field will only be present */
+	consentExpirationTime?: string;
+	/** The Plaid environment the webhook was sent from */
+	environment?: string;
+	/**
+	 * We use standard HTTP response codes for success and failure notifications,
+	 * and our errors are further classified by error_type. In general, 200 HTTP codes
+	 * correspond to success, 40X codes are for developer- or user-related failures, and
+	 * 50X codes are for Plaid-related issues. An Item with a non-null error object will
+	 * only be part of an API response when calling /item/get to view Item status. Otherwise,
+	 * error fields will be null if no error has occurred; if an error has occurred, an error
+	 * code will be returned instead.
+	 */
+	error?: Record<string, Any>;
+	/** Indicates if historical pull information is available. */
+	historicalUpdateComplete?: string;
+	/** Indicates if initial pull information is available. */
+	initialUpdateComplete?: boolean;
+	/** The item_id of the Item associated with this webhook, warning, or error */
+	itemId?: string;
+	/**
+	 * The number of new holdings reported since the last time this webhook was fired.
+	 * @format uint64
+	 */
+	newHoldings?: string;
+	/** The number of new, unfetched transactions available */
+	newTransactions?: Array<string>;
+	/** An array of transaction_ids corresponding to the removed transactions */
+	removedTransactions?: Array<string>;
+	/**
+	 * The number of updated holdings reported since the last time this webhook was fired.
+	 * @gotag: json:"updated_holdings"
+	 * @format uint64
+	 */
+	updatedHoldings?: string;
+	webhookCode: string;
+	webhookType: string;
+}
+export type ProcessWebhookResponse = object;
 /** The PurchaseOrder object is a record of request for a product or service between a buyer and seller. */
 export interface PurchaseOrder {
 	/** The accounting period that the PurchaseOrder was generated in. */
@@ -2876,6 +3504,10 @@ export type ReOccuringTransactionsFrequency = "RE_OCCURING_TRANSACTIONS_FREQUENC
  * @default "RE_OCCURING_TRANSACTIONS_STATUS_UNSPECIFIED"
  */
 export type ReOccuringTransactionsStatus = "RE_OCCURING_TRANSACTIONS_STATUS_UNSPECIFIED" | "RE_OCCURING_TRANSACTIONS_STATUS_MATURE" | "RE_OCCURING_TRANSACTIONS_STATUS_EARLY_DETECTION" | "RE_OCCURING_TRANSACTIONS_STATUS_TOMBSTONED";
+export type ReadynessCheckData = any;
+export interface ReadynessCheckResponse {
+	healthy?: boolean;
+}
 /**
  * ReferenceDetails: These are the objects that provide additional context or information about the transactions.
  * They include things like Accounts, Contacts, Items, and Tax Rates.
@@ -3022,6 +3654,12 @@ export interface SmartGoal {
 	 */
 	userId?: string;
 }
+export interface Status {
+	/** @format int32 */
+	code?: number;
+	details?: Array<Any>;
+	message?: string;
+}
 /** StripeSubscription stores high level stripe subscription details of which the user profile has */
 export interface StripeSubscription {
 	/** @format uint64 */
@@ -3039,6 +3677,13 @@ export interface StripeSubscription {
 }
 /** @default "STRIPE_SUBSCRIPTION_STATUS_UNSPECIFIED" */
 export type StripeSubscriptionStatus = "STRIPE_SUBSCRIPTION_STATUS_UNSPECIFIED" | "STRIPE_SUBSCRIPTION_STATUS_TRIALING" | "STRIPE_SUBSCRIPTION_STATUS_ACTIVE" | "STRIPE_SUBSCRIPTION_STATUS_PAST_DUE" | "STRIPE_SUBSCRIPTION_STATUS_CANCELED" | "STRIPE_SUBSCRIPTION_STATUS_UNPAID" | "STRIPE_SUBSCRIPTION_STATUS_COMPLETE" | "STRIPE_SUBSCRIPTION_STATUS_INCOMPLETE" | "STRIPE_SUBSCRIPTION_STATUS_INCOMPLETE_EXPIRED" | "STRIPE_SUBSCRIPTION_STATUS_CREATED" | "STRIPE_SUBSCRIPTION_STATUS_PAUSED";
+export interface StripeWebhookRequest {
+	body?: string;
+	signature?: string;
+}
+export interface StripeWebhookResponse {
+	message?: string;
+}
 export interface StudentLoanAccount {
 	disbursementDates?: Array<string>;
 	expectedPayoffDate?: string;
@@ -3326,6 +3971,7 @@ export interface TransactionAggregatesByMonth {
 	/** @format uint64 */
 	userId?: string;
 }
+export type TransactionAggregatesData = any;
 /**
  * TransactionDetails: These are the actual financial transactions that occur within an accounting system.
  * They include things like Invoices, Payments, Expenses, and Journal Entries.
@@ -3371,6 +4017,97 @@ export interface TransactionLineItem {
 	trackingCategory?: string;
 	unitPrice?: string;
 }
+export type UpdateBankAccountData = any;
+export interface UpdateBankAccountRequest {
+	/**
+	 * The bank account to update
+	 * Validations:
+	 * - cannot be nil hence required
+	 */
+	bankAccount: BankAccount;
+}
+export interface UpdateBankAccountResponse {
+	/** The bank account */
+	bankAccount?: BankAccount;
+	/** The bank account id */
+	updated?: boolean;
+}
+export interface UpdateBudgetRequest {
+	/**
+	 * The budget to update
+	 * Validations:
+	 * - cannot be nil hence required
+	 * The Budgets table stores information about each budget created by the user,
+	 * including the name of the budget, the start and end dates, and the user ID.
+	 */
+	budget: Budget;
+}
+export interface UpdateBudgetResponse {
+	/**
+	 * The budget id
+	 * The Budgets table stores information about each budget created by the user,
+	 * including the name of the budget, the start and end dates, and the user ID.
+	 */
+	budget?: Budget;
+}
+export interface UpdateMilestoneRequest {
+	/**
+	 * The milestone to update
+	 * Validations:
+	 * - cannot be nil hence required
+	 */
+	milestone: Milestone;
+}
+export interface UpdateMilestoneResponse {
+	/** The milestone id */
+	milestone?: Milestone;
+}
+export type UpdateSmartGoalData = any;
+export interface UpdateSmartGoalRequest {
+	/**
+	 * The smart goal to update
+	 * Validations:
+	 * - cannot be nil hence required
+	 * SmartGoal: The Goals table stores information about each financial goal, including the name of the goal,
+	 * its description, the target amount of money the user wants to save or invest, and the expected date of completion.
+	 *
+	 * The Goals table also includes columns for the start date of the goal, the current amount of money saved or
+	 * invested towards the goal, and a boolean flag indicating whether the goal has been achieved.
+	 * These additional columns allow the user to track their progress towards the goal and see how much
+	 * more they need to save or invest to reach their target amount.
+	 */
+	smartGoal: SmartGoal;
+}
+export interface UpdateSmartGoalResponse {
+	/**
+	 * The smart goal id
+	 * @format uint64
+	 */
+	smartGoalId?: string;
+}
+export type UpdateUserProfileData = any;
+/**
+ * UpdateUserProfileRequest: Represents the request object invoked against the user
+ * service to update a user profile
+ */
+export interface UpdateUserProfileRequest {
+	/**
+	 * User profile to update
+	 * Validation:
+	 * - cannot nil hence required
+	 */
+	profile: FinancialUserProfile;
+}
+/**
+ * UpdateUserProfileResponse: Represents the response object returned as a response to
+ * the `update user profile` request
+ */
+export interface UpdateUserProfileResponse {
+	profile?: FinancialUserProfile;
+	profileUpdated?: boolean;
+}
+export type UpdatesBudgetData = any;
+export type UpdatesMilestoneData = any;
 /**
  * The VendorCredit object is an accounts receivable transaction used to show that a customer is owed a gift or refund.
  * A vendor credit will contain information on the amount of credit owed to the customer, the vendor that owes the credit,
@@ -5691,9 +6428,6 @@ export declare class UserFinancialHealthMetricsTableClass {
 	 */
 	constructor(data: Partial<UserFinancialHealthMetricsTableClass>);
 }
-export interface IRequest {
-	isValid(): boolean;
-}
 export interface Bookmark {
 	/**
 	 * the id of the blocked record
@@ -5818,1493 +6552,6 @@ export interface UserTags {
 	 * @example "test-tagname"
 	 */
 	tagName: string;
-}
-/**
- * Represents a user's account in simfiny's backend.
- *
- * The `UserAccount` class is central to operations within simfiny's backend. An instance of this class captures a user's details and
- * metadata such as their address, contact information, profile data, account verification status, and more.
- *
- * @remarks
- * The gateway performs some data transformations; specifically:
- *   - `id` becomes `userAccountID`
- *   - `authnId` becomes `userAuthnAccountID`
- *
- * @example Creating an instance of `UserAccount`:
- * ```ts
- * const userData = {
- *   email: "user@example.com",
- *   username: "exampleUser",
- *   // ... other data fields ...
- * };
- * const account = new UserAccount(userData);
- * console.log(account.getUserName()); // Outputs: "exampleUser"
- * ```
- *
- * @property address - A structured address associated with the user.
- * @property bio - A short biography or description for the user.
- * @property email - The user's email address.
- * @property firstname - The user's first name.
- * @property lastname - The user's last name.
- * @property username - The user's unique username.
- * @property headline - A headline or title for the user's profile.
- * @property phoneNumber - The user's contact phone number.
- * @property userAccountID - A transformed ID for the user, manipulated by the gateway.
- * @property userAuthnAccountID - A transformed authentication ID for the user, manipulated by the gateway.
- * @property id - The user's unique identifier.
- * @property tags - An array of tags associated with the user.
- * @property created_at - Timestamp for when the user was created.
- * @property isEmailVerified - Indicates if the user's email is verified.
- * @property isPrivate - Indicates if the user's account content is private.
- * @property verifiedAt - Timestamp for when the user was verified.
- * @property isActive - Indicates if the user's account is active.
- * @property authnAccountId - The user's authentication account ID.
- * @property createdAt - The user's account creation timestamp.
- *
- * @author Yoan Yomba
- */
-export interface UserAccountContractWithAccountID {
-	userAccountID?: string;
-}
-export declare class UserAccountClass implements UserAccount, UserAccountContractWithAccountID {
-	address?: Address;
-	bio?: string;
-	email?: string;
-	firstname?: string;
-	lastname?: string;
-	username?: string;
-	headline?: string;
-	phoneNumber?: string;
-	userAccountID?: string;
-	userAuthnAccountID?: string;
-	id?: string;
-	tags?: Array<Tags>;
-	created_at?: string;
-	isEmailVerified?: boolean;
-	isPrivate?: boolean;
-	verifiedAt?: string;
-	isActive?: boolean;
-	authnAccountId?: string;
-	createdAt?: string;
-	/**
-	 * A constructor function that takes in a data object and assigns the data to the UserAccount class.
-	 * @param [data] - The data that you want to assign to the object.
-	 */
-	constructor(data?: Partial<UserAccountClass>);
-	/**
-	 * Returns the username of the account
-	 *
-	 * @return {*}  {string}
-	 * @memberof UserAccount
-	 */
-	getUserName(): string;
-	/**
-	 * Returns the tags associated with a given account
-	 *
-	 * @return {*}  {Tag[]}
-	 * @memberof UserAccount
-	 */
-	getTags(): Tags[];
-	/**
-	 * Returns the number of tags associated with a given account
-	 *
-	 * @return {*}  {number}
-	 * @memberof UserAccount
-	 */
-	getTagCount(): number;
-	/**
-	 * Deciphers wether the account has a verified email or not
-	 *
-	 * @return {*}  {boolean}
-	 * @memberof UserAccount
-	 */
-	isAccountVerified(): boolean | undefined;
-	/**
-	 * Deciphers wether the account's content should be shown or not
-	 *
-	 * @return {*}  {boolean}
-	 * @memberof UserAccount
-	 */
-	shouldShowContent(): boolean | undefined;
-	/**
-	 * Obtains the bio of the account
-	 *
-	 * @return {*}  {string}
-	 * @memberof UserAccount
-	 */
-	getBio(): string | undefined;
-	/**
-	 * Obtains the headline of the account
-	 *
-	 * @return {*}  {string}
-	 * @memberof UserAccount
-	 */
-	getHeadline(): string | undefined;
-	/**
-	 * @description Returns the ID of the account
-	 * @author Yoan Yomba
-	 * @returns {*}  {string}
-	 * @memberof UserAccount
-	 */
-	getID(): string | undefined;
-}
-/**
- * @description The request to authenticate a user
- * @author Yoan Yomba
- * @export
- * @class AuthenticateRequest
- */
-export declare class AuthenticateRequest implements IRequest {
-	Username: string;
-	Password: string;
-	constructor(data?: Partial<AuthenticateRequest>);
-	isValid(): boolean;
-}
-export type FinancialProfileResponse = {
-	profile: FinancialUserProfile;
-	financialContext: MelodyFinancialContext;
-};
-/**
- * @description The response when a user is authenticated
- * @author Yoan Yomba
- * @export
- * @class AuthenticationResponse
- * @extends {ErrorResponse}
- */
-export declare class AuthenticationResponse extends ErrorResponse {
-	code: number;
-	err: string;
-	token: string;
-	user_account: UserAccountClass;
-	user_profile: UserProfile;
-	user_financial_profile: FinancialProfileResponse;
-	constructor(data?: Partial<AuthenticationResponse>);
-}
-export declare class CheckEmailExistsRequest {
-	/** The email of the user of interest */
-	email: string;
-	constructor(data?: Partial<CheckEmailExistsRequest>);
-}
-export declare class CheckEmailExistsResponse extends ErrorResponse {
-	exists: boolean;
-	constructor(data?: Partial<CheckEmailExistsResponse>);
-	private create;
-	private fromPartial;
-}
-export declare class CheckUsernameExistsRequest implements IRequest {
-	/** The username of the user of interest */
-	username: string;
-	constructor(data?: Partial<CheckUsernameExistsRequest>);
-	isValid(): boolean;
-}
-export declare class CheckUsernameExistsResponse extends ErrorResponse {
-	exists: boolean;
-	constructor(data?: Partial<CheckUsernameExistsResponse>);
-	private create;
-	private fromPartial;
-}
-export declare class UserRegistrationAccountDetails {
-	/** account id */
-	id: number;
-	/**
-	 * account email
-	 * Validations:
-	 * - must be an email and required
-	 */
-	email: string;
-	/**
-	 * simple description specific to account should be less than 200 characters
-	 * Validations:
-	 * - can be empty
-	 */
-	bio: string;
-	/**
-	 * profile headline
-	 * Validations:
-	 * - can be empty
-	 */
-	headline: string;
-	/**
-	 * account phone number
-	 * Validations:
-	 * - mcan be empty
-	 */
-	phoneNumber: string;
-	/**
-	 * sample tags easily associable to account
-	 * account first name
-	 * Validations:
-	 * - must be at provide between 1 and 10 tags
-	 */
-	tags: Tags[];
-	/** authentication service account id */
-	authnAccountId: number;
-	/** infers wether the account is active */
-	isActive: boolean;
-	/**
-	 * account first name
-	 * Validations:
-	 * - can be empty
-	 */
-	firstname: string;
-	/**
-	 * account last name
-	 * Validations:
-	 * - can be empty
-	 */
-	lastname: string;
-	/**
-	 * account user name
-	 * Validations:
-	 * - must be at least 10 character
-	 */
-	username: string;
-	/** account is private */
-	isPrivate: boolean;
-	/**
-	 * isEmailVerified is a field denoting wether or not the user account has
-	 * indeed verified their email address
-	 */
-	isEmailVerified: boolean;
-	createdAt: Date | undefined;
-	verifiedAt: Date | undefined;
-	constructor(data?: Partial<UserRegistrationAccountDetails>);
-	toJSON(): {
-		id: number;
-		email: string;
-		bio: string;
-		headline: string;
-		phoneNumber: string;
-		tags: Tags[];
-		authnAccountId: number;
-		isActive: boolean;
-		firstname: string;
-		lastname: string;
-		username: string;
-		isPrivate: boolean;
-		isEmailVerified: boolean;
-		createdAt: string | undefined;
-		verifiedAt: string | undefined;
-	};
-}
-/**
- * @description The request to create a user account
- * @author Yoan Yomba
- * @export
- * @class CreateAccountRequest
- */
-export declare class CreateAccountRequest implements IRequest {
-	account: UserRegistrationAccountDetails;
-	communityIdsToFollow: number[];
-	profileImage: string;
-	password: string;
-	constructor(data?: Partial<CreateAccountRequest>);
-	toJSON(): {
-		account: {
-			id: number;
-			email: string;
-			bio: string;
-			headline: string;
-			phoneNumber: string;
-			tags: Tags[];
-			authnAccountId: number;
-			isActive: boolean;
-			firstname: string;
-			lastname: string;
-			username: string;
-			isPrivate: boolean;
-			isEmailVerified: boolean;
-			createdAt: string | undefined;
-			verifiedAt: string | undefined;
-		};
-		communityIdsToFollow: number[];
-		profileImage: string;
-		password: string;
-	};
-	isValid(): boolean;
-}
-export declare class GetAccountBalanceHistoryResponse extends ErrorResponse {
-	accountBalanceHistory: AccountBalanceHistory[];
-	constructor(data: Partial<GetAccountBalanceHistoryResponse>);
-}
-/**
- * Represents the request for getting account balance history.
- */
-export declare class GetAccountBalanceHistoryRequest {
-	/**
-	 * The account ID associated with the request.
-	 */
-	plaidAccountId: string;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetAccountBalanceHistoryRequest.
-	 * @param partialRequest Partial request object to initialize the GetAccountBalanceHistoryRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetAccountBalanceHistoryRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetAccountBalanceHistoryRequest>);
-}
-/**
- * Represents the request for getting category monthly transaction count.
- */
-export declare class GetCategoryMonthlyTransactionCountRequest {
-	/**
-	 * The user ID associated with the request (has to be present and defined).
-	 */
-	userId: number;
-	/**
-	 * The month for which category monthly transaction count is requested (optional).
-	 */
-	month: number;
-	/**
-	 * The primary personal finance category for filtering the records (optional).
-	 */
-	personalFinanceCategoryPrimary: string;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetCategoryMonthlyTransactionCountRequest.
-	 * @param partialRequest Partial request object to initialize the GetCategoryMonthlyTransactionCountRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetCategoryMonthlyTransactionCountRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetCategoryMonthlyTransactionCountRequest>);
-}
-export declare class GetCategoryMonthlyTransactionCountResponse extends ErrorResponse {
-	categoryMonthlyTransactionCount: CategoryMonthlyTransactionCount[];
-	nextPageNumber: number;
-	constructor(data?: Partial<GetCategoryMonthlyTransactionCountResponse>);
-}
-/**
- * Represents the request for getting debt to income ratio.
- */
-export declare class GetDebtToIncomeRatioRequest {
-	/**
-	 * The user ID associated with the request.
-	 */
-	userId: number;
-	/**
-	 * The month for which debt to income ratio is requested (optional).
-	 */
-	month?: number;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetDebtToIncomeRatioRequest.
-	 * @param partialRequest Partial request object to initialize the GetDebtToIncomeRatioRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetDebtToIncomeRatioRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetDebtToIncomeRatioRequest>);
-}
-/**
- * Represents the response for getting debt to income ratio.
- */
-export declare class GetDebtToIncomeRatioResponse extends ErrorResponse {
-	/**
-	 * List of debt to income ratios.
-	 */
-	debtToIncomeRatios: DebtToIncomeRatio[];
-	/**
-	 * The page number of the next set of data.
-	 */
-	nextPageNumber: number;
-	/**
-	 * Creates a new instance of GetDebtToIncomeRatioResponse.
-	 * @param debtToIncomeRatios List of debt to income ratios.
-	 * @param nextPageNumber The page number of the next set of data.
-	 */
-	constructor(data?: Partial<GetDebtToIncomeRatioResponse>);
-}
-/**
- * Represents the request for getting expense metrics.
- */
-export declare class GetExpenseMetricsRequest {
-	/**
-	 * The user ID associated with the request.
-	 */
-	userId: number;
-	/**
-	 * The month for which expense metrics are requested (optional).
-	 */
-	month?: number;
-	/**
-	 * The primary personal finance category for filtering the records (optional).
-	 */
-	personalFinanceCategoryPrimary?: string;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetExpenseMetricsRequest.
-	 * @param partialRequest Partial request object to initialize the GetExpenseMetricsRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetExpenseMetricsRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetExpenseMetricsRequest>);
-}
-/**
- * Represents the response for getting expense metrics.
- */
-export declare class GetExpenseMetricsResponse extends ErrorResponse {
-	/**
-	 * List of expense metrics.
-	 */
-	expenseMetrics: ExpenseMetrics[];
-	/**
-	 * The page number of the next set of data.
-	 */
-	nextPageNumber: number;
-	/**
-	 * Creates a new instance of GetExpenseMetricsResponse.
-	 * @param expenseMetrics List of expense metrics.
-	 * @param nextPageNumber The page number of the next set of data.
-	 */
-	constructor(data?: Partial<GetExpenseMetricsResponse>);
-}
-/**
- * Represents the response for getting melody financial context.
- */
-export declare class GetMelodyFinancialContextResponse extends ErrorResponse {
-	/**
-	 * Melody financial context information.
-	 */
-	melodyFinancialContext: MelodyFinancialContext | undefined;
-	/**
-	 * Creates a new instance of GetMelodyFinancialContextResponse.
-	 * @param melodyFinancialContext Melody financial context information.
-	 */
-	constructor(data?: Partial<GetMelodyFinancialContextResponse>);
-}
-/**
- * Represents the request for getting Melody financial context.
- */
-export declare class GetMelodyFinancialContextRequest {
-	/**
-	 * The user ID associated with the request.
-	 */
-	userId: number;
-	/**
-	 * Creates a new instance of GetMelodyFinancialContextRequest.
-	 * @param userId The user ID associated with the request.
-	 */
-	constructor(userId: number);
-}
-/**
- * Represents the request for getting financial profile.
- */
-export declare class GetFinancialProfileRequest {
-	/**
-	 * The user ID associated with the request.
-	 */
-	userId: number;
-	/**
-	 * The month for which financial profile is requested (optional).
-	 */
-	month?: number;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetFinancialProfileRequest.
-	 * @param partialRequest Partial request object to initialize the GetFinancialProfileRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetFinancialProfileRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetFinancialProfileRequest>);
-}
-/**
- * Represents the response for getting financial profile.
- */
-export declare class GetFinancialProfileResponse extends ErrorResponse {
-	/**
-	 * List of financial profiles.
-	 */
-	financialProfiles: FinancialProfile[];
-	/**
-	 * The page number of the next set of data.
-	 */
-	nextPageNumber: number;
-	/**
-	 * Creates a new instance of GetFinancialProfileResponse.
-	 * @param financialProfiles List of financial profiles.
-	 * @param nextPageNumber The page number of the next set of data.
-	 */
-	constructor(data?: Partial<GetFinancialProfileResponse>);
-}
-/**
- * Represents the request for getting income expense ratio.
- */
-export declare class GetIncomeExpenseRatioRequest {
-	/**
-	 * The user ID associated with the request.
-	 */
-	userId: number;
-	/**
-	 * The month for which income expense ratio is requested (optional).
-	 */
-	month?: number;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetIncomeExpenseRatioRequest.
-	 * @param partialRequest Partial request object to initialize the GetIncomeExpenseRatioRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetIncomeExpenseRatioRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetIncomeExpenseRatioRequest>);
-}
-/**
- * Represents the response for getting income expense ratio.
- */
-export declare class GetIncomeExpenseRatioResponse extends ErrorResponse {
-	/**
-	 * List of income expense ratios.
-	 */
-	incomeExpenseRatios: IncomeExpenseRatio[];
-	/**
-	 * The page number of the next set of data.
-	 */
-	nextPageNumber: number;
-	/**
-	 * Creates a new instance of GetIncomeExpenseRatioResponse.
-	 * @param incomeExpenseRatios List of income expense ratios.
-	 * @param nextPageNumber The page number of the next set of data.
-	 */
-	constructor(data?: Partial<GetIncomeExpenseRatioResponse>);
-}
-/**
- * Represents the request for getting income metrics.
- */
-export declare class GetIncomeMetricsRequest {
-	/**
-	 * The user ID associated with the request.
-	 */
-	userId: number;
-	/**
-	 * The month for which income metrics are requested (optional).
-	 */
-	month?: number;
-	/**
-	 * The primary personal finance category for filtering the records (optional).
-	 */
-	personalFinanceCategoryPrimary?: string;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetIncomeMetricsRequest.
-	 * @param partialRequest Partial request object to initialize the GetIncomeMetricsRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetIncomeMetricsRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetIncomeMetricsRequest>);
-}
-/**
- * Represents the response for getting income metrics.
- */
-export declare class GetIncomeMetricsResponse extends ErrorResponse {
-	/**
-	 * List of income metrics.
-	 */
-	incomeMetrics: IncomeMetrics[];
-	/**
-	 * The page number of the next set of data.
-	 */
-	nextPageNumber: number;
-	/**
-	 * Creates a new instance of GetIncomeMetricsResponse.
-	 * @param incomeMetrics List of income metrics.
-	 * @param nextPageNumber The page number of the next set of data.
-	 */
-	constructor(data?: Partial<GetIncomeMetricsResponse>);
-}
-/**
- * Represents the request for getting merchant monthly expenditure.
- */
-export declare class GetMerchantMonthlyExpenditureRequest {
-	/**
-	 * The user ID associated with the request.
-	 */
-	userId: number;
-	/**
-	 * The month for which merchant monthly expenditure is requested (optional).
-	 */
-	month?: number;
-	/**
-	 * The merchant name for filtering the records (optional).
-	 */
-	merchantName?: string;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetMerchantMonthlyExpenditureRequest.
-	 * @param partialRequest Partial request object to initialize the GetMerchantMonthlyExpenditureRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetMerchantMonthlyExpenditureRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetMerchantMonthlyExpenditureRequest>);
-}
-/**
- * Represents the response for getting merchant monthly expenditure.
- */
-export declare class GetMerchantMonthlyExpenditureResponse extends ErrorResponse {
-	/**
-	 * List of merchant monthly expenditures.
-	 */
-	merchantMonthlyExpenditures: MerchantMonthlyExpenditure[];
-	/**
-	 * The page number of the next set of data.
-	 */
-	nextPageNumber: number;
-	/**
-	 * Creates a new instance of GetMerchantMonthlyExpenditureResponse.
-	 * @param merchantMonthlyExpenditures List of merchant monthly expenditures.
-	 * @param nextPageNumber The page number of the next set of data.
-	 */
-	constructor(data?: Partial<GetMerchantMonthlyExpenditureResponse>);
-}
-/**
- * Represents the request for getting monthly balance.
- */
-export declare class GetMonthlyBalanceRequest {
-	/**
-	 * The user ID associated with the request.
-	 */
-	userId: number;
-	/**
-	 * The month for which monthly balance is requested (optional).
-	 */
-	month?: number;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetMonthlyBalanceRequest.
-	 * @param partialRequest Partial request object to initialize the GetMonthlyBalanceRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetMonthlyBalanceRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetMonthlyBalanceRequest>);
-}
-/**
- * Represents the response for getting monthly balance.
- */
-export declare class GetMonthlyBalanceResponse extends ErrorResponse {
-	/**
-	 * List of monthly balances.
-	 */
-	monthlyBalances: MonthlyBalance[];
-	/**
-	 * The page number of the next set of data.
-	 */
-	nextPageNumber: number;
-	/**
-	 * Creates a new instance of GetMonthlyBalanceResponse.
-	 * @param monthlyBalances List of monthly balances.
-	 * @param nextPageNumber The page number of the next set of data.
-	 */
-	constructor(data?: Partial<GetMonthlyBalanceResponse>);
-}
-/**
- * Represents the request for getting monthly expenditure.
- */
-export declare class GetMonthlyExpenditureRequest {
-	/**
-	 * The user ID associated with the request.
-	 */
-	userId: number;
-	/**
-	 * The month for which monthly expenditure is requested.
-	 */
-	month: number;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetMonthlyExpenditureRequest.
-	 * @param partialRequest Partial request object to initialize the GetMonthlyExpenditureRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetMonthlyExpenditureRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetMonthlyExpenditureRequest>);
-}
-/**
- * Represents the response for getting monthly expenditure.
- */
-export declare class GetMonthlyExpenditureResponse extends ErrorResponse {
-	/**
-	 * List of monthly expenditures.
-	 */
-	monthlyExpenditures: MonthlyExpenditure[];
-	/**
-	 * The page number of the next set of data.
-	 */
-	nextPageNumber: number;
-	/**
-	 * Creates a new instance of GetMonthlyExpenditureResponse.
-	 * @param monthlyExpenditures List of monthly expenditures.
-	 * @param nextPageNumber The page number of the next set of data.
-	 */
-	constructor(data?: Partial<GetMonthlyExpenditureResponse>);
-}
-/**
- * Represents the request for getting monthly income.
- */
-export declare class GetMonthlyIncomeRequest {
-	/**
-	 * The user ID associated with the request.
-	 */
-	userId: number;
-	/**
-	 * The month for which monthly income is requested.
-	 */
-	month: number;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetMonthlyIncomeRequest.
-	 * @param partialRequest Partial request object to initialize the GetMonthlyIncomeRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetMonthlyIncomeRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetMonthlyIncomeRequest>);
-}
-/**
- * Represents the response for getting monthly income.
- */
-export declare class GetMonthlyIncomeResponse extends ErrorResponse {
-	/**
-	 * List of monthly incomes.
-	 */
-	monthlyIncomes: MonthlyIncome[];
-	/**
-	 * The page number of the next set of data.
-	 */
-	nextPageNumber: number;
-	/**
-	 * Creates a new instance of GetMonthlyIncomeResponse.
-	 * @param monthlyIncomes List of monthly incomes.
-	 * @param nextPageNumber The page number of the next set of data.
-	 */
-	constructor(data?: Partial<GetMonthlyIncomeResponse>);
-}
-/**
- * Represents the request for getting monthly savings.
- */
-export declare class GetMonthlySavingsRequest {
-	/**
-	 * The user ID associated with the request.
-	 */
-	userId: number;
-	/**
-	 * The month for which monthly savings is requested.
-	 */
-	month: number;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetMonthlySavingsRequest.
-	 * @param partialRequest Partial request object to initialize the GetMonthlySavingsRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetMonthlySavingsRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetMonthlySavingsRequest>);
-}
-/**
- * Represents the response for getting monthly savings.
- */
-export declare class GetMonthlySavingsResponse extends ErrorResponse {
-	/**
-	 * List of monthly savings.
-	 */
-	monthlySavings: MonthlySavings[];
-	/**
-	 * The page number of the next set of data.
-	 */
-	nextPageNumber: number;
-	/**
-	 * Creates a new instance of GetMonthlySavingsResponse.
-	 * @param monthlySavings List of monthly savings.
-	 * @param nextPageNumber The page number of the next set of data.
-	 */
-	constructor(data?: Partial<GetMonthlySavingsResponse>);
-}
-/**
- * Represents the request for getting monthly total quantity by security and user.
- */
-export declare class GetMonthlyTotalQuantityBySecurityAndUserRequest {
-	/**
-	 * The user ID associated with the request.
-	 */
-	userId: number;
-	/**
-	 * The month for which monthly total quantity is requested.
-	 */
-	month: number;
-	/**
-	 * The security ID for filtering the records.
-	 */
-	securityId: string;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetMonthlyTotalQuantityBySecurityAndUserRequest.
-	 * @param partialRequest Partial request object to initialize the GetMonthlyTotalQuantityBySecurityAndUserRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetMonthlyTotalQuantityBySecurityAndUserRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetMonthlyTotalQuantityBySecurityAndUserRequest>);
-}
-/**
- * Represents the response for getting monthly total quantity by security and user.
- */
-export declare class GetMonthlyTotalQuantityBySecurityAndUserResponse extends ErrorResponse {
-	/**
-	 * List of monthly total quantity by security and user.
-	 */
-	monthlyTotalQuantityBySecurityAndUser: MonthlyTotalQuantityBySecurityAndUser[];
-	/**
-	 * The page number of the next set of data.
-	 */
-	nextPageNumber: number;
-	/**
-	 * Creates a new instance of GetMonthlyTotalQuantityBySecurityAndUserResponse.
-	 * @param monthlyTotalQuantityBySecurityAndUser List of monthly total quantity by security and user.
-	 * @param nextPageNumber The page number of the next set of data.
-	 */
-	constructor(data?: Partial<GetMonthlyTotalQuantityBySecurityAndUserResponse>);
-}
-/**
- * Represents the request for getting monthly transaction count.
- */
-export declare class GetMonthlyTransactionCountRequest {
-	/**
-	 * The user ID associated with the request.
-	 */
-	userId: number;
-	/**
-	 * The month for which monthly transaction count is requested.
-	 */
-	month: number;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetMonthlyTransactionCountRequest.
-	 * @param partialRequest Partial request object to initialize the GetMonthlyTransactionCountRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetMonthlyTransactionCountRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetMonthlyTransactionCountRequest>);
-}
-/**
- * Represents the response for getting monthly transaction count.
- */
-export declare class GetMonthlyTransactionCountResponse extends ErrorResponse {
-	/**
-	 * List of monthly transaction counts.
-	 */
-	monthlyTransactionCounts: MonthlyTransactionCount[];
-	/**
-	 * The page number of the next set of data.
-	 */
-	nextPageNumber: number;
-	/**
-	 * Creates a new instance of GetMonthlyTransactionCountResponse.
-	 * @param monthlyTransactionCounts List of monthly transaction counts.
-	 * @param nextPageNumber The page number of the next set of data.
-	 */
-	constructor(data?: Partial<GetMonthlyTransactionCountResponse>);
-}
-/**
- * Represents the request for getting payment channel monthly expenditure.
- */
-export declare class GetPaymentChannelMonthlyExpenditureRequest {
-	/**
-	 * The user ID associated with the request.
-	 */
-	userId: number;
-	/**
-	 * The month for which payment channel monthly expenditure is requested.
-	 */
-	month: number;
-	/**
-	 * The payment channel for filtering the records.
-	 */
-	paymentChannel: string;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetPaymentChannelMonthlyExpenditureRequest.
-	 * @param partialRequest Partial request object to initialize the GetPaymentChannelMonthlyExpenditureRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetPaymentChannelMonthlyExpenditureRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetPaymentChannelMonthlyExpenditureRequest>);
-}
-/**
- * Represents the response for getting payment channel monthly expenditure.
- */
-export declare class GetPaymentChannelMonthlyExpenditureResponse extends ErrorResponse {
-	/**
-	 * List of payment channel monthly expenditures.
-	 */
-	paymentChannelMonthlyExpenditure: PaymentChannelMonthlyExpenditure[];
-	/**
-	 * The page number of the next set of data.
-	 */
-	nextPageNumber: number;
-	/**
-	 * Creates a new instance of GetPaymentChannelMonthlyExpenditureResponse.
-	 * @param paymentChannelMonthlyExpenditure List of payment channel monthly expenditures.
-	 * @param nextPageNumber The page number of the next set of data.
-	 */
-	constructor(data?: Partial<GetPaymentChannelMonthlyExpenditureResponse>);
-}
-export declare class GetReCurringTransactionsRequest {
-	/**
-	 * The user id
-	 * Validations:
-	 * - user_id must be greater than 0
-	 */
-	userId: number;
-	constructor(data?: Partial<GetReCurringTransactionsRequest>);
-}
-export declare class GetReCurringTransactionsResponse extends ErrorResponse {
-	reCcuringTransactions: ReOccuringTransaction[];
-	constructor(data: Partial<GetReCurringTransactionsResponse>);
-}
-/**
- * Represents the request for getting total investment by security.
- */
-export declare class GetTotalInvestmentBySecurityRequest {
-	/**
-	 * The user ID associated with the request.
-	 */
-	userId: number;
-	/**
-	 * The security ID for filtering the records.
-	 */
-	securityId: string;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetTotalInvestmentBySecurityRequest.
-	 * @param partialRequest Partial request object to initialize the GetTotalInvestmentBySecurityRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetTotalInvestmentBySecurityRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetTotalInvestmentBySecurityRequest>);
-}
-/**
- * Represents the response for getting total investment by security.
- */
-export declare class GetTotalInvestmentBySecurityResponse extends ErrorResponse {
-	/**
-	 * List of total investment by security.
-	 */
-	totalInvestmentBySecurity: TotalInvestmentBySecurity[];
-	/**
-	 * The page number of the next set of data.
-	 */
-	nextPageNumber: number;
-	/**
-	 * Creates a new instance of GetTotalInvestmentBySecurityResponse.
-	 * @param totalInvestmentBySecurity List of total investment by security.
-	 * @param nextPageNumber The page number of the next set of data.
-	 */
-	constructor(data?: Partial<GetTotalInvestmentBySecurityResponse>);
-}
-export declare class GetTransactionAggregatesResponse extends ErrorResponse {
-	transactionAggregates: TransactionAggregatesByMonth[];
-	nextPageNumber: number;
-	constructor(data?: Partial<GetTransactionAggregatesResponse>);
-}
-export declare class GetTransactionAggregatesRequest {
-	/**
-	 * The user ID associated with the request.
-	 */
-	userId: number;
-	/**
-	 * The month for which transaction aggregates are requested (in the format YYYYMM).
-	 */
-	month: number;
-	/**
-	 * The primary personal finance category for filtering the transactions.
-	 */
-	personalFinanceCategoryPrimary: string;
-	/**
-	 * The city location for filtering the transactions.
-	 */
-	locationCity: string;
-	/**
-	 * The payment channel for filtering the transactions.
-	 */
-	paymentChannel: string;
-	/**
-	 * The merchant name for filtering the transactions.
-	 */
-	merchantName: string;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetTransactionAggregatesRequest.
-	 * @param partialRequest Partial request object to initialize the GetTransactionAggregatesRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetTransactionAggregatesRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetTransactionAggregatesRequest>);
-}
-/**
- * Represents the response for getting transactions for a bank account.
- */
-export declare class GetTransactionsForBankAccountResponse extends ErrorResponse {
-	/**
-	 * An array of transactions for the bank account.
-	 */
-	transactions: Transaction[];
-	/**
-	 * The page number of the next set of transactions.
-	 */
-	nextPageNumber: number;
-	/**
-	 * Creates a new instance of GetTransactionsForBankAccountResponse.
-	 * @param transactions An array of transactions for the bank account.
-	 * @param nextPageNumber The page number of the next set of transactions.
-	 */
-	constructor(data: GetTransactionsForBankAccountResponse);
-}
-/**
- * Class representing a request to get transactions for a bank account.
- */
-export declare class GetTransactionsForBankAccountRequest {
-	/** The user id */
-	userId: number;
-	/** Plaid account id */
-	plaidAccountId: string;
-	/** Page number for paginated results */
-	pageNumber: number;
-	/** Page size for paginated results */
-	pageSize: number;
-	/**
-	 * Create a request to get transactions for a bank account.
-	 * @param {Partial<GetTransactionsForBankAccountRequest>} data - Object containing any properties of a request.
-	 */
-	constructor(data: Partial<GetTransactionsForBankAccountRequest>);
-}
-/**
- * GetTransactionsRequest class
- *
- * Represents a request for getting transactions.
- */
-export declare class GetTransactionsRequest {
-	/**
-	 * The user ID.
-	 * Validations:
-	 * - Must be greater than 0.
-	 */
-	userId: number;
-	/**
-	 * The page number.
-	 */
-	pageNumber: number;
-	/**
-	 * The number of transactions per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates an instance of GetTransactionsRequest.
-	 *
-	 * @param data - The data to initialize the request.
-	 */
-	constructor(data: Partial<GetTransactionsRequest>);
-}
-export declare class GetTransactionsResponse extends ErrorResponse {
-	nextPageNumber: number | undefined;
-	transactions: Transaction[] | undefined;
-	constructor(data: Partial<GetTransactionsResponse>);
-}
-export declare class GetUpdatedUserAccountResponse extends ErrorResponse {
-	account: UserAccount | undefined;
-	constructor(data: Partial<GetUpdatedUserAccountResponse>);
-}
-/**
- * Represents the response for getting user account balance history.
- */
-export declare class GetUserAccountBalanceHistoryResponse extends ErrorResponse {
-	/**
-	 * List of account balance history records.
-	 */
-	accountBalanceHistory: AccountBalanceHistory[];
-	constructor(data: Partial<GetUserAccountBalanceHistoryResponse>);
-}
-/**
- * Represents the request for getting user account balance history.
- */
-export declare class GetUserAccountBalanceHistoryRequest {
-	/**
-	 * The user ID associated with the request.
-	 */
-	userId: number;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetUserAccountBalanceHistoryRequest.
-	 * @param partialRequest Partial request object to initialize the GetUserAccountBalanceHistoryRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetUserAccountBalanceHistoryRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetUserAccountBalanceHistoryRequest>);
-}
-/**
- * Represents the request for getting user category monthly expenditure.
- */
-export declare class GetUserCategoryMonthlyExpenditureRequest {
-	/**
-	 * The user ID associated with the request.
-	 */
-	userId: number;
-	/**
-	 * The primary personal finance category for filtering the records.
-	 */
-	personalFinanceCategoryPrimary: string;
-	/**
-	 * The month for which category monthly expenditure is requested (in the format YYYYMM).
-	 */
-	month: number;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetUserCategoryMonthlyExpenditureRequest.
-	 * @param partialRequest Partial request object to initialize the GetUserCategoryMonthlyExpenditureRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetUserCategoryMonthlyExpenditureRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetUserCategoryMonthlyExpenditureRequest>);
-}
-export declare class GetUserCategoryMonthlyExpenditureResponse extends ErrorResponse {
-	categoryMonthlyExpenditure: CategoryMonthlyExpenditure[];
-	nextPageNumber: number;
-	constructor(data?: Partial<GetUserCategoryMonthlyExpenditureResponse>);
-}
-/**
- * Represents the request for getting user category monthly income.
- */
-export declare class GetUserCategoryMonthlyIncomeRequest {
-	/**
-	 * The user ID associated with the request.
-	 */
-	userId: number;
-	/**
-	 * The primary personal finance category for filtering the records.
-	 */
-	personalFinanceCategoryPrimary: string;
-	/**
-	 * The month for which category monthly income is requested (in the format YYYYMM).
-	 */
-	month: number;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetUserCategoryMonthlyIncomeRequest.
-	 * @param partialRequest Partial request object to initialize the GetUserCategoryMonthlyIncomeRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetUserCategoryMonthlyIncomeRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetUserCategoryMonthlyIncomeRequest>);
-}
-export declare class GetUserCategoryMonthlyIncomeResponse extends ErrorResponse {
-	categoryMonthlyIncome: CategoryMonthlyIncome[];
-	nextPageNumber: number;
-	constructor(data?: Partial<GetUserCategoryMonthlyIncomeResponse>);
-}
-export interface RequestPasswordResetRequest {
-	email: string;
-}
-export declare class RequestPasswordResetResponse extends ErrorResponse {
-	success: boolean;
-	constructor(data: Partial<RequestPasswordResetResponse>);
-}
-export declare class PlaidExchangeTokenRequest {
-	/**
-	 * The user id
-	 * Validations:
-	 * - user_id must be greater than 0
-	 */
-	userId: number;
-	/**
-	 * The public token
-	 * Validations:
-	 * - cannot be nil hence required
-	 */
-	publicToken: string;
-	/** The institution id */
-	institutionId: string;
-	/** The institution name */
-	institutionName: string;
-	constructor(data?: Partial<PlaidExchangeTokenRequest>);
-}
-export declare class PlaidExchangeTokenResponse extends ErrorResponse {
-	/** wether the operation was successful */
-	success: boolean;
-	constructor(data?: Partial<PlaidExchangeTokenResponse>);
-}
-export declare class PlaidInitiateTokenExchangeRequest {
-	/**
-	 * A unique ID representing the end user. Typically this will be a user ID number from your application.
-	 * Personally identifiable information, such as an email address or phone number,
-	 * should not be used in the `client_user_id`. It is currently used as a means of searching logs
-	 * for the given user in the Plaid Dashboard.
-	 * Validations:
-	 * - user_id must be greater than 0
-	 */
-	userId: number;
-	/**
-	 * The user's full legal name. This is an optional field used in
-	 * the [returning user experience](https://plaid.com/docs/link/returning-user) to associate Items to the user.
-	 */
-	fullName: string;
-	/**
-	 * The user's email address. This field is optional, but required to enable the
-	 * [pre-authenticated returning user flow](https://plaid.com/docs/link/returning-user/#enabling-the-returning-user-experience).
-	 */
-	email: string;
-	/**
-	 * The user's phone number in [E.164](https://en.wikipedia.org/wiki/E.164) format.
-	 * This field is optional, but required to enable the [returning user experience](https://plaid.com/docs/link/returning-user).
-	 */
-	phoneNumber: string;
-	constructor(data: Partial<PlaidInitiateTokenExchangeRequest>);
-}
-export declare class PlaidInitiateTokenExchangeResponse {
-	linkToken: string;
-	expiration: string;
-	plaidRequestId: string;
-	constructor(data: Partial<PlaidInitiateTokenExchangeRequest>);
-}
-export declare class PlaidLinkRequest {
-	/**
-	 * A unique ID representing the end user. Typically this will be a user ID number from your application.
-	 * Personally identifiable information, such as an email address or phone number,
-	 * should not be used in the `client_user_id`. It is currently used as a means of searching logs
-	 * for the given user in the Plaid Dashboard.
-	 * Validations:
-	 * - user_id must be greater than 0
-	 */
-	userId: number;
-	/**
-	 * The user's full legal name. This is an optional field used in
-	 * the [returning user experience](https://plaid.com/docs/link/returning-user) to associate Items to the user.
-	 */
-	fullName: string;
-	/**
-	 * The user's email address. This field is optional, but required to enable the
-	 * [pre-authenticated returning user flow](https://plaid.com/docs/link/returning-user/#enabling-the-returning-user-experience).
-	 */
-	email: string;
-	/**
-	 * The user's phone number in [E.164](https://en.wikipedia.org/wiki/E.164) format.
-	 * This field is optional, but required to enable the [returning user experience](https://plaid.com/docs/link/returning-user).
-	 */
-	phoneNumber: string;
-	constructor(data?: Partial<PlaidLinkRequest>);
-}
-export declare class PlaidLinkResponse extends ErrorResponse {
-	linkToken: string;
-	expiration: string;
-	plaidRequestId: string;
-	constructor(data?: Partial<PlaidLinkResponse>);
-}
-export declare class PlaidInitiateTokenUpdateRequest {
-	/**
-	 * The user id
-	 * Validations:
-	 * - user_id must be greater than 0
-	 */
-	userId: number;
-	/**
-	 * The link id we want to update for
-	 * Validations:
-	 * - cannot be nil hence required
-	 */
-	linkId: number;
-	constructor(data?: Partial<PlaidInitiateTokenUpdateRequest>);
-}
-export declare class PlaidInitiateTokenUpdateResponse extends ErrorResponse {
-	linkToken: string;
-	expiration: string;
-	constructor(data: Partial<PlaidInitiateTokenUpdateResponse>);
-}
-/**
- * Represents a request to reset a password.
- */
-export interface ResetPasswordRequest {
-	/**
-	 * The new password that the user wants to set.
-	 */
-	password: string;
-	/**
-	 * A token that verifies the legitimacy of the reset password request.
-	 */
-	token: string;
-}
-/**
- * Represents a response containing a token.
- */
-export declare class ResetPasswordResponse {
-	/**
-	 * The token returned by the server, typically used for authentication purposes.
-	 */
-	token: string;
-	/**
-	 * A code indicating the status or result of the operation.
-	 */
-	code: number;
-	/**
-	 * An error message, if any occurred during the operation.
-	 */
-	err: string;
-	/**
-	 * Creates a new instance of `TokenResponse`.
-	 *
-	 * @param data - An object containing any subset of the `TokenResponse` properties.
-	 */
-	constructor(data: Partial<ResetPasswordResponse>);
-}
-/**
- * UpdateUserRequest: Represents the request object invoked against the user
- * service to update a given user account
- */
-export declare class UpdateUserAccountRequest implements IRequest {
-	/**
-	 * UserAccount to update
-	 * Validation:
-	 * - cannot nil hence required
-	 */
-	account: UserAccount | undefined;
-	constructor(data?: Partial<UpdateUserAccountRequest>);
-	isValid(): boolean;
-}
-export declare class UpdateUserAccountResponse extends ErrorResponse {
-	accountUpdated: boolean;
-	account: UserAccount | undefined;
-	constructor(data?: Partial<UpdateUserAccountResponse>);
 }
 /**
  * Represents a user's social profile on the platform.
@@ -7596,6 +6843,1496 @@ export declare class SocialAccount {
 	 * @returns {string} The number of users following this profile.
 	 */
 	getfollowingCount(): number;
+}
+/**
+ * Represents a user's account in simfiny's backend.
+ *
+ * The `UserAccount` class is central to operations within simfiny's backend. An instance of this class captures a user's details and
+ * metadata such as their address, contact information, profile data, account verification status, and more.
+ *
+ * @remarks
+ * The gateway performs some data transformations; specifically:
+ *   - `id` becomes `userAccountID`
+ *   - `authnId` becomes `userAuthnAccountID`
+ *
+ * @example Creating an instance of `UserAccount`:
+ * ```ts
+ * const userData = {
+ *   email: "user@example.com",
+ *   username: "exampleUser",
+ *   // ... other data fields ...
+ * };
+ * const account = new UserAccount(userData);
+ * console.log(account.getUserName()); // Outputs: "exampleUser"
+ * ```
+ *
+ * @property address - A structured address associated with the user.
+ * @property bio - A short biography or description for the user.
+ * @property email - The user's email address.
+ * @property firstname - The user's first name.
+ * @property lastname - The user's last name.
+ * @property username - The user's unique username.
+ * @property headline - A headline or title for the user's profile.
+ * @property phoneNumber - The user's contact phone number.
+ * @property userAccountID - A transformed ID for the user, manipulated by the gateway.
+ * @property userAuthnAccountID - A transformed authentication ID for the user, manipulated by the gateway.
+ * @property id - The user's unique identifier.
+ * @property tags - An array of tags associated with the user.
+ * @property created_at - Timestamp for when the user was created.
+ * @property isEmailVerified - Indicates if the user's email is verified.
+ * @property isPrivate - Indicates if the user's account content is private.
+ * @property verifiedAt - Timestamp for when the user was verified.
+ * @property isActive - Indicates if the user's account is active.
+ * @property authnAccountId - The user's authentication account ID.
+ * @property createdAt - The user's account creation timestamp.
+ *
+ * @author Yoan Yomba
+ */
+export interface UserAccountContractWithAccountID {
+	userAccountID?: string;
+}
+export declare class UserAccountClass implements UserAccount, UserAccountContractWithAccountID {
+	address?: Address;
+	bio?: string;
+	email?: string;
+	firstname?: string;
+	lastname?: string;
+	username?: string;
+	headline?: string;
+	phoneNumber?: string;
+	userAccountID?: string;
+	userAuthnAccountID?: string;
+	id?: string;
+	tags?: Array<Tags>;
+	created_at?: string;
+	isEmailVerified?: boolean;
+	isPrivate?: boolean;
+	verifiedAt?: string;
+	isActive?: boolean;
+	authnAccountId?: string;
+	createdAt?: string;
+	/**
+	 * A constructor function that takes in a data object and assigns the data to the UserAccount class.
+	 * @param [data] - The data that you want to assign to the object.
+	 */
+	constructor(data?: Partial<UserAccountClass>);
+	/**
+	 * Returns the username of the account
+	 *
+	 * @return {*}  {string}
+	 * @memberof UserAccount
+	 */
+	getUserName(): string;
+	/**
+	 * Returns the tags associated with a given account
+	 *
+	 * @return {*}  {Tag[]}
+	 * @memberof UserAccount
+	 */
+	getTags(): Tags[];
+	/**
+	 * Returns the number of tags associated with a given account
+	 *
+	 * @return {*}  {number}
+	 * @memberof UserAccount
+	 */
+	getTagCount(): number;
+	/**
+	 * Deciphers wether the account has a verified email or not
+	 *
+	 * @return {*}  {boolean}
+	 * @memberof UserAccount
+	 */
+	isAccountVerified(): boolean | undefined;
+	/**
+	 * Deciphers wether the account's content should be shown or not
+	 *
+	 * @return {*}  {boolean}
+	 * @memberof UserAccount
+	 */
+	shouldShowContent(): boolean | undefined;
+	/**
+	 * Obtains the bio of the account
+	 *
+	 * @return {*}  {string}
+	 * @memberof UserAccount
+	 */
+	getBio(): string | undefined;
+	/**
+	 * Obtains the headline of the account
+	 *
+	 * @return {*}  {string}
+	 * @memberof UserAccount
+	 */
+	getHeadline(): string | undefined;
+	/**
+	 * @description Returns the ID of the account
+	 * @author Yoan Yomba
+	 * @returns {*}  {string}
+	 * @memberof UserAccount
+	 */
+	getID(): string | undefined;
+}
+export interface IRequest {
+	isValid(): boolean;
+}
+/**
+ * @description The request to authenticate a user
+ * @author Yoan Yomba
+ * @export
+ * @class AuthenticateRequest
+ */
+export declare class AuthenticateRequestClass implements IRequest {
+	Username: string;
+	Password: string;
+	constructor(data?: Partial<AuthenticateRequestClass>);
+	isValid(): boolean;
+}
+export type FinancialProfileResponse = {
+	profile: FinancialUserProfile;
+	financialContext: MelodyFinancialContext;
+};
+/**
+ * @description The response when a user is authenticated
+ * @author Yoan Yomba
+ * @export
+ * @class AuthenticationResponse
+ * @extends {ErrorResponse}
+ */
+export declare class AuthenticationResponseClass extends ErrorResponse {
+	code: number;
+	err: string;
+	token: string;
+	user_account: UserAccountClass;
+	user_profile: UserProfile;
+	user_financial_profile: FinancialProfileResponse;
+	constructor(data?: Partial<AuthenticationResponseClass>);
+}
+export declare class CheckEmailExistsRequestClass {
+	/** The email of the user of interest */
+	email: string;
+	constructor(data?: Partial<CheckEmailExistsRequestClass>);
+}
+export declare class CheckEmailExistsResponseClass extends ErrorResponse {
+	exists: boolean;
+	constructor(data?: Partial<CheckEmailExistsResponseClass>);
+	private create;
+	private fromPartial;
+}
+export declare class CheckUsernameExistsRequestClass implements IRequest {
+	/** The username of the user of interest */
+	username: string;
+	constructor(data?: Partial<CheckUsernameExistsRequestClass>);
+	isValid(): boolean;
+}
+export declare class CheckUsernameExistsResponseClass extends ErrorResponse {
+	exists: boolean;
+	constructor(data?: Partial<CheckUsernameExistsResponseClass>);
+	private create;
+	private fromPartial;
+}
+export declare class UserRegistrationAccountDetails {
+	/** account id */
+	id: number;
+	/**
+	 * account email
+	 * Validations:
+	 * - must be an email and required
+	 */
+	email: string;
+	/**
+	 * simple description specific to account should be less than 200 characters
+	 * Validations:
+	 * - can be empty
+	 */
+	bio: string;
+	/**
+	 * profile headline
+	 * Validations:
+	 * - can be empty
+	 */
+	headline: string;
+	/**
+	 * account phone number
+	 * Validations:
+	 * - mcan be empty
+	 */
+	phoneNumber: string;
+	/**
+	 * sample tags easily associable to account
+	 * account first name
+	 * Validations:
+	 * - must be at provide between 1 and 10 tags
+	 */
+	tags: Tags[];
+	/** authentication service account id */
+	authnAccountId: number;
+	/** infers wether the account is active */
+	isActive: boolean;
+	/**
+	 * account first name
+	 * Validations:
+	 * - can be empty
+	 */
+	firstname: string;
+	/**
+	 * account last name
+	 * Validations:
+	 * - can be empty
+	 */
+	lastname: string;
+	/**
+	 * account user name
+	 * Validations:
+	 * - must be at least 10 character
+	 */
+	username: string;
+	/** account is private */
+	isPrivate: boolean;
+	/**
+	 * isEmailVerified is a field denoting wether or not the user account has
+	 * indeed verified their email address
+	 */
+	isEmailVerified: boolean;
+	createdAt: Date | undefined;
+	verifiedAt: Date | undefined;
+	constructor(data?: Partial<UserRegistrationAccountDetails>);
+	toJSON(): {
+		id: number;
+		email: string;
+		bio: string;
+		headline: string;
+		phoneNumber: string;
+		tags: Tags[];
+		authnAccountId: number;
+		isActive: boolean;
+		firstname: string;
+		lastname: string;
+		username: string;
+		isPrivate: boolean;
+		isEmailVerified: boolean;
+		createdAt: string | undefined;
+		verifiedAt: string | undefined;
+	};
+}
+/**
+ * @description The request to create a user account
+ * @author Yoan Yomba
+ * @export
+ * @class CreateAccountRequest
+ */
+export declare class CreateAccountRequestClass implements IRequest {
+	account: UserRegistrationAccountDetails;
+	communityIdsToFollow: number[];
+	profileImage: string;
+	password: string;
+	constructor(data?: Partial<CreateAccountRequestClass>);
+	toJSON(): {
+		account: {
+			id: number;
+			email: string;
+			bio: string;
+			headline: string;
+			phoneNumber: string;
+			tags: Tags[];
+			authnAccountId: number;
+			isActive: boolean;
+			firstname: string;
+			lastname: string;
+			username: string;
+			isPrivate: boolean;
+			isEmailVerified: boolean;
+			createdAt: string | undefined;
+			verifiedAt: string | undefined;
+		};
+		communityIdsToFollow: number[];
+		profileImage: string;
+		password: string;
+	};
+	isValid(): boolean;
+}
+export declare class GetAccountBalanceHistoryResponseClass extends ErrorResponse {
+	accountBalanceHistory: AccountBalanceHistory[];
+	constructor(data: Partial<GetAccountBalanceHistoryResponseClass>);
+}
+/**
+ * Represents the request for getting account balance history.
+ */
+export declare class GetAccountBalanceHistoryRequestClass {
+	/**
+	 * The account ID associated with the request.
+	 */
+	plaidAccountId: string;
+	/**
+	 * The page number of the requested data.
+	 */
+	pageNumber: number;
+	/**
+	 * Number of items to return per page.
+	 */
+	pageSize: number;
+	/**
+	 * Creates a new instance of GetAccountBalanceHistoryRequest.
+	 * @param partialRequest Partial request object to initialize the GetAccountBalanceHistoryRequest.
+	 * @remarks You can use this constructor to create a partial instance of GetAccountBalanceHistoryRequest.
+	 *          You can later populate the additional properties manually if needed.
+	 */
+	constructor(partialRequest: Partial<GetAccountBalanceHistoryRequestClass>);
+}
+/**
+ * Represents the request for getting category monthly transaction count.
+ */
+export declare class GetCategoryMonthlyTransactionCountRequestClass {
+	/**
+	 * The user ID associated with the request (has to be present and defined).
+	 */
+	userId: number;
+	/**
+	 * The month for which category monthly transaction count is requested (optional).
+	 */
+	month: number;
+	/**
+	 * The primary personal finance category for filtering the records (optional).
+	 */
+	personalFinanceCategoryPrimary: string;
+	/**
+	 * The page number of the requested data.
+	 */
+	pageNumber: number;
+	/**
+	 * Number of items to return per page.
+	 */
+	pageSize: number;
+	/**
+	 * Creates a new instance of GetCategoryMonthlyTransactionCountRequest.
+	 * @param partialRequest Partial request object to initialize the GetCategoryMonthlyTransactionCountRequest.
+	 * @remarks You can use this constructor to create a partial instance of GetCategoryMonthlyTransactionCountRequest.
+	 *          You can later populate the additional properties manually if needed.
+	 */
+	constructor(partialRequest: Partial<GetCategoryMonthlyTransactionCountRequestClass>);
+}
+export declare class GetCategoryMonthlyTransactionCountResponseClass extends ErrorResponse {
+	categoryMonthlyTransactionCount: CategoryMonthlyTransactionCount[];
+	nextPageNumber: number;
+	constructor(data?: Partial<GetCategoryMonthlyTransactionCountResponseClass>);
+}
+/**
+ * Represents the request for getting debt to income ratio.
+ */
+export declare class GetDebtToIncomeRatioRequestClass {
+	/**
+	 * The user ID associated with the request.
+	 */
+	userId: number;
+	/**
+	 * The month for which debt to income ratio is requested (optional).
+	 */
+	month?: number;
+	/**
+	 * The page number of the requested data.
+	 */
+	pageNumber: number;
+	/**
+	 * Number of items to return per page.
+	 */
+	pageSize: number;
+	/**
+	 * Creates a new instance of GetDebtToIncomeRatioRequest.
+	 * @param partialRequest Partial request object to initialize the GetDebtToIncomeRatioRequest.
+	 * @remarks You can use this constructor to create a partial instance of GetDebtToIncomeRatioRequest.
+	 *          You can later populate the additional properties manually if needed.
+	 */
+	constructor(partialRequest: Partial<GetDebtToIncomeRatioRequestClass>);
+}
+/**
+ * Represents the response for getting debt to income ratio.
+ */
+export declare class GetDebtToIncomeRatioResponseClass extends ErrorResponse {
+	/**
+	 * List of debt to income ratios.
+	 */
+	debtToIncomeRatios: DebtToIncomeRatio[];
+	/**
+	 * The page number of the next set of data.
+	 */
+	nextPageNumber: number;
+	/**
+	 * Creates a new instance of GetDebtToIncomeRatioResponse.
+	 * @param debtToIncomeRatios List of debt to income ratios.
+	 * @param nextPageNumber The page number of the next set of data.
+	 */
+	constructor(data?: Partial<GetDebtToIncomeRatioResponseClass>);
+}
+/**
+ * Represents the request for getting expense metrics.
+ */
+export declare class GetExpenseMetricsRequestClass {
+	/**
+	 * The user ID associated with the request.
+	 */
+	userId: number;
+	/**
+	 * The month for which expense metrics are requested (optional).
+	 */
+	month?: number;
+	/**
+	 * The primary personal finance category for filtering the records (optional).
+	 */
+	personalFinanceCategoryPrimary?: string;
+	/**
+	 * The page number of the requested data.
+	 */
+	pageNumber: number;
+	/**
+	 * Number of items to return per page.
+	 */
+	pageSize: number;
+	/**
+	 * Creates a new instance of GetExpenseMetricsRequest.
+	 * @param partialRequest Partial request object to initialize the GetExpenseMetricsRequest.
+	 * @remarks You can use this constructor to create a partial instance of GetExpenseMetricsRequest.
+	 *          You can later populate the additional properties manually if needed.
+	 */
+	constructor(partialRequest: Partial<GetExpenseMetricsRequestClass>);
+}
+/**
+ * Represents the response for getting expense metrics.
+ */
+export declare class GetExpenseMetricsResponseClass extends ErrorResponse {
+	/**
+	 * List of expense metrics.
+	 */
+	expenseMetrics: ExpenseMetrics[];
+	/**
+	 * The page number of the next set of data.
+	 */
+	nextPageNumber: number;
+	/**
+	 * Creates a new instance of GetExpenseMetricsResponse.
+	 * @param expenseMetrics List of expense metrics.
+	 * @param nextPageNumber The page number of the next set of data.
+	 */
+	constructor(data?: Partial<GetExpenseMetricsResponseClass>);
+}
+/**
+ * Represents the response for getting melody financial context.
+ */
+export declare class GetMelodyFinancialContextResponseClass extends ErrorResponse {
+	/**
+	 * Melody financial context information.
+	 */
+	melodyFinancialContext: MelodyFinancialContext | undefined;
+	/**
+	 * Creates a new instance of GetMelodyFinancialContextResponse.
+	 * @param melodyFinancialContext Melody financial context information.
+	 */
+	constructor(data?: Partial<GetMelodyFinancialContextResponseClass>);
+}
+/**
+ * Represents the request for getting Melody financial context.
+ */
+export declare class GetMelodyFinancialContextRequestClass {
+	/**
+	 * The user ID associated with the request.
+	 */
+	userId: number;
+	/**
+	 * Creates a new instance of GetMelodyFinancialContextRequest.
+	 * @param userId The user ID associated with the request.
+	 */
+	constructor(userId: number);
+}
+/**
+ * Represents the request for getting financial profile.
+ */
+export declare class GetFinancialProfileRequestClass {
+	/**
+	 * The user ID associated with the request.
+	 */
+	userId: number;
+	/**
+	 * The month for which financial profile is requested (optional).
+	 */
+	month?: number;
+	/**
+	 * The page number of the requested data.
+	 */
+	pageNumber: number;
+	/**
+	 * Number of items to return per page.
+	 */
+	pageSize: number;
+	/**
+	 * Creates a new instance of GetFinancialProfileRequest.
+	 * @param partialRequest Partial request object to initialize the GetFinancialProfileRequest.
+	 * @remarks You can use this constructor to create a partial instance of GetFinancialProfileRequest.
+	 *          You can later populate the additional properties manually if needed.
+	 */
+	constructor(partialRequest: Partial<GetFinancialProfileRequestClass>);
+}
+/**
+ * Represents the response for getting financial profile.
+ */
+export declare class GetFinancialProfileResponseClass extends ErrorResponse {
+	/**
+	 * List of financial profiles.
+	 */
+	financialProfiles: FinancialProfile[];
+	/**
+	 * The page number of the next set of data.
+	 */
+	nextPageNumber: number;
+	/**
+	 * Creates a new instance of GetFinancialProfileResponse.
+	 * @param financialProfiles List of financial profiles.
+	 * @param nextPageNumber The page number of the next set of data.
+	 */
+	constructor(data?: Partial<GetFinancialProfileResponseClass>);
+}
+/**
+ * Represents the request for getting income expense ratio.
+ */
+export declare class GetIncomeExpenseRatioRequestClass {
+	/**
+	 * The user ID associated with the request.
+	 */
+	userId: number;
+	/**
+	 * The month for which income expense ratio is requested (optional).
+	 */
+	month?: number;
+	/**
+	 * The page number of the requested data.
+	 */
+	pageNumber: number;
+	/**
+	 * Number of items to return per page.
+	 */
+	pageSize: number;
+	/**
+	 * Creates a new instance of GetIncomeExpenseRatioRequest.
+	 * @param partialRequest Partial request object to initialize the GetIncomeExpenseRatioRequest.
+	 * @remarks You can use this constructor to create a partial instance of GetIncomeExpenseRatioRequest.
+	 *          You can later populate the additional properties manually if needed.
+	 */
+	constructor(partialRequest: Partial<GetIncomeExpenseRatioRequestClass>);
+}
+/**
+ * Represents the response for getting income expense ratio.
+ */
+export declare class GetIncomeExpenseRatioResponseClass extends ErrorResponse {
+	/**
+	 * List of income expense ratios.
+	 */
+	incomeExpenseRatios: IncomeExpenseRatio[];
+	/**
+	 * The page number of the next set of data.
+	 */
+	nextPageNumber: number;
+	/**
+	 * Creates a new instance of GetIncomeExpenseRatioResponse.
+	 * @param incomeExpenseRatios List of income expense ratios.
+	 * @param nextPageNumber The page number of the next set of data.
+	 */
+	constructor(data?: Partial<GetIncomeExpenseRatioResponseClass>);
+}
+/**
+ * Represents the request for getting income metrics.
+ */
+export declare class GetIncomeMetricsRequestClass {
+	/**
+	 * The user ID associated with the request.
+	 */
+	userId: number;
+	/**
+	 * The month for which income metrics are requested (optional).
+	 */
+	month?: number;
+	/**
+	 * The primary personal finance category for filtering the records (optional).
+	 */
+	personalFinanceCategoryPrimary?: string;
+	/**
+	 * The page number of the requested data.
+	 */
+	pageNumber: number;
+	/**
+	 * Number of items to return per page.
+	 */
+	pageSize: number;
+	/**
+	 * Creates a new instance of GetIncomeMetricsRequest.
+	 * @param partialRequest Partial request object to initialize the GetIncomeMetricsRequest.
+	 * @remarks You can use this constructor to create a partial instance of GetIncomeMetricsRequest.
+	 *          You can later populate the additional properties manually if needed.
+	 */
+	constructor(partialRequest: Partial<GetIncomeMetricsRequestClass>);
+}
+/**
+ * Represents the response for getting income metrics.
+ */
+export declare class GetIncomeMetricsResponseClass extends ErrorResponse {
+	/**
+	 * List of income metrics.
+	 */
+	incomeMetrics: IncomeMetrics[];
+	/**
+	 * The page number of the next set of data.
+	 */
+	nextPageNumber: number;
+	/**
+	 * Creates a new instance of GetIncomeMetricsResponse.
+	 * @param incomeMetrics List of income metrics.
+	 * @param nextPageNumber The page number of the next set of data.
+	 */
+	constructor(data?: Partial<GetIncomeMetricsResponseClass>);
+}
+/**
+ * Represents the request for getting merchant monthly expenditure.
+ */
+export declare class GetMerchantMonthlyExpenditureRequestClass {
+	/**
+	 * The user ID associated with the request.
+	 */
+	userId: number;
+	/**
+	 * The month for which merchant monthly expenditure is requested (optional).
+	 */
+	month?: number;
+	/**
+	 * The merchant name for filtering the records (optional).
+	 */
+	merchantName?: string;
+	/**
+	 * The page number of the requested data.
+	 */
+	pageNumber: number;
+	/**
+	 * Number of items to return per page.
+	 */
+	pageSize: number;
+	/**
+	 * Creates a new instance of GetMerchantMonthlyExpenditureRequest.
+	 * @param partialRequest Partial request object to initialize the GetMerchantMonthlyExpenditureRequest.
+	 * @remarks You can use this constructor to create a partial instance of GetMerchantMonthlyExpenditureRequest.
+	 *          You can later populate the additional properties manually if needed.
+	 */
+	constructor(partialRequest: Partial<GetMerchantMonthlyExpenditureRequestClass>);
+}
+/**
+ * Represents the response for getting merchant monthly expenditure.
+ */
+export declare class GetMerchantMonthlyExpenditureResponseClass extends ErrorResponse {
+	/**
+	 * List of merchant monthly expenditures.
+	 */
+	merchantMonthlyExpenditures: MerchantMonthlyExpenditure[];
+	/**
+	 * The page number of the next set of data.
+	 */
+	nextPageNumber: number;
+	/**
+	 * Creates a new instance of GetMerchantMonthlyExpenditureResponse.
+	 * @param merchantMonthlyExpenditures List of merchant monthly expenditures.
+	 * @param nextPageNumber The page number of the next set of data.
+	 */
+	constructor(data?: Partial<GetMerchantMonthlyExpenditureResponseClass>);
+}
+/**
+ * Represents the request for getting monthly balance.
+ */
+export declare class GetMonthlyBalanceRequestClass {
+	/**
+	 * The user ID associated with the request.
+	 */
+	userId: number;
+	/**
+	 * The month for which monthly balance is requested (optional).
+	 */
+	month?: number;
+	/**
+	 * The page number of the requested data.
+	 */
+	pageNumber: number;
+	/**
+	 * Number of items to return per page.
+	 */
+	pageSize: number;
+	/**
+	 * Creates a new instance of GetMonthlyBalanceRequest.
+	 * @param partialRequest Partial request object to initialize the GetMonthlyBalanceRequest.
+	 * @remarks You can use this constructor to create a partial instance of GetMonthlyBalanceRequest.
+	 *          You can later populate the additional properties manually if needed.
+	 */
+	constructor(partialRequest: Partial<GetMonthlyBalanceRequestClass>);
+}
+/**
+ * Represents the response for getting monthly balance.
+ */
+export declare class GetMonthlyBalanceResponseClass extends ErrorResponse {
+	/**
+	 * List of monthly balances.
+	 */
+	monthlyBalances: MonthlyBalance[];
+	/**
+	 * The page number of the next set of data.
+	 */
+	nextPageNumber: number;
+	/**
+	 * Creates a new instance of GetMonthlyBalanceResponse.
+	 * @param monthlyBalances List of monthly balances.
+	 * @param nextPageNumber The page number of the next set of data.
+	 */
+	constructor(data?: Partial<GetMonthlyBalanceResponseClass>);
+}
+/**
+ * Represents the request for getting monthly expenditure.
+ */
+export declare class GetMonthlyExpenditureRequestClass {
+	/**
+	 * The user ID associated with the request.
+	 */
+	userId: number;
+	/**
+	 * The month for which monthly expenditure is requested.
+	 */
+	month: number;
+	/**
+	 * The page number of the requested data.
+	 */
+	pageNumber: number;
+	/**
+	 * Number of items to return per page.
+	 */
+	pageSize: number;
+	/**
+	 * Creates a new instance of GetMonthlyExpenditureRequest.
+	 * @param partialRequest Partial request object to initialize the GetMonthlyExpenditureRequest.
+	 * @remarks You can use this constructor to create a partial instance of GetMonthlyExpenditureRequest.
+	 *          You can later populate the additional properties manually if needed.
+	 */
+	constructor(partialRequest: Partial<GetMonthlyExpenditureRequestClass>);
+}
+/**
+ * Represents the response for getting monthly expenditure.
+ */
+export declare class GetMonthlyExpenditureResponseClass extends ErrorResponse {
+	/**
+	 * List of monthly expenditures.
+	 */
+	monthlyExpenditures: MonthlyExpenditure[];
+	/**
+	 * The page number of the next set of data.
+	 */
+	nextPageNumber: number;
+	/**
+	 * Creates a new instance of GetMonthlyExpenditureResponse.
+	 * @param monthlyExpenditures List of monthly expenditures.
+	 * @param nextPageNumber The page number of the next set of data.
+	 */
+	constructor(data?: Partial<GetMonthlyExpenditureResponseClass>);
+}
+/**
+ * Represents the request for getting monthly income.
+ */
+export declare class GetMonthlyIncomeRequestClass {
+	/**
+	 * The user ID associated with the request.
+	 */
+	userId: number;
+	/**
+	 * The month for which monthly income is requested.
+	 */
+	month: number;
+	/**
+	 * The page number of the requested data.
+	 */
+	pageNumber: number;
+	/**
+	 * Number of items to return per page.
+	 */
+	pageSize: number;
+	/**
+	 * Creates a new instance of GetMonthlyIncomeRequest.
+	 * @param partialRequest Partial request object to initialize the GetMonthlyIncomeRequest.
+	 * @remarks You can use this constructor to create a partial instance of GetMonthlyIncomeRequest.
+	 *          You can later populate the additional properties manually if needed.
+	 */
+	constructor(partialRequest: Partial<GetMonthlyIncomeRequestClass>);
+}
+/**
+ * Represents the response for getting monthly income.
+ */
+export declare class GetMonthlyIncomeResponseClass extends ErrorResponse {
+	/**
+	 * List of monthly incomes.
+	 */
+	monthlyIncomes: MonthlyIncome[];
+	/**
+	 * The page number of the next set of data.
+	 */
+	nextPageNumber: number;
+	/**
+	 * Creates a new instance of GetMonthlyIncomeResponse.
+	 * @param monthlyIncomes List of monthly incomes.
+	 * @param nextPageNumber The page number of the next set of data.
+	 */
+	constructor(data?: Partial<GetMonthlyIncomeResponseClass>);
+}
+/**
+ * Represents the request for getting monthly savings.
+ */
+export declare class GetMonthlySavingsRequestClass {
+	/**
+	 * The user ID associated with the request.
+	 */
+	userId: number;
+	/**
+	 * The month for which monthly savings is requested.
+	 */
+	month: number;
+	/**
+	 * The page number of the requested data.
+	 */
+	pageNumber: number;
+	/**
+	 * Number of items to return per page.
+	 */
+	pageSize: number;
+	/**
+	 * Creates a new instance of GetMonthlySavingsRequest.
+	 * @param partialRequest Partial request object to initialize the GetMonthlySavingsRequest.
+	 * @remarks You can use this constructor to create a partial instance of GetMonthlySavingsRequest.
+	 *          You can later populate the additional properties manually if needed.
+	 */
+	constructor(partialRequest: Partial<GetMonthlySavingsRequestClass>);
+}
+/**
+ * Represents the response for getting monthly savings.
+ */
+export declare class GetMonthlySavingsResponseClass extends ErrorResponse {
+	/**
+	 * List of monthly savings.
+	 */
+	monthlySavings: MonthlySavings[];
+	/**
+	 * The page number of the next set of data.
+	 */
+	nextPageNumber: number;
+	/**
+	 * Creates a new instance of GetMonthlySavingsResponse.
+	 * @param monthlySavings List of monthly savings.
+	 * @param nextPageNumber The page number of the next set of data.
+	 */
+	constructor(data?: Partial<GetMonthlySavingsResponseClass>);
+}
+/**
+ * Represents the request for getting monthly total quantity by security and user.
+ */
+export declare class GetMonthlyTotalQuantityBySecurityAndUserRequestClass {
+	/**
+	 * The user ID associated with the request.
+	 */
+	userId: number;
+	/**
+	 * The month for which monthly total quantity is requested.
+	 */
+	month: number;
+	/**
+	 * The security ID for filtering the records.
+	 */
+	securityId: string;
+	/**
+	 * The page number of the requested data.
+	 */
+	pageNumber: number;
+	/**
+	 * Number of items to return per page.
+	 */
+	pageSize: number;
+	/**
+	 * Creates a new instance of GetMonthlyTotalQuantityBySecurityAndUserRequest.
+	 * @param partialRequest Partial request object to initialize the GetMonthlyTotalQuantityBySecurityAndUserRequest.
+	 * @remarks You can use this constructor to create a partial instance of GetMonthlyTotalQuantityBySecurityAndUserRequest.
+	 *          You can later populate the additional properties manually if needed.
+	 */
+	constructor(partialRequest: Partial<GetMonthlyTotalQuantityBySecurityAndUserRequestClass>);
+}
+/**
+ * Represents the response for getting monthly total quantity by security and user.
+ */
+export declare class GetMonthlyTotalQuantityBySecurityAndUserResponseClass extends ErrorResponse {
+	/**
+	 * List of monthly total quantity by security and user.
+	 */
+	monthlyTotalQuantityBySecurityAndUser: MonthlyTotalQuantityBySecurityAndUser[];
+	/**
+	 * The page number of the next set of data.
+	 */
+	nextPageNumber: number;
+	/**
+	 * Creates a new instance of GetMonthlyTotalQuantityBySecurityAndUserResponse.
+	 * @param monthlyTotalQuantityBySecurityAndUser List of monthly total quantity by security and user.
+	 * @param nextPageNumber The page number of the next set of data.
+	 */
+	constructor(data?: Partial<GetMonthlyTotalQuantityBySecurityAndUserResponseClass>);
+}
+/**
+ * Represents the request for getting monthly transaction count.
+ */
+export declare class GetMonthlyTransactionCountRequestClass {
+	/**
+	 * The user ID associated with the request.
+	 */
+	userId: number;
+	/**
+	 * The month for which monthly transaction count is requested.
+	 */
+	month: number;
+	/**
+	 * The page number of the requested data.
+	 */
+	pageNumber: number;
+	/**
+	 * Number of items to return per page.
+	 */
+	pageSize: number;
+	/**
+	 * Creates a new instance of GetMonthlyTransactionCountRequest.
+	 * @param partialRequest Partial request object to initialize the GetMonthlyTransactionCountRequest.
+	 * @remarks You can use this constructor to create a partial instance of GetMonthlyTransactionCountRequest.
+	 *          You can later populate the additional properties manually if needed.
+	 */
+	constructor(partialRequest: Partial<GetMonthlyTransactionCountRequestClass>);
+}
+/**
+ * Represents the response for getting monthly transaction count.
+ */
+export declare class GetMonthlyTransactionCountResponseClass extends ErrorResponse {
+	/**
+	 * List of monthly transaction counts.
+	 */
+	monthlyTransactionCounts: MonthlyTransactionCount[];
+	/**
+	 * The page number of the next set of data.
+	 */
+	nextPageNumber: number;
+	/**
+	 * Creates a new instance of GetMonthlyTransactionCountResponse.
+	 * @param monthlyTransactionCounts List of monthly transaction counts.
+	 * @param nextPageNumber The page number of the next set of data.
+	 */
+	constructor(data?: Partial<GetMonthlyTransactionCountResponseClass>);
+}
+/**
+ * Represents the request for getting payment channel monthly expenditure.
+ */
+export declare class GetPaymentChannelMonthlyExpenditureRequestClass {
+	/**
+	 * The user ID associated with the request.
+	 */
+	userId: number;
+	/**
+	 * The month for which payment channel monthly expenditure is requested.
+	 */
+	month: number;
+	/**
+	 * The payment channel for filtering the records.
+	 */
+	paymentChannel: string;
+	/**
+	 * The page number of the requested data.
+	 */
+	pageNumber: number;
+	/**
+	 * Number of items to return per page.
+	 */
+	pageSize: number;
+	/**
+	 * Creates a new instance of GetPaymentChannelMonthlyExpenditureRequest.
+	 * @param partialRequest Partial request object to initialize the GetPaymentChannelMonthlyExpenditureRequest.
+	 * @remarks You can use this constructor to create a partial instance of GetPaymentChannelMonthlyExpenditureRequest.
+	 *          You can later populate the additional properties manually if needed.
+	 */
+	constructor(partialRequest: Partial<GetPaymentChannelMonthlyExpenditureRequestClass>);
+}
+/**
+ * Represents the response for getting payment channel monthly expenditure.
+ */
+export declare class GetPaymentChannelMonthlyExpenditureResponseClass extends ErrorResponse {
+	/**
+	 * List of payment channel monthly expenditures.
+	 */
+	paymentChannelMonthlyExpenditure: PaymentChannelMonthlyExpenditure[];
+	/**
+	 * The page number of the next set of data.
+	 */
+	nextPageNumber: number;
+	/**
+	 * Creates a new instance of GetPaymentChannelMonthlyExpenditureResponse.
+	 * @param paymentChannelMonthlyExpenditure List of payment channel monthly expenditures.
+	 * @param nextPageNumber The page number of the next set of data.
+	 */
+	constructor(data?: Partial<GetPaymentChannelMonthlyExpenditureResponseClass>);
+}
+export declare class GetReCurringTransactionsRequestClass {
+	/**
+	 * The user id
+	 * Validations:
+	 * - user_id must be greater than 0
+	 */
+	userId: number;
+	constructor(data?: Partial<GetReCurringTransactionsRequestClass>);
+}
+export declare class GetReCurringTransactionsResponseClass extends ErrorResponse {
+	reCcuringTransactions: ReOccuringTransaction[];
+	constructor(data: Partial<GetReCurringTransactionsResponseClass>);
+}
+/**
+ * Represents the request for getting total investment by security.
+ */
+export declare class GetTotalInvestmentBySecurityRequestClass {
+	/**
+	 * The user ID associated with the request.
+	 */
+	userId: number;
+	/**
+	 * The security ID for filtering the records.
+	 */
+	securityId: string;
+	/**
+	 * The page number of the requested data.
+	 */
+	pageNumber: number;
+	/**
+	 * Number of items to return per page.
+	 */
+	pageSize: number;
+	/**
+	 * Creates a new instance of GetTotalInvestmentBySecurityRequest.
+	 * @param partialRequest Partial request object to initialize the GetTotalInvestmentBySecurityRequest.
+	 * @remarks You can use this constructor to create a partial instance of GetTotalInvestmentBySecurityRequest.
+	 *          You can later populate the additional properties manually if needed.
+	 */
+	constructor(partialRequest: Partial<GetTotalInvestmentBySecurityRequestClass>);
+}
+/**
+ * Represents the response for getting total investment by security.
+ */
+export declare class GetTotalInvestmentBySecurityResponseClass extends ErrorResponse {
+	/**
+	 * List of total investment by security.
+	 */
+	totalInvestmentBySecurity: TotalInvestmentBySecurity[];
+	/**
+	 * The page number of the next set of data.
+	 */
+	nextPageNumber: number;
+	/**
+	 * Creates a new instance of GetTotalInvestmentBySecurityResponse.
+	 * @param totalInvestmentBySecurity List of total investment by security.
+	 * @param nextPageNumber The page number of the next set of data.
+	 */
+	constructor(data?: Partial<GetTotalInvestmentBySecurityResponseClass>);
+}
+export declare class GetTransactionAggregatesResponseClass extends ErrorResponse {
+	transactionAggregates: TransactionAggregatesByMonth[];
+	nextPageNumber: number;
+	constructor(data?: Partial<GetTransactionAggregatesResponseClass>);
+}
+export declare class GetTransactionAggregatesRequestClass {
+	/**
+	 * The user ID associated with the request.
+	 */
+	userId: number;
+	/**
+	 * The month for which transaction aggregates are requested (in the format YYYYMM).
+	 */
+	month: number;
+	/**
+	 * The primary personal finance category for filtering the transactions.
+	 */
+	personalFinanceCategoryPrimary: string;
+	/**
+	 * The city location for filtering the transactions.
+	 */
+	locationCity: string;
+	/**
+	 * The payment channel for filtering the transactions.
+	 */
+	paymentChannel: string;
+	/**
+	 * The merchant name for filtering the transactions.
+	 */
+	merchantName: string;
+	/**
+	 * The page number of the requested data.
+	 */
+	pageNumber: number;
+	/**
+	 * Number of items to return per page.
+	 */
+	pageSize: number;
+	/**
+	 * Creates a new instance of GetTransactionAggregatesRequest.
+	 * @param partialRequest Partial request object to initialize the GetTransactionAggregatesRequest.
+	 * @remarks You can use this constructor to create a partial instance of GetTransactionAggregatesRequest.
+	 *          You can later populate the additional properties manually if needed.
+	 */
+	constructor(partialRequest: Partial<GetTransactionAggregatesRequestClass>);
+}
+/**
+ * Represents the response for getting transactions for a bank account.
+ */
+export declare class GetTransactionsForBankAccountResponseClass extends ErrorResponse {
+	/**
+	 * An array of transactions for the bank account.
+	 */
+	transactions: Transaction[];
+	/**
+	 * The page number of the next set of transactions.
+	 */
+	nextPageNumber: number;
+	/**
+	 * Creates a new instance of GetTransactionsForBankAccountResponse.
+	 * @param transactions An array of transactions for the bank account.
+	 * @param nextPageNumber The page number of the next set of transactions.
+	 */
+	constructor(data: GetTransactionsForBankAccountResponseClass);
+}
+/**
+ * Class representing a request to get transactions for a bank account.
+ */
+export declare class GetTransactionsForBankAccountRequestClass {
+	/** The user id */
+	userId: number;
+	/** Plaid account id */
+	plaidAccountId: string;
+	/** Page number for paginated results */
+	pageNumber: number;
+	/** Page size for paginated results */
+	pageSize: number;
+	/**
+	 * Create a request to get transactions for a bank account.
+	 * @param {Partial<GetTransactionsForBankAccountRequest>} data - Object containing any properties of a request.
+	 */
+	constructor(data: Partial<GetTransactionsForBankAccountRequestClass>);
+}
+/**
+ * GetTransactionsRequest class
+ *
+ * Represents a request for getting transactions.
+ */
+export declare class GetTransactionsRequestClass {
+	/**
+	 * The user ID.
+	 * Validations:
+	 * - Must be greater than 0.
+	 */
+	userId: number;
+	/**
+	 * The page number.
+	 */
+	pageNumber: number;
+	/**
+	 * The number of transactions per page.
+	 */
+	pageSize: number;
+	/**
+	 * Creates an instance of GetTransactionsRequest.
+	 *
+	 * @param data - The data to initialize the request.
+	 */
+	constructor(data: Partial<GetTransactionsRequestClass>);
+}
+export declare class GetTransactionsResponseClass extends ErrorResponse {
+	nextPageNumber: number | undefined;
+	transactions: Transaction[] | undefined;
+	constructor(data: Partial<GetTransactionsResponseClass>);
+}
+export declare class GetUpdatedUserAccountResponseClass extends ErrorResponse {
+	account: UserAccount | undefined;
+	constructor(data: Partial<GetUpdatedUserAccountResponseClass>);
+}
+/**
+ * Represents the response for getting user account balance history.
+ */
+export declare class GetUserAccountBalanceHistoryResponseClass extends ErrorResponse {
+	/**
+	 * List of account balance history records.
+	 */
+	accountBalanceHistory: AccountBalanceHistory[];
+	constructor(data: Partial<GetUserAccountBalanceHistoryResponseClass>);
+}
+/**
+ * Represents the request for getting user account balance history.
+ */
+export declare class GetUserAccountBalanceHistoryRequestClass {
+	/**
+	 * The user ID associated with the request.
+	 */
+	userId: number;
+	/**
+	 * The page number of the requested data.
+	 */
+	pageNumber: number;
+	/**
+	 * Number of items to return per page.
+	 */
+	pageSize: number;
+	/**
+	 * Creates a new instance of GetUserAccountBalanceHistoryRequest.
+	 * @param partialRequest Partial request object to initialize the GetUserAccountBalanceHistoryRequest.
+	 * @remarks You can use this constructor to create a partial instance of GetUserAccountBalanceHistoryRequest.
+	 *          You can later populate the additional properties manually if needed.
+	 */
+	constructor(partialRequest: Partial<GetUserAccountBalanceHistoryRequestClass>);
+}
+/**
+ * Represents the request for getting user category monthly expenditure.
+ */
+export declare class GetUserCategoryMonthlyExpenditureRequestClass {
+	/**
+	 * The user ID associated with the request.
+	 */
+	userId: number;
+	/**
+	 * The primary personal finance category for filtering the records.
+	 */
+	personalFinanceCategoryPrimary: string;
+	/**
+	 * The month for which category monthly expenditure is requested (in the format YYYYMM).
+	 */
+	month: number;
+	/**
+	 * The page number of the requested data.
+	 */
+	pageNumber: number;
+	/**
+	 * Number of items to return per page.
+	 */
+	pageSize: number;
+	/**
+	 * Creates a new instance of GetUserCategoryMonthlyExpenditureRequest.
+	 * @param partialRequest Partial request object to initialize the GetUserCategoryMonthlyExpenditureRequest.
+	 * @remarks You can use this constructor to create a partial instance of GetUserCategoryMonthlyExpenditureRequest.
+	 *          You can later populate the additional properties manually if needed.
+	 */
+	constructor(partialRequest: Partial<GetUserCategoryMonthlyExpenditureRequestClass>);
+}
+export declare class GetUserCategoryMonthlyExpenditureResponseClass extends ErrorResponse {
+	categoryMonthlyExpenditure: CategoryMonthlyExpenditure[];
+	nextPageNumber: number;
+	constructor(data?: Partial<GetUserCategoryMonthlyExpenditureResponseClass>);
+}
+/**
+ * Represents the request for getting user category monthly income.
+ */
+export declare class GetUserCategoryMonthlyIncomeRequestClass {
+	/**
+	 * The user ID associated with the request.
+	 */
+	userId: number;
+	/**
+	 * The primary personal finance category for filtering the records.
+	 */
+	personalFinanceCategoryPrimary: string;
+	/**
+	 * The month for which category monthly income is requested (in the format YYYYMM).
+	 */
+	month: number;
+	/**
+	 * The page number of the requested data.
+	 */
+	pageNumber: number;
+	/**
+	 * Number of items to return per page.
+	 */
+	pageSize: number;
+	/**
+	 * Creates a new instance of GetUserCategoryMonthlyIncomeRequest.
+	 * @param partialRequest Partial request object to initialize the GetUserCategoryMonthlyIncomeRequest.
+	 * @remarks You can use this constructor to create a partial instance of GetUserCategoryMonthlyIncomeRequest.
+	 *          You can later populate the additional properties manually if needed.
+	 */
+	constructor(partialRequest: Partial<GetUserCategoryMonthlyIncomeRequestClass>);
+}
+export declare class GetUserCategoryMonthlyIncomeResponseClass extends ErrorResponse {
+	categoryMonthlyIncome: CategoryMonthlyIncome[];
+	nextPageNumber: number;
+	constructor(data?: Partial<GetUserCategoryMonthlyIncomeResponseClass>);
+}
+export interface RequestPasswordResetRequestClass {
+	email: string;
+}
+export declare class RequestPasswordResetResponseClass extends ErrorResponse {
+	success: boolean;
+	constructor(data: Partial<RequestPasswordResetResponseClass>);
+}
+export declare class PlaidExchangeTokenRequestClass {
+	/**
+	 * The user id
+	 * Validations:
+	 * - user_id must be greater than 0
+	 */
+	userId: number;
+	/**
+	 * The public token
+	 * Validations:
+	 * - cannot be nil hence required
+	 */
+	publicToken: string;
+	/** The institution id */
+	institutionId: string;
+	/** The institution name */
+	institutionName: string;
+	constructor(data?: Partial<PlaidExchangeTokenRequestClass>);
+}
+export declare class PlaidExchangeTokenResponseClass extends ErrorResponse {
+	/** wether the operation was successful */
+	success: boolean;
+	constructor(data?: Partial<PlaidExchangeTokenResponseClass>);
+}
+export declare class PlaidInitiateTokenExchangeRequestClass {
+	/**
+	 * A unique ID representing the end user. Typically this will be a user ID number from your application.
+	 * Personally identifiable information, such as an email address or phone number,
+	 * should not be used in the `client_user_id`. It is currently used as a means of searching logs
+	 * for the given user in the Plaid Dashboard.
+	 * Validations:
+	 * - user_id must be greater than 0
+	 */
+	userId: number;
+	/**
+	 * The user's full legal name. This is an optional field used in
+	 * the [returning user experience](https://plaid.com/docs/link/returning-user) to associate Items to the user.
+	 */
+	fullName: string;
+	/**
+	 * The user's email address. This field is optional, but required to enable the
+	 * [pre-authenticated returning user flow](https://plaid.com/docs/link/returning-user/#enabling-the-returning-user-experience).
+	 */
+	email: string;
+	/**
+	 * The user's phone number in [E.164](https://en.wikipedia.org/wiki/E.164) format.
+	 * This field is optional, but required to enable the [returning user experience](https://plaid.com/docs/link/returning-user).
+	 */
+	phoneNumber: string;
+	constructor(data: Partial<PlaidInitiateTokenExchangeRequestClass>);
+}
+export declare class PlaidInitiateTokenExchangeResponseClass {
+	linkToken: string;
+	expiration: string;
+	plaidRequestId: string;
+	constructor(data: Partial<PlaidInitiateTokenExchangeResponseClass>);
+}
+export declare class PlaidLinkRequestClass {
+	/**
+	 * A unique ID representing the end user. Typically this will be a user ID number from your application.
+	 * Personally identifiable information, such as an email address or phone number,
+	 * should not be used in the `client_user_id`. It is currently used as a means of searching logs
+	 * for the given user in the Plaid Dashboard.
+	 * Validations:
+	 * - user_id must be greater than 0
+	 */
+	userId: number;
+	/**
+	 * The user's full legal name. This is an optional field used in
+	 * the [returning user experience](https://plaid.com/docs/link/returning-user) to associate Items to the user.
+	 */
+	fullName: string;
+	/**
+	 * The user's email address. This field is optional, but required to enable the
+	 * [pre-authenticated returning user flow](https://plaid.com/docs/link/returning-user/#enabling-the-returning-user-experience).
+	 */
+	email: string;
+	/**
+	 * The user's phone number in [E.164](https://en.wikipedia.org/wiki/E.164) format.
+	 * This field is optional, but required to enable the [returning user experience](https://plaid.com/docs/link/returning-user).
+	 */
+	phoneNumber: string;
+	constructor(data?: Partial<PlaidLinkRequestClass>);
+}
+export declare class PlaidLinkResponseClass extends ErrorResponse {
+	linkToken: string;
+	expiration: string;
+	plaidRequestId: string;
+	constructor(data?: Partial<PlaidLinkResponseClass>);
+}
+export declare class PlaidInitiateTokenUpdateRequestClass {
+	/**
+	 * The user id
+	 * Validations:
+	 * - user_id must be greater than 0
+	 */
+	userId: number;
+	/**
+	 * The link id we want to update for
+	 * Validations:
+	 * - cannot be nil hence required
+	 */
+	linkId: number;
+	constructor(data?: Partial<PlaidInitiateTokenUpdateRequestClass>);
+}
+export declare class PlaidInitiateTokenUpdateResponseClass extends ErrorResponse {
+	linkToken: string;
+	expiration: string;
+	constructor(data: Partial<PlaidInitiateTokenUpdateResponseClass>);
+}
+/**
+ * Represents a request to reset a password.
+ */
+export interface ResetPasswordRequestClass {
+	/**
+	 * The new password that the user wants to set.
+	 */
+	password: string;
+	/**
+	 * A token that verifies the legitimacy of the reset password request.
+	 */
+	token: string;
+}
+/**
+ * Represents a response containing a token.
+ */
+export declare class ResetPasswordResponseClass {
+	/**
+	 * The token returned by the server, typically used for authentication purposes.
+	 */
+	token: string;
+	/**
+	 * A code indicating the status or result of the operation.
+	 */
+	code: number;
+	/**
+	 * An error message, if any occurred during the operation.
+	 */
+	err: string;
+	/**
+	 * Creates a new instance of `TokenResponse`.
+	 *
+	 * @param data - An object containing any subset of the `TokenResponse` properties.
+	 */
+	constructor(data: Partial<ResetPasswordResponseClass>);
+}
+/**
+ * UpdateUserRequest: Represents the request object invoked against the user
+ * service to update a given user account
+ */
+export declare class UpdateUserAccountRequestClass implements IRequest {
+	/**
+	 * UserAccount to update
+	 * Validation:
+	 * - cannot nil hence required
+	 */
+	account: UserAccount | undefined;
+	constructor(data?: Partial<UpdateUserAccountRequestClass>);
+	isValid(): boolean;
+}
+export declare class UpdateUserAccountResponseClass extends ErrorResponse {
+	accountUpdated: boolean;
+	account: UserAccount | undefined;
+	constructor(data?: Partial<UpdateUserAccountResponseClass>);
 }
 /** @type {React.Context<T extends BankAccount>} */
 export declare const BankAccountContext: React.Context<BankAccount | undefined>;

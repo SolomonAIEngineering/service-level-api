@@ -4,7 +4,7 @@ import { ErrorResponse } from '../error';
 /**
  * Represents the response for getting melody financial context.
  */
-export class GetMelodyFinancialContextResponse extends ErrorResponse {
+export class GetMelodyFinancialContextResponseClass extends ErrorResponse {
   /**
    * Melody financial context information.
    */
@@ -14,7 +14,7 @@ export class GetMelodyFinancialContextResponse extends ErrorResponse {
    * Creates a new instance of GetMelodyFinancialContextResponse.
    * @param melodyFinancialContext Melody financial context information.
    */
-  constructor(data?: Partial<GetMelodyFinancialContextResponse>) {
+  constructor(data?: Partial<GetMelodyFinancialContextResponseClass>) {
     super();
     if (data) {
       Object.assign(this, {
@@ -27,7 +27,7 @@ export class GetMelodyFinancialContextResponse extends ErrorResponse {
 /**
  * Represents the request for getting Melody financial context.
  */
-export class GetMelodyFinancialContextRequest {
+export class GetMelodyFinancialContextRequestClass {
   /**
    * The user ID associated with the request.
    */

@@ -4,7 +4,7 @@ import { ErrorResponse } from '../error';
 /**
  * Represents the request for getting expense metrics.
  */
-export class GetExpenseMetricsRequest {
+export class GetExpenseMetricsRequestClass {
   /**
    * The user ID associated with the request.
    */
@@ -36,7 +36,7 @@ export class GetExpenseMetricsRequest {
    * @remarks You can use this constructor to create a partial instance of GetExpenseMetricsRequest.
    *          You can later populate the additional properties manually if needed.
    */
-  constructor(partialRequest: Partial<GetExpenseMetricsRequest>) {
+  constructor(partialRequest: Partial<GetExpenseMetricsRequestClass>) {
     this.userId = partialRequest.userId || 0;
     this.month = partialRequest.month || undefined;
     this.personalFinanceCategoryPrimary =
@@ -49,7 +49,7 @@ export class GetExpenseMetricsRequest {
 /**
  * Represents the response for getting expense metrics.
  */
-export class GetExpenseMetricsResponse extends ErrorResponse {
+export class GetExpenseMetricsResponseClass extends ErrorResponse {
   /**
    * List of expense metrics.
    */
@@ -66,7 +66,7 @@ export class GetExpenseMetricsResponse extends ErrorResponse {
    * @param nextPageNumber The page number of the next set of data.
    */
 
-  constructor(data?: Partial<GetExpenseMetricsResponse>) {
+  constructor(data?: Partial<GetExpenseMetricsResponseClass>) {
     super();
     if (data) {
       Object.assign(this, {

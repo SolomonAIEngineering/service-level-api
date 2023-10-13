@@ -1,11 +1,11 @@
 import { TransactionAggregatesByMonth } from 'src/data-contracts/financial-service/data-contracts';
 import { ErrorResponse } from '../error';
 
-export class GetTransactionAggregatesResponse extends ErrorResponse {
+export class GetTransactionAggregatesResponseClass extends ErrorResponse {
   transactionAggregates: TransactionAggregatesByMonth[] = [];
   nextPageNumber: number = 0;
 
-  constructor(data?: Partial<GetTransactionAggregatesResponse>) {
+  constructor(data?: Partial<GetTransactionAggregatesResponseClass>) {
     super();
     if (data) {
       Object.assign(this, {
@@ -15,7 +15,7 @@ export class GetTransactionAggregatesResponse extends ErrorResponse {
   }
 }
 
-export class GetTransactionAggregatesRequest {
+export class GetTransactionAggregatesRequestClass {
   /**
    * The user ID associated with the request.
    */
@@ -62,7 +62,7 @@ export class GetTransactionAggregatesRequest {
    * @remarks You can use this constructor to create a partial instance of GetTransactionAggregatesRequest.
    *          You can later populate the additional properties manually if needed.
    */
-  constructor(partialRequest: Partial<GetTransactionAggregatesRequest>) {
+  constructor(partialRequest: Partial<GetTransactionAggregatesRequestClass>) {
     this.userId = partialRequest.userId || 0;
     this.month = partialRequest.month || 0;
     this.personalFinanceCategoryPrimary =

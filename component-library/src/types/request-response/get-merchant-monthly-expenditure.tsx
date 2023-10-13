@@ -4,7 +4,7 @@ import { ErrorResponse } from '../error';
 /**
  * Represents the request for getting merchant monthly expenditure.
  */
-export class GetMerchantMonthlyExpenditureRequest {
+export class GetMerchantMonthlyExpenditureRequestClass {
   /**
    * The user ID associated with the request.
    */
@@ -36,7 +36,9 @@ export class GetMerchantMonthlyExpenditureRequest {
    * @remarks You can use this constructor to create a partial instance of GetMerchantMonthlyExpenditureRequest.
    *          You can later populate the additional properties manually if needed.
    */
-  constructor(partialRequest: Partial<GetMerchantMonthlyExpenditureRequest>) {
+  constructor(
+    partialRequest: Partial<GetMerchantMonthlyExpenditureRequestClass>,
+  ) {
     this.userId = partialRequest.userId || 0;
     this.month = partialRequest.month || undefined;
     this.merchantName = partialRequest.merchantName || '';
@@ -48,7 +50,7 @@ export class GetMerchantMonthlyExpenditureRequest {
 /**
  * Represents the response for getting merchant monthly expenditure.
  */
-export class GetMerchantMonthlyExpenditureResponse extends ErrorResponse {
+export class GetMerchantMonthlyExpenditureResponseClass extends ErrorResponse {
   /**
    * List of merchant monthly expenditures.
    */
@@ -64,7 +66,7 @@ export class GetMerchantMonthlyExpenditureResponse extends ErrorResponse {
    * @param merchantMonthlyExpenditures List of merchant monthly expenditures.
    * @param nextPageNumber The page number of the next set of data.
    */
-  constructor(data?: Partial<GetMerchantMonthlyExpenditureResponse>) {
+  constructor(data?: Partial<GetMerchantMonthlyExpenditureResponseClass>) {
     super();
     if (data) {
       Object.assign(this, {

@@ -6,11 +6,11 @@ import { ErrorResponse } from '../error';
  *
  * @class CheckEmailExistsRequest
  * */
-class CheckEmailExistsRequest {
+class CheckEmailExistsRequestClass {
   /** The email of the user of interest */
   email: string = '';
 
-  constructor(data?: Partial<CheckEmailExistsRequest>) {
+  constructor(data?: Partial<CheckEmailExistsRequestClass>) {
     if (data) {
       Object.assign(this, {
         ...data,
@@ -27,10 +27,10 @@ class CheckEmailExistsRequest {
  * @class CheckEmailExistsResponse
  * @extends {ErrorResponse}
  * */
-class CheckEmailExistsResponse extends ErrorResponse {
+class CheckEmailExistsResponseClass extends ErrorResponse {
   exists = false;
 
-  constructor(data?: Partial<CheckEmailExistsResponse>) {
+  constructor(data?: Partial<CheckEmailExistsResponseClass>) {
     super();
     if (data) {
       this.create(data);
@@ -38,18 +38,18 @@ class CheckEmailExistsResponse extends ErrorResponse {
   }
 
   private create(
-    base?: Partial<CheckEmailExistsResponse>,
-  ): CheckEmailExistsResponse {
+    base?: Partial<CheckEmailExistsResponseClass>,
+  ): CheckEmailExistsResponseClass {
     return this.fromPartial(base ?? {});
   }
 
   private fromPartial(
-    object: Partial<CheckEmailExistsResponse>,
-  ): CheckEmailExistsResponse {
-    const message = new CheckEmailExistsResponse();
+    object: Partial<CheckEmailExistsResponseClass>,
+  ): CheckEmailExistsResponseClass {
+    const message = new CheckEmailExistsResponseClass();
     message.exists = object.exists ?? false;
     return message;
   }
 }
 
-export { CheckEmailExistsResponse, CheckEmailExistsRequest };
+export { CheckEmailExistsResponseClass, CheckEmailExistsRequestClass };

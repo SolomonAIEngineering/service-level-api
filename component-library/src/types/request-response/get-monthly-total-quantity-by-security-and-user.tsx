@@ -4,7 +4,7 @@ import { ErrorResponse } from '../error';
 /**
  * Represents the request for getting monthly total quantity by security and user.
  */
-export class GetMonthlyTotalQuantityBySecurityAndUserRequest {
+export class GetMonthlyTotalQuantityBySecurityAndUserRequestClass {
   /**
    * The user ID associated with the request.
    */
@@ -37,7 +37,7 @@ export class GetMonthlyTotalQuantityBySecurityAndUserRequest {
    *          You can later populate the additional properties manually if needed.
    */
   constructor(
-    partialRequest: Partial<GetMonthlyTotalQuantityBySecurityAndUserRequest>,
+    partialRequest: Partial<GetMonthlyTotalQuantityBySecurityAndUserRequestClass>,
   ) {
     this.userId = partialRequest.userId || 0;
     this.month = partialRequest.month || 0;
@@ -50,7 +50,7 @@ export class GetMonthlyTotalQuantityBySecurityAndUserRequest {
 /**
  * Represents the response for getting monthly total quantity by security and user.
  */
-export class GetMonthlyTotalQuantityBySecurityAndUserResponse extends ErrorResponse {
+export class GetMonthlyTotalQuantityBySecurityAndUserResponseClass extends ErrorResponse {
   /**
    * List of monthly total quantity by security and user.
    */
@@ -68,7 +68,7 @@ export class GetMonthlyTotalQuantityBySecurityAndUserResponse extends ErrorRespo
    * @param nextPageNumber The page number of the next set of data.
    */
   constructor(
-    data?: Partial<GetMonthlyTotalQuantityBySecurityAndUserResponse>,
+    data?: Partial<GetMonthlyTotalQuantityBySecurityAndUserResponseClass>,
   ) {
     super();
     if (data) {

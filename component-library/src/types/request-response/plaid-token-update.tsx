@@ -1,6 +1,6 @@
 import { ErrorResponse } from '../error';
 
-export class PlaidInitiateTokenUpdateRequest {
+export class PlaidInitiateTokenUpdateRequestClass {
   /**
    * The user id
    * Validations:
@@ -14,7 +14,7 @@ export class PlaidInitiateTokenUpdateRequest {
    */
   linkId: number = 0;
 
-  constructor(data?: Partial<PlaidInitiateTokenUpdateRequest>) {
+  constructor(data?: Partial<PlaidInitiateTokenUpdateRequestClass>) {
     if (data) {
       Object.assign(this, {
         ...data,
@@ -23,11 +23,11 @@ export class PlaidInitiateTokenUpdateRequest {
   }
 }
 
-export class PlaidInitiateTokenUpdateResponse extends ErrorResponse {
+export class PlaidInitiateTokenUpdateResponseClass extends ErrorResponse {
   linkToken: string = '';
   expiration: string = '';
 
-  constructor(data: Partial<PlaidInitiateTokenUpdateResponse>) {
+  constructor(data: Partial<PlaidInitiateTokenUpdateResponseClass>) {
     super(data);
     if (data) {
       Object.assign(this, {

@@ -4,7 +4,7 @@ import { ErrorResponse } from '../error';
 /**
  * Represents the request for getting monthly transaction count.
  */
-export class GetMonthlyTransactionCountRequest {
+export class GetMonthlyTransactionCountRequestClass {
   /**
    * The user ID associated with the request.
    */
@@ -31,7 +31,7 @@ export class GetMonthlyTransactionCountRequest {
    * @remarks You can use this constructor to create a partial instance of GetMonthlyTransactionCountRequest.
    *          You can later populate the additional properties manually if needed.
    */
-  constructor(partialRequest: Partial<GetMonthlyTransactionCountRequest>) {
+  constructor(partialRequest: Partial<GetMonthlyTransactionCountRequestClass>) {
     this.userId = partialRequest.userId || 0;
     this.month = partialRequest.month || 0;
     this.pageNumber = partialRequest.pageNumber || 1;
@@ -42,7 +42,7 @@ export class GetMonthlyTransactionCountRequest {
 /**
  * Represents the response for getting monthly transaction count.
  */
-export class GetMonthlyTransactionCountResponse extends ErrorResponse {
+export class GetMonthlyTransactionCountResponseClass extends ErrorResponse {
   /**
    * List of monthly transaction counts.
    */
@@ -58,7 +58,7 @@ export class GetMonthlyTransactionCountResponse extends ErrorResponse {
    * @param monthlyTransactionCounts List of monthly transaction counts.
    * @param nextPageNumber The page number of the next set of data.
    */
-  constructor(data?: Partial<GetMonthlyTransactionCountResponse>) {
+  constructor(data?: Partial<GetMonthlyTransactionCountResponseClass>) {
     super();
     if (data) {
       Object.assign(this, {

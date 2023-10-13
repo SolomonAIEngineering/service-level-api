@@ -4,7 +4,7 @@ import { ErrorResponse } from '../error';
 /**
  * Represents the request for getting income expense ratio.
  */
-export class GetIncomeExpenseRatioRequest {
+export class GetIncomeExpenseRatioRequestClass {
   /**
    * The user ID associated with the request.
    */
@@ -31,7 +31,7 @@ export class GetIncomeExpenseRatioRequest {
    * @remarks You can use this constructor to create a partial instance of GetIncomeExpenseRatioRequest.
    *          You can later populate the additional properties manually if needed.
    */
-  constructor(partialRequest: Partial<GetIncomeExpenseRatioRequest>) {
+  constructor(partialRequest: Partial<GetIncomeExpenseRatioRequestClass>) {
     this.userId = partialRequest.userId || 0;
     this.month = partialRequest.month || undefined;
     this.pageNumber = partialRequest.pageNumber || 1;
@@ -42,7 +42,7 @@ export class GetIncomeExpenseRatioRequest {
 /**
  * Represents the response for getting income expense ratio.
  */
-export class GetIncomeExpenseRatioResponse extends ErrorResponse {
+export class GetIncomeExpenseRatioResponseClass extends ErrorResponse {
   /**
    * List of income expense ratios.
    */
@@ -58,7 +58,7 @@ export class GetIncomeExpenseRatioResponse extends ErrorResponse {
    * @param incomeExpenseRatios List of income expense ratios.
    * @param nextPageNumber The page number of the next set of data.
    */
-  constructor(data?: Partial<GetIncomeExpenseRatioResponse>) {
+  constructor(data?: Partial<GetIncomeExpenseRatioResponseClass>) {
     super();
     if (data) {
       Object.assign(this, {

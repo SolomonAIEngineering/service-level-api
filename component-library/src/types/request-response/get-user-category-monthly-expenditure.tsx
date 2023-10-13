@@ -4,7 +4,7 @@ import { ErrorResponse } from '../error';
 /**
  * Represents the request for getting user category monthly expenditure.
  */
-export class GetUserCategoryMonthlyExpenditureRequest {
+export class GetUserCategoryMonthlyExpenditureRequestClass {
   /**
    * The user ID associated with the request.
    */
@@ -37,7 +37,7 @@ export class GetUserCategoryMonthlyExpenditureRequest {
    *          You can later populate the additional properties manually if needed.
    */
   constructor(
-    partialRequest: Partial<GetUserCategoryMonthlyExpenditureRequest>,
+    partialRequest: Partial<GetUserCategoryMonthlyExpenditureRequestClass>,
   ) {
     this.userId = partialRequest.userId || 0;
     this.personalFinanceCategoryPrimary =
@@ -48,11 +48,11 @@ export class GetUserCategoryMonthlyExpenditureRequest {
   }
 }
 
-export class GetUserCategoryMonthlyExpenditureResponse extends ErrorResponse {
+export class GetUserCategoryMonthlyExpenditureResponseClass extends ErrorResponse {
   categoryMonthlyExpenditure: CategoryMonthlyExpenditure[] = [];
   nextPageNumber: number = 0;
 
-  constructor(data?: Partial<GetUserCategoryMonthlyExpenditureResponse>) {
+  constructor(data?: Partial<GetUserCategoryMonthlyExpenditureResponseClass>) {
     super();
     if (data) {
       Object.assign(this, {

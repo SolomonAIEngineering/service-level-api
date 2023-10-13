@@ -4,7 +4,7 @@ import { ErrorResponse } from '../error';
 /**
  * Represents the request for getting financial profile.
  */
-export class GetFinancialProfileRequest {
+export class GetFinancialProfileRequestClass {
   /**
    * The user ID associated with the request.
    */
@@ -31,7 +31,7 @@ export class GetFinancialProfileRequest {
    * @remarks You can use this constructor to create a partial instance of GetFinancialProfileRequest.
    *          You can later populate the additional properties manually if needed.
    */
-  constructor(partialRequest: Partial<GetFinancialProfileRequest>) {
+  constructor(partialRequest: Partial<GetFinancialProfileRequestClass>) {
     this.userId = partialRequest.userId || 0;
     this.month = partialRequest.month || undefined;
     this.pageNumber = partialRequest.pageNumber || 1;
@@ -42,7 +42,7 @@ export class GetFinancialProfileRequest {
 /**
  * Represents the response for getting financial profile.
  */
-export class GetFinancialProfileResponse extends ErrorResponse {
+export class GetFinancialProfileResponseClass extends ErrorResponse {
   /**
    * List of financial profiles.
    */
@@ -59,7 +59,7 @@ export class GetFinancialProfileResponse extends ErrorResponse {
    * @param nextPageNumber The page number of the next set of data.
    */
 
-  constructor(data?: Partial<GetFinancialProfileResponse>) {
+  constructor(data?: Partial<GetFinancialProfileResponseClass>) {
     super();
     if (data) {
       Object.assign(this, {

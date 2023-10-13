@@ -15,11 +15,11 @@ import { UserAccountClass } from '../user/user-account';
  * @export
  * @class AuthenticateRequest
  */
-class AuthenticateRequest implements IRequest {
+class AuthenticateRequestClass implements IRequest {
   Username = '';
   Password = '';
 
-  constructor(data?: Partial<AuthenticateRequest>) {
+  constructor(data?: Partial<AuthenticateRequestClass>) {
     if (data) {
       Object.assign(this, {
         ...data,
@@ -52,7 +52,7 @@ type FinancialProfileResponse = {
  * @class AuthenticationResponse
  * @extends {ErrorResponse}
  */
-class AuthenticationResponse extends ErrorResponse {
+class AuthenticationResponseClass extends ErrorResponse {
   code = 0;
   err = '';
   token = '';
@@ -63,7 +63,7 @@ class AuthenticationResponse extends ErrorResponse {
     financialContext: new MelodyFinancialContextClass({}),
   };
 
-  constructor(data?: Partial<AuthenticationResponse>) {
+  constructor(data?: Partial<AuthenticationResponseClass>) {
     super();
     if (data) {
       Object.assign(this, {
@@ -86,4 +86,4 @@ class AuthenticationResponse extends ErrorResponse {
   }
 }
 
-export { AuthenticateRequest, AuthenticationResponse };
+export { AuthenticateRequestClass, AuthenticationResponseClass };

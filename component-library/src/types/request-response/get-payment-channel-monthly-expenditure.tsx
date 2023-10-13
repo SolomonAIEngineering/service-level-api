@@ -4,7 +4,7 @@ import { ErrorResponse } from '../error';
 /**
  * Represents the request for getting payment channel monthly expenditure.
  */
-export class GetPaymentChannelMonthlyExpenditureRequest {
+export class GetPaymentChannelMonthlyExpenditureRequestClass {
   /**
    * The user ID associated with the request.
    */
@@ -37,7 +37,7 @@ export class GetPaymentChannelMonthlyExpenditureRequest {
    *          You can later populate the additional properties manually if needed.
    */
   constructor(
-    partialRequest: Partial<GetPaymentChannelMonthlyExpenditureRequest>,
+    partialRequest: Partial<GetPaymentChannelMonthlyExpenditureRequestClass>,
   ) {
     this.userId = partialRequest.userId || 0;
     this.month = partialRequest.month || 0;
@@ -50,7 +50,7 @@ export class GetPaymentChannelMonthlyExpenditureRequest {
 /**
  * Represents the response for getting payment channel monthly expenditure.
  */
-export class GetPaymentChannelMonthlyExpenditureResponse extends ErrorResponse {
+export class GetPaymentChannelMonthlyExpenditureResponseClass extends ErrorResponse {
   /**
    * List of payment channel monthly expenditures.
    */
@@ -66,7 +66,9 @@ export class GetPaymentChannelMonthlyExpenditureResponse extends ErrorResponse {
    * @param paymentChannelMonthlyExpenditure List of payment channel monthly expenditures.
    * @param nextPageNumber The page number of the next set of data.
    */
-  constructor(data?: Partial<GetPaymentChannelMonthlyExpenditureResponse>) {
+  constructor(
+    data?: Partial<GetPaymentChannelMonthlyExpenditureResponseClass>,
+  ) {
     super();
     if (data) {
       Object.assign(this, {

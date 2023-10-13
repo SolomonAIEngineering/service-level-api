@@ -1,10 +1,12 @@
-import { CategoryMonthlyTransactionCount } from 'src/data-contracts/financial-service/data-contracts';
+import {
+  CategoryMonthlyTransactionCount,
+} from 'src/data-contracts/financial-service/data-contracts';
 import { ErrorResponse } from '../error';
 
 /**
  * Represents the request for getting category monthly transaction count.
  */
-class GetCategoryMonthlyTransactionCountRequest {
+class GetCategoryMonthlyTransactionCountRequestClass  {
   /**
    * The user ID associated with the request (has to be present and defined).
    */
@@ -37,7 +39,7 @@ class GetCategoryMonthlyTransactionCountRequest {
    *          You can later populate the additional properties manually if needed.
    */
   constructor(
-    partialRequest: Partial<GetCategoryMonthlyTransactionCountRequest>,
+    partialRequest: Partial<GetCategoryMonthlyTransactionCountRequestClass>,
   ) {
     this.userId = partialRequest.userId || 0;
     this.month = partialRequest.month || 0;
@@ -48,11 +50,11 @@ class GetCategoryMonthlyTransactionCountRequest {
   }
 }
 
-class GetCategoryMonthlyTransactionCountResponse extends ErrorResponse {
+class GetCategoryMonthlyTransactionCountResponseClass extends ErrorResponse {
   categoryMonthlyTransactionCount: CategoryMonthlyTransactionCount[] = [];
   nextPageNumber: number = 0;
 
-  constructor(data?: Partial<GetCategoryMonthlyTransactionCountResponse>) {
+  constructor(data?: Partial<GetCategoryMonthlyTransactionCountResponseClass>) {
     super();
     if (data) {
       Object.assign(this, {
@@ -63,6 +65,6 @@ class GetCategoryMonthlyTransactionCountResponse extends ErrorResponse {
 }
 
 export {
-  GetCategoryMonthlyTransactionCountRequest,
-  GetCategoryMonthlyTransactionCountResponse,
+  GetCategoryMonthlyTransactionCountRequestClass,
+  GetCategoryMonthlyTransactionCountResponseClass,
 };
