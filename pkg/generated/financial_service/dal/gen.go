@@ -36,6 +36,7 @@ var (
 	CreditNoteORM                *creditNoteORM
 	ExpenseLineORM               *expenseLineORM
 	ExpenseORM                   *expenseORM
+	FinancialUserProfileORM      *financialUserProfileORM
 	ForecastORM                  *forecastORM
 	IncomeStatementORM           *incomeStatementORM
 	InvesmentHoldingORM          *invesmentHoldingORM
@@ -69,7 +70,6 @@ var (
 	TrackingCategoryORM          *trackingCategoryORM
 	TransactionDetailsORM        *transactionDetailsORM
 	TransactionLineItemORM       *transactionLineItemORM
-	UserProfileORM               *userProfileORM
 	VendorCreditLineORM          *vendorCreditLineORM
 	VendorCreditORM              *vendorCreditORM
 )
@@ -95,6 +95,7 @@ func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
 	CreditNoteORM = &Q.CreditNoteORM
 	ExpenseLineORM = &Q.ExpenseLineORM
 	ExpenseORM = &Q.ExpenseORM
+	FinancialUserProfileORM = &Q.FinancialUserProfileORM
 	ForecastORM = &Q.ForecastORM
 	IncomeStatementORM = &Q.IncomeStatementORM
 	InvesmentHoldingORM = &Q.InvesmentHoldingORM
@@ -128,7 +129,6 @@ func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
 	TrackingCategoryORM = &Q.TrackingCategoryORM
 	TransactionDetailsORM = &Q.TransactionDetailsORM
 	TransactionLineItemORM = &Q.TransactionLineItemORM
-	UserProfileORM = &Q.UserProfileORM
 	VendorCreditLineORM = &Q.VendorCreditLineORM
 	VendorCreditORM = &Q.VendorCreditORM
 }
@@ -155,6 +155,7 @@ func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 		CreditNoteORM:                newCreditNoteORM(db, opts...),
 		ExpenseLineORM:               newExpenseLineORM(db, opts...),
 		ExpenseORM:                   newExpenseORM(db, opts...),
+		FinancialUserProfileORM:      newFinancialUserProfileORM(db, opts...),
 		ForecastORM:                  newForecastORM(db, opts...),
 		IncomeStatementORM:           newIncomeStatementORM(db, opts...),
 		InvesmentHoldingORM:          newInvesmentHoldingORM(db, opts...),
@@ -188,7 +189,6 @@ func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 		TrackingCategoryORM:          newTrackingCategoryORM(db, opts...),
 		TransactionDetailsORM:        newTransactionDetailsORM(db, opts...),
 		TransactionLineItemORM:       newTransactionLineItemORM(db, opts...),
-		UserProfileORM:               newUserProfileORM(db, opts...),
 		VendorCreditLineORM:          newVendorCreditLineORM(db, opts...),
 		VendorCreditORM:              newVendorCreditORM(db, opts...),
 	}
@@ -216,6 +216,7 @@ type Query struct {
 	CreditNoteORM                creditNoteORM
 	ExpenseLineORM               expenseLineORM
 	ExpenseORM                   expenseORM
+	FinancialUserProfileORM      financialUserProfileORM
 	ForecastORM                  forecastORM
 	IncomeStatementORM           incomeStatementORM
 	InvesmentHoldingORM          invesmentHoldingORM
@@ -249,7 +250,6 @@ type Query struct {
 	TrackingCategoryORM          trackingCategoryORM
 	TransactionDetailsORM        transactionDetailsORM
 	TransactionLineItemORM       transactionLineItemORM
-	UserProfileORM               userProfileORM
 	VendorCreditLineORM          vendorCreditLineORM
 	VendorCreditORM              vendorCreditORM
 }
@@ -278,6 +278,7 @@ func (q *Query) clone(db *gorm.DB) *Query {
 		CreditNoteORM:                q.CreditNoteORM.clone(db),
 		ExpenseLineORM:               q.ExpenseLineORM.clone(db),
 		ExpenseORM:                   q.ExpenseORM.clone(db),
+		FinancialUserProfileORM:      q.FinancialUserProfileORM.clone(db),
 		ForecastORM:                  q.ForecastORM.clone(db),
 		IncomeStatementORM:           q.IncomeStatementORM.clone(db),
 		InvesmentHoldingORM:          q.InvesmentHoldingORM.clone(db),
@@ -311,7 +312,6 @@ func (q *Query) clone(db *gorm.DB) *Query {
 		TrackingCategoryORM:          q.TrackingCategoryORM.clone(db),
 		TransactionDetailsORM:        q.TransactionDetailsORM.clone(db),
 		TransactionLineItemORM:       q.TransactionLineItemORM.clone(db),
-		UserProfileORM:               q.UserProfileORM.clone(db),
 		VendorCreditLineORM:          q.VendorCreditLineORM.clone(db),
 		VendorCreditORM:              q.VendorCreditORM.clone(db),
 	}
@@ -347,6 +347,7 @@ func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 		CreditNoteORM:                q.CreditNoteORM.replaceDB(db),
 		ExpenseLineORM:               q.ExpenseLineORM.replaceDB(db),
 		ExpenseORM:                   q.ExpenseORM.replaceDB(db),
+		FinancialUserProfileORM:      q.FinancialUserProfileORM.replaceDB(db),
 		ForecastORM:                  q.ForecastORM.replaceDB(db),
 		IncomeStatementORM:           q.IncomeStatementORM.replaceDB(db),
 		InvesmentHoldingORM:          q.InvesmentHoldingORM.replaceDB(db),
@@ -380,7 +381,6 @@ func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 		TrackingCategoryORM:          q.TrackingCategoryORM.replaceDB(db),
 		TransactionDetailsORM:        q.TransactionDetailsORM.replaceDB(db),
 		TransactionLineItemORM:       q.TransactionLineItemORM.replaceDB(db),
-		UserProfileORM:               q.UserProfileORM.replaceDB(db),
 		VendorCreditLineORM:          q.VendorCreditLineORM.replaceDB(db),
 		VendorCreditORM:              q.VendorCreditORM.replaceDB(db),
 	}
@@ -406,6 +406,7 @@ type queryCtx struct {
 	CreditNoteORM                ICreditNoteORMDo
 	ExpenseLineORM               IExpenseLineORMDo
 	ExpenseORM                   IExpenseORMDo
+	FinancialUserProfileORM      IFinancialUserProfileORMDo
 	ForecastORM                  IForecastORMDo
 	IncomeStatementORM           IIncomeStatementORMDo
 	InvesmentHoldingORM          IInvesmentHoldingORMDo
@@ -439,7 +440,6 @@ type queryCtx struct {
 	TrackingCategoryORM          ITrackingCategoryORMDo
 	TransactionDetailsORM        ITransactionDetailsORMDo
 	TransactionLineItemORM       ITransactionLineItemORMDo
-	UserProfileORM               IUserProfileORMDo
 	VendorCreditLineORM          IVendorCreditLineORMDo
 	VendorCreditORM              IVendorCreditORMDo
 }
@@ -465,6 +465,7 @@ func (q *Query) WithContext(ctx context.Context) *queryCtx {
 		CreditNoteORM:                q.CreditNoteORM.WithContext(ctx),
 		ExpenseLineORM:               q.ExpenseLineORM.WithContext(ctx),
 		ExpenseORM:                   q.ExpenseORM.WithContext(ctx),
+		FinancialUserProfileORM:      q.FinancialUserProfileORM.WithContext(ctx),
 		ForecastORM:                  q.ForecastORM.WithContext(ctx),
 		IncomeStatementORM:           q.IncomeStatementORM.WithContext(ctx),
 		InvesmentHoldingORM:          q.InvesmentHoldingORM.WithContext(ctx),
@@ -498,7 +499,6 @@ func (q *Query) WithContext(ctx context.Context) *queryCtx {
 		TrackingCategoryORM:          q.TrackingCategoryORM.WithContext(ctx),
 		TransactionDetailsORM:        q.TransactionDetailsORM.WithContext(ctx),
 		TransactionLineItemORM:       q.TransactionLineItemORM.WithContext(ctx),
-		UserProfileORM:               q.UserProfileORM.WithContext(ctx),
 		VendorCreditLineORM:          q.VendorCreditLineORM.WithContext(ctx),
 		VendorCreditORM:              q.VendorCreditORM.WithContext(ctx),
 	}

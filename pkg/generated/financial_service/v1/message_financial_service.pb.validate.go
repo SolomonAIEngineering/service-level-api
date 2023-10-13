@@ -149,22 +149,22 @@ var _ interface {
 	ErrorName() string
 } = StripeSubscriptionValidationError{}
 
-// Validate checks the field values on UserProfile with the rules defined in
-// the proto definition for this message. If any rules are violated, the first
-// error encountered is returned, or nil if there are no violations.
-func (m *UserProfile) Validate() error {
+// Validate checks the field values on FinancialUserProfile with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *FinancialUserProfile) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on UserProfile with the rules defined in
-// the proto definition for this message. If any rules are violated, the
-// result is a list of violation errors wrapped in UserProfileMultiError, or
-// nil if none found.
-func (m *UserProfile) ValidateAll() error {
+// ValidateAll checks the field values on FinancialUserProfile with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// FinancialUserProfileMultiError, or nil if none found.
+func (m *FinancialUserProfile) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *UserProfile) validate(all bool) error {
+func (m *FinancialUserProfile) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -174,7 +174,7 @@ func (m *UserProfile) validate(all bool) error {
 	// no validation rules for Id
 
 	if m.GetUserId() <= 0 {
-		err := UserProfileValidationError{
+		err := FinancialUserProfileValidationError{
 			field:  "UserId",
 			reason: "value must be greater than 0",
 		}
@@ -190,7 +190,7 @@ func (m *UserProfile) validate(all bool) error {
 		switch v := interface{}(m.GetStripeSubscriptions()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, UserProfileValidationError{
+				errors = append(errors, FinancialUserProfileValidationError{
 					field:  "StripeSubscriptions",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -198,7 +198,7 @@ func (m *UserProfile) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, UserProfileValidationError{
+				errors = append(errors, FinancialUserProfileValidationError{
 					field:  "StripeSubscriptions",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -207,7 +207,7 @@ func (m *UserProfile) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetStripeSubscriptions()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return UserProfileValidationError{
+			return FinancialUserProfileValidationError{
 				field:  "StripeSubscriptions",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -222,7 +222,7 @@ func (m *UserProfile) validate(all bool) error {
 			switch v := interface{}(item).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, UserProfileValidationError{
+					errors = append(errors, FinancialUserProfileValidationError{
 						field:  fmt.Sprintf("Link[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -230,7 +230,7 @@ func (m *UserProfile) validate(all bool) error {
 				}
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
-					errors = append(errors, UserProfileValidationError{
+					errors = append(errors, FinancialUserProfileValidationError{
 						field:  fmt.Sprintf("Link[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -239,7 +239,7 @@ func (m *UserProfile) validate(all bool) error {
 			}
 		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return UserProfileValidationError{
+				return FinancialUserProfileValidationError{
 					field:  fmt.Sprintf("Link[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -256,7 +256,7 @@ func (m *UserProfile) validate(all bool) error {
 			switch v := interface{}(item).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, UserProfileValidationError{
+					errors = append(errors, FinancialUserProfileValidationError{
 						field:  fmt.Sprintf("ActionableInsights[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -264,7 +264,7 @@ func (m *UserProfile) validate(all bool) error {
 				}
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
-					errors = append(errors, UserProfileValidationError{
+					errors = append(errors, FinancialUserProfileValidationError{
 						field:  fmt.Sprintf("ActionableInsights[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -273,7 +273,7 @@ func (m *UserProfile) validate(all bool) error {
 			}
 		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return UserProfileValidationError{
+				return FinancialUserProfileValidationError{
 					field:  fmt.Sprintf("ActionableInsights[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -292,7 +292,7 @@ func (m *UserProfile) validate(all bool) error {
 			switch v := interface{}(item).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, UserProfileValidationError{
+					errors = append(errors, FinancialUserProfileValidationError{
 						field:  fmt.Sprintf("MergeLiink[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -300,7 +300,7 @@ func (m *UserProfile) validate(all bool) error {
 				}
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
-					errors = append(errors, UserProfileValidationError{
+					errors = append(errors, FinancialUserProfileValidationError{
 						field:  fmt.Sprintf("MergeLiink[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -309,7 +309,7 @@ func (m *UserProfile) validate(all bool) error {
 			}
 		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return UserProfileValidationError{
+				return FinancialUserProfileValidationError{
 					field:  fmt.Sprintf("MergeLiink[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -326,7 +326,7 @@ func (m *UserProfile) validate(all bool) error {
 			switch v := interface{}(item).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, UserProfileValidationError{
+					errors = append(errors, FinancialUserProfileValidationError{
 						field:  fmt.Sprintf("ActionablePersonalInsights[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -334,7 +334,7 @@ func (m *UserProfile) validate(all bool) error {
 				}
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
-					errors = append(errors, UserProfileValidationError{
+					errors = append(errors, FinancialUserProfileValidationError{
 						field:  fmt.Sprintf("ActionablePersonalInsights[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -343,7 +343,7 @@ func (m *UserProfile) validate(all bool) error {
 			}
 		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return UserProfileValidationError{
+				return FinancialUserProfileValidationError{
 					field:  fmt.Sprintf("ActionablePersonalInsights[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -354,18 +354,19 @@ func (m *UserProfile) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return UserProfileMultiError(errors)
+		return FinancialUserProfileMultiError(errors)
 	}
 
 	return nil
 }
 
-// UserProfileMultiError is an error wrapping multiple validation errors
-// returned by UserProfile.ValidateAll() if the designated constraints aren't met.
-type UserProfileMultiError []error
+// FinancialUserProfileMultiError is an error wrapping multiple validation
+// errors returned by FinancialUserProfile.ValidateAll() if the designated
+// constraints aren't met.
+type FinancialUserProfileMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m UserProfileMultiError) Error() string {
+func (m FinancialUserProfileMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -374,11 +375,11 @@ func (m UserProfileMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m UserProfileMultiError) AllErrors() []error { return m }
+func (m FinancialUserProfileMultiError) AllErrors() []error { return m }
 
-// UserProfileValidationError is the validation error returned by
-// UserProfile.Validate if the designated constraints aren't met.
-type UserProfileValidationError struct {
+// FinancialUserProfileValidationError is the validation error returned by
+// FinancialUserProfile.Validate if the designated constraints aren't met.
+type FinancialUserProfileValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -386,22 +387,24 @@ type UserProfileValidationError struct {
 }
 
 // Field function returns field value.
-func (e UserProfileValidationError) Field() string { return e.field }
+func (e FinancialUserProfileValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e UserProfileValidationError) Reason() string { return e.reason }
+func (e FinancialUserProfileValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e UserProfileValidationError) Cause() error { return e.cause }
+func (e FinancialUserProfileValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e UserProfileValidationError) Key() bool { return e.key }
+func (e FinancialUserProfileValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e UserProfileValidationError) ErrorName() string { return "UserProfileValidationError" }
+func (e FinancialUserProfileValidationError) ErrorName() string {
+	return "FinancialUserProfileValidationError"
+}
 
 // Error satisfies the builtin error interface
-func (e UserProfileValidationError) Error() string {
+func (e FinancialUserProfileValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -413,14 +416,14 @@ func (e UserProfileValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sUserProfile.%s: %s%s",
+		"invalid %sFinancialUserProfile.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = UserProfileValidationError{}
+var _ error = FinancialUserProfileValidationError{}
 
 var _ interface {
 	Field() string
@@ -428,7 +431,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = UserProfileValidationError{}
+} = FinancialUserProfileValidationError{}
 
 // Validate checks the field values on ActionableInsight with the rules defined
 // in the proto definition for this message. If any rules are violated, the

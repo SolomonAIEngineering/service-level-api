@@ -5173,7 +5173,7 @@
       "type": "object",
       "properties": {
         "profile": {
-          "$ref": "#/definitions/UserProfile",
+          "$ref": "#/definitions/FinancialUserProfile",
           "title": "User profile to create\nValidations:\n- cannot be nil hence required"
         },
         "email": {
@@ -5775,6 +5775,61 @@
       },
       "description": "FinancialProfile\nThis message is used to represent the financial profile of a user."
     },
+    "FinancialUserProfile": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "id"
+        },
+        "userId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "the user id tied to the profile"
+        },
+        "stripeCustomerId": {
+          "type": "string"
+        },
+        "stripeSubscriptions": {
+          "$ref": "#/definitions/StripeSubscription",
+          "title": "the stripe subscriptions the user profile actively maintains"
+        },
+        "link": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/Link"
+          },
+          "title": "a user profile can have many links (connected institutions) of which finanical accounts are tied to (checking, savings, etc)"
+        },
+        "actionableInsights": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ActionableInsight"
+          }
+        },
+        "email": {
+          "type": "string"
+        },
+        "mergeLiink": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/MergeLink"
+          }
+        },
+        "actionablePersonalInsights": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/PersonalActionableInsight"
+          }
+        }
+      },
+      "title": "FinancialUserProfile stores high level user profile details\nsuch as the id, user_id tied to the profile, and many more"
+    },
     "Forecast": {
       "type": "object",
       "properties": {
@@ -6330,7 +6385,7 @@
       "type": "object",
       "properties": {
         "profile": {
-          "$ref": "#/definitions/UserProfile"
+          "$ref": "#/definitions/FinancialUserProfile"
         },
         "financialContext": {
           "$ref": "#/definitions/MelodyFinancialContext",
@@ -9594,7 +9649,7 @@
       "type": "object",
       "properties": {
         "profile": {
-          "$ref": "#/definitions/UserProfile",
+          "$ref": "#/definitions/FinancialUserProfile",
           "title": "User profile to update\nValidation:\n- cannot nil hence required"
         }
       },
@@ -9610,65 +9665,10 @@
           "type": "boolean"
         },
         "profile": {
-          "$ref": "#/definitions/UserProfile"
+          "$ref": "#/definitions/FinancialUserProfile"
         }
       },
       "title": "UpdateUserProfileResponse: Represents the response object returned as a response to\nthe `update user profile` request"
-    },
-    "UserProfile": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "format": "uint64",
-          "title": "id"
-        },
-        "userId": {
-          "type": "string",
-          "format": "uint64",
-          "title": "the user id tied to the profile"
-        },
-        "stripeCustomerId": {
-          "type": "string"
-        },
-        "stripeSubscriptions": {
-          "$ref": "#/definitions/StripeSubscription",
-          "title": "the stripe subscriptions the user profile actively maintains"
-        },
-        "link": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/Link"
-          },
-          "title": "a user profile can have many links (connected institutions) of which finanical accounts are tied to (checking, savings, etc)"
-        },
-        "actionableInsights": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/ActionableInsight"
-          }
-        },
-        "email": {
-          "type": "string"
-        },
-        "mergeLiink": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/MergeLink"
-          }
-        },
-        "actionablePersonalInsights": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/PersonalActionableInsight"
-          }
-        }
-      },
-      "title": "UserProfile stores high level user profile details\nsuch as the id, user_id tied to the profile, and many more"
     },
     "VendorCredit": {
       "type": "object",

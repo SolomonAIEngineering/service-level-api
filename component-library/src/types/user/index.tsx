@@ -1,1 +1,1 @@
-export { UserAccount } from './user-account';
+export { UserAccountClass } from './user-account';

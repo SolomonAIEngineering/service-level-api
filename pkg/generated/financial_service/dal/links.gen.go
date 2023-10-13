@@ -32,6 +32,7 @@ func newLinkORM(db *gorm.DB, opts ...gen.DOOption) linkORM {
 	_linkORM.Description = field.NewString(tableName, "description")
 	_linkORM.ErrorCode = field.NewString(tableName, "error_code")
 	_linkORM.ExpirationDate = field.NewString(tableName, "expiration_date")
+	_linkORM.FinancialUserProfileId = field.NewUint64(tableName, "financial_user_profile_id")
 	_linkORM.Id = field.NewUint64(tableName, "id")
 	_linkORM.InstitutionName = field.NewString(tableName, "institution_name")
 	_linkORM.LastManualSync = field.NewString(tableName, "last_manual_sync")
@@ -43,7 +44,6 @@ func newLinkORM(db *gorm.DB, opts ...gen.DOOption) linkORM {
 	_linkORM.PlaidNewAccountsAvailable = field.NewBool(tableName, "plaid_new_accounts_available")
 	_linkORM.ShouldBeUpdated = field.NewBool(tableName, "should_be_updated")
 	_linkORM.UpdatedAt = field.NewString(tableName, "updated_at")
-	_linkORM.UserProfileId = field.NewUint64(tableName, "user_profile_id")
 	_linkORM.PlaidLink = linkORMHasOnePlaidLink{
 		db: db.Session(&gorm.Session{}),
 
@@ -186,6 +186,7 @@ type linkORM struct {
 	Description               field.String
 	ErrorCode                 field.String
 	ExpirationDate            field.String
+	FinancialUserProfileId    field.Uint64
 	Id                        field.Uint64
 	InstitutionName           field.String
 	LastManualSync            field.String
@@ -197,7 +198,6 @@ type linkORM struct {
 	PlaidNewAccountsAvailable field.Bool
 	ShouldBeUpdated           field.Bool
 	UpdatedAt                 field.String
-	UserProfileId             field.Uint64
 	PlaidLink                 linkORMHasOnePlaidLink
 
 	PlaidSync linkORMHasOnePlaidSync
@@ -233,6 +233,7 @@ func (l *linkORM) updateTableName(table string) *linkORM {
 	l.Description = field.NewString(table, "description")
 	l.ErrorCode = field.NewString(table, "error_code")
 	l.ExpirationDate = field.NewString(table, "expiration_date")
+	l.FinancialUserProfileId = field.NewUint64(table, "financial_user_profile_id")
 	l.Id = field.NewUint64(table, "id")
 	l.InstitutionName = field.NewString(table, "institution_name")
 	l.LastManualSync = field.NewString(table, "last_manual_sync")
@@ -244,7 +245,6 @@ func (l *linkORM) updateTableName(table string) *linkORM {
 	l.PlaidNewAccountsAvailable = field.NewBool(table, "plaid_new_accounts_available")
 	l.ShouldBeUpdated = field.NewBool(table, "should_be_updated")
 	l.UpdatedAt = field.NewString(table, "updated_at")
-	l.UserProfileId = field.NewUint64(table, "user_profile_id")
 
 	l.fillFieldMap()
 
@@ -266,6 +266,7 @@ func (l *linkORM) fillFieldMap() {
 	l.fieldMap["description"] = l.Description
 	l.fieldMap["error_code"] = l.ErrorCode
 	l.fieldMap["expiration_date"] = l.ExpirationDate
+	l.fieldMap["financial_user_profile_id"] = l.FinancialUserProfileId
 	l.fieldMap["id"] = l.Id
 	l.fieldMap["institution_name"] = l.InstitutionName
 	l.fieldMap["last_manual_sync"] = l.LastManualSync
@@ -277,7 +278,6 @@ func (l *linkORM) fillFieldMap() {
 	l.fieldMap["plaid_new_accounts_available"] = l.PlaidNewAccountsAvailable
 	l.fieldMap["should_be_updated"] = l.ShouldBeUpdated
 	l.fieldMap["updated_at"] = l.UpdatedAt
-	l.fieldMap["user_profile_id"] = l.UserProfileId
 
 }
 

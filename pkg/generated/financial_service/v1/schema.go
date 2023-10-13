@@ -7,7 +7,7 @@ func GetDatabaseSchemas() []interface{} {
 		ActionableInsightORM{},
 		TokenORM{},
 		PlaidLinkORM{},
-		UserProfileORM{},
+		FinancialUserProfileORM{},
 		StripeSubscriptionORM{},
 		StudentLoanAccountORM{},
 		CreditAccountORM{},

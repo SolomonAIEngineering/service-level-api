@@ -3,12 +3,12 @@ import {
   MelodyFinancialContext,
 } from 'src/data-contracts/financial-service/data-contracts';
 import { ErrorResponse } from '../error';
-import { UserAccount } from '../user';
 import { IRequest } from './IRequest';
 import { MelodyFinancialContextClass } from '../financial/melody-financial-context';
 import { FinancialProfileClass } from '../financial/financial-profile';
 import { SocialUserProfileClass } from '../social';
 import { UserProfile } from 'src/data-contracts/social-service/data-contracts';
+import { UserAccount } from 'src/data-contracts/user-service/data-contracts';
 /**
  * @description The request to authenticate a user
  * @author Yoan Yomba
@@ -56,7 +56,7 @@ class AuthenticationResponse extends ErrorResponse {
   code = 0;
   err = '';
   token = '';
-  user_account: UserAccount = new UserAccount();
+  user_account: UserAccount = {};
   user_profile: UserProfile = new SocialUserProfileClass({});
   user_financial_profile: FinancialProfileResponse = {
     profile: new FinancialProfileClass(),
@@ -68,7 +68,7 @@ class AuthenticationResponse extends ErrorResponse {
     if (data) {
       Object.assign(this, {
         ...data,
-        user_account: new UserAccount(data?.user_account),
+        user_account: data?.user_account ?? {},
         user_profile:
           data.user_profile !== undefined
             ? new SocialUserProfileClass(data.user_profile)

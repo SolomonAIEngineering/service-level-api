@@ -31,13 +31,13 @@ func newPersonalActionableInsightORM(db *gorm.DB, opts ...gen.DOOption) personal
 	_personalActionableInsightORM.Action = field.NewString(tableName, "action")
 	_personalActionableInsightORM.Description = field.NewString(tableName, "description")
 	_personalActionableInsightORM.ExpectedBenefit = field.NewString(tableName, "expected_benefit")
+	_personalActionableInsightORM.FinancialUserProfileId = field.NewUint64(tableName, "financial_user_profile_id")
 	_personalActionableInsightORM.GeneratedTime = field.NewTime(tableName, "generated_time")
 	_personalActionableInsightORM.Id = field.NewUint64(tableName, "id")
 	_personalActionableInsightORM.InsightName = field.NewString(tableName, "insight_name")
 	_personalActionableInsightORM.MetricsToOptimizeFor = field.NewField(tableName, "metrics_to_optimize_for")
 	_personalActionableInsightORM.Tags = field.NewField(tableName, "tags")
 	_personalActionableInsightORM.Takeaway = field.NewString(tableName, "takeaway")
-	_personalActionableInsightORM.UserProfileId = field.NewUint64(tableName, "user_profile_id")
 
 	_personalActionableInsightORM.fillFieldMap()
 
@@ -47,17 +47,17 @@ func newPersonalActionableInsightORM(db *gorm.DB, opts ...gen.DOOption) personal
 type personalActionableInsightORM struct {
 	personalActionableInsightORMDo
 
-	ALL                  field.Asterisk
-	Action               field.String
-	Description          field.String
-	ExpectedBenefit      field.String
-	GeneratedTime        field.Time
-	Id                   field.Uint64
-	InsightName          field.String
-	MetricsToOptimizeFor field.Field
-	Tags                 field.Field
-	Takeaway             field.String
-	UserProfileId        field.Uint64
+	ALL                    field.Asterisk
+	Action                 field.String
+	Description            field.String
+	ExpectedBenefit        field.String
+	FinancialUserProfileId field.Uint64
+	GeneratedTime          field.Time
+	Id                     field.Uint64
+	InsightName            field.String
+	MetricsToOptimizeFor   field.Field
+	Tags                   field.Field
+	Takeaway               field.String
 
 	fieldMap map[string]field.Expr
 }
@@ -77,13 +77,13 @@ func (p *personalActionableInsightORM) updateTableName(table string) *personalAc
 	p.Action = field.NewString(table, "action")
 	p.Description = field.NewString(table, "description")
 	p.ExpectedBenefit = field.NewString(table, "expected_benefit")
+	p.FinancialUserProfileId = field.NewUint64(table, "financial_user_profile_id")
 	p.GeneratedTime = field.NewTime(table, "generated_time")
 	p.Id = field.NewUint64(table, "id")
 	p.InsightName = field.NewString(table, "insight_name")
 	p.MetricsToOptimizeFor = field.NewField(table, "metrics_to_optimize_for")
 	p.Tags = field.NewField(table, "tags")
 	p.Takeaway = field.NewString(table, "takeaway")
-	p.UserProfileId = field.NewUint64(table, "user_profile_id")
 
 	p.fillFieldMap()
 
@@ -104,13 +104,13 @@ func (p *personalActionableInsightORM) fillFieldMap() {
 	p.fieldMap["action"] = p.Action
 	p.fieldMap["description"] = p.Description
 	p.fieldMap["expected_benefit"] = p.ExpectedBenefit
+	p.fieldMap["financial_user_profile_id"] = p.FinancialUserProfileId
 	p.fieldMap["generated_time"] = p.GeneratedTime
 	p.fieldMap["id"] = p.Id
 	p.fieldMap["insight_name"] = p.InsightName
 	p.fieldMap["metrics_to_optimize_for"] = p.MetricsToOptimizeFor
 	p.fieldMap["tags"] = p.Tags
 	p.fieldMap["takeaway"] = p.Takeaway
-	p.fieldMap["user_profile_id"] = p.UserProfileId
 }
 
 func (p personalActionableInsightORM) clone(db *gorm.DB) personalActionableInsightORM {

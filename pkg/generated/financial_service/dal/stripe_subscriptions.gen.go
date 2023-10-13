@@ -28,13 +28,13 @@ func newStripeSubscriptionORM(db *gorm.DB, opts ...gen.DOOption) stripeSubscript
 
 	tableName := _stripeSubscriptionORM.stripeSubscriptionORMDo.TableName()
 	_stripeSubscriptionORM.ALL = field.NewAsterisk(tableName)
+	_stripeSubscriptionORM.FinancialUserProfileId = field.NewUint64(tableName, "financial_user_profile_id")
 	_stripeSubscriptionORM.Id = field.NewUint64(tableName, "id")
 	_stripeSubscriptionORM.IsTrialing = field.NewBool(tableName, "is_trialing")
 	_stripeSubscriptionORM.StripeSubscriptionActiveUntil = field.NewString(tableName, "stripe_subscription_active_until")
 	_stripeSubscriptionORM.StripeSubscriptionId = field.NewString(tableName, "stripe_subscription_id")
 	_stripeSubscriptionORM.StripeSubscriptionStatus = field.NewString(tableName, "stripe_subscription_status")
 	_stripeSubscriptionORM.StripeWebhookLatestTimestamp = field.NewString(tableName, "stripe_webhook_latest_timestamp")
-	_stripeSubscriptionORM.UserProfileId = field.NewUint64(tableName, "user_profile_id")
 
 	_stripeSubscriptionORM.fillFieldMap()
 
@@ -45,13 +45,13 @@ type stripeSubscriptionORM struct {
 	stripeSubscriptionORMDo
 
 	ALL                           field.Asterisk
+	FinancialUserProfileId        field.Uint64
 	Id                            field.Uint64
 	IsTrialing                    field.Bool
 	StripeSubscriptionActiveUntil field.String
 	StripeSubscriptionId          field.String
 	StripeSubscriptionStatus      field.String
 	StripeWebhookLatestTimestamp  field.String
-	UserProfileId                 field.Uint64
 
 	fieldMap map[string]field.Expr
 }
@@ -68,13 +68,13 @@ func (s stripeSubscriptionORM) As(alias string) *stripeSubscriptionORM {
 
 func (s *stripeSubscriptionORM) updateTableName(table string) *stripeSubscriptionORM {
 	s.ALL = field.NewAsterisk(table)
+	s.FinancialUserProfileId = field.NewUint64(table, "financial_user_profile_id")
 	s.Id = field.NewUint64(table, "id")
 	s.IsTrialing = field.NewBool(table, "is_trialing")
 	s.StripeSubscriptionActiveUntil = field.NewString(table, "stripe_subscription_active_until")
 	s.StripeSubscriptionId = field.NewString(table, "stripe_subscription_id")
 	s.StripeSubscriptionStatus = field.NewString(table, "stripe_subscription_status")
 	s.StripeWebhookLatestTimestamp = field.NewString(table, "stripe_webhook_latest_timestamp")
-	s.UserProfileId = field.NewUint64(table, "user_profile_id")
 
 	s.fillFieldMap()
 
@@ -92,13 +92,13 @@ func (s *stripeSubscriptionORM) GetFieldByName(fieldName string) (field.OrderExp
 
 func (s *stripeSubscriptionORM) fillFieldMap() {
 	s.fieldMap = make(map[string]field.Expr, 7)
+	s.fieldMap["financial_user_profile_id"] = s.FinancialUserProfileId
 	s.fieldMap["id"] = s.Id
 	s.fieldMap["is_trialing"] = s.IsTrialing
 	s.fieldMap["stripe_subscription_active_until"] = s.StripeSubscriptionActiveUntil
 	s.fieldMap["stripe_subscription_id"] = s.StripeSubscriptionId
 	s.fieldMap["stripe_subscription_status"] = s.StripeSubscriptionStatus
 	s.fieldMap["stripe_webhook_latest_timestamp"] = s.StripeWebhookLatestTimestamp
-	s.fieldMap["user_profile_id"] = s.UserProfileId
 }
 
 func (s stripeSubscriptionORM) clone(db *gorm.DB) stripeSubscriptionORM {

@@ -2,9 +2,9 @@ import { AddressClass } from '../common/address';
 import { TagClass } from '../common/tag';
 import {
   Address,
-  UserAccount as UserAccountContract,
+  Tags,
+  UserAccount,
 } from 'src/data-contracts/user-service/data-contracts';
-import { Tags as TagContract } from 'src/data-contracts/user-service/data-contracts';
 
 /**
  * Represents a user's account in simfiny's backend.
@@ -55,21 +55,21 @@ interface UserAccountContractWithAccountID {
   userAccountID?: string;
 }
 
-class UserAccount
-  implements UserAccountContract, UserAccountContractWithAccountID
+class UserAccountClass
+  implements UserAccount, UserAccountContractWithAccountID
 {
   address?: Address = new AddressClass();
-  bio?: string = '';
-  email = '';
+  bio?: string;
+  email?: string;
   firstname?: string;
   lastname?: string;
-  username = '';
+  username?: string;
   headline?: string;
   phoneNumber?: string;
   userAccountID?: string;
   userAuthnAccountID?: string;
-  id = '';
-  tags: TagContract[] = [];
+  id?: string;
+  tags?: Array<Tags>;
   created_at?: string;
   isEmailVerified?: boolean;
   isPrivate?: boolean;
@@ -82,7 +82,7 @@ class UserAccount
    * A constructor function that takes in a data object and assigns the data to the UserAccount class.
    * @param [data] - The data that you want to assign to the object.
    */
-  constructor(data?: Partial<UserAccount>) {
+  constructor(data?: Partial<UserAccountClass>) {
     if (data)
       Object.assign(this, {
         ...data,
@@ -103,7 +103,7 @@ class UserAccount
    * @memberof UserAccount
    */
   getUserName(): string {
-    return this.username;
+    return this.username ?? '';
   }
 
   /**
@@ -112,8 +112,8 @@ class UserAccount
    * @return {*}  {Tag[]}
    * @memberof UserAccount
    */
-  getTags(): TagContract[] {
-    return this.tags;
+  getTags(): Tags[] {
+    return this.tags ?? [];
   }
 
   /**
@@ -123,7 +123,7 @@ class UserAccount
    * @memberof UserAccount
    */
   getTagCount(): number {
-    return this.tags.length;
+    return this.tags != undefined ? this.tags.length : 0;
   }
 
   /**
@@ -177,4 +177,4 @@ class UserAccount
   }
 }
 
-export { UserAccount };
+export { UserAccountClass };

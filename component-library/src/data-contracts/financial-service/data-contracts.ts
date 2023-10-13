@@ -888,7 +888,7 @@ export interface CreateUserProfileRequest {
    * Validations:
    * - cannot be nil hence required
    */
-  profile: UserProfile;
+  profile: FinancialUserProfile;
 }
 
 /**
@@ -1311,6 +1311,32 @@ export interface FinancialProfile {
 }
 
 /**
+ * FinancialUserProfile stores high level user profile details
+ * such as the id, user_id tied to the profile, and many more
+ */
+export interface FinancialUserProfile {
+  actionableInsights?: Array<ActionableInsight>;
+  actionablePersonalInsights?: Array<PersonalActionableInsight>;
+  email?: string;
+  /**
+   * id
+   * @format uint64
+   */
+  id?: string;
+  /** a user profile can have many links (connected institutions) of which finanical accounts are tied to (checking, savings, etc) */
+  link?: Array<Link>;
+  mergeLiink?: Array<MergeLink>;
+  stripeCustomerId?: string;
+  /** the stripe subscriptions the user profile actively maintains */
+  stripeSubscriptions?: StripeSubscription;
+  /**
+   * the user id tied to the profile
+   * @format uint64
+   */
+  userId?: string;
+}
+
+/**
  * The Forecast table stores information about each forecast generated for a particular goal,
  * including the forecast date, the forecasted amount of money saved or invested for the
  * goal by the target date, and the variance between the forecasted and target amounts.
@@ -1671,7 +1697,7 @@ export interface GetUserProfileResponse {
    * This message is used to represent the financial context of a user.
    */
   financialContext: MelodyFinancialContext;
-  profile?: UserProfile;
+  profile?: FinancialUserProfile;
 }
 
 /** @default "GOAL_TYPE_UNSPECIFIED" */
@@ -3800,7 +3826,7 @@ export interface UpdateUserProfileRequest {
    * Validation:
    * - cannot nil hence required
    */
-  profile: UserProfile;
+  profile: FinancialUserProfile;
 }
 
 /**
@@ -3808,39 +3834,13 @@ export interface UpdateUserProfileRequest {
  * the `update user profile` request
  */
 export interface UpdateUserProfileResponse {
-  profile?: UserProfile;
+  profile?: FinancialUserProfile;
   profileUpdated?: boolean;
 }
 
 export type UpdatesBudgetData = any;
 
 export type UpdatesMilestoneData = any;
-
-/**
- * UserProfile stores high level user profile details
- * such as the id, user_id tied to the profile, and many more
- */
-export interface UserProfile {
-  actionableInsights?: Array<ActionableInsight>;
-  actionablePersonalInsights?: Array<PersonalActionableInsight>;
-  email?: string;
-  /**
-   * id
-   * @format uint64
-   */
-  id?: string;
-  /** a user profile can have many links (connected institutions) of which finanical accounts are tied to (checking, savings, etc) */
-  link?: Array<Link>;
-  mergeLiink?: Array<MergeLink>;
-  stripeCustomerId?: string;
-  /** the stripe subscriptions the user profile actively maintains */
-  stripeSubscriptions?: StripeSubscription;
-  /**
-   * the user id tied to the profile
-   * @format uint64
-   */
-  userId?: string;
-}
 
 /**
  * The VendorCredit object is an accounts receivable transaction used to show that a customer is owed a gift or refund.

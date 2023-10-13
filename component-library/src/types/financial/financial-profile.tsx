@@ -1,6 +1,6 @@
 import {
   ActionableInsight,
-  UserProfile as UserProfile,
+  FinancialUserProfile,
   Link,
   StripeSubscription,
 } from 'src/data-contracts/financial-service/data-contracts';
@@ -39,7 +39,7 @@ import { LinkClass } from './link';
  * @property link - Array of linked financial institutions associated with the user's profile.
  * @property actionableInsights - Array of insights derived from the user's financial data.
  */
-class FinancialProfileClass implements UserProfile {
+class FinancialProfileClass implements FinancialUserProfile {
   /** id */
   userFinancialProfileID = 0;
   /** the user id tied to the profile */
@@ -51,7 +51,7 @@ class FinancialProfileClass implements UserProfile {
   link: Link[] = [];
   actionableInsights: ActionableInsight[] = [];
 
-  constructor(data?: Partial<UserProfile>) {
+  constructor(data?: Partial<FinancialUserProfile>) {
     if (data)
       Object.assign(this, {
         ...data,

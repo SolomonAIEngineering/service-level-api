@@ -3,7 +3,7 @@ module.exports =  {
     {
       filePath: './src/main.tsx',
       outFile: './dist/main.d.ts',
-      noCheck: true,
+      noCheck: false,
     },
   ],
 };

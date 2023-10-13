@@ -114,9 +114,9 @@ message StripeSubscription {
   bool is_trialing = 6;
 }
 
-// UserProfile stores high level user profile details
+// FinancialUserProfile stores high level user profile details
 // such as the id, user_id tied to the profile, and many more
-message UserProfile {
+message FinancialUserProfile {
   option (gorm.opts) = {ormable: true};
 
   // id

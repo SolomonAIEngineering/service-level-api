@@ -1,5 +1,5 @@
+import { UserAccount } from 'src/data-contracts/user-service/data-contracts';
 import { ErrorResponse } from '../error';
-import { UserAccount } from '../user/user-account';
 
 export class GetUpdatedUserAccountResponse extends ErrorResponse {
   account: UserAccount | undefined;

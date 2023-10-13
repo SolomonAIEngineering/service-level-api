@@ -32,6 +32,7 @@ func newMergeLinkORM(db *gorm.DB, opts ...gen.DOOption) mergeLinkORM {
 	_mergeLinkORM.EndUserEmailAddress = field.NewString(tableName, "end_user_email_address")
 	_mergeLinkORM.EndUserOrganizationName = field.NewString(tableName, "end_user_organization_name")
 	_mergeLinkORM.EndUserOriginId = field.NewString(tableName, "end_user_origin_id")
+	_mergeLinkORM.FinancialUserProfileId = field.NewUint64(tableName, "financial_user_profile_id")
 	_mergeLinkORM.Id = field.NewUint64(tableName, "id")
 	_mergeLinkORM.Integration = field.NewString(tableName, "integration")
 	_mergeLinkORM.IntegrationImage = field.NewString(tableName, "integration_image")
@@ -41,7 +42,6 @@ func newMergeLinkORM(db *gorm.DB, opts ...gen.DOOption) mergeLinkORM {
 	_mergeLinkORM.IsDuplicate = field.NewBool(tableName, "is_duplicate")
 	_mergeLinkORM.MergeLinkedAccountId = field.NewString(tableName, "merge_linked_account_id")
 	_mergeLinkORM.Status = field.NewString(tableName, "status")
-	_mergeLinkORM.UserProfileId = field.NewUint64(tableName, "user_profile_id")
 	_mergeLinkORM.WebhookListenerUrl = field.NewString(tableName, "webhook_listener_url")
 	_mergeLinkORM.Token = mergeLinkORMHasOneToken{
 		db: db.Session(&gorm.Session{}),
@@ -410,6 +410,7 @@ type mergeLinkORM struct {
 	EndUserEmailAddress     field.String
 	EndUserOrganizationName field.String
 	EndUserOriginId         field.String
+	FinancialUserProfileId  field.Uint64
 	Id                      field.Uint64
 	Integration             field.String
 	IntegrationImage        field.String
@@ -419,7 +420,6 @@ type mergeLinkORM struct {
 	IsDuplicate             field.Bool
 	MergeLinkedAccountId    field.String
 	Status                  field.String
-	UserProfileId           field.Uint64
 	WebhookListenerUrl      field.String
 	Token                   mergeLinkORMHasOneToken
 
@@ -444,6 +444,7 @@ func (m *mergeLinkORM) updateTableName(table string) *mergeLinkORM {
 	m.EndUserEmailAddress = field.NewString(table, "end_user_email_address")
 	m.EndUserOrganizationName = field.NewString(table, "end_user_organization_name")
 	m.EndUserOriginId = field.NewString(table, "end_user_origin_id")
+	m.FinancialUserProfileId = field.NewUint64(table, "financial_user_profile_id")
 	m.Id = field.NewUint64(table, "id")
 	m.Integration = field.NewString(table, "integration")
 	m.IntegrationImage = field.NewString(table, "integration_image")
@@ -453,7 +454,6 @@ func (m *mergeLinkORM) updateTableName(table string) *mergeLinkORM {
 	m.IsDuplicate = field.NewBool(table, "is_duplicate")
 	m.MergeLinkedAccountId = field.NewString(table, "merge_linked_account_id")
 	m.Status = field.NewString(table, "status")
-	m.UserProfileId = field.NewUint64(table, "user_profile_id")
 	m.WebhookListenerUrl = field.NewString(table, "webhook_listener_url")
 
 	m.fillFieldMap()
@@ -476,6 +476,7 @@ func (m *mergeLinkORM) fillFieldMap() {
 	m.fieldMap["end_user_email_address"] = m.EndUserEmailAddress
 	m.fieldMap["end_user_organization_name"] = m.EndUserOrganizationName
 	m.fieldMap["end_user_origin_id"] = m.EndUserOriginId
+	m.fieldMap["financial_user_profile_id"] = m.FinancialUserProfileId
 	m.fieldMap["id"] = m.Id
 	m.fieldMap["integration"] = m.Integration
 	m.fieldMap["integration_image"] = m.IntegrationImage
@@ -485,7 +486,6 @@ func (m *mergeLinkORM) fillFieldMap() {
 	m.fieldMap["is_duplicate"] = m.IsDuplicate
 	m.fieldMap["merge_linked_account_id"] = m.MergeLinkedAccountId
 	m.fieldMap["status"] = m.Status
-	m.fieldMap["user_profile_id"] = m.UserProfileId
 	m.fieldMap["webhook_listener_url"] = m.WebhookListenerUrl
 
 }

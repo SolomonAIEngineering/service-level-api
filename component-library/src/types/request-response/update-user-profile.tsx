@@ -1,5 +1,5 @@
+import { UserAccount } from 'src/data-contracts/user-service/data-contracts';
 import { ErrorResponse } from '../error';
-import { UserAccount } from '../user/user-account';
 import { IRequest } from './IRequest';
 
 /**
@@ -12,13 +12,13 @@ export class UpdateUserAccountRequest implements IRequest {
    * Validation:
    * - cannot nil hence required
    */
-  account: UserAccount | undefined = new UserAccount();
+  account: UserAccount | undefined = undefined;
 
   constructor(data?: Partial<UpdateUserAccountRequest>) {
     if (data) {
       Object.assign(this, {
         ...data,
-        account: new UserAccount(data?.account),
+        account: data?.account ? data.account : undefined,
       });
     }
   }
@@ -37,7 +37,7 @@ export class UpdateUserAccountResponse extends ErrorResponse {
     if (data) {
       Object.assign(this, {
         ...data,
-        account: new UserAccount(data?.account),
+        account: data?.account ? data.account : undefined,
       });
     }
   }

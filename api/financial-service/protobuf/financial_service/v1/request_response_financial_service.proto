@@ -30,7 +30,7 @@ message CreateUserProfileRequest {
   // User profile to create
   // Validations:
   // - cannot be nil hence required
-  UserProfile profile = 1 [
+  FinancialUserProfile profile = 1 [
     (validate.rules).message.required = true,
     (google.api.field_behavior) = REQUIRED
   ];
@@ -64,7 +64,7 @@ message GetUserProfileRequest {
 // GetUserProfileResponse: Represents the response object returned as a response to
 // the `get user profile` request
 message GetUserProfileResponse {
-  UserProfile profile = 1;
+  FinancialUserProfile profile = 1;
     // financial context for the user
   MelodyFinancialContext financial_context = 2 [
     (validate.rules).message.required = true,
@@ -97,7 +97,7 @@ message UpdateUserProfileRequest {
   // User profile to update
   // Validation:
   // - cannot nil hence required
-  UserProfile profile = 1 [
+  FinancialUserProfile profile = 1 [
     (validate.rules).message.required = true,
     (google.api.field_behavior) = REQUIRED
   ];
@@ -107,7 +107,7 @@ message UpdateUserProfileRequest {
 // the `update user profile` request
 message UpdateUserProfileResponse {
   bool profile_updated = 1;
-  UserProfile profile = 2;
+  FinancialUserProfile profile = 2;
 }
 
 // CreateBankAccountRequest: Represents the request object invoked against the financial

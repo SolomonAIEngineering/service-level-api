@@ -29,11 +29,11 @@ func newActionableInsightORM(db *gorm.DB, opts ...gen.DOOption) actionableInsigh
 	tableName := _actionableInsightORM.actionableInsightORMDo.TableName()
 	_actionableInsightORM.ALL = field.NewAsterisk(tableName)
 	_actionableInsightORM.DetailedAction = field.NewString(tableName, "detailed_action")
+	_actionableInsightORM.FinancialUserProfileId = field.NewUint64(tableName, "financial_user_profile_id")
 	_actionableInsightORM.GeneratedTime = field.NewTime(tableName, "generated_time")
 	_actionableInsightORM.Id = field.NewUint64(tableName, "id")
 	_actionableInsightORM.SummarizedAction = field.NewString(tableName, "summarized_action")
 	_actionableInsightORM.Tags = field.NewField(tableName, "tags")
-	_actionableInsightORM.UserProfileId = field.NewUint64(tableName, "user_profile_id")
 
 	_actionableInsightORM.fillFieldMap()
 
@@ -43,13 +43,13 @@ func newActionableInsightORM(db *gorm.DB, opts ...gen.DOOption) actionableInsigh
 type actionableInsightORM struct {
 	actionableInsightORMDo
 
-	ALL              field.Asterisk
-	DetailedAction   field.String
-	GeneratedTime    field.Time
-	Id               field.Uint64
-	SummarizedAction field.String
-	Tags             field.Field
-	UserProfileId    field.Uint64
+	ALL                    field.Asterisk
+	DetailedAction         field.String
+	FinancialUserProfileId field.Uint64
+	GeneratedTime          field.Time
+	Id                     field.Uint64
+	SummarizedAction       field.String
+	Tags                   field.Field
 
 	fieldMap map[string]field.Expr
 }
@@ -67,11 +67,11 @@ func (a actionableInsightORM) As(alias string) *actionableInsightORM {
 func (a *actionableInsightORM) updateTableName(table string) *actionableInsightORM {
 	a.ALL = field.NewAsterisk(table)
 	a.DetailedAction = field.NewString(table, "detailed_action")
+	a.FinancialUserProfileId = field.NewUint64(table, "financial_user_profile_id")
 	a.GeneratedTime = field.NewTime(table, "generated_time")
 	a.Id = field.NewUint64(table, "id")
 	a.SummarizedAction = field.NewString(table, "summarized_action")
 	a.Tags = field.NewField(table, "tags")
-	a.UserProfileId = field.NewUint64(table, "user_profile_id")
 
 	a.fillFieldMap()
 
@@ -90,11 +90,11 @@ func (a *actionableInsightORM) GetFieldByName(fieldName string) (field.OrderExpr
 func (a *actionableInsightORM) fillFieldMap() {
 	a.fieldMap = make(map[string]field.Expr, 6)
 	a.fieldMap["detailed_action"] = a.DetailedAction
+	a.fieldMap["financial_user_profile_id"] = a.FinancialUserProfileId
 	a.fieldMap["generated_time"] = a.GeneratedTime
 	a.fieldMap["id"] = a.Id
 	a.fieldMap["summarized_action"] = a.SummarizedAction
 	a.fieldMap["tags"] = a.Tags
-	a.fieldMap["user_profile_id"] = a.UserProfileId
 }
 
 func (a actionableInsightORM) clone(db *gorm.DB) actionableInsightORM {

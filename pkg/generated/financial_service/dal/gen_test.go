@@ -96,6 +96,7 @@ func Test_WithContext(t *testing.T) {
 		qCtx.CreditNoteORM.UnderlyingDB().Statement.Context,
 		qCtx.ExpenseLineORM.UnderlyingDB().Statement.Context,
 		qCtx.ExpenseORM.UnderlyingDB().Statement.Context,
+		qCtx.FinancialUserProfileORM.UnderlyingDB().Statement.Context,
 		qCtx.ForecastORM.UnderlyingDB().Statement.Context,
 		qCtx.IncomeStatementORM.UnderlyingDB().Statement.Context,
 		qCtx.InvesmentHoldingORM.UnderlyingDB().Statement.Context,
@@ -129,7 +130,6 @@ func Test_WithContext(t *testing.T) {
 		qCtx.TrackingCategoryORM.UnderlyingDB().Statement.Context,
 		qCtx.TransactionDetailsORM.UnderlyingDB().Statement.Context,
 		qCtx.TransactionLineItemORM.UnderlyingDB().Statement.Context,
-		qCtx.UserProfileORM.UnderlyingDB().Statement.Context,
 		qCtx.VendorCreditLineORM.UnderlyingDB().Statement.Context,
 		qCtx.VendorCreditORM.UnderlyingDB().Statement.Context,
 	} {
