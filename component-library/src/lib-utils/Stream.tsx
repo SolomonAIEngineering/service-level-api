@@ -49,7 +49,7 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
     'Content-Type': 'application/json',
     // open ai key
     // TODO: this should be in a .env file or passed in as part of the library configuraton
-    Authorization: `Bearer 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`,
+    Authorization: `Bearer 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`,
   };
 
   const res = await fetch('https://api.openai.com/v1/chat/completions', {
