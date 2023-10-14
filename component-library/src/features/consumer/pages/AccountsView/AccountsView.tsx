@@ -6,7 +6,7 @@ import {
   TransactionDataTable,
 } from 'src/components';
 import CreditCard from 'src/components/CreditCard/CreditCard';
-import SimpleStatsCard from 'src/components/StatisticCard/SimpleStatisticCard';
+import { SimpleStatsCard } from 'src/components/SimpleStatisticCard/SimpleStatisticCard';
 import { Button } from 'src/components/ui/button';
 import { Calendar } from 'src/components/ui/calendar';
 import { Label } from 'src/components/ui/label';

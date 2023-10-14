@@ -8334,6 +8334,51 @@ export declare class UpdateUserAccountResponseClass extends ErrorResponse {
 	account: UserAccount | undefined;
 	constructor(data?: Partial<UpdateUserAccountResponseClass>);
 }
+/**
+ * Represents individual data points for the chart.
+ */
+export interface ChartData {
+	/** The name for this data point (typically represents a unit on the X-axis, like month or day). */
+	name: string;
+	/** Value for the 'uv' metric. */
+	uv: number;
+	/** Optional value for the 'pv' metric. */
+	pv?: number;
+}
+/**
+ * Props for the CustomAreaChart component.
+ */
+export interface CustomAreaChartProps {
+	/** Array of data points to plot on the chart. */
+	data: ChartData[];
+	/** Optional CSS class to be applied to the chart's outermost container. */
+	className?: string;
+	label: string;
+	enableGrid?: boolean;
+}
+/**
+ * This is the main layout for the Analytic AI card.
+ *
+ * @param children - The child components to render within this component.
+ * @param className - The CSS classes to apply to the component.
+ * @param context - The context for the AI to operate in.
+ *
+ * @example
+ * ```
+ * <AskSolomonAILayout context={context}>
+ *   <ChildComponent />
+ * </AskSolomonAILayout>
+ * ```
+ */
+export declare const AskSolomonAILayout: React.FC<{
+	children: React.ReactNode;
+	className?: string;
+	context: any;
+	sampleQuestions: string[];
+	userKey: string;
+	financialContext: MelodyFinancialContext;
+	userAccount: UserAccount;
+}>;
 /** @type {React.Context<T extends BankAccount>} */
 export declare const BankAccountContext: React.Context<BankAccount | undefined>;
 export declare const FinancialProfileContext: React.Context<FinancialProfile>;
@@ -8447,6 +8492,716 @@ export declare class BankAccountHoverLabel<T extends BankAccount> extends Compon
 	 */
 	render(): ReactNode;
 }
+export interface BarGraphProps {
+	data: {
+		name: string;
+		total: number;
+	}[];
+	label: string;
+	className?: string;
+}
+export declare const BarGraph: React.FC<BarGraphProps>;
+/**
+ * Props definition for the `Container` component.
+ */
+export interface ContainerProps extends React.ComponentPropsWithoutRef<"div"> {
+	/**
+	 * Sets the max width of the container. This prop allows for more flexible widths.
+	 * Defaults to `max-w-7xl`.
+	 *
+	 * @example
+	 * maxWidth="max-w-5xl"
+	 */
+	maxWidth?: string;
+}
+/**
+ * A responsive container component that centers its content and provides consistent padding.
+ *
+ * The `Container` component is a versatile wrapper that controls the maximum width of its content across different screen sizes. By default, it sets the maximum width to `7xl` and provides responsive horizontal padding.
+ *
+ * Usage:
+ *
+ * ```tsx
+ * <Container>
+ *   Your content here...
+ * </Container>
+ * ```
+ *
+ * @param props The properties of the `Container` component.
+ * @returns A React element with content wrapped inside the container.
+ */
+export declare function Container({ className, maxWidth, ...props }: ContainerProps): import("react/jsx-runtime").JSX.Element;
+export type CreditAccountHoverLabelProps<T extends CreditAccount> = {
+	creditAccount: T;
+	institutionName: string;
+	className?: string;
+	enableDemoMode?: boolean;
+	children?: ReactNode;
+	historicalAccountBalance?: AccountBalanceHistory[];
+};
+export type CreditAccountHoverLabelState<T extends CreditAccount> = {
+	creditAccount: T;
+};
+/**
+ * The `CreditAccountHoverLabel` is a specialized React class component
+ * designed to provide detailed hover information about a credit account.
+ * It is built with TypeScript and extends the React `Component` class,
+ * with types specified for both props and state.
+ *
+ * @template T - Specifies the type of bank account this component works with,
+ * extending a base CreditAccount.
+ *
+ * @example
+ * ```tsx
+ * import { CreditAccountHoverLabel } from './CreditAccountHoverLabel';
+ *
+ * <CreditAccountHoverLabel
+ *    creditAccount={new CreditAccount({
+ *      name: 'Savings Account',
+ *      currentFunds: 5000,
+ *      goals: [{name: 'Vacation', amount: 1000}]
+ *    })}
+ *    enableDemoMode={false}
+ * />
+ * ```
+ *
+ * @class
+ * @extends {Component<CreditAccountHoverLabelProps<T>, CreditAccountHoverLabelState<T>>}
+ */
+export declare class CreditAccountHoverLabel<T extends CreditAccount> extends Component<CreditAccountHoverLabelProps<T>, CreditAccountHoverLabelState<T>> {
+	/**
+	 * A reference to the DOM element of the component.
+	 * Useful for direct DOM manipulations.
+	 */
+	private myRef;
+	/**
+	 * Default properties for the CreditAccountHoverLabel component.
+	 */
+	static defaultProps: {
+		contextQuestions: string[];
+		enableDemoMode: boolean;
+		children: null;
+		institutionName: string;
+	};
+	/**
+	 * Constructs a new `CreditAccountHoverLabel` component.
+	 *
+	 * @param props - The properties passed to the component.
+	 */
+	constructor(props: CreditAccountHoverLabelProps<T>);
+	/**
+	 * Lifecycle method that triggers immediately after the component is added to the DOM.
+	 * This method focuses the current component if it has a valid reference.
+	 */
+	componentDidMount(): void;
+	/**
+	 * Renders the `CreditAccountHoverLabel` component.
+	 *
+	 * @returns {ReactNode} The React Node representing the component's UI.
+	 */
+	render(): ReactNode;
+}
+/**
+ * Props for the `HistoricalAccountBalanceChart` component.
+ *
+ * @template T A type that extends `AccountBalanceHistory`, allowing for potential extensions to the base type in the future.
+ *
+ * @property {T[]} historicalAccountBalance - Array of account balance history to be charted.
+ * @property {string} [className] - Optional CSS class to style the component.
+ */
+export type HistoricalAccountBalanceChartProps<T extends AccountBalanceHistory> = {
+	historicalAccountBalance: T[];
+	className?: string;
+	disableLabel?: boolean;
+};
+/**
+ * State for the `HistoricalAccountBalanceChart` component.
+ *
+ * @property {number} counter - A sample state property, likely used for internal component operations.
+ */
+export type HistoricalAccountBalanceChartState = {
+	counter: number;
+};
+/**
+ * The `HistoricalAccountBalanceChart` class component visualizes the history of account balances over time.
+ * It leverages the `recharts` library to plot the balances and is built with extensibility in mind, using
+ * generics for its props to allow potential custom extensions of the `AccountBalanceHistory` type.
+ *
+ * Features:
+ * - Visualizes the account balance history using a line chart.
+ * - Allows for potential customization of data types via TypeScript generics.
+ * - Provides a context for potential child components to access the account balance history.
+ * - Can be styled further through its `className` prop.
+ *
+ * @remarks
+ * The component contains a sample state property named `counter` and methods associated with it.
+ * Its actual use-case within the component should be clarified further.
+ *
+ * @example Basic Usage:
+ * ```tsx
+ * import { HistoricalAccountBalanceChart } from './path-to-component';
+ *
+ * const sampleHistory = [ ... ]; // Sample data here
+ *
+ * function App() {
+ *   return (
+ *     <HistoricalAccountBalanceChart historicalAccountBalance={sampleHistory} />
+ *   );
+ * }
+ * ```
+ *
+ * @example Styling the component:
+ * ```tsx
+ * <HistoricalAccountBalanceChart className="border rounded-md" historicalAccountBalance={sampleHistory} />
+ * ```
+ */
+export declare class HistoricalAccountBalanceChart<T extends AccountBalanceHistory> extends Component<HistoricalAccountBalanceChartProps<T>, HistoricalAccountBalanceChartState> {
+	private myRef;
+	static defaultProps: {
+		className: string;
+		disableLabel: boolean;
+	};
+	constructor(props: HistoricalAccountBalanceChartProps<T>);
+	/** Lifecycle method when the component is about to mount. */
+	componentWillMount(): void;
+	/**
+	 * Lifecycle method that runs after the component has been mounted.
+	 */
+	componentDidMount(): void;
+	private averageBalance;
+	private totalAccumulation;
+	private maxBalance;
+	private minBalance;
+	/**
+	 * Computes the moving average of account balances.
+	 * @param data The data containing the account balance histories.
+	 * @param windowSize The window size for the moving average.
+	 * @returns An array of moving averages for the given window size.
+	 */
+	private movingAverage;
+	/**
+	 * Renders the component.
+	 * @returns {ReactNode}
+	 */
+	render(): ReactNode;
+}
+export type InvestmentAccountCardProps = {
+	investmentAccount: InvestmentAccount;
+	historicalAccountBalance?: AccountBalanceHistory[];
+	enableDemoMode?: boolean;
+	className?: string;
+};
+export type InvestmentAccountCardState = {
+	investmentAccount: InvestmentAccount;
+};
+/**
+ * @class InvestmentAccountCard
+ * @extends {Component<InvestmentAccountCardProps, InvestmentAccountCardState>}
+ *
+ * @description
+ * This is a templated advanced React class component written in TypeScript
+ * with TSDoc annotations. It has various features like context usage,
+ * dynamic styles, generic props, and more.
+ */
+export declare class InvestmentAccountCard extends Component<InvestmentAccountCardProps, InvestmentAccountCardState> {
+	private myRef;
+	static defaultProps: {
+		InvestmentAccount: InvestmentAccountClass;
+		historicalAccountBalance: never[];
+	};
+	constructor(props: InvestmentAccountCardProps);
+	/** Lifecycle method when the component is about to mount. */
+	componentWillMount(): void;
+	/**
+	 * Lifecycle method that runs after the component has been mounted.
+	 */
+	componentDidMount(): void;
+	/**
+	 * Renders the component.
+	 * @returns {ReactNode}
+	 */
+	render(): ReactNode;
+}
+export type InvestmentAccountHoverLabelProps<T extends InvestmentAccount> = {
+	investmentAccount: T;
+	className?: string;
+	enableDemoMode?: boolean;
+	children?: ReactNode;
+	historicalAccountBalance?: AccountBalanceHistory[];
+};
+export type InvestmentAccountHoverLabelState<T extends InvestmentAccount> = {
+	investmentAccount: T;
+};
+/**
+ * The `InvestmentAccountHoverLabel` is a specialized React class component
+ * designed to provide detailed hover information about an investment account.
+ * It is built with TypeScript and extends the React `Component` class,
+ * with types specified for both props and state.
+ *
+ * @template T - Specifies the type of bank account this component works with,
+ * extending a base Investment Account.
+ *
+ * @example
+ * ```tsx
+ * import { InvestmentAccountHoverLabel } from './InvestmentAccountHoverLabel';
+import { InvestmentAccount } from '../../types/financial/investment-account';
+ *
+ * <InvestmentAccountHoverLabel
+ *    investmentAccount={new InvestmentAccount({
+ *      name: 'Savings Account',
+ *      currentFunds: 5000,
+ *      goals: [{name: 'Vacation', amount: 1000}]
+ *    })}
+ *    enableDemoMode={false}
+ * />
+ * ```
+ *
+ * @class
+ * @extends {Component<InvestmentAccountHoverLabelProps<T>, InvestmentAccountHoverLabelState<T>>}
+ */
+export declare class InvestmentAccountHoverLabel<T extends InvestmentAccount> extends Component<InvestmentAccountHoverLabelProps<T>, InvestmentAccountHoverLabelState<T>> {
+	/**
+	 * A reference to the DOM element of the component.
+	 * Useful for direct DOM manipulations.
+	 */
+	private myRef;
+	/**
+	 * Default properties for the InvestmentAccountHoverLabel component.
+	 */
+	static defaultProps: {
+		bankAccount: BankAccountClass;
+		contextQuestions: string[];
+		enableDemoMode: boolean;
+		children: null;
+	};
+	/**
+	 * Constructs a new `InvestmentAccountHoverLabel` component.
+	 *
+	 * @param props - The properties passed to the component.
+	 */
+	constructor(props: InvestmentAccountHoverLabelProps<T>);
+	/**
+	 * Lifecycle method that triggers immediately after the component is added to the DOM.
+	 * This method focuses the current component if it has a valid reference.
+	 */
+	componentDidMount(): void;
+	/**
+	 * Renders the `InvestmentAccountHoverLabel` component.
+	 *
+	 * @returns {ReactNode} The React Node representing the component's UI.
+	 */
+	render(): ReactNode;
+}
+export type InvestmentHoldingCardProps = {
+	holdings: InvesmentHolding[];
+	accountName: string;
+	className?: string;
+	historicalAccountBalance?: AccountBalanceHistory[];
+};
+export type InvestmentHoldingCardState = {
+	holdings: InvesmentHolding[];
+};
+/**
+ * @class InvestmentHoldingCard
+ * @extends {Component<InvestmentHoldingCardProps, InvestmentHoldingCardState>}
+ *
+ * @description
+ * This is a templated advanced React class component written in TypeScript
+ * with TSDoc annotations. It has various features like context usage,
+ * dynamic styles, generic props, and more.
+ */
+export declare class InvestmentHoldingCard extends Component<InvestmentHoldingCardProps, InvestmentHoldingCardState> {
+	private myRef;
+	static defaultProps: {
+		accountName: string;
+	};
+	constructor(props: InvestmentHoldingCardProps);
+	/** Lifecycle method when the component is about to mount. */
+	componentWillMount(): void;
+	/**
+	 * Lifecycle method that runs after the component has been mounted.
+	 */
+	componentDidMount(): void;
+	private computeTotalCostBasis;
+	private computeAverageCostBasis;
+	private computeTotalInstitutionValue;
+	private computeTotalProfitLoss;
+	private findLargestHolding;
+	private findSmallestHolding;
+	/**
+	 * Renders the component.
+	 * @returns {ReactNode}
+	 */
+	render(): ReactNode;
+}
+export type InvestmentSecurityCardProps = {
+	security: InvestmentSecurity;
+	className?: string;
+};
+export type InvestmentSecurityCardState = {
+	security: InvestmentSecurity;
+};
+/**
+ * @class InvestmentSecurityCard
+ * @extends {Component<InvestmentSecurityCardProps, InvestmentSecurityCardState>}
+ *
+ * @description
+ * This is a templated advanced React class component written in TypeScript
+ * with TSDoc annotations. It has various features like context usage,
+ * dynamic styles, generic props, and more.
+ */
+export declare class InvestmentSecurityCard extends Component<InvestmentSecurityCardProps, InvestmentSecurityCardState> {
+	private myRef;
+	static defaultProps: {
+		security: InvestmentSecurityClass;
+	};
+	constructor(props: InvestmentSecurityCardProps);
+	/** Lifecycle method when the component is about to mount. */
+	componentWillMount(): void;
+	/**
+	 * Lifecycle method that runs after the component has been mounted.
+	 */
+	componentDidMount(): void;
+	/**
+	 * Renders the component.
+	 * @returns {ReactNode}
+	 */
+	render(): ReactNode;
+}
+/**
+ * Represents individual data points for the chart.
+ */
+export interface ChartData {
+	/** The name for this data point (typically represents a unit on the X-axis, like month or day). */
+	name: string;
+	/** Value for the 'uv' metric. */
+	uv: number;
+	/** Optional value for the 'pv' metric. */
+	pv?: number;
+}
+/**
+ * Props for the CustomLineChart component.
+ */
+export interface CustomLineChartProps {
+	/** Array of data points to plot on the chart. */
+	data: ChartData[];
+	/** Optional CSS class to be applied to the chart's outermost container. */
+	className?: string;
+	label: string;
+	enableGrid?: boolean;
+}
+export type MortgageAccountCardProps<T> = {
+	data: T;
+	greeting?: string;
+	className?: string;
+};
+export type MortgageAccountCardState = {
+	counter: number;
+};
+/**
+ * @class MortgageAccountCard
+ * @extends {Component<MortgageAccountCardProps, MortgageAccountCardState>}
+ *
+ * @description
+ * This is a templated advanced React class component written in TypeScript
+ * with TSDoc annotations. It has various features like context usage,
+ * dynamic styles, generic props, and more.
+ */
+export declare class MortgageAccountCard<T> extends Component<MortgageAccountCardProps<T>, MortgageAccountCardState> {
+	private myRef;
+	static defaultProps: {
+		greeting: string;
+	};
+	constructor(props: MortgageAccountCardProps<T>);
+	/** Lifecycle method when the component is about to mount. */
+	componentWillMount(): void;
+	/**
+	 * Lifecycle method that runs after the component has been mounted.
+	 */
+	componentDidMount(): void;
+	/**
+	 * Increments the counter state property.
+	 * @private
+	 */
+	private incrementCounter;
+	/**
+	 * Renders the component.
+	 * @returns {ReactNode}
+	 */
+	render(): ReactNode;
+}
+/**
+ * `CustomPieChart` Props Interface
+ * @interface ICustomPieChartProps
+ * @property {Array<Object>} data01 - The data for the first pie chart.
+ * @property {Array<Object> | undefined} [data02] - The data for the second pie chart. Optional.
+ */
+export interface ICustomPieChartProps {
+	data01: {
+		name: string;
+		value: number;
+	}[];
+	data02?: {
+		name: string;
+		value: number;
+	}[];
+	label: string;
+	className?: string;
+}
+export type RecurringTransactionCardProps = {
+	recurringTransaction: ReOccuringTransaction;
+	className?: string;
+	nextTransactionDate?: string;
+	enableDetailedDisplay?: boolean;
+	participantTransactions?: Transaction[];
+	account?: BankAccount | CreditAccount;
+};
+export type RecurringTransactionCardState = {
+	transaction: ReOccuringTransaction;
+};
+/**
+ * @class RecurringTransactionCard
+ * @extends {Component<RecurringTransactionCardProps, RecurringTransactionCardState>}
+ *
+ * @description
+ * This is a templated advanced React class component written in TypeScript
+ * with TSDoc annotations. It has various features like context usage,
+ * dynamic styles, generic props, and more.
+ */
+export declare class RecurringTransactionCard extends Component<RecurringTransactionCardProps, RecurringTransactionCardState> {
+	private myRef;
+	static defaultProps: {
+		nextTransactionDate: string;
+		enableDetailedDisplay: boolean;
+		className: string;
+		participantTransactions: never[];
+	};
+	constructor(props: RecurringTransactionCardProps);
+	/**
+	 * Lifecycle method that runs after the component has been mounted.
+	 */
+	componentDidMount(): void;
+	private isTransactionFrequencyInvalid;
+	/**
+	 * Renders the component.
+	 * @returns {ReactNode}
+	 */
+	render(): ReactNode;
+}
+/**
+ * `CustomScatterChart` Props Interface
+ * @interface ICustomScatterChartProps
+ * @property {Array<Object>} data01 - The data for the "A school" scatter plot.
+ * @property {Array<Object> | undefined} [data02] - The data for the "B school" scatter plot. Optional.
+ */
+export interface ICustomScatterChartProps {
+	data01: {
+		x: number;
+		y: number;
+		z: number;
+	}[];
+	data01Title: string;
+	data02?: {
+		x: number;
+		y: number;
+		z: number;
+	}[];
+	data02Title?: string;
+	className?: string;
+	label: string;
+	xAxisName: string;
+	yAxisName: string;
+	zAxisName: string;
+	xAxisUnit: string;
+	yAxisUnit: string;
+	zAxisUnit: string;
+}
+export type StudentLoanAccountCardProps = {
+	studentLoanAccount: StudentLoanAccount;
+	className?: string;
+	children?: ReactNode;
+};
+export type StudentLoanAccountCardState = {
+	studentLoanAccount: StudentLoanAccount;
+};
+/**
+ * @class StudentLoanAccountCard
+ * @extends {Component<StudentLoanAccountCardProps, StudentLoanAccountCardState>}
+ *
+ * @description
+ * This is a templated advanced React class component written in TypeScript
+ * with TSDoc annotations. It has various features like context usage,
+ * dynamic styles, generic props, and more.
+ */
+export declare class StudentLoanAccountCard extends Component<StudentLoanAccountCardProps, StudentLoanAccountCardState> {
+	private myRef;
+	static defaultProps: {
+		studentLoanAccount: StudentLoanAccountClass;
+		children: null;
+		className: string;
+	};
+	constructor(props: StudentLoanAccountCardProps);
+	/** Lifecycle method when the component is about to mount. */
+	componentWillMount(): void;
+	/**
+	 * Lifecycle method that runs after the component has been mounted.
+	 */
+	componentDidMount(): void;
+	/**
+	 * Renders the component.
+	 * @returns {ReactNode}
+	 */
+	render(): ReactNode;
+}
+export type StudentLoanAccountHoverLabelProps<T extends StudentLoanAccount> = {
+	studentLoanAccount: T;
+	className?: string;
+	enableDemoMode?: boolean;
+	children?: ReactNode;
+	historicalAccountBalance?: AccountBalanceHistory[];
+};
+export type StudentLoanAccountHoverLabelState<T extends StudentLoanAccount> = {
+	studentLoanAccount: T;
+};
+/**
+ * The `StudentLoanAccountHoverLabel` is a specialized React class component
+ * designed to provide detailed hover information about an studentLoan account.
+ * It is built with TypeScript and extends the React `Component` class,
+ * with types specified for both props and state.
+ *
+ * @template T - Specifies the type of bank account this component works with,
+ * extending a base StudentLoan Account.
+ *
+ * @example
+ * ```tsx
+ * import { StudentLoanAccountHoverLabel } from './StudentLoanAccountHoverLabel';
+import { StudentLoanAccount } from '../../types/financial/investment-account';
+ *
+ * <StudentLoanAccountHoverLabel
+ *    studentLoanAccount={new StudentLoanAccount({
+ *      name: 'Savings Account',
+ *      currentFunds: 5000,
+ *      goals: [{name: 'Vacation', amount: 1000}]
+ *    })}
+ *    enableDemoMode={false}
+ * />
+ * ```
+ *
+ * @class
+ * @extends {Component<StudentLoanAccountHoverLabelProps<T>, StudentLoanAccountHoverLabelState<T>>}
+ */
+export declare class StudentLoanAccountHoverLabel<T extends StudentLoanAccount> extends Component<StudentLoanAccountHoverLabelProps<T>, StudentLoanAccountHoverLabelState<T>> {
+	/**
+	 * A reference to the DOM element of the component.
+	 * Useful for direct DOM manipulations.
+	 */
+	private myRef;
+	/**
+	 * Default properties for the StudentLoanAccountHoverLabel component.
+	 */
+	static defaultProps: {
+		bankAccount: BankAccountClass;
+		contextQuestions: string[];
+		enableDemoMode: boolean;
+		children: null;
+	};
+	/**
+	 * Constructs a new `StudentLoanAccountHoverLabel` component.
+	 *
+	 * @param props - The properties passed to the component.
+	 */
+	constructor(props: StudentLoanAccountHoverLabelProps<T>);
+	/**
+	 * Lifecycle method that triggers immediately after the component is added to the DOM.
+	 * This method focuses the current component if it has a valid reference.
+	 */
+	componentDidMount(): void;
+	/**
+	 * Renders the `StudentLoanAccountHoverLabel` component.
+	 *
+	 * @returns {ReactNode} The React Node representing the component's UI.
+	 */
+	render(): ReactNode;
+}
+export type TransactionAnalyticsByMonthProps = {
+	transactions: Transaction[];
+	className?: string;
+};
+export type TransactionAnalyticsByMonthState = {
+	transactions: Transaction[];
+};
+/**
+ * @class TransactionAnalyticsByMonth
+ * @extends {Component<TransactionAnalyticsByMonthProps, TransactionAnalyticsByMonthState>}
+ *
+ * @description
+ * This is a templated advanced React class component written in TypeScript
+ * with TSDoc annotations. It has various features like context usage,
+ * dynamic styles, generic props, and more.
+ */
+export declare class TransactionAnalyticsByMonth extends Component<TransactionAnalyticsByMonthProps, TransactionAnalyticsByMonthState> {
+	private myRef;
+	static defaultProps: {
+		className: string;
+	};
+	constructor(props: TransactionAnalyticsByMonthProps);
+	/**
+	 * Lifecycle method that runs after the component has been mounted.
+	 */
+	componentDidMount(): void;
+	/**
+	 * Categorizes the provided transactions.
+	 * @param transactions List of transactions to categorize.
+	 * @returns A categorized array.
+	 */
+	private categorizeTransactions;
+	/**
+	 * Groups transactions by month.
+	 * @param transactions List of transactions to group.
+	 * @returns An array of month groups with categorized transactions.
+	 */
+	private groupByMonth;
+	private extractCategories;
+	/**
+	 * Renders the component.
+	 * @returns {ReactNode}
+	 */
+	render(): ReactNode;
+}
+export type TransactionDataTableProps = {
+	transactions: Transaction[];
+	className?: string;
+	account?: BankAccount | CreditAccount;
+};
+export type TransactionDataTableState = {
+	transactions: Transaction[];
+};
+/**
+ * @class TransactionDataTable
+ * @extends {Component<TransactionDataTableProps, TransactionDataTableState>}
+ *
+ * @description
+ * This is a templated advanced React class component written in TypeScript
+ * with TSDoc annotations. It has various features like context usage,
+ * dynamic styles, generic props, and more.
+ */
+export declare class TransactionDataTable extends Component<TransactionDataTableProps, TransactionDataTableState> {
+	private myRef;
+	static defaultProps: {
+		className: string;
+	};
+	constructor(props: TransactionDataTableProps);
+	/**
+	 * Lifecycle method that runs after the component has been mounted.
+	 */
+	componentDidMount(): void;
+	/**
+	 * Renders the component.
+	 * @returns {ReactNode}
+	 */
+	render(): ReactNode;
+}
+export declare const columns: ColumnDef<Transaction>[];
 export type CombinedAccounts = BankAccountClass & CreditAccountClass & StudentLoanAccountClass & InvestmentAccountClass;
 export type AccountsViewProps<T extends CombinedAccounts> = {
 	/** Primary data to be displayed or processed by the component. */
@@ -8822,760 +9577,34 @@ export declare const CreditAccountMiniCard: React.FC<{
 	institutionName: string;
 	className?: string;
 }>;
-export type CreditAccountHoverLabelProps<T extends CreditAccount> = {
-	creditAccount: T;
-	institutionName: string;
+export interface SimpleStatsCardProps {
+	/** The title of the card */
+	title: string;
+	/** The main metric to be displayed */
+	metric: string | number;
+	/** Optional subtext or label for the metric */
+	subtext?: string;
+	/** Optional CSS class to be applied on the card */
 	className?: string;
-	enableDemoMode?: boolean;
-	children?: ReactNode;
-	historicalAccountBalance?: AccountBalanceHistory[];
-};
-export type CreditAccountHoverLabelState<T extends CreditAccount> = {
-	creditAccount: T;
-};
-/**
- * The `CreditAccountHoverLabel` is a specialized React class component
- * designed to provide detailed hover information about a credit account.
- * It is built with TypeScript and extends the React `Component` class,
- * with types specified for both props and state.
- *
- * @template T - Specifies the type of bank account this component works with,
- * extending a base CreditAccount.
- *
- * @example
- * ```tsx
- * import { CreditAccountHoverLabel } from './CreditAccountHoverLabel';
- *
- * <CreditAccountHoverLabel
- *    creditAccount={new CreditAccount({
- *      name: 'Savings Account',
- *      currentFunds: 5000,
- *      goals: [{name: 'Vacation', amount: 1000}]
- *    })}
- *    enableDemoMode={false}
- * />
- * ```
- *
- * @class
- * @extends {Component<CreditAccountHoverLabelProps<T>, CreditAccountHoverLabelState<T>>}
- */
-export declare class CreditAccountHoverLabel<T extends CreditAccount> extends Component<CreditAccountHoverLabelProps<T>, CreditAccountHoverLabelState<T>> {
-	/**
-	 * A reference to the DOM element of the component.
-	 * Useful for direct DOM manipulations.
-	 */
-	private myRef;
-	/**
-	 * Default properties for the CreditAccountHoverLabel component.
-	 */
-	static defaultProps: {
-		contextQuestions: string[];
-		enableDemoMode: boolean;
-		children: null;
-		institutionName: string;
-	};
-	/**
-	 * Constructs a new `CreditAccountHoverLabel` component.
-	 *
-	 * @param props - The properties passed to the component.
-	 */
-	constructor(props: CreditAccountHoverLabelProps<T>);
-	/**
-	 * Lifecycle method that triggers immediately after the component is added to the DOM.
-	 * This method focuses the current component if it has a valid reference.
-	 */
-	componentDidMount(): void;
-	/**
-	 * Renders the `CreditAccountHoverLabel` component.
-	 *
-	 * @returns {ReactNode} The React Node representing the component's UI.
-	 */
-	render(): ReactNode;
 }
 /**
- * Props for the `HistoricalAccountBalanceChart` component.
- *
- * @template T A type that extends `AccountBalanceHistory`, allowing for potential extensions to the base type in the future.
- *
- * @property {T[]} historicalAccountBalance - Array of account balance history to be charted.
- * @property {string} [className] - Optional CSS class to style the component.
- */
-export type HistoricalAccountBalanceChartProps<T extends AccountBalanceHistory> = {
-	historicalAccountBalance: T[];
-	className?: string;
-	disableLabel?: boolean;
-};
-/**
- * State for the `HistoricalAccountBalanceChart` component.
- *
- * @property {number} counter - A sample state property, likely used for internal component operations.
- */
-export type HistoricalAccountBalanceChartState = {
-	counter: number;
-};
-/**
- * The `HistoricalAccountBalanceChart` class component visualizes the history of account balances over time.
- * It leverages the `recharts` library to plot the balances and is built with extensibility in mind, using
- * generics for its props to allow potential custom extensions of the `AccountBalanceHistory` type.
- *
- * Features:
- * - Visualizes the account balance history using a line chart.
- * - Allows for potential customization of data types via TypeScript generics.
- * - Provides a context for potential child components to access the account balance history.
- * - Can be styled further through its `className` prop.
+ * The `SimpleStatsCard` component provides a minimalistic and clean way to display a key metric.
+ * It presents a title followed by a large metric value.
  *
  * @remarks
- * The component contains a sample state property named `counter` and methods associated with it.
- * Its actual use-case within the component should be clarified further.
+ * This component is particularly suitable for dashboard interfaces or any context where the emphasis is on a single key data point.
  *
- * @example Basic Usage:
- * ```tsx
- * import { HistoricalAccountBalanceChart } from './path-to-component';
- *
- * const sampleHistory = [ ... ]; // Sample data here
- *
- * function App() {
- *   return (
- *     <HistoricalAccountBalanceChart historicalAccountBalance={sampleHistory} />
- *   );
- * }
- * ```
- *
- * @example Styling the component:
- * ```tsx
- * <HistoricalAccountBalanceChart className="border rounded-md" historicalAccountBalance={sampleHistory} />
- * ```
- */
-export declare class HistoricalAccountBalanceChart<T extends AccountBalanceHistory> extends Component<HistoricalAccountBalanceChartProps<T>, HistoricalAccountBalanceChartState> {
-	private myRef;
-	static defaultProps: {
-		className: string;
-		disableLabel: boolean;
-	};
-	constructor(props: HistoricalAccountBalanceChartProps<T>);
-	/** Lifecycle method when the component is about to mount. */
-	componentWillMount(): void;
-	/**
-	 * Lifecycle method that runs after the component has been mounted.
-	 */
-	componentDidMount(): void;
-	private averageBalance;
-	private totalAccumulation;
-	private maxBalance;
-	private minBalance;
-	/**
-	 * Computes the moving average of account balances.
-	 * @param data The data containing the account balance histories.
-	 * @param windowSize The window size for the moving average.
-	 * @returns An array of moving averages for the given window size.
-	 */
-	private movingAverage;
-	/**
-	 * Renders the component.
-	 * @returns {ReactNode}
-	 */
-	render(): ReactNode;
-}
-export type InvestmentAccountCardProps = {
-	investmentAccount: InvestmentAccount;
-	historicalAccountBalance?: AccountBalanceHistory[];
-	enableDemoMode?: boolean;
-	className?: string;
-};
-export type InvestmentAccountCardState = {
-	investmentAccount: InvestmentAccount;
-};
-/**
- * @class InvestmentAccountCard
- * @extends {Component<InvestmentAccountCardProps, InvestmentAccountCardState>}
- *
- * @description
- * This is a templated advanced React class component written in TypeScript
- * with TSDoc annotations. It has various features like context usage,
- * dynamic styles, generic props, and more.
- */
-export declare class InvestmentAccountCard extends Component<InvestmentAccountCardProps, InvestmentAccountCardState> {
-	private myRef;
-	static defaultProps: {
-		InvestmentAccount: InvestmentAccountClass;
-		historicalAccountBalance: never[];
-	};
-	constructor(props: InvestmentAccountCardProps);
-	/** Lifecycle method when the component is about to mount. */
-	componentWillMount(): void;
-	/**
-	 * Lifecycle method that runs after the component has been mounted.
-	 */
-	componentDidMount(): void;
-	/**
-	 * Renders the component.
-	 * @returns {ReactNode}
-	 */
-	render(): ReactNode;
-}
-export type InvestmentAccountHoverLabelProps<T extends InvestmentAccount> = {
-	investmentAccount: T;
-	className?: string;
-	enableDemoMode?: boolean;
-	children?: ReactNode;
-	historicalAccountBalance?: AccountBalanceHistory[];
-};
-export type InvestmentAccountHoverLabelState<T extends InvestmentAccount> = {
-	investmentAccount: T;
-};
-/**
- * The `InvestmentAccountHoverLabel` is a specialized React class component
- * designed to provide detailed hover information about an investment account.
- * It is built with TypeScript and extends the React `Component` class,
- * with types specified for both props and state.
- *
- * @template T - Specifies the type of bank account this component works with,
- * extending a base Investment Account.
+ * @param props - An object containing title, metric, an optional subtext, and an optional className.
  *
  * @example
  * ```tsx
- * import { InvestmentAccountHoverLabel } from './InvestmentAccountHoverLabel';
-import { InvestmentAccount } from '../../types/financial/investment-account';
- *
- * <InvestmentAccountHoverLabel
- *    investmentAccount={new InvestmentAccount({
- *      name: 'Savings Account',
- *      currentFunds: 5000,
- *      goals: [{name: 'Vacation', amount: 1000}]
- *    })}
- *    enableDemoMode={false}
+ * <SimpleStatsCard
+ *   title="Active Users"
+ *   metric={200}
+ *   subtext="This Month"
  * />
  * ```
- *
- * @class
- * @extends {Component<InvestmentAccountHoverLabelProps<T>, InvestmentAccountHoverLabelState<T>>}
  */
-export declare class InvestmentAccountHoverLabel<T extends InvestmentAccount> extends Component<InvestmentAccountHoverLabelProps<T>, InvestmentAccountHoverLabelState<T>> {
-	/**
-	 * A reference to the DOM element of the component.
-	 * Useful for direct DOM manipulations.
-	 */
-	private myRef;
-	/**
-	 * Default properties for the InvestmentAccountHoverLabel component.
-	 */
-	static defaultProps: {
-		bankAccount: BankAccountClass;
-		contextQuestions: string[];
-		enableDemoMode: boolean;
-		children: null;
-	};
-	/**
-	 * Constructs a new `InvestmentAccountHoverLabel` component.
-	 *
-	 * @param props - The properties passed to the component.
-	 */
-	constructor(props: InvestmentAccountHoverLabelProps<T>);
-	/**
-	 * Lifecycle method that triggers immediately after the component is added to the DOM.
-	 * This method focuses the current component if it has a valid reference.
-	 */
-	componentDidMount(): void;
-	/**
-	 * Renders the `InvestmentAccountHoverLabel` component.
-	 *
-	 * @returns {ReactNode} The React Node representing the component's UI.
-	 */
-	render(): ReactNode;
-}
-export type InvestmentHoldingCardProps = {
-	holdings: InvesmentHolding[];
-	accountName: string;
-	className?: string;
-	historicalAccountBalance?: AccountBalanceHistory[];
-};
-export type InvestmentHoldingCardState = {
-	holdings: InvesmentHolding[];
-};
-/**
- * @class InvestmentHoldingCard
- * @extends {Component<InvestmentHoldingCardProps, InvestmentHoldingCardState>}
- *
- * @description
- * This is a templated advanced React class component written in TypeScript
- * with TSDoc annotations. It has various features like context usage,
- * dynamic styles, generic props, and more.
- */
-export declare class InvestmentHoldingCard extends Component<InvestmentHoldingCardProps, InvestmentHoldingCardState> {
-	private myRef;
-	static defaultProps: {
-		accountName: string;
-	};
-	constructor(props: InvestmentHoldingCardProps);
-	/** Lifecycle method when the component is about to mount. */
-	componentWillMount(): void;
-	/**
-	 * Lifecycle method that runs after the component has been mounted.
-	 */
-	componentDidMount(): void;
-	private computeTotalCostBasis;
-	private computeAverageCostBasis;
-	private computeTotalInstitutionValue;
-	private computeTotalProfitLoss;
-	private findLargestHolding;
-	private findSmallestHolding;
-	/**
-	 * Renders the component.
-	 * @returns {ReactNode}
-	 */
-	render(): ReactNode;
-}
-export type InvestmentSecurityCardProps = {
-	security: InvestmentSecurity;
-	className?: string;
-};
-export type InvestmentSecurityCardState = {
-	security: InvestmentSecurity;
-};
-/**
- * @class InvestmentSecurityCard
- * @extends {Component<InvestmentSecurityCardProps, InvestmentSecurityCardState>}
- *
- * @description
- * This is a templated advanced React class component written in TypeScript
- * with TSDoc annotations. It has various features like context usage,
- * dynamic styles, generic props, and more.
- */
-export declare class InvestmentSecurityCard extends Component<InvestmentSecurityCardProps, InvestmentSecurityCardState> {
-	private myRef;
-	static defaultProps: {
-		security: InvestmentSecurityClass;
-	};
-	constructor(props: InvestmentSecurityCardProps);
-	/** Lifecycle method when the component is about to mount. */
-	componentWillMount(): void;
-	/**
-	 * Lifecycle method that runs after the component has been mounted.
-	 */
-	componentDidMount(): void;
-	/**
-	 * Renders the component.
-	 * @returns {ReactNode}
-	 */
-	render(): ReactNode;
-}
-export type MortgageAccountCardProps<T> = {
-	data: T;
-	greeting?: string;
-	className?: string;
-};
-export type MortgageAccountCardState = {
-	counter: number;
-};
-/**
- * @class MortgageAccountCard
- * @extends {Component<MortgageAccountCardProps, MortgageAccountCardState>}
- *
- * @description
- * This is a templated advanced React class component written in TypeScript
- * with TSDoc annotations. It has various features like context usage,
- * dynamic styles, generic props, and more.
- */
-export declare class MortgageAccountCard<T> extends Component<MortgageAccountCardProps<T>, MortgageAccountCardState> {
-	private myRef;
-	static defaultProps: {
-		greeting: string;
-	};
-	constructor(props: MortgageAccountCardProps<T>);
-	/** Lifecycle method when the component is about to mount. */
-	componentWillMount(): void;
-	/**
-	 * Lifecycle method that runs after the component has been mounted.
-	 */
-	componentDidMount(): void;
-	/**
-	 * Increments the counter state property.
-	 * @private
-	 */
-	private incrementCounter;
-	/**
-	 * Renders the component.
-	 * @returns {ReactNode}
-	 */
-	render(): ReactNode;
-}
-export type RecurringTransactionCardProps = {
-	recurringTransaction: ReOccuringTransaction;
-	className?: string;
-	nextTransactionDate?: string;
-	enableDetailedDisplay?: boolean;
-	participantTransactions?: Transaction[];
-	account?: BankAccount | CreditAccount;
-};
-export type RecurringTransactionCardState = {
-	transaction: ReOccuringTransaction;
-};
-/**
- * @class RecurringTransactionCard
- * @extends {Component<RecurringTransactionCardProps, RecurringTransactionCardState>}
- *
- * @description
- * This is a templated advanced React class component written in TypeScript
- * with TSDoc annotations. It has various features like context usage,
- * dynamic styles, generic props, and more.
- */
-export declare class RecurringTransactionCard extends Component<RecurringTransactionCardProps, RecurringTransactionCardState> {
-	private myRef;
-	static defaultProps: {
-		nextTransactionDate: string;
-		enableDetailedDisplay: boolean;
-		className: string;
-		participantTransactions: never[];
-	};
-	constructor(props: RecurringTransactionCardProps);
-	/**
-	 * Lifecycle method that runs after the component has been mounted.
-	 */
-	componentDidMount(): void;
-	private isTransactionFrequencyInvalid;
-	/**
-	 * Renders the component.
-	 * @returns {ReactNode}
-	 */
-	render(): ReactNode;
-}
-export type StudentLoanAccountCardProps = {
-	studentLoanAccount: StudentLoanAccount;
-	className?: string;
-	children?: ReactNode;
-};
-export type StudentLoanAccountCardState = {
-	studentLoanAccount: StudentLoanAccount;
-};
-/**
- * @class StudentLoanAccountCard
- * @extends {Component<StudentLoanAccountCardProps, StudentLoanAccountCardState>}
- *
- * @description
- * This is a templated advanced React class component written in TypeScript
- * with TSDoc annotations. It has various features like context usage,
- * dynamic styles, generic props, and more.
- */
-export declare class StudentLoanAccountCard extends Component<StudentLoanAccountCardProps, StudentLoanAccountCardState> {
-	private myRef;
-	static defaultProps: {
-		studentLoanAccount: StudentLoanAccountClass;
-		children: null;
-		className: string;
-	};
-	constructor(props: StudentLoanAccountCardProps);
-	/** Lifecycle method when the component is about to mount. */
-	componentWillMount(): void;
-	/**
-	 * Lifecycle method that runs after the component has been mounted.
-	 */
-	componentDidMount(): void;
-	/**
-	 * Renders the component.
-	 * @returns {ReactNode}
-	 */
-	render(): ReactNode;
-}
-export type StudentLoanAccountHoverLabelProps<T extends StudentLoanAccount> = {
-	studentLoanAccount: T;
-	className?: string;
-	enableDemoMode?: boolean;
-	children?: ReactNode;
-	historicalAccountBalance?: AccountBalanceHistory[];
-};
-export type StudentLoanAccountHoverLabelState<T extends StudentLoanAccount> = {
-	studentLoanAccount: T;
-};
-/**
- * The `StudentLoanAccountHoverLabel` is a specialized React class component
- * designed to provide detailed hover information about an studentLoan account.
- * It is built with TypeScript and extends the React `Component` class,
- * with types specified for both props and state.
- *
- * @template T - Specifies the type of bank account this component works with,
- * extending a base StudentLoan Account.
- *
- * @example
- * ```tsx
- * import { StudentLoanAccountHoverLabel } from './StudentLoanAccountHoverLabel';
-import { StudentLoanAccount } from '../../types/financial/investment-account';
- *
- * <StudentLoanAccountHoverLabel
- *    studentLoanAccount={new StudentLoanAccount({
- *      name: 'Savings Account',
- *      currentFunds: 5000,
- *      goals: [{name: 'Vacation', amount: 1000}]
- *    })}
- *    enableDemoMode={false}
- * />
- * ```
- *
- * @class
- * @extends {Component<StudentLoanAccountHoverLabelProps<T>, StudentLoanAccountHoverLabelState<T>>}
- */
-export declare class StudentLoanAccountHoverLabel<T extends StudentLoanAccount> extends Component<StudentLoanAccountHoverLabelProps<T>, StudentLoanAccountHoverLabelState<T>> {
-	/**
-	 * A reference to the DOM element of the component.
-	 * Useful for direct DOM manipulations.
-	 */
-	private myRef;
-	/**
-	 * Default properties for the StudentLoanAccountHoverLabel component.
-	 */
-	static defaultProps: {
-		bankAccount: BankAccountClass;
-		contextQuestions: string[];
-		enableDemoMode: boolean;
-		children: null;
-	};
-	/**
-	 * Constructs a new `StudentLoanAccountHoverLabel` component.
-	 *
-	 * @param props - The properties passed to the component.
-	 */
-	constructor(props: StudentLoanAccountHoverLabelProps<T>);
-	/**
-	 * Lifecycle method that triggers immediately after the component is added to the DOM.
-	 * This method focuses the current component if it has a valid reference.
-	 */
-	componentDidMount(): void;
-	/**
-	 * Renders the `StudentLoanAccountHoverLabel` component.
-	 *
-	 * @returns {ReactNode} The React Node representing the component's UI.
-	 */
-	render(): ReactNode;
-}
-export type TransactionDataTableProps = {
-	transactions: Transaction[];
-	className?: string;
-	account?: BankAccount | CreditAccount;
-};
-export type TransactionDataTableState = {
-	transactions: Transaction[];
-};
-/**
- * @class TransactionDataTable
- * @extends {Component<TransactionDataTableProps, TransactionDataTableState>}
- *
- * @description
- * This is a templated advanced React class component written in TypeScript
- * with TSDoc annotations. It has various features like context usage,
- * dynamic styles, generic props, and more.
- */
-export declare class TransactionDataTable extends Component<TransactionDataTableProps, TransactionDataTableState> {
-	private myRef;
-	static defaultProps: {
-		className: string;
-	};
-	constructor(props: TransactionDataTableProps);
-	/**
-	 * Lifecycle method that runs after the component has been mounted.
-	 */
-	componentDidMount(): void;
-	/**
-	 * Renders the component.
-	 * @returns {ReactNode}
-	 */
-	render(): ReactNode;
-}
-export declare const columns: ColumnDef<Transaction>[];
-export type TransactionAnalyticsByMonthProps = {
-	transactions: Transaction[];
-	className?: string;
-};
-export type TransactionAnalyticsByMonthState = {
-	transactions: Transaction[];
-};
-/**
- * @class TransactionAnalyticsByMonth
- * @extends {Component<TransactionAnalyticsByMonthProps, TransactionAnalyticsByMonthState>}
- *
- * @description
- * This is a templated advanced React class component written in TypeScript
- * with TSDoc annotations. It has various features like context usage,
- * dynamic styles, generic props, and more.
- */
-export declare class TransactionAnalyticsByMonth extends Component<TransactionAnalyticsByMonthProps, TransactionAnalyticsByMonthState> {
-	private myRef;
-	static defaultProps: {
-		className: string;
-	};
-	constructor(props: TransactionAnalyticsByMonthProps);
-	/**
-	 * Lifecycle method that runs after the component has been mounted.
-	 */
-	componentDidMount(): void;
-	/**
-	 * Categorizes the provided transactions.
-	 * @param transactions List of transactions to categorize.
-	 * @returns A categorized array.
-	 */
-	private categorizeTransactions;
-	/**
-	 * Groups transactions by month.
-	 * @param transactions List of transactions to group.
-	 * @returns An array of month groups with categorized transactions.
-	 */
-	private groupByMonth;
-	private extractCategories;
-	/**
-	 * Renders the component.
-	 * @returns {ReactNode}
-	 */
-	render(): ReactNode;
-}
-/**
- * This is the main layout for the Analytic AI card.
- *
- * @param children - The child components to render within this component.
- * @param className - The CSS classes to apply to the component.
- * @param context - The context for the AI to operate in.
- *
- * @example
- * ```
- * <AskSolomonAILayout context={context}>
- *   <ChildComponent />
- * </AskSolomonAILayout>
- * ```
- */
-export declare const AskSolomonAILayout: React.FC<{
-	children: React.ReactNode;
-	className?: string;
-	context: any;
-	sampleQuestions: string[];
-	userKey: string;
-	financialContext: MelodyFinancialContext;
-	userAccount: UserAccount;
-}>;
-/**
- * Props definition for the `Container` component.
- */
-export interface ContainerProps extends React.ComponentPropsWithoutRef<"div"> {
-	/**
-	 * Sets the max width of the container. This prop allows for more flexible widths.
-	 * Defaults to `max-w-7xl`.
-	 *
-	 * @example
-	 * maxWidth="max-w-5xl"
-	 */
-	maxWidth?: string;
-}
-/**
- * A responsive container component that centers its content and provides consistent padding.
- *
- * The `Container` component is a versatile wrapper that controls the maximum width of its content across different screen sizes. By default, it sets the maximum width to `7xl` and provides responsive horizontal padding.
- *
- * Usage:
- *
- * ```tsx
- * <Container>
- *   Your content here...
- * </Container>
- * ```
- *
- * @param props The properties of the `Container` component.
- * @returns A React element with content wrapped inside the container.
- */
-export declare function Container({ className, maxWidth, ...props }: ContainerProps): import("react/jsx-runtime").JSX.Element;
-export interface BarGraphProps {
-	data: {
-		name: string;
-		total: number;
-	}[];
-	label: string;
-	className?: string;
-}
-export declare const BarGraph: React.FC<BarGraphProps>;
-/**
- * Represents individual data points for the chart.
- */
-export interface ChartData {
-	/** The name for this data point (typically represents a unit on the X-axis, like month or day). */
-	name: string;
-	/** Value for the 'uv' metric. */
-	uv: number;
-	/** Optional value for the 'pv' metric. */
-	pv?: number;
-}
-/**
- * Props for the CustomLineChart component.
- */
-export interface CustomLineChartProps {
-	/** Array of data points to plot on the chart. */
-	data: ChartData[];
-	/** Optional CSS class to be applied to the chart's outermost container. */
-	className?: string;
-	label: string;
-	enableGrid?: boolean;
-}
-/**
- * `CustomPieChart` Props Interface
- * @interface ICustomPieChartProps
- * @property {Array<Object>} data01 - The data for the first pie chart.
- * @property {Array<Object> | undefined} [data02] - The data for the second pie chart. Optional.
- */
-export interface ICustomPieChartProps {
-	data01: {
-		name: string;
-		value: number;
-	}[];
-	data02?: {
-		name: string;
-		value: number;
-	}[];
-	label: string;
-	className?: string;
-}
-/**
- * Represents individual data points for the chart.
- */
-export interface ChartData {
-	/** The name for this data point (typically represents a unit on the X-axis, like month or day). */
-	name: string;
-	/** Value for the 'uv' metric. */
-	uv: number;
-	/** Optional value for the 'pv' metric. */
-	pv?: number;
-}
-/**
- * Props for the CustomAreaChart component.
- */
-export interface CustomAreaChartProps {
-	/** Array of data points to plot on the chart. */
-	data: ChartData[];
-	/** Optional CSS class to be applied to the chart's outermost container. */
-	className?: string;
-	label: string;
-	enableGrid?: boolean;
-}
-/**
- * `CustomScatterChart` Props Interface
- * @interface ICustomScatterChartProps
- * @property {Array<Object>} data01 - The data for the "A school" scatter plot.
- * @property {Array<Object> | undefined} [data02] - The data for the "B school" scatter plot. Optional.
- */
-export interface ICustomScatterChartProps {
-	data01: {
-		x: number;
-		y: number;
-		z: number;
-	}[];
-	data01Title: string;
-	data02?: {
-		x: number;
-		y: number;
-		z: number;
-	}[];
-	data02Title?: string;
-	className?: string;
-	label: string;
-	xAxisName: string;
-	yAxisName: string;
-	zAxisName: string;
-	xAxisUnit: string;
-	yAxisUnit: string;
-	zAxisUnit: string;
-}
+export declare const SimpleStatsCard: React.FC<SimpleStatsCardProps>;
 
 export {};
