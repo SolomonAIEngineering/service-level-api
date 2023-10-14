@@ -5,7 +5,7 @@ import {
   HistoricalAccountBalanceChart,
   TransactionDataTable,
 } from 'src/components';
-import SimpleStatsCard from 'src/components/StatisticCard/SimpleStatisticCard';
+import { SimpleStatsCard } from 'src/components/SimpleStatisticCard/SimpleStatisticCard';
 import { Card } from 'src/components/ui/card';
 import { Label } from 'src/components/ui/label';
 import {

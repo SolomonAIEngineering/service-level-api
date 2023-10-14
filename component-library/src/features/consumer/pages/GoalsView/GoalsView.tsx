@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createContext, ReactNode, RefObject, Component } from 'react';
 import BudgetCard from 'src/components/BudgetCard/BudgetCard';
-import SimpleStatsCard from 'src/components/StatisticCard/SimpleStatisticCard';
+import {SimpleStatsCard} from 'src/components/SimpleStatisticCard/SimpleStatisticCard';
 import { TransactionDataTable } from 'src/components/TransactionDataTable';
 import { Label } from 'src/components/ui/label';
 import {
