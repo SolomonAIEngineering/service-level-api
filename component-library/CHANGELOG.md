@@ -1,3 +1,10 @@
+# [1.58.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.57.0...v1.58.0) (2023-10-14)
+
+
+### Features
+
+* enable declaration map ([440cccd](https://github.com/SolomonAIEngineering/service-level-api/commit/440cccd2004f5b754f367a1a6cd06255a6308016))
+
 # [1.57.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.56.0...v1.57.0) (2023-10-14)
 
 
