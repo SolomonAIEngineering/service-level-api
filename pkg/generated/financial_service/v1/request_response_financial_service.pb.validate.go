@@ -11221,6 +11221,758 @@ var _ interface {
 	ErrorName() string
 } = GetTransactionsForBankAccountResponseValidationError{}
 
+// Validate checks the field values on AddDefaultPocketsToBankAccountRequest
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
+func (m *AddDefaultPocketsToBankAccountRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on AddDefaultPocketsToBankAccountRequest
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// AddDefaultPocketsToBankAccountRequestMultiError, or nil if none found.
+func (m *AddDefaultPocketsToBankAccountRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *AddDefaultPocketsToBankAccountRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetUserId() <= 0 {
+		err := AddDefaultPocketsToBankAccountRequestValidationError{
+			field:  "UserId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetBankAccountId() <= 0 {
+		err := AddDefaultPocketsToBankAccountRequestValidationError{
+			field:  "BankAccountId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return AddDefaultPocketsToBankAccountRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// AddDefaultPocketsToBankAccountRequestMultiError is an error wrapping
+// multiple validation errors returned by
+// AddDefaultPocketsToBankAccountRequest.ValidateAll() if the designated
+// constraints aren't met.
+type AddDefaultPocketsToBankAccountRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m AddDefaultPocketsToBankAccountRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m AddDefaultPocketsToBankAccountRequestMultiError) AllErrors() []error { return m }
+
+// AddDefaultPocketsToBankAccountRequestValidationError is the validation error
+// returned by AddDefaultPocketsToBankAccountRequest.Validate if the
+// designated constraints aren't met.
+type AddDefaultPocketsToBankAccountRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AddDefaultPocketsToBankAccountRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AddDefaultPocketsToBankAccountRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AddDefaultPocketsToBankAccountRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AddDefaultPocketsToBankAccountRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AddDefaultPocketsToBankAccountRequestValidationError) ErrorName() string {
+	return "AddDefaultPocketsToBankAccountRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e AddDefaultPocketsToBankAccountRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAddDefaultPocketsToBankAccountRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AddDefaultPocketsToBankAccountRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AddDefaultPocketsToBankAccountRequestValidationError{}
+
+// Validate checks the field values on AddDefaultPocketsToBankAccountResponse
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
+func (m *AddDefaultPocketsToBankAccountResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// AddDefaultPocketsToBankAccountResponse with the rules defined in the proto
+// definition for this message. If any rules are violated, the result is a
+// list of violation errors wrapped in
+// AddDefaultPocketsToBankAccountResponseMultiError, or nil if none found.
+func (m *AddDefaultPocketsToBankAccountResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *AddDefaultPocketsToBankAccountResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetBankAccount()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, AddDefaultPocketsToBankAccountResponseValidationError{
+					field:  "BankAccount",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, AddDefaultPocketsToBankAccountResponseValidationError{
+					field:  "BankAccount",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetBankAccount()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return AddDefaultPocketsToBankAccountResponseValidationError{
+				field:  "BankAccount",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return AddDefaultPocketsToBankAccountResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// AddDefaultPocketsToBankAccountResponseMultiError is an error wrapping
+// multiple validation errors returned by
+// AddDefaultPocketsToBankAccountResponse.ValidateAll() if the designated
+// constraints aren't met.
+type AddDefaultPocketsToBankAccountResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m AddDefaultPocketsToBankAccountResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m AddDefaultPocketsToBankAccountResponseMultiError) AllErrors() []error { return m }
+
+// AddDefaultPocketsToBankAccountResponseValidationError is the validation
+// error returned by AddDefaultPocketsToBankAccountResponse.Validate if the
+// designated constraints aren't met.
+type AddDefaultPocketsToBankAccountResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AddDefaultPocketsToBankAccountResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AddDefaultPocketsToBankAccountResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AddDefaultPocketsToBankAccountResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AddDefaultPocketsToBankAccountResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AddDefaultPocketsToBankAccountResponseValidationError) ErrorName() string {
+	return "AddDefaultPocketsToBankAccountResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e AddDefaultPocketsToBankAccountResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAddDefaultPocketsToBankAccountResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AddDefaultPocketsToBankAccountResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AddDefaultPocketsToBankAccountResponseValidationError{}
+
+// Validate checks the field values on DeletePocketRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeletePocketRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeletePocketRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeletePocketRequestMultiError, or nil if none found.
+func (m *DeletePocketRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeletePocketRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetPocketId() <= 0 {
+		err := DeletePocketRequestValidationError{
+			field:  "PocketId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return DeletePocketRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeletePocketRequestMultiError is an error wrapping multiple validation
+// errors returned by DeletePocketRequest.ValidateAll() if the designated
+// constraints aren't met.
+type DeletePocketRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeletePocketRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeletePocketRequestMultiError) AllErrors() []error { return m }
+
+// DeletePocketRequestValidationError is the validation error returned by
+// DeletePocketRequest.Validate if the designated constraints aren't met.
+type DeletePocketRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeletePocketRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeletePocketRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeletePocketRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeletePocketRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeletePocketRequestValidationError) ErrorName() string {
+	return "DeletePocketRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeletePocketRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeletePocketRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeletePocketRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeletePocketRequestValidationError{}
+
+// Validate checks the field values on DeletePocketResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeletePocketResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeletePocketResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeletePocketResponseMultiError, or nil if none found.
+func (m *DeletePocketResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeletePocketResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Deleted
+
+	if len(errors) > 0 {
+		return DeletePocketResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeletePocketResponseMultiError is an error wrapping multiple validation
+// errors returned by DeletePocketResponse.ValidateAll() if the designated
+// constraints aren't met.
+type DeletePocketResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeletePocketResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeletePocketResponseMultiError) AllErrors() []error { return m }
+
+// DeletePocketResponseValidationError is the validation error returned by
+// DeletePocketResponse.Validate if the designated constraints aren't met.
+type DeletePocketResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeletePocketResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeletePocketResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeletePocketResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeletePocketResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeletePocketResponseValidationError) ErrorName() string {
+	return "DeletePocketResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeletePocketResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeletePocketResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeletePocketResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeletePocketResponseValidationError{}
+
+// Validate checks the field values on UpdatePocketRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *UpdatePocketRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UpdatePocketRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UpdatePocketRequestMultiError, or nil if none found.
+func (m *UpdatePocketRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UpdatePocketRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetPocket() == nil {
+		err := UpdatePocketRequestValidationError{
+			field:  "Pocket",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetPocket()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, UpdatePocketRequestValidationError{
+					field:  "Pocket",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, UpdatePocketRequestValidationError{
+					field:  "Pocket",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetPocket()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UpdatePocketRequestValidationError{
+				field:  "Pocket",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return UpdatePocketRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// UpdatePocketRequestMultiError is an error wrapping multiple validation
+// errors returned by UpdatePocketRequest.ValidateAll() if the designated
+// constraints aren't met.
+type UpdatePocketRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UpdatePocketRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UpdatePocketRequestMultiError) AllErrors() []error { return m }
+
+// UpdatePocketRequestValidationError is the validation error returned by
+// UpdatePocketRequest.Validate if the designated constraints aren't met.
+type UpdatePocketRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdatePocketRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdatePocketRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdatePocketRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdatePocketRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdatePocketRequestValidationError) ErrorName() string {
+	return "UpdatePocketRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpdatePocketRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdatePocketRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdatePocketRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdatePocketRequestValidationError{}
+
+// Validate checks the field values on UpdatePocketResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *UpdatePocketResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UpdatePocketResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UpdatePocketResponseMultiError, or nil if none found.
+func (m *UpdatePocketResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UpdatePocketResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetPocket()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, UpdatePocketResponseValidationError{
+					field:  "Pocket",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, UpdatePocketResponseValidationError{
+					field:  "Pocket",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetPocket()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UpdatePocketResponseValidationError{
+				field:  "Pocket",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return UpdatePocketResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// UpdatePocketResponseMultiError is an error wrapping multiple validation
+// errors returned by UpdatePocketResponse.ValidateAll() if the designated
+// constraints aren't met.
+type UpdatePocketResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UpdatePocketResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UpdatePocketResponseMultiError) AllErrors() []error { return m }
+
+// UpdatePocketResponseValidationError is the validation error returned by
+// UpdatePocketResponse.Validate if the designated constraints aren't met.
+type UpdatePocketResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdatePocketResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdatePocketResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdatePocketResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdatePocketResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdatePocketResponseValidationError) ErrorName() string {
+	return "UpdatePocketResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpdatePocketResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdatePocketResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdatePocketResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdatePocketResponseValidationError{}
+
 // Validate checks the field values on
 // GetReCurringTransactionsResponse_ParticipantReCurringTransactions with the
 // rules defined in the proto definition for this message. If any rules are

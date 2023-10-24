@@ -4977,6 +4977,311 @@ func (x *GetTransactionsForBankAccountResponse) GetNextPageNumber() uint64 {
 	return 0
 }
 
+type AddDefaultPocketsToBankAccountRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// The user id
+	// Validations:
+	// - user_id must be greater than 0
+	UserId uint64 `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// The bank account id
+	// Validations:
+	// - bank_account_id must be greater than 0
+	BankAccountId uint64 `protobuf:"varint,2,opt,name=bank_account_id,json=bankAccountId,proto3" json:"bank_account_id,omitempty"`
+}
+
+func (x *AddDefaultPocketsToBankAccountRequest) Reset() {
+	*x = AddDefaultPocketsToBankAccountRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[90]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *AddDefaultPocketsToBankAccountRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddDefaultPocketsToBankAccountRequest) ProtoMessage() {}
+
+func (x *AddDefaultPocketsToBankAccountRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[90]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddDefaultPocketsToBankAccountRequest.ProtoReflect.Descriptor instead.
+func (*AddDefaultPocketsToBankAccountRequest) Descriptor() ([]byte, []int) {
+	return file_financial_service_v1_request_response_financial_service_proto_rawDescGZIP(), []int{90}
+}
+
+func (x *AddDefaultPocketsToBankAccountRequest) GetUserId() uint64 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
+}
+
+func (x *AddDefaultPocketsToBankAccountRequest) GetBankAccountId() uint64 {
+	if x != nil {
+		return x.BankAccountId
+	}
+	return 0
+}
+
+type AddDefaultPocketsToBankAccountResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// The bank account id
+	BankAccount *BankAccount `protobuf:"bytes,1,opt,name=bank_account,json=bankAccount,proto3" json:"bank_account,omitempty"`
+}
+
+func (x *AddDefaultPocketsToBankAccountResponse) Reset() {
+	*x = AddDefaultPocketsToBankAccountResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[91]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *AddDefaultPocketsToBankAccountResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddDefaultPocketsToBankAccountResponse) ProtoMessage() {}
+
+func (x *AddDefaultPocketsToBankAccountResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[91]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddDefaultPocketsToBankAccountResponse.ProtoReflect.Descriptor instead.
+func (*AddDefaultPocketsToBankAccountResponse) Descriptor() ([]byte, []int) {
+	return file_financial_service_v1_request_response_financial_service_proto_rawDescGZIP(), []int{91}
+}
+
+func (x *AddDefaultPocketsToBankAccountResponse) GetBankAccount() *BankAccount {
+	if x != nil {
+		return x.BankAccount
+	}
+	return nil
+}
+
+type DeletePocketRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// The pocket id
+	// Validations:
+	// - pocket_id must be greater than 0
+	PocketId uint64 `protobuf:"varint,1,opt,name=pocket_id,json=pocketId,proto3" json:"pocket_id,omitempty"`
+}
+
+func (x *DeletePocketRequest) Reset() {
+	*x = DeletePocketRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[92]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeletePocketRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeletePocketRequest) ProtoMessage() {}
+
+func (x *DeletePocketRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[92]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeletePocketRequest.ProtoReflect.Descriptor instead.
+func (*DeletePocketRequest) Descriptor() ([]byte, []int) {
+	return file_financial_service_v1_request_response_financial_service_proto_rawDescGZIP(), []int{92}
+}
+
+func (x *DeletePocketRequest) GetPocketId() uint64 {
+	if x != nil {
+		return x.PocketId
+	}
+	return 0
+}
+
+type DeletePocketResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// The pocket id
+	Deleted bool `protobuf:"varint,1,opt,name=deleted,proto3" json:"deleted,omitempty"`
+}
+
+func (x *DeletePocketResponse) Reset() {
+	*x = DeletePocketResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[93]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeletePocketResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeletePocketResponse) ProtoMessage() {}
+
+func (x *DeletePocketResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[93]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeletePocketResponse.ProtoReflect.Descriptor instead.
+func (*DeletePocketResponse) Descriptor() ([]byte, []int) {
+	return file_financial_service_v1_request_response_financial_service_proto_rawDescGZIP(), []int{93}
+}
+
+func (x *DeletePocketResponse) GetDeleted() bool {
+	if x != nil {
+		return x.Deleted
+	}
+	return false
+}
+
+type UpdatePocketRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// The pocket to update
+	// Validations:
+	// - cannot be nil hence required
+	Pocket *Pocket `protobuf:"bytes,1,opt,name=pocket,proto3" json:"pocket,omitempty"`
+}
+
+func (x *UpdatePocketRequest) Reset() {
+	*x = UpdatePocketRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[94]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UpdatePocketRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdatePocketRequest) ProtoMessage() {}
+
+func (x *UpdatePocketRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[94]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdatePocketRequest.ProtoReflect.Descriptor instead.
+func (*UpdatePocketRequest) Descriptor() ([]byte, []int) {
+	return file_financial_service_v1_request_response_financial_service_proto_rawDescGZIP(), []int{94}
+}
+
+func (x *UpdatePocketRequest) GetPocket() *Pocket {
+	if x != nil {
+		return x.Pocket
+	}
+	return nil
+}
+
+type UpdatePocketResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// The pocket id
+	Pocket *Pocket `protobuf:"bytes,1,opt,name=pocket,proto3" json:"pocket,omitempty"`
+}
+
+func (x *UpdatePocketResponse) Reset() {
+	*x = UpdatePocketResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[95]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UpdatePocketResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdatePocketResponse) ProtoMessage() {}
+
+func (x *UpdatePocketResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[95]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdatePocketResponse.ProtoReflect.Descriptor instead.
+func (*UpdatePocketResponse) Descriptor() ([]byte, []int) {
+	return file_financial_service_v1_request_response_financial_service_proto_rawDescGZIP(), []int{95}
+}
+
+func (x *UpdatePocketResponse) GetPocket() *Pocket {
+	if x != nil {
+		return x.Pocket
+	}
+	return nil
+}
+
 type GetReCurringTransactionsResponse_ParticipantReCurringTransactions struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -4991,7 +5296,7 @@ type GetReCurringTransactionsResponse_ParticipantReCurringTransactions struct {
 func (x *GetReCurringTransactionsResponse_ParticipantReCurringTransactions) Reset() {
 	*x = GetReCurringTransactionsResponse_ParticipantReCurringTransactions{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[90]
+		mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[96]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -5004,7 +5309,7 @@ func (x *GetReCurringTransactionsResponse_ParticipantReCurringTransactions) Stri
 func (*GetReCurringTransactionsResponse_ParticipantReCurringTransactions) ProtoMessage() {}
 
 func (x *GetReCurringTransactionsResponse_ParticipantReCurringTransactions) ProtoReflect() protoreflect.Message {
-	mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[90]
+	mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[96]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5678,29 +5983,61 @@ var file_financial_service_v1_request_response_financial_service_proto_rawDesc =
 	0x63, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x12, 0x28, 0x0a, 0x10, 0x6e, 0x65, 0x78, 0x74, 0x5f, 0x70,
 	0x61, 0x67, 0x65, 0x5f, 0x6e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x04,
 	0x52, 0x0e, 0x6e, 0x65, 0x78, 0x74, 0x50, 0x61, 0x67, 0x65, 0x4e, 0x75, 0x6d, 0x62, 0x65, 0x72,
-	0x42, 0xd8, 0x02, 0x0a, 0x18, 0x63, 0x6f, 0x6d, 0x2e, 0x66, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69,
-	0x61, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x76, 0x31, 0x42, 0x24, 0x52,
-	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x46, 0x69,
-	0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x50, 0x72,
-	0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x7d, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f,
-	0x6d, 0x2f, 0x53, 0x6f, 0x6c, 0x6f, 0x6d, 0x6f, 0x6e, 0x41, 0x49, 0x45, 0x6e, 0x67, 0x69, 0x6e,
-	0x65, 0x65, 0x72, 0x69, 0x6e, 0x67, 0x2f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2d, 0x6c,
-	0x65, 0x76, 0x65, 0x6c, 0x2d, 0x61, 0x70, 0x69, 0x2f, 0x70, 0x6b, 0x67, 0x2f, 0x67, 0x65, 0x6e,
-	0x65, 0x72, 0x61, 0x74, 0x65, 0x64, 0x2f, 0x66, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c,
-	0x2d, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2f, 0x76, 0x31, 0x2f, 0x66, 0x69, 0x6e, 0x61,
-	0x6e, 0x63, 0x69, 0x61, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2f, 0x76, 0x31,
-	0x3b, 0x66, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69,
-	0x63, 0x65, 0x76, 0x31, 0xa2, 0x02, 0x03, 0x46, 0x58, 0x58, 0xaa, 0x02, 0x13, 0x46, 0x69, 0x6e,
-	0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x56, 0x31,
-	0xca, 0x02, 0x13, 0x46, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x53, 0x65, 0x72, 0x76,
-	0x69, 0x63, 0x65, 0x5c, 0x56, 0x31, 0xe2, 0x02, 0x1f, 0x46, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69,
-	0x61, 0x6c, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x5c, 0x56, 0x31, 0x5c, 0x47, 0x50, 0x42,
-	0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x14, 0x46, 0x69, 0x6e, 0x61, 0x6e,
-	0x63, 0x69, 0x61, 0x6c, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x3a, 0x3a, 0x56, 0x31, 0xd8,
-	0xe1, 0x1e, 0x00, 0xe0, 0xe1, 0x1e, 0x01, 0xf0, 0xe1, 0x1e, 0x01, 0xf8, 0xe1, 0x1e, 0x01, 0x80,
-	0xe2, 0x1e, 0x01, 0xa8, 0xe2, 0x1e, 0x01, 0xb8, 0xe2, 0x1e, 0x01, 0xc0, 0xe2, 0x1e, 0x01, 0xc8,
-	0xe2, 0x1e, 0x01, 0xd0, 0xe2, 0x1e, 0x01, 0xe0, 0xe2, 0x1e, 0x01, 0x62, 0x06, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x33,
+	0x22, 0x80, 0x01, 0x0a, 0x25, 0x41, 0x64, 0x64, 0x44, 0x65, 0x66, 0x61, 0x75, 0x6c, 0x74, 0x50,
+	0x6f, 0x63, 0x6b, 0x65, 0x74, 0x73, 0x54, 0x6f, 0x42, 0x61, 0x6e, 0x6b, 0x41, 0x63, 0x63, 0x6f,
+	0x75, 0x6e, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x23, 0x0a, 0x07, 0x75, 0x73,
+	0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x42, 0x0a, 0xe0, 0x41, 0x02,
+	0xfa, 0x42, 0x04, 0x32, 0x02, 0x20, 0x00, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x12,
+	0x32, 0x0a, 0x0f, 0x62, 0x61, 0x6e, 0x6b, 0x5f, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x5f,
+	0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x04, 0x42, 0x0a, 0xe0, 0x41, 0x02, 0xfa, 0x42, 0x04,
+	0x32, 0x02, 0x20, 0x00, 0x52, 0x0d, 0x62, 0x61, 0x6e, 0x6b, 0x41, 0x63, 0x63, 0x6f, 0x75, 0x6e,
+	0x74, 0x49, 0x64, 0x22, 0x6e, 0x0a, 0x26, 0x41, 0x64, 0x64, 0x44, 0x65, 0x66, 0x61, 0x75, 0x6c,
+	0x74, 0x50, 0x6f, 0x63, 0x6b, 0x65, 0x74, 0x73, 0x54, 0x6f, 0x42, 0x61, 0x6e, 0x6b, 0x41, 0x63,
+	0x63, 0x6f, 0x75, 0x6e, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x44, 0x0a,
+	0x0c, 0x62, 0x61, 0x6e, 0x6b, 0x5f, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x21, 0x2e, 0x66, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x5f,
+	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x76, 0x31, 0x2e, 0x42, 0x61, 0x6e, 0x6b, 0x41,
+	0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x52, 0x0b, 0x62, 0x61, 0x6e, 0x6b, 0x41, 0x63, 0x63, 0x6f,
+	0x75, 0x6e, 0x74, 0x22, 0x3e, 0x0a, 0x13, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x50, 0x6f, 0x63,
+	0x6b, 0x65, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x27, 0x0a, 0x09, 0x70, 0x6f,
+	0x63, 0x6b, 0x65, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x42, 0x0a, 0xe0,
+	0x41, 0x02, 0xfa, 0x42, 0x04, 0x32, 0x02, 0x20, 0x00, 0x52, 0x08, 0x70, 0x6f, 0x63, 0x6b, 0x65,
+	0x74, 0x49, 0x64, 0x22, 0x30, 0x0a, 0x14, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x50, 0x6f, 0x63,
+	0x6b, 0x65, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x64,
+	0x65, 0x6c, 0x65, 0x74, 0x65, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x52, 0x07, 0x64, 0x65,
+	0x6c, 0x65, 0x74, 0x65, 0x64, 0x22, 0x58, 0x0a, 0x13, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50,
+	0x6f, 0x63, 0x6b, 0x65, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x41, 0x0a, 0x06,
+	0x70, 0x6f, 0x63, 0x6b, 0x65, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1c, 0x2e, 0x66,
+	0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
+	0x2e, 0x76, 0x31, 0x2e, 0x50, 0x6f, 0x63, 0x6b, 0x65, 0x74, 0x42, 0x0b, 0xe0, 0x41, 0x02, 0xfa,
+	0x42, 0x05, 0x8a, 0x01, 0x02, 0x10, 0x01, 0x52, 0x06, 0x70, 0x6f, 0x63, 0x6b, 0x65, 0x74, 0x22,
+	0x4c, 0x0a, 0x14, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x6f, 0x63, 0x6b, 0x65, 0x74, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x34, 0x0a, 0x06, 0x70, 0x6f, 0x63, 0x6b, 0x65,
+	0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1c, 0x2e, 0x66, 0x69, 0x6e, 0x61, 0x6e, 0x63,
+	0x69, 0x61, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x76, 0x31, 0x2e, 0x50,
+	0x6f, 0x63, 0x6b, 0x65, 0x74, 0x52, 0x06, 0x70, 0x6f, 0x63, 0x6b, 0x65, 0x74, 0x42, 0xd8, 0x02,
+	0x0a, 0x18, 0x63, 0x6f, 0x6d, 0x2e, 0x66, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x5f,
+	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x76, 0x31, 0x42, 0x24, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x46, 0x69, 0x6e, 0x61, 0x6e,
+	0x63, 0x69, 0x61, 0x6c, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x50, 0x72, 0x6f, 0x74, 0x6f,
+	0x50, 0x01, 0x5a, 0x7d, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x53,
+	0x6f, 0x6c, 0x6f, 0x6d, 0x6f, 0x6e, 0x41, 0x49, 0x45, 0x6e, 0x67, 0x69, 0x6e, 0x65, 0x65, 0x72,
+	0x69, 0x6e, 0x67, 0x2f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2d, 0x6c, 0x65, 0x76, 0x65,
+	0x6c, 0x2d, 0x61, 0x70, 0x69, 0x2f, 0x70, 0x6b, 0x67, 0x2f, 0x67, 0x65, 0x6e, 0x65, 0x72, 0x61,
+	0x74, 0x65, 0x64, 0x2f, 0x66, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x2d, 0x73, 0x65,
+	0x72, 0x76, 0x69, 0x63, 0x65, 0x2f, 0x76, 0x31, 0x2f, 0x66, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69,
+	0x61, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2f, 0x76, 0x31, 0x3b, 0x66, 0x69,
+	0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x76,
+	0x31, 0xa2, 0x02, 0x03, 0x46, 0x58, 0x58, 0xaa, 0x02, 0x13, 0x46, 0x69, 0x6e, 0x61, 0x6e, 0x63,
+	0x69, 0x61, 0x6c, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x56, 0x31, 0xca, 0x02, 0x13,
+	0x46, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
+	0x5c, 0x56, 0x31, 0xe2, 0x02, 0x1f, 0x46, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x53,
+	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x5c, 0x56, 0x31, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74,
+	0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x14, 0x46, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61,
+	0x6c, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x3a, 0x3a, 0x56, 0x31, 0xd8, 0xe1, 0x1e, 0x00,
+	0xe0, 0xe1, 0x1e, 0x01, 0xf0, 0xe1, 0x1e, 0x01, 0xf8, 0xe1, 0x1e, 0x01, 0x80, 0xe2, 0x1e, 0x01,
+	0xa8, 0xe2, 0x1e, 0x01, 0xb8, 0xe2, 0x1e, 0x01, 0xc0, 0xe2, 0x1e, 0x01, 0xc8, 0xe2, 0x1e, 0x01,
+	0xd0, 0xe2, 0x1e, 0x01, 0xe0, 0xe2, 0x1e, 0x01, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -5715,7 +6052,7 @@ func file_financial_service_v1_request_response_financial_service_proto_rawDescG
 	return file_financial_service_v1_request_response_financial_service_proto_rawDescData
 }
 
-var file_financial_service_v1_request_response_financial_service_proto_msgTypes = make([]protoimpl.MessageInfo, 92)
+var file_financial_service_v1_request_response_financial_service_proto_msgTypes = make([]protoimpl.MessageInfo, 98)
 var file_financial_service_v1_request_response_financial_service_proto_goTypes = []interface{}{
 	(*CreateUserProfileRequest)(nil),                                          // 0: financial_service.v1.CreateUserProfileRequest
 	(*CreateUserProfileResponse)(nil),                                         // 1: financial_service.v1.CreateUserProfileResponse
@@ -5807,68 +6144,77 @@ var file_financial_service_v1_request_response_financial_service_proto_goTypes =
 	(*CreateSubscriptionResponse)(nil),                                        // 87: financial_service.v1.CreateSubscriptionResponse
 	(*GetTransactionsForBankAccountRequest)(nil),                              // 88: financial_service.v1.GetTransactionsForBankAccountRequest
 	(*GetTransactionsForBankAccountResponse)(nil),                             // 89: financial_service.v1.GetTransactionsForBankAccountResponse
-	(*GetReCurringTransactionsResponse_ParticipantReCurringTransactions)(nil), // 90: financial_service.v1.GetReCurringTransactionsResponse.ParticipantReCurringTransactions
-	nil,                            // 91: financial_service.v1.ProcessWebhookRequest.ErrorEntry
-	(*FinancialUserProfile)(nil),   // 92: financial_service.v1.FinancialUserProfile
-	(*MelodyFinancialContext)(nil), // 93: financial_service.v1.MelodyFinancialContext
-	(*BankAccount)(nil),            // 94: financial_service.v1.BankAccount
-	(*Pocket)(nil),                 // 95: financial_service.v1.Pocket
-	(*SmartGoal)(nil),              // 96: financial_service.v1.SmartGoal
-	(*Milestone)(nil),              // 97: financial_service.v1.Milestone
-	(*Forecast)(nil),               // 98: financial_service.v1.Forecast
-	(*Budget)(nil),                 // 99: financial_service.v1.Budget
-	(*InvestmentAccount)(nil),      // 100: financial_service.v1.InvestmentAccount
-	(*MortgageAccount)(nil),        // 101: financial_service.v1.MortgageAccount
-	(*CreditAccount)(nil),          // 102: financial_service.v1.CreditAccount
-	(*StudentLoanAccount)(nil),     // 103: financial_service.v1.StudentLoanAccount
-	(*Link)(nil),                   // 104: financial_service.v1.Link
-	(*ReOccuringTransaction)(nil),  // 105: financial_service.v1.ReOccuringTransaction
-	(*Transaction)(nil),            // 106: financial_service.v1.Transaction
-	(*anypb.Any)(nil),              // 107: google.protobuf.Any
+	(*AddDefaultPocketsToBankAccountRequest)(nil),                             // 90: financial_service.v1.AddDefaultPocketsToBankAccountRequest
+	(*AddDefaultPocketsToBankAccountResponse)(nil),                            // 91: financial_service.v1.AddDefaultPocketsToBankAccountResponse
+	(*DeletePocketRequest)(nil),                                               // 92: financial_service.v1.DeletePocketRequest
+	(*DeletePocketResponse)(nil),                                              // 93: financial_service.v1.DeletePocketResponse
+	(*UpdatePocketRequest)(nil),                                               // 94: financial_service.v1.UpdatePocketRequest
+	(*UpdatePocketResponse)(nil),                                              // 95: financial_service.v1.UpdatePocketResponse
+	(*GetReCurringTransactionsResponse_ParticipantReCurringTransactions)(nil), // 96: financial_service.v1.GetReCurringTransactionsResponse.ParticipantReCurringTransactions
+	nil,                            // 97: financial_service.v1.ProcessWebhookRequest.ErrorEntry
+	(*FinancialUserProfile)(nil),   // 98: financial_service.v1.FinancialUserProfile
+	(*MelodyFinancialContext)(nil), // 99: financial_service.v1.MelodyFinancialContext
+	(*BankAccount)(nil),            // 100: financial_service.v1.BankAccount
+	(*Pocket)(nil),                 // 101: financial_service.v1.Pocket
+	(*SmartGoal)(nil),              // 102: financial_service.v1.SmartGoal
+	(*Milestone)(nil),              // 103: financial_service.v1.Milestone
+	(*Forecast)(nil),               // 104: financial_service.v1.Forecast
+	(*Budget)(nil),                 // 105: financial_service.v1.Budget
+	(*InvestmentAccount)(nil),      // 106: financial_service.v1.InvestmentAccount
+	(*MortgageAccount)(nil),        // 107: financial_service.v1.MortgageAccount
+	(*CreditAccount)(nil),          // 108: financial_service.v1.CreditAccount
+	(*StudentLoanAccount)(nil),     // 109: financial_service.v1.StudentLoanAccount
+	(*Link)(nil),                   // 110: financial_service.v1.Link
+	(*ReOccuringTransaction)(nil),  // 111: financial_service.v1.ReOccuringTransaction
+	(*Transaction)(nil),            // 112: financial_service.v1.Transaction
+	(*anypb.Any)(nil),              // 113: google.protobuf.Any
 }
 var file_financial_service_v1_request_response_financial_service_proto_depIdxs = []int32{
-	92,  // 0: financial_service.v1.CreateUserProfileRequest.profile:type_name -> financial_service.v1.FinancialUserProfile
-	92,  // 1: financial_service.v1.GetUserProfileResponse.profile:type_name -> financial_service.v1.FinancialUserProfile
-	93,  // 2: financial_service.v1.GetUserProfileResponse.financial_context:type_name -> financial_service.v1.MelodyFinancialContext
-	92,  // 3: financial_service.v1.UpdateUserProfileRequest.profile:type_name -> financial_service.v1.FinancialUserProfile
-	92,  // 4: financial_service.v1.UpdateUserProfileResponse.profile:type_name -> financial_service.v1.FinancialUserProfile
-	94,  // 5: financial_service.v1.CreateBankAccountRequest.bank_account:type_name -> financial_service.v1.BankAccount
-	94,  // 6: financial_service.v1.GetBankAccountResponse.bank_account:type_name -> financial_service.v1.BankAccount
-	94,  // 7: financial_service.v1.UpdateBankAccountRequest.bank_account:type_name -> financial_service.v1.BankAccount
-	94,  // 8: financial_service.v1.UpdateBankAccountResponse.bank_account:type_name -> financial_service.v1.BankAccount
-	95,  // 9: financial_service.v1.GetPocketResponse.pocket:type_name -> financial_service.v1.Pocket
-	96,  // 10: financial_service.v1.GetSmartGoalsByPocketIdResponse.smart_goals:type_name -> financial_service.v1.SmartGoal
-	96,  // 11: financial_service.v1.CreateSmartGoalRequest.smart_goal:type_name -> financial_service.v1.SmartGoal
-	96,  // 12: financial_service.v1.UpdateSmartGoalRequest.smart_goal:type_name -> financial_service.v1.SmartGoal
-	97,  // 13: financial_service.v1.CreateMilestoneRequest.milestone:type_name -> financial_service.v1.Milestone
-	97,  // 14: financial_service.v1.UpdateMilestoneRequest.milestone:type_name -> financial_service.v1.Milestone
-	97,  // 15: financial_service.v1.UpdateMilestoneResponse.milestone:type_name -> financial_service.v1.Milestone
-	97,  // 16: financial_service.v1.GetMilestonesBySmartGoalIdResponse.milestones:type_name -> financial_service.v1.Milestone
-	97,  // 17: financial_service.v1.GetMilestoneResponse.milestone:type_name -> financial_service.v1.Milestone
-	98,  // 18: financial_service.v1.GetForecastResponse.forecast:type_name -> financial_service.v1.Forecast
-	99,  // 19: financial_service.v1.CreateBudgetRequest.budget:type_name -> financial_service.v1.Budget
-	99,  // 20: financial_service.v1.UpdateBudgetRequest.budget:type_name -> financial_service.v1.Budget
-	99,  // 21: financial_service.v1.UpdateBudgetResponse.budget:type_name -> financial_service.v1.Budget
-	99,  // 22: financial_service.v1.GetBudgetResponse.budget:type_name -> financial_service.v1.Budget
-	99,  // 23: financial_service.v1.GetAllBudgetsResponse.budgets:type_name -> financial_service.v1.Budget
-	100, // 24: financial_service.v1.GetInvestmentAcccountResponse.investment_account:type_name -> financial_service.v1.InvestmentAccount
-	101, // 25: financial_service.v1.GetMortgageAccountResponse.mortage_account:type_name -> financial_service.v1.MortgageAccount
-	102, // 26: financial_service.v1.GetLiabilityAccountResponse.liability_account:type_name -> financial_service.v1.CreditAccount
-	103, // 27: financial_service.v1.GetStudentLoanAccountResponse.student_loan_account:type_name -> financial_service.v1.StudentLoanAccount
-	104, // 28: financial_service.v1.CreateManualLinkRequest.manual_account_link:type_name -> financial_service.v1.Link
-	104, // 29: financial_service.v1.GetLinkResponse.link:type_name -> financial_service.v1.Link
-	104, // 30: financial_service.v1.GetLinksResponse.links:type_name -> financial_service.v1.Link
-	105, // 31: financial_service.v1.GetReCurringTransactionsResponse.re_ccuring_transactions:type_name -> financial_service.v1.ReOccuringTransaction
-	106, // 32: financial_service.v1.GetTransactionsResponse.transactions:type_name -> financial_service.v1.Transaction
-	91,  // 33: financial_service.v1.ProcessWebhookRequest.error:type_name -> financial_service.v1.ProcessWebhookRequest.ErrorEntry
-	106, // 34: financial_service.v1.GetTransactionsForBankAccountResponse.transactions:type_name -> financial_service.v1.Transaction
-	106, // 35: financial_service.v1.GetReCurringTransactionsResponse.ParticipantReCurringTransactions.transactions:type_name -> financial_service.v1.Transaction
-	107, // 36: financial_service.v1.ProcessWebhookRequest.ErrorEntry.value:type_name -> google.protobuf.Any
-	37,  // [37:37] is the sub-list for method output_type
-	37,  // [37:37] is the sub-list for method input_type
-	37,  // [37:37] is the sub-list for extension type_name
-	37,  // [37:37] is the sub-list for extension extendee
-	0,   // [0:37] is the sub-list for field type_name
+	98,  // 0: financial_service.v1.CreateUserProfileRequest.profile:type_name -> financial_service.v1.FinancialUserProfile
+	98,  // 1: financial_service.v1.GetUserProfileResponse.profile:type_name -> financial_service.v1.FinancialUserProfile
+	99,  // 2: financial_service.v1.GetUserProfileResponse.financial_context:type_name -> financial_service.v1.MelodyFinancialContext
+	98,  // 3: financial_service.v1.UpdateUserProfileRequest.profile:type_name -> financial_service.v1.FinancialUserProfile
+	98,  // 4: financial_service.v1.UpdateUserProfileResponse.profile:type_name -> financial_service.v1.FinancialUserProfile
+	100, // 5: financial_service.v1.CreateBankAccountRequest.bank_account:type_name -> financial_service.v1.BankAccount
+	100, // 6: financial_service.v1.GetBankAccountResponse.bank_account:type_name -> financial_service.v1.BankAccount
+	100, // 7: financial_service.v1.UpdateBankAccountRequest.bank_account:type_name -> financial_service.v1.BankAccount
+	100, // 8: financial_service.v1.UpdateBankAccountResponse.bank_account:type_name -> financial_service.v1.BankAccount
+	101, // 9: financial_service.v1.GetPocketResponse.pocket:type_name -> financial_service.v1.Pocket
+	102, // 10: financial_service.v1.GetSmartGoalsByPocketIdResponse.smart_goals:type_name -> financial_service.v1.SmartGoal
+	102, // 11: financial_service.v1.CreateSmartGoalRequest.smart_goal:type_name -> financial_service.v1.SmartGoal
+	102, // 12: financial_service.v1.UpdateSmartGoalRequest.smart_goal:type_name -> financial_service.v1.SmartGoal
+	103, // 13: financial_service.v1.CreateMilestoneRequest.milestone:type_name -> financial_service.v1.Milestone
+	103, // 14: financial_service.v1.UpdateMilestoneRequest.milestone:type_name -> financial_service.v1.Milestone
+	103, // 15: financial_service.v1.UpdateMilestoneResponse.milestone:type_name -> financial_service.v1.Milestone
+	103, // 16: financial_service.v1.GetMilestonesBySmartGoalIdResponse.milestones:type_name -> financial_service.v1.Milestone
+	103, // 17: financial_service.v1.GetMilestoneResponse.milestone:type_name -> financial_service.v1.Milestone
+	104, // 18: financial_service.v1.GetForecastResponse.forecast:type_name -> financial_service.v1.Forecast
+	105, // 19: financial_service.v1.CreateBudgetRequest.budget:type_name -> financial_service.v1.Budget
+	105, // 20: financial_service.v1.UpdateBudgetRequest.budget:type_name -> financial_service.v1.Budget
+	105, // 21: financial_service.v1.UpdateBudgetResponse.budget:type_name -> financial_service.v1.Budget
+	105, // 22: financial_service.v1.GetBudgetResponse.budget:type_name -> financial_service.v1.Budget
+	105, // 23: financial_service.v1.GetAllBudgetsResponse.budgets:type_name -> financial_service.v1.Budget
+	106, // 24: financial_service.v1.GetInvestmentAcccountResponse.investment_account:type_name -> financial_service.v1.InvestmentAccount
+	107, // 25: financial_service.v1.GetMortgageAccountResponse.mortage_account:type_name -> financial_service.v1.MortgageAccount
+	108, // 26: financial_service.v1.GetLiabilityAccountResponse.liability_account:type_name -> financial_service.v1.CreditAccount
+	109, // 27: financial_service.v1.GetStudentLoanAccountResponse.student_loan_account:type_name -> financial_service.v1.StudentLoanAccount
+	110, // 28: financial_service.v1.CreateManualLinkRequest.manual_account_link:type_name -> financial_service.v1.Link
+	110, // 29: financial_service.v1.GetLinkResponse.link:type_name -> financial_service.v1.Link
+	110, // 30: financial_service.v1.GetLinksResponse.links:type_name -> financial_service.v1.Link
+	111, // 31: financial_service.v1.GetReCurringTransactionsResponse.re_ccuring_transactions:type_name -> financial_service.v1.ReOccuringTransaction
+	112, // 32: financial_service.v1.GetTransactionsResponse.transactions:type_name -> financial_service.v1.Transaction
+	97,  // 33: financial_service.v1.ProcessWebhookRequest.error:type_name -> financial_service.v1.ProcessWebhookRequest.ErrorEntry
+	112, // 34: financial_service.v1.GetTransactionsForBankAccountResponse.transactions:type_name -> financial_service.v1.Transaction
+	100, // 35: financial_service.v1.AddDefaultPocketsToBankAccountResponse.bank_account:type_name -> financial_service.v1.BankAccount
+	101, // 36: financial_service.v1.UpdatePocketRequest.pocket:type_name -> financial_service.v1.Pocket
+	101, // 37: financial_service.v1.UpdatePocketResponse.pocket:type_name -> financial_service.v1.Pocket
+	112, // 38: financial_service.v1.GetReCurringTransactionsResponse.ParticipantReCurringTransactions.transactions:type_name -> financial_service.v1.Transaction
+	113, // 39: financial_service.v1.ProcessWebhookRequest.ErrorEntry.value:type_name -> google.protobuf.Any
+	40,  // [40:40] is the sub-list for method output_type
+	40,  // [40:40] is the sub-list for method input_type
+	40,  // [40:40] is the sub-list for extension type_name
+	40,  // [40:40] is the sub-list for extension extendee
+	0,   // [0:40] is the sub-list for field type_name
 }
 
 func init() { file_financial_service_v1_request_response_financial_service_proto_init() }
@@ -6960,6 +7306,78 @@ func file_financial_service_v1_request_response_financial_service_proto_init() {
 			}
 		}
 		file_financial_service_v1_request_response_financial_service_proto_msgTypes[90].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*AddDefaultPocketsToBankAccountRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_financial_service_v1_request_response_financial_service_proto_msgTypes[91].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*AddDefaultPocketsToBankAccountResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_financial_service_v1_request_response_financial_service_proto_msgTypes[92].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DeletePocketRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_financial_service_v1_request_response_financial_service_proto_msgTypes[93].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DeletePocketResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_financial_service_v1_request_response_financial_service_proto_msgTypes[94].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*UpdatePocketRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_financial_service_v1_request_response_financial_service_proto_msgTypes[95].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*UpdatePocketResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_financial_service_v1_request_response_financial_service_proto_msgTypes[96].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetReCurringTransactionsResponse_ParticipantReCurringTransactions); i {
 			case 0:
 				return &v.state
@@ -6978,7 +7396,7 @@ func file_financial_service_v1_request_response_financial_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_financial_service_v1_request_response_financial_service_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   92,
+			NumMessages:   98,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

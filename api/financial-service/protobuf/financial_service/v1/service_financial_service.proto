@@ -1741,4 +1741,71 @@ service FinancialService {
       }
     };
   }
+
+  rpc AddDefaultPocketsToBankAccount(AddDefaultPocketsToBankAccountRequest) returns (AddDefaultPocketsToBankAccountResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/pocket/bank-account"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "adds a default set of pockets to a specific bank account of interest"
+      tags: ["pocket"]
+      operation_id: "AddDefaultPocketsToBankAccount"
+      description: "This endpoint adds a default pocket to a specific bank account of interest"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.AddDefaultPocketsToBankAccountResponse"}
+          }
+        }
+      }
+    };
+  }
+
+
+
+  rpc UpdatePocket(UpdatePocketRequest) returns (UpdatePocketResponse) {
+    option (google.api.http) = {
+      put: "/api/v1/pocket"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "updates a pocket"
+      tags: ["pocket"]
+      operation_id: "UpdatePocket"
+      description: "This endpoint updates a pocket"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.UpdatePocketResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc DeletePocket(DeletePocketRequest) returns (DeletePocketResponse) {
+    option (google.api.http) = {
+      delete: "/api/v1/pocket/{pocket_id}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "deletes a pocket"
+      tags: ["pocket"]
+      operation_id: "DeletePocket"
+      description: "This endpoint deletes a pocket"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.DeletePocketResponse"}
+          }
+        }
+      }
+    };
+  }
 }
