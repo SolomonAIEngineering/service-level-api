@@ -47,6 +47,30 @@ export interface ActionableInsight {
   tags?: Array<string>;
 }
 
+export type AddDefaultPocketsToBankAccountData = any;
+
+export interface AddDefaultPocketsToBankAccountRequest {
+  /**
+   * The bank account id
+   * Validations:
+   * - bank_account_id must be greater than 0
+   * @format uint64
+   */
+  bankAccountId: string;
+  /**
+   * The user id
+   * Validations:
+   * - user_id must be greater than 0
+   * @format uint64
+   */
+  userId: string;
+}
+
+export interface AddDefaultPocketsToBankAccountResponse {
+  /** The bank account id */
+  bankAccount?: BankAccount;
+}
+
 /** The Address object is used to represent a contact's or company's address. */
 export interface Address {
   /** Line 1 of the address's street. */
@@ -1111,6 +1135,13 @@ export type DeleteMilestoneData = any;
 
 export interface DeleteMilestoneResponse {
   /** The milestone id */
+  deleted?: boolean;
+}
+
+export type DeletePocketData = any;
+
+export interface DeletePocketResponse {
+  /** The pocket id */
   deleted?: boolean;
 }
 
@@ -3786,6 +3817,22 @@ export interface UpdateMilestoneRequest {
 export interface UpdateMilestoneResponse {
   /** The milestone id */
   milestone?: Milestone;
+}
+
+export type UpdatePocketData = any;
+
+export interface UpdatePocketRequest {
+  /**
+   * The pocket to update
+   * Validations:
+   * - cannot be nil hence required
+   */
+  pocket: Pocket;
+}
+
+export interface UpdatePocketResponse {
+  /** The pocket id */
+  pocket?: Pocket;
 }
 
 export type UpdateSmartGoalData = any;

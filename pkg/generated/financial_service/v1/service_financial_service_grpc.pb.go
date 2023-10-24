@@ -86,6 +86,9 @@ const (
 	FinancialService_GetMelodyFinancialContext_FullMethodName                   = "/financial_service.v1.FinancialService/GetMelodyFinancialContext"
 	FinancialService_GetTransactionsForBankAccount_FullMethodName               = "/financial_service.v1.FinancialService/GetTransactionsForBankAccount"
 	FinancialService_GetHistoricalAccountBalance_FullMethodName                 = "/financial_service.v1.FinancialService/GetHistoricalAccountBalance"
+	FinancialService_AddDefaultPocketsToBankAccount_FullMethodName              = "/financial_service.v1.FinancialService/AddDefaultPocketsToBankAccount"
+	FinancialService_UpdatePocket_FullMethodName                                = "/financial_service.v1.FinancialService/UpdatePocket"
+	FinancialService_DeletePocket_FullMethodName                                = "/financial_service.v1.FinancialService/DeletePocket"
 )
 
 // FinancialServiceClient is the client API for FinancialService service.
@@ -441,6 +444,9 @@ type FinancialServiceClient interface {
 	// API:/api/v1/analytics/melody-financial-context/user/{user_id}
 	GetTransactionsForBankAccount(ctx context.Context, in *GetTransactionsForBankAccountRequest, opts ...grpc.CallOption) (*GetTransactionsForBankAccountResponse, error)
 	GetHistoricalAccountBalance(ctx context.Context, in *GetHistoricalAccountBalanceRequest, opts ...grpc.CallOption) (*GetHistoricalAccountBalanceResponse, error)
+	AddDefaultPocketsToBankAccount(ctx context.Context, in *AddDefaultPocketsToBankAccountRequest, opts ...grpc.CallOption) (*AddDefaultPocketsToBankAccountResponse, error)
+	UpdatePocket(ctx context.Context, in *UpdatePocketRequest, opts ...grpc.CallOption) (*UpdatePocketResponse, error)
+	DeletePocket(ctx context.Context, in *DeletePocketRequest, opts ...grpc.CallOption) (*DeletePocketResponse, error)
 }
 
 type financialServiceClient struct {
@@ -1054,6 +1060,33 @@ func (c *financialServiceClient) GetHistoricalAccountBalance(ctx context.Context
 	return out, nil
 }
 
+func (c *financialServiceClient) AddDefaultPocketsToBankAccount(ctx context.Context, in *AddDefaultPocketsToBankAccountRequest, opts ...grpc.CallOption) (*AddDefaultPocketsToBankAccountResponse, error) {
+	out := new(AddDefaultPocketsToBankAccountResponse)
+	err := c.cc.Invoke(ctx, FinancialService_AddDefaultPocketsToBankAccount_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *financialServiceClient) UpdatePocket(ctx context.Context, in *UpdatePocketRequest, opts ...grpc.CallOption) (*UpdatePocketResponse, error) {
+	out := new(UpdatePocketResponse)
+	err := c.cc.Invoke(ctx, FinancialService_UpdatePocket_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *financialServiceClient) DeletePocket(ctx context.Context, in *DeletePocketRequest, opts ...grpc.CallOption) (*DeletePocketResponse, error) {
+	out := new(DeletePocketResponse)
+	err := c.cc.Invoke(ctx, FinancialService_DeletePocket_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // FinancialServiceServer is the server API for FinancialService service.
 // All implementations must embed UnimplementedFinancialServiceServer
 // for forward compatibility
@@ -1407,6 +1440,9 @@ type FinancialServiceServer interface {
 	// API:/api/v1/analytics/melody-financial-context/user/{user_id}
 	GetTransactionsForBankAccount(context.Context, *GetTransactionsForBankAccountRequest) (*GetTransactionsForBankAccountResponse, error)
 	GetHistoricalAccountBalance(context.Context, *GetHistoricalAccountBalanceRequest) (*GetHistoricalAccountBalanceResponse, error)
+	AddDefaultPocketsToBankAccount(context.Context, *AddDefaultPocketsToBankAccountRequest) (*AddDefaultPocketsToBankAccountResponse, error)
+	UpdatePocket(context.Context, *UpdatePocketRequest) (*UpdatePocketResponse, error)
+	DeletePocket(context.Context, *DeletePocketRequest) (*DeletePocketResponse, error)
 	mustEmbedUnimplementedFinancialServiceServer()
 }
 
@@ -1614,6 +1650,15 @@ func (UnimplementedFinancialServiceServer) GetTransactionsForBankAccount(context
 }
 func (UnimplementedFinancialServiceServer) GetHistoricalAccountBalance(context.Context, *GetHistoricalAccountBalanceRequest) (*GetHistoricalAccountBalanceResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetHistoricalAccountBalance not implemented")
+}
+func (UnimplementedFinancialServiceServer) AddDefaultPocketsToBankAccount(context.Context, *AddDefaultPocketsToBankAccountRequest) (*AddDefaultPocketsToBankAccountResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddDefaultPocketsToBankAccount not implemented")
+}
+func (UnimplementedFinancialServiceServer) UpdatePocket(context.Context, *UpdatePocketRequest) (*UpdatePocketResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdatePocket not implemented")
+}
+func (UnimplementedFinancialServiceServer) DeletePocket(context.Context, *DeletePocketRequest) (*DeletePocketResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeletePocket not implemented")
 }
 func (UnimplementedFinancialServiceServer) mustEmbedUnimplementedFinancialServiceServer() {}
 
@@ -2834,6 +2879,60 @@ func _FinancialService_GetHistoricalAccountBalance_Handler(srv interface{}, ctx 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _FinancialService_AddDefaultPocketsToBankAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddDefaultPocketsToBankAccountRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FinancialServiceServer).AddDefaultPocketsToBankAccount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FinancialService_AddDefaultPocketsToBankAccount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FinancialServiceServer).AddDefaultPocketsToBankAccount(ctx, req.(*AddDefaultPocketsToBankAccountRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FinancialService_UpdatePocket_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdatePocketRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FinancialServiceServer).UpdatePocket(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FinancialService_UpdatePocket_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FinancialServiceServer).UpdatePocket(ctx, req.(*UpdatePocketRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FinancialService_DeletePocket_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeletePocketRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FinancialServiceServer).DeletePocket(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FinancialService_DeletePocket_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FinancialServiceServer).DeletePocket(ctx, req.(*DeletePocketRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // FinancialService_ServiceDesc is the grpc.ServiceDesc for FinancialService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -3108,6 +3207,18 @@ var FinancialService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetHistoricalAccountBalance",
 			Handler:    _FinancialService_GetHistoricalAccountBalance_Handler,
+		},
+		{
+			MethodName: "AddDefaultPocketsToBankAccount",
+			Handler:    _FinancialService_AddDefaultPocketsToBankAccount_Handler,
+		},
+		{
+			MethodName: "UpdatePocket",
+			Handler:    _FinancialService_UpdatePocket_Handler,
+		},
+		{
+			MethodName: "DeletePocket",
+			Handler:    _FinancialService_DeletePocket_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -958,3 +958,55 @@ message GetTransactionsForBankAccountResponse {
   repeated Transaction transactions = 1;
   uint64 next_page_number = 2;
 }
+
+message AddDefaultPocketsToBankAccountRequest {
+    // The user id
+  // Validations:
+  // - user_id must be greater than 0
+  uint64 user_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // The bank account id
+  // Validations:
+  // - bank_account_id must be greater than 0
+  uint64 bank_account_id = 2 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message AddDefaultPocketsToBankAccountResponse {
+  // The bank account id
+  BankAccount bank_account = 1;
+}
+
+message DeletePocketRequest {
+  // The pocket id
+  // Validations:
+  // - pocket_id must be greater than 0
+  uint64 pocket_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message DeletePocketResponse {
+  // The pocket id
+  bool deleted = 1;
+}
+
+message UpdatePocketRequest {
+  // The pocket to update
+  // Validations:
+  // - cannot be nil hence required
+  Pocket pocket = 1 [
+    (validate.rules).message.required = true,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message UpdatePocketResponse {
+  // The pocket id
+  Pocket pocket = 1;
+}

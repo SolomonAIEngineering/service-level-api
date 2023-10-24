@@ -3307,6 +3307,110 @@
         ]
       }
     },
+    "/api/v1/pocket": {
+      "put": {
+        "summary": "updates a pocket",
+        "description": "This endpoint updates a pocket",
+        "operationId": "UpdatePocket",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.UpdatePocketResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdatePocketRequest"
+            }
+          }
+        ],
+        "tags": [
+          "pocket"
+        ]
+      }
+    },
+    "/api/v1/pocket/bank-account": {
+      "post": {
+        "summary": "adds a default set of pockets to a specific bank account of interest",
+        "description": "This endpoint adds a default pocket to a specific bank account of interest",
+        "operationId": "AddDefaultPocketsToBankAccount",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.AddDefaultPocketsToBankAccountResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddDefaultPocketsToBankAccountRequest"
+            }
+          }
+        ],
+        "tags": [
+          "pocket"
+        ]
+      }
+    },
     "/api/v1/pocket/{pocketId}": {
       "get": {
         "summary": "get a pocket",
@@ -3348,6 +3452,56 @@
           {
             "name": "pocketId",
             "description": "The pocket account id\nValidations:\n- pocket_account_id must be greater than 0",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "pocket"
+        ]
+      },
+      "delete": {
+        "summary": "deletes a pocket",
+        "description": "This endpoint deletes a pocket",
+        "operationId": "DeletePocket",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.DeletePocketResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "pocketId",
+            "description": "The pocket id\nValidations:\n- pocket_id must be greater than 0",
             "in": "path",
             "required": true,
             "type": "string",
@@ -4168,6 +4322,34 @@
         }
       },
       "title": "An actionable insight serves as a basic insight users \ncan leverage and act upon and is typically generated based off of their financial contexts"
+    },
+    "AddDefaultPocketsToBankAccountRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "The user id\nValidations:\n- user_id must be greater than 0"
+        },
+        "bankAccountId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "The bank account id\nValidations:\n- bank_account_id must be greater than 0"
+        }
+      },
+      "required": [
+        "userId",
+        "bankAccountId"
+      ]
+    },
+    "AddDefaultPocketsToBankAccountResponse": {
+      "type": "object",
+      "properties": {
+        "bankAccount": {
+          "$ref": "#/definitions/BankAccount",
+          "title": "The bank account id"
+        }
+      }
     },
     "Address": {
       "type": "object",
@@ -5507,6 +5689,15 @@
         "deleted": {
           "type": "boolean",
           "title": "The milestone id"
+        }
+      }
+    },
+    "DeletePocketResponse": {
+      "type": "object",
+      "properties": {
+        "deleted": {
+          "type": "boolean",
+          "title": "The pocket id"
         }
       }
     },
@@ -9620,6 +9811,27 @@
         "milestone": {
           "$ref": "#/definitions/Milestone",
           "title": "The milestone id"
+        }
+      }
+    },
+    "UpdatePocketRequest": {
+      "type": "object",
+      "properties": {
+        "pocket": {
+          "$ref": "#/definitions/Pocket",
+          "title": "The pocket to update\nValidations:\n- cannot be nil hence required"
+        }
+      },
+      "required": [
+        "pocket"
+      ]
+    },
+    "UpdatePocketResponse": {
+      "type": "object",
+      "properties": {
+        "pocket": {
+          "$ref": "#/definitions/Pocket",
+          "title": "The pocket id"
         }
       }
     },
