@@ -165,12 +165,14 @@ message GetUserByEmailOrUsernameResponse {
   UserAccount account = 1;
 }
 
+
 message VerifyUserRequest {
   // The account ID associated with the user
   uint64 user_id = 1 [(validate.rules).uint64.gt = 0];
 }
 
 message VerifyUserResponse { bool account_verified = 1; }
+
 
 message GetUserByUsernameRequest {
   // The username of the user of interest
@@ -259,3 +261,336 @@ message UpdateBusinessSettingsRequest {
 message UpdateBusinessSettingsResponse {
   bool success = 1;
 }
+
+
+// ================================== V2 ================================= //
+/**
+ * Represents the request object used to obtain a user account.
+ */
+message GetUserV2Request {
+  
+  /**
+   * Specifies the user's account ID.
+   * 
+   * Validations:
+   * - Must be greater than 0.
+   */
+  uint64 user_id = 1  [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED   
+  ];
+
+  /**
+   * Indicates the profile type to be queried.
+   * For example: "username:testuser"
+   */
+  ProfileType profile_type = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"username:testuser\""
+    },
+    (google.api.field_behavior) = REQUIRED   
+  ];
+}
+
+/**
+ * Represents the response object for fetching user details.
+ */
+message GetUserV2Response { 
+  
+  /**
+   * Contains the details of the account which can be either a user or a business account.
+   */
+  oneof account {
+    UserAccount user_account = 1;
+    BusinessAccount business_account = 2;
+  }  
+}
+
+
+// DeleteUserRequest: Represents the request object invoked against the user
+// service to delete a user account
+message DeleteUserV2Request {  
+  // The account ID associated with the user to delete
+  // Validations:
+  // - user_id must be greater than 0
+  uint64 user_id = 1  [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED  
+  ];
+  // the profile type of the given user we hope to query
+  ProfileType profile_type = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"username:testuser\""
+    },
+    (google.api.field_behavior) = REQUIRED   
+  ];
+}
+
+// DeleteUserResponse: Represents the object returned as a response to
+// `delete-user` request
+message DeleteUserV2Response { bool account_deleted = 1; }
+
+message UpdateUserV2Request {
+  // BusinessAccount to update
+  // Validation:
+  // - cannot nil hence required
+  oneof account {
+    UserAccount user_account = 1; 
+    BusinessAccount business_account = 2; 
+  }
+}
+
+message UpdateUserV2Response {
+  bool account_updated = 1;
+  oneof account {
+    UserAccount user_account = 2; 
+    BusinessAccount business_account = 3; 
+  }
+}
+
+// CreateUserV2Request: Represents the request object invoked against the user
+// service to create a user account
+message CreateUserV2Request {
+  // User account to create 
+  // Validations:
+  // - cannot be nil hence required
+  oneof account {
+    UserAccount user_account = 1; 
+    BusinessAccount business_account = 2; 
+  }
+  // set of community IDs to follow 
+  // Validations:
+  // - at least 0 and at most 20 community ids supported at one time
+  repeated uint64 community_ids_to_follow = 3 [(validate.rules).repeated = {min_items: 0, max_items: 20}];
+  // The profile image of the user
+  // Validations:
+  // - must be a valid URI
+  string profile_image = 4 [
+    (validate.rules).string.uri_ref = true,
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"lksdjhfgsdhfghdsgfhgdh.com\""
+    } 
+  ];
+  // The password  of the user
+  // Validations:
+  // - must be a at least 10 characters long
+  string password = 5 [
+    (validate.rules).string = {
+      min_bytes: 10,
+    },
+     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"tesdfkdkfhsdgd\""
+    },
+    (google.api.field_behavior) = REQUIRED  
+  ];
+}
+
+// CreateUserResponse: Represents the response object returned as a response to
+// the `create-user` request
+message CreateUserV2Response { uint64 user_id = 1; }
+
+// GetUserIdRequest: Represents the request object invoked against the user
+// service to obtain the id of the user
+message GetUserIdV2Request {
+  // The email of the user of interest
+  string email = 1 [
+    (validate.rules).string = {
+      min_bytes: 0,
+    },
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"email:testuser@gmail.com\""
+    }
+  ];
+  // The username of the user of interest
+  string username = 2 [
+    (validate.rules).string = {
+      min_bytes: 0,
+    },
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"username:testuser\""
+    }
+  ];
+
+  ProfileType profile_type = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"profile_type:PROFILE_TYPE_BUSINESS\""
+    },
+    (google.api.field_behavior) = REQUIRED   
+  ];
+}
+
+// GetUserIdResponse: Represents the response object returned as a product of
+// calling the `get-user-id` request
+message GetUserIdV2Response {
+  // The account ID associated with the user
+  uint64 user_id = 1 ;
+}
+
+
+message GetUserByEmailOrUsernameV2Request {
+  // The email of the user of interest
+  string email = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"email:testuser@gmail.com\""
+    }
+  ];
+  // The username of the user of interest
+  string username = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"username:testuser\""
+    }
+  ];
+
+  ProfileType profile_type = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"profile_type:PROFILE_TYPE_BUSINESS\""
+    },
+    (google.api.field_behavior) = REQUIRED   
+  ];
+}
+
+message GetUserByEmailOrUsernameV2Response {
+  // The account ID associated with the user
+  oneof account {
+    UserAccount user_account = 1;
+    BusinessAccount business_account = 2;
+  }
+}
+
+
+message VerifyUserV2Request {
+  // The account ID associated with the user
+  uint64 user_id = 1 [(validate.rules).uint64.gt = 0];
+  ProfileType profile_type = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"profile_type:PROFILE_TYPE_BUSINESS\""
+    },
+    (google.api.field_behavior) = REQUIRED   
+  ];
+}
+
+message VerifyUserV2Response { bool account_verified = 1; }
+
+message GetUserByUsernameV2Request {
+  // The username of the user of interest
+  string username = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 1,
+      example: "\"username:testuser\""
+    }
+  ];
+
+  // the profile type of the given user we hope to query
+  ProfileType profile_type = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"username:testuser\""
+    },
+    (google.api.field_behavior) = REQUIRED   
+  ];
+}
+
+message GetUserByUsernameV2Response {
+  oneof account {
+    UserAccount user_account = 1;
+    BusinessAccount business_account = 2;
+  }  
+}
+
+message CheckUsernameExistsV2Request {
+  // The username of the user of interest
+  string username = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 1,
+      example: "\"username:testuser\""
+    }
+  ];
+
+  // the profile type of the given user we hope to query
+  ProfileType profile_type = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"username:testuser\""
+    },
+    (google.api.field_behavior) = REQUIRED   
+  ];
+}
+
+message CheckUsernameExistsV2Response { bool exists = 1; }
+
+message CheckEmailExistsV2Request {
+ string email = 1 [
+    (validate.rules).string.email = true,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"email:testuser@gmail.com\""
+    }
+  ];
+
+   // the profile type of the given user we hope to query
+  ProfileType profile_type = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"username:testuser\""
+    },
+    (google.api.field_behavior) = REQUIRED   
+  ]; 
+}
+
+message CheckEmailExistsV2Response { bool exists = 1; }
+
+message GetUserByEmailV2Request {
+ string email = 1 [
+    (validate.rules).string.email = true,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"email:testuser@gmail.com\""
+    }
+  ];
+
+  // the profile type of the given user we hope to query
+  ProfileType profile_type = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"username:testuser\""
+    },
+    (google.api.field_behavior) = REQUIRED   
+  ];
+}
+
+message GetUserByEmailV2Response {
+  oneof account {
+    UserAccount user_account = 1;
+    BusinessAccount business_account = 2;
+  }  
+}
+
+message PasswordResetWebhookV2Request {
+  uint64 account_id = 1 [(validate.rules).uint64.gt = 0];
+  string token = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 1,
+      example: "\"username:testuser\""
+    }
+  ];
+  ProfileType profile_type = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"username:testuser\""
+    },
+    (google.api.field_behavior) = REQUIRED   
+  ];
+}
+
+message PasswordResetWebhookV2Response { bool success = 1; }
