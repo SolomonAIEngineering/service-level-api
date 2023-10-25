@@ -5282,6 +5282,966 @@ func (x *UpdatePocketResponse) GetPocket() *Pocket {
 	return nil
 }
 
+type GetTransactionsBetweenTimeRangesRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	PlaidAccountId string `protobuf:"bytes,1,opt,name=plaid_account_id,json=plaidAccountId,proto3" json:"plaid_account_id,omitempty"`
+	// The user id
+	// Validations:
+	// - user_id must be greater than 0
+	UserId uint64 `protobuf:"varint,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// NOTE: time ranges must follow the follownig semantic - 2023-01-01
+	StartTime uint64 `protobuf:"varint,3,opt,name=start_time,json=startTime,proto3" json:"start_time,omitempty"`
+	// NOTE: time ranges must follow the follownig semantic - 2023-01-03
+	EndTime uint64 `protobuf:"varint,4,opt,name=end_time,json=endTime,proto3" json:"end_time,omitempty"`
+	Page    uint32 `protobuf:"varint,5,opt,name=page,proto3" json:"page,omitempty"`   // Current page number
+	Limit   uint32 `protobuf:"varint,6,opt,name=limit,proto3" json:"limit,omitempty"` // Number of transactions per page
+}
+
+func (x *GetTransactionsBetweenTimeRangesRequest) Reset() {
+	*x = GetTransactionsBetweenTimeRangesRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[96]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetTransactionsBetweenTimeRangesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetTransactionsBetweenTimeRangesRequest) ProtoMessage() {}
+
+func (x *GetTransactionsBetweenTimeRangesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[96]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetTransactionsBetweenTimeRangesRequest.ProtoReflect.Descriptor instead.
+func (*GetTransactionsBetweenTimeRangesRequest) Descriptor() ([]byte, []int) {
+	return file_financial_service_v1_request_response_financial_service_proto_rawDescGZIP(), []int{96}
+}
+
+func (x *GetTransactionsBetweenTimeRangesRequest) GetPlaidAccountId() string {
+	if x != nil {
+		return x.PlaidAccountId
+	}
+	return ""
+}
+
+func (x *GetTransactionsBetweenTimeRangesRequest) GetUserId() uint64 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
+}
+
+func (x *GetTransactionsBetweenTimeRangesRequest) GetStartTime() uint64 {
+	if x != nil {
+		return x.StartTime
+	}
+	return 0
+}
+
+func (x *GetTransactionsBetweenTimeRangesRequest) GetEndTime() uint64 {
+	if x != nil {
+		return x.EndTime
+	}
+	return 0
+}
+
+func (x *GetTransactionsBetweenTimeRangesRequest) GetPage() uint32 {
+	if x != nil {
+		return x.Page
+	}
+	return 0
+}
+
+func (x *GetTransactionsBetweenTimeRangesRequest) GetLimit() uint32 {
+	if x != nil {
+		return x.Limit
+	}
+	return 0
+}
+
+type GetTransactionsBetweenTimeRangesResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// The transactions
+	Transactions      []*PlaidAccountTransaction `protobuf:"bytes,1,rep,name=transactions,proto3" json:"transactions,omitempty"`
+	CurrentPage       uint32                     `protobuf:"varint,2,opt,name=current_page,json=currentPage,proto3" json:"current_page,omitempty"`                   // Current page number
+	TotalAges         uint32                     `protobuf:"varint,3,opt,name=total_ages,json=totalAges,proto3" json:"total_ages,omitempty"`                         // Total number of pages
+	TotalTransactions uint64                     `protobuf:"varint,4,opt,name=total_transactions,json=totalTransactions,proto3" json:"total_transactions,omitempty"` // Total number of transactions in the month
+}
+
+func (x *GetTransactionsBetweenTimeRangesResponse) Reset() {
+	*x = GetTransactionsBetweenTimeRangesResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[97]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetTransactionsBetweenTimeRangesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetTransactionsBetweenTimeRangesResponse) ProtoMessage() {}
+
+func (x *GetTransactionsBetweenTimeRangesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[97]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetTransactionsBetweenTimeRangesResponse.ProtoReflect.Descriptor instead.
+func (*GetTransactionsBetweenTimeRangesResponse) Descriptor() ([]byte, []int) {
+	return file_financial_service_v1_request_response_financial_service_proto_rawDescGZIP(), []int{97}
+}
+
+func (x *GetTransactionsBetweenTimeRangesResponse) GetTransactions() []*PlaidAccountTransaction {
+	if x != nil {
+		return x.Transactions
+	}
+	return nil
+}
+
+func (x *GetTransactionsBetweenTimeRangesResponse) GetCurrentPage() uint32 {
+	if x != nil {
+		return x.CurrentPage
+	}
+	return 0
+}
+
+func (x *GetTransactionsBetweenTimeRangesResponse) GetTotalAges() uint32 {
+	if x != nil {
+		return x.TotalAges
+	}
+	return 0
+}
+
+func (x *GetTransactionsBetweenTimeRangesResponse) GetTotalTransactions() uint64 {
+	if x != nil {
+		return x.TotalTransactions
+	}
+	return 0
+}
+
+type GetTransactionsForPastWeekRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	PlaidAccountId string `protobuf:"bytes,1,opt,name=plaid_account_id,json=plaidAccountId,proto3" json:"plaid_account_id,omitempty"`
+	UserId         uint64 `protobuf:"varint,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	Page           uint32 `protobuf:"varint,3,opt,name=page,proto3" json:"page,omitempty"`   // Current page number
+	Limit          uint32 `protobuf:"varint,4,opt,name=limit,proto3" json:"limit,omitempty"` // Number of transactions per page
+}
+
+func (x *GetTransactionsForPastWeekRequest) Reset() {
+	*x = GetTransactionsForPastWeekRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[98]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetTransactionsForPastWeekRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetTransactionsForPastWeekRequest) ProtoMessage() {}
+
+func (x *GetTransactionsForPastWeekRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[98]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetTransactionsForPastWeekRequest.ProtoReflect.Descriptor instead.
+func (*GetTransactionsForPastWeekRequest) Descriptor() ([]byte, []int) {
+	return file_financial_service_v1_request_response_financial_service_proto_rawDescGZIP(), []int{98}
+}
+
+func (x *GetTransactionsForPastWeekRequest) GetPlaidAccountId() string {
+	if x != nil {
+		return x.PlaidAccountId
+	}
+	return ""
+}
+
+func (x *GetTransactionsForPastWeekRequest) GetUserId() uint64 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
+}
+
+func (x *GetTransactionsForPastWeekRequest) GetPage() uint32 {
+	if x != nil {
+		return x.Page
+	}
+	return 0
+}
+
+func (x *GetTransactionsForPastWeekRequest) GetLimit() uint32 {
+	if x != nil {
+		return x.Limit
+	}
+	return 0
+}
+
+type GetTransactionsForPastWeekResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Transactions      []*PlaidAccountTransaction `protobuf:"bytes,1,rep,name=transactions,proto3" json:"transactions,omitempty"`
+	CurrentPage       uint32                     `protobuf:"varint,2,opt,name=current_page,json=currentPage,proto3" json:"current_page,omitempty"`                   // Current page number
+	TotalPages        uint32                     `protobuf:"varint,3,opt,name=total_pages,json=totalPages,proto3" json:"total_pages,omitempty"`                      // Total number of pages
+	TotalTransactions uint64                     `protobuf:"varint,4,opt,name=total_transactions,json=totalTransactions,proto3" json:"total_transactions,omitempty"` // Total number of transactions in the week
+}
+
+func (x *GetTransactionsForPastWeekResponse) Reset() {
+	*x = GetTransactionsForPastWeekResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[99]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetTransactionsForPastWeekResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetTransactionsForPastWeekResponse) ProtoMessage() {}
+
+func (x *GetTransactionsForPastWeekResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[99]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetTransactionsForPastWeekResponse.ProtoReflect.Descriptor instead.
+func (*GetTransactionsForPastWeekResponse) Descriptor() ([]byte, []int) {
+	return file_financial_service_v1_request_response_financial_service_proto_rawDescGZIP(), []int{99}
+}
+
+func (x *GetTransactionsForPastWeekResponse) GetTransactions() []*PlaidAccountTransaction {
+	if x != nil {
+		return x.Transactions
+	}
+	return nil
+}
+
+func (x *GetTransactionsForPastWeekResponse) GetCurrentPage() uint32 {
+	if x != nil {
+		return x.CurrentPage
+	}
+	return 0
+}
+
+func (x *GetTransactionsForPastWeekResponse) GetTotalPages() uint32 {
+	if x != nil {
+		return x.TotalPages
+	}
+	return 0
+}
+
+func (x *GetTransactionsForPastWeekResponse) GetTotalTransactions() uint64 {
+	if x != nil {
+		return x.TotalTransactions
+	}
+	return 0
+}
+
+type GetTransactionsForPastMonthRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	PlaidAccountId string `protobuf:"bytes,1,opt,name=plaid_account_id,json=plaidAccountId,proto3" json:"plaid_account_id,omitempty"`
+	UserId         uint64 `protobuf:"varint,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	Page           uint32 `protobuf:"varint,3,opt,name=page,proto3" json:"page,omitempty"`   // Current page number
+	Limit          uint32 `protobuf:"varint,4,opt,name=limit,proto3" json:"limit,omitempty"` // Number of transactions per page
+}
+
+func (x *GetTransactionsForPastMonthRequest) Reset() {
+	*x = GetTransactionsForPastMonthRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[100]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetTransactionsForPastMonthRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetTransactionsForPastMonthRequest) ProtoMessage() {}
+
+func (x *GetTransactionsForPastMonthRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[100]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetTransactionsForPastMonthRequest.ProtoReflect.Descriptor instead.
+func (*GetTransactionsForPastMonthRequest) Descriptor() ([]byte, []int) {
+	return file_financial_service_v1_request_response_financial_service_proto_rawDescGZIP(), []int{100}
+}
+
+func (x *GetTransactionsForPastMonthRequest) GetPlaidAccountId() string {
+	if x != nil {
+		return x.PlaidAccountId
+	}
+	return ""
+}
+
+func (x *GetTransactionsForPastMonthRequest) GetUserId() uint64 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
+}
+
+func (x *GetTransactionsForPastMonthRequest) GetPage() uint32 {
+	if x != nil {
+		return x.Page
+	}
+	return 0
+}
+
+func (x *GetTransactionsForPastMonthRequest) GetLimit() uint32 {
+	if x != nil {
+		return x.Limit
+	}
+	return 0
+}
+
+type GetTransactionsForPastMonthResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Transactions      []*PlaidAccountTransaction `protobuf:"bytes,1,rep,name=transactions,proto3" json:"transactions,omitempty"`
+	CurrentPage       uint32                     `protobuf:"varint,2,opt,name=current_page,json=currentPage,proto3" json:"current_page,omitempty"`                   // Current page number
+	TotalPages        uint32                     `protobuf:"varint,3,opt,name=total_pages,json=totalPages,proto3" json:"total_pages,omitempty"`                      // Total number of pages
+	TotalTransactions uint64                     `protobuf:"varint,4,opt,name=total_transactions,json=totalTransactions,proto3" json:"total_transactions,omitempty"` // Total number of transactions in the month
+}
+
+func (x *GetTransactionsForPastMonthResponse) Reset() {
+	*x = GetTransactionsForPastMonthResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[101]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetTransactionsForPastMonthResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetTransactionsForPastMonthResponse) ProtoMessage() {}
+
+func (x *GetTransactionsForPastMonthResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[101]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetTransactionsForPastMonthResponse.ProtoReflect.Descriptor instead.
+func (*GetTransactionsForPastMonthResponse) Descriptor() ([]byte, []int) {
+	return file_financial_service_v1_request_response_financial_service_proto_rawDescGZIP(), []int{101}
+}
+
+func (x *GetTransactionsForPastMonthResponse) GetTransactions() []*PlaidAccountTransaction {
+	if x != nil {
+		return x.Transactions
+	}
+	return nil
+}
+
+func (x *GetTransactionsForPastMonthResponse) GetCurrentPage() uint32 {
+	if x != nil {
+		return x.CurrentPage
+	}
+	return 0
+}
+
+func (x *GetTransactionsForPastMonthResponse) GetTotalPages() uint32 {
+	if x != nil {
+		return x.TotalPages
+	}
+	return 0
+}
+
+func (x *GetTransactionsForPastMonthResponse) GetTotalTransactions() uint64 {
+	if x != nil {
+		return x.TotalTransactions
+	}
+	return 0
+}
+
+type AddNoteToSmartGoalRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// The smart goal id
+	// Validations:
+	// - smart_goal_id must be greater than 0
+	SmartGoalId uint64 `protobuf:"varint,1,opt,name=smart_goal_id,json=smartGoalId,proto3" json:"smart_goal_id,omitempty"`
+	// The note to add
+	// Validations:
+	// - cannot be nil hence required
+	Note *SmartNote `protobuf:"bytes,2,opt,name=note,proto3" json:"note,omitempty"`
+}
+
+func (x *AddNoteToSmartGoalRequest) Reset() {
+	*x = AddNoteToSmartGoalRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[102]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *AddNoteToSmartGoalRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddNoteToSmartGoalRequest) ProtoMessage() {}
+
+func (x *AddNoteToSmartGoalRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[102]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddNoteToSmartGoalRequest.ProtoReflect.Descriptor instead.
+func (*AddNoteToSmartGoalRequest) Descriptor() ([]byte, []int) {
+	return file_financial_service_v1_request_response_financial_service_proto_rawDescGZIP(), []int{102}
+}
+
+func (x *AddNoteToSmartGoalRequest) GetSmartGoalId() uint64 {
+	if x != nil {
+		return x.SmartGoalId
+	}
+	return 0
+}
+
+func (x *AddNoteToSmartGoalRequest) GetNote() *SmartNote {
+	if x != nil {
+		return x.Note
+	}
+	return nil
+}
+
+type AddNoteToSmartGoalResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// The smart goal id
+	Goal *SmartGoal `protobuf:"bytes,1,opt,name=goal,proto3" json:"goal,omitempty"`
+}
+
+func (x *AddNoteToSmartGoalResponse) Reset() {
+	*x = AddNoteToSmartGoalResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[103]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *AddNoteToSmartGoalResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddNoteToSmartGoalResponse) ProtoMessage() {}
+
+func (x *AddNoteToSmartGoalResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[103]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddNoteToSmartGoalResponse.ProtoReflect.Descriptor instead.
+func (*AddNoteToSmartGoalResponse) Descriptor() ([]byte, []int) {
+	return file_financial_service_v1_request_response_financial_service_proto_rawDescGZIP(), []int{103}
+}
+
+func (x *AddNoteToSmartGoalResponse) GetGoal() *SmartGoal {
+	if x != nil {
+		return x.Goal
+	}
+	return nil
+}
+
+type UpdateNoteToSmartGoalRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// The note to update
+	// Validations:
+	// - cannot be nil hence required
+	Note *SmartNote `protobuf:"bytes,1,opt,name=note,proto3" json:"note,omitempty"`
+}
+
+func (x *UpdateNoteToSmartGoalRequest) Reset() {
+	*x = UpdateNoteToSmartGoalRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[104]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UpdateNoteToSmartGoalRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateNoteToSmartGoalRequest) ProtoMessage() {}
+
+func (x *UpdateNoteToSmartGoalRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[104]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateNoteToSmartGoalRequest.ProtoReflect.Descriptor instead.
+func (*UpdateNoteToSmartGoalRequest) Descriptor() ([]byte, []int) {
+	return file_financial_service_v1_request_response_financial_service_proto_rawDescGZIP(), []int{104}
+}
+
+func (x *UpdateNoteToSmartGoalRequest) GetNote() *SmartNote {
+	if x != nil {
+		return x.Note
+	}
+	return nil
+}
+
+type UpdateNoteToSmartGoalResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// The smart goal id
+	Note *SmartNote `protobuf:"bytes,1,opt,name=note,proto3" json:"note,omitempty"`
+}
+
+func (x *UpdateNoteToSmartGoalResponse) Reset() {
+	*x = UpdateNoteToSmartGoalResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[105]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UpdateNoteToSmartGoalResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateNoteToSmartGoalResponse) ProtoMessage() {}
+
+func (x *UpdateNoteToSmartGoalResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[105]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateNoteToSmartGoalResponse.ProtoReflect.Descriptor instead.
+func (*UpdateNoteToSmartGoalResponse) Descriptor() ([]byte, []int) {
+	return file_financial_service_v1_request_response_financial_service_proto_rawDescGZIP(), []int{105}
+}
+
+func (x *UpdateNoteToSmartGoalResponse) GetNote() *SmartNote {
+	if x != nil {
+		return x.Note
+	}
+	return nil
+}
+
+type DeleteNoteFromSmartGoalRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// The smart goal id
+	// Validations:
+	// - smart_goal_id must be greater than 0
+	SmartGoalId uint64 `protobuf:"varint,1,opt,name=smart_goal_id,json=smartGoalId,proto3" json:"smart_goal_id,omitempty"`
+	// The note id
+	// Validations:
+	// - note_id must be greater than 0
+	NoteId uint64 `protobuf:"varint,2,opt,name=note_id,json=noteId,proto3" json:"note_id,omitempty"`
+}
+
+func (x *DeleteNoteFromSmartGoalRequest) Reset() {
+	*x = DeleteNoteFromSmartGoalRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[106]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeleteNoteFromSmartGoalRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteNoteFromSmartGoalRequest) ProtoMessage() {}
+
+func (x *DeleteNoteFromSmartGoalRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[106]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteNoteFromSmartGoalRequest.ProtoReflect.Descriptor instead.
+func (*DeleteNoteFromSmartGoalRequest) Descriptor() ([]byte, []int) {
+	return file_financial_service_v1_request_response_financial_service_proto_rawDescGZIP(), []int{106}
+}
+
+func (x *DeleteNoteFromSmartGoalRequest) GetSmartGoalId() uint64 {
+	if x != nil {
+		return x.SmartGoalId
+	}
+	return 0
+}
+
+func (x *DeleteNoteFromSmartGoalRequest) GetNoteId() uint64 {
+	if x != nil {
+		return x.NoteId
+	}
+	return 0
+}
+
+type DeleteNoteFromSmartGoalResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// The smart goal id
+	Deleted bool `protobuf:"varint,1,opt,name=deleted,proto3" json:"deleted,omitempty"`
+}
+
+func (x *DeleteNoteFromSmartGoalResponse) Reset() {
+	*x = DeleteNoteFromSmartGoalResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[107]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeleteNoteFromSmartGoalResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteNoteFromSmartGoalResponse) ProtoMessage() {}
+
+func (x *DeleteNoteFromSmartGoalResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[107]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteNoteFromSmartGoalResponse.ProtoReflect.Descriptor instead.
+func (*DeleteNoteFromSmartGoalResponse) Descriptor() ([]byte, []int) {
+	return file_financial_service_v1_request_response_financial_service_proto_rawDescGZIP(), []int{107}
+}
+
+func (x *DeleteNoteFromSmartGoalResponse) GetDeleted() bool {
+	if x != nil {
+		return x.Deleted
+	}
+	return false
+}
+
+type GetNotesFromSmartGoalRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// The smart goal id
+	// Validations:
+	// - smart_goal_id must be greater than 0
+	SmartGoalId uint64 `protobuf:"varint,1,opt,name=smart_goal_id,json=smartGoalId,proto3" json:"smart_goal_id,omitempty"`
+}
+
+func (x *GetNotesFromSmartGoalRequest) Reset() {
+	*x = GetNotesFromSmartGoalRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[108]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetNotesFromSmartGoalRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetNotesFromSmartGoalRequest) ProtoMessage() {}
+
+func (x *GetNotesFromSmartGoalRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[108]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetNotesFromSmartGoalRequest.ProtoReflect.Descriptor instead.
+func (*GetNotesFromSmartGoalRequest) Descriptor() ([]byte, []int) {
+	return file_financial_service_v1_request_response_financial_service_proto_rawDescGZIP(), []int{108}
+}
+
+func (x *GetNotesFromSmartGoalRequest) GetSmartGoalId() uint64 {
+	if x != nil {
+		return x.SmartGoalId
+	}
+	return 0
+}
+
+type GetNotesFromSmartGoalResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// The notes
+	Notes []*SmartNote `protobuf:"bytes,1,rep,name=notes,proto3" json:"notes,omitempty"`
+}
+
+func (x *GetNotesFromSmartGoalResponse) Reset() {
+	*x = GetNotesFromSmartGoalResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[109]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetNotesFromSmartGoalResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetNotesFromSmartGoalResponse) ProtoMessage() {}
+
+func (x *GetNotesFromSmartGoalResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[109]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetNotesFromSmartGoalResponse.ProtoReflect.Descriptor instead.
+func (*GetNotesFromSmartGoalResponse) Descriptor() ([]byte, []int) {
+	return file_financial_service_v1_request_response_financial_service_proto_rawDescGZIP(), []int{109}
+}
+
+func (x *GetNotesFromSmartGoalResponse) GetNotes() []*SmartNote {
+	if x != nil {
+		return x.Notes
+	}
+	return nil
+}
+
+type GetNoteFromSmartGoalRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// The note id
+	// Validations:
+	// - note_id must be greater than 0
+	NoteId uint64 `protobuf:"varint,1,opt,name=note_id,json=noteId,proto3" json:"note_id,omitempty"`
+}
+
+func (x *GetNoteFromSmartGoalRequest) Reset() {
+	*x = GetNoteFromSmartGoalRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[110]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetNoteFromSmartGoalRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetNoteFromSmartGoalRequest) ProtoMessage() {}
+
+func (x *GetNoteFromSmartGoalRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[110]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetNoteFromSmartGoalRequest.ProtoReflect.Descriptor instead.
+func (*GetNoteFromSmartGoalRequest) Descriptor() ([]byte, []int) {
+	return file_financial_service_v1_request_response_financial_service_proto_rawDescGZIP(), []int{110}
+}
+
+func (x *GetNoteFromSmartGoalRequest) GetNoteId() uint64 {
+	if x != nil {
+		return x.NoteId
+	}
+	return 0
+}
+
+type GetNoteFromSmartGoalResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// The note
+	Note *SmartNote `protobuf:"bytes,1,opt,name=note,proto3" json:"note,omitempty"`
+}
+
+func (x *GetNoteFromSmartGoalResponse) Reset() {
+	*x = GetNoteFromSmartGoalResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[111]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetNoteFromSmartGoalResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetNoteFromSmartGoalResponse) ProtoMessage() {}
+
+func (x *GetNoteFromSmartGoalResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[111]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetNoteFromSmartGoalResponse.ProtoReflect.Descriptor instead.
+func (*GetNoteFromSmartGoalResponse) Descriptor() ([]byte, []int) {
+	return file_financial_service_v1_request_response_financial_service_proto_rawDescGZIP(), []int{111}
+}
+
+func (x *GetNoteFromSmartGoalResponse) GetNote() *SmartNote {
+	if x != nil {
+		return x.Note
+	}
+	return nil
+}
+
 type GetReCurringTransactionsResponse_ParticipantReCurringTransactions struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -5296,7 +6256,7 @@ type GetReCurringTransactionsResponse_ParticipantReCurringTransactions struct {
 func (x *GetReCurringTransactionsResponse_ParticipantReCurringTransactions) Reset() {
 	*x = GetReCurringTransactionsResponse_ParticipantReCurringTransactions{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[96]
+		mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[112]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -5309,7 +6269,7 @@ func (x *GetReCurringTransactionsResponse_ParticipantReCurringTransactions) Stri
 func (*GetReCurringTransactionsResponse_ParticipantReCurringTransactions) ProtoMessage() {}
 
 func (x *GetReCurringTransactionsResponse_ParticipantReCurringTransactions) ProtoReflect() protoreflect.Message {
-	mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[96]
+	mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[112]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6015,29 +6975,167 @@ var file_financial_service_v1_request_response_financial_service_proto_rawDesc =
 	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x34, 0x0a, 0x06, 0x70, 0x6f, 0x63, 0x6b, 0x65,
 	0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1c, 0x2e, 0x66, 0x69, 0x6e, 0x61, 0x6e, 0x63,
 	0x69, 0x61, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x76, 0x31, 0x2e, 0x50,
-	0x6f, 0x63, 0x6b, 0x65, 0x74, 0x52, 0x06, 0x70, 0x6f, 0x63, 0x6b, 0x65, 0x74, 0x42, 0xd8, 0x02,
-	0x0a, 0x18, 0x63, 0x6f, 0x6d, 0x2e, 0x66, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x5f,
-	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x76, 0x31, 0x42, 0x24, 0x52, 0x65, 0x71, 0x75,
-	0x65, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x46, 0x69, 0x6e, 0x61, 0x6e,
-	0x63, 0x69, 0x61, 0x6c, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x50, 0x72, 0x6f, 0x74, 0x6f,
-	0x50, 0x01, 0x5a, 0x7d, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x53,
-	0x6f, 0x6c, 0x6f, 0x6d, 0x6f, 0x6e, 0x41, 0x49, 0x45, 0x6e, 0x67, 0x69, 0x6e, 0x65, 0x65, 0x72,
-	0x69, 0x6e, 0x67, 0x2f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2d, 0x6c, 0x65, 0x76, 0x65,
-	0x6c, 0x2d, 0x61, 0x70, 0x69, 0x2f, 0x70, 0x6b, 0x67, 0x2f, 0x67, 0x65, 0x6e, 0x65, 0x72, 0x61,
-	0x74, 0x65, 0x64, 0x2f, 0x66, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x2d, 0x73, 0x65,
-	0x72, 0x76, 0x69, 0x63, 0x65, 0x2f, 0x76, 0x31, 0x2f, 0x66, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69,
-	0x61, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2f, 0x76, 0x31, 0x3b, 0x66, 0x69,
-	0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x76,
-	0x31, 0xa2, 0x02, 0x03, 0x46, 0x58, 0x58, 0xaa, 0x02, 0x13, 0x46, 0x69, 0x6e, 0x61, 0x6e, 0x63,
-	0x69, 0x61, 0x6c, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x56, 0x31, 0xca, 0x02, 0x13,
-	0x46, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
-	0x5c, 0x56, 0x31, 0xe2, 0x02, 0x1f, 0x46, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x53,
-	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x5c, 0x56, 0x31, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74,
-	0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x14, 0x46, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61,
-	0x6c, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x3a, 0x3a, 0x56, 0x31, 0xd8, 0xe1, 0x1e, 0x00,
-	0xe0, 0xe1, 0x1e, 0x01, 0xf0, 0xe1, 0x1e, 0x01, 0xf8, 0xe1, 0x1e, 0x01, 0x80, 0xe2, 0x1e, 0x01,
-	0xa8, 0xe2, 0x1e, 0x01, 0xb8, 0xe2, 0x1e, 0x01, 0xc0, 0xe2, 0x1e, 0x01, 0xc8, 0xe2, 0x1e, 0x01,
-	0xd0, 0xe2, 0x1e, 0x01, 0xe0, 0xe2, 0x1e, 0x01, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x6f, 0x63, 0x6b, 0x65, 0x74, 0x52, 0x06, 0x70, 0x6f, 0x63, 0x6b, 0x65, 0x74, 0x22, 0xe8, 0x01,
+	0x0a, 0x27, 0x47, 0x65, 0x74, 0x54, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e,
+	0x73, 0x42, 0x65, 0x74, 0x77, 0x65, 0x65, 0x6e, 0x54, 0x69, 0x6d, 0x65, 0x52, 0x61, 0x6e, 0x67,
+	0x65, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x34, 0x0a, 0x10, 0x70, 0x6c, 0x61,
+	0x69, 0x64, 0x5f, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x09, 0x42, 0x0a, 0xe0, 0x41, 0x02, 0xfa, 0x42, 0x04, 0x72, 0x02, 0x10, 0x01, 0x52,
+	0x0e, 0x70, 0x6c, 0x61, 0x69, 0x64, 0x41, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x49, 0x64, 0x12,
+	0x23, 0x0a, 0x07, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x04,
+	0x42, 0x0a, 0xe0, 0x41, 0x02, 0xfa, 0x42, 0x04, 0x32, 0x02, 0x20, 0x00, 0x52, 0x06, 0x75, 0x73,
+	0x65, 0x72, 0x49, 0x64, 0x12, 0x1d, 0x0a, 0x0a, 0x73, 0x74, 0x61, 0x72, 0x74, 0x5f, 0x74, 0x69,
+	0x6d, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x04, 0x52, 0x09, 0x73, 0x74, 0x61, 0x72, 0x74, 0x54,
+	0x69, 0x6d, 0x65, 0x12, 0x19, 0x0a, 0x08, 0x65, 0x6e, 0x64, 0x5f, 0x74, 0x69, 0x6d, 0x65, 0x18,
+	0x04, 0x20, 0x01, 0x28, 0x04, 0x52, 0x07, 0x65, 0x6e, 0x64, 0x54, 0x69, 0x6d, 0x65, 0x12, 0x12,
+	0x0a, 0x04, 0x70, 0x61, 0x67, 0x65, 0x18, 0x05, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x04, 0x70, 0x61,
+	0x67, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x18, 0x06, 0x20, 0x01, 0x28,
+	0x0d, 0x52, 0x05, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x22, 0xee, 0x01, 0x0a, 0x28, 0x47, 0x65, 0x74,
+	0x54, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x42, 0x65, 0x74, 0x77,
+	0x65, 0x65, 0x6e, 0x54, 0x69, 0x6d, 0x65, 0x52, 0x61, 0x6e, 0x67, 0x65, 0x73, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x51, 0x0a, 0x0c, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63,
+	0x74, 0x69, 0x6f, 0x6e, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x2d, 0x2e, 0x66, 0x69,
+	0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e,
+	0x76, 0x31, 0x2e, 0x50, 0x6c, 0x61, 0x69, 0x64, 0x41, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x54,
+	0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x0c, 0x74, 0x72, 0x61, 0x6e,
+	0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x12, 0x21, 0x0a, 0x0c, 0x63, 0x75, 0x72, 0x72,
+	0x65, 0x6e, 0x74, 0x5f, 0x70, 0x61, 0x67, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x0b,
+	0x63, 0x75, 0x72, 0x72, 0x65, 0x6e, 0x74, 0x50, 0x61, 0x67, 0x65, 0x12, 0x1d, 0x0a, 0x0a, 0x74,
+	0x6f, 0x74, 0x61, 0x6c, 0x5f, 0x61, 0x67, 0x65, 0x73, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0d, 0x52,
+	0x09, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x41, 0x67, 0x65, 0x73, 0x12, 0x2d, 0x0a, 0x12, 0x74, 0x6f,
+	0x74, 0x61, 0x6c, 0x5f, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x73,
+	0x18, 0x04, 0x20, 0x01, 0x28, 0x04, 0x52, 0x11, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x54, 0x72, 0x61,
+	0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x22, 0xa8, 0x01, 0x0a, 0x21, 0x47, 0x65,
+	0x74, 0x54, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x46, 0x6f, 0x72,
+	0x50, 0x61, 0x73, 0x74, 0x57, 0x65, 0x65, 0x6b, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12,
+	0x34, 0x0a, 0x10, 0x70, 0x6c, 0x61, 0x69, 0x64, 0x5f, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74,
+	0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x0a, 0xe0, 0x41, 0x02, 0xfa, 0x42,
+	0x04, 0x72, 0x02, 0x10, 0x01, 0x52, 0x0e, 0x70, 0x6c, 0x61, 0x69, 0x64, 0x41, 0x63, 0x63, 0x6f,
+	0x75, 0x6e, 0x74, 0x49, 0x64, 0x12, 0x23, 0x0a, 0x07, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x69, 0x64,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x04, 0x42, 0x0a, 0xe0, 0x41, 0x02, 0xfa, 0x42, 0x04, 0x32, 0x02,
+	0x20, 0x00, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x70, 0x61,
+	0x67, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x04, 0x70, 0x61, 0x67, 0x65, 0x12, 0x14,
+	0x0a, 0x05, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x05, 0x6c,
+	0x69, 0x6d, 0x69, 0x74, 0x22, 0xea, 0x01, 0x0a, 0x22, 0x47, 0x65, 0x74, 0x54, 0x72, 0x61, 0x6e,
+	0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x46, 0x6f, 0x72, 0x50, 0x61, 0x73, 0x74, 0x57,
+	0x65, 0x65, 0x6b, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x51, 0x0a, 0x0c, 0x74,
+	0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28,
+	0x0b, 0x32, 0x2d, 0x2e, 0x66, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x5f, 0x73, 0x65,
+	0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x76, 0x31, 0x2e, 0x50, 0x6c, 0x61, 0x69, 0x64, 0x41, 0x63,
+	0x63, 0x6f, 0x75, 0x6e, 0x74, 0x54, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e,
+	0x52, 0x0c, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x12, 0x21,
+	0x0a, 0x0c, 0x63, 0x75, 0x72, 0x72, 0x65, 0x6e, 0x74, 0x5f, 0x70, 0x61, 0x67, 0x65, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x0d, 0x52, 0x0b, 0x63, 0x75, 0x72, 0x72, 0x65, 0x6e, 0x74, 0x50, 0x61, 0x67,
+	0x65, 0x12, 0x1f, 0x0a, 0x0b, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x5f, 0x70, 0x61, 0x67, 0x65, 0x73,
+	0x18, 0x03, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x0a, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x50, 0x61, 0x67,
+	0x65, 0x73, 0x12, 0x2d, 0x0a, 0x12, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x5f, 0x74, 0x72, 0x61, 0x6e,
+	0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x18, 0x04, 0x20, 0x01, 0x28, 0x04, 0x52, 0x11,
+	0x74, 0x6f, 0x74, 0x61, 0x6c, 0x54, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e,
+	0x73, 0x22, 0xa9, 0x01, 0x0a, 0x22, 0x47, 0x65, 0x74, 0x54, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63,
+	0x74, 0x69, 0x6f, 0x6e, 0x73, 0x46, 0x6f, 0x72, 0x50, 0x61, 0x73, 0x74, 0x4d, 0x6f, 0x6e, 0x74,
+	0x68, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x34, 0x0a, 0x10, 0x70, 0x6c, 0x61, 0x69,
+	0x64, 0x5f, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x42, 0x0a, 0xe0, 0x41, 0x02, 0xfa, 0x42, 0x04, 0x72, 0x02, 0x10, 0x01, 0x52, 0x0e,
+	0x70, 0x6c, 0x61, 0x69, 0x64, 0x41, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x49, 0x64, 0x12, 0x23,
+	0x0a, 0x07, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x04, 0x42,
+	0x0a, 0xe0, 0x41, 0x02, 0xfa, 0x42, 0x04, 0x32, 0x02, 0x20, 0x00, 0x52, 0x06, 0x75, 0x73, 0x65,
+	0x72, 0x49, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x70, 0x61, 0x67, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28,
+	0x0d, 0x52, 0x04, 0x70, 0x61, 0x67, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x6c, 0x69, 0x6d, 0x69, 0x74,
+	0x18, 0x04, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x05, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x22, 0xeb, 0x01,
+	0x0a, 0x23, 0x47, 0x65, 0x74, 0x54, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e,
+	0x73, 0x46, 0x6f, 0x72, 0x50, 0x61, 0x73, 0x74, 0x4d, 0x6f, 0x6e, 0x74, 0x68, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x51, 0x0a, 0x0c, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63,
+	0x74, 0x69, 0x6f, 0x6e, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x2d, 0x2e, 0x66, 0x69,
+	0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e,
+	0x76, 0x31, 0x2e, 0x50, 0x6c, 0x61, 0x69, 0x64, 0x41, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x54,
+	0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x0c, 0x74, 0x72, 0x61, 0x6e,
+	0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x12, 0x21, 0x0a, 0x0c, 0x63, 0x75, 0x72, 0x72,
+	0x65, 0x6e, 0x74, 0x5f, 0x70, 0x61, 0x67, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x0b,
+	0x63, 0x75, 0x72, 0x72, 0x65, 0x6e, 0x74, 0x50, 0x61, 0x67, 0x65, 0x12, 0x1f, 0x0a, 0x0b, 0x74,
+	0x6f, 0x74, 0x61, 0x6c, 0x5f, 0x70, 0x61, 0x67, 0x65, 0x73, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0d,
+	0x52, 0x0a, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x50, 0x61, 0x67, 0x65, 0x73, 0x12, 0x2d, 0x0a, 0x12,
+	0x74, 0x6f, 0x74, 0x61, 0x6c, 0x5f, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f,
+	0x6e, 0x73, 0x18, 0x04, 0x20, 0x01, 0x28, 0x04, 0x52, 0x11, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x54,
+	0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x22, 0x8d, 0x01, 0x0a, 0x19,
+	0x41, 0x64, 0x64, 0x4e, 0x6f, 0x74, 0x65, 0x54, 0x6f, 0x53, 0x6d, 0x61, 0x72, 0x74, 0x47, 0x6f,
+	0x61, 0x6c, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x2e, 0x0a, 0x0d, 0x73, 0x6d, 0x61,
+	0x72, 0x74, 0x5f, 0x67, 0x6f, 0x61, 0x6c, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04,
+	0x42, 0x0a, 0xe0, 0x41, 0x02, 0xfa, 0x42, 0x04, 0x32, 0x02, 0x20, 0x00, 0x52, 0x0b, 0x73, 0x6d,
+	0x61, 0x72, 0x74, 0x47, 0x6f, 0x61, 0x6c, 0x49, 0x64, 0x12, 0x40, 0x0a, 0x04, 0x6e, 0x6f, 0x74,
+	0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1f, 0x2e, 0x66, 0x69, 0x6e, 0x61, 0x6e, 0x63,
+	0x69, 0x61, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x76, 0x31, 0x2e, 0x53,
+	0x6d, 0x61, 0x72, 0x74, 0x4e, 0x6f, 0x74, 0x65, 0x42, 0x0b, 0xe0, 0x41, 0x02, 0xfa, 0x42, 0x05,
+	0x8a, 0x01, 0x02, 0x10, 0x01, 0x52, 0x04, 0x6e, 0x6f, 0x74, 0x65, 0x22, 0x51, 0x0a, 0x1a, 0x41,
+	0x64, 0x64, 0x4e, 0x6f, 0x74, 0x65, 0x54, 0x6f, 0x53, 0x6d, 0x61, 0x72, 0x74, 0x47, 0x6f, 0x61,
+	0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x33, 0x0a, 0x04, 0x67, 0x6f, 0x61,
+	0x6c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1f, 0x2e, 0x66, 0x69, 0x6e, 0x61, 0x6e, 0x63,
+	0x69, 0x61, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x76, 0x31, 0x2e, 0x53,
+	0x6d, 0x61, 0x72, 0x74, 0x47, 0x6f, 0x61, 0x6c, 0x52, 0x04, 0x67, 0x6f, 0x61, 0x6c, 0x22, 0x60,
+	0x0a, 0x1c, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x4e, 0x6f, 0x74, 0x65, 0x54, 0x6f, 0x53, 0x6d,
+	0x61, 0x72, 0x74, 0x47, 0x6f, 0x61, 0x6c, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x40,
+	0x0a, 0x04, 0x6e, 0x6f, 0x74, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1f, 0x2e, 0x66,
+	0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
+	0x2e, 0x76, 0x31, 0x2e, 0x53, 0x6d, 0x61, 0x72, 0x74, 0x4e, 0x6f, 0x74, 0x65, 0x42, 0x0b, 0xe0,
+	0x41, 0x02, 0xfa, 0x42, 0x05, 0x8a, 0x01, 0x02, 0x10, 0x01, 0x52, 0x04, 0x6e, 0x6f, 0x74, 0x65,
+	0x22, 0x54, 0x0a, 0x1d, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x4e, 0x6f, 0x74, 0x65, 0x54, 0x6f,
+	0x53, 0x6d, 0x61, 0x72, 0x74, 0x47, 0x6f, 0x61, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x12, 0x33, 0x0a, 0x04, 0x6e, 0x6f, 0x74, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32,
+	0x1f, 0x2e, 0x66, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76,
+	0x69, 0x63, 0x65, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x6d, 0x61, 0x72, 0x74, 0x4e, 0x6f, 0x74, 0x65,
+	0x52, 0x04, 0x6e, 0x6f, 0x74, 0x65, 0x22, 0x75, 0x0a, 0x1e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65,
+	0x4e, 0x6f, 0x74, 0x65, 0x46, 0x72, 0x6f, 0x6d, 0x53, 0x6d, 0x61, 0x72, 0x74, 0x47, 0x6f, 0x61,
+	0x6c, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x2e, 0x0a, 0x0d, 0x73, 0x6d, 0x61, 0x72,
+	0x74, 0x5f, 0x67, 0x6f, 0x61, 0x6c, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x42,
+	0x0a, 0xe0, 0x41, 0x02, 0xfa, 0x42, 0x04, 0x32, 0x02, 0x20, 0x00, 0x52, 0x0b, 0x73, 0x6d, 0x61,
+	0x72, 0x74, 0x47, 0x6f, 0x61, 0x6c, 0x49, 0x64, 0x12, 0x23, 0x0a, 0x07, 0x6e, 0x6f, 0x74, 0x65,
+	0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x04, 0x42, 0x0a, 0xe0, 0x41, 0x02, 0xfa, 0x42,
+	0x04, 0x32, 0x02, 0x20, 0x00, 0x52, 0x06, 0x6e, 0x6f, 0x74, 0x65, 0x49, 0x64, 0x22, 0x3b, 0x0a,
+	0x1f, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x4e, 0x6f, 0x74, 0x65, 0x46, 0x72, 0x6f, 0x6d, 0x53,
+	0x6d, 0x61, 0x72, 0x74, 0x47, 0x6f, 0x61, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x12, 0x18, 0x0a, 0x07, 0x64, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x08, 0x52, 0x07, 0x64, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x64, 0x22, 0x4e, 0x0a, 0x1c, 0x47, 0x65,
+	0x74, 0x4e, 0x6f, 0x74, 0x65, 0x73, 0x46, 0x72, 0x6f, 0x6d, 0x53, 0x6d, 0x61, 0x72, 0x74, 0x47,
+	0x6f, 0x61, 0x6c, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x2e, 0x0a, 0x0d, 0x73, 0x6d,
+	0x61, 0x72, 0x74, 0x5f, 0x67, 0x6f, 0x61, 0x6c, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x04, 0x42, 0x0a, 0xe0, 0x41, 0x02, 0xfa, 0x42, 0x04, 0x32, 0x02, 0x20, 0x00, 0x52, 0x0b, 0x73,
+	0x6d, 0x61, 0x72, 0x74, 0x47, 0x6f, 0x61, 0x6c, 0x49, 0x64, 0x22, 0x56, 0x0a, 0x1d, 0x47, 0x65,
+	0x74, 0x4e, 0x6f, 0x74, 0x65, 0x73, 0x46, 0x72, 0x6f, 0x6d, 0x53, 0x6d, 0x61, 0x72, 0x74, 0x47,
+	0x6f, 0x61, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x35, 0x0a, 0x05, 0x6e,
+	0x6f, 0x74, 0x65, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1f, 0x2e, 0x66, 0x69, 0x6e,
+	0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x76,
+	0x31, 0x2e, 0x53, 0x6d, 0x61, 0x72, 0x74, 0x4e, 0x6f, 0x74, 0x65, 0x52, 0x05, 0x6e, 0x6f, 0x74,
+	0x65, 0x73, 0x22, 0x42, 0x0a, 0x1b, 0x47, 0x65, 0x74, 0x4e, 0x6f, 0x74, 0x65, 0x46, 0x72, 0x6f,
+	0x6d, 0x53, 0x6d, 0x61, 0x72, 0x74, 0x47, 0x6f, 0x61, 0x6c, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x12, 0x23, 0x0a, 0x07, 0x6e, 0x6f, 0x74, 0x65, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x04, 0x42, 0x0a, 0xe0, 0x41, 0x02, 0xfa, 0x42, 0x04, 0x32, 0x02, 0x20, 0x00, 0x52, 0x06,
+	0x6e, 0x6f, 0x74, 0x65, 0x49, 0x64, 0x22, 0x53, 0x0a, 0x1c, 0x47, 0x65, 0x74, 0x4e, 0x6f, 0x74,
+	0x65, 0x46, 0x72, 0x6f, 0x6d, 0x53, 0x6d, 0x61, 0x72, 0x74, 0x47, 0x6f, 0x61, 0x6c, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x33, 0x0a, 0x04, 0x6e, 0x6f, 0x74, 0x65, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x0b, 0x32, 0x1f, 0x2e, 0x66, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c,
+	0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x6d, 0x61, 0x72,
+	0x74, 0x4e, 0x6f, 0x74, 0x65, 0x52, 0x04, 0x6e, 0x6f, 0x74, 0x65, 0x42, 0xd8, 0x02, 0x0a, 0x18,
+	0x63, 0x6f, 0x6d, 0x2e, 0x66, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x5f, 0x73, 0x65,
+	0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x76, 0x31, 0x42, 0x24, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x46, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69,
+	0x61, 0x6c, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01,
+	0x5a, 0x7d, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x53, 0x6f, 0x6c,
+	0x6f, 0x6d, 0x6f, 0x6e, 0x41, 0x49, 0x45, 0x6e, 0x67, 0x69, 0x6e, 0x65, 0x65, 0x72, 0x69, 0x6e,
+	0x67, 0x2f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2d, 0x6c, 0x65, 0x76, 0x65, 0x6c, 0x2d,
+	0x61, 0x70, 0x69, 0x2f, 0x70, 0x6b, 0x67, 0x2f, 0x67, 0x65, 0x6e, 0x65, 0x72, 0x61, 0x74, 0x65,
+	0x64, 0x2f, 0x66, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x2d, 0x73, 0x65, 0x72, 0x76,
+	0x69, 0x63, 0x65, 0x2f, 0x76, 0x31, 0x2f, 0x66, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c,
+	0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2f, 0x76, 0x31, 0x3b, 0x66, 0x69, 0x6e, 0x61,
+	0x6e, 0x63, 0x69, 0x61, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x76, 0x31, 0xa2,
+	0x02, 0x03, 0x46, 0x58, 0x58, 0xaa, 0x02, 0x13, 0x46, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61,
+	0x6c, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x56, 0x31, 0xca, 0x02, 0x13, 0x46, 0x69,
+	0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x5c, 0x56,
+	0x31, 0xe2, 0x02, 0x1f, 0x46, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x53, 0x65, 0x72,
+	0x76, 0x69, 0x63, 0x65, 0x5c, 0x56, 0x31, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64,
+	0x61, 0x74, 0x61, 0xea, 0x02, 0x14, 0x46, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x53,
+	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x3a, 0x3a, 0x56, 0x31, 0xd8, 0xe1, 0x1e, 0x00, 0xe0, 0xe1,
+	0x1e, 0x01, 0xf0, 0xe1, 0x1e, 0x01, 0xf8, 0xe1, 0x1e, 0x01, 0x80, 0xe2, 0x1e, 0x01, 0xa8, 0xe2,
+	0x1e, 0x01, 0xb8, 0xe2, 0x1e, 0x01, 0xc0, 0xe2, 0x1e, 0x01, 0xc8, 0xe2, 0x1e, 0x01, 0xd0, 0xe2,
+	0x1e, 0x01, 0xe0, 0xe2, 0x1e, 0x01, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -6052,7 +7150,7 @@ func file_financial_service_v1_request_response_financial_service_proto_rawDescG
 	return file_financial_service_v1_request_response_financial_service_proto_rawDescData
 }
 
-var file_financial_service_v1_request_response_financial_service_proto_msgTypes = make([]protoimpl.MessageInfo, 98)
+var file_financial_service_v1_request_response_financial_service_proto_msgTypes = make([]protoimpl.MessageInfo, 114)
 var file_financial_service_v1_request_response_financial_service_proto_goTypes = []interface{}{
 	(*CreateUserProfileRequest)(nil),                                          // 0: financial_service.v1.CreateUserProfileRequest
 	(*CreateUserProfileResponse)(nil),                                         // 1: financial_service.v1.CreateUserProfileResponse
@@ -6150,71 +7248,98 @@ var file_financial_service_v1_request_response_financial_service_proto_goTypes =
 	(*DeletePocketResponse)(nil),                                              // 93: financial_service.v1.DeletePocketResponse
 	(*UpdatePocketRequest)(nil),                                               // 94: financial_service.v1.UpdatePocketRequest
 	(*UpdatePocketResponse)(nil),                                              // 95: financial_service.v1.UpdatePocketResponse
-	(*GetReCurringTransactionsResponse_ParticipantReCurringTransactions)(nil), // 96: financial_service.v1.GetReCurringTransactionsResponse.ParticipantReCurringTransactions
-	nil,                            // 97: financial_service.v1.ProcessWebhookRequest.ErrorEntry
-	(*FinancialUserProfile)(nil),   // 98: financial_service.v1.FinancialUserProfile
-	(*MelodyFinancialContext)(nil), // 99: financial_service.v1.MelodyFinancialContext
-	(*BankAccount)(nil),            // 100: financial_service.v1.BankAccount
-	(*Pocket)(nil),                 // 101: financial_service.v1.Pocket
-	(*SmartGoal)(nil),              // 102: financial_service.v1.SmartGoal
-	(*Milestone)(nil),              // 103: financial_service.v1.Milestone
-	(*Forecast)(nil),               // 104: financial_service.v1.Forecast
-	(*Budget)(nil),                 // 105: financial_service.v1.Budget
-	(*InvestmentAccount)(nil),      // 106: financial_service.v1.InvestmentAccount
-	(*MortgageAccount)(nil),        // 107: financial_service.v1.MortgageAccount
-	(*CreditAccount)(nil),          // 108: financial_service.v1.CreditAccount
-	(*StudentLoanAccount)(nil),     // 109: financial_service.v1.StudentLoanAccount
-	(*Link)(nil),                   // 110: financial_service.v1.Link
-	(*ReOccuringTransaction)(nil),  // 111: financial_service.v1.ReOccuringTransaction
-	(*Transaction)(nil),            // 112: financial_service.v1.Transaction
-	(*anypb.Any)(nil),              // 113: google.protobuf.Any
+	(*GetTransactionsBetweenTimeRangesRequest)(nil),                           // 96: financial_service.v1.GetTransactionsBetweenTimeRangesRequest
+	(*GetTransactionsBetweenTimeRangesResponse)(nil),                          // 97: financial_service.v1.GetTransactionsBetweenTimeRangesResponse
+	(*GetTransactionsForPastWeekRequest)(nil),                                 // 98: financial_service.v1.GetTransactionsForPastWeekRequest
+	(*GetTransactionsForPastWeekResponse)(nil),                                // 99: financial_service.v1.GetTransactionsForPastWeekResponse
+	(*GetTransactionsForPastMonthRequest)(nil),                                // 100: financial_service.v1.GetTransactionsForPastMonthRequest
+	(*GetTransactionsForPastMonthResponse)(nil),                               // 101: financial_service.v1.GetTransactionsForPastMonthResponse
+	(*AddNoteToSmartGoalRequest)(nil),                                         // 102: financial_service.v1.AddNoteToSmartGoalRequest
+	(*AddNoteToSmartGoalResponse)(nil),                                        // 103: financial_service.v1.AddNoteToSmartGoalResponse
+	(*UpdateNoteToSmartGoalRequest)(nil),                                      // 104: financial_service.v1.UpdateNoteToSmartGoalRequest
+	(*UpdateNoteToSmartGoalResponse)(nil),                                     // 105: financial_service.v1.UpdateNoteToSmartGoalResponse
+	(*DeleteNoteFromSmartGoalRequest)(nil),                                    // 106: financial_service.v1.DeleteNoteFromSmartGoalRequest
+	(*DeleteNoteFromSmartGoalResponse)(nil),                                   // 107: financial_service.v1.DeleteNoteFromSmartGoalResponse
+	(*GetNotesFromSmartGoalRequest)(nil),                                      // 108: financial_service.v1.GetNotesFromSmartGoalRequest
+	(*GetNotesFromSmartGoalResponse)(nil),                                     // 109: financial_service.v1.GetNotesFromSmartGoalResponse
+	(*GetNoteFromSmartGoalRequest)(nil),                                       // 110: financial_service.v1.GetNoteFromSmartGoalRequest
+	(*GetNoteFromSmartGoalResponse)(nil),                                      // 111: financial_service.v1.GetNoteFromSmartGoalResponse
+	(*GetReCurringTransactionsResponse_ParticipantReCurringTransactions)(nil), // 112: financial_service.v1.GetReCurringTransactionsResponse.ParticipantReCurringTransactions
+	nil,                             // 113: financial_service.v1.ProcessWebhookRequest.ErrorEntry
+	(*FinancialUserProfile)(nil),    // 114: financial_service.v1.FinancialUserProfile
+	(*MelodyFinancialContext)(nil),  // 115: financial_service.v1.MelodyFinancialContext
+	(*BankAccount)(nil),             // 116: financial_service.v1.BankAccount
+	(*Pocket)(nil),                  // 117: financial_service.v1.Pocket
+	(*SmartGoal)(nil),               // 118: financial_service.v1.SmartGoal
+	(*Milestone)(nil),               // 119: financial_service.v1.Milestone
+	(*Forecast)(nil),                // 120: financial_service.v1.Forecast
+	(*Budget)(nil),                  // 121: financial_service.v1.Budget
+	(*InvestmentAccount)(nil),       // 122: financial_service.v1.InvestmentAccount
+	(*MortgageAccount)(nil),         // 123: financial_service.v1.MortgageAccount
+	(*CreditAccount)(nil),           // 124: financial_service.v1.CreditAccount
+	(*StudentLoanAccount)(nil),      // 125: financial_service.v1.StudentLoanAccount
+	(*Link)(nil),                    // 126: financial_service.v1.Link
+	(*ReOccuringTransaction)(nil),   // 127: financial_service.v1.ReOccuringTransaction
+	(*Transaction)(nil),             // 128: financial_service.v1.Transaction
+	(*PlaidAccountTransaction)(nil), // 129: financial_service.v1.PlaidAccountTransaction
+	(*SmartNote)(nil),               // 130: financial_service.v1.SmartNote
+	(*anypb.Any)(nil),               // 131: google.protobuf.Any
 }
 var file_financial_service_v1_request_response_financial_service_proto_depIdxs = []int32{
-	98,  // 0: financial_service.v1.CreateUserProfileRequest.profile:type_name -> financial_service.v1.FinancialUserProfile
-	98,  // 1: financial_service.v1.GetUserProfileResponse.profile:type_name -> financial_service.v1.FinancialUserProfile
-	99,  // 2: financial_service.v1.GetUserProfileResponse.financial_context:type_name -> financial_service.v1.MelodyFinancialContext
-	98,  // 3: financial_service.v1.UpdateUserProfileRequest.profile:type_name -> financial_service.v1.FinancialUserProfile
-	98,  // 4: financial_service.v1.UpdateUserProfileResponse.profile:type_name -> financial_service.v1.FinancialUserProfile
-	100, // 5: financial_service.v1.CreateBankAccountRequest.bank_account:type_name -> financial_service.v1.BankAccount
-	100, // 6: financial_service.v1.GetBankAccountResponse.bank_account:type_name -> financial_service.v1.BankAccount
-	100, // 7: financial_service.v1.UpdateBankAccountRequest.bank_account:type_name -> financial_service.v1.BankAccount
-	100, // 8: financial_service.v1.UpdateBankAccountResponse.bank_account:type_name -> financial_service.v1.BankAccount
-	101, // 9: financial_service.v1.GetPocketResponse.pocket:type_name -> financial_service.v1.Pocket
-	102, // 10: financial_service.v1.GetSmartGoalsByPocketIdResponse.smart_goals:type_name -> financial_service.v1.SmartGoal
-	102, // 11: financial_service.v1.CreateSmartGoalRequest.smart_goal:type_name -> financial_service.v1.SmartGoal
-	102, // 12: financial_service.v1.UpdateSmartGoalRequest.smart_goal:type_name -> financial_service.v1.SmartGoal
-	103, // 13: financial_service.v1.CreateMilestoneRequest.milestone:type_name -> financial_service.v1.Milestone
-	103, // 14: financial_service.v1.UpdateMilestoneRequest.milestone:type_name -> financial_service.v1.Milestone
-	103, // 15: financial_service.v1.UpdateMilestoneResponse.milestone:type_name -> financial_service.v1.Milestone
-	103, // 16: financial_service.v1.GetMilestonesBySmartGoalIdResponse.milestones:type_name -> financial_service.v1.Milestone
-	103, // 17: financial_service.v1.GetMilestoneResponse.milestone:type_name -> financial_service.v1.Milestone
-	104, // 18: financial_service.v1.GetForecastResponse.forecast:type_name -> financial_service.v1.Forecast
-	105, // 19: financial_service.v1.CreateBudgetRequest.budget:type_name -> financial_service.v1.Budget
-	105, // 20: financial_service.v1.UpdateBudgetRequest.budget:type_name -> financial_service.v1.Budget
-	105, // 21: financial_service.v1.UpdateBudgetResponse.budget:type_name -> financial_service.v1.Budget
-	105, // 22: financial_service.v1.GetBudgetResponse.budget:type_name -> financial_service.v1.Budget
-	105, // 23: financial_service.v1.GetAllBudgetsResponse.budgets:type_name -> financial_service.v1.Budget
-	106, // 24: financial_service.v1.GetInvestmentAcccountResponse.investment_account:type_name -> financial_service.v1.InvestmentAccount
-	107, // 25: financial_service.v1.GetMortgageAccountResponse.mortage_account:type_name -> financial_service.v1.MortgageAccount
-	108, // 26: financial_service.v1.GetLiabilityAccountResponse.liability_account:type_name -> financial_service.v1.CreditAccount
-	109, // 27: financial_service.v1.GetStudentLoanAccountResponse.student_loan_account:type_name -> financial_service.v1.StudentLoanAccount
-	110, // 28: financial_service.v1.CreateManualLinkRequest.manual_account_link:type_name -> financial_service.v1.Link
-	110, // 29: financial_service.v1.GetLinkResponse.link:type_name -> financial_service.v1.Link
-	110, // 30: financial_service.v1.GetLinksResponse.links:type_name -> financial_service.v1.Link
-	111, // 31: financial_service.v1.GetReCurringTransactionsResponse.re_ccuring_transactions:type_name -> financial_service.v1.ReOccuringTransaction
-	112, // 32: financial_service.v1.GetTransactionsResponse.transactions:type_name -> financial_service.v1.Transaction
-	97,  // 33: financial_service.v1.ProcessWebhookRequest.error:type_name -> financial_service.v1.ProcessWebhookRequest.ErrorEntry
-	112, // 34: financial_service.v1.GetTransactionsForBankAccountResponse.transactions:type_name -> financial_service.v1.Transaction
-	100, // 35: financial_service.v1.AddDefaultPocketsToBankAccountResponse.bank_account:type_name -> financial_service.v1.BankAccount
-	101, // 36: financial_service.v1.UpdatePocketRequest.pocket:type_name -> financial_service.v1.Pocket
-	101, // 37: financial_service.v1.UpdatePocketResponse.pocket:type_name -> financial_service.v1.Pocket
-	112, // 38: financial_service.v1.GetReCurringTransactionsResponse.ParticipantReCurringTransactions.transactions:type_name -> financial_service.v1.Transaction
-	113, // 39: financial_service.v1.ProcessWebhookRequest.ErrorEntry.value:type_name -> google.protobuf.Any
-	40,  // [40:40] is the sub-list for method output_type
-	40,  // [40:40] is the sub-list for method input_type
-	40,  // [40:40] is the sub-list for extension type_name
-	40,  // [40:40] is the sub-list for extension extendee
-	0,   // [0:40] is the sub-list for field type_name
+	114, // 0: financial_service.v1.CreateUserProfileRequest.profile:type_name -> financial_service.v1.FinancialUserProfile
+	114, // 1: financial_service.v1.GetUserProfileResponse.profile:type_name -> financial_service.v1.FinancialUserProfile
+	115, // 2: financial_service.v1.GetUserProfileResponse.financial_context:type_name -> financial_service.v1.MelodyFinancialContext
+	114, // 3: financial_service.v1.UpdateUserProfileRequest.profile:type_name -> financial_service.v1.FinancialUserProfile
+	114, // 4: financial_service.v1.UpdateUserProfileResponse.profile:type_name -> financial_service.v1.FinancialUserProfile
+	116, // 5: financial_service.v1.CreateBankAccountRequest.bank_account:type_name -> financial_service.v1.BankAccount
+	116, // 6: financial_service.v1.GetBankAccountResponse.bank_account:type_name -> financial_service.v1.BankAccount
+	116, // 7: financial_service.v1.UpdateBankAccountRequest.bank_account:type_name -> financial_service.v1.BankAccount
+	116, // 8: financial_service.v1.UpdateBankAccountResponse.bank_account:type_name -> financial_service.v1.BankAccount
+	117, // 9: financial_service.v1.GetPocketResponse.pocket:type_name -> financial_service.v1.Pocket
+	118, // 10: financial_service.v1.GetSmartGoalsByPocketIdResponse.smart_goals:type_name -> financial_service.v1.SmartGoal
+	118, // 11: financial_service.v1.CreateSmartGoalRequest.smart_goal:type_name -> financial_service.v1.SmartGoal
+	118, // 12: financial_service.v1.UpdateSmartGoalRequest.smart_goal:type_name -> financial_service.v1.SmartGoal
+	119, // 13: financial_service.v1.CreateMilestoneRequest.milestone:type_name -> financial_service.v1.Milestone
+	119, // 14: financial_service.v1.UpdateMilestoneRequest.milestone:type_name -> financial_service.v1.Milestone
+	119, // 15: financial_service.v1.UpdateMilestoneResponse.milestone:type_name -> financial_service.v1.Milestone
+	119, // 16: financial_service.v1.GetMilestonesBySmartGoalIdResponse.milestones:type_name -> financial_service.v1.Milestone
+	119, // 17: financial_service.v1.GetMilestoneResponse.milestone:type_name -> financial_service.v1.Milestone
+	120, // 18: financial_service.v1.GetForecastResponse.forecast:type_name -> financial_service.v1.Forecast
+	121, // 19: financial_service.v1.CreateBudgetRequest.budget:type_name -> financial_service.v1.Budget
+	121, // 20: financial_service.v1.UpdateBudgetRequest.budget:type_name -> financial_service.v1.Budget
+	121, // 21: financial_service.v1.UpdateBudgetResponse.budget:type_name -> financial_service.v1.Budget
+	121, // 22: financial_service.v1.GetBudgetResponse.budget:type_name -> financial_service.v1.Budget
+	121, // 23: financial_service.v1.GetAllBudgetsResponse.budgets:type_name -> financial_service.v1.Budget
+	122, // 24: financial_service.v1.GetInvestmentAcccountResponse.investment_account:type_name -> financial_service.v1.InvestmentAccount
+	123, // 25: financial_service.v1.GetMortgageAccountResponse.mortage_account:type_name -> financial_service.v1.MortgageAccount
+	124, // 26: financial_service.v1.GetLiabilityAccountResponse.liability_account:type_name -> financial_service.v1.CreditAccount
+	125, // 27: financial_service.v1.GetStudentLoanAccountResponse.student_loan_account:type_name -> financial_service.v1.StudentLoanAccount
+	126, // 28: financial_service.v1.CreateManualLinkRequest.manual_account_link:type_name -> financial_service.v1.Link
+	126, // 29: financial_service.v1.GetLinkResponse.link:type_name -> financial_service.v1.Link
+	126, // 30: financial_service.v1.GetLinksResponse.links:type_name -> financial_service.v1.Link
+	127, // 31: financial_service.v1.GetReCurringTransactionsResponse.re_ccuring_transactions:type_name -> financial_service.v1.ReOccuringTransaction
+	128, // 32: financial_service.v1.GetTransactionsResponse.transactions:type_name -> financial_service.v1.Transaction
+	113, // 33: financial_service.v1.ProcessWebhookRequest.error:type_name -> financial_service.v1.ProcessWebhookRequest.ErrorEntry
+	128, // 34: financial_service.v1.GetTransactionsForBankAccountResponse.transactions:type_name -> financial_service.v1.Transaction
+	116, // 35: financial_service.v1.AddDefaultPocketsToBankAccountResponse.bank_account:type_name -> financial_service.v1.BankAccount
+	117, // 36: financial_service.v1.UpdatePocketRequest.pocket:type_name -> financial_service.v1.Pocket
+	117, // 37: financial_service.v1.UpdatePocketResponse.pocket:type_name -> financial_service.v1.Pocket
+	129, // 38: financial_service.v1.GetTransactionsBetweenTimeRangesResponse.transactions:type_name -> financial_service.v1.PlaidAccountTransaction
+	129, // 39: financial_service.v1.GetTransactionsForPastWeekResponse.transactions:type_name -> financial_service.v1.PlaidAccountTransaction
+	129, // 40: financial_service.v1.GetTransactionsForPastMonthResponse.transactions:type_name -> financial_service.v1.PlaidAccountTransaction
+	130, // 41: financial_service.v1.AddNoteToSmartGoalRequest.note:type_name -> financial_service.v1.SmartNote
+	118, // 42: financial_service.v1.AddNoteToSmartGoalResponse.goal:type_name -> financial_service.v1.SmartGoal
+	130, // 43: financial_service.v1.UpdateNoteToSmartGoalRequest.note:type_name -> financial_service.v1.SmartNote
+	130, // 44: financial_service.v1.UpdateNoteToSmartGoalResponse.note:type_name -> financial_service.v1.SmartNote
+	130, // 45: financial_service.v1.GetNotesFromSmartGoalResponse.notes:type_name -> financial_service.v1.SmartNote
+	130, // 46: financial_service.v1.GetNoteFromSmartGoalResponse.note:type_name -> financial_service.v1.SmartNote
+	128, // 47: financial_service.v1.GetReCurringTransactionsResponse.ParticipantReCurringTransactions.transactions:type_name -> financial_service.v1.Transaction
+	131, // 48: financial_service.v1.ProcessWebhookRequest.ErrorEntry.value:type_name -> google.protobuf.Any
+	49,  // [49:49] is the sub-list for method output_type
+	49,  // [49:49] is the sub-list for method input_type
+	49,  // [49:49] is the sub-list for extension type_name
+	49,  // [49:49] is the sub-list for extension extendee
+	0,   // [0:49] is the sub-list for field type_name
 }
 
 func init() { file_financial_service_v1_request_response_financial_service_proto_init() }
@@ -7378,6 +8503,198 @@ func file_financial_service_v1_request_response_financial_service_proto_init() {
 			}
 		}
 		file_financial_service_v1_request_response_financial_service_proto_msgTypes[96].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetTransactionsBetweenTimeRangesRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_financial_service_v1_request_response_financial_service_proto_msgTypes[97].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetTransactionsBetweenTimeRangesResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_financial_service_v1_request_response_financial_service_proto_msgTypes[98].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetTransactionsForPastWeekRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_financial_service_v1_request_response_financial_service_proto_msgTypes[99].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetTransactionsForPastWeekResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_financial_service_v1_request_response_financial_service_proto_msgTypes[100].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetTransactionsForPastMonthRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_financial_service_v1_request_response_financial_service_proto_msgTypes[101].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetTransactionsForPastMonthResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_financial_service_v1_request_response_financial_service_proto_msgTypes[102].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*AddNoteToSmartGoalRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_financial_service_v1_request_response_financial_service_proto_msgTypes[103].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*AddNoteToSmartGoalResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_financial_service_v1_request_response_financial_service_proto_msgTypes[104].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*UpdateNoteToSmartGoalRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_financial_service_v1_request_response_financial_service_proto_msgTypes[105].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*UpdateNoteToSmartGoalResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_financial_service_v1_request_response_financial_service_proto_msgTypes[106].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DeleteNoteFromSmartGoalRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_financial_service_v1_request_response_financial_service_proto_msgTypes[107].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DeleteNoteFromSmartGoalResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_financial_service_v1_request_response_financial_service_proto_msgTypes[108].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetNotesFromSmartGoalRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_financial_service_v1_request_response_financial_service_proto_msgTypes[109].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetNotesFromSmartGoalResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_financial_service_v1_request_response_financial_service_proto_msgTypes[110].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetNoteFromSmartGoalRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_financial_service_v1_request_response_financial_service_proto_msgTypes[111].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetNoteFromSmartGoalResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_financial_service_v1_request_response_financial_service_proto_msgTypes[112].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetReCurringTransactionsResponse_ParticipantReCurringTransactions); i {
 			case 0:
 				return &v.state
@@ -7396,7 +8713,7 @@ func file_financial_service_v1_request_response_financial_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_financial_service_v1_request_response_financial_service_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   98,
+			NumMessages:   114,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

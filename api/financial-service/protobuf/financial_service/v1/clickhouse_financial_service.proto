@@ -214,7 +214,7 @@ message Transaction {
         (validate.rules).uint64.gt = 0
     ];
     int32 sign = 25;
-        // @gotag: ch:"personal_finance_category_primary"
+    // @gotag: ch:"personal_finance_category_primary"
     string personal_finance_category_primary = 26;
     // @gotag: ch:"personal_finance_category_detailed"
     string personal_finance_category_detailed = 27;

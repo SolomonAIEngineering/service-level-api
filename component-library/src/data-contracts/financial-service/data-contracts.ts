@@ -71,6 +71,38 @@ export interface AddDefaultPocketsToBankAccountResponse {
   bankAccount?: BankAccount;
 }
 
+export type AddNoteToSmartGoalData = any;
+
+export interface AddNoteToSmartGoalRequest {
+  /**
+   * The note to add
+   * Validations:
+   * - cannot be nil hence required
+   */
+  note: SmartNote;
+  /**
+   * The smart goal id
+   * Validations:
+   * - smart_goal_id must be greater than 0
+   * @format uint64
+   */
+  smartGoalId: string;
+}
+
+export interface AddNoteToSmartGoalResponse {
+  /**
+   * The smart goal id
+   * SmartGoal: The Goals table stores information about each financial goal, including the name of the goal,
+   * its description, the target amount of money the user wants to save or invest, and the expected date of completion.
+   *
+   * The Goals table also includes columns for the start date of the goal, the current amount of money saved or
+   * invested towards the goal, and a boolean flag indicating whether the goal has been achieved.
+   * These additional columns allow the user to track their progress towards the goal and see how much
+   * more they need to save or invest to reach their target amount.
+   */
+  goal?: SmartGoal;
+}
+
 /** The Address object is used to represent a contact's or company's address. */
 export interface Address {
   /** Line 1 of the address's street. */
@@ -341,10 +373,13 @@ export interface BankAccount {
    * when a user connects a bank account
    */
   pockets?: Array<Pocket>;
+  recurringTransactions?: Array<PlaidAccountRecurringTransaction>;
   /** the bank account status */
   status?: BankAccountStatus;
   /** account subtype */
   subtype?: string;
+  /** the set of transactions tied to this bank account */
+  transactions?: Array<PlaidAccountTransaction>;
   /** the bank account type */
   type: BankAccountType;
   /**
@@ -983,10 +1018,12 @@ export interface CreditAccount {
   number?: string;
   /** plaid account id mapped to this bank account */
   plaidAccountId?: string;
+  recurringTransactions?: Array<PlaidAccountRecurringTransaction>;
   /** the bank account status */
   status?: BankAccountStatus;
   /** accoint subtype */
   subtype?: string;
+  transactions?: Array<PlaidAccountTransaction>;
   /** the bank account type */
   type?: string;
   /**
@@ -1135,6 +1172,13 @@ export type DeleteMilestoneData = any;
 
 export interface DeleteMilestoneResponse {
   /** The milestone id */
+  deleted?: boolean;
+}
+
+export type DeleteNoteFromSmartGoalData = any;
+
+export interface DeleteNoteFromSmartGoalResponse {
+  /** The smart goal id */
   deleted?: boolean;
 }
 
@@ -1630,6 +1674,20 @@ export interface GetMortgageAccountResponse {
   mortageAccount?: MortgageAccount;
 }
 
+export type GetNoteFromSmartGoalData = any;
+
+export interface GetNoteFromSmartGoalResponse {
+  /** The note */
+  note?: SmartNote;
+}
+
+export type GetNotesFromSmartGoalData = any;
+
+export interface GetNotesFromSmartGoalResponse {
+  /** The notes */
+  notes?: Array<SmartNote>;
+}
+
 export type GetPaymentChannelMonthlyExpenditureData = any;
 
 export interface GetPaymentChannelMonthlyExpenditureResponse {
@@ -1682,6 +1740,28 @@ export interface GetTransactionAggregatesResponse {
 
 export type GetTransactions2Data = any;
 
+export interface GetTransactionsBetweenTimeRangesResponse {
+  /**
+   * Current page number
+   * @format int64
+   */
+  currentPage?: number;
+  /**
+   * Total number of pages
+   * @format int64
+   */
+  totalAges?: number;
+  /**
+   * Total number of transactions in the month
+   * @format uint64
+   */
+  totalTransactions?: string;
+  /** The transactions */
+  transactions?: Array<PlaidAccountTransaction>;
+}
+
+export type GetTransactionsByTimeData = any;
+
 export type GetTransactionsData = any;
 
 export interface GetTransactionsForBankAccountResponse {
@@ -1689,6 +1769,48 @@ export interface GetTransactionsForBankAccountResponse {
   nextPageNumber?: string;
   /** The transactions */
   transactions?: Array<Transaction>;
+}
+
+export type GetTransactionsForPastMonthData = any;
+
+export interface GetTransactionsForPastMonthResponse {
+  /**
+   * Current page number
+   * @format int64
+   */
+  currentPage?: number;
+  /**
+   * Total number of pages
+   * @format int64
+   */
+  totalPages?: number;
+  /**
+   * Total number of transactions in the month
+   * @format uint64
+   */
+  totalTransactions?: string;
+  transactions?: Array<PlaidAccountTransaction>;
+}
+
+export type GetTransactionsForPastWeekData = any;
+
+export interface GetTransactionsForPastWeekResponse {
+  /**
+   * Current page number
+   * @format int64
+   */
+  currentPage?: number;
+  /**
+   * Total number of pages
+   * @format int64
+   */
+  totalPages?: number;
+  /**
+   * Total number of transactions in the week
+   * @format uint64
+   */
+  totalTransactions?: string;
+  transactions?: Array<PlaidAccountTransaction>;
 }
 
 export interface GetTransactionsResponse {
@@ -1941,6 +2063,7 @@ export interface InvestmentAccount {
   status?: BankAccountStatus;
   /** accoint subtype */
   subtype?: string;
+  transactions?: Array<PlaidAccountTransaction>;
   /** the bank account type */
   type?: string;
   /**
@@ -2781,6 +2904,329 @@ export type PersonalActionableInsightName =
   | "PERSONAL_ACTIONABLE_INSIGHT_NAME_NON_SUBSCRIPTIONS"
   | "PERSONAL_ACTIONABLE_INSIGHT_NAME_DISCRETIONARY_SPENDING";
 
+export interface PlaidAccountRecurringTransaction {
+  /** @gotag: ch:"account_id" */
+  accountId?: string;
+  /**
+   * `Any` contains an arbitrary serialized protocol buffer message along with a
+   * URL that describes the type of the serialized message.
+   *
+   * Protobuf library provides support to pack/unpack Any values in the form
+   * of utility functions or additional generated methods of the Any type.
+   *
+   * Example 1: Pack and unpack a message in C++.
+   *
+   *     Foo foo = ...;
+   *     Any any;
+   *     any.PackFrom(foo);
+   *     ...
+   *     if (any.UnpackTo(&foo)) {
+   *       ...
+   *     }
+   *
+   * Example 2: Pack and unpack a message in Java.
+   *
+   *     Foo foo = ...;
+   *     Any any = Any.pack(foo);
+   *     ...
+   *     if (any.is(Foo.class)) {
+   *       foo = any.unpack(Foo.class);
+   *     }
+   *
+   * Example 3: Pack and unpack a message in Python.
+   *
+   *     foo = Foo(...)
+   *     any = Any()
+   *     any.Pack(foo)
+   *     ...
+   *     if any.Is(Foo.DESCRIPTOR):
+   *       any.Unpack(foo)
+   *       ...
+   *
+   * Example 4: Pack and unpack a message in Go
+   *
+   *      foo := &pb.Foo{...}
+   *      any, err := anypb.New(foo)
+   *      if err != nil {
+   *        ...
+   *      }
+   *      ...
+   *      foo := &pb.Foo{}
+   *      if err := any.UnmarshalTo(foo); err != nil {
+   *        ...
+   *      }
+   *
+   * The pack methods provided by protobuf library will by default use
+   * 'type.googleapis.com/full.type.name' as the type URL and the unpack
+   * methods only use the fully qualified type name after the last '/'
+   * in the type URL, for example "foo.bar.com/x/y.z" will yield type
+   * name "y.z".
+   *
+   *
+   * JSON
+   *
+   * The JSON representation of an `Any` value uses the regular
+   * representation of the deserialized, embedded message, with an
+   * additional field `@type` which contains the type URL. Example:
+   *
+   *     package google.profile;
+   *     message Person {
+   *       string first_name = 1;
+   *       string last_name = 2;
+   *     }
+   *
+   *     {
+   *       "@type": "type.googleapis.com/google.profile.Person",
+   *       "firstName": <string>,
+   *       "lastName": <string>
+   *     }
+   *
+   * If the embedded message type is well-known and has a custom JSON
+   * representation, that representation will be embedded adding a field
+   * `value` which holds the custom JSON in addition to the `@type`
+   * field. Example (for message [google.protobuf.Duration][]):
+   *
+   *     {
+   *       "@type": "type.googleapis.com/google.protobuf.Duration",
+   *       "value": "1.212s"
+   *     }
+   */
+  additionalProperties?: Any;
+  /** @gotag: ch:"average_amount" */
+  averageAmount?: string;
+  /** @gotag: ch:"average_amount_iso_currency_code" */
+  averageAmountIsoCurrencyCode?: string;
+  /** @gotag: ch:"category_id" */
+  categoryId?: string;
+  /** @gotag: ch:"description" */
+  description?: string;
+  /** @gotag: ch:"first_date" */
+  firstDate?: string;
+  /** @gotag: ch:"flow" */
+  flow?: string;
+  /** @gotag: ch:"frequency" */
+  frequency?: string;
+  /**
+   * @gotag: ch:"id"
+   * @format uint64
+   */
+  id?: string;
+  /** @gotag: ch:"is_active" */
+  isActive?: boolean;
+  /** @gotag: ch:"last_amount" */
+  lastAmount?: string;
+  /** @gotag: ch:"last_amount_iso_currency_code" */
+  lastAmountIsoCurrencyCode?: string;
+  /** @gotag: ch:"last_date" */
+  lastDate?: string;
+  /**
+   * @gotag: ch:"link_id"
+   * @format uint64
+   */
+  linkId?: string;
+  /** @gotag: ch:"merchant_name" */
+  merchantName?: string;
+  /** @gotag: ch:"personal_finance_category_detailed" */
+  personalFinanceCategoryDetailed?: string;
+  /** @gotag: ch:"personal_finance_category_primary" */
+  personalFinanceCategoryPrimary?: string;
+  /** @gotag: ch:"status" */
+  status?: string;
+  /** @gotag: ch:"stream_id" */
+  streamId?: string;
+  /** @format date-time */
+  time?: string;
+  /** @gotag: ch:"transaction_ids,array" */
+  transactionIds?: string;
+  /** @gotag: ch:"updated_time" */
+  updatedTime?: string;
+  /**
+   * @gotag: ch:"user_id"
+   * @format uint64
+   */
+  userId?: string;
+}
+
+export interface PlaidAccountTransaction {
+  /**
+   * Basic transaction details
+   * @gotag: ch:"account_id"
+   */
+  accountId?: string;
+  /** @gotag: ch:"account_owner" */
+  accountOwner?: string;
+  /**
+   * `Any` contains an arbitrary serialized protocol buffer message along with a
+   * URL that describes the type of the serialized message.
+   *
+   * Protobuf library provides support to pack/unpack Any values in the form
+   * of utility functions or additional generated methods of the Any type.
+   *
+   * Example 1: Pack and unpack a message in C++.
+   *
+   *     Foo foo = ...;
+   *     Any any;
+   *     any.PackFrom(foo);
+   *     ...
+   *     if (any.UnpackTo(&foo)) {
+   *       ...
+   *     }
+   *
+   * Example 2: Pack and unpack a message in Java.
+   *
+   *     Foo foo = ...;
+   *     Any any = Any.pack(foo);
+   *     ...
+   *     if (any.is(Foo.class)) {
+   *       foo = any.unpack(Foo.class);
+   *     }
+   *
+   * Example 3: Pack and unpack a message in Python.
+   *
+   *     foo = Foo(...)
+   *     any = Any()
+   *     any.Pack(foo)
+   *     ...
+   *     if any.Is(Foo.DESCRIPTOR):
+   *       any.Unpack(foo)
+   *       ...
+   *
+   * Example 4: Pack and unpack a message in Go
+   *
+   *      foo := &pb.Foo{...}
+   *      any, err := anypb.New(foo)
+   *      if err != nil {
+   *        ...
+   *      }
+   *      ...
+   *      foo := &pb.Foo{}
+   *      if err := any.UnmarshalTo(foo); err != nil {
+   *        ...
+   *      }
+   *
+   * The pack methods provided by protobuf library will by default use
+   * 'type.googleapis.com/full.type.name' as the type URL and the unpack
+   * methods only use the fully qualified type name after the last '/'
+   * in the type URL, for example "foo.bar.com/x/y.z" will yield type
+   * name "y.z".
+   *
+   *
+   * JSON
+   *
+   * The JSON representation of an `Any` value uses the regular
+   * representation of the deserialized, embedded message, with an
+   * additional field `@type` which contains the type URL. Example:
+   *
+   *     package google.profile;
+   *     message Person {
+   *       string first_name = 1;
+   *       string last_name = 2;
+   *     }
+   *
+   *     {
+   *       "@type": "type.googleapis.com/google.profile.Person",
+   *       "firstName": <string>,
+   *       "lastName": <string>
+   *     }
+   *
+   * If the embedded message type is well-known and has a custom JSON
+   * representation, that representation will be embedded adding a field
+   * `value` which holds the custom JSON in addition to the `@type`
+   * field. Example (for message [google.protobuf.Duration][]):
+   *
+   *     {
+   *       "@type": "type.googleapis.com/google.protobuf.Duration",
+   *       "value": "1.212s"
+   *     }
+   */
+  additionalProperties?: Any;
+  /**
+   * @gotag: ch:"amount"
+   * @format double
+   */
+  amount?: number;
+  /** @gotag: ch:"authorized_date" */
+  authorizedDate?: string;
+  /** @gotag: ch:"authorized_datetime" */
+  authorizedDatetime?: string;
+  categories?: Array<string>;
+  /**
+   * Transaction categories
+   * @gotag: ch:"category_id"
+   */
+  categoryId?: string;
+  /**
+   * Payment details
+   * @gotag: ch:"check_number"
+   */
+  checkNumber?: string;
+  /**
+   * Date details
+   * @gotag: ch:"date"
+   */
+  currentDate?: string;
+  /** @gotag: ch:"datetime" */
+  currentDatetime?: string;
+  /**
+   * System generated fields
+   * @format uint64
+   */
+  id?: string;
+  /** @gotag: ch:"iso_currency_code" */
+  isoCurrencyCode?: string;
+  /** @format uint64 */
+  linkId?: string;
+  /** Location details */
+  locationAddress?: string;
+  locationCity?: string;
+  locationCountry?: string;
+  /** @format double */
+  locationLat?: number;
+  /** @format double */
+  locationLon?: number;
+  locationPostalCode?: string;
+  locationRegion?: string;
+  locationStoreNumber?: string;
+  /** @gotag: ch:"merchant_name" */
+  merchantName?: string;
+  /**
+   * Merchant details
+   * @gotag: ch:"name"
+   */
+  name?: string;
+  /** @gotag: ch:"payment_channel" */
+  paymentChannel?: string;
+  paymentMetaByOrderOf?: string;
+  paymentMetaPayee?: string;
+  paymentMetaPayer?: string;
+  paymentMetaPaymentMethod?: string;
+  paymentMetaPaymentProcessor?: string;
+  paymentMetaPpdId?: string;
+  paymentMetaReason?: string;
+  paymentMetaReferenceNumber?: string;
+  /** @gotag: ch:"pending" */
+  pending?: boolean;
+  /** @gotag: ch:"pending_transaction_id" */
+  pendingTransactionId?: string;
+  /** @gotag: ch:"personal_finance_category_detailed" */
+  personalFinanceCategoryDetailed?: string;
+  /** @gotag: ch:"personal_finance_category_primary" */
+  personalFinanceCategoryPrimary?: string;
+  /**
+   * Additional properties
+   * @format date-time
+   */
+  time?: string;
+  /** @gotag: ch:"transaction_code" */
+  transactionCode?: string;
+  /** @gotag: ch:"transaction_id" */
+  transactionId?: string;
+  /** @gotag: ch:"unofficial_currency_code" */
+  unofficialCurrencyCode?: string;
+  /** @format uint64 */
+  userId?: string;
+}
+
 export interface PlaidExchangeTokenRequest {
   /** The institution id */
   institutionId?: string;
@@ -3368,6 +3814,8 @@ export interface SmartGoal {
    * @example "Buy a car"
    */
   name?: string;
+  /** Notes associated with the goal */
+  notes?: Array<SmartNote>;
   /**
    * the start date of the goal
    * @example "Active"
@@ -3381,6 +3829,37 @@ export interface SmartGoal {
   targetAmount?: string;
   /**
    * the user id to which this goal is tied to
+   * @format uint64
+   */
+  userId?: string;
+}
+
+/** Note schema */
+export interface SmartNote {
+  /**
+   * The content of the note
+   * Validations:
+   * - must be at least 3 characters long
+   * @example "Note content here..."
+   */
+  content?: string;
+  /**
+   * Timestamp indicating when the note was created
+   * @format date-time
+   */
+  createdAt?: string;
+  /**
+   * Unique identifier for the note
+   * @format uint64
+   */
+  id?: string;
+  /**
+   * Timestamp indicating when the note was last updated
+   * @format date-time
+   */
+  updatedAt?: string;
+  /**
+   * The user id who created the note. This can be useful if in the future you allow multiple users to add notes to the same goal.
    * @format uint64
    */
   userId?: string;
@@ -3824,6 +4303,22 @@ export interface UpdateMilestoneRequest {
 export interface UpdateMilestoneResponse {
   /** The milestone id */
   milestone?: Milestone;
+}
+
+export type UpdateNoteToSmartGoalData = any;
+
+export interface UpdateNoteToSmartGoalRequest {
+  /**
+   * The note to update
+   * Validations:
+   * - cannot be nil hence required
+   */
+  note: SmartNote;
+}
+
+export interface UpdateNoteToSmartGoalResponse {
+  /** The smart goal id */
+  note?: SmartNote;
 }
 
 export type UpdatePocketData = any;

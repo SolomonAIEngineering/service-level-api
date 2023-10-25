@@ -1808,4 +1808,182 @@ service FinancialService {
       }
     };
   }
+
+  // Time Based Transaction Queries
+  rpc GetTransactionsBetweenTimeRanges(GetTransactionsBetweenTimeRangesRequest) returns (GetTransactionsBetweenTimeRangesResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/users/{user_id}/accounts/{plaid_account_id}/transactions/range"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "get transactions by time"
+      tags: ["analytics","transactions"]
+      operation_id: "GetTransactionsByTime"
+      description: "This endpoint returns the transactions for a given user id and time"
+       "\n"
+        "example: /api/v1/users/{user_id}/accounts/{plaid_account_id}/transactions?start_time={start_time}&end_time={end_time}"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {json_schema: {ref: ".api.v1.GetTransactionsByTimeResponse"}}
+        }
+      }
+    };
+  }
+
+  // get transactions for the past week
+  rpc GetTransactionsForPastWeek(GetTransactionsForPastWeekRequest) returns (GetTransactionsForPastWeekResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/users/{user_id}/accounts/{plaid_account_id}/transactions/week"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "get transactions for the past week"
+      tags: ["analytics","transactions"]
+      operation_id: "GetTransactionsForPastWeek"
+      description: "This endpoint returns the transactions for a given user id and time"
+       "\n"
+        "example: /api/v1/users/{user_id}/accounts/{plaid_account_id}/transactions/week"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {json_schema: {ref: ".api.v1.GetTransactionsForPastWeekResponse"}}
+        }
+      }
+    };
+  }
+
+  // Get transactions for the past month
+  rpc GetTransactionsForPastMonth(GetTransactionsForPastMonthRequest) returns (GetTransactionsForPastMonthResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/users/{user_id}/accounts/{plaid_account_id}/transactions/month"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get transactions for the past month"
+      tags: ["analytics","transactions"]
+      operation_id: "GetTransactionsForPastMonth"
+      description: "This endpoint returns the transactions for a given user id over the past month"
+       "\n"
+        "example: /api/v1/users/{user_id}/accounts/{plaid_account_id}/transactions/month"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {json_schema: {ref: ".api.v1.GetTransactionsForPastMonthResponse"}}
+        }
+      }
+    };
+  }
+
+  // Smart goal and note CRUD api
+  rpc AddNoteToSmartGoal(AddNoteToSmartGoalRequest) returns (AddNoteToSmartGoalResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/smart-goal/note"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "adds a note to a smart goal"
+      tags: ["smart-goal"]
+      operation_id: "AddNoteToSmartGoal"
+      description: "This endpoint adds a note to a smart goal"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.AddNoteToSmartGoalResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  // update the smart note tied to a goal
+  rpc UpdateNoteToSmartGoal(UpdateNoteToSmartGoalRequest) returns (UpdateNoteToSmartGoalResponse) {
+    option (google.api.http) = {
+      put: "/api/v1/smart-goal/note"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "updates a note to a smart goal"
+      tags: ["smart-goal"]
+      operation_id: "UpdateNoteToSmartGoal"
+      description: "This endpoint updates a note to a smart goal"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.UpdateNoteToSmartGoalResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  // // delete a note from a smart goal
+  rpc DeleteNoteFromSmartGoal(DeleteNoteFromSmartGoalRequest) returns (DeleteNoteFromSmartGoalResponse) {
+    option (google.api.http) = {
+      delete: "/api/v1/smart-goal/note/{note_id}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "deletes a note from a smart goal"
+      tags: ["smart-goal"]
+      operation_id: "DeleteNoteFromSmartGoal"
+      description: "This endpoint deletes a note from a smart goal"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.DeleteNoteFromSmartGoalResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  // get notes from a smart goal
+  rpc GetNotesFromSmartGoal(GetNotesFromSmartGoalRequest) returns (GetNotesFromSmartGoalResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/smart-goal/note/{smart_goal_id}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "gets notes from a smart goal"
+      tags: ["smart-goal"]
+      operation_id: "GetNotesFromSmartGoal"
+      description: "This endpoint gets notes from a smart goal"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.GetNotesFromSmartGoalResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  // get a note from a smart goal
+  rpc GetNoteFromSmartGoal(GetNoteFromSmartGoalRequest) returns (GetNoteFromSmartGoalResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/smart-goal/note/{note_id}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "gets a note from a smart goal"
+      tags: ["smart-goal"]
+      operation_id: "GetNoteFromSmartGoal"
+      description: "This endpoint gets a note from a smart goal"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.GetNoteFromSmartGoalResponse"}
+          }
+        }
+      }
+    };
+  }
 }

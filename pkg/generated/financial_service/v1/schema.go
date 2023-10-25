@@ -58,6 +58,10 @@ func GetDatabaseSchemas() []interface{} {
 		VendorCreditORM{},
 		VendorCreditLineORM{},
 		PersonalActionableInsightORM{},
+		PlaidAccountInvestmentTransactionORM{},
+		PlaidAccountTransactionORM{},
+		PlaidAccountRecurringTransactionORM{},
+		SmartNoteORM{},
 	}
 
 	return models

@@ -3861,6 +3861,270 @@
         ]
       }
     },
+    "/api/v1/smart-goal/note": {
+      "post": {
+        "summary": "adds a note to a smart goal",
+        "description": "This endpoint adds a note to a smart goal",
+        "operationId": "AddNoteToSmartGoal",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.AddNoteToSmartGoalResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddNoteToSmartGoalRequest"
+            }
+          }
+        ],
+        "tags": [
+          "smart-goal"
+        ]
+      },
+      "put": {
+        "summary": "updates a note to a smart goal",
+        "description": "This endpoint updates a note to a smart goal",
+        "operationId": "UpdateNoteToSmartGoal",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.UpdateNoteToSmartGoalResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateNoteToSmartGoalRequest"
+            }
+          }
+        ],
+        "tags": [
+          "smart-goal"
+        ]
+      }
+    },
+    "/api/v1/smart-goal/note/{noteId}": {
+      "get": {
+        "summary": "gets a note from a smart goal",
+        "description": "This endpoint gets a note from a smart goal",
+        "operationId": "GetNoteFromSmartGoal",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.GetNoteFromSmartGoalResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "noteId",
+            "description": "The note id\nValidations:\n- note_id must be greater than 0",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "smart-goal"
+        ]
+      },
+      "delete": {
+        "summary": "deletes a note from a smart goal",
+        "description": "This endpoint deletes a note from a smart goal",
+        "operationId": "DeleteNoteFromSmartGoal",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.DeleteNoteFromSmartGoalResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "noteId",
+            "description": "The note id\nValidations:\n- note_id must be greater than 0",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "smartGoalId",
+            "description": "The smart goal id\nValidations:\n- smart_goal_id must be greater than 0",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "smart-goal"
+        ]
+      }
+    },
+    "/api/v1/smart-goal/note/{smartGoalId}": {
+      "get": {
+        "summary": "gets notes from a smart goal",
+        "description": "This endpoint gets notes from a smart goal",
+        "operationId": "GetNotesFromSmartGoal",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.GetNotesFromSmartGoalResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "smartGoalId",
+            "description": "The smart goal id\nValidations:\n- smart_goal_id must be greater than 0",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "smart-goal"
+        ]
+      }
+    },
     "/api/v1/smart-goal/pocket/{pocketId}": {
       "get": {
         "summary": "get smart goals by pocket id",
@@ -4259,6 +4523,245 @@
           "transactions"
         ]
       }
+    },
+    "/api/v1/users/{userId}/accounts/{plaidAccountId}/transactions/month": {
+      "get": {
+        "summary": "Get transactions for the past month",
+        "description": "This endpoint returns the transactions for a given user id over the past month\nexample: /api/v1/users/{user_id}/accounts/{plaid_account_id}/transactions/month",
+        "operationId": "GetTransactionsForPastMonth",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.GetTransactionsForPastMonthResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "plaidAccountId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "description": "Current page number",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "description": "Number of transactions per page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "analytics",
+          "transactions"
+        ]
+      }
+    },
+    "/api/v1/users/{userId}/accounts/{plaidAccountId}/transactions/range": {
+      "get": {
+        "summary": "get transactions by time",
+        "description": "This endpoint returns the transactions for a given user id and time\nexample: /api/v1/users/{user_id}/accounts/{plaid_account_id}/transactions?start_time={start_time}\u0026end_time={end_time}",
+        "operationId": "GetTransactionsByTime",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.GetTransactionsByTimeResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "description": "The user id\nValidations:\n- user_id must be greater than 0",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "plaidAccountId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "startTime",
+            "description": "NOTE: time ranges must follow the follownig semantic - 2023-01-01",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "endTime",
+            "description": "NOTE: time ranges must follow the follownig semantic - 2023-01-03",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "page",
+            "description": "Current page number",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "description": "Number of transactions per page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "analytics",
+          "transactions"
+        ]
+      }
+    },
+    "/api/v1/users/{userId}/accounts/{plaidAccountId}/transactions/week": {
+      "get": {
+        "summary": "get transactions for the past week",
+        "description": "This endpoint returns the transactions for a given user id and time\nexample: /api/v1/users/{user_id}/accounts/{plaid_account_id}/transactions/week",
+        "operationId": "GetTransactionsForPastWeek",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.GetTransactionsForPastWeekResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "plaidAccountId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "description": "Current page number",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "description": "Number of transactions per page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "analytics",
+          "transactions"
+        ]
+      }
     }
   },
   "definitions": {
@@ -4348,6 +4851,33 @@
         "bankAccount": {
           "$ref": "#/definitions/BankAccount",
           "title": "The bank account id"
+        }
+      }
+    },
+    "AddNoteToSmartGoalRequest": {
+      "type": "object",
+      "properties": {
+        "smartGoalId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "The smart goal id\nValidations:\n- smart_goal_id must be greater than 0"
+        },
+        "note": {
+          "$ref": "#/definitions/SmartNote",
+          "title": "The note to add\nValidations:\n- cannot be nil hence required"
+        }
+      },
+      "required": [
+        "smartGoalId",
+        "note"
+      ]
+    },
+    "AddNoteToSmartGoalResponse": {
+      "type": "object",
+      "properties": {
+        "goal": {
+          "$ref": "#/definitions/SmartGoal",
+          "title": "The smart goal id"
         }
       }
     },
@@ -4613,6 +5143,21 @@
         "status": {
           "$ref": "#/definitions/BankAccountStatus",
           "title": "the bank account status"
+        },
+        "transactions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/PlaidAccountTransaction"
+          },
+          "title": "the set of transactions tied to this bank account"
+        },
+        "recurringTransactions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/PlaidAccountRecurringTransaction"
+          }
         }
       },
       "required": [
@@ -5478,6 +6023,20 @@
         "status": {
           "$ref": "#/definitions/BankAccountStatus",
           "title": "the bank account status"
+        },
+        "transactions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/PlaidAccountTransaction"
+          }
+        },
+        "recurringTransactions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/PlaidAccountRecurringTransaction"
+          }
         }
       }
     },
@@ -5689,6 +6248,15 @@
         "deleted": {
           "type": "boolean",
           "title": "The milestone id"
+        }
+      }
+    },
+    "DeleteNoteFromSmartGoalResponse": {
+      "type": "object",
+      "properties": {
+        "deleted": {
+          "type": "boolean",
+          "title": "The smart goal id"
         }
       }
     },
@@ -6412,6 +6980,28 @@
         }
       }
     },
+    "GetNoteFromSmartGoalResponse": {
+      "type": "object",
+      "properties": {
+        "note": {
+          "$ref": "#/definitions/SmartNote",
+          "title": "The note"
+        }
+      }
+    },
+    "GetNotesFromSmartGoalResponse": {
+      "type": "object",
+      "properties": {
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/SmartNote"
+          },
+          "title": "The notes"
+        }
+      }
+    },
     "GetPaymentChannelMonthlyExpenditureResponse": {
       "type": "object",
       "properties": {
@@ -6504,6 +7094,34 @@
         }
       }
     },
+    "GetTransactionsBetweenTimeRangesResponse": {
+      "type": "object",
+      "properties": {
+        "transactions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/PlaidAccountTransaction"
+          },
+          "title": "The transactions"
+        },
+        "currentPage": {
+          "type": "integer",
+          "format": "int64",
+          "title": "Current page number"
+        },
+        "totalAges": {
+          "type": "integer",
+          "format": "int64",
+          "title": "Total number of pages"
+        },
+        "totalTransactions": {
+          "type": "string",
+          "format": "uint64",
+          "title": "Total number of transactions in the month"
+        }
+      }
+    },
     "GetTransactionsForBankAccountResponse": {
       "type": "object",
       "properties": {
@@ -6518,6 +7136,60 @@
         "nextPageNumber": {
           "type": "string",
           "format": "uint64"
+        }
+      }
+    },
+    "GetTransactionsForPastMonthResponse": {
+      "type": "object",
+      "properties": {
+        "transactions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/PlaidAccountTransaction"
+          }
+        },
+        "currentPage": {
+          "type": "integer",
+          "format": "int64",
+          "title": "Current page number"
+        },
+        "totalPages": {
+          "type": "integer",
+          "format": "int64",
+          "title": "Total number of pages"
+        },
+        "totalTransactions": {
+          "type": "string",
+          "format": "uint64",
+          "title": "Total number of transactions in the month"
+        }
+      }
+    },
+    "GetTransactionsForPastWeekResponse": {
+      "type": "object",
+      "properties": {
+        "transactions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/PlaidAccountTransaction"
+          }
+        },
+        "currentPage": {
+          "type": "integer",
+          "format": "int64",
+          "title": "Current page number"
+        },
+        "totalPages": {
+          "type": "integer",
+          "format": "int64",
+          "title": "Total number of pages"
+        },
+        "totalTransactions": {
+          "type": "string",
+          "format": "uint64",
+          "title": "Total number of transactions in the week"
         }
       }
     },
@@ -6913,6 +7585,13 @@
         "status": {
           "$ref": "#/definitions/BankAccountStatus",
           "title": "the bank account status"
+        },
+        "transactions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/PlaidAccountTransaction"
+          }
         }
       }
     },
@@ -8345,6 +9024,278 @@
       ],
       "default": "PERSONAL_ACTIONABLE_INSIGHT_NAME_UNSPECIFIED"
     },
+    "PlaidAccountRecurringTransaction": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "string",
+          "title": "@gotag: ch:\"account_id\""
+        },
+        "streamId": {
+          "type": "string",
+          "title": "@gotag: ch:\"stream_id\""
+        },
+        "categoryId": {
+          "type": "string",
+          "title": "@gotag: ch:\"category_id\""
+        },
+        "description": {
+          "type": "string",
+          "title": "@gotag: ch:\"description\""
+        },
+        "merchantName": {
+          "type": "string",
+          "title": "@gotag: ch:\"merchant_name\""
+        },
+        "personalFinanceCategoryPrimary": {
+          "type": "string",
+          "title": "@gotag: ch:\"personal_finance_category_primary\""
+        },
+        "personalFinanceCategoryDetailed": {
+          "type": "string",
+          "title": "@gotag: ch:\"personal_finance_category_detailed\""
+        },
+        "firstDate": {
+          "type": "string",
+          "title": "@gotag: ch:\"first_date\""
+        },
+        "lastDate": {
+          "type": "string",
+          "title": "@gotag: ch:\"last_date\""
+        },
+        "frequency": {
+          "type": "string",
+          "title": "@gotag: ch:\"frequency\""
+        },
+        "transactionIds": {
+          "type": "string",
+          "title": "@gotag: ch:\"transaction_ids,array\""
+        },
+        "averageAmount": {
+          "type": "string",
+          "title": "@gotag: ch:\"average_amount\""
+        },
+        "averageAmountIsoCurrencyCode": {
+          "type": "string",
+          "title": "@gotag: ch:\"average_amount_iso_currency_code\""
+        },
+        "lastAmount": {
+          "type": "string",
+          "title": "@gotag: ch:\"last_amount\""
+        },
+        "lastAmountIsoCurrencyCode": {
+          "type": "string",
+          "title": "@gotag: ch:\"last_amount_iso_currency_code\""
+        },
+        "isActive": {
+          "type": "boolean",
+          "title": "@gotag: ch:\"is_active\""
+        },
+        "status": {
+          "type": "string",
+          "title": "@gotag: ch:\"status\""
+        },
+        "updatedTime": {
+          "type": "string",
+          "title": "@gotag: ch:\"updated_time\""
+        },
+        "userId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "@gotag: ch:\"user_id\""
+        },
+        "linkId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "@gotag: ch:\"link_id\""
+        },
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "@gotag: ch:\"id\""
+        },
+        "flow": {
+          "type": "string",
+          "title": "@gotag: ch:\"flow\""
+        },
+        "time": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "additionalProperties": {
+          "$ref": "#/definitions/Any"
+        }
+      }
+    },
+    "PlaidAccountTransaction": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "string",
+          "description": "@gotag: ch:\"account_id\"",
+          "title": "Basic transaction details"
+        },
+        "amount": {
+          "type": "number",
+          "format": "double",
+          "title": "@gotag: ch:\"amount\""
+        },
+        "isoCurrencyCode": {
+          "type": "string",
+          "title": "@gotag: ch:\"iso_currency_code\""
+        },
+        "unofficialCurrencyCode": {
+          "type": "string",
+          "title": "@gotag: ch:\"unofficial_currency_code\""
+        },
+        "transactionId": {
+          "type": "string",
+          "title": "@gotag: ch:\"transaction_id\""
+        },
+        "transactionCode": {
+          "type": "string",
+          "title": "@gotag: ch:\"transaction_code\""
+        },
+        "currentDate": {
+          "type": "string",
+          "description": "@gotag: ch:\"date\"",
+          "title": "Date details"
+        },
+        "currentDatetime": {
+          "type": "string",
+          "title": "@gotag: ch:\"datetime\""
+        },
+        "authorizedDate": {
+          "type": "string",
+          "title": "@gotag: ch:\"authorized_date\""
+        },
+        "authorizedDatetime": {
+          "type": "string",
+          "title": "@gotag: ch:\"authorized_datetime\""
+        },
+        "categoryId": {
+          "type": "string",
+          "description": "@gotag: ch:\"category_id\"",
+          "title": "Transaction categories"
+        },
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "personalFinanceCategoryPrimary": {
+          "type": "string",
+          "title": "@gotag: ch:\"personal_finance_category_primary\""
+        },
+        "personalFinanceCategoryDetailed": {
+          "type": "string",
+          "title": "@gotag: ch:\"personal_finance_category_detailed\""
+        },
+        "name": {
+          "type": "string",
+          "description": "@gotag: ch:\"name\"",
+          "title": "Merchant details"
+        },
+        "merchantName": {
+          "type": "string",
+          "title": "@gotag: ch:\"merchant_name\""
+        },
+        "checkNumber": {
+          "type": "string",
+          "description": "@gotag: ch:\"check_number\"",
+          "title": "Payment details"
+        },
+        "paymentChannel": {
+          "type": "string",
+          "title": "@gotag: ch:\"payment_channel\""
+        },
+        "pending": {
+          "type": "boolean",
+          "title": "@gotag: ch:\"pending\""
+        },
+        "pendingTransactionId": {
+          "type": "string",
+          "title": "@gotag: ch:\"pending_transaction_id\""
+        },
+        "accountOwner": {
+          "type": "string",
+          "title": "@gotag: ch:\"account_owner\""
+        },
+        "paymentMetaByOrderOf": {
+          "type": "string"
+        },
+        "paymentMetaPayee": {
+          "type": "string"
+        },
+        "paymentMetaPayer": {
+          "type": "string"
+        },
+        "paymentMetaPaymentMethod": {
+          "type": "string"
+        },
+        "paymentMetaPaymentProcessor": {
+          "type": "string"
+        },
+        "paymentMetaPpdId": {
+          "type": "string"
+        },
+        "paymentMetaReason": {
+          "type": "string"
+        },
+        "paymentMetaReferenceNumber": {
+          "type": "string"
+        },
+        "locationAddress": {
+          "type": "string",
+          "title": "Location details"
+        },
+        "locationCity": {
+          "type": "string"
+        },
+        "locationRegion": {
+          "type": "string"
+        },
+        "locationPostalCode": {
+          "type": "string"
+        },
+        "locationCountry": {
+          "type": "string"
+        },
+        "locationLat": {
+          "type": "number",
+          "format": "double"
+        },
+        "locationLon": {
+          "type": "number",
+          "format": "double"
+        },
+        "locationStoreNumber": {
+          "type": "string"
+        },
+        "time": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Additional properties"
+        },
+        "additionalProperties": {
+          "$ref": "#/definitions/Any"
+        },
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "System generated fields"
+        },
+        "userId": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "linkId": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
     "PlaidExchangeTokenRequest": {
       "type": "object",
       "properties": {
@@ -9126,9 +10077,48 @@
         "forecasts": {
           "$ref": "#/definitions/Forecast",
           "title": "Forecasts associated with the goal"
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/SmartNote"
+          },
+          "title": "Notes associated with the goal"
         }
       },
       "description": "SmartGoal: The Goals table stores information about each financial goal, including the name of the goal,\nits description, the target amount of money the user wants to save or invest, and the expected date of completion.\n\nThe Goals table also includes columns for the start date of the goal, the current amount of money saved or\ninvested towards the goal, and a boolean flag indicating whether the goal has been achieved.\nThese additional columns allow the user to track their progress towards the goal and see how much\nmore they need to save or invest to reach their target amount."
+    },
+    "SmartNote": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "Unique identifier for the note"
+        },
+        "userId": {
+          "type": "string",
+          "format": "uint64",
+          "description": "The user id who created the note. This can be useful if in the future you allow multiple users to add notes to the same goal."
+        },
+        "content": {
+          "type": "string",
+          "example": "Note content here...",
+          "title": "The content of the note\nValidations:\n- must be at least 3 characters long"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Timestamp indicating when the note was created"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Timestamp indicating when the note was last updated"
+        }
+      },
+      "title": "Note schema"
     },
     "Status": {
       "type": "object",
@@ -9823,6 +10813,27 @@
         "milestone": {
           "$ref": "#/definitions/Milestone",
           "title": "The milestone id"
+        }
+      }
+    },
+    "UpdateNoteToSmartGoalRequest": {
+      "type": "object",
+      "properties": {
+        "note": {
+          "$ref": "#/definitions/SmartNote",
+          "title": "The note to update\nValidations:\n- cannot be nil hence required"
+        }
+      },
+      "required": [
+        "note"
+      ]
+    },
+    "UpdateNoteToSmartGoalResponse": {
+      "type": "object",
+      "properties": {
+        "note": {
+          "$ref": "#/definitions/SmartNote",
+          "title": "The smart goal id"
         }
       }
     },

@@ -1733,6 +1733,74 @@ func (m *CreditAccount) validate(all bool) error {
 
 	// no validation rules for Status
 
+	for idx, item := range m.GetTransactions() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, CreditAccountValidationError{
+						field:  fmt.Sprintf("Transactions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, CreditAccountValidationError{
+						field:  fmt.Sprintf("Transactions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return CreditAccountValidationError{
+					field:  fmt.Sprintf("Transactions[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	for idx, item := range m.GetRecurringTransactions() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, CreditAccountValidationError{
+						field:  fmt.Sprintf("RecurringTransactions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, CreditAccountValidationError{
+						field:  fmt.Sprintf("RecurringTransactions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return CreditAccountValidationError{
+					field:  fmt.Sprintf("RecurringTransactions[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
 	if len(errors) > 0 {
 		return CreditAccountMultiError(errors)
 	}
@@ -2089,6 +2157,40 @@ func (m *InvestmentAccount) validate(all bool) error {
 
 	// no validation rules for Status
 
+	for idx, item := range m.GetTransactions() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, InvestmentAccountValidationError{
+						field:  fmt.Sprintf("Transactions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, InvestmentAccountValidationError{
+						field:  fmt.Sprintf("Transactions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return InvestmentAccountValidationError{
+					field:  fmt.Sprintf("Transactions[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
 	if len(errors) > 0 {
 		return InvestmentAccountMultiError(errors)
 	}
@@ -2257,6 +2359,74 @@ func (m *BankAccount) validate(all bool) error {
 	// no validation rules for Subtype
 
 	// no validation rules for Status
+
+	for idx, item := range m.GetTransactions() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, BankAccountValidationError{
+						field:  fmt.Sprintf("Transactions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, BankAccountValidationError{
+						field:  fmt.Sprintf("Transactions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return BankAccountValidationError{
+					field:  fmt.Sprintf("Transactions[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	for idx, item := range m.GetRecurringTransactions() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, BankAccountValidationError{
+						field:  fmt.Sprintf("RecurringTransactions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, BankAccountValidationError{
+						field:  fmt.Sprintf("RecurringTransactions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return BankAccountValidationError{
+					field:  fmt.Sprintf("RecurringTransactions[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
 
 	if len(errors) > 0 {
 		return BankAccountMultiError(errors)
@@ -2641,6 +2811,40 @@ func (m *SmartGoal) validate(all bool) error {
 		}
 	}
 
+	for idx, item := range m.GetNotes() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, SmartGoalValidationError{
+						field:  fmt.Sprintf("Notes[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, SmartGoalValidationError{
+						field:  fmt.Sprintf("Notes[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return SmartGoalValidationError{
+					field:  fmt.Sprintf("Notes[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
 	if len(errors) > 0 {
 		return SmartGoalMultiError(errors)
 	}
@@ -2717,6 +2921,178 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = SmartGoalValidationError{}
+
+// Validate checks the field values on SmartNote with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *SmartNote) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SmartNote with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in SmartNoteMultiError, or nil
+// if none found.
+func (m *SmartNote) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SmartNote) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	// no validation rules for UserId
+
+	if len(m.GetContent()) < 3 {
+		err := SmartNoteValidationError{
+			field:  "Content",
+			reason: "value length must be at least 3 bytes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetCreatedAt()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SmartNoteValidationError{
+					field:  "CreatedAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SmartNoteValidationError{
+					field:  "CreatedAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCreatedAt()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SmartNoteValidationError{
+				field:  "CreatedAt",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetUpdatedAt()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SmartNoteValidationError{
+					field:  "UpdatedAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SmartNoteValidationError{
+					field:  "UpdatedAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetUpdatedAt()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SmartNoteValidationError{
+				field:  "UpdatedAt",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return SmartNoteMultiError(errors)
+	}
+
+	return nil
+}
+
+// SmartNoteMultiError is an error wrapping multiple validation errors returned
+// by SmartNote.ValidateAll() if the designated constraints aren't met.
+type SmartNoteMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SmartNoteMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SmartNoteMultiError) AllErrors() []error { return m }
+
+// SmartNoteValidationError is the validation error returned by
+// SmartNote.Validate if the designated constraints aren't met.
+type SmartNoteValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SmartNoteValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SmartNoteValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SmartNoteValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SmartNoteValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SmartNoteValidationError) ErrorName() string { return "SmartNoteValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SmartNoteValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSmartNote.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SmartNoteValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SmartNoteValidationError{}
 
 // Validate checks the field values on Forecast with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
@@ -10599,3 +10975,701 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = VendorCreditLineValidationError{}
+
+// Validate checks the field values on PlaidAccountInvestmentTransaction with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *PlaidAccountInvestmentTransaction) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PlaidAccountInvestmentTransaction
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// PlaidAccountInvestmentTransactionMultiError, or nil if none found.
+func (m *PlaidAccountInvestmentTransaction) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PlaidAccountInvestmentTransaction) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for AccountId
+
+	// no validation rules for Ammount
+
+	// no validation rules for InvestmentTransactionId
+
+	// no validation rules for SecurityId
+
+	// no validation rules for CurrentDate
+
+	// no validation rules for Name
+
+	// no validation rules for Quantity
+
+	// no validation rules for Amount
+
+	// no validation rules for Price
+
+	// no validation rules for Fees
+
+	// no validation rules for Type
+
+	// no validation rules for Subtype
+
+	// no validation rules for IsoCurrencyCode
+
+	// no validation rules for UnofficialCurrencyCode
+
+	if m.GetLinkId() <= 0 {
+		err := PlaidAccountInvestmentTransactionValidationError{
+			field:  "LinkId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for Id
+
+	if m.GetUserId() <= 0 {
+		err := PlaidAccountInvestmentTransactionValidationError{
+			field:  "UserId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for CreatedAt
+
+	if all {
+		switch v := interface{}(m.GetTime()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PlaidAccountInvestmentTransactionValidationError{
+					field:  "Time",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PlaidAccountInvestmentTransactionValidationError{
+					field:  "Time",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTime()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PlaidAccountInvestmentTransactionValidationError{
+				field:  "Time",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetAdditionalProperties()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PlaidAccountInvestmentTransactionValidationError{
+					field:  "AdditionalProperties",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PlaidAccountInvestmentTransactionValidationError{
+					field:  "AdditionalProperties",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetAdditionalProperties()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PlaidAccountInvestmentTransactionValidationError{
+				field:  "AdditionalProperties",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return PlaidAccountInvestmentTransactionMultiError(errors)
+	}
+
+	return nil
+}
+
+// PlaidAccountInvestmentTransactionMultiError is an error wrapping multiple
+// validation errors returned by
+// PlaidAccountInvestmentTransaction.ValidateAll() if the designated
+// constraints aren't met.
+type PlaidAccountInvestmentTransactionMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PlaidAccountInvestmentTransactionMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PlaidAccountInvestmentTransactionMultiError) AllErrors() []error { return m }
+
+// PlaidAccountInvestmentTransactionValidationError is the validation error
+// returned by PlaidAccountInvestmentTransaction.Validate if the designated
+// constraints aren't met.
+type PlaidAccountInvestmentTransactionValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PlaidAccountInvestmentTransactionValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PlaidAccountInvestmentTransactionValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PlaidAccountInvestmentTransactionValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PlaidAccountInvestmentTransactionValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PlaidAccountInvestmentTransactionValidationError) ErrorName() string {
+	return "PlaidAccountInvestmentTransactionValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e PlaidAccountInvestmentTransactionValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPlaidAccountInvestmentTransaction.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PlaidAccountInvestmentTransactionValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PlaidAccountInvestmentTransactionValidationError{}
+
+// Validate checks the field values on PlaidAccountRecurringTransaction with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *PlaidAccountRecurringTransaction) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PlaidAccountRecurringTransaction with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// PlaidAccountRecurringTransactionMultiError, or nil if none found.
+func (m *PlaidAccountRecurringTransaction) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PlaidAccountRecurringTransaction) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for AccountId
+
+	// no validation rules for StreamId
+
+	// no validation rules for CategoryId
+
+	// no validation rules for Description
+
+	// no validation rules for MerchantName
+
+	// no validation rules for PersonalFinanceCategoryPrimary
+
+	// no validation rules for PersonalFinanceCategoryDetailed
+
+	// no validation rules for FirstDate
+
+	// no validation rules for LastDate
+
+	// no validation rules for Frequency
+
+	// no validation rules for TransactionIds
+
+	// no validation rules for AverageAmount
+
+	// no validation rules for AverageAmountIsoCurrencyCode
+
+	// no validation rules for LastAmount
+
+	// no validation rules for LastAmountIsoCurrencyCode
+
+	// no validation rules for IsActive
+
+	// no validation rules for Status
+
+	// no validation rules for UpdatedTime
+
+	if m.GetUserId() <= 0 {
+		err := PlaidAccountRecurringTransactionValidationError{
+			field:  "UserId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetLinkId() <= 0 {
+		err := PlaidAccountRecurringTransactionValidationError{
+			field:  "LinkId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for Id
+
+	// no validation rules for Flow
+
+	if all {
+		switch v := interface{}(m.GetTime()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PlaidAccountRecurringTransactionValidationError{
+					field:  "Time",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PlaidAccountRecurringTransactionValidationError{
+					field:  "Time",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTime()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PlaidAccountRecurringTransactionValidationError{
+				field:  "Time",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetAdditionalProperties()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PlaidAccountRecurringTransactionValidationError{
+					field:  "AdditionalProperties",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PlaidAccountRecurringTransactionValidationError{
+					field:  "AdditionalProperties",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetAdditionalProperties()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PlaidAccountRecurringTransactionValidationError{
+				field:  "AdditionalProperties",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return PlaidAccountRecurringTransactionMultiError(errors)
+	}
+
+	return nil
+}
+
+// PlaidAccountRecurringTransactionMultiError is an error wrapping multiple
+// validation errors returned by
+// PlaidAccountRecurringTransaction.ValidateAll() if the designated
+// constraints aren't met.
+type PlaidAccountRecurringTransactionMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PlaidAccountRecurringTransactionMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PlaidAccountRecurringTransactionMultiError) AllErrors() []error { return m }
+
+// PlaidAccountRecurringTransactionValidationError is the validation error
+// returned by PlaidAccountRecurringTransaction.Validate if the designated
+// constraints aren't met.
+type PlaidAccountRecurringTransactionValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PlaidAccountRecurringTransactionValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PlaidAccountRecurringTransactionValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PlaidAccountRecurringTransactionValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PlaidAccountRecurringTransactionValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PlaidAccountRecurringTransactionValidationError) ErrorName() string {
+	return "PlaidAccountRecurringTransactionValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e PlaidAccountRecurringTransactionValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPlaidAccountRecurringTransaction.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PlaidAccountRecurringTransactionValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PlaidAccountRecurringTransactionValidationError{}
+
+// Validate checks the field values on PlaidAccountTransaction with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *PlaidAccountTransaction) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PlaidAccountTransaction with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// PlaidAccountTransactionMultiError, or nil if none found.
+func (m *PlaidAccountTransaction) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PlaidAccountTransaction) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for AccountId
+
+	// no validation rules for Amount
+
+	// no validation rules for IsoCurrencyCode
+
+	// no validation rules for UnofficialCurrencyCode
+
+	// no validation rules for TransactionId
+
+	// no validation rules for TransactionCode
+
+	// no validation rules for CurrentDate
+
+	// no validation rules for CurrentDatetime
+
+	// no validation rules for AuthorizedDate
+
+	// no validation rules for AuthorizedDatetime
+
+	// no validation rules for CategoryId
+
+	// no validation rules for PersonalFinanceCategoryPrimary
+
+	// no validation rules for PersonalFinanceCategoryDetailed
+
+	// no validation rules for Name
+
+	// no validation rules for MerchantName
+
+	// no validation rules for CheckNumber
+
+	// no validation rules for PaymentChannel
+
+	// no validation rules for Pending
+
+	// no validation rules for PendingTransactionId
+
+	// no validation rules for AccountOwner
+
+	// no validation rules for PaymentMetaByOrderOf
+
+	// no validation rules for PaymentMetaPayee
+
+	// no validation rules for PaymentMetaPayer
+
+	// no validation rules for PaymentMetaPaymentMethod
+
+	// no validation rules for PaymentMetaPaymentProcessor
+
+	// no validation rules for PaymentMetaPpdId
+
+	// no validation rules for PaymentMetaReason
+
+	// no validation rules for PaymentMetaReferenceNumber
+
+	// no validation rules for LocationAddress
+
+	// no validation rules for LocationCity
+
+	// no validation rules for LocationRegion
+
+	// no validation rules for LocationPostalCode
+
+	// no validation rules for LocationCountry
+
+	// no validation rules for LocationLat
+
+	// no validation rules for LocationLon
+
+	// no validation rules for LocationStoreNumber
+
+	if all {
+		switch v := interface{}(m.GetTime()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PlaidAccountTransactionValidationError{
+					field:  "Time",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PlaidAccountTransactionValidationError{
+					field:  "Time",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTime()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PlaidAccountTransactionValidationError{
+				field:  "Time",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetAdditionalProperties()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PlaidAccountTransactionValidationError{
+					field:  "AdditionalProperties",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PlaidAccountTransactionValidationError{
+					field:  "AdditionalProperties",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetAdditionalProperties()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PlaidAccountTransactionValidationError{
+				field:  "AdditionalProperties",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Id
+
+	if m.GetUserId() <= 0 {
+		err := PlaidAccountTransactionValidationError{
+			field:  "UserId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetLinkId() <= 0 {
+		err := PlaidAccountTransactionValidationError{
+			field:  "LinkId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return PlaidAccountTransactionMultiError(errors)
+	}
+
+	return nil
+}
+
+// PlaidAccountTransactionMultiError is an error wrapping multiple validation
+// errors returned by PlaidAccountTransaction.ValidateAll() if the designated
+// constraints aren't met.
+type PlaidAccountTransactionMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PlaidAccountTransactionMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PlaidAccountTransactionMultiError) AllErrors() []error { return m }
+
+// PlaidAccountTransactionValidationError is the validation error returned by
+// PlaidAccountTransaction.Validate if the designated constraints aren't met.
+type PlaidAccountTransactionValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PlaidAccountTransactionValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PlaidAccountTransactionValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PlaidAccountTransactionValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PlaidAccountTransactionValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PlaidAccountTransactionValidationError) ErrorName() string {
+	return "PlaidAccountTransactionValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e PlaidAccountTransactionValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPlaidAccountTransaction.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PlaidAccountTransactionValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PlaidAccountTransactionValidationError{}

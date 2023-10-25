@@ -52,6 +52,12 @@ func newInvestmentAccountORM(db *gorm.DB, opts ...gen.DOOption) investmentAccoun
 		RelationField: field.NewRelation("Securities", "financial_servicev1.InvestmentSecurityORM"),
 	}
 
+	_investmentAccountORM.Transactions = investmentAccountORMHasManyTransactions{
+		db: db.Session(&gorm.Session{}),
+
+		RelationField: field.NewRelation("Transactions", "financial_servicev1.PlaidAccountTransactionORM"),
+	}
+
 	_investmentAccountORM.fillFieldMap()
 
 	return _investmentAccountORM
@@ -76,6 +82,8 @@ type investmentAccountORM struct {
 	Holdings       investmentAccountORMHasManyHoldings
 
 	Securities investmentAccountORMHasManySecurities
+
+	Transactions investmentAccountORMHasManyTransactions
 
 	fieldMap map[string]field.Expr
 }
@@ -120,7 +128,7 @@ func (i *investmentAccountORM) GetFieldByName(fieldName string) (field.OrderExpr
 }
 
 func (i *investmentAccountORM) fillFieldMap() {
-	i.fieldMap = make(map[string]field.Expr, 14)
+	i.fieldMap = make(map[string]field.Expr, 15)
 	i.fieldMap["balance"] = i.Balance
 	i.fieldMap["balance_limit"] = i.BalanceLimit
 	i.fieldMap["current_funds"] = i.CurrentFunds
@@ -285,6 +293,77 @@ func (a investmentAccountORMHasManySecuritiesTx) Clear() error {
 }
 
 func (a investmentAccountORMHasManySecuritiesTx) Count() int64 {
+	return a.tx.Count()
+}
+
+type investmentAccountORMHasManyTransactions struct {
+	db *gorm.DB
+
+	field.RelationField
+}
+
+func (a investmentAccountORMHasManyTransactions) Where(conds ...field.Expr) *investmentAccountORMHasManyTransactions {
+	if len(conds) == 0 {
+		return &a
+	}
+
+	exprs := make([]clause.Expression, 0, len(conds))
+	for _, cond := range conds {
+		exprs = append(exprs, cond.BeCond().(clause.Expression))
+	}
+	a.db = a.db.Clauses(clause.Where{Exprs: exprs})
+	return &a
+}
+
+func (a investmentAccountORMHasManyTransactions) WithContext(ctx context.Context) *investmentAccountORMHasManyTransactions {
+	a.db = a.db.WithContext(ctx)
+	return &a
+}
+
+func (a investmentAccountORMHasManyTransactions) Session(session *gorm.Session) *investmentAccountORMHasManyTransactions {
+	a.db = a.db.Session(session)
+	return &a
+}
+
+func (a investmentAccountORMHasManyTransactions) Model(m *financial_servicev1.InvestmentAccountORM) *investmentAccountORMHasManyTransactionsTx {
+	return &investmentAccountORMHasManyTransactionsTx{a.db.Model(m).Association(a.Name())}
+}
+
+type investmentAccountORMHasManyTransactionsTx struct{ tx *gorm.Association }
+
+func (a investmentAccountORMHasManyTransactionsTx) Find() (result []*financial_servicev1.PlaidAccountTransactionORM, err error) {
+	return result, a.tx.Find(&result)
+}
+
+func (a investmentAccountORMHasManyTransactionsTx) Append(values ...*financial_servicev1.PlaidAccountTransactionORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Append(targetValues...)
+}
+
+func (a investmentAccountORMHasManyTransactionsTx) Replace(values ...*financial_servicev1.PlaidAccountTransactionORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Replace(targetValues...)
+}
+
+func (a investmentAccountORMHasManyTransactionsTx) Delete(values ...*financial_servicev1.PlaidAccountTransactionORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Delete(targetValues...)
+}
+
+func (a investmentAccountORMHasManyTransactionsTx) Clear() error {
+	return a.tx.Clear()
+}
+
+func (a investmentAccountORMHasManyTransactionsTx) Count() int64 {
 	return a.tx.Count()
 }
 

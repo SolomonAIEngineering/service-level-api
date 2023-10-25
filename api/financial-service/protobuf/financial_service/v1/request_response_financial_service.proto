@@ -1010,3 +1010,163 @@ message UpdatePocketResponse {
   // The pocket id
   Pocket pocket = 1;
 }
+
+message GetTransactionsBetweenTimeRangesRequest {
+  string plaid_account_id = 1 [
+    (validate.rules).string.min_len = 1,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // The user id
+  // Validations:
+  // - user_id must be greater than 0
+  uint64 user_id = 2 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // NOTE: time ranges must follow the follownig semantic - 2023-01-01
+  uint64 start_time = 3;
+  // NOTE: time ranges must follow the follownig semantic - 2023-01-03
+  uint64 end_time = 4;
+  uint32 page = 5;   // Current page number
+  uint32 limit = 6;  // Number of transactions per page
+}
+
+message GetTransactionsBetweenTimeRangesResponse {
+  // The transactions
+  repeated PlaidAccountTransaction transactions = 1;
+  uint32 current_page = 2;           // Current page number
+  uint32 total_ages = 3;            // Total number of pages
+  uint64 total_transactions = 4;     // Total number of transactions in the month
+}
+
+message GetTransactionsForPastWeekRequest {
+  string plaid_account_id = 1 [
+    (validate.rules).string.min_len = 1,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  uint64 user_id = 2 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  uint32 page = 3;   // Current page number
+  uint32 limit = 4;  // Number of transactions per page
+}
+
+message GetTransactionsForPastWeekResponse {
+  repeated PlaidAccountTransaction transactions = 1;
+  uint32 current_page = 2;           // Current page number
+  uint32 total_pages = 3;            // Total number of pages
+  uint64 total_transactions = 4;     // Total number of transactions in the week
+}
+
+message GetTransactionsForPastMonthRequest {
+  string plaid_account_id = 1 [
+    (validate.rules).string.min_len = 1,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  uint64 user_id = 2 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  uint32 page = 3;   // Current page number
+  uint32 limit = 4;  // Number of transactions per page
+}
+
+message GetTransactionsForPastMonthResponse {
+  repeated PlaidAccountTransaction transactions = 1;
+  uint32 current_page = 2;           // Current page number
+  uint32 total_pages = 3;            // Total number of pages
+  uint64 total_transactions = 4;     // Total number of transactions in the month
+}
+
+message AddNoteToSmartGoalRequest {
+  // The smart goal id
+  // Validations:
+  // - smart_goal_id must be greater than 0
+  uint64 smart_goal_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The note to add
+  // Validations:
+  // - cannot be nil hence required
+  SmartNote note = 2 [
+    (validate.rules).message.required = true,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message AddNoteToSmartGoalResponse {
+  // The smart goal id
+  SmartGoal goal = 1;
+}
+
+message UpdateNoteToSmartGoalRequest {
+  // The note to update
+  // Validations:
+  // - cannot be nil hence required
+  SmartNote note = 1 [
+    (validate.rules).message.required = true,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message UpdateNoteToSmartGoalResponse {
+  // The smart goal id
+  SmartNote note = 1;
+}
+
+message DeleteNoteFromSmartGoalRequest {
+  // The smart goal id
+  // Validations:
+  // - smart_goal_id must be greater than 0
+  uint64 smart_goal_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The note id
+  // Validations:
+  // - note_id must be greater than 0
+  uint64 note_id = 2 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message DeleteNoteFromSmartGoalResponse {
+  // The smart goal id
+  bool deleted = 1;
+}
+
+message GetNotesFromSmartGoalRequest {
+  // The smart goal id
+  // Validations:
+  // - smart_goal_id must be greater than 0
+  uint64 smart_goal_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message GetNotesFromSmartGoalResponse {
+  // The notes
+  repeated SmartNote notes = 1;
+}
+
+message GetNoteFromSmartGoalRequest {
+  // The note id
+  // Validations:
+  // - note_id must be greater than 0
+  uint64 note_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message GetNoteFromSmartGoalResponse {
+  // The note
+  SmartNote note = 1;
+}

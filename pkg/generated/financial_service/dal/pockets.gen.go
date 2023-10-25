@@ -64,6 +64,11 @@ func newPocketORM(db *gorm.DB, opts ...gen.DOOption) pocketORM {
 				},
 			},
 		},
+		Notes: struct {
+			field.RelationField
+		}{
+			RelationField: field.NewRelation("Goals.Notes", "financial_servicev1.SmartNoteORM"),
+		},
 	}
 
 	_pocketORM.fillFieldMap()
@@ -147,6 +152,9 @@ type pocketORMHasManyGoals struct {
 				field.RelationField
 			}
 		}
+	}
+	Notes struct {
+		field.RelationField
 	}
 }
 

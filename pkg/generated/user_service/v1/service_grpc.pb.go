@@ -19,22 +19,34 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	UserService_GetUser_FullMethodName                  = "/user_service.v1.UserService/GetUser"
-	UserService_GetUserByUsername_FullMethodName        = "/user_service.v1.UserService/GetUserByUsername"
-	UserService_GetUserByEmail_FullMethodName           = "/user_service.v1.UserService/GetUserByEmail"
-	UserService_CheckUsernameExists_FullMethodName      = "/user_service.v1.UserService/CheckUsernameExists"
-	UserService_CheckEmailExists_FullMethodName         = "/user_service.v1.UserService/CheckEmailExists"
-	UserService_DeleteUser_FullMethodName               = "/user_service.v1.UserService/DeleteUser"
-	UserService_UpdateUser_FullMethodName               = "/user_service.v1.UserService/UpdateUser"
-	UserService_CreateUser_FullMethodName               = "/user_service.v1.UserService/CreateUser"
-	UserService_GetUserId_FullMethodName                = "/user_service.v1.UserService/GetUserId"
-	UserService_HealthCheck_FullMethodName              = "/user_service.v1.UserService/HealthCheck"
-	UserService_ReadynessCheck_FullMethodName           = "/user_service.v1.UserService/ReadynessCheck"
-	UserService_GetUserByEmailOrUsername_FullMethodName = "/user_service.v1.UserService/GetUserByEmailOrUsername"
-	UserService_VerifyUser_FullMethodName               = "/user_service.v1.UserService/VerifyUser"
-	UserService_PasswordResetWebhook_FullMethodName     = "/user_service.v1.UserService/PasswordResetWebhook"
-	UserService_GetBusinessSettings_FullMethodName      = "/user_service.v1.UserService/GetBusinessSettings"
-	UserService_UpdateBusinessSettings_FullMethodName   = "/user_service.v1.UserService/UpdateBusinessSettings"
+	UserService_GetUser_FullMethodName                    = "/user_service.v1.UserService/GetUser"
+	UserService_GetUserByUsername_FullMethodName          = "/user_service.v1.UserService/GetUserByUsername"
+	UserService_GetUserByEmail_FullMethodName             = "/user_service.v1.UserService/GetUserByEmail"
+	UserService_CheckUsernameExists_FullMethodName        = "/user_service.v1.UserService/CheckUsernameExists"
+	UserService_CheckEmailExists_FullMethodName           = "/user_service.v1.UserService/CheckEmailExists"
+	UserService_DeleteUser_FullMethodName                 = "/user_service.v1.UserService/DeleteUser"
+	UserService_UpdateUser_FullMethodName                 = "/user_service.v1.UserService/UpdateUser"
+	UserService_CreateUser_FullMethodName                 = "/user_service.v1.UserService/CreateUser"
+	UserService_GetUserId_FullMethodName                  = "/user_service.v1.UserService/GetUserId"
+	UserService_HealthCheck_FullMethodName                = "/user_service.v1.UserService/HealthCheck"
+	UserService_ReadynessCheck_FullMethodName             = "/user_service.v1.UserService/ReadynessCheck"
+	UserService_GetUserByEmailOrUsername_FullMethodName   = "/user_service.v1.UserService/GetUserByEmailOrUsername"
+	UserService_VerifyUser_FullMethodName                 = "/user_service.v1.UserService/VerifyUser"
+	UserService_PasswordResetWebhook_FullMethodName       = "/user_service.v1.UserService/PasswordResetWebhook"
+	UserService_GetUserV2_FullMethodName                  = "/user_service.v1.UserService/GetUserV2"
+	UserService_GetUserByUsernameV2_FullMethodName        = "/user_service.v1.UserService/GetUserByUsernameV2"
+	UserService_GetUserByEmailV2_FullMethodName           = "/user_service.v1.UserService/GetUserByEmailV2"
+	UserService_GetUserByEmailOrUsernameV2_FullMethodName = "/user_service.v1.UserService/GetUserByEmailOrUsernameV2"
+	UserService_CheckUsernameExistsV2_FullMethodName      = "/user_service.v1.UserService/CheckUsernameExistsV2"
+	UserService_CheckEmailExistsV2_FullMethodName         = "/user_service.v1.UserService/CheckEmailExistsV2"
+	UserService_DeleteUserV2_FullMethodName               = "/user_service.v1.UserService/DeleteUserV2"
+	UserService_UpdateUserV2_FullMethodName               = "/user_service.v1.UserService/UpdateUserV2"
+	UserService_CreateUserV2_FullMethodName               = "/user_service.v1.UserService/CreateUserV2"
+	UserService_GetUserIdV2_FullMethodName                = "/user_service.v1.UserService/GetUserIdV2"
+	UserService_VerifyUserV2_FullMethodName               = "/user_service.v1.UserService/VerifyUserV2"
+	UserService_PasswordResetWebhookV2_FullMethodName     = "/user_service.v1.UserService/PasswordResetWebhookV2"
+	UserService_GetBusinessSettings_FullMethodName        = "/user_service.v1.UserService/GetBusinessSettings"
+	UserService_UpdateBusinessSettings_FullMethodName     = "/user_service.v1.UserService/UpdateBusinessSettings"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -55,9 +67,108 @@ type UserServiceClient interface {
 	GetUserByEmailOrUsername(ctx context.Context, in *GetUserByEmailOrUsernameRequest, opts ...grpc.CallOption) (*GetUserByEmailOrUsernameResponse, error)
 	VerifyUser(ctx context.Context, in *VerifyUserRequest, opts ...grpc.CallOption) (*VerifyUserResponse, error)
 	PasswordResetWebhook(ctx context.Context, in *PasswordResetWebhookRequest, opts ...grpc.CallOption) (*PasswordResetWebhookResponse, error)
-	// Retrieve business settings.
+	// @brief Retrieves details of a user account.
+	//
+	// This RPC provides access to detailed information about a user account
+	// based on the provided user ID. The endpoint for this service is `/api/v2/user/{user_id}`.
+	// The service provides a concise and clear response encapsulated in `GetUserV2Response`.
+	//
+	// @param GetUserV2Request Request object containing the parameters needed to query the user details.
+	// @return GetUserV2Response Response object containing the details of the queried user.
+	GetUserV2(ctx context.Context, in *GetUserV2Request, opts ...grpc.CallOption) (*GetUserV2Response, error)
+	// @brief Fetches user account details based on the username.
+	//
+	// This RPC provides access to user account information based on the given username.
+	//
+	// @param GetUserByUsernameV2Request Request containing the desired username.
+	// @return GetUserByUsernameV2Response Returns the corresponding user details.
+	GetUserByUsernameV2(ctx context.Context, in *GetUserByUsernameV2Request, opts ...grpc.CallOption) (*GetUserByUsernameV2Response, error)
+	// @brief Fetches user account details based on the email.
+	//
+	// This RPC provides access to user account information based on the provided email.
+	//
+	// @param GetUserByEmailV2Request Request containing the desired email.
+	// @return GetUserByEmailV2Response Returns the corresponding user details.
+	GetUserByEmailV2(ctx context.Context, in *GetUserByEmailV2Request, opts ...grpc.CallOption) (*GetUserByEmailV2Response, error)
+	// Retrieves a user account using either email or username.
+	//
+	// @param GetUserByEmailOrUsernameV2Request Contains the email or username to query the account.
+	// @return GetUserByEmailOrUsernameV2Response Provides the status of the operation.
+	GetUserByEmailOrUsernameV2(ctx context.Context, in *GetUserByEmailOrUsernameV2Request, opts ...grpc.CallOption) (*GetUserByEmailOrUsernameV2Response, error)
+	// @brief Checks if a username exists for a given account type
+	//
+	// # This RPC performs checks to ensure a username exists based on the provided parameters
+	//
+	// @param CheckUsernameExistsV2Request Request containing the desired username.
+	// @return CheckUsernameExistsV2Response Returns the status of the request.
+	CheckUsernameExistsV2(ctx context.Context, in *CheckUsernameExistsV2Request, opts ...grpc.CallOption) (*CheckUsernameExistsV2Response, error)
+	// @brief Checks if a email exists for a given account type
+	//
+	// # This RPC performs checks to ensure a email exists based on the provided parameters
+	//
+	// @param CheckEmailExistsV2Request Request containing the desired email.
+	// @return CheckEmailExistsV2Response Returns the status of the request.
+	CheckEmailExistsV2(ctx context.Context, in *CheckEmailExistsV2Request, opts ...grpc.CallOption) (*CheckEmailExistsV2Response, error)
+	// @brief deletes a user account based on the provided user ID.
+	//
+	// # This RPC performs account deletion based on the provided parameter
+	//
+	// @param DeleteUserV2Request Request containing the desired parameters necessary for account deletion.
+	// @return DeleteUserV2Response Returns the status of the request.
+	DeleteUserV2(ctx context.Context, in *DeleteUserV2Request, opts ...grpc.CallOption) (*DeleteUserV2Response, error)
+	// @brief update a user account based on the provided parameters
+	//
+	// # This RPC updates the account of the requestor
+	//
+	// @param UpdateUserV2Request Request containing the desired parameters necessary for account updating.
+	// @return UpdateUserV2Response Returns the status of the request.
+	UpdateUserV2(ctx context.Context, in *UpdateUserV2Request, opts ...grpc.CallOption) (*UpdateUserV2Response, error)
+	// @brief Creates a user account for the specified user of interest
+	//
+	// # This RPC creates either a user or business account based on the provided parameters
+	//
+	// @param CreateUserV2Request Request containing the desired parameters necessary for account creation.
+	// @return CreateUserV2Response Returns the status of the request.
+	CreateUserV2(ctx context.Context, in *CreateUserV2Request, opts ...grpc.CallOption) (*CreateUserV2Response, error)
+	// @brief Gets a user account id based on a provided set of parameters
+	//
+	// # This RPC queries the user id of an account based on certain provided parameters
+	//
+	// @param GetUserIdV2Request Request containing the desired parameters necessary for account querying.
+	// @return GetUserIdV2Response Returns the status of the request.
+	GetUserIdV2(ctx context.Context, in *GetUserIdV2Request, opts ...grpc.CallOption) (*GetUserIdV2Response, error)
+	// @brief Verifies a user's email account.
+	//
+	// This RPC is used to perform email verification for a user account. It leverages the provided
+	// user ID and profile type to determine which user's email needs verification. On successful
+	// verification, it returns a confirmation of the process.
+	//
+	// @param VerifyUserV2Request The request containing the user ID and profile type.
+	// @return VerifyUserV2Response Returns the status and outcome of the email verification process.
+	VerifyUserV2(ctx context.Context, in *VerifyUserV2Request, opts ...grpc.CallOption) (*VerifyUserV2Response, error)
+	// @brief Handles password reset via webhook.
+	//
+	// This RPC facilitates the process of resetting a user's password using a webhook. It ensures
+	// that the provided credentials match an existing user and initiates the reset process.
+	//
+	// @param PasswordResetWebhookV2Request The request containing details needed for the password reset.
+	// @return PasswordResetWebhookV2Response Returns the status and result of the password reset process.
+	PasswordResetWebhookV2(ctx context.Context, in *PasswordResetWebhookV2Request, opts ...grpc.CallOption) (*PasswordResetWebhookV2Response, error)
+	// @brief Retrieves business account settings.
+	//
+	// This RPC is used to fetch settings for a specific business account. It queries based on
+	// the user ID and returns the associated settings.
+	//
+	// @param GetBusinessSettingsRequest Request containing the user ID of the business account.
+	// @return GetBusinessSettingsResponse Returns the current settings of the business account.
 	GetBusinessSettings(ctx context.Context, in *GetBusinessSettingsRequest, opts ...grpc.CallOption) (*GetBusinessSettingsResponse, error)
-	// Update business settings.
+	// @brief Updates business account settings.
+	//
+	// This RPC allows users to update settings for a business account. It takes in new settings
+	// as parameters and ensures they are applied to the account.
+	//
+	// @param UpdateBusinessSettingsRequest The request containing the updated settings.
+	// @return UpdateBusinessSettingsResponse Returns the status and result of the update process.
 	UpdateBusinessSettings(ctx context.Context, in *UpdateBusinessSettingsRequest, opts ...grpc.CallOption) (*UpdateBusinessSettingsResponse, error)
 }
 
@@ -195,6 +306,114 @@ func (c *userServiceClient) PasswordResetWebhook(ctx context.Context, in *Passwo
 	return out, nil
 }
 
+func (c *userServiceClient) GetUserV2(ctx context.Context, in *GetUserV2Request, opts ...grpc.CallOption) (*GetUserV2Response, error) {
+	out := new(GetUserV2Response)
+	err := c.cc.Invoke(ctx, UserService_GetUserV2_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) GetUserByUsernameV2(ctx context.Context, in *GetUserByUsernameV2Request, opts ...grpc.CallOption) (*GetUserByUsernameV2Response, error) {
+	out := new(GetUserByUsernameV2Response)
+	err := c.cc.Invoke(ctx, UserService_GetUserByUsernameV2_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) GetUserByEmailV2(ctx context.Context, in *GetUserByEmailV2Request, opts ...grpc.CallOption) (*GetUserByEmailV2Response, error) {
+	out := new(GetUserByEmailV2Response)
+	err := c.cc.Invoke(ctx, UserService_GetUserByEmailV2_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) GetUserByEmailOrUsernameV2(ctx context.Context, in *GetUserByEmailOrUsernameV2Request, opts ...grpc.CallOption) (*GetUserByEmailOrUsernameV2Response, error) {
+	out := new(GetUserByEmailOrUsernameV2Response)
+	err := c.cc.Invoke(ctx, UserService_GetUserByEmailOrUsernameV2_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) CheckUsernameExistsV2(ctx context.Context, in *CheckUsernameExistsV2Request, opts ...grpc.CallOption) (*CheckUsernameExistsV2Response, error) {
+	out := new(CheckUsernameExistsV2Response)
+	err := c.cc.Invoke(ctx, UserService_CheckUsernameExistsV2_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) CheckEmailExistsV2(ctx context.Context, in *CheckEmailExistsV2Request, opts ...grpc.CallOption) (*CheckEmailExistsV2Response, error) {
+	out := new(CheckEmailExistsV2Response)
+	err := c.cc.Invoke(ctx, UserService_CheckEmailExistsV2_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) DeleteUserV2(ctx context.Context, in *DeleteUserV2Request, opts ...grpc.CallOption) (*DeleteUserV2Response, error) {
+	out := new(DeleteUserV2Response)
+	err := c.cc.Invoke(ctx, UserService_DeleteUserV2_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) UpdateUserV2(ctx context.Context, in *UpdateUserV2Request, opts ...grpc.CallOption) (*UpdateUserV2Response, error) {
+	out := new(UpdateUserV2Response)
+	err := c.cc.Invoke(ctx, UserService_UpdateUserV2_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) CreateUserV2(ctx context.Context, in *CreateUserV2Request, opts ...grpc.CallOption) (*CreateUserV2Response, error) {
+	out := new(CreateUserV2Response)
+	err := c.cc.Invoke(ctx, UserService_CreateUserV2_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) GetUserIdV2(ctx context.Context, in *GetUserIdV2Request, opts ...grpc.CallOption) (*GetUserIdV2Response, error) {
+	out := new(GetUserIdV2Response)
+	err := c.cc.Invoke(ctx, UserService_GetUserIdV2_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) VerifyUserV2(ctx context.Context, in *VerifyUserV2Request, opts ...grpc.CallOption) (*VerifyUserV2Response, error) {
+	out := new(VerifyUserV2Response)
+	err := c.cc.Invoke(ctx, UserService_VerifyUserV2_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) PasswordResetWebhookV2(ctx context.Context, in *PasswordResetWebhookV2Request, opts ...grpc.CallOption) (*PasswordResetWebhookV2Response, error) {
+	out := new(PasswordResetWebhookV2Response)
+	err := c.cc.Invoke(ctx, UserService_PasswordResetWebhookV2_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *userServiceClient) GetBusinessSettings(ctx context.Context, in *GetBusinessSettingsRequest, opts ...grpc.CallOption) (*GetBusinessSettingsResponse, error) {
 	out := new(GetBusinessSettingsResponse)
 	err := c.cc.Invoke(ctx, UserService_GetBusinessSettings_FullMethodName, in, out, opts...)
@@ -231,9 +450,108 @@ type UserServiceServer interface {
 	GetUserByEmailOrUsername(context.Context, *GetUserByEmailOrUsernameRequest) (*GetUserByEmailOrUsernameResponse, error)
 	VerifyUser(context.Context, *VerifyUserRequest) (*VerifyUserResponse, error)
 	PasswordResetWebhook(context.Context, *PasswordResetWebhookRequest) (*PasswordResetWebhookResponse, error)
-	// Retrieve business settings.
+	// @brief Retrieves details of a user account.
+	//
+	// This RPC provides access to detailed information about a user account
+	// based on the provided user ID. The endpoint for this service is `/api/v2/user/{user_id}`.
+	// The service provides a concise and clear response encapsulated in `GetUserV2Response`.
+	//
+	// @param GetUserV2Request Request object containing the parameters needed to query the user details.
+	// @return GetUserV2Response Response object containing the details of the queried user.
+	GetUserV2(context.Context, *GetUserV2Request) (*GetUserV2Response, error)
+	// @brief Fetches user account details based on the username.
+	//
+	// This RPC provides access to user account information based on the given username.
+	//
+	// @param GetUserByUsernameV2Request Request containing the desired username.
+	// @return GetUserByUsernameV2Response Returns the corresponding user details.
+	GetUserByUsernameV2(context.Context, *GetUserByUsernameV2Request) (*GetUserByUsernameV2Response, error)
+	// @brief Fetches user account details based on the email.
+	//
+	// This RPC provides access to user account information based on the provided email.
+	//
+	// @param GetUserByEmailV2Request Request containing the desired email.
+	// @return GetUserByEmailV2Response Returns the corresponding user details.
+	GetUserByEmailV2(context.Context, *GetUserByEmailV2Request) (*GetUserByEmailV2Response, error)
+	// Retrieves a user account using either email or username.
+	//
+	// @param GetUserByEmailOrUsernameV2Request Contains the email or username to query the account.
+	// @return GetUserByEmailOrUsernameV2Response Provides the status of the operation.
+	GetUserByEmailOrUsernameV2(context.Context, *GetUserByEmailOrUsernameV2Request) (*GetUserByEmailOrUsernameV2Response, error)
+	// @brief Checks if a username exists for a given account type
+	//
+	// # This RPC performs checks to ensure a username exists based on the provided parameters
+	//
+	// @param CheckUsernameExistsV2Request Request containing the desired username.
+	// @return CheckUsernameExistsV2Response Returns the status of the request.
+	CheckUsernameExistsV2(context.Context, *CheckUsernameExistsV2Request) (*CheckUsernameExistsV2Response, error)
+	// @brief Checks if a email exists for a given account type
+	//
+	// # This RPC performs checks to ensure a email exists based on the provided parameters
+	//
+	// @param CheckEmailExistsV2Request Request containing the desired email.
+	// @return CheckEmailExistsV2Response Returns the status of the request.
+	CheckEmailExistsV2(context.Context, *CheckEmailExistsV2Request) (*CheckEmailExistsV2Response, error)
+	// @brief deletes a user account based on the provided user ID.
+	//
+	// # This RPC performs account deletion based on the provided parameter
+	//
+	// @param DeleteUserV2Request Request containing the desired parameters necessary for account deletion.
+	// @return DeleteUserV2Response Returns the status of the request.
+	DeleteUserV2(context.Context, *DeleteUserV2Request) (*DeleteUserV2Response, error)
+	// @brief update a user account based on the provided parameters
+	//
+	// # This RPC updates the account of the requestor
+	//
+	// @param UpdateUserV2Request Request containing the desired parameters necessary for account updating.
+	// @return UpdateUserV2Response Returns the status of the request.
+	UpdateUserV2(context.Context, *UpdateUserV2Request) (*UpdateUserV2Response, error)
+	// @brief Creates a user account for the specified user of interest
+	//
+	// # This RPC creates either a user or business account based on the provided parameters
+	//
+	// @param CreateUserV2Request Request containing the desired parameters necessary for account creation.
+	// @return CreateUserV2Response Returns the status of the request.
+	CreateUserV2(context.Context, *CreateUserV2Request) (*CreateUserV2Response, error)
+	// @brief Gets a user account id based on a provided set of parameters
+	//
+	// # This RPC queries the user id of an account based on certain provided parameters
+	//
+	// @param GetUserIdV2Request Request containing the desired parameters necessary for account querying.
+	// @return GetUserIdV2Response Returns the status of the request.
+	GetUserIdV2(context.Context, *GetUserIdV2Request) (*GetUserIdV2Response, error)
+	// @brief Verifies a user's email account.
+	//
+	// This RPC is used to perform email verification for a user account. It leverages the provided
+	// user ID and profile type to determine which user's email needs verification. On successful
+	// verification, it returns a confirmation of the process.
+	//
+	// @param VerifyUserV2Request The request containing the user ID and profile type.
+	// @return VerifyUserV2Response Returns the status and outcome of the email verification process.
+	VerifyUserV2(context.Context, *VerifyUserV2Request) (*VerifyUserV2Response, error)
+	// @brief Handles password reset via webhook.
+	//
+	// This RPC facilitates the process of resetting a user's password using a webhook. It ensures
+	// that the provided credentials match an existing user and initiates the reset process.
+	//
+	// @param PasswordResetWebhookV2Request The request containing details needed for the password reset.
+	// @return PasswordResetWebhookV2Response Returns the status and result of the password reset process.
+	PasswordResetWebhookV2(context.Context, *PasswordResetWebhookV2Request) (*PasswordResetWebhookV2Response, error)
+	// @brief Retrieves business account settings.
+	//
+	// This RPC is used to fetch settings for a specific business account. It queries based on
+	// the user ID and returns the associated settings.
+	//
+	// @param GetBusinessSettingsRequest Request containing the user ID of the business account.
+	// @return GetBusinessSettingsResponse Returns the current settings of the business account.
 	GetBusinessSettings(context.Context, *GetBusinessSettingsRequest) (*GetBusinessSettingsResponse, error)
-	// Update business settings.
+	// @brief Updates business account settings.
+	//
+	// This RPC allows users to update settings for a business account. It takes in new settings
+	// as parameters and ensures they are applied to the account.
+	//
+	// @param UpdateBusinessSettingsRequest The request containing the updated settings.
+	// @return UpdateBusinessSettingsResponse Returns the status and result of the update process.
 	UpdateBusinessSettings(context.Context, *UpdateBusinessSettingsRequest) (*UpdateBusinessSettingsResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
@@ -283,6 +601,42 @@ func (UnimplementedUserServiceServer) VerifyUser(context.Context, *VerifyUserReq
 }
 func (UnimplementedUserServiceServer) PasswordResetWebhook(context.Context, *PasswordResetWebhookRequest) (*PasswordResetWebhookResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PasswordResetWebhook not implemented")
+}
+func (UnimplementedUserServiceServer) GetUserV2(context.Context, *GetUserV2Request) (*GetUserV2Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserV2 not implemented")
+}
+func (UnimplementedUserServiceServer) GetUserByUsernameV2(context.Context, *GetUserByUsernameV2Request) (*GetUserByUsernameV2Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserByUsernameV2 not implemented")
+}
+func (UnimplementedUserServiceServer) GetUserByEmailV2(context.Context, *GetUserByEmailV2Request) (*GetUserByEmailV2Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserByEmailV2 not implemented")
+}
+func (UnimplementedUserServiceServer) GetUserByEmailOrUsernameV2(context.Context, *GetUserByEmailOrUsernameV2Request) (*GetUserByEmailOrUsernameV2Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserByEmailOrUsernameV2 not implemented")
+}
+func (UnimplementedUserServiceServer) CheckUsernameExistsV2(context.Context, *CheckUsernameExistsV2Request) (*CheckUsernameExistsV2Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CheckUsernameExistsV2 not implemented")
+}
+func (UnimplementedUserServiceServer) CheckEmailExistsV2(context.Context, *CheckEmailExistsV2Request) (*CheckEmailExistsV2Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CheckEmailExistsV2 not implemented")
+}
+func (UnimplementedUserServiceServer) DeleteUserV2(context.Context, *DeleteUserV2Request) (*DeleteUserV2Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteUserV2 not implemented")
+}
+func (UnimplementedUserServiceServer) UpdateUserV2(context.Context, *UpdateUserV2Request) (*UpdateUserV2Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateUserV2 not implemented")
+}
+func (UnimplementedUserServiceServer) CreateUserV2(context.Context, *CreateUserV2Request) (*CreateUserV2Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateUserV2 not implemented")
+}
+func (UnimplementedUserServiceServer) GetUserIdV2(context.Context, *GetUserIdV2Request) (*GetUserIdV2Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserIdV2 not implemented")
+}
+func (UnimplementedUserServiceServer) VerifyUserV2(context.Context, *VerifyUserV2Request) (*VerifyUserV2Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method VerifyUserV2 not implemented")
+}
+func (UnimplementedUserServiceServer) PasswordResetWebhookV2(context.Context, *PasswordResetWebhookV2Request) (*PasswordResetWebhookV2Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PasswordResetWebhookV2 not implemented")
 }
 func (UnimplementedUserServiceServer) GetBusinessSettings(context.Context, *GetBusinessSettingsRequest) (*GetBusinessSettingsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBusinessSettings not implemented")
@@ -555,6 +909,222 @@ func _UserService_PasswordResetWebhook_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_GetUserV2_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserV2Request)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).GetUserV2(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_GetUserV2_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).GetUserV2(ctx, req.(*GetUserV2Request))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_GetUserByUsernameV2_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserByUsernameV2Request)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).GetUserByUsernameV2(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_GetUserByUsernameV2_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).GetUserByUsernameV2(ctx, req.(*GetUserByUsernameV2Request))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_GetUserByEmailV2_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserByEmailV2Request)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).GetUserByEmailV2(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_GetUserByEmailV2_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).GetUserByEmailV2(ctx, req.(*GetUserByEmailV2Request))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_GetUserByEmailOrUsernameV2_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserByEmailOrUsernameV2Request)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).GetUserByEmailOrUsernameV2(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_GetUserByEmailOrUsernameV2_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).GetUserByEmailOrUsernameV2(ctx, req.(*GetUserByEmailOrUsernameV2Request))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_CheckUsernameExistsV2_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CheckUsernameExistsV2Request)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).CheckUsernameExistsV2(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_CheckUsernameExistsV2_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).CheckUsernameExistsV2(ctx, req.(*CheckUsernameExistsV2Request))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_CheckEmailExistsV2_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CheckEmailExistsV2Request)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).CheckEmailExistsV2(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_CheckEmailExistsV2_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).CheckEmailExistsV2(ctx, req.(*CheckEmailExistsV2Request))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_DeleteUserV2_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteUserV2Request)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).DeleteUserV2(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_DeleteUserV2_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).DeleteUserV2(ctx, req.(*DeleteUserV2Request))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_UpdateUserV2_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateUserV2Request)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).UpdateUserV2(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_UpdateUserV2_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).UpdateUserV2(ctx, req.(*UpdateUserV2Request))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_CreateUserV2_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateUserV2Request)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).CreateUserV2(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_CreateUserV2_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).CreateUserV2(ctx, req.(*CreateUserV2Request))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_GetUserIdV2_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserIdV2Request)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).GetUserIdV2(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_GetUserIdV2_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).GetUserIdV2(ctx, req.(*GetUserIdV2Request))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_VerifyUserV2_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(VerifyUserV2Request)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).VerifyUserV2(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_VerifyUserV2_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).VerifyUserV2(ctx, req.(*VerifyUserV2Request))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_PasswordResetWebhookV2_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PasswordResetWebhookV2Request)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).PasswordResetWebhookV2(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_PasswordResetWebhookV2_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).PasswordResetWebhookV2(ctx, req.(*PasswordResetWebhookV2Request))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _UserService_GetBusinessSettings_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetBusinessSettingsRequest)
 	if err := dec(in); err != nil {
@@ -653,6 +1223,54 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "PasswordResetWebhook",
 			Handler:    _UserService_PasswordResetWebhook_Handler,
+		},
+		{
+			MethodName: "GetUserV2",
+			Handler:    _UserService_GetUserV2_Handler,
+		},
+		{
+			MethodName: "GetUserByUsernameV2",
+			Handler:    _UserService_GetUserByUsernameV2_Handler,
+		},
+		{
+			MethodName: "GetUserByEmailV2",
+			Handler:    _UserService_GetUserByEmailV2_Handler,
+		},
+		{
+			MethodName: "GetUserByEmailOrUsernameV2",
+			Handler:    _UserService_GetUserByEmailOrUsernameV2_Handler,
+		},
+		{
+			MethodName: "CheckUsernameExistsV2",
+			Handler:    _UserService_CheckUsernameExistsV2_Handler,
+		},
+		{
+			MethodName: "CheckEmailExistsV2",
+			Handler:    _UserService_CheckEmailExistsV2_Handler,
+		},
+		{
+			MethodName: "DeleteUserV2",
+			Handler:    _UserService_DeleteUserV2_Handler,
+		},
+		{
+			MethodName: "UpdateUserV2",
+			Handler:    _UserService_UpdateUserV2_Handler,
+		},
+		{
+			MethodName: "CreateUserV2",
+			Handler:    _UserService_CreateUserV2_Handler,
+		},
+		{
+			MethodName: "GetUserIdV2",
+			Handler:    _UserService_GetUserIdV2_Handler,
+		},
+		{
+			MethodName: "VerifyUserV2",
+			Handler:    _UserService_VerifyUserV2_Handler,
+		},
+		{
+			MethodName: "PasswordResetWebhookV2",
+			Handler:    _UserService_PasswordResetWebhookV2_Handler,
 		},
 		{
 			MethodName: "GetBusinessSettings",

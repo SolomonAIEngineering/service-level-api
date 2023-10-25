@@ -245,110 +245,6 @@
         ]
       }
     },
-    "/api/v1/user/business/settings": {
-      "put": {
-        "summary": "Updates business settings",
-        "description": "Updates business settings based on the provided parameters",
-        "operationId": "UpdateBusinessSettings",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": ".api.v1.UpdateBusinessSettingsResponse"
-            }
-          },
-          "400": {
-            "description": "Request failed due to invalid input.",
-            "schema": {
-              "$ref": ".api.v1.ValidationErrorMessageResponse"
-            }
-          },
-          "404": {
-            "description": "Request failed due to incorrect path.",
-            "schema": {
-              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
-            }
-          },
-          "500": {
-            "description": "Request failed due to internal server error.",
-            "schema": {
-              "$ref": ".api.v1.InternalErrorMessageResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/Status"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/UpdateBusinessSettingsRequest"
-            }
-          }
-        ],
-        "tags": [
-          "business settings"
-        ]
-      }
-    },
-    "/api/v1/user/business/settings/{userId}": {
-      "get": {
-        "summary": "Gets a business accounts settings",
-        "description": "Queries and obtains business settings based on the provided parameters",
-        "operationId": "GetBusinessSettings",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": ".api.v1.BusinessSettings"
-            }
-          },
-          "400": {
-            "description": "Request failed due to invalid input.",
-            "schema": {
-              "$ref": ".api.v1.ValidationErrorMessageResponse"
-            }
-          },
-          "404": {
-            "description": "Request failed due to incorrect path.",
-            "schema": {
-              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
-            }
-          },
-          "500": {
-            "description": "Request failed due to internal server error.",
-            "schema": {
-              "$ref": ".api.v1.InternalErrorMessageResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/Status"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "userId",
-            "description": "The account ID associated with the user (business)",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "format": "uint64"
-          }
-        ],
-        "tags": [
-          "business settings"
-        ]
-      }
-    },
     "/api/v1/user/email/{email}": {
       "get": {
         "summary": "Gets a user account by email",
@@ -847,6 +743,864 @@
           "user account"
         ]
       }
+    },
+    "/api/v2/user": {
+      "get": {
+        "summary": "get a user account id",
+        "description": "This endpoint returns the user record id if the user record exists\nexample: /api/v1/user?email=testuser@gmail.com\u0026\u0026username=testuser",
+        "operationId": "GetUserIdV2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.GetUserIdV2Response"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "email",
+            "description": "The email of the user of interest",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "username",
+            "description": "The username of the user of interest",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "profileType",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "PROFILE_TYPE_UNSPECIFIED",
+              "PROFILE_TYPE_USER",
+              "PROFILE_TYPE_BUSINESS"
+            ],
+            "default": "PROFILE_TYPE_UNSPECIFIED"
+          }
+        ],
+        "tags": [
+          "user account"
+        ]
+      },
+      "post": {
+        "summary": "create a user account",
+        "description": "This endpoint performs an a creation operation of a user account based on the provided parametersThis operation is implemented as a distributed transactions as this operation spans multiple services",
+        "operationId": "CreateUserV2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.CreateUserV2Response"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateUserV2Request"
+            }
+          }
+        ],
+        "tags": [
+          "user account"
+        ]
+      },
+      "put": {
+        "summary": "update a user account",
+        "description": "This endpoint performs an updates operation on a user account based on the provided parametersThis update operation can span multiple services on specific cases (such as when the client is explicitly attempting to update the email of the user)All update operations are atomic by nature hence we should not expect any form of divergent state",
+        "operationId": "UpdateUserV2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.UpdateUserV2Response"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateUserV2Request"
+            }
+          }
+        ],
+        "tags": [
+          "user account"
+        ]
+      }
+    },
+    "/api/v2/user/account": {
+      "get": {
+        "summary": "Retrieve user account by email or username",
+        "description": "Fetches a user account using the provided email or username.",
+        "operationId": "GetUserByEmailOrUsernameV2",
+        "responses": {
+          "200": {
+            "description": "Successful retrieval.",
+            "schema": {
+              "$ref": ".api.v1.VerifyUserResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "email",
+            "description": "The email of the user of interest",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "username",
+            "description": "The username of the user of interest",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "profileType",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "PROFILE_TYPE_UNSPECIFIED",
+              "PROFILE_TYPE_USER",
+              "PROFILE_TYPE_BUSINESS"
+            ],
+            "default": "PROFILE_TYPE_UNSPECIFIED"
+          }
+        ],
+        "tags": [
+          "user account"
+        ]
+      }
+    },
+    "/api/v2/user/business/settings": {
+      "put": {
+        "summary": "Update Business Account Settings",
+        "description": "Allows modifications to the settings of a specific business account.",
+        "operationId": "UpdateBusinessSettingsV2",
+        "responses": {
+          "200": {
+            "description": "A successful response indicating the outcome of the update process.",
+            "schema": {
+              "$ref": ".api.v1.UpdateBusinessSettingsResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateBusinessSettingsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "business settings"
+        ]
+      }
+    },
+    "/api/v2/user/business/settings/{userId}": {
+      "get": {
+        "summary": "Retrieve Business Account Settings",
+        "description": "Fetches settings associated with a specified business account using the user ID.",
+        "operationId": "RetrieveBusinessSettings",
+        "responses": {
+          "200": {
+            "description": "A successful response containing the business settings.",
+            "schema": {
+              "$ref": ".api.v1.BusinessSettings"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "description": "The account ID associated with the user (business)",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "business settings"
+        ]
+      }
+    },
+    "/api/v2/user/email/{email}": {
+      "get": {
+        "summary": "Retrieve user details by email",
+        "description": "Provides detailed information of a user based on the given email.",
+        "operationId": "GetUserByEmailV2",
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved user details.",
+            "schema": {
+              "$ref": ".api.v1.GetUserByEmailV2Response"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "profileType",
+            "description": "the profile type of the given user we hope to query",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "PROFILE_TYPE_UNSPECIFIED",
+              "PROFILE_TYPE_USER",
+              "PROFILE_TYPE_BUSINESS"
+            ],
+            "default": "PROFILE_TYPE_UNSPECIFIED"
+          }
+        ],
+        "tags": [
+          "User Account Management"
+        ]
+      }
+    },
+    "/api/v2/user/email/{email}/exists": {
+      "get": {
+        "summary": "Checks that an email exists or not",
+        "description": "Checks if an email exists or not",
+        "operationId": "CheckEmailExistsV2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.CheckEmailExistsV2Response"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "profileType",
+            "description": "the profile type of the given user we hope to query",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "PROFILE_TYPE_UNSPECIFIED",
+              "PROFILE_TYPE_USER",
+              "PROFILE_TYPE_BUSINESS"
+            ],
+            "default": "PROFILE_TYPE_UNSPECIFIED"
+          }
+        ],
+        "tags": [
+          "user account"
+        ]
+      }
+    },
+    "/api/v2/user/username/{username}": {
+      "get": {
+        "summary": "Retrieve user details by username",
+        "description": "Provides detailed information of a user based on the given username.",
+        "operationId": "GetUserByUsernameV2",
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved user details.",
+            "schema": {
+              "$ref": ".api.v1.GetUserByUsernameV2Response"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "username",
+            "description": "The username of the user of interest",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "profileType",
+            "description": "the profile type of the given user we hope to query",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "PROFILE_TYPE_UNSPECIFIED",
+              "PROFILE_TYPE_USER",
+              "PROFILE_TYPE_BUSINESS"
+            ],
+            "default": "PROFILE_TYPE_UNSPECIFIED"
+          }
+        ],
+        "tags": [
+          "User Account Management"
+        ]
+      }
+    },
+    "/api/v2/user/username/{username}/exists": {
+      "get": {
+        "summary": "Checks that a username exists or not",
+        "description": "Checks if a username exists or not",
+        "operationId": "CheckUsernameExistsV2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.CheckUsernameExistsV2Response"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "username",
+            "description": "The username of the user of interest",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "profileType",
+            "description": "the profile type of the given user we hope to query",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "PROFILE_TYPE_UNSPECIFIED",
+              "PROFILE_TYPE_USER",
+              "PROFILE_TYPE_BUSINESS"
+            ],
+            "default": "PROFILE_TYPE_UNSPECIFIED"
+          }
+        ],
+        "tags": [
+          "user account"
+        ]
+      }
+    },
+    "/api/v2/user/verification/{userId}/{profileType}": {
+      "post": {
+        "summary": "User Email Verification",
+        "description": "Performs verification of a user account's email based on the provided user ID and profile type.",
+        "operationId": "VerifyUserV2",
+        "responses": {
+          "200": {
+            "description": "A successful response indicating the outcome of the verification.",
+            "schema": {
+              "$ref": ".api.v1.VerifyUserV2Response"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "description": "The account ID associated with the user",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "profileType",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "PROFILE_TYPE_UNSPECIFIED",
+              "PROFILE_TYPE_USER",
+              "PROFILE_TYPE_BUSINESS"
+            ]
+          }
+        ],
+        "tags": [
+          "user account"
+        ]
+      }
+    },
+    "/api/v2/user/webhook/password-reset": {
+      "post": {
+        "summary": "Webhook for Password Reset",
+        "description": "Handles password reset operations for a specified user account through a webhook.",
+        "operationId": "PasswordResetWebhookV2",
+        "responses": {
+          "200": {
+            "description": "A successful response indicating the outcome of the reset process.",
+            "schema": {
+              "$ref": ".api.v1.PasswordResetResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "profileType",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "PROFILE_TYPE_UNSPECIFIED",
+              "PROFILE_TYPE_USER",
+              "PROFILE_TYPE_BUSINESS"
+            ],
+            "default": "PROFILE_TYPE_UNSPECIFIED"
+          }
+        ],
+        "tags": [
+          "password reset"
+        ]
+      }
+    },
+    "/api/v2/user/{userId}": {
+      "get": {
+        "summary": "Retrieve user account details",
+        "description": "Fetches detailed information about a user account based on the specified user ID.",
+        "operationId": "GetUserV2",
+        "responses": {
+          "200": {
+            "description": "Successful retrieval of user account details.",
+            "schema": {
+              "$ref": ".api.v1.GetUserResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "description": "Specifies the user's account ID.\n\nValidations:\n- Must be greater than 0.",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "profileType",
+            "description": "Indicates the profile type to be queried.\nFor example: \"username:testuser\"",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "PROFILE_TYPE_UNSPECIFIED",
+              "PROFILE_TYPE_USER",
+              "PROFILE_TYPE_BUSINESS"
+            ],
+            "default": "PROFILE_TYPE_UNSPECIFIED"
+          }
+        ],
+        "tags": [
+          "User Account Management"
+        ]
+      },
+      "delete": {
+        "summary": "deletes a user account",
+        "description": "This endpoint performs a delete operation on a user account based on the provided parametersThis deletion operation spans multiple services as user details are stored across a suite of our backend servicesThe operation itself is an atomic one of nature. Either all services successfully delete the recod or we fail the requestDivergent state is not expected to be encountered with this endpoint.",
+        "operationId": "DeleteUserV2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.DeleteUserV2Response"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "description": "The account ID associated with the user to delete\nValidations:\n- user_id must be greater than 0",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "profileType",
+            "description": "the profile type of the given user we hope to query",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "PROFILE_TYPE_UNSPECIFIED",
+              "PROFILE_TYPE_USER",
+              "PROFILE_TYPE_BUSINESS"
+            ],
+            "default": "PROFILE_TYPE_UNSPECIFIED"
+          }
+        ],
+        "tags": [
+          "user account"
+        ]
+      }
     }
   },
   "definitions": {
@@ -952,6 +1706,116 @@
       },
       "additionalProperties": {}
     },
+    "BusinessAccount": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "description": "Unique identifier for the business account."
+        },
+        "email": {
+          "type": "string",
+          "example": "example@gmail.com",
+          "description": "Email associated with the business account."
+        },
+        "address": {
+          "$ref": "#/definitions/Address",
+          "description": "Physical address associated with the business account."
+        },
+        "bio": {
+          "type": "string",
+          "example": "sample description",
+          "description": "Short description of the business account. Maximum of 200 characters."
+        },
+        "headline": {
+          "type": "string",
+          "example": "sample headline",
+          "description": "Headline for the profile of the business account."
+        },
+        "phoneNumber": {
+          "type": "string",
+          "example": "6513424124",
+          "description": "Phone number associated with the business account."
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/Tags"
+          },
+          "description": "Tags associated with the business account. Between 1 and 10 tags are allowed."
+        },
+        "authnAccountId": {
+          "type": "string",
+          "format": "uint64",
+          "description": "Identifier for the associated authentication service account."
+        },
+        "isActive": {
+          "type": "boolean",
+          "example": true,
+          "description": "Indicates whether the business account is active."
+        },
+        "username": {
+          "type": "string",
+          "example": "testuser9696",
+          "description": "Username for the business account. Must be at least 10 characters long."
+        },
+        "isPrivate": {
+          "type": "boolean",
+          "example": false,
+          "description": "Indicates whether the business account is private."
+        },
+        "isEmailVerified": {
+          "type": "boolean",
+          "example": false,
+          "description": "Indicates whether the email associated with the business account has been verified."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp indicating when the business account was created."
+        },
+        "verifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp indicating when the email for the business account was verified."
+        },
+        "companyEstablishedDate": {
+          "type": "string",
+          "description": "Date when the company associated with the business account was established."
+        },
+        "companyIndustryType": {
+          "type": "string",
+          "example": "fintech",
+          "description": "Industry type of the company associated with the business account."
+        },
+        "companyWebsiteUrl": {
+          "type": "string",
+          "example": "https://solomon-ai.io",
+          "description": "Website URL of the company associated with the business account."
+        },
+        "companyDescription": {
+          "type": "string",
+          "example": "We help businesses succeed",
+          "description": "Description of the company associated with the business account."
+        },
+        "companyName": {
+          "type": "string",
+          "example": "Solomon AI",
+          "description": "Name of the company associated with the business account."
+        },
+        "businessAccountSettings": {
+          "$ref": "#/definitions/BusinessAccountSettings",
+          "description": "Settings specific to the business account."
+        },
+        "accountType": {
+          "$ref": "#/definitions/ProfileType",
+          "description": "The type of profile associated with the business account (e.g., individual, corporate)."
+        }
+      },
+      "description": "BusinessAccount represents a business account within the context of solomon-ai."
+    },
     "BusinessAccountSettings": {
       "type": "object",
       "properties": {
@@ -998,7 +1862,23 @@
         }
       }
     },
+    "CheckEmailExistsV2Response": {
+      "type": "object",
+      "properties": {
+        "exists": {
+          "type": "boolean"
+        }
+      }
+    },
     "CheckUsernameExistsResponse": {
+      "type": "object",
+      "properties": {
+        "exists": {
+          "type": "boolean"
+        }
+      }
+    },
+    "CheckUsernameExistsV2Response": {
       "type": "object",
       "properties": {
         "exists": {
@@ -1068,6 +1948,50 @@
       },
       "title": "CreateUserResponse: Represents the response object returned as a response to\nthe `create-user` request"
     },
+    "CreateUserV2Request": {
+      "type": "object",
+      "properties": {
+        "userAccount": {
+          "$ref": "#/definitions/UserAccount"
+        },
+        "businessAccount": {
+          "$ref": "#/definitions/BusinessAccount"
+        },
+        "communityIdsToFollow": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uint64"
+          },
+          "title": "set of community IDs to follow \nValidations:\n- at least 0 and at most 20 community ids supported at one time"
+        },
+        "profileImage": {
+          "type": "string",
+          "example": "lksdjhfgsdhfghdsgfhgdh.com",
+          "title": "The profile image of the user\nValidations:\n- must be a valid URI"
+        },
+        "password": {
+          "type": "string",
+          "example": "tesdfkdkfhsdgd",
+          "title": "The password  of the user\nValidations:\n- must be a at least 10 characters long"
+        }
+      },
+      "title": "CreateUserV2Request: Represents the request object invoked against the user\nservice to create a user account",
+      "required": [
+        "profileImage",
+        "password"
+      ]
+    },
+    "CreateUserV2Response": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "format": "uint64"
+        }
+      },
+      "title": "CreateUserResponse: Represents the response object returned as a response to\nthe `create-user` request"
+    },
     "DashboardWidget": {
       "type": "string",
       "enum": [
@@ -1081,6 +2005,15 @@
       "default": "DASHBOARD_WIDGET_TRANSACTIONS_UNSPECIFIED"
     },
     "DeleteUserResponse": {
+      "type": "object",
+      "properties": {
+        "accountDeleted": {
+          "type": "boolean"
+        }
+      },
+      "title": "DeleteUserResponse: Represents the object returned as a response to\n`delete-user` request"
+    },
+    "DeleteUserV2Response": {
       "type": "object",
       "properties": {
         "accountDeleted": {
@@ -1136,12 +2069,34 @@
         }
       }
     },
+    "GetUserByEmailOrUsernameV2Response": {
+      "type": "object",
+      "properties": {
+        "userAccount": {
+          "$ref": "#/definitions/UserAccount"
+        },
+        "businessAccount": {
+          "$ref": "#/definitions/BusinessAccount"
+        }
+      }
+    },
     "GetUserByEmailResponse": {
       "type": "object",
       "properties": {
         "account": {
           "$ref": "#/definitions/UserAccount",
           "title": "The account ID associated with the user"
+        }
+      }
+    },
+    "GetUserByEmailV2Response": {
+      "type": "object",
+      "properties": {
+        "userAccount": {
+          "$ref": "#/definitions/UserAccount"
+        },
+        "businessAccount": {
+          "$ref": "#/definitions/BusinessAccount"
         }
       }
     },
@@ -1154,7 +2109,29 @@
         }
       }
     },
+    "GetUserByUsernameV2Response": {
+      "type": "object",
+      "properties": {
+        "userAccount": {
+          "$ref": "#/definitions/UserAccount"
+        },
+        "businessAccount": {
+          "$ref": "#/definitions/BusinessAccount"
+        }
+      }
+    },
     "GetUserIdResponse": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "The account ID associated with the user"
+        }
+      },
+      "title": "GetUserIdResponse: Represents the response object returned as a product of\ncalling the `get-user-id` request"
+    },
+    "GetUserIdV2Response": {
       "type": "object",
       "properties": {
         "userId": {
@@ -1173,6 +2150,18 @@
         }
       },
       "title": "GetUserResponse: Represents the object returned as a response to `get-user`\nrequest"
+    },
+    "GetUserV2Response": {
+      "type": "object",
+      "properties": {
+        "userAccount": {
+          "$ref": "#/definitions/UserAccount"
+        },
+        "businessAccount": {
+          "$ref": "#/definitions/BusinessAccount"
+        }
+      },
+      "description": "Represents the response object for fetching user details."
     },
     "HealthCheckResponse": {
       "type": "object",
@@ -1234,6 +2223,14 @@
       "title": "type of enabled notification"
     },
     "PasswordResetWebhookResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        }
+      }
+    },
+    "PasswordResetWebhookV2Response": {
       "type": "object",
       "properties": {
         "success": {
@@ -1392,6 +2389,31 @@
       },
       "title": "UpdateUserResponse: Represents the response object returned as a response to\nthe `update-user` request"
     },
+    "UpdateUserV2Request": {
+      "type": "object",
+      "properties": {
+        "userAccount": {
+          "$ref": "#/definitions/UserAccount"
+        },
+        "businessAccount": {
+          "$ref": "#/definitions/BusinessAccount"
+        }
+      }
+    },
+    "UpdateUserV2Response": {
+      "type": "object",
+      "properties": {
+        "accountUpdated": {
+          "type": "boolean"
+        },
+        "userAccount": {
+          "$ref": "#/definitions/UserAccount"
+        },
+        "businessAccount": {
+          "$ref": "#/definitions/BusinessAccount"
+        }
+      }
+    },
     "UserAccount": {
       "type": "object",
       "properties": {
@@ -1539,6 +2561,14 @@
       "description": "User settings for the fintech application."
     },
     "VerifyUserResponse": {
+      "type": "object",
+      "properties": {
+        "accountVerified": {
+          "type": "boolean"
+        }
+      }
+    },
+    "VerifyUserV2Response": {
       "type": "object",
       "properties": {
         "accountVerified": {

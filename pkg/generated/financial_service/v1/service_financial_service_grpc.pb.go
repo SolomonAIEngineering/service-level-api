@@ -89,6 +89,14 @@ const (
 	FinancialService_AddDefaultPocketsToBankAccount_FullMethodName              = "/financial_service.v1.FinancialService/AddDefaultPocketsToBankAccount"
 	FinancialService_UpdatePocket_FullMethodName                                = "/financial_service.v1.FinancialService/UpdatePocket"
 	FinancialService_DeletePocket_FullMethodName                                = "/financial_service.v1.FinancialService/DeletePocket"
+	FinancialService_GetTransactionsBetweenTimeRanges_FullMethodName            = "/financial_service.v1.FinancialService/GetTransactionsBetweenTimeRanges"
+	FinancialService_GetTransactionsForPastWeek_FullMethodName                  = "/financial_service.v1.FinancialService/GetTransactionsForPastWeek"
+	FinancialService_GetTransactionsForPastMonth_FullMethodName                 = "/financial_service.v1.FinancialService/GetTransactionsForPastMonth"
+	FinancialService_AddNoteToSmartGoal_FullMethodName                          = "/financial_service.v1.FinancialService/AddNoteToSmartGoal"
+	FinancialService_UpdateNoteToSmartGoal_FullMethodName                       = "/financial_service.v1.FinancialService/UpdateNoteToSmartGoal"
+	FinancialService_DeleteNoteFromSmartGoal_FullMethodName                     = "/financial_service.v1.FinancialService/DeleteNoteFromSmartGoal"
+	FinancialService_GetNotesFromSmartGoal_FullMethodName                       = "/financial_service.v1.FinancialService/GetNotesFromSmartGoal"
+	FinancialService_GetNoteFromSmartGoal_FullMethodName                        = "/financial_service.v1.FinancialService/GetNoteFromSmartGoal"
 )
 
 // FinancialServiceClient is the client API for FinancialService service.
@@ -447,6 +455,22 @@ type FinancialServiceClient interface {
 	AddDefaultPocketsToBankAccount(ctx context.Context, in *AddDefaultPocketsToBankAccountRequest, opts ...grpc.CallOption) (*AddDefaultPocketsToBankAccountResponse, error)
 	UpdatePocket(ctx context.Context, in *UpdatePocketRequest, opts ...grpc.CallOption) (*UpdatePocketResponse, error)
 	DeletePocket(ctx context.Context, in *DeletePocketRequest, opts ...grpc.CallOption) (*DeletePocketResponse, error)
+	// Time Based Transaction Queries
+	GetTransactionsBetweenTimeRanges(ctx context.Context, in *GetTransactionsBetweenTimeRangesRequest, opts ...grpc.CallOption) (*GetTransactionsBetweenTimeRangesResponse, error)
+	// get transactions for the past week
+	GetTransactionsForPastWeek(ctx context.Context, in *GetTransactionsForPastWeekRequest, opts ...grpc.CallOption) (*GetTransactionsForPastWeekResponse, error)
+	// Get transactions for the past month
+	GetTransactionsForPastMonth(ctx context.Context, in *GetTransactionsForPastMonthRequest, opts ...grpc.CallOption) (*GetTransactionsForPastMonthResponse, error)
+	// Smart goal and note CRUD api
+	AddNoteToSmartGoal(ctx context.Context, in *AddNoteToSmartGoalRequest, opts ...grpc.CallOption) (*AddNoteToSmartGoalResponse, error)
+	// update the smart note tied to a goal
+	UpdateNoteToSmartGoal(ctx context.Context, in *UpdateNoteToSmartGoalRequest, opts ...grpc.CallOption) (*UpdateNoteToSmartGoalResponse, error)
+	// // delete a note from a smart goal
+	DeleteNoteFromSmartGoal(ctx context.Context, in *DeleteNoteFromSmartGoalRequest, opts ...grpc.CallOption) (*DeleteNoteFromSmartGoalResponse, error)
+	// get notes from a smart goal
+	GetNotesFromSmartGoal(ctx context.Context, in *GetNotesFromSmartGoalRequest, opts ...grpc.CallOption) (*GetNotesFromSmartGoalResponse, error)
+	// get a note from a smart goal
+	GetNoteFromSmartGoal(ctx context.Context, in *GetNoteFromSmartGoalRequest, opts ...grpc.CallOption) (*GetNoteFromSmartGoalResponse, error)
 }
 
 type financialServiceClient struct {
@@ -1087,6 +1111,78 @@ func (c *financialServiceClient) DeletePocket(ctx context.Context, in *DeletePoc
 	return out, nil
 }
 
+func (c *financialServiceClient) GetTransactionsBetweenTimeRanges(ctx context.Context, in *GetTransactionsBetweenTimeRangesRequest, opts ...grpc.CallOption) (*GetTransactionsBetweenTimeRangesResponse, error) {
+	out := new(GetTransactionsBetweenTimeRangesResponse)
+	err := c.cc.Invoke(ctx, FinancialService_GetTransactionsBetweenTimeRanges_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *financialServiceClient) GetTransactionsForPastWeek(ctx context.Context, in *GetTransactionsForPastWeekRequest, opts ...grpc.CallOption) (*GetTransactionsForPastWeekResponse, error) {
+	out := new(GetTransactionsForPastWeekResponse)
+	err := c.cc.Invoke(ctx, FinancialService_GetTransactionsForPastWeek_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *financialServiceClient) GetTransactionsForPastMonth(ctx context.Context, in *GetTransactionsForPastMonthRequest, opts ...grpc.CallOption) (*GetTransactionsForPastMonthResponse, error) {
+	out := new(GetTransactionsForPastMonthResponse)
+	err := c.cc.Invoke(ctx, FinancialService_GetTransactionsForPastMonth_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *financialServiceClient) AddNoteToSmartGoal(ctx context.Context, in *AddNoteToSmartGoalRequest, opts ...grpc.CallOption) (*AddNoteToSmartGoalResponse, error) {
+	out := new(AddNoteToSmartGoalResponse)
+	err := c.cc.Invoke(ctx, FinancialService_AddNoteToSmartGoal_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *financialServiceClient) UpdateNoteToSmartGoal(ctx context.Context, in *UpdateNoteToSmartGoalRequest, opts ...grpc.CallOption) (*UpdateNoteToSmartGoalResponse, error) {
+	out := new(UpdateNoteToSmartGoalResponse)
+	err := c.cc.Invoke(ctx, FinancialService_UpdateNoteToSmartGoal_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *financialServiceClient) DeleteNoteFromSmartGoal(ctx context.Context, in *DeleteNoteFromSmartGoalRequest, opts ...grpc.CallOption) (*DeleteNoteFromSmartGoalResponse, error) {
+	out := new(DeleteNoteFromSmartGoalResponse)
+	err := c.cc.Invoke(ctx, FinancialService_DeleteNoteFromSmartGoal_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *financialServiceClient) GetNotesFromSmartGoal(ctx context.Context, in *GetNotesFromSmartGoalRequest, opts ...grpc.CallOption) (*GetNotesFromSmartGoalResponse, error) {
+	out := new(GetNotesFromSmartGoalResponse)
+	err := c.cc.Invoke(ctx, FinancialService_GetNotesFromSmartGoal_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *financialServiceClient) GetNoteFromSmartGoal(ctx context.Context, in *GetNoteFromSmartGoalRequest, opts ...grpc.CallOption) (*GetNoteFromSmartGoalResponse, error) {
+	out := new(GetNoteFromSmartGoalResponse)
+	err := c.cc.Invoke(ctx, FinancialService_GetNoteFromSmartGoal_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // FinancialServiceServer is the server API for FinancialService service.
 // All implementations must embed UnimplementedFinancialServiceServer
 // for forward compatibility
@@ -1443,6 +1539,22 @@ type FinancialServiceServer interface {
 	AddDefaultPocketsToBankAccount(context.Context, *AddDefaultPocketsToBankAccountRequest) (*AddDefaultPocketsToBankAccountResponse, error)
 	UpdatePocket(context.Context, *UpdatePocketRequest) (*UpdatePocketResponse, error)
 	DeletePocket(context.Context, *DeletePocketRequest) (*DeletePocketResponse, error)
+	// Time Based Transaction Queries
+	GetTransactionsBetweenTimeRanges(context.Context, *GetTransactionsBetweenTimeRangesRequest) (*GetTransactionsBetweenTimeRangesResponse, error)
+	// get transactions for the past week
+	GetTransactionsForPastWeek(context.Context, *GetTransactionsForPastWeekRequest) (*GetTransactionsForPastWeekResponse, error)
+	// Get transactions for the past month
+	GetTransactionsForPastMonth(context.Context, *GetTransactionsForPastMonthRequest) (*GetTransactionsForPastMonthResponse, error)
+	// Smart goal and note CRUD api
+	AddNoteToSmartGoal(context.Context, *AddNoteToSmartGoalRequest) (*AddNoteToSmartGoalResponse, error)
+	// update the smart note tied to a goal
+	UpdateNoteToSmartGoal(context.Context, *UpdateNoteToSmartGoalRequest) (*UpdateNoteToSmartGoalResponse, error)
+	// // delete a note from a smart goal
+	DeleteNoteFromSmartGoal(context.Context, *DeleteNoteFromSmartGoalRequest) (*DeleteNoteFromSmartGoalResponse, error)
+	// get notes from a smart goal
+	GetNotesFromSmartGoal(context.Context, *GetNotesFromSmartGoalRequest) (*GetNotesFromSmartGoalResponse, error)
+	// get a note from a smart goal
+	GetNoteFromSmartGoal(context.Context, *GetNoteFromSmartGoalRequest) (*GetNoteFromSmartGoalResponse, error)
 	mustEmbedUnimplementedFinancialServiceServer()
 }
 
@@ -1659,6 +1771,30 @@ func (UnimplementedFinancialServiceServer) UpdatePocket(context.Context, *Update
 }
 func (UnimplementedFinancialServiceServer) DeletePocket(context.Context, *DeletePocketRequest) (*DeletePocketResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeletePocket not implemented")
+}
+func (UnimplementedFinancialServiceServer) GetTransactionsBetweenTimeRanges(context.Context, *GetTransactionsBetweenTimeRangesRequest) (*GetTransactionsBetweenTimeRangesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTransactionsBetweenTimeRanges not implemented")
+}
+func (UnimplementedFinancialServiceServer) GetTransactionsForPastWeek(context.Context, *GetTransactionsForPastWeekRequest) (*GetTransactionsForPastWeekResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTransactionsForPastWeek not implemented")
+}
+func (UnimplementedFinancialServiceServer) GetTransactionsForPastMonth(context.Context, *GetTransactionsForPastMonthRequest) (*GetTransactionsForPastMonthResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTransactionsForPastMonth not implemented")
+}
+func (UnimplementedFinancialServiceServer) AddNoteToSmartGoal(context.Context, *AddNoteToSmartGoalRequest) (*AddNoteToSmartGoalResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddNoteToSmartGoal not implemented")
+}
+func (UnimplementedFinancialServiceServer) UpdateNoteToSmartGoal(context.Context, *UpdateNoteToSmartGoalRequest) (*UpdateNoteToSmartGoalResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateNoteToSmartGoal not implemented")
+}
+func (UnimplementedFinancialServiceServer) DeleteNoteFromSmartGoal(context.Context, *DeleteNoteFromSmartGoalRequest) (*DeleteNoteFromSmartGoalResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteNoteFromSmartGoal not implemented")
+}
+func (UnimplementedFinancialServiceServer) GetNotesFromSmartGoal(context.Context, *GetNotesFromSmartGoalRequest) (*GetNotesFromSmartGoalResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetNotesFromSmartGoal not implemented")
+}
+func (UnimplementedFinancialServiceServer) GetNoteFromSmartGoal(context.Context, *GetNoteFromSmartGoalRequest) (*GetNoteFromSmartGoalResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetNoteFromSmartGoal not implemented")
 }
 func (UnimplementedFinancialServiceServer) mustEmbedUnimplementedFinancialServiceServer() {}
 
@@ -2933,6 +3069,150 @@ func _FinancialService_DeletePocket_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _FinancialService_GetTransactionsBetweenTimeRanges_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTransactionsBetweenTimeRangesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FinancialServiceServer).GetTransactionsBetweenTimeRanges(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FinancialService_GetTransactionsBetweenTimeRanges_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FinancialServiceServer).GetTransactionsBetweenTimeRanges(ctx, req.(*GetTransactionsBetweenTimeRangesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FinancialService_GetTransactionsForPastWeek_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTransactionsForPastWeekRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FinancialServiceServer).GetTransactionsForPastWeek(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FinancialService_GetTransactionsForPastWeek_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FinancialServiceServer).GetTransactionsForPastWeek(ctx, req.(*GetTransactionsForPastWeekRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FinancialService_GetTransactionsForPastMonth_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTransactionsForPastMonthRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FinancialServiceServer).GetTransactionsForPastMonth(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FinancialService_GetTransactionsForPastMonth_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FinancialServiceServer).GetTransactionsForPastMonth(ctx, req.(*GetTransactionsForPastMonthRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FinancialService_AddNoteToSmartGoal_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddNoteToSmartGoalRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FinancialServiceServer).AddNoteToSmartGoal(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FinancialService_AddNoteToSmartGoal_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FinancialServiceServer).AddNoteToSmartGoal(ctx, req.(*AddNoteToSmartGoalRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FinancialService_UpdateNoteToSmartGoal_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateNoteToSmartGoalRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FinancialServiceServer).UpdateNoteToSmartGoal(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FinancialService_UpdateNoteToSmartGoal_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FinancialServiceServer).UpdateNoteToSmartGoal(ctx, req.(*UpdateNoteToSmartGoalRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FinancialService_DeleteNoteFromSmartGoal_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteNoteFromSmartGoalRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FinancialServiceServer).DeleteNoteFromSmartGoal(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FinancialService_DeleteNoteFromSmartGoal_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FinancialServiceServer).DeleteNoteFromSmartGoal(ctx, req.(*DeleteNoteFromSmartGoalRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FinancialService_GetNotesFromSmartGoal_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetNotesFromSmartGoalRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FinancialServiceServer).GetNotesFromSmartGoal(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FinancialService_GetNotesFromSmartGoal_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FinancialServiceServer).GetNotesFromSmartGoal(ctx, req.(*GetNotesFromSmartGoalRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FinancialService_GetNoteFromSmartGoal_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetNoteFromSmartGoalRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FinancialServiceServer).GetNoteFromSmartGoal(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FinancialService_GetNoteFromSmartGoal_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FinancialServiceServer).GetNoteFromSmartGoal(ctx, req.(*GetNoteFromSmartGoalRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // FinancialService_ServiceDesc is the grpc.ServiceDesc for FinancialService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -3219,6 +3499,38 @@ var FinancialService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeletePocket",
 			Handler:    _FinancialService_DeletePocket_Handler,
+		},
+		{
+			MethodName: "GetTransactionsBetweenTimeRanges",
+			Handler:    _FinancialService_GetTransactionsBetweenTimeRanges_Handler,
+		},
+		{
+			MethodName: "GetTransactionsForPastWeek",
+			Handler:    _FinancialService_GetTransactionsForPastWeek_Handler,
+		},
+		{
+			MethodName: "GetTransactionsForPastMonth",
+			Handler:    _FinancialService_GetTransactionsForPastMonth_Handler,
+		},
+		{
+			MethodName: "AddNoteToSmartGoal",
+			Handler:    _FinancialService_AddNoteToSmartGoal_Handler,
+		},
+		{
+			MethodName: "UpdateNoteToSmartGoal",
+			Handler:    _FinancialService_UpdateNoteToSmartGoal_Handler,
+		},
+		{
+			MethodName: "DeleteNoteFromSmartGoal",
+			Handler:    _FinancialService_DeleteNoteFromSmartGoal_Handler,
+		},
+		{
+			MethodName: "GetNotesFromSmartGoal",
+			Handler:    _FinancialService_GetNotesFromSmartGoal_Handler,
+		},
+		{
+			MethodName: "GetNoteFromSmartGoal",
+			Handler:    _FinancialService_GetNoteFromSmartGoal_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
