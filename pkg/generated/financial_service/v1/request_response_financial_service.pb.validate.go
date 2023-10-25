@@ -11973,6 +11973,2126 @@ var _ interface {
 	ErrorName() string
 } = UpdatePocketResponseValidationError{}
 
+// Validate checks the field values on GetTransactionsBetweenTimeRangesRequest
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
+func (m *GetTransactionsBetweenTimeRangesRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// GetTransactionsBetweenTimeRangesRequest with the rules defined in the proto
+// definition for this message. If any rules are violated, the result is a
+// list of violation errors wrapped in
+// GetTransactionsBetweenTimeRangesRequestMultiError, or nil if none found.
+func (m *GetTransactionsBetweenTimeRangesRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetTransactionsBetweenTimeRangesRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetPlaidAccountId()) < 1 {
+		err := GetTransactionsBetweenTimeRangesRequestValidationError{
+			field:  "PlaidAccountId",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetUserId() <= 0 {
+		err := GetTransactionsBetweenTimeRangesRequestValidationError{
+			field:  "UserId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for StartTime
+
+	// no validation rules for EndTime
+
+	// no validation rules for Page
+
+	// no validation rules for Limit
+
+	if len(errors) > 0 {
+		return GetTransactionsBetweenTimeRangesRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetTransactionsBetweenTimeRangesRequestMultiError is an error wrapping
+// multiple validation errors returned by
+// GetTransactionsBetweenTimeRangesRequest.ValidateAll() if the designated
+// constraints aren't met.
+type GetTransactionsBetweenTimeRangesRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetTransactionsBetweenTimeRangesRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetTransactionsBetweenTimeRangesRequestMultiError) AllErrors() []error { return m }
+
+// GetTransactionsBetweenTimeRangesRequestValidationError is the validation
+// error returned by GetTransactionsBetweenTimeRangesRequest.Validate if the
+// designated constraints aren't met.
+type GetTransactionsBetweenTimeRangesRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetTransactionsBetweenTimeRangesRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetTransactionsBetweenTimeRangesRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetTransactionsBetweenTimeRangesRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetTransactionsBetweenTimeRangesRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetTransactionsBetweenTimeRangesRequestValidationError) ErrorName() string {
+	return "GetTransactionsBetweenTimeRangesRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetTransactionsBetweenTimeRangesRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetTransactionsBetweenTimeRangesRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetTransactionsBetweenTimeRangesRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetTransactionsBetweenTimeRangesRequestValidationError{}
+
+// Validate checks the field values on GetTransactionsBetweenTimeRangesResponse
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
+func (m *GetTransactionsBetweenTimeRangesResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// GetTransactionsBetweenTimeRangesResponse with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in
+// GetTransactionsBetweenTimeRangesResponseMultiError, or nil if none found.
+func (m *GetTransactionsBetweenTimeRangesResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetTransactionsBetweenTimeRangesResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetTransactions() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GetTransactionsBetweenTimeRangesResponseValidationError{
+						field:  fmt.Sprintf("Transactions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GetTransactionsBetweenTimeRangesResponseValidationError{
+						field:  fmt.Sprintf("Transactions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetTransactionsBetweenTimeRangesResponseValidationError{
+					field:  fmt.Sprintf("Transactions[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for CurrentPage
+
+	// no validation rules for TotalAges
+
+	// no validation rules for TotalTransactions
+
+	if len(errors) > 0 {
+		return GetTransactionsBetweenTimeRangesResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetTransactionsBetweenTimeRangesResponseMultiError is an error wrapping
+// multiple validation errors returned by
+// GetTransactionsBetweenTimeRangesResponse.ValidateAll() if the designated
+// constraints aren't met.
+type GetTransactionsBetweenTimeRangesResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetTransactionsBetweenTimeRangesResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetTransactionsBetweenTimeRangesResponseMultiError) AllErrors() []error { return m }
+
+// GetTransactionsBetweenTimeRangesResponseValidationError is the validation
+// error returned by GetTransactionsBetweenTimeRangesResponse.Validate if the
+// designated constraints aren't met.
+type GetTransactionsBetweenTimeRangesResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetTransactionsBetweenTimeRangesResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetTransactionsBetweenTimeRangesResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetTransactionsBetweenTimeRangesResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetTransactionsBetweenTimeRangesResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetTransactionsBetweenTimeRangesResponseValidationError) ErrorName() string {
+	return "GetTransactionsBetweenTimeRangesResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetTransactionsBetweenTimeRangesResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetTransactionsBetweenTimeRangesResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetTransactionsBetweenTimeRangesResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetTransactionsBetweenTimeRangesResponseValidationError{}
+
+// Validate checks the field values on GetTransactionsForPastWeekRequest with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *GetTransactionsForPastWeekRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetTransactionsForPastWeekRequest
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// GetTransactionsForPastWeekRequestMultiError, or nil if none found.
+func (m *GetTransactionsForPastWeekRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetTransactionsForPastWeekRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetPlaidAccountId()) < 1 {
+		err := GetTransactionsForPastWeekRequestValidationError{
+			field:  "PlaidAccountId",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetUserId() <= 0 {
+		err := GetTransactionsForPastWeekRequestValidationError{
+			field:  "UserId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for Page
+
+	// no validation rules for Limit
+
+	if len(errors) > 0 {
+		return GetTransactionsForPastWeekRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetTransactionsForPastWeekRequestMultiError is an error wrapping multiple
+// validation errors returned by
+// GetTransactionsForPastWeekRequest.ValidateAll() if the designated
+// constraints aren't met.
+type GetTransactionsForPastWeekRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetTransactionsForPastWeekRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetTransactionsForPastWeekRequestMultiError) AllErrors() []error { return m }
+
+// GetTransactionsForPastWeekRequestValidationError is the validation error
+// returned by GetTransactionsForPastWeekRequest.Validate if the designated
+// constraints aren't met.
+type GetTransactionsForPastWeekRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetTransactionsForPastWeekRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetTransactionsForPastWeekRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetTransactionsForPastWeekRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetTransactionsForPastWeekRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetTransactionsForPastWeekRequestValidationError) ErrorName() string {
+	return "GetTransactionsForPastWeekRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetTransactionsForPastWeekRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetTransactionsForPastWeekRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetTransactionsForPastWeekRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetTransactionsForPastWeekRequestValidationError{}
+
+// Validate checks the field values on GetTransactionsForPastWeekResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *GetTransactionsForPastWeekResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetTransactionsForPastWeekResponse
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// GetTransactionsForPastWeekResponseMultiError, or nil if none found.
+func (m *GetTransactionsForPastWeekResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetTransactionsForPastWeekResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetTransactions() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GetTransactionsForPastWeekResponseValidationError{
+						field:  fmt.Sprintf("Transactions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GetTransactionsForPastWeekResponseValidationError{
+						field:  fmt.Sprintf("Transactions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetTransactionsForPastWeekResponseValidationError{
+					field:  fmt.Sprintf("Transactions[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for CurrentPage
+
+	// no validation rules for TotalPages
+
+	// no validation rules for TotalTransactions
+
+	if len(errors) > 0 {
+		return GetTransactionsForPastWeekResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetTransactionsForPastWeekResponseMultiError is an error wrapping multiple
+// validation errors returned by
+// GetTransactionsForPastWeekResponse.ValidateAll() if the designated
+// constraints aren't met.
+type GetTransactionsForPastWeekResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetTransactionsForPastWeekResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetTransactionsForPastWeekResponseMultiError) AllErrors() []error { return m }
+
+// GetTransactionsForPastWeekResponseValidationError is the validation error
+// returned by GetTransactionsForPastWeekResponse.Validate if the designated
+// constraints aren't met.
+type GetTransactionsForPastWeekResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetTransactionsForPastWeekResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetTransactionsForPastWeekResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetTransactionsForPastWeekResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetTransactionsForPastWeekResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetTransactionsForPastWeekResponseValidationError) ErrorName() string {
+	return "GetTransactionsForPastWeekResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetTransactionsForPastWeekResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetTransactionsForPastWeekResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetTransactionsForPastWeekResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetTransactionsForPastWeekResponseValidationError{}
+
+// Validate checks the field values on GetTransactionsForPastMonthRequest with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *GetTransactionsForPastMonthRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetTransactionsForPastMonthRequest
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// GetTransactionsForPastMonthRequestMultiError, or nil if none found.
+func (m *GetTransactionsForPastMonthRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetTransactionsForPastMonthRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetPlaidAccountId()) < 1 {
+		err := GetTransactionsForPastMonthRequestValidationError{
+			field:  "PlaidAccountId",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetUserId() <= 0 {
+		err := GetTransactionsForPastMonthRequestValidationError{
+			field:  "UserId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for Page
+
+	// no validation rules for Limit
+
+	if len(errors) > 0 {
+		return GetTransactionsForPastMonthRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetTransactionsForPastMonthRequestMultiError is an error wrapping multiple
+// validation errors returned by
+// GetTransactionsForPastMonthRequest.ValidateAll() if the designated
+// constraints aren't met.
+type GetTransactionsForPastMonthRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetTransactionsForPastMonthRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetTransactionsForPastMonthRequestMultiError) AllErrors() []error { return m }
+
+// GetTransactionsForPastMonthRequestValidationError is the validation error
+// returned by GetTransactionsForPastMonthRequest.Validate if the designated
+// constraints aren't met.
+type GetTransactionsForPastMonthRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetTransactionsForPastMonthRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetTransactionsForPastMonthRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetTransactionsForPastMonthRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetTransactionsForPastMonthRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetTransactionsForPastMonthRequestValidationError) ErrorName() string {
+	return "GetTransactionsForPastMonthRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetTransactionsForPastMonthRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetTransactionsForPastMonthRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetTransactionsForPastMonthRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetTransactionsForPastMonthRequestValidationError{}
+
+// Validate checks the field values on GetTransactionsForPastMonthResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *GetTransactionsForPastMonthResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetTransactionsForPastMonthResponse
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// GetTransactionsForPastMonthResponseMultiError, or nil if none found.
+func (m *GetTransactionsForPastMonthResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetTransactionsForPastMonthResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetTransactions() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GetTransactionsForPastMonthResponseValidationError{
+						field:  fmt.Sprintf("Transactions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GetTransactionsForPastMonthResponseValidationError{
+						field:  fmt.Sprintf("Transactions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetTransactionsForPastMonthResponseValidationError{
+					field:  fmt.Sprintf("Transactions[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for CurrentPage
+
+	// no validation rules for TotalPages
+
+	// no validation rules for TotalTransactions
+
+	if len(errors) > 0 {
+		return GetTransactionsForPastMonthResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetTransactionsForPastMonthResponseMultiError is an error wrapping multiple
+// validation errors returned by
+// GetTransactionsForPastMonthResponse.ValidateAll() if the designated
+// constraints aren't met.
+type GetTransactionsForPastMonthResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetTransactionsForPastMonthResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetTransactionsForPastMonthResponseMultiError) AllErrors() []error { return m }
+
+// GetTransactionsForPastMonthResponseValidationError is the validation error
+// returned by GetTransactionsForPastMonthResponse.Validate if the designated
+// constraints aren't met.
+type GetTransactionsForPastMonthResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetTransactionsForPastMonthResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetTransactionsForPastMonthResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetTransactionsForPastMonthResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetTransactionsForPastMonthResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetTransactionsForPastMonthResponseValidationError) ErrorName() string {
+	return "GetTransactionsForPastMonthResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetTransactionsForPastMonthResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetTransactionsForPastMonthResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetTransactionsForPastMonthResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetTransactionsForPastMonthResponseValidationError{}
+
+// Validate checks the field values on AddNoteToSmartGoalRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *AddNoteToSmartGoalRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on AddNoteToSmartGoalRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// AddNoteToSmartGoalRequestMultiError, or nil if none found.
+func (m *AddNoteToSmartGoalRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *AddNoteToSmartGoalRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetSmartGoalId() <= 0 {
+		err := AddNoteToSmartGoalRequestValidationError{
+			field:  "SmartGoalId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetNote() == nil {
+		err := AddNoteToSmartGoalRequestValidationError{
+			field:  "Note",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetNote()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, AddNoteToSmartGoalRequestValidationError{
+					field:  "Note",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, AddNoteToSmartGoalRequestValidationError{
+					field:  "Note",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetNote()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return AddNoteToSmartGoalRequestValidationError{
+				field:  "Note",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return AddNoteToSmartGoalRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// AddNoteToSmartGoalRequestMultiError is an error wrapping multiple validation
+// errors returned by AddNoteToSmartGoalRequest.ValidateAll() if the
+// designated constraints aren't met.
+type AddNoteToSmartGoalRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m AddNoteToSmartGoalRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m AddNoteToSmartGoalRequestMultiError) AllErrors() []error { return m }
+
+// AddNoteToSmartGoalRequestValidationError is the validation error returned by
+// AddNoteToSmartGoalRequest.Validate if the designated constraints aren't met.
+type AddNoteToSmartGoalRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AddNoteToSmartGoalRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AddNoteToSmartGoalRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AddNoteToSmartGoalRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AddNoteToSmartGoalRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AddNoteToSmartGoalRequestValidationError) ErrorName() string {
+	return "AddNoteToSmartGoalRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e AddNoteToSmartGoalRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAddNoteToSmartGoalRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AddNoteToSmartGoalRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AddNoteToSmartGoalRequestValidationError{}
+
+// Validate checks the field values on AddNoteToSmartGoalResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *AddNoteToSmartGoalResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on AddNoteToSmartGoalResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// AddNoteToSmartGoalResponseMultiError, or nil if none found.
+func (m *AddNoteToSmartGoalResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *AddNoteToSmartGoalResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetGoal()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, AddNoteToSmartGoalResponseValidationError{
+					field:  "Goal",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, AddNoteToSmartGoalResponseValidationError{
+					field:  "Goal",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetGoal()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return AddNoteToSmartGoalResponseValidationError{
+				field:  "Goal",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return AddNoteToSmartGoalResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// AddNoteToSmartGoalResponseMultiError is an error wrapping multiple
+// validation errors returned by AddNoteToSmartGoalResponse.ValidateAll() if
+// the designated constraints aren't met.
+type AddNoteToSmartGoalResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m AddNoteToSmartGoalResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m AddNoteToSmartGoalResponseMultiError) AllErrors() []error { return m }
+
+// AddNoteToSmartGoalResponseValidationError is the validation error returned
+// by AddNoteToSmartGoalResponse.Validate if the designated constraints aren't met.
+type AddNoteToSmartGoalResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AddNoteToSmartGoalResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AddNoteToSmartGoalResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AddNoteToSmartGoalResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AddNoteToSmartGoalResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AddNoteToSmartGoalResponseValidationError) ErrorName() string {
+	return "AddNoteToSmartGoalResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e AddNoteToSmartGoalResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAddNoteToSmartGoalResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AddNoteToSmartGoalResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AddNoteToSmartGoalResponseValidationError{}
+
+// Validate checks the field values on UpdateNoteToSmartGoalRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *UpdateNoteToSmartGoalRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UpdateNoteToSmartGoalRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UpdateNoteToSmartGoalRequestMultiError, or nil if none found.
+func (m *UpdateNoteToSmartGoalRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UpdateNoteToSmartGoalRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetNote() == nil {
+		err := UpdateNoteToSmartGoalRequestValidationError{
+			field:  "Note",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetNote()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, UpdateNoteToSmartGoalRequestValidationError{
+					field:  "Note",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, UpdateNoteToSmartGoalRequestValidationError{
+					field:  "Note",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetNote()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UpdateNoteToSmartGoalRequestValidationError{
+				field:  "Note",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return UpdateNoteToSmartGoalRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// UpdateNoteToSmartGoalRequestMultiError is an error wrapping multiple
+// validation errors returned by UpdateNoteToSmartGoalRequest.ValidateAll() if
+// the designated constraints aren't met.
+type UpdateNoteToSmartGoalRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UpdateNoteToSmartGoalRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UpdateNoteToSmartGoalRequestMultiError) AllErrors() []error { return m }
+
+// UpdateNoteToSmartGoalRequestValidationError is the validation error returned
+// by UpdateNoteToSmartGoalRequest.Validate if the designated constraints
+// aren't met.
+type UpdateNoteToSmartGoalRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdateNoteToSmartGoalRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdateNoteToSmartGoalRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdateNoteToSmartGoalRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdateNoteToSmartGoalRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdateNoteToSmartGoalRequestValidationError) ErrorName() string {
+	return "UpdateNoteToSmartGoalRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpdateNoteToSmartGoalRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdateNoteToSmartGoalRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdateNoteToSmartGoalRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdateNoteToSmartGoalRequestValidationError{}
+
+// Validate checks the field values on UpdateNoteToSmartGoalResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *UpdateNoteToSmartGoalResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UpdateNoteToSmartGoalResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// UpdateNoteToSmartGoalResponseMultiError, or nil if none found.
+func (m *UpdateNoteToSmartGoalResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UpdateNoteToSmartGoalResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetNote()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, UpdateNoteToSmartGoalResponseValidationError{
+					field:  "Note",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, UpdateNoteToSmartGoalResponseValidationError{
+					field:  "Note",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetNote()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UpdateNoteToSmartGoalResponseValidationError{
+				field:  "Note",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return UpdateNoteToSmartGoalResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// UpdateNoteToSmartGoalResponseMultiError is an error wrapping multiple
+// validation errors returned by UpdateNoteToSmartGoalResponse.ValidateAll()
+// if the designated constraints aren't met.
+type UpdateNoteToSmartGoalResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UpdateNoteToSmartGoalResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UpdateNoteToSmartGoalResponseMultiError) AllErrors() []error { return m }
+
+// UpdateNoteToSmartGoalResponseValidationError is the validation error
+// returned by UpdateNoteToSmartGoalResponse.Validate if the designated
+// constraints aren't met.
+type UpdateNoteToSmartGoalResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdateNoteToSmartGoalResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdateNoteToSmartGoalResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdateNoteToSmartGoalResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdateNoteToSmartGoalResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdateNoteToSmartGoalResponseValidationError) ErrorName() string {
+	return "UpdateNoteToSmartGoalResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpdateNoteToSmartGoalResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdateNoteToSmartGoalResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdateNoteToSmartGoalResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdateNoteToSmartGoalResponseValidationError{}
+
+// Validate checks the field values on DeleteNoteFromSmartGoalRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeleteNoteFromSmartGoalRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeleteNoteFromSmartGoalRequest with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// DeleteNoteFromSmartGoalRequestMultiError, or nil if none found.
+func (m *DeleteNoteFromSmartGoalRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeleteNoteFromSmartGoalRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetSmartGoalId() <= 0 {
+		err := DeleteNoteFromSmartGoalRequestValidationError{
+			field:  "SmartGoalId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetNoteId() <= 0 {
+		err := DeleteNoteFromSmartGoalRequestValidationError{
+			field:  "NoteId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return DeleteNoteFromSmartGoalRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeleteNoteFromSmartGoalRequestMultiError is an error wrapping multiple
+// validation errors returned by DeleteNoteFromSmartGoalRequest.ValidateAll()
+// if the designated constraints aren't met.
+type DeleteNoteFromSmartGoalRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeleteNoteFromSmartGoalRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeleteNoteFromSmartGoalRequestMultiError) AllErrors() []error { return m }
+
+// DeleteNoteFromSmartGoalRequestValidationError is the validation error
+// returned by DeleteNoteFromSmartGoalRequest.Validate if the designated
+// constraints aren't met.
+type DeleteNoteFromSmartGoalRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteNoteFromSmartGoalRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteNoteFromSmartGoalRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteNoteFromSmartGoalRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteNoteFromSmartGoalRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteNoteFromSmartGoalRequestValidationError) ErrorName() string {
+	return "DeleteNoteFromSmartGoalRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteNoteFromSmartGoalRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteNoteFromSmartGoalRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteNoteFromSmartGoalRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteNoteFromSmartGoalRequestValidationError{}
+
+// Validate checks the field values on DeleteNoteFromSmartGoalResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeleteNoteFromSmartGoalResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeleteNoteFromSmartGoalResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// DeleteNoteFromSmartGoalResponseMultiError, or nil if none found.
+func (m *DeleteNoteFromSmartGoalResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeleteNoteFromSmartGoalResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Deleted
+
+	if len(errors) > 0 {
+		return DeleteNoteFromSmartGoalResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeleteNoteFromSmartGoalResponseMultiError is an error wrapping multiple
+// validation errors returned by DeleteNoteFromSmartGoalResponse.ValidateAll()
+// if the designated constraints aren't met.
+type DeleteNoteFromSmartGoalResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeleteNoteFromSmartGoalResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeleteNoteFromSmartGoalResponseMultiError) AllErrors() []error { return m }
+
+// DeleteNoteFromSmartGoalResponseValidationError is the validation error
+// returned by DeleteNoteFromSmartGoalResponse.Validate if the designated
+// constraints aren't met.
+type DeleteNoteFromSmartGoalResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteNoteFromSmartGoalResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteNoteFromSmartGoalResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteNoteFromSmartGoalResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteNoteFromSmartGoalResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteNoteFromSmartGoalResponseValidationError) ErrorName() string {
+	return "DeleteNoteFromSmartGoalResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteNoteFromSmartGoalResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteNoteFromSmartGoalResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteNoteFromSmartGoalResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteNoteFromSmartGoalResponseValidationError{}
+
+// Validate checks the field values on GetNotesFromSmartGoalRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetNotesFromSmartGoalRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetNotesFromSmartGoalRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetNotesFromSmartGoalRequestMultiError, or nil if none found.
+func (m *GetNotesFromSmartGoalRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetNotesFromSmartGoalRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetSmartGoalId() <= 0 {
+		err := GetNotesFromSmartGoalRequestValidationError{
+			field:  "SmartGoalId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return GetNotesFromSmartGoalRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetNotesFromSmartGoalRequestMultiError is an error wrapping multiple
+// validation errors returned by GetNotesFromSmartGoalRequest.ValidateAll() if
+// the designated constraints aren't met.
+type GetNotesFromSmartGoalRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetNotesFromSmartGoalRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetNotesFromSmartGoalRequestMultiError) AllErrors() []error { return m }
+
+// GetNotesFromSmartGoalRequestValidationError is the validation error returned
+// by GetNotesFromSmartGoalRequest.Validate if the designated constraints
+// aren't met.
+type GetNotesFromSmartGoalRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetNotesFromSmartGoalRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetNotesFromSmartGoalRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetNotesFromSmartGoalRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetNotesFromSmartGoalRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetNotesFromSmartGoalRequestValidationError) ErrorName() string {
+	return "GetNotesFromSmartGoalRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetNotesFromSmartGoalRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetNotesFromSmartGoalRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetNotesFromSmartGoalRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetNotesFromSmartGoalRequestValidationError{}
+
+// Validate checks the field values on GetNotesFromSmartGoalResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetNotesFromSmartGoalResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetNotesFromSmartGoalResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// GetNotesFromSmartGoalResponseMultiError, or nil if none found.
+func (m *GetNotesFromSmartGoalResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetNotesFromSmartGoalResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetNotes() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GetNotesFromSmartGoalResponseValidationError{
+						field:  fmt.Sprintf("Notes[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GetNotesFromSmartGoalResponseValidationError{
+						field:  fmt.Sprintf("Notes[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetNotesFromSmartGoalResponseValidationError{
+					field:  fmt.Sprintf("Notes[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return GetNotesFromSmartGoalResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetNotesFromSmartGoalResponseMultiError is an error wrapping multiple
+// validation errors returned by GetNotesFromSmartGoalResponse.ValidateAll()
+// if the designated constraints aren't met.
+type GetNotesFromSmartGoalResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetNotesFromSmartGoalResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetNotesFromSmartGoalResponseMultiError) AllErrors() []error { return m }
+
+// GetNotesFromSmartGoalResponseValidationError is the validation error
+// returned by GetNotesFromSmartGoalResponse.Validate if the designated
+// constraints aren't met.
+type GetNotesFromSmartGoalResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetNotesFromSmartGoalResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetNotesFromSmartGoalResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetNotesFromSmartGoalResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetNotesFromSmartGoalResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetNotesFromSmartGoalResponseValidationError) ErrorName() string {
+	return "GetNotesFromSmartGoalResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetNotesFromSmartGoalResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetNotesFromSmartGoalResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetNotesFromSmartGoalResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetNotesFromSmartGoalResponseValidationError{}
+
+// Validate checks the field values on GetNoteFromSmartGoalRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetNoteFromSmartGoalRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetNoteFromSmartGoalRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetNoteFromSmartGoalRequestMultiError, or nil if none found.
+func (m *GetNoteFromSmartGoalRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetNoteFromSmartGoalRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetNoteId() <= 0 {
+		err := GetNoteFromSmartGoalRequestValidationError{
+			field:  "NoteId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return GetNoteFromSmartGoalRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetNoteFromSmartGoalRequestMultiError is an error wrapping multiple
+// validation errors returned by GetNoteFromSmartGoalRequest.ValidateAll() if
+// the designated constraints aren't met.
+type GetNoteFromSmartGoalRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetNoteFromSmartGoalRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetNoteFromSmartGoalRequestMultiError) AllErrors() []error { return m }
+
+// GetNoteFromSmartGoalRequestValidationError is the validation error returned
+// by GetNoteFromSmartGoalRequest.Validate if the designated constraints
+// aren't met.
+type GetNoteFromSmartGoalRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetNoteFromSmartGoalRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetNoteFromSmartGoalRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetNoteFromSmartGoalRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetNoteFromSmartGoalRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetNoteFromSmartGoalRequestValidationError) ErrorName() string {
+	return "GetNoteFromSmartGoalRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetNoteFromSmartGoalRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetNoteFromSmartGoalRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetNoteFromSmartGoalRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetNoteFromSmartGoalRequestValidationError{}
+
+// Validate checks the field values on GetNoteFromSmartGoalResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetNoteFromSmartGoalResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetNoteFromSmartGoalResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetNoteFromSmartGoalResponseMultiError, or nil if none found.
+func (m *GetNoteFromSmartGoalResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetNoteFromSmartGoalResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetNote()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetNoteFromSmartGoalResponseValidationError{
+					field:  "Note",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetNoteFromSmartGoalResponseValidationError{
+					field:  "Note",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetNote()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetNoteFromSmartGoalResponseValidationError{
+				field:  "Note",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return GetNoteFromSmartGoalResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetNoteFromSmartGoalResponseMultiError is an error wrapping multiple
+// validation errors returned by GetNoteFromSmartGoalResponse.ValidateAll() if
+// the designated constraints aren't met.
+type GetNoteFromSmartGoalResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetNoteFromSmartGoalResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetNoteFromSmartGoalResponseMultiError) AllErrors() []error { return m }
+
+// GetNoteFromSmartGoalResponseValidationError is the validation error returned
+// by GetNoteFromSmartGoalResponse.Validate if the designated constraints
+// aren't met.
+type GetNoteFromSmartGoalResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetNoteFromSmartGoalResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetNoteFromSmartGoalResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetNoteFromSmartGoalResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetNoteFromSmartGoalResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetNoteFromSmartGoalResponseValidationError) ErrorName() string {
+	return "GetNoteFromSmartGoalResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetNoteFromSmartGoalResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetNoteFromSmartGoalResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetNoteFromSmartGoalResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetNoteFromSmartGoalResponseValidationError{}
+
 // Validate checks the field values on
 // GetReCurringTransactionsResponse_ParticipantReCurringTransactions with the
 // rules defined in the proto definition for this message. If any rules are

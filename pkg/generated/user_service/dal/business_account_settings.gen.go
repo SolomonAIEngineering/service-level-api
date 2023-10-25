@@ -8,7 +8,6 @@ import (
 	"context"
 	"strings"
 
-	user_servicev1 "github.com/SolomonAIEngineering/service-level-api/pkg/generated/user_service/v1"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 	"gorm.io/gorm/schema"
@@ -18,6 +17,8 @@ import (
 	"gorm.io/gen/helper"
 
 	"gorm.io/plugin/dbresolver"
+
+	user_servicev1 "github.com/SolomonAIEngineering/service-level-api/pkg/generated/user_service/v1"
 )
 
 func newBusinessAccountSettingsORM(db *gorm.DB, opts ...gen.DOOption) businessAccountSettingsORM {
@@ -28,8 +29,8 @@ func newBusinessAccountSettingsORM(db *gorm.DB, opts ...gen.DOOption) businessAc
 
 	tableName := _businessAccountSettingsORM.businessAccountSettingsORMDo.TableName()
 	_businessAccountSettingsORM.ALL = field.NewAsterisk(tableName)
+	_businessAccountSettingsORM.BusinessAccountId = field.NewUint64(tableName, "business_account_id")
 	_businessAccountSettingsORM.Id = field.NewUint64(tableName, "id")
-	_businessAccountSettingsORM.UserAccountId = field.NewUint64(tableName, "user_account_id")
 	_businessAccountSettingsORM.AccountInformation = businessAccountSettingsORMHasOneAccountInformation{
 		db: db.Session(&gorm.Session{}),
 
@@ -79,8 +80,8 @@ type businessAccountSettingsORM struct {
 	businessAccountSettingsORMDo
 
 	ALL                field.Asterisk
+	BusinessAccountId  field.Uint64
 	Id                 field.Uint64
-	UserAccountId      field.Uint64
 	AccountInformation businessAccountSettingsORMHasOneAccountInformation
 
 	AiPoweredInsights businessAccountSettingsORMHasOneAiPoweredInsights
@@ -106,8 +107,8 @@ func (b businessAccountSettingsORM) As(alias string) *businessAccountSettingsORM
 
 func (b *businessAccountSettingsORM) updateTableName(table string) *businessAccountSettingsORM {
 	b.ALL = field.NewAsterisk(table)
+	b.BusinessAccountId = field.NewUint64(table, "business_account_id")
 	b.Id = field.NewUint64(table, "id")
-	b.UserAccountId = field.NewUint64(table, "user_account_id")
 
 	b.fillFieldMap()
 
@@ -125,8 +126,8 @@ func (b *businessAccountSettingsORM) GetFieldByName(fieldName string) (field.Ord
 
 func (b *businessAccountSettingsORM) fillFieldMap() {
 	b.fieldMap = make(map[string]field.Expr, 7)
+	b.fieldMap["business_account_id"] = b.BusinessAccountId
 	b.fieldMap["id"] = b.Id
-	b.fieldMap["user_account_id"] = b.UserAccountId
 
 }
 

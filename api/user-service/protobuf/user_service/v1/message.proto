@@ -18,167 +18,196 @@ enum ProfileType {
   PROFILE_TYPE_BUSINESS = 2;
 }
 
-/*
- UserAccount: represents a user account in the context of simfinni
-*/
+/**
+ * @brief Represents a user account in the context of simfinni.
+ */
 message UserAccount {
   option (gorm.opts) = {
-    ormable : true,
+    ormable: true
   };
-  // account id
-  uint64 id = 1 [
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      example: ""
-    }
-  ];
-  // account email
-  // Validations:
-  // - must be an email and required 
+
+  // Unique identifier for the account.
+  uint64 id = 1;
+
+  // Email associated with the user account.
   string email = 2 [
     (validate.rules).string.email = true,
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      example: "\"lksdjhfgsdhfghdsgfhgdh@gmail.com\""
+      example: "\"sample@example.com\""
     } 
   ];
-  // the address associated with the user
-  // Validations:
-  // - can be empty
-  Address address = 7 [
-    (gorm.field).has_one.preload = true,
-    (validate.rules).message.required = false
-  ];
-  // simple description specific to account should be less than 200 characters
-  // Validations:
-  // - can be empty
-  string bio = 12 [
-    (validate.rules).string.min_len = 0,
-     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      example: "\"lksdjhfgsdhfghdsgfhgdha;hdgjsdfhaghsldfhagjkh;sdafjhsdjflhgjhjsfhgjsdhfjfkgjhsdfhgjhjdfhgjsdhjglsdjjghjdfhsjghjsadfhgjsdfhjghsdfkjghdfj\""
-    } 
-  ];
-  // profile headline
-  // Validations:
-  // - can be empty
-  string headline = 13 [
-    (validate.rules).string.min_len = 0,
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      example: "\"lksdjhfgsdhfghdsgfhgdha;hdgjsdfhaghsldfhagjkh;sdafjhsdjflhgjhjsfhgjsdhfjfkgjhsdfhgjhjdfhgjsdhjglsdjjghjdfhsjghjsadfhgjsdfhjghsdfkjghdfj\""
-    } 
-  ];
-  // account phone number
-  // Validations:
-  // - mcan be empty
-  string phone_number = 14 [
-    (validate.rules).string.min_len = 0,
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      example: "\"6513424124\""
-    } 
-  ];
-  // sample tags easily associable to account
-  // account first name
-  // Validations:
-  // - must be at provide between 1 and 10 tags
+
+  // Physical address associated with the user.
+  Address address = 7;
+
+  // Brief description about the user, up to 200 characters.
+  string bio = 12;
+
+  // Short headline for the user's profile.
+  string headline = 13;
+
+  // Phone number associated with the account.
+  string phone_number = 14;
+
+  // Tags associated with the user account, between 1 and 10.
   repeated Tags tags = 15 [
-    (gorm.field).has_many.preload = true,
     (validate.rules).repeated.min_items = 1,
     (validate.rules).repeated.max_items = 10
   ];
-  // authentication service account id
-  uint64 authn_account_id = 18 [
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      example: ""
-    }
-  ];
-  // infers wether the account is active
-  bool is_active = 22 [
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      example: "true"
-    }
-  ];
-  // account first name
-  // Validations:
-  // - can be empty
-  string firstname = 26 [
-    (validate.rules).string.min_len = 0,
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      example: "\"testuser96\""
-    } 
-  ];
-  // account last name
-  // Validations:
-  // - can be empty
-  string lastname = 27 [
-    (validate.rules).string.min_len = 0,
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      example: "\"testuserlastname\""
-    } 
-  ];
-  // account user name
-  // Validations:
-  // - must be at least 10 character
+
+  // ID for the authentication service linked to this account.
+  uint64 authn_account_id = 18;
+
+  // Indicates if the account is currently active.
+  bool is_active = 22;
+
+  // User's first name.
+  string firstname = 26;
+
+  // User's last name.
+  string lastname = 27;
+
+  // Username associated with the account, minimum of 10 characters.
   string username = 28 [
     (validate.rules).string.min_len = 10,
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       example: "\"testuser9696\""
     }
   ];
-  // account is private
-  bool is_private = 29 [
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      example: "false"
-    }
-  ];
-  // isEmailVerified is a field denoting wether or not the user account has
-  // indeed verified their email address
-  bool is_email_verified = 30 [
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      example: "false"
-    }
-  ];
+
+  // Indicates if the account is set to private.
+  bool is_private = 29;
+
+  // Indicates if the user's email has been verified.
+  bool is_email_verified = 30;
+
+  // Timestamp for when the account was created.
   google.protobuf.Timestamp created_at = 31;
+
+  // Timestamp for when the email was verified.
   google.protobuf.Timestamp verified_at = 32;
 
-  // IsBusinessAccount enables us to check if this is a business account of interest
-  bool is_business_account = 33;
-  
-  // Established Date is the date the company was created
-  // optional field for business profile
-  string company_established_date = 35;
-  // Industry Type is the type of business associated to this business
-  string company_industry_type = 36 [
-    (validate.rules).string.min_len = 0,
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      example: "\"fintech\""
-    } 
-  ];
-  // Website url of the business
-  string company_website_url = 37 [
-    (validate.rules).string.min_len = 0,
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      example: "\"https://solomon-ai.io\""
-    } 
-  ];
-  // Company description 
-  string company_description = 38[
-    (validate.rules).string.min_len = 0,
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      example: "\"we help businesses stay in business\""
-    } 
-  ];
-  // Company Name is the name of the company profile
-  string company_name = 39[
-    (validate.rules).string.min_len = 0,
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      example: "\"solomon-ai\""
-    } 
+  // Settings specific to the user account.
+  UserSettings user_settings = 40;
+
+  // Enum indicating the type of profile (e.g., individual, corporate).
+  ProfileType account_type = 42;
+}
+
+// BusinessAccount represents a business account within the context of solomon-ai.
+message BusinessAccount {
+  option (gorm.opts) = {
+    ormable: true,
+  };
+
+  // Unique identifier for the business account.
+  uint64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { example: "" }
   ];
 
-  UserSettings user_settings = 40 [
-    (gorm.field).has_one.preload = true
+  // Email associated with the business account.
+  string email = 2 [
+    (validate.rules).string.email = true,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { example: "\"example@gmail.com\"" } 
   ];
+
+  // Physical address associated with the business account.
+  Address address = 7 [
+    (gorm.field).has_one.preload = true,
+    (validate.rules).message.required = false
+  ];
+
+  // Short description of the business account. Maximum of 200 characters.
+  string bio = 12 [
+    (validate.rules).string.min_len = 0,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { example: "\"sample description\"" } 
+  ];
+
+  // Headline for the profile of the business account.
+  string headline = 13 [
+    (validate.rules).string.min_len = 0,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { example: "\"sample headline\"" } 
+  ];
+
+  // Phone number associated with the business account.
+  string phone_number = 14 [
+    (validate.rules).string.min_len = 0,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { example: "\"6513424124\"" } 
+  ];
+
+  // Tags associated with the business account. Between 1 and 10 tags are allowed.
+  repeated Tags tags = 15 [
+    (gorm.field).has_many.preload = true,
+    (validate.rules).repeated.min_items = 1,
+    (validate.rules).repeated.max_items = 10
+  ];
+
+  // Identifier for the associated authentication service account.
+  uint64 authn_account_id = 18 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { example: "" }
+  ];
+
+  // Indicates whether the business account is active.
+  bool is_active = 22 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { example: "true" }
+  ];
+
+  // Username for the business account. Must be at least 10 characters long.
+  string username = 28 [
+    (validate.rules).string.min_len = 10,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { example: "\"testuser9696\"" }
+  ];
+
+  // Indicates whether the business account is private.
+  bool is_private = 29 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { example: "false" }
+  ];
+
+  // Indicates whether the email associated with the business account has been verified.
+  bool is_email_verified = 30 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { example: "false" }
+  ];
+
+  // Timestamp indicating when the business account was created.
+  google.protobuf.Timestamp created_at = 31;
+
+  // Timestamp indicating when the email for the business account was verified.
+  google.protobuf.Timestamp verified_at = 32;
+
+  // Date when the company associated with the business account was established.
+  string company_established_date = 35;
+
+  // Industry type of the company associated with the business account.
+  string company_industry_type = 36 [
+    (validate.rules).string.min_len = 0,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { example: "\"fintech\"" } 
+  ];
+
+  // Website URL of the company associated with the business account.
+  string company_website_url = 37 [
+    (validate.rules).string.min_len = 0,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { example: "\"https://solomon-ai.io\"" } 
+  ];
+
+  // Description of the company associated with the business account.
+  string company_description = 38 [
+    (validate.rules).string.min_len = 0,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { example: "\"We help businesses succeed\"" } 
+  ];
+
+  // Name of the company associated with the business account.
+  string company_name = 39 [
+    (validate.rules).string.min_len = 0,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { example: "\"Solomon AI\"" } 
+  ];
+
+  // Settings specific to the business account.
   BusinessAccountSettings business_account_settings = 41 [
     (gorm.field).has_one.preload = true
   ];
+
+  // The type of profile associated with the business account (e.g., individual, corporate).
+  ProfileType account_type = 42;
 }
 
 /*

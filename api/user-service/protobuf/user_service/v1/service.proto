@@ -310,46 +310,426 @@ service UserService {
         };
     }
 
-    // Retrieve business settings.
-  rpc GetBusinessSettings(GetBusinessSettingsRequest) returns (GetBusinessSettingsResponse) {
-        option (google.api.http) = {
-            get: "/api/v1/user/business/settings/{user_id}"
-        };
+  // ====================================================== v2 ======================================================== //
+    /**
+    * @brief Retrieves details of a user account.
+    * 
+    * This RPC provides access to detailed information about a user account
+    * based on the provided user ID. The endpoint for this service is `/api/v2/user/{user_id}`.
+    * The service provides a concise and clear response encapsulated in `GetUserV2Response`.
+    *
+    * @param GetUserV2Request Request object containing the parameters needed to query the user details.
+    * @return GetUserV2Response Response object containing the details of the queried user.
+    */
+    rpc GetUserV2(GetUserV2Request) returns (GetUserV2Response) {
+        option (google.api.http) = {get: "/api/v2/user/{user_id}"};
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-            summary: "Gets a business accounts settings"
-            tags: ["business settings"]
-            operation_id: "GetBusinessSettings"
-            description: "Queries and obtains business settings based on the provided parameters"
+            summary: "Retrieve user account details",
+            tags: ["User Account Management"],
+            operation_id: "GetUserV2",
+            description: "Fetches detailed information about a user account based on the specified user ID.",
             responses: {
-                key: "200"
+                key: "200",
                 value: {
-                description: "A successful response."
-                schema: {
-                    json_schema: {ref: ".api.v1.BusinessSettings"}
-                }
+                    description: "Successful retrieval of user account details.",
+                    schema: {
+                        json_schema: {ref: ".api.v1.GetUserResponse"}
+                    }
                 }
             }
         };
     }
 
-  // Update business settings.
-  rpc UpdateBusinessSettings(UpdateBusinessSettingsRequest) returns (UpdateBusinessSettingsResponse) {
+
+    /**
+    * @brief Fetches user account details based on the username.
+    * 
+    * This RPC provides access to user account information based on the given username.
+    * 
+    * @param GetUserByUsernameV2Request Request containing the desired username.
+    * @return GetUserByUsernameV2Response Returns the corresponding user details.
+    */
+    rpc GetUserByUsernameV2(GetUserByUsernameV2Request) returns (GetUserByUsernameV2Response) {
+        option (google.api.http) = {get: "/api/v2/user/username/{username}"};
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Retrieve user details by username",
+            tags: ["User Account Management"],
+            operation_id: "GetUserByUsernameV2",
+            description: "Provides detailed information of a user based on the given username.",
+            responses: {
+                key: "200",
+                value: {
+                    description: "Successfully retrieved user details.",
+                    schema: {
+                        json_schema: {ref: ".api.v1.GetUserByUsernameV2Response"}
+                    }
+                }
+            }
+        };
+    }
+
+    /**
+    * @brief Fetches user account details based on the email.
+    * 
+    * This RPC provides access to user account information based on the provided email.
+    * 
+    * @param GetUserByEmailV2Request Request containing the desired email.
+    * @return GetUserByEmailV2Response Returns the corresponding user details.
+    */
+    /**
+    * @brief Fetches user account details based on the email.
+    * 
+    * This RPC provides access to user account information based on the provided email.
+    * 
+    * @param GetUserByEmailV2Request Request containing the desired email.
+    * @return GetUserByEmailV2Response Returns the corresponding user details.
+    */
+    rpc GetUserByEmailV2(GetUserByEmailV2Request) returns (GetUserByEmailV2Response) {
+        option (google.api.http) = {get: "/api/v2/user/email/{email}"};
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Retrieve user details by email",
+            tags: ["User Account Management"],
+            operation_id: "GetUserByEmailV2",
+            description: "Provides detailed information of a user based on the given email.",
+            responses: {
+                key: "200",
+                value: {
+                    description: "Successfully retrieved user details.",
+                    schema: {
+                        json_schema: {ref: ".api.v1.GetUserByEmailV2Response"}
+                    }
+                }
+            }
+        };
+    }
+
+    /**
+    * Retrieves a user account using either email or username.
+    *
+    * @param GetUserByEmailOrUsernameV2Request Contains the email or username to query the account.
+    * @return GetUserByEmailOrUsernameV2Response Provides the status of the operation.
+    */
+    rpc GetUserByEmailOrUsernameV2(GetUserByEmailOrUsernameV2Request) returns (GetUserByEmailOrUsernameV2Response) {
         option (google.api.http) = {
-            put: "/api/v1/user/business/settings"
-            body: "*"
+            get: "/api/v2/user/account"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-            summary: "Updates business settings"
-            tags: ["business settings"]
-            operation_id: "UpdateBusinessSettings"
-            description: "Updates business settings based on the provided parameters"
+            summary: "Retrieve user account by email or username",
+            tags: ["user account"],
+            operation_id: "GetUserByEmailOrUsernameV2",
+            description: "Fetches a user account using the provided email or username.",
+            responses: {
+                key: "200",
+                value: {
+                    description: "Successful retrieval.",
+                    schema: {
+                        json_schema: {ref: ".api.v1.VerifyUserResponse"}
+                    }
+                }
+            }
+        };
+    }
+
+
+    /**
+    * @brief Checks if a username exists for a given account type
+    * 
+    * This RPC performs checks to ensure a username exists based on the provided parameters
+    * 
+    * @param CheckUsernameExistsV2Request Request containing the desired username.
+    * @return CheckUsernameExistsV2Response Returns the status of the request.
+    */
+    rpc CheckUsernameExistsV2(CheckUsernameExistsV2Request) returns (CheckUsernameExistsV2Response) {
+        option (google.api.http) = {get: "/api/v2/user/username/{username}/exists"};
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Checks that a username exists or not"
+            tags: ["user account"]
+            operation_id: "CheckUsernameExistsV2"
+            description: "Checks if a username exists or not"
             responses: {
                 key: "200"
                 value: {
-                description: "A successful response."
-                schema: {
-                    json_schema: {ref: ".api.v1.UpdateBusinessSettingsResponse"}
+                    description: "A successful response."
+                    schema: {
+                        json_schema: {ref: ".api.v1.CheckUsernameExistsV2Response"}
+                    }
                 }
+            }
+        };
+    }
+
+    /**
+    * @brief Checks if a email exists for a given account type
+    * 
+    * This RPC performs checks to ensure a email exists based on the provided parameters
+    * 
+    * @param CheckEmailExistsV2Request Request containing the desired email.
+    * @return CheckEmailExistsV2Response Returns the status of the request.
+    */
+    rpc CheckEmailExistsV2(CheckEmailExistsV2Request) returns (CheckEmailExistsV2Response) {
+        option (google.api.http) = {get: "/api/v2/user/email/{email}/exists"};
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Checks that an email exists or not"
+            tags: ["user account"]
+            operation_id: "CheckEmailExistsV2"
+            description: "Checks if an email exists or not"
+            responses: {
+                key: "200"
+                value: {
+                    description: "A successful response."
+                    schema: {
+                        json_schema: {ref: ".api.v1.CheckEmailExistsV2Response"}
+                    }
+                }
+            }
+        };
+    }
+
+    /**
+    * @brief deletes a user account based on the provided user ID.
+    * 
+    * This RPC performs account deletion based on the provided parameter
+    * 
+    * @param DeleteUserV2Request Request containing the desired parameters necessary for account deletion.
+    * @return DeleteUserV2Response Returns the status of the request.
+    */
+    rpc DeleteUserV2(DeleteUserV2Request) returns (DeleteUserV2Response) {
+        option (google.api.http) = {delete: "/api/v2/user/{user_id}"};
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "deletes a user account"
+            tags: ["user account"]
+            operation_id: "DeleteUserV2"
+            description: 
+                "This endpoint performs a delete operation on a user account based on the provided parameters"
+                "This deletion operation spans multiple services as user details are stored across a suite of our backend services"
+                "The operation itself is an atomic one of nature. Either all services successfully delete the recod or we fail the request"
+                "Divergent state is not expected to be encountered with this endpoint."
+            responses: {
+                key: "200"
+                value: {
+                    description: "A successful response."
+                    schema: {
+                        json_schema: {ref: ".api.v1.DeleteUserV2Response"}
+                    }
+                }
+            }
+        };
+    }
+
+    /**
+    * @brief update a user account based on the provided parameters
+    * 
+    * This RPC updates the account of the requestor
+    * 
+    * @param UpdateUserV2Request Request containing the desired parameters necessary for account updating.
+    * @return UpdateUserV2Response Returns the status of the request.
+    */
+    rpc UpdateUserV2(UpdateUserV2Request) returns (UpdateUserV2Response) {
+        option (google.api.http) = {
+            put: "/api/v2/user" 
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "update a user account"
+            tags: ["user account"]
+            operation_id: "UpdateUserV2"
+            description: 
+                "This endpoint performs an updates operation on a user account based on the provided parameters"
+                "This update operation can span multiple services on specific cases (such as when the client is explicitly attempting to update the email of the user)"
+                "All update operations are atomic by nature hence we should not expect any form of divergent state"
+            responses: {
+                key: "200"
+                value: {
+                    description: "A successful response."
+                    schema: {
+                        json_schema: {ref: ".api.v1.UpdateUserV2Response"}
+                    }
+                }
+            }
+        };
+    }
+
+    /**
+    * @brief Creates a user account for the specified user of interest
+    * 
+    * This RPC creates either a user or business account based on the provided parameters
+    * 
+    * @param CreateUserV2Request Request containing the desired parameters necessary for account creation.
+    * @return CreateUserV2Response Returns the status of the request.
+    */
+    rpc CreateUserV2(CreateUserV2Request) returns (CreateUserV2Response) {
+        option (google.api.http) = {
+            post: "/api/v2/user" 
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "create a user account"
+            tags: ["user account"]
+            operation_id: "CreateUserV2"
+            description: 
+                "This endpoint performs an a creation operation of a user account based on the provided parameters"
+                "This operation is implemented as a distributed transactions as this operation spans multiple services"
+            responses: {
+                key: "200"
+                value: {
+                    description: "A successful response."
+                    schema: {
+                        json_schema: {ref: ".api.v1.CreateUserV2Response"}
+                    }
+                }
+            }
+        };
+    }
+
+    /**
+    * @brief Gets a user account id based on a provided set of parameters
+    * 
+    * This RPC queries the user id of an account based on certain provided parameters
+    * 
+    * @param GetUserIdV2Request Request containing the desired parameters necessary for account querying.
+    * @return GetUserIdV2Response Returns the status of the request.
+    */
+    rpc GetUserIdV2(GetUserIdV2Request) returns (GetUserIdV2Response) {
+        option (google.api.http) = {
+            get: "/api/v2/user" 
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "get a user account id"
+            tags: ["user account"]
+            operation_id: "GetUserIdV2"
+            description: 
+                "This endpoint returns the user record id if the user record exists"
+                "\n"
+                "example: /api/v1/user?email=testuser@gmail.com&&username=testuser"
+            responses: {
+                key: "200"
+                value: {
+                    description: "A successful response."
+                    schema: {
+                        json_schema: {ref: ".api.v1.GetUserIdV2Response"}
+                    }
+                }
+            }
+        };
+    }
+
+    /**
+    * @brief Verifies a user's email account.
+    *
+    * This RPC is used to perform email verification for a user account. It leverages the provided
+    * user ID and profile type to determine which user's email needs verification. On successful 
+    * verification, it returns a confirmation of the process.
+    * 
+    * @param VerifyUserV2Request The request containing the user ID and profile type.
+    * @return VerifyUserV2Response Returns the status and outcome of the email verification process.
+    */
+    rpc VerifyUserV2(VerifyUserV2Request) returns (VerifyUserV2Response) {
+        option (google.api.http) = {
+            post: "/api/v2/user/verification/{user_id}/{profile_type}" 
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "User Email Verification"
+            tags: ["user account"]
+            operation_id: "VerifyUserV2"
+            description: "Performs verification of a user account's email based on the provided user ID and profile type."
+            responses: {
+                key: "200"
+                value: {
+                    description: "A successful response indicating the outcome of the verification."
+                    schema: {
+                        json_schema: {ref: ".api.v1.VerifyUserV2Response"}
+                    }
+                }
+            }
+        };
+    }
+
+    /**
+    * @brief Handles password reset via webhook.
+    *
+    * This RPC facilitates the process of resetting a user's password using a webhook. It ensures
+    * that the provided credentials match an existing user and initiates the reset process.
+    * 
+    * @param PasswordResetWebhookV2Request The request containing details needed for the password reset.
+    * @return PasswordResetWebhookV2Response Returns the status and result of the password reset process.
+    */
+    rpc PasswordResetWebhookV2(PasswordResetWebhookV2Request) returns (PasswordResetWebhookV2Response) {
+        option (google.api.http) = {
+            post: "/api/v2/user/webhook/password-reset" 
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Webhook for Password Reset"
+            tags: ["password reset"]
+            operation_id: "PasswordResetWebhookV2"
+            description: "Handles password reset operations for a specified user account through a webhook."
+            responses: {
+                key: "200"
+                value: {
+                    description: "A successful response indicating the outcome of the reset process."
+                    schema: {
+                        json_schema: {ref: ".api.v1.PasswordResetResponse"}
+                    }
+                }
+            }
+        };
+    }
+
+    /**
+    * @brief Retrieves business account settings.
+    *
+    * This RPC is used to fetch settings for a specific business account. It queries based on
+    * the user ID and returns the associated settings.
+    * 
+    * @param GetBusinessSettingsRequest Request containing the user ID of the business account.
+    * @return GetBusinessSettingsResponse Returns the current settings of the business account.
+    */
+    rpc GetBusinessSettings(GetBusinessSettingsRequest) returns (GetBusinessSettingsResponse) {
+        option (google.api.http) = {
+            get: "/api/v2/user/business/settings/{user_id}"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Retrieve Business Account Settings"
+            tags: ["business settings"]
+            operation_id: "RetrieveBusinessSettings"
+            description: "Fetches settings associated with a specified business account using the user ID."
+            responses: {
+                key: "200"
+                value: {
+                    description: "A successful response containing the business settings."
+                    schema: {
+                        json_schema: {ref: ".api.v1.BusinessSettings"}
+                    }
+                }
+            }
+        };
+    }
+
+    /**
+    * @brief Updates business account settings.
+    *
+    * This RPC allows users to update settings for a business account. It takes in new settings 
+    * as parameters and ensures they are applied to the account.
+    * 
+    * @param UpdateBusinessSettingsRequest The request containing the updated settings.
+    * @return UpdateBusinessSettingsResponse Returns the status and result of the update process.
+    */
+    rpc UpdateBusinessSettings(UpdateBusinessSettingsRequest) returns (UpdateBusinessSettingsResponse) {
+        option (google.api.http) = {
+            put: "/api/v2/user/business/settings"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Update Business Account Settings"
+            tags: ["business settings"]
+            operation_id: "UpdateBusinessSettingsV2"
+            description: "Allows modifications to the settings of a specific business account."
+            responses: {
+                key: "200"
+                value: {
+                    description: "A successful response indicating the outcome of the update process."
+                    schema: {
+                        json_schema: {ref: ".api.v1.UpdateBusinessSettingsResponse"}
+                    }
                 }
             }
         };

@@ -100,38 +100,11 @@ func (m *UserAccount) validate(all bool) error {
 		}
 	}
 
-	if utf8.RuneCountInString(m.GetBio()) < 0 {
-		err := UserAccountValidationError{
-			field:  "Bio",
-			reason: "value length must be at least 0 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for Bio
 
-	if utf8.RuneCountInString(m.GetHeadline()) < 0 {
-		err := UserAccountValidationError{
-			field:  "Headline",
-			reason: "value length must be at least 0 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for Headline
 
-	if utf8.RuneCountInString(m.GetPhoneNumber()) < 0 {
-		err := UserAccountValidationError{
-			field:  "PhoneNumber",
-			reason: "value length must be at least 0 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for PhoneNumber
 
 	if l := len(m.GetTags()); l < 1 || l > 10 {
 		err := UserAccountValidationError{
@@ -182,27 +155,9 @@ func (m *UserAccount) validate(all bool) error {
 
 	// no validation rules for IsActive
 
-	if utf8.RuneCountInString(m.GetFirstname()) < 0 {
-		err := UserAccountValidationError{
-			field:  "Firstname",
-			reason: "value length must be at least 0 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for Firstname
 
-	if utf8.RuneCountInString(m.GetLastname()) < 0 {
-		err := UserAccountValidationError{
-			field:  "Lastname",
-			reason: "value length must be at least 0 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for Lastname
 
 	if utf8.RuneCountInString(m.GetUsername()) < 10 {
 		err := UserAccountValidationError{
@@ -277,54 +232,6 @@ func (m *UserAccount) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for IsBusinessAccount
-
-	// no validation rules for CompanyEstablishedDate
-
-	if utf8.RuneCountInString(m.GetCompanyIndustryType()) < 0 {
-		err := UserAccountValidationError{
-			field:  "CompanyIndustryType",
-			reason: "value length must be at least 0 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if utf8.RuneCountInString(m.GetCompanyWebsiteUrl()) < 0 {
-		err := UserAccountValidationError{
-			field:  "CompanyWebsiteUrl",
-			reason: "value length must be at least 0 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if utf8.RuneCountInString(m.GetCompanyDescription()) < 0 {
-		err := UserAccountValidationError{
-			field:  "CompanyDescription",
-			reason: "value length must be at least 0 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if utf8.RuneCountInString(m.GetCompanyName()) < 0 {
-		err := UserAccountValidationError{
-			field:  "CompanyName",
-			reason: "value length must be at least 0 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
 	if all {
 		switch v := interface{}(m.GetUserSettings()).(type) {
 		case interface{ ValidateAll() error }:
@@ -354,34 +261,7 @@ func (m *UserAccount) validate(all bool) error {
 		}
 	}
 
-	if all {
-		switch v := interface{}(m.GetBusinessAccountSettings()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, UserAccountValidationError{
-					field:  "BusinessAccountSettings",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, UserAccountValidationError{
-					field:  "BusinessAccountSettings",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetBusinessAccountSettings()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return UserAccountValidationError{
-				field:  "BusinessAccountSettings",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
+	// no validation rules for AccountType
 
 	if len(errors) > 0 {
 		return UserAccountMultiError(errors)
@@ -509,6 +389,431 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = UserAccountValidationError{}
+
+// Validate checks the field values on BusinessAccount with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *BusinessAccount) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on BusinessAccount with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// BusinessAccountMultiError, or nil if none found.
+func (m *BusinessAccount) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *BusinessAccount) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	if err := m._validateEmail(m.GetEmail()); err != nil {
+		err = BusinessAccountValidationError{
+			field:  "Email",
+			reason: "value must be a valid email address",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetAddress()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, BusinessAccountValidationError{
+					field:  "Address",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, BusinessAccountValidationError{
+					field:  "Address",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetAddress()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return BusinessAccountValidationError{
+				field:  "Address",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if utf8.RuneCountInString(m.GetBio()) < 0 {
+		err := BusinessAccountValidationError{
+			field:  "Bio",
+			reason: "value length must be at least 0 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetHeadline()) < 0 {
+		err := BusinessAccountValidationError{
+			field:  "Headline",
+			reason: "value length must be at least 0 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetPhoneNumber()) < 0 {
+		err := BusinessAccountValidationError{
+			field:  "PhoneNumber",
+			reason: "value length must be at least 0 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := len(m.GetTags()); l < 1 || l > 10 {
+		err := BusinessAccountValidationError{
+			field:  "Tags",
+			reason: "value must contain between 1 and 10 items, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	for idx, item := range m.GetTags() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, BusinessAccountValidationError{
+						field:  fmt.Sprintf("Tags[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, BusinessAccountValidationError{
+						field:  fmt.Sprintf("Tags[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return BusinessAccountValidationError{
+					field:  fmt.Sprintf("Tags[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for AuthnAccountId
+
+	// no validation rules for IsActive
+
+	if utf8.RuneCountInString(m.GetUsername()) < 10 {
+		err := BusinessAccountValidationError{
+			field:  "Username",
+			reason: "value length must be at least 10 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for IsPrivate
+
+	// no validation rules for IsEmailVerified
+
+	if all {
+		switch v := interface{}(m.GetCreatedAt()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, BusinessAccountValidationError{
+					field:  "CreatedAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, BusinessAccountValidationError{
+					field:  "CreatedAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCreatedAt()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return BusinessAccountValidationError{
+				field:  "CreatedAt",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetVerifiedAt()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, BusinessAccountValidationError{
+					field:  "VerifiedAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, BusinessAccountValidationError{
+					field:  "VerifiedAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetVerifiedAt()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return BusinessAccountValidationError{
+				field:  "VerifiedAt",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for CompanyEstablishedDate
+
+	if utf8.RuneCountInString(m.GetCompanyIndustryType()) < 0 {
+		err := BusinessAccountValidationError{
+			field:  "CompanyIndustryType",
+			reason: "value length must be at least 0 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetCompanyWebsiteUrl()) < 0 {
+		err := BusinessAccountValidationError{
+			field:  "CompanyWebsiteUrl",
+			reason: "value length must be at least 0 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetCompanyDescription()) < 0 {
+		err := BusinessAccountValidationError{
+			field:  "CompanyDescription",
+			reason: "value length must be at least 0 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetCompanyName()) < 0 {
+		err := BusinessAccountValidationError{
+			field:  "CompanyName",
+			reason: "value length must be at least 0 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetBusinessAccountSettings()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, BusinessAccountValidationError{
+					field:  "BusinessAccountSettings",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, BusinessAccountValidationError{
+					field:  "BusinessAccountSettings",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetBusinessAccountSettings()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return BusinessAccountValidationError{
+				field:  "BusinessAccountSettings",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for AccountType
+
+	if len(errors) > 0 {
+		return BusinessAccountMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *BusinessAccount) _validateHostname(host string) error {
+	s := strings.ToLower(strings.TrimSuffix(host, "."))
+
+	if len(host) > 253 {
+		return errors.New("hostname cannot exceed 253 characters")
+	}
+
+	for _, part := range strings.Split(s, ".") {
+		if l := len(part); l == 0 || l > 63 {
+			return errors.New("hostname part must be non-empty and cannot exceed 63 characters")
+		}
+
+		if part[0] == '-' {
+			return errors.New("hostname parts cannot begin with hyphens")
+		}
+
+		if part[len(part)-1] == '-' {
+			return errors.New("hostname parts cannot end with hyphens")
+		}
+
+		for _, r := range part {
+			if (r < 'a' || r > 'z') && (r < '0' || r > '9') && r != '-' {
+				return fmt.Errorf("hostname parts can only contain alphanumeric characters or hyphens, got %q", string(r))
+			}
+		}
+	}
+
+	return nil
+}
+
+func (m *BusinessAccount) _validateEmail(addr string) error {
+	a, err := mail.ParseAddress(addr)
+	if err != nil {
+		return err
+	}
+	addr = a.Address
+
+	if len(addr) > 254 {
+		return errors.New("email addresses cannot exceed 254 characters")
+	}
+
+	parts := strings.SplitN(addr, "@", 2)
+
+	if len(parts[0]) > 64 {
+		return errors.New("email address local phrase cannot exceed 64 characters")
+	}
+
+	return m._validateHostname(parts[1])
+}
+
+// BusinessAccountMultiError is an error wrapping multiple validation errors
+// returned by BusinessAccount.ValidateAll() if the designated constraints
+// aren't met.
+type BusinessAccountMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m BusinessAccountMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m BusinessAccountMultiError) AllErrors() []error { return m }
+
+// BusinessAccountValidationError is the validation error returned by
+// BusinessAccount.Validate if the designated constraints aren't met.
+type BusinessAccountValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e BusinessAccountValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e BusinessAccountValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e BusinessAccountValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e BusinessAccountValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e BusinessAccountValidationError) ErrorName() string { return "BusinessAccountValidationError" }
+
+// Error satisfies the builtin error interface
+func (e BusinessAccountValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sBusinessAccount.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = BusinessAccountValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = BusinessAccountValidationError{}
 
 // Validate checks the field values on Address with the rules defined in the
 // proto definition for this message. If any rules are violated, the first

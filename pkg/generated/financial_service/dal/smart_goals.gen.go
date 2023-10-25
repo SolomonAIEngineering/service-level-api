@@ -65,6 +65,12 @@ func newSmartGoalORM(db *gorm.DB, opts ...gen.DOOption) smartGoalORM {
 		},
 	}
 
+	_smartGoalORM.Notes = smartGoalORMHasManyNotes{
+		db: db.Session(&gorm.Session{}),
+
+		RelationField: field.NewRelation("Notes", "financial_servicev1.SmartNoteORM"),
+	}
+
 	_smartGoalORM.fillFieldMap()
 
 	return _smartGoalORM
@@ -89,6 +95,8 @@ type smartGoalORM struct {
 	Forecasts     smartGoalORMHasOneForecasts
 
 	Milestones smartGoalORMHasManyMilestones
+
+	Notes smartGoalORMHasManyNotes
 
 	fieldMap map[string]field.Expr
 }
@@ -133,7 +141,7 @@ func (s *smartGoalORM) GetFieldByName(fieldName string) (field.OrderExpr, bool) 
 }
 
 func (s *smartGoalORM) fillFieldMap() {
-	s.fieldMap = make(map[string]field.Expr, 14)
+	s.fieldMap = make(map[string]field.Expr, 15)
 	s.fieldMap["current_amount"] = s.CurrentAmount
 	s.fieldMap["description"] = s.Description
 	s.fieldMap["duration"] = s.Duration
@@ -305,6 +313,77 @@ func (a smartGoalORMHasManyMilestonesTx) Clear() error {
 }
 
 func (a smartGoalORMHasManyMilestonesTx) Count() int64 {
+	return a.tx.Count()
+}
+
+type smartGoalORMHasManyNotes struct {
+	db *gorm.DB
+
+	field.RelationField
+}
+
+func (a smartGoalORMHasManyNotes) Where(conds ...field.Expr) *smartGoalORMHasManyNotes {
+	if len(conds) == 0 {
+		return &a
+	}
+
+	exprs := make([]clause.Expression, 0, len(conds))
+	for _, cond := range conds {
+		exprs = append(exprs, cond.BeCond().(clause.Expression))
+	}
+	a.db = a.db.Clauses(clause.Where{Exprs: exprs})
+	return &a
+}
+
+func (a smartGoalORMHasManyNotes) WithContext(ctx context.Context) *smartGoalORMHasManyNotes {
+	a.db = a.db.WithContext(ctx)
+	return &a
+}
+
+func (a smartGoalORMHasManyNotes) Session(session *gorm.Session) *smartGoalORMHasManyNotes {
+	a.db = a.db.Session(session)
+	return &a
+}
+
+func (a smartGoalORMHasManyNotes) Model(m *financial_servicev1.SmartGoalORM) *smartGoalORMHasManyNotesTx {
+	return &smartGoalORMHasManyNotesTx{a.db.Model(m).Association(a.Name())}
+}
+
+type smartGoalORMHasManyNotesTx struct{ tx *gorm.Association }
+
+func (a smartGoalORMHasManyNotesTx) Find() (result []*financial_servicev1.SmartNoteORM, err error) {
+	return result, a.tx.Find(&result)
+}
+
+func (a smartGoalORMHasManyNotesTx) Append(values ...*financial_servicev1.SmartNoteORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Append(targetValues...)
+}
+
+func (a smartGoalORMHasManyNotesTx) Replace(values ...*financial_servicev1.SmartNoteORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Replace(targetValues...)
+}
+
+func (a smartGoalORMHasManyNotesTx) Delete(values ...*financial_servicev1.SmartNoteORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Delete(targetValues...)
+}
+
+func (a smartGoalORMHasManyNotesTx) Clear() error {
+	return a.tx.Clear()
+}
+
+func (a smartGoalORMHasManyNotesTx) Count() int64 {
 	return a.tx.Count()
 }
 

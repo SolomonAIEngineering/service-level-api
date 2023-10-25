@@ -98,6 +98,100 @@ export interface Any {
   [key: string]: any;
 }
 
+/** BusinessAccount represents a business account within the context of solomon-ai. */
+export interface BusinessAccount {
+  /** The type of profile associated with the business account (e.g., individual, corporate). */
+  accountType?: ProfileType;
+  /** Physical address associated with the business account. */
+  address?: Address;
+  /**
+   * Identifier for the associated authentication service account.
+   * @format uint64
+   */
+  authnAccountId?: string;
+  /**
+   * Short description of the business account. Maximum of 200 characters.
+   * @example "sample description"
+   */
+  bio?: string;
+  /** Settings specific to the business account. */
+  businessAccountSettings?: BusinessAccountSettings;
+  /**
+   * Description of the company associated with the business account.
+   * @example "We help businesses succeed"
+   */
+  companyDescription?: string;
+  /** Date when the company associated with the business account was established. */
+  companyEstablishedDate?: string;
+  /**
+   * Industry type of the company associated with the business account.
+   * @example "fintech"
+   */
+  companyIndustryType?: string;
+  /**
+   * Name of the company associated with the business account.
+   * @example "Solomon AI"
+   */
+  companyName?: string;
+  /**
+   * Website URL of the company associated with the business account.
+   * @example "https://solomon-ai.io"
+   */
+  companyWebsiteUrl?: string;
+  /**
+   * Timestamp indicating when the business account was created.
+   * @format date-time
+   */
+  createdAt?: string;
+  /**
+   * Email associated with the business account.
+   * @example "example@gmail.com"
+   */
+  email?: string;
+  /**
+   * Headline for the profile of the business account.
+   * @example "sample headline"
+   */
+  headline?: string;
+  /**
+   * Unique identifier for the business account.
+   * @format uint64
+   */
+  id?: string;
+  /**
+   * Indicates whether the business account is active.
+   * @example true
+   */
+  isActive?: boolean;
+  /**
+   * Indicates whether the email associated with the business account has been verified.
+   * @example false
+   */
+  isEmailVerified?: boolean;
+  /**
+   * Indicates whether the business account is private.
+   * @example false
+   */
+  isPrivate?: boolean;
+  /**
+   * Phone number associated with the business account.
+   * @example "6513424124"
+   */
+  phoneNumber?: string;
+  /** Tags associated with the business account. Between 1 and 10 tags are allowed. */
+  tags?: Array<Tags>;
+  /**
+   * Username for the business account. Must be at least 10 characters long.
+   * @example "testuser9696"
+   */
+  username?: string;
+  /**
+   * Timestamp indicating when the email for the business account was verified.
+   * @format date-time
+   */
+  verifiedAt?: string;
+}
+
 /** Business Account Settings */
 export interface BusinessAccountSettings {
   accountInformation?: AccountInformation;
@@ -127,9 +221,21 @@ export interface CheckEmailExistsResponse {
   exists?: boolean;
 }
 
+export type CheckEmailExistsV2Data = any;
+
+export interface CheckEmailExistsV2Response {
+  exists?: boolean;
+}
+
 export type CheckUsernameExistsData = any;
 
 export interface CheckUsernameExistsResponse {
+  exists?: boolean;
+}
+
+export type CheckUsernameExistsV2Data = any;
+
+export interface CheckUsernameExistsV2Response {
   exists?: boolean;
 }
 
@@ -155,6 +261,7 @@ export interface CreateUserRequest {
    * User account to create
    * Validations:
    * - cannot be nil hence required
+   * @brief Represents a user account in the context of simfinni.
    */
   account: UserAccount;
   /**
@@ -188,6 +295,48 @@ export interface CreateUserResponse {
   userId?: string;
 }
 
+export type CreateUserV2Data = any;
+
+/**
+ * CreateUserV2Request: Represents the request object invoked against the user
+ * service to create a user account
+ */
+export interface CreateUserV2Request {
+  /** BusinessAccount represents a business account within the context of solomon-ai. */
+  businessAccount?: BusinessAccount;
+  /**
+   * set of community IDs to follow
+   * Validations:
+   * - at least 0 and at most 20 community ids supported at one time
+   */
+  communityIdsToFollow?: Array<string>;
+  /**
+   * The password  of the user
+   * Validations:
+   * - must be a at least 10 characters long
+   * @example "tesdfkdkfhsdgd"
+   */
+  password: string;
+  /**
+   * The profile image of the user
+   * Validations:
+   * - must be a valid URI
+   * @example "lksdjhfgsdhfghdsgfhgdh.com"
+   */
+  profileImage: string;
+  /** @brief Represents a user account in the context of simfinni. */
+  userAccount?: UserAccount;
+}
+
+/**
+ * CreateUserResponse: Represents the response object returned as a response to
+ * the `create-user` request
+ */
+export interface CreateUserV2Response {
+  /** @format uint64 */
+  userId?: string;
+}
+
 /** @default "DASHBOARD_WIDGET_TRANSACTIONS_UNSPECIFIED" */
 export type DashboardWidget =
   | "DASHBOARD_WIDGET_TRANSACTIONS_UNSPECIFIED"
@@ -204,6 +353,16 @@ export type DeleteUserData = any;
  * `delete-user` request
  */
 export interface DeleteUserResponse {
+  accountDeleted?: boolean;
+}
+
+export type DeleteUserV2Data = any;
+
+/**
+ * DeleteUserResponse: Represents the object returned as a response to
+ * `delete-user` request
+ */
+export interface DeleteUserV2Response {
   accountDeleted?: boolean;
 }
 
@@ -224,8 +383,6 @@ export interface FinancialPreferences {
  */
 export type Frequency = "FREQUENCY_UNSPECIFIED" | "FREQUENCY_DAILY" | "FREQUENCY_WEEKLY" | "FREQUENCY_MONTHLY";
 
-export type GetBusinessSettingsData = any;
-
 export interface GetBusinessSettingsResponse {
   businessSettings?: BusinessAccountSettings;
 }
@@ -235,20 +392,56 @@ export type GetUserByEmailData = any;
 export type GetUserByEmailOrUsernameData = any;
 
 export interface GetUserByEmailOrUsernameResponse {
-  /** The account ID associated with the user */
+  /**
+   * The account ID associated with the user
+   * @brief Represents a user account in the context of simfinni.
+   */
   account?: UserAccount;
 }
 
+export type GetUserByEmailOrUsernameV2Data = any;
+
+export interface GetUserByEmailOrUsernameV2Response {
+  /** BusinessAccount represents a business account within the context of solomon-ai. */
+  businessAccount?: BusinessAccount;
+  /** @brief Represents a user account in the context of simfinni. */
+  userAccount?: UserAccount;
+}
+
 export interface GetUserByEmailResponse {
-  /** The account ID associated with the user */
+  /**
+   * The account ID associated with the user
+   * @brief Represents a user account in the context of simfinni.
+   */
   account?: UserAccount;
+}
+
+export type GetUserByEmailV2Data = any;
+
+export interface GetUserByEmailV2Response {
+  /** BusinessAccount represents a business account within the context of solomon-ai. */
+  businessAccount?: BusinessAccount;
+  /** @brief Represents a user account in the context of simfinni. */
+  userAccount?: UserAccount;
 }
 
 export type GetUserByUsernameData = any;
 
 export interface GetUserByUsernameResponse {
-  /** The account ID associated with the user */
+  /**
+   * The account ID associated with the user
+   * @brief Represents a user account in the context of simfinni.
+   */
   account?: UserAccount;
+}
+
+export type GetUserByUsernameV2Data = any;
+
+export interface GetUserByUsernameV2Response {
+  /** BusinessAccount represents a business account within the context of solomon-ai. */
+  businessAccount?: BusinessAccount;
+  /** @brief Represents a user account in the context of simfinni. */
+  userAccount?: UserAccount;
 }
 
 export type GetUserData = any;
@@ -267,12 +460,37 @@ export interface GetUserIdResponse {
   userId?: string;
 }
 
+export type GetUserIdV2Data = any;
+
+/**
+ * GetUserIdResponse: Represents the response object returned as a product of
+ * calling the `get-user-id` request
+ */
+export interface GetUserIdV2Response {
+  /**
+   * The account ID associated with the user
+   * @format uint64
+   */
+  userId?: string;
+}
+
 /**
  * GetUserResponse: Represents the object returned as a response to `get-user`
  * request
  */
 export interface GetUserResponse {
+  /** @brief Represents a user account in the context of simfinni. */
   account?: UserAccount;
+}
+
+export type GetUserV2Data = any;
+
+/** Represents the response object for fetching user details. */
+export interface GetUserV2Response {
+  /** BusinessAccount represents a business account within the context of solomon-ai. */
+  businessAccount?: BusinessAccount;
+  /** @brief Represents a user account in the context of simfinni. */
+  userAccount?: UserAccount;
 }
 
 export type HealthCheckData = any;
@@ -327,11 +545,25 @@ export interface PasswordResetWebhookResponse {
   success?: boolean;
 }
 
+export type PasswordResetWebhookV2Data = any;
+
+export interface PasswordResetWebhookV2Response {
+  success?: boolean;
+}
+
+/**
+ * ProfileType: represents the type of account tied to a given profile
+ * @default "PROFILE_TYPE_UNSPECIFIED"
+ */
+export type ProfileType = "PROFILE_TYPE_UNSPECIFIED" | "PROFILE_TYPE_USER" | "PROFILE_TYPE_BUSINESS";
+
 export type ReadynessCheckData = any;
 
 export interface ReadynessCheckResponse {
   healthy?: boolean;
 }
+
+export type RetrieveBusinessSettingsData = any;
 
 /**
  * Investment preferences.
@@ -399,8 +631,6 @@ export interface TaxSettings {
  */
 export type Theme = "THEME_UNSPECIFIED" | "THEME_LIGHT" | "THEME_DARK";
 
-export type UpdateBusinessSettingsData = any;
-
 export interface UpdateBusinessSettingsRequest {
   businessSettings: BusinessAccountSettings;
 }
@@ -408,6 +638,8 @@ export interface UpdateBusinessSettingsRequest {
 export interface UpdateBusinessSettingsResponse {
   success?: boolean;
 }
+
+export type UpdateBusinessSettingsV2Data = any;
 
 export type UpdateUserData = any;
 
@@ -420,6 +652,7 @@ export interface UpdateUserRequest {
    * UserAccount to update
    * Validation:
    * - cannot nil hence required
+   * @brief Represents a user account in the context of simfinni.
    */
   account: UserAccount;
 }
@@ -429,133 +662,83 @@ export interface UpdateUserRequest {
  * the `update-user` request
  */
 export interface UpdateUserResponse {
+  /** @brief Represents a user account in the context of simfinni. */
   account?: UserAccount;
   accountUpdated?: boolean;
 }
 
-/** UserAccount: represents a user account in the context of simfinni */
+export type UpdateUserV2Data = any;
+
+export interface UpdateUserV2Request {
+  /** BusinessAccount represents a business account within the context of solomon-ai. */
+  businessAccount?: BusinessAccount;
+  /** @brief Represents a user account in the context of simfinni. */
+  userAccount?: UserAccount;
+}
+
+export interface UpdateUserV2Response {
+  accountUpdated?: boolean;
+  /** BusinessAccount represents a business account within the context of solomon-ai. */
+  businessAccount?: BusinessAccount;
+  /** @brief Represents a user account in the context of simfinni. */
+  userAccount?: UserAccount;
+}
+
+/** @brief Represents a user account in the context of simfinni. */
 export interface UserAccount {
-  /**
-   * the address associated with the user
-   * Validations:
-   * - can be empty
-   */
+  /** Enum indicating the type of profile (e.g., individual, corporate). */
+  accountType?: ProfileType;
+  /** Physical address associated with the user. */
   address?: Address;
   /**
-   * authentication service account id
+   * ID for the authentication service linked to this account.
    * @format uint64
    */
   authnAccountId?: string;
-  /**
-   * simple description specific to account should be less than 200 characters
-   * Validations:
-   * - can be empty
-   * @example "lksdjhfgsdhfghdsgfhgdha;hdgjsdfhaghsldfhagjkh;sdafjhsdjflhgjhjsfhgjsdhfjfkgjhsdfhgjhjdfhgjsdhjglsdjjghjdfhsjghjsadfhgjsdfhjghsdfkjghdfj"
-   */
+  /** Brief description about the user, up to 200 characters. */
   bio?: string;
-  businessAccountSettings?: BusinessAccountSettings;
   /**
-   * Company description
-   * @example "we help businesses stay in business"
+   * Timestamp for when the account was created.
+   * @format date-time
    */
-  companyDescription?: string;
-  /**
-   * Established Date is the date the company was created
-   * optional field for business profile
-   */
-  companyEstablishedDate?: string;
-  /**
-   * Industry Type is the type of business associated to this business
-   * @example "fintech"
-   */
-  companyIndustryType?: string;
-  /**
-   * Company Name is the name of the company profile
-   * @example "solomon-ai"
-   */
-  companyName?: string;
-  /**
-   * Website url of the business
-   * @example "https://solomon-ai.io"
-   */
-  companyWebsiteUrl?: string;
-  /** @format date-time */
   createdAt?: string;
   /**
-   * account email
-   * Validations:
-   * - must be an email and required
-   * @example "lksdjhfgsdhfghdsgfhgdh@gmail.com"
+   * Email associated with the user account.
+   * @example "sample@example.com"
    */
   email?: string;
-  /**
-   * account first name
-   * Validations:
-   * - can be empty
-   * @example "testuser96"
-   */
+  /** User's first name. */
   firstname?: string;
-  /**
-   * profile headline
-   * Validations:
-   * - can be empty
-   * @example "lksdjhfgsdhfghdsgfhgdha;hdgjsdfhaghsldfhagjkh;sdafjhsdjflhgjhjsfhgjsdhfjfkgjhsdfhgjhjdfhgjsdhjglsdjjghjdfhsjghjsadfhgjsdfhjghsdfkjghdfj"
-   */
+  /** Short headline for the user's profile. */
   headline?: string;
   /**
-   * account id
+   * Unique identifier for the account.
    * @format uint64
    */
   id?: string;
-  /**
-   * infers wether the account is active
-   * @example true
-   */
+  /** Indicates if the account is currently active. */
   isActive?: boolean;
-  /** IsBusinessAccount enables us to check if this is a business account of interest */
-  isBusinessAccount?: boolean;
-  /**
-   * isEmailVerified is a field denoting wether or not the user account has
-   * indeed verified their email address
-   * @example false
-   */
+  /** Indicates if the user's email has been verified. */
   isEmailVerified?: boolean;
-  /**
-   * account is private
-   * @example false
-   */
+  /** Indicates if the account is set to private. */
   isPrivate?: boolean;
-  /**
-   * account last name
-   * Validations:
-   * - can be empty
-   * @example "testuserlastname"
-   */
+  /** User's last name. */
   lastname?: string;
-  /**
-   * account phone number
-   * Validations:
-   * - mcan be empty
-   * @example "6513424124"
-   */
+  /** Phone number associated with the account. */
   phoneNumber?: string;
-  /**
-   * sample tags easily associable to account
-   * account first name
-   * Validations:
-   * - must be at provide between 1 and 10 tags
-   */
+  /** Tags associated with the user account, between 1 and 10. */
   tags?: Array<Tags>;
-  /** User settings for the fintech application. */
+  /** Settings specific to the user account. */
   userSettings?: UserSettings;
   /**
-   * account user name
-   * Validations:
-   * - must be at least 10 character
+   * Username associated with the account, minimum of 10 characters.
    * @example "testuser9696"
    */
   username?: string;
-  /** @format date-time */
+  /**
+   * Timestamp for when the email was verified.
+   * @format date-time
+   */
   verifiedAt?: string;
 }
 
@@ -597,5 +780,11 @@ export interface UserSettings {
 export type VerificationData = any;
 
 export interface VerifyUserResponse {
+  accountVerified?: boolean;
+}
+
+export type VerifyUserV2Data = any;
+
+export interface VerifyUserV2Response {
   accountVerified?: boolean;
 }

@@ -31,6 +31,7 @@ func newFinancialUserProfileORM(db *gorm.DB, opts ...gen.DOOption) financialUser
 	_financialUserProfileORM.ALL = field.NewAsterisk(tableName)
 	_financialUserProfileORM.Email = field.NewString(tableName, "email")
 	_financialUserProfileORM.Id = field.NewUint64(tableName, "id")
+	_financialUserProfileORM.ProfileType = field.NewString(tableName, "profile_type")
 	_financialUserProfileORM.StripeCustomerId = field.NewString(tableName, "stripe_customer_id")
 	_financialUserProfileORM.UserId = field.NewUint64(tableName, "user_id")
 	_financialUserProfileORM.StripeSubscriptions = financialUserProfileORMHasOneStripeSubscriptions{
@@ -88,7 +89,16 @@ func newFinancialUserProfileORM(db *gorm.DB, opts ...gen.DOOption) financialUser
 							}
 						}
 					}
+					Notes struct {
+						field.RelationField
+					}
 				}
+			}
+			RecurringTransactions struct {
+				field.RelationField
+			}
+			Transactions struct {
+				field.RelationField
 			}
 		}{
 			RelationField: field.NewRelation("Link.BankAccounts", "financial_servicev1.BankAccountORM"),
@@ -108,6 +118,9 @@ func newFinancialUserProfileORM(db *gorm.DB, opts ...gen.DOOption) financialUser
 							}
 						}
 					}
+					Notes struct {
+						field.RelationField
+					}
 				}
 			}{
 				RelationField: field.NewRelation("Link.BankAccounts.Pockets", "financial_servicev1.PocketORM"),
@@ -124,6 +137,9 @@ func newFinancialUserProfileORM(db *gorm.DB, opts ...gen.DOOption) financialUser
 								field.RelationField
 							}
 						}
+					}
+					Notes struct {
+						field.RelationField
 					}
 				}{
 					RelationField: field.NewRelation("Link.BankAccounts.Pockets.Goals", "financial_servicev1.SmartGoalORM"),
@@ -156,12 +172,33 @@ func newFinancialUserProfileORM(db *gorm.DB, opts ...gen.DOOption) financialUser
 							},
 						},
 					},
+					Notes: struct {
+						field.RelationField
+					}{
+						RelationField: field.NewRelation("Link.BankAccounts.Pockets.Goals.Notes", "financial_servicev1.SmartNoteORM"),
+					},
 				},
+			},
+			RecurringTransactions: struct {
+				field.RelationField
+			}{
+				RelationField: field.NewRelation("Link.BankAccounts.RecurringTransactions", "financial_servicev1.PlaidAccountRecurringTransactionORM"),
+			},
+			Transactions: struct {
+				field.RelationField
+			}{
+				RelationField: field.NewRelation("Link.BankAccounts.Transactions", "financial_servicev1.PlaidAccountTransactionORM"),
 			},
 		},
 		CreditAccounts: struct {
 			field.RelationField
 			Aprs struct {
+				field.RelationField
+			}
+			RecurringTransactions struct {
+				field.RelationField
+			}
+			Transactions struct {
 				field.RelationField
 			}
 		}{
@@ -171,6 +208,16 @@ func newFinancialUserProfileORM(db *gorm.DB, opts ...gen.DOOption) financialUser
 			}{
 				RelationField: field.NewRelation("Link.CreditAccounts.Aprs", "financial_servicev1.AprORM"),
 			},
+			RecurringTransactions: struct {
+				field.RelationField
+			}{
+				RelationField: field.NewRelation("Link.CreditAccounts.RecurringTransactions", "financial_servicev1.PlaidAccountRecurringTransactionORM"),
+			},
+			Transactions: struct {
+				field.RelationField
+			}{
+				RelationField: field.NewRelation("Link.CreditAccounts.Transactions", "financial_servicev1.PlaidAccountTransactionORM"),
+			},
 		},
 		InvestmentAccounts: struct {
 			field.RelationField
@@ -178,6 +225,9 @@ func newFinancialUserProfileORM(db *gorm.DB, opts ...gen.DOOption) financialUser
 				field.RelationField
 			}
 			Securities struct {
+				field.RelationField
+			}
+			Transactions struct {
 				field.RelationField
 			}
 		}{
@@ -191,6 +241,11 @@ func newFinancialUserProfileORM(db *gorm.DB, opts ...gen.DOOption) financialUser
 				field.RelationField
 			}{
 				RelationField: field.NewRelation("Link.InvestmentAccounts.Securities", "financial_servicev1.InvestmentSecurityORM"),
+			},
+			Transactions: struct {
+				field.RelationField
+			}{
+				RelationField: field.NewRelation("Link.InvestmentAccounts.Transactions", "financial_servicev1.PlaidAccountTransactionORM"),
 			},
 		},
 		MortgageAccounts: struct {
@@ -691,6 +746,7 @@ type financialUserProfileORM struct {
 	ALL                 field.Asterisk
 	Email               field.String
 	Id                  field.Uint64
+	ProfileType         field.String
 	StripeCustomerId    field.String
 	UserId              field.Uint64
 	StripeSubscriptions financialUserProfileORMHasOneStripeSubscriptions
@@ -720,6 +776,7 @@ func (f *financialUserProfileORM) updateTableName(table string) *financialUserPr
 	f.ALL = field.NewAsterisk(table)
 	f.Email = field.NewString(table, "email")
 	f.Id = field.NewUint64(table, "id")
+	f.ProfileType = field.NewString(table, "profile_type")
 	f.StripeCustomerId = field.NewString(table, "stripe_customer_id")
 	f.UserId = field.NewUint64(table, "user_id")
 
@@ -738,9 +795,10 @@ func (f *financialUserProfileORM) GetFieldByName(fieldName string) (field.OrderE
 }
 
 func (f *financialUserProfileORM) fillFieldMap() {
-	f.fieldMap = make(map[string]field.Expr, 9)
+	f.fieldMap = make(map[string]field.Expr, 10)
 	f.fieldMap["email"] = f.Email
 	f.fieldMap["id"] = f.Id
+	f.fieldMap["profile_type"] = f.ProfileType
 	f.fieldMap["stripe_customer_id"] = f.StripeCustomerId
 	f.fieldMap["user_id"] = f.UserId
 
@@ -1001,12 +1059,27 @@ type financialUserProfileORMHasManyLink struct {
 						}
 					}
 				}
+				Notes struct {
+					field.RelationField
+				}
 			}
+		}
+		RecurringTransactions struct {
+			field.RelationField
+		}
+		Transactions struct {
+			field.RelationField
 		}
 	}
 	CreditAccounts struct {
 		field.RelationField
 		Aprs struct {
+			field.RelationField
+		}
+		RecurringTransactions struct {
+			field.RelationField
+		}
+		Transactions struct {
 			field.RelationField
 		}
 	}
@@ -1016,6 +1089,9 @@ type financialUserProfileORMHasManyLink struct {
 			field.RelationField
 		}
 		Securities struct {
+			field.RelationField
+		}
+		Transactions struct {
 			field.RelationField
 		}
 	}

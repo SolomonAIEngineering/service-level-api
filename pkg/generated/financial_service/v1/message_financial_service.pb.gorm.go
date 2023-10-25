@@ -8,6 +8,7 @@ import (
 	gorm "github.com/jinzhu/gorm"
 	pq "github.com/lib/pq"
 	field_mask "google.golang.org/genproto/protobuf/field_mask"
+	anypb "google.golang.org/protobuf/types/known/anypb"
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	strings "strings"
 	time "time"
@@ -102,6 +103,7 @@ type FinancialUserProfileORM struct {
 	Id                         uint64
 	Link                       []*LinkORM      `gorm:"foreignkey:FinancialUserProfileId;association_foreignkey:Id;preload:true"`
 	MergeLiink                 []*MergeLinkORM `gorm:"foreignkey:FinancialUserProfileId;association_foreignkey:Id"`
+	ProfileType                string
 	StripeCustomerId           string
 	StripeSubscriptions        *StripeSubscriptionORM `gorm:"foreignkey:FinancialUserProfileId;association_foreignkey:Id"`
 	UserId                     uint64
@@ -177,6 +179,7 @@ func (m *FinancialUserProfile) ToORM(ctx context.Context) (FinancialUserProfileO
 			to.ActionablePersonalInsights = append(to.ActionablePersonalInsights, nil)
 		}
 	}
+	to.ProfileType = FinancialUserProfile_FinancialUserProfileType_name[int32(m.ProfileType)]
 	if posthook, ok := interface{}(m).(FinancialUserProfileWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -248,6 +251,7 @@ func (m *FinancialUserProfileORM) ToPB(ctx context.Context) (FinancialUserProfil
 			to.ActionablePersonalInsights = append(to.ActionablePersonalInsights, nil)
 		}
 	}
+	to.ProfileType = FinancialUserProfile_FinancialUserProfileType(FinancialUserProfile_FinancialUserProfileType_value[m.ProfileType])
 	if posthook, ok := interface{}(m).(FinancialUserProfileWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -1211,8 +1215,10 @@ type CreditAccountORM struct {
 	NextPaymentDueDate     string
 	Number                 string
 	PlaidAccountId         string
+	RecurringTransactions  []*PlaidAccountRecurringTransactionORM `gorm:"foreignkey:CreditAccountId;association_foreignkey:Id"`
 	Status                 string
 	Subtype                string
+	Transactions           []*PlaidAccountTransactionORM `gorm:"foreignkey:CreditAccountId;association_foreignkey:Id"`
 	Type                   string
 	UserId                 uint64
 }
@@ -1263,6 +1269,28 @@ func (m *CreditAccount) ToORM(ctx context.Context) (CreditAccountORM, error) {
 	to.MinimumPaymentAmount = m.MinimumPaymentAmount
 	to.NextPaymentDueDate = m.NextPaymentDueDate
 	to.Status = BankAccountStatus_name[int32(m.Status)]
+	for _, v := range m.Transactions {
+		if v != nil {
+			if tempTransactions, cErr := v.ToORM(ctx); cErr == nil {
+				to.Transactions = append(to.Transactions, &tempTransactions)
+			} else {
+				return to, cErr
+			}
+		} else {
+			to.Transactions = append(to.Transactions, nil)
+		}
+	}
+	for _, v := range m.RecurringTransactions {
+		if v != nil {
+			if tempRecurringTransactions, cErr := v.ToORM(ctx); cErr == nil {
+				to.RecurringTransactions = append(to.RecurringTransactions, &tempRecurringTransactions)
+			} else {
+				return to, cErr
+			}
+		} else {
+			to.RecurringTransactions = append(to.RecurringTransactions, nil)
+		}
+	}
 	if posthook, ok := interface{}(m).(CreditAccountWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -1310,6 +1338,28 @@ func (m *CreditAccountORM) ToPB(ctx context.Context) (CreditAccount, error) {
 	to.MinimumPaymentAmount = m.MinimumPaymentAmount
 	to.NextPaymentDueDate = m.NextPaymentDueDate
 	to.Status = BankAccountStatus(BankAccountStatus_value[m.Status])
+	for _, v := range m.Transactions {
+		if v != nil {
+			if tempTransactions, cErr := v.ToPB(ctx); cErr == nil {
+				to.Transactions = append(to.Transactions, &tempTransactions)
+			} else {
+				return to, cErr
+			}
+		} else {
+			to.Transactions = append(to.Transactions, nil)
+		}
+	}
+	for _, v := range m.RecurringTransactions {
+		if v != nil {
+			if tempRecurringTransactions, cErr := v.ToPB(ctx); cErr == nil {
+				to.RecurringTransactions = append(to.RecurringTransactions, &tempRecurringTransactions)
+			} else {
+				return to, cErr
+			}
+		} else {
+			to.RecurringTransactions = append(to.RecurringTransactions, nil)
+		}
+	}
 	if posthook, ok := interface{}(m).(CreditAccountWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -1515,6 +1565,7 @@ type InvestmentAccountORM struct {
 	Securities     []*InvestmentSecurityORM `gorm:"foreignkey:InvestmentAccountId;association_foreignkey:Id;preload:true"`
 	Status         string
 	Subtype        string
+	Transactions   []*PlaidAccountTransactionORM `gorm:"foreignkey:InvestmentAccountId;association_foreignkey:Id"`
 	Type           string
 	UserId         uint64
 }
@@ -1567,6 +1618,17 @@ func (m *InvestmentAccount) ToORM(ctx context.Context) (InvestmentAccountORM, er
 		}
 	}
 	to.Status = BankAccountStatus_name[int32(m.Status)]
+	for _, v := range m.Transactions {
+		if v != nil {
+			if tempTransactions, cErr := v.ToORM(ctx); cErr == nil {
+				to.Transactions = append(to.Transactions, &tempTransactions)
+			} else {
+				return to, cErr
+			}
+		} else {
+			to.Transactions = append(to.Transactions, nil)
+		}
+	}
 	if posthook, ok := interface{}(m).(InvestmentAccountWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -1616,6 +1678,17 @@ func (m *InvestmentAccountORM) ToPB(ctx context.Context) (InvestmentAccount, err
 		}
 	}
 	to.Status = BankAccountStatus(BankAccountStatus_value[m.Status])
+	for _, v := range m.Transactions {
+		if v != nil {
+			if tempTransactions, cErr := v.ToPB(ctx); cErr == nil {
+				to.Transactions = append(to.Transactions, &tempTransactions)
+			} else {
+				return to, cErr
+			}
+		} else {
+			to.Transactions = append(to.Transactions, nil)
+		}
+	}
 	if posthook, ok := interface{}(m).(InvestmentAccountWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -1646,20 +1719,22 @@ type InvestmentAccountWithAfterToPB interface {
 }
 
 type BankAccountORM struct {
-	Balance        float32
-	BalanceLimit   uint64
-	Currency       string
-	CurrentFunds   float64
-	Id             uint64
-	LinkId         *uint64
-	Name           string
-	Number         string
-	PlaidAccountId string
-	Pockets        []*PocketORM `gorm:"foreignkey:BankAccountId;association_foreignkey:Id;preload:true"`
-	Status         string
-	Subtype        string
-	Type           string
-	UserId         uint64
+	Balance               float32
+	BalanceLimit          uint64
+	Currency              string
+	CurrentFunds          float64
+	Id                    uint64
+	LinkId                *uint64
+	Name                  string
+	Number                string
+	PlaidAccountId        string
+	Pockets               []*PocketORM                           `gorm:"foreignkey:BankAccountId;association_foreignkey:Id;preload:true"`
+	RecurringTransactions []*PlaidAccountRecurringTransactionORM `gorm:"foreignkey:BankAccountId;association_foreignkey:Id"`
+	Status                string
+	Subtype               string
+	Transactions          []*PlaidAccountTransactionORM `gorm:"foreignkey:BankAccountId;association_foreignkey:Id"`
+	Type                  string
+	UserId                uint64
 }
 
 // TableName overrides the default tablename generated by GORM
@@ -1700,6 +1775,28 @@ func (m *BankAccount) ToORM(ctx context.Context) (BankAccountORM, error) {
 	to.PlaidAccountId = m.PlaidAccountId
 	to.Subtype = m.Subtype
 	to.Status = BankAccountStatus_name[int32(m.Status)]
+	for _, v := range m.Transactions {
+		if v != nil {
+			if tempTransactions, cErr := v.ToORM(ctx); cErr == nil {
+				to.Transactions = append(to.Transactions, &tempTransactions)
+			} else {
+				return to, cErr
+			}
+		} else {
+			to.Transactions = append(to.Transactions, nil)
+		}
+	}
+	for _, v := range m.RecurringTransactions {
+		if v != nil {
+			if tempRecurringTransactions, cErr := v.ToORM(ctx); cErr == nil {
+				to.RecurringTransactions = append(to.RecurringTransactions, &tempRecurringTransactions)
+			} else {
+				return to, cErr
+			}
+		} else {
+			to.RecurringTransactions = append(to.RecurringTransactions, nil)
+		}
+	}
 	if posthook, ok := interface{}(m).(BankAccountWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -1739,6 +1836,28 @@ func (m *BankAccountORM) ToPB(ctx context.Context) (BankAccount, error) {
 	to.PlaidAccountId = m.PlaidAccountId
 	to.Subtype = m.Subtype
 	to.Status = BankAccountStatus(BankAccountStatus_value[m.Status])
+	for _, v := range m.Transactions {
+		if v != nil {
+			if tempTransactions, cErr := v.ToPB(ctx); cErr == nil {
+				to.Transactions = append(to.Transactions, &tempTransactions)
+			} else {
+				return to, cErr
+			}
+		} else {
+			to.Transactions = append(to.Transactions, nil)
+		}
+	}
+	for _, v := range m.RecurringTransactions {
+		if v != nil {
+			if tempRecurringTransactions, cErr := v.ToPB(ctx); cErr == nil {
+				to.RecurringTransactions = append(to.RecurringTransactions, &tempRecurringTransactions)
+			} else {
+				return to, cErr
+			}
+		} else {
+			to.RecurringTransactions = append(to.RecurringTransactions, nil)
+		}
+	}
 	if posthook, ok := interface{}(m).(BankAccountWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -1872,6 +1991,7 @@ type SmartGoalORM struct {
 	IsCompleted   bool
 	Milestones    []*MilestoneORM `gorm:"foreignkey:SmartGoalId;association_foreignkey:Id;preload:true"`
 	Name          string
+	Notes         []*SmartNoteORM `gorm:"foreignkey:SmartGoalId;association_foreignkey:Id;preload:true"`
 	PocketId      *uint64
 	StartDate     string
 	TargetAmount  string
@@ -1922,6 +2042,17 @@ func (m *SmartGoal) ToORM(ctx context.Context) (SmartGoalORM, error) {
 		}
 		to.Forecasts = &tempForecasts
 	}
+	for _, v := range m.Notes {
+		if v != nil {
+			if tempNotes, cErr := v.ToORM(ctx); cErr == nil {
+				to.Notes = append(to.Notes, &tempNotes)
+			} else {
+				return to, cErr
+			}
+		} else {
+			to.Notes = append(to.Notes, nil)
+		}
+	}
 	if posthook, ok := interface{}(m).(SmartGoalWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -1967,6 +2098,17 @@ func (m *SmartGoalORM) ToPB(ctx context.Context) (SmartGoal, error) {
 		}
 		to.Forecasts = &tempForecasts
 	}
+	for _, v := range m.Notes {
+		if v != nil {
+			if tempNotes, cErr := v.ToPB(ctx); cErr == nil {
+				to.Notes = append(to.Notes, &tempNotes)
+			} else {
+				return to, cErr
+			}
+		} else {
+			to.Notes = append(to.Notes, nil)
+		}
+	}
 	if posthook, ok := interface{}(m).(SmartGoalWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -1994,6 +2136,95 @@ type SmartGoalWithBeforeToPB interface {
 // SmartGoalAfterToPB called after default ToPB code
 type SmartGoalWithAfterToPB interface {
 	AfterToPB(context.Context, *SmartGoal) error
+}
+
+type SmartNoteORM struct {
+	Content     string
+	CreatedAt   *time.Time
+	Id          uint64
+	SmartGoalId *uint64
+	UpdatedAt   *time.Time
+	UserId      uint64
+}
+
+// TableName overrides the default tablename generated by GORM
+func (SmartNoteORM) TableName() string {
+	return "smart_notes"
+}
+
+// ToORM runs the BeforeToORM hook if present, converts the fields of this
+// object to ORM format, runs the AfterToORM hook, then returns the ORM object
+func (m *SmartNote) ToORM(ctx context.Context) (SmartNoteORM, error) {
+	to := SmartNoteORM{}
+	var err error
+	if prehook, ok := interface{}(m).(SmartNoteWithBeforeToORM); ok {
+		if err = prehook.BeforeToORM(ctx, &to); err != nil {
+			return to, err
+		}
+	}
+	to.Id = m.Id
+	to.UserId = m.UserId
+	to.Content = m.Content
+	if m.CreatedAt != nil {
+		t := m.CreatedAt.AsTime()
+		to.CreatedAt = &t
+	}
+	if m.UpdatedAt != nil {
+		t := m.UpdatedAt.AsTime()
+		to.UpdatedAt = &t
+	}
+	if posthook, ok := interface{}(m).(SmartNoteWithAfterToORM); ok {
+		err = posthook.AfterToORM(ctx, &to)
+	}
+	return to, err
+}
+
+// ToPB runs the BeforeToPB hook if present, converts the fields of this
+// object to PB format, runs the AfterToPB hook, then returns the PB object
+func (m *SmartNoteORM) ToPB(ctx context.Context) (SmartNote, error) {
+	to := SmartNote{}
+	var err error
+	if prehook, ok := interface{}(m).(SmartNoteWithBeforeToPB); ok {
+		if err = prehook.BeforeToPB(ctx, &to); err != nil {
+			return to, err
+		}
+	}
+	to.Id = m.Id
+	to.UserId = m.UserId
+	to.Content = m.Content
+	if m.CreatedAt != nil {
+		to.CreatedAt = timestamppb.New(*m.CreatedAt)
+	}
+	if m.UpdatedAt != nil {
+		to.UpdatedAt = timestamppb.New(*m.UpdatedAt)
+	}
+	if posthook, ok := interface{}(m).(SmartNoteWithAfterToPB); ok {
+		err = posthook.AfterToPB(ctx, &to)
+	}
+	return to, err
+}
+
+// The following are interfaces you can implement for special behavior during ORM/PB conversions
+// of type SmartNote the arg will be the target, the caller the one being converted from
+
+// SmartNoteBeforeToORM called before default ToORM code
+type SmartNoteWithBeforeToORM interface {
+	BeforeToORM(context.Context, *SmartNoteORM) error
+}
+
+// SmartNoteAfterToORM called after default ToORM code
+type SmartNoteWithAfterToORM interface {
+	AfterToORM(context.Context, *SmartNoteORM) error
+}
+
+// SmartNoteBeforeToPB called before default ToPB code
+type SmartNoteWithBeforeToPB interface {
+	BeforeToPB(context.Context, *SmartNote) error
+}
+
+// SmartNoteAfterToPB called after default ToPB code
+type SmartNoteWithAfterToPB interface {
+	AfterToPB(context.Context, *SmartNote) error
 }
 
 type ForecastORM struct {
@@ -7274,6 +7505,470 @@ type VendorCreditLineWithAfterToPB interface {
 	AfterToPB(context.Context, *VendorCreditLine) error
 }
 
+type PlaidAccountInvestmentTransactionORM struct {
+	AccountId               string
+	Ammount                 string
+	Amount                  float64
+	CreatedAt               string
+	CurrentDate             string
+	Fees                    float64
+	Id                      uint64
+	InvestmentTransactionId string
+	IsoCurrencyCode         string
+	LinkId                  uint64
+	Name                    string
+	Price                   float64
+	Quantity                float64
+	SecurityId              string
+	Subtype                 string
+	Time                    *time.Time
+	Type                    string
+	UnofficialCurrencyCode  string
+	UserId                  uint64
+}
+
+// TableName overrides the default tablename generated by GORM
+func (PlaidAccountInvestmentTransactionORM) TableName() string {
+	return "plaid_account_investment_transactions"
+}
+
+// ToORM runs the BeforeToORM hook if present, converts the fields of this
+// object to ORM format, runs the AfterToORM hook, then returns the ORM object
+func (m *PlaidAccountInvestmentTransaction) ToORM(ctx context.Context) (PlaidAccountInvestmentTransactionORM, error) {
+	to := PlaidAccountInvestmentTransactionORM{}
+	var err error
+	if prehook, ok := interface{}(m).(PlaidAccountInvestmentTransactionWithBeforeToORM); ok {
+		if err = prehook.BeforeToORM(ctx, &to); err != nil {
+			return to, err
+		}
+	}
+	to.AccountId = m.AccountId
+	to.Ammount = m.Ammount
+	to.InvestmentTransactionId = m.InvestmentTransactionId
+	to.SecurityId = m.SecurityId
+	to.CurrentDate = m.CurrentDate
+	to.Name = m.Name
+	to.Quantity = m.Quantity
+	to.Amount = m.Amount
+	to.Price = m.Price
+	to.Fees = m.Fees
+	to.Type = m.Type
+	to.Subtype = m.Subtype
+	to.IsoCurrencyCode = m.IsoCurrencyCode
+	to.UnofficialCurrencyCode = m.UnofficialCurrencyCode
+	to.LinkId = m.LinkId
+	to.Id = m.Id
+	to.UserId = m.UserId
+	to.CreatedAt = m.CreatedAt
+	if m.Time != nil {
+		t := m.Time.AsTime()
+		to.Time = &t
+	}
+	if posthook, ok := interface{}(m).(PlaidAccountInvestmentTransactionWithAfterToORM); ok {
+		err = posthook.AfterToORM(ctx, &to)
+	}
+	return to, err
+}
+
+// ToPB runs the BeforeToPB hook if present, converts the fields of this
+// object to PB format, runs the AfterToPB hook, then returns the PB object
+func (m *PlaidAccountInvestmentTransactionORM) ToPB(ctx context.Context) (PlaidAccountInvestmentTransaction, error) {
+	to := PlaidAccountInvestmentTransaction{}
+	var err error
+	if prehook, ok := interface{}(m).(PlaidAccountInvestmentTransactionWithBeforeToPB); ok {
+		if err = prehook.BeforeToPB(ctx, &to); err != nil {
+			return to, err
+		}
+	}
+	to.AccountId = m.AccountId
+	to.Ammount = m.Ammount
+	to.InvestmentTransactionId = m.InvestmentTransactionId
+	to.SecurityId = m.SecurityId
+	to.CurrentDate = m.CurrentDate
+	to.Name = m.Name
+	to.Quantity = m.Quantity
+	to.Amount = m.Amount
+	to.Price = m.Price
+	to.Fees = m.Fees
+	to.Type = m.Type
+	to.Subtype = m.Subtype
+	to.IsoCurrencyCode = m.IsoCurrencyCode
+	to.UnofficialCurrencyCode = m.UnofficialCurrencyCode
+	to.LinkId = m.LinkId
+	to.Id = m.Id
+	to.UserId = m.UserId
+	to.CreatedAt = m.CreatedAt
+	if m.Time != nil {
+		to.Time = timestamppb.New(*m.Time)
+	}
+	if posthook, ok := interface{}(m).(PlaidAccountInvestmentTransactionWithAfterToPB); ok {
+		err = posthook.AfterToPB(ctx, &to)
+	}
+	return to, err
+}
+
+// The following are interfaces you can implement for special behavior during ORM/PB conversions
+// of type PlaidAccountInvestmentTransaction the arg will be the target, the caller the one being converted from
+
+// PlaidAccountInvestmentTransactionBeforeToORM called before default ToORM code
+type PlaidAccountInvestmentTransactionWithBeforeToORM interface {
+	BeforeToORM(context.Context, *PlaidAccountInvestmentTransactionORM) error
+}
+
+// PlaidAccountInvestmentTransactionAfterToORM called after default ToORM code
+type PlaidAccountInvestmentTransactionWithAfterToORM interface {
+	AfterToORM(context.Context, *PlaidAccountInvestmentTransactionORM) error
+}
+
+// PlaidAccountInvestmentTransactionBeforeToPB called before default ToPB code
+type PlaidAccountInvestmentTransactionWithBeforeToPB interface {
+	BeforeToPB(context.Context, *PlaidAccountInvestmentTransaction) error
+}
+
+// PlaidAccountInvestmentTransactionAfterToPB called after default ToPB code
+type PlaidAccountInvestmentTransactionWithAfterToPB interface {
+	AfterToPB(context.Context, *PlaidAccountInvestmentTransaction) error
+}
+
+type PlaidAccountRecurringTransactionORM struct {
+	AccountId                       string
+	AverageAmount                   string
+	AverageAmountIsoCurrencyCode    string
+	BankAccountId                   *uint64
+	CategoryId                      string
+	CreditAccountId                 *uint64
+	Description                     string
+	FirstDate                       string
+	Flow                            string
+	Frequency                       string
+	Id                              uint64
+	IsActive                        bool
+	LastAmount                      string
+	LastAmountIsoCurrencyCode       string
+	LastDate                        string
+	LinkId                          uint64
+	MerchantName                    string
+	PersonalFinanceCategoryDetailed string
+	PersonalFinanceCategoryPrimary  string
+	Status                          string
+	StreamId                        string
+	Time                            *time.Time
+	TransactionIds                  string
+	UpdatedTime                     string
+	UserId                          uint64
+}
+
+// TableName overrides the default tablename generated by GORM
+func (PlaidAccountRecurringTransactionORM) TableName() string {
+	return "plaid_account_recurring_transactions"
+}
+
+// ToORM runs the BeforeToORM hook if present, converts the fields of this
+// object to ORM format, runs the AfterToORM hook, then returns the ORM object
+func (m *PlaidAccountRecurringTransaction) ToORM(ctx context.Context) (PlaidAccountRecurringTransactionORM, error) {
+	to := PlaidAccountRecurringTransactionORM{}
+	var err error
+	if prehook, ok := interface{}(m).(PlaidAccountRecurringTransactionWithBeforeToORM); ok {
+		if err = prehook.BeforeToORM(ctx, &to); err != nil {
+			return to, err
+		}
+	}
+	to.AccountId = m.AccountId
+	to.StreamId = m.StreamId
+	to.CategoryId = m.CategoryId
+	to.Description = m.Description
+	to.MerchantName = m.MerchantName
+	to.PersonalFinanceCategoryPrimary = m.PersonalFinanceCategoryPrimary
+	to.PersonalFinanceCategoryDetailed = m.PersonalFinanceCategoryDetailed
+	to.FirstDate = m.FirstDate
+	to.LastDate = m.LastDate
+	to.Frequency = m.Frequency
+	to.TransactionIds = m.TransactionIds
+	to.AverageAmount = m.AverageAmount
+	to.AverageAmountIsoCurrencyCode = m.AverageAmountIsoCurrencyCode
+	to.LastAmount = m.LastAmount
+	to.LastAmountIsoCurrencyCode = m.LastAmountIsoCurrencyCode
+	to.IsActive = m.IsActive
+	to.Status = m.Status
+	to.UpdatedTime = m.UpdatedTime
+	to.UserId = m.UserId
+	to.LinkId = m.LinkId
+	to.Id = m.Id
+	to.Flow = m.Flow
+	if m.Time != nil {
+		t := m.Time.AsTime()
+		to.Time = &t
+	}
+	if posthook, ok := interface{}(m).(PlaidAccountRecurringTransactionWithAfterToORM); ok {
+		err = posthook.AfterToORM(ctx, &to)
+	}
+	return to, err
+}
+
+// ToPB runs the BeforeToPB hook if present, converts the fields of this
+// object to PB format, runs the AfterToPB hook, then returns the PB object
+func (m *PlaidAccountRecurringTransactionORM) ToPB(ctx context.Context) (PlaidAccountRecurringTransaction, error) {
+	to := PlaidAccountRecurringTransaction{}
+	var err error
+	if prehook, ok := interface{}(m).(PlaidAccountRecurringTransactionWithBeforeToPB); ok {
+		if err = prehook.BeforeToPB(ctx, &to); err != nil {
+			return to, err
+		}
+	}
+	to.AccountId = m.AccountId
+	to.StreamId = m.StreamId
+	to.CategoryId = m.CategoryId
+	to.Description = m.Description
+	to.MerchantName = m.MerchantName
+	to.PersonalFinanceCategoryPrimary = m.PersonalFinanceCategoryPrimary
+	to.PersonalFinanceCategoryDetailed = m.PersonalFinanceCategoryDetailed
+	to.FirstDate = m.FirstDate
+	to.LastDate = m.LastDate
+	to.Frequency = m.Frequency
+	to.TransactionIds = m.TransactionIds
+	to.AverageAmount = m.AverageAmount
+	to.AverageAmountIsoCurrencyCode = m.AverageAmountIsoCurrencyCode
+	to.LastAmount = m.LastAmount
+	to.LastAmountIsoCurrencyCode = m.LastAmountIsoCurrencyCode
+	to.IsActive = m.IsActive
+	to.Status = m.Status
+	to.UpdatedTime = m.UpdatedTime
+	to.UserId = m.UserId
+	to.LinkId = m.LinkId
+	to.Id = m.Id
+	to.Flow = m.Flow
+	if m.Time != nil {
+		to.Time = timestamppb.New(*m.Time)
+	}
+	if posthook, ok := interface{}(m).(PlaidAccountRecurringTransactionWithAfterToPB); ok {
+		err = posthook.AfterToPB(ctx, &to)
+	}
+	return to, err
+}
+
+// The following are interfaces you can implement for special behavior during ORM/PB conversions
+// of type PlaidAccountRecurringTransaction the arg will be the target, the caller the one being converted from
+
+// PlaidAccountRecurringTransactionBeforeToORM called before default ToORM code
+type PlaidAccountRecurringTransactionWithBeforeToORM interface {
+	BeforeToORM(context.Context, *PlaidAccountRecurringTransactionORM) error
+}
+
+// PlaidAccountRecurringTransactionAfterToORM called after default ToORM code
+type PlaidAccountRecurringTransactionWithAfterToORM interface {
+	AfterToORM(context.Context, *PlaidAccountRecurringTransactionORM) error
+}
+
+// PlaidAccountRecurringTransactionBeforeToPB called before default ToPB code
+type PlaidAccountRecurringTransactionWithBeforeToPB interface {
+	BeforeToPB(context.Context, *PlaidAccountRecurringTransaction) error
+}
+
+// PlaidAccountRecurringTransactionAfterToPB called after default ToPB code
+type PlaidAccountRecurringTransactionWithAfterToPB interface {
+	AfterToPB(context.Context, *PlaidAccountRecurringTransaction) error
+}
+
+type PlaidAccountTransactionORM struct {
+	AccountId                       string
+	AccountOwner                    string
+	Amount                          float64
+	AuthorizedDate                  string
+	AuthorizedDatetime              string
+	BankAccountId                   *uint64
+	Categories                      pq.StringArray `gorm:"type:text[]"`
+	CategoryId                      string
+	CheckNumber                     string
+	CreditAccountId                 *uint64
+	CurrentDate                     string
+	CurrentDatetime                 string
+	Id                              uint64
+	InvestmentAccountId             *uint64
+	IsoCurrencyCode                 string
+	LinkId                          uint64
+	LocationAddress                 string
+	LocationCity                    string
+	LocationCountry                 string
+	LocationLat                     float64
+	LocationLon                     float64
+	LocationPostalCode              string
+	LocationRegion                  string
+	LocationStoreNumber             string
+	MerchantName                    string
+	Name                            string
+	PaymentChannel                  string
+	PaymentMetaByOrderOf            string
+	PaymentMetaPayee                string
+	PaymentMetaPayer                string
+	PaymentMetaPaymentMethod        string
+	PaymentMetaPaymentProcessor     string
+	PaymentMetaPpdId                string
+	PaymentMetaReason               string
+	PaymentMetaReferenceNumber      string
+	Pending                         bool
+	PendingTransactionId            string
+	PersonalFinanceCategoryDetailed string
+	PersonalFinanceCategoryPrimary  string
+	Time                            *time.Time
+	TransactionCode                 string
+	TransactionId                   string
+	UnofficialCurrencyCode          string
+	UserId                          uint64
+}
+
+// TableName overrides the default tablename generated by GORM
+func (PlaidAccountTransactionORM) TableName() string {
+	return "plaid_account_transactions"
+}
+
+// ToORM runs the BeforeToORM hook if present, converts the fields of this
+// object to ORM format, runs the AfterToORM hook, then returns the ORM object
+func (m *PlaidAccountTransaction) ToORM(ctx context.Context) (PlaidAccountTransactionORM, error) {
+	to := PlaidAccountTransactionORM{}
+	var err error
+	if prehook, ok := interface{}(m).(PlaidAccountTransactionWithBeforeToORM); ok {
+		if err = prehook.BeforeToORM(ctx, &to); err != nil {
+			return to, err
+		}
+	}
+	to.AccountId = m.AccountId
+	to.Amount = m.Amount
+	to.IsoCurrencyCode = m.IsoCurrencyCode
+	to.UnofficialCurrencyCode = m.UnofficialCurrencyCode
+	to.TransactionId = m.TransactionId
+	to.TransactionCode = m.TransactionCode
+	to.CurrentDate = m.CurrentDate
+	to.CurrentDatetime = m.CurrentDatetime
+	to.AuthorizedDate = m.AuthorizedDate
+	to.AuthorizedDatetime = m.AuthorizedDatetime
+	to.CategoryId = m.CategoryId
+	if m.Categories != nil {
+		to.Categories = make(pq.StringArray, len(m.Categories))
+		copy(to.Categories, m.Categories)
+	}
+	to.PersonalFinanceCategoryPrimary = m.PersonalFinanceCategoryPrimary
+	to.PersonalFinanceCategoryDetailed = m.PersonalFinanceCategoryDetailed
+	to.Name = m.Name
+	to.MerchantName = m.MerchantName
+	to.CheckNumber = m.CheckNumber
+	to.PaymentChannel = m.PaymentChannel
+	to.Pending = m.Pending
+	to.PendingTransactionId = m.PendingTransactionId
+	to.AccountOwner = m.AccountOwner
+	to.PaymentMetaByOrderOf = m.PaymentMetaByOrderOf
+	to.PaymentMetaPayee = m.PaymentMetaPayee
+	to.PaymentMetaPayer = m.PaymentMetaPayer
+	to.PaymentMetaPaymentMethod = m.PaymentMetaPaymentMethod
+	to.PaymentMetaPaymentProcessor = m.PaymentMetaPaymentProcessor
+	to.PaymentMetaPpdId = m.PaymentMetaPpdId
+	to.PaymentMetaReason = m.PaymentMetaReason
+	to.PaymentMetaReferenceNumber = m.PaymentMetaReferenceNumber
+	to.LocationAddress = m.LocationAddress
+	to.LocationCity = m.LocationCity
+	to.LocationRegion = m.LocationRegion
+	to.LocationPostalCode = m.LocationPostalCode
+	to.LocationCountry = m.LocationCountry
+	to.LocationLat = m.LocationLat
+	to.LocationLon = m.LocationLon
+	to.LocationStoreNumber = m.LocationStoreNumber
+	if m.Time != nil {
+		t := m.Time.AsTime()
+		to.Time = &t
+	}
+	to.Id = m.Id
+	to.UserId = m.UserId
+	to.LinkId = m.LinkId
+	if posthook, ok := interface{}(m).(PlaidAccountTransactionWithAfterToORM); ok {
+		err = posthook.AfterToORM(ctx, &to)
+	}
+	return to, err
+}
+
+// ToPB runs the BeforeToPB hook if present, converts the fields of this
+// object to PB format, runs the AfterToPB hook, then returns the PB object
+func (m *PlaidAccountTransactionORM) ToPB(ctx context.Context) (PlaidAccountTransaction, error) {
+	to := PlaidAccountTransaction{}
+	var err error
+	if prehook, ok := interface{}(m).(PlaidAccountTransactionWithBeforeToPB); ok {
+		if err = prehook.BeforeToPB(ctx, &to); err != nil {
+			return to, err
+		}
+	}
+	to.AccountId = m.AccountId
+	to.Amount = m.Amount
+	to.IsoCurrencyCode = m.IsoCurrencyCode
+	to.UnofficialCurrencyCode = m.UnofficialCurrencyCode
+	to.TransactionId = m.TransactionId
+	to.TransactionCode = m.TransactionCode
+	to.CurrentDate = m.CurrentDate
+	to.CurrentDatetime = m.CurrentDatetime
+	to.AuthorizedDate = m.AuthorizedDate
+	to.AuthorizedDatetime = m.AuthorizedDatetime
+	to.CategoryId = m.CategoryId
+	if m.Categories != nil {
+		to.Categories = make(pq.StringArray, len(m.Categories))
+		copy(to.Categories, m.Categories)
+	}
+	to.PersonalFinanceCategoryPrimary = m.PersonalFinanceCategoryPrimary
+	to.PersonalFinanceCategoryDetailed = m.PersonalFinanceCategoryDetailed
+	to.Name = m.Name
+	to.MerchantName = m.MerchantName
+	to.CheckNumber = m.CheckNumber
+	to.PaymentChannel = m.PaymentChannel
+	to.Pending = m.Pending
+	to.PendingTransactionId = m.PendingTransactionId
+	to.AccountOwner = m.AccountOwner
+	to.PaymentMetaByOrderOf = m.PaymentMetaByOrderOf
+	to.PaymentMetaPayee = m.PaymentMetaPayee
+	to.PaymentMetaPayer = m.PaymentMetaPayer
+	to.PaymentMetaPaymentMethod = m.PaymentMetaPaymentMethod
+	to.PaymentMetaPaymentProcessor = m.PaymentMetaPaymentProcessor
+	to.PaymentMetaPpdId = m.PaymentMetaPpdId
+	to.PaymentMetaReason = m.PaymentMetaReason
+	to.PaymentMetaReferenceNumber = m.PaymentMetaReferenceNumber
+	to.LocationAddress = m.LocationAddress
+	to.LocationCity = m.LocationCity
+	to.LocationRegion = m.LocationRegion
+	to.LocationPostalCode = m.LocationPostalCode
+	to.LocationCountry = m.LocationCountry
+	to.LocationLat = m.LocationLat
+	to.LocationLon = m.LocationLon
+	to.LocationStoreNumber = m.LocationStoreNumber
+	if m.Time != nil {
+		to.Time = timestamppb.New(*m.Time)
+	}
+	to.Id = m.Id
+	to.UserId = m.UserId
+	to.LinkId = m.LinkId
+	if posthook, ok := interface{}(m).(PlaidAccountTransactionWithAfterToPB); ok {
+		err = posthook.AfterToPB(ctx, &to)
+	}
+	return to, err
+}
+
+// The following are interfaces you can implement for special behavior during ORM/PB conversions
+// of type PlaidAccountTransaction the arg will be the target, the caller the one being converted from
+
+// PlaidAccountTransactionBeforeToORM called before default ToORM code
+type PlaidAccountTransactionWithBeforeToORM interface {
+	BeforeToORM(context.Context, *PlaidAccountTransactionORM) error
+}
+
+// PlaidAccountTransactionAfterToORM called after default ToORM code
+type PlaidAccountTransactionWithAfterToORM interface {
+	AfterToORM(context.Context, *PlaidAccountTransactionORM) error
+}
+
+// PlaidAccountTransactionBeforeToPB called before default ToPB code
+type PlaidAccountTransactionWithBeforeToPB interface {
+	BeforeToPB(context.Context, *PlaidAccountTransaction) error
+}
+
+// PlaidAccountTransactionAfterToPB called after default ToPB code
+type PlaidAccountTransactionWithAfterToPB interface {
+	AfterToPB(context.Context, *PlaidAccountTransaction) error
+}
+
 // DefaultCreateStripeSubscription executes a basic gorm create call
 func DefaultCreateStripeSubscription(ctx context.Context, in *StripeSubscription, db *gorm.DB) (*StripeSubscription, error) {
 	if in == nil {
@@ -8015,6 +8710,10 @@ func DefaultApplyFieldMaskFinancialUserProfile(ctx context.Context, patchee *Fin
 		}
 		if f == prefix+"ActionablePersonalInsights" {
 			patchee.ActionablePersonalInsights = patcher.ActionablePersonalInsights
+			continue
+		}
+		if f == prefix+"ProfileType" {
+			patchee.ProfileType = patcher.ProfileType
 			continue
 		}
 	}
@@ -11199,6 +11898,24 @@ func DefaultStrictUpdateCreditAccount(ctx context.Context, in *CreditAccount, db
 	if err = db.Where(filterAprs).Delete(AprORM{}).Error; err != nil {
 		return nil, err
 	}
+	filterRecurringTransactions := PlaidAccountRecurringTransactionORM{}
+	if ormObj.Id == 0 {
+		return nil, errors.EmptyIdError
+	}
+	filterRecurringTransactions.CreditAccountId = new(uint64)
+	*filterRecurringTransactions.CreditAccountId = ormObj.Id
+	if err = db.Where(filterRecurringTransactions).Delete(PlaidAccountRecurringTransactionORM{}).Error; err != nil {
+		return nil, err
+	}
+	filterTransactions := PlaidAccountTransactionORM{}
+	if ormObj.Id == 0 {
+		return nil, errors.EmptyIdError
+	}
+	filterTransactions.CreditAccountId = new(uint64)
+	*filterTransactions.CreditAccountId = ormObj.Id
+	if err = db.Where(filterTransactions).Delete(PlaidAccountTransactionORM{}).Error; err != nil {
+		return nil, err
+	}
 	if hook, ok := interface{}(&ormObj).(CreditAccountORMWithBeforeStrictUpdateSave); ok {
 		if db, err = hook.BeforeStrictUpdateSave(ctx, db); err != nil {
 			return nil, err
@@ -11394,6 +12111,14 @@ func DefaultApplyFieldMaskCreditAccount(ctx context.Context, patchee *CreditAcco
 		}
 		if f == prefix+"Status" {
 			patchee.Status = patcher.Status
+			continue
+		}
+		if f == prefix+"Transactions" {
+			patchee.Transactions = patcher.Transactions
+			continue
+		}
+		if f == prefix+"RecurringTransactions" {
+			patchee.RecurringTransactions = patcher.RecurringTransactions
 			continue
 		}
 	}
@@ -12113,6 +12838,15 @@ func DefaultStrictUpdateInvestmentAccount(ctx context.Context, in *InvestmentAcc
 	if err = db.Where(filterSecurities).Delete(InvestmentSecurityORM{}).Error; err != nil {
 		return nil, err
 	}
+	filterTransactions := PlaidAccountTransactionORM{}
+	if ormObj.Id == 0 {
+		return nil, errors.EmptyIdError
+	}
+	filterTransactions.InvestmentAccountId = new(uint64)
+	*filterTransactions.InvestmentAccountId = ormObj.Id
+	if err = db.Where(filterTransactions).Delete(PlaidAccountTransactionORM{}).Error; err != nil {
+		return nil, err
+	}
 	if hook, ok := interface{}(&ormObj).(InvestmentAccountORMWithBeforeStrictUpdateSave); ok {
 		if db, err = hook.BeforeStrictUpdateSave(ctx, db); err != nil {
 			return nil, err
@@ -12276,6 +13010,10 @@ func DefaultApplyFieldMaskInvestmentAccount(ctx context.Context, patchee *Invest
 		}
 		if f == prefix+"Status" {
 			patchee.Status = patcher.Status
+			continue
+		}
+		if f == prefix+"Transactions" {
+			patchee.Transactions = patcher.Transactions
 			continue
 		}
 	}
@@ -12514,6 +13252,24 @@ func DefaultStrictUpdateBankAccount(ctx context.Context, in *BankAccount, db *go
 	if err = db.Where(filterPockets).Delete(PocketORM{}).Error; err != nil {
 		return nil, err
 	}
+	filterRecurringTransactions := PlaidAccountRecurringTransactionORM{}
+	if ormObj.Id == 0 {
+		return nil, errors.EmptyIdError
+	}
+	filterRecurringTransactions.BankAccountId = new(uint64)
+	*filterRecurringTransactions.BankAccountId = ormObj.Id
+	if err = db.Where(filterRecurringTransactions).Delete(PlaidAccountRecurringTransactionORM{}).Error; err != nil {
+		return nil, err
+	}
+	filterTransactions := PlaidAccountTransactionORM{}
+	if ormObj.Id == 0 {
+		return nil, errors.EmptyIdError
+	}
+	filterTransactions.BankAccountId = new(uint64)
+	*filterTransactions.BankAccountId = ormObj.Id
+	if err = db.Where(filterTransactions).Delete(PlaidAccountTransactionORM{}).Error; err != nil {
+		return nil, err
+	}
 	if hook, ok := interface{}(&ormObj).(BankAccountORMWithBeforeStrictUpdateSave); ok {
 		if db, err = hook.BeforeStrictUpdateSave(ctx, db); err != nil {
 			return nil, err
@@ -12677,6 +13433,14 @@ func DefaultApplyFieldMaskBankAccount(ctx context.Context, patchee *BankAccount,
 		}
 		if f == prefix+"Status" {
 			patchee.Status = patcher.Status
+			continue
+		}
+		if f == prefix+"Transactions" {
+			patchee.Transactions = patcher.Transactions
+			continue
+		}
+		if f == prefix+"RecurringTransactions" {
+			patchee.RecurringTransactions = patcher.RecurringTransactions
 			continue
 		}
 	}
@@ -13285,6 +14049,15 @@ func DefaultStrictUpdateSmartGoal(ctx context.Context, in *SmartGoal, db *gorm.D
 	if err = db.Where(filterMilestones).Delete(MilestoneORM{}).Error; err != nil {
 		return nil, err
 	}
+	filterNotes := SmartNoteORM{}
+	if ormObj.Id == 0 {
+		return nil, errors.EmptyIdError
+	}
+	filterNotes.SmartGoalId = new(uint64)
+	*filterNotes.SmartGoalId = ormObj.Id
+	if err = db.Where(filterNotes).Delete(SmartNoteORM{}).Error; err != nil {
+		return nil, err
+	}
 	if hook, ok := interface{}(&ormObj).(SmartGoalORMWithBeforeStrictUpdateSave); ok {
 		if db, err = hook.BeforeStrictUpdateSave(ctx, db); err != nil {
 			return nil, err
@@ -13468,6 +14241,10 @@ func DefaultApplyFieldMaskSmartGoal(ctx context.Context, patchee *SmartGoal, pat
 			patchee.Forecasts = patcher.Forecasts
 			continue
 		}
+		if f == prefix+"Notes" {
+			patchee.Notes = patcher.Notes
+			continue
+		}
 	}
 	if err != nil {
 		return nil, err
@@ -13526,6 +14303,406 @@ type SmartGoalORMWithBeforeListFind interface {
 }
 type SmartGoalORMWithAfterListFind interface {
 	AfterListFind(context.Context, *gorm.DB, *[]SmartGoalORM) error
+}
+
+// DefaultCreateSmartNote executes a basic gorm create call
+func DefaultCreateSmartNote(ctx context.Context, in *SmartNote, db *gorm.DB) (*SmartNote, error) {
+	if in == nil {
+		return nil, errors.NilArgumentError
+	}
+	ormObj, err := in.ToORM(ctx)
+	if err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormObj).(SmartNoteORMWithBeforeCreate_); ok {
+		if db, err = hook.BeforeCreate_(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	if err = db.Create(&ormObj).Error; err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormObj).(SmartNoteORMWithAfterCreate_); ok {
+		if err = hook.AfterCreate_(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	pbResponse, err := ormObj.ToPB(ctx)
+	return &pbResponse, err
+}
+
+type SmartNoteORMWithBeforeCreate_ interface {
+	BeforeCreate_(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type SmartNoteORMWithAfterCreate_ interface {
+	AfterCreate_(context.Context, *gorm.DB) error
+}
+
+func DefaultReadSmartNote(ctx context.Context, in *SmartNote, db *gorm.DB) (*SmartNote, error) {
+	if in == nil {
+		return nil, errors.NilArgumentError
+	}
+	ormObj, err := in.ToORM(ctx)
+	if err != nil {
+		return nil, err
+	}
+	if ormObj.Id == 0 {
+		return nil, errors.EmptyIdError
+	}
+	if hook, ok := interface{}(&ormObj).(SmartNoteORMWithBeforeReadApplyQuery); ok {
+		if db, err = hook.BeforeReadApplyQuery(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	if db, err = gorm1.ApplyFieldSelection(ctx, db, nil, &SmartNoteORM{}); err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormObj).(SmartNoteORMWithBeforeReadFind); ok {
+		if db, err = hook.BeforeReadFind(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	ormResponse := SmartNoteORM{}
+	if err = db.Where(&ormObj).First(&ormResponse).Error; err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormResponse).(SmartNoteORMWithAfterReadFind); ok {
+		if err = hook.AfterReadFind(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	pbResponse, err := ormResponse.ToPB(ctx)
+	return &pbResponse, err
+}
+
+type SmartNoteORMWithBeforeReadApplyQuery interface {
+	BeforeReadApplyQuery(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type SmartNoteORMWithBeforeReadFind interface {
+	BeforeReadFind(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type SmartNoteORMWithAfterReadFind interface {
+	AfterReadFind(context.Context, *gorm.DB) error
+}
+
+func DefaultDeleteSmartNote(ctx context.Context, in *SmartNote, db *gorm.DB) error {
+	if in == nil {
+		return errors.NilArgumentError
+	}
+	ormObj, err := in.ToORM(ctx)
+	if err != nil {
+		return err
+	}
+	if ormObj.Id == 0 {
+		return errors.EmptyIdError
+	}
+	if hook, ok := interface{}(&ormObj).(SmartNoteORMWithBeforeDelete_); ok {
+		if db, err = hook.BeforeDelete_(ctx, db); err != nil {
+			return err
+		}
+	}
+	err = db.Where(&ormObj).Delete(&SmartNoteORM{}).Error
+	if err != nil {
+		return err
+	}
+	if hook, ok := interface{}(&ormObj).(SmartNoteORMWithAfterDelete_); ok {
+		err = hook.AfterDelete_(ctx, db)
+	}
+	return err
+}
+
+type SmartNoteORMWithBeforeDelete_ interface {
+	BeforeDelete_(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type SmartNoteORMWithAfterDelete_ interface {
+	AfterDelete_(context.Context, *gorm.DB) error
+}
+
+func DefaultDeleteSmartNoteSet(ctx context.Context, in []*SmartNote, db *gorm.DB) error {
+	if in == nil {
+		return errors.NilArgumentError
+	}
+	var err error
+	keys := []uint64{}
+	for _, obj := range in {
+		ormObj, err := obj.ToORM(ctx)
+		if err != nil {
+			return err
+		}
+		if ormObj.Id == 0 {
+			return errors.EmptyIdError
+		}
+		keys = append(keys, ormObj.Id)
+	}
+	if hook, ok := (interface{}(&SmartNoteORM{})).(SmartNoteORMWithBeforeDeleteSet); ok {
+		if db, err = hook.BeforeDeleteSet(ctx, in, db); err != nil {
+			return err
+		}
+	}
+	err = db.Where("id in (?)", keys).Delete(&SmartNoteORM{}).Error
+	if err != nil {
+		return err
+	}
+	if hook, ok := (interface{}(&SmartNoteORM{})).(SmartNoteORMWithAfterDeleteSet); ok {
+		err = hook.AfterDeleteSet(ctx, in, db)
+	}
+	return err
+}
+
+type SmartNoteORMWithBeforeDeleteSet interface {
+	BeforeDeleteSet(context.Context, []*SmartNote, *gorm.DB) (*gorm.DB, error)
+}
+type SmartNoteORMWithAfterDeleteSet interface {
+	AfterDeleteSet(context.Context, []*SmartNote, *gorm.DB) error
+}
+
+// DefaultStrictUpdateSmartNote clears / replaces / appends first level 1:many children and then executes a gorm update call
+func DefaultStrictUpdateSmartNote(ctx context.Context, in *SmartNote, db *gorm.DB) (*SmartNote, error) {
+	if in == nil {
+		return nil, fmt.Errorf("Nil argument to DefaultStrictUpdateSmartNote")
+	}
+	ormObj, err := in.ToORM(ctx)
+	if err != nil {
+		return nil, err
+	}
+	lockedRow := &SmartNoteORM{}
+	db.Model(&ormObj).Set("gorm:query_option", "FOR UPDATE").Where("id=?", ormObj.Id).First(lockedRow)
+	if hook, ok := interface{}(&ormObj).(SmartNoteORMWithBeforeStrictUpdateCleanup); ok {
+		if db, err = hook.BeforeStrictUpdateCleanup(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	if hook, ok := interface{}(&ormObj).(SmartNoteORMWithBeforeStrictUpdateSave); ok {
+		if db, err = hook.BeforeStrictUpdateSave(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	if err = db.Save(&ormObj).Error; err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormObj).(SmartNoteORMWithAfterStrictUpdateSave); ok {
+		if err = hook.AfterStrictUpdateSave(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	pbResponse, err := ormObj.ToPB(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return &pbResponse, err
+}
+
+type SmartNoteORMWithBeforeStrictUpdateCleanup interface {
+	BeforeStrictUpdateCleanup(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type SmartNoteORMWithBeforeStrictUpdateSave interface {
+	BeforeStrictUpdateSave(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type SmartNoteORMWithAfterStrictUpdateSave interface {
+	AfterStrictUpdateSave(context.Context, *gorm.DB) error
+}
+
+// DefaultPatchSmartNote executes a basic gorm update call with patch behavior
+func DefaultPatchSmartNote(ctx context.Context, in *SmartNote, updateMask *field_mask.FieldMask, db *gorm.DB) (*SmartNote, error) {
+	if in == nil {
+		return nil, errors.NilArgumentError
+	}
+	var pbObj SmartNote
+	var err error
+	if hook, ok := interface{}(&pbObj).(SmartNoteWithBeforePatchRead); ok {
+		if db, err = hook.BeforePatchRead(ctx, in, updateMask, db); err != nil {
+			return nil, err
+		}
+	}
+	pbReadRes, err := DefaultReadSmartNote(ctx, &SmartNote{Id: in.GetId()}, db)
+	if err != nil {
+		return nil, err
+	}
+	pbObj = *pbReadRes
+	if hook, ok := interface{}(&pbObj).(SmartNoteWithBeforePatchApplyFieldMask); ok {
+		if db, err = hook.BeforePatchApplyFieldMask(ctx, in, updateMask, db); err != nil {
+			return nil, err
+		}
+	}
+	if _, err := DefaultApplyFieldMaskSmartNote(ctx, &pbObj, in, updateMask, "", db); err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&pbObj).(SmartNoteWithBeforePatchSave); ok {
+		if db, err = hook.BeforePatchSave(ctx, in, updateMask, db); err != nil {
+			return nil, err
+		}
+	}
+	pbResponse, err := DefaultStrictUpdateSmartNote(ctx, &pbObj, db)
+	if err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(pbResponse).(SmartNoteWithAfterPatchSave); ok {
+		if err = hook.AfterPatchSave(ctx, in, updateMask, db); err != nil {
+			return nil, err
+		}
+	}
+	return pbResponse, nil
+}
+
+type SmartNoteWithBeforePatchRead interface {
+	BeforePatchRead(context.Context, *SmartNote, *field_mask.FieldMask, *gorm.DB) (*gorm.DB, error)
+}
+type SmartNoteWithBeforePatchApplyFieldMask interface {
+	BeforePatchApplyFieldMask(context.Context, *SmartNote, *field_mask.FieldMask, *gorm.DB) (*gorm.DB, error)
+}
+type SmartNoteWithBeforePatchSave interface {
+	BeforePatchSave(context.Context, *SmartNote, *field_mask.FieldMask, *gorm.DB) (*gorm.DB, error)
+}
+type SmartNoteWithAfterPatchSave interface {
+	AfterPatchSave(context.Context, *SmartNote, *field_mask.FieldMask, *gorm.DB) error
+}
+
+// DefaultPatchSetSmartNote executes a bulk gorm update call with patch behavior
+func DefaultPatchSetSmartNote(ctx context.Context, objects []*SmartNote, updateMasks []*field_mask.FieldMask, db *gorm.DB) ([]*SmartNote, error) {
+	if len(objects) != len(updateMasks) {
+		return nil, fmt.Errorf(errors.BadRepeatedFieldMaskTpl, len(updateMasks), len(objects))
+	}
+
+	results := make([]*SmartNote, 0, len(objects))
+	for i, patcher := range objects {
+		pbResponse, err := DefaultPatchSmartNote(ctx, patcher, updateMasks[i], db)
+		if err != nil {
+			return nil, err
+		}
+
+		results = append(results, pbResponse)
+	}
+
+	return results, nil
+}
+
+// DefaultApplyFieldMaskSmartNote patches an pbObject with patcher according to a field mask.
+func DefaultApplyFieldMaskSmartNote(ctx context.Context, patchee *SmartNote, patcher *SmartNote, updateMask *field_mask.FieldMask, prefix string, db *gorm.DB) (*SmartNote, error) {
+	if patcher == nil {
+		return nil, nil
+	} else if patchee == nil {
+		return nil, errors.NilArgumentError
+	}
+	var err error
+	var updatedCreatedAt bool
+	var updatedUpdatedAt bool
+	for i, f := range updateMask.Paths {
+		if f == prefix+"Id" {
+			patchee.Id = patcher.Id
+			continue
+		}
+		if f == prefix+"UserId" {
+			patchee.UserId = patcher.UserId
+			continue
+		}
+		if f == prefix+"Content" {
+			patchee.Content = patcher.Content
+			continue
+		}
+		if !updatedCreatedAt && strings.HasPrefix(f, prefix+"CreatedAt.") {
+			if patcher.CreatedAt == nil {
+				patchee.CreatedAt = nil
+				continue
+			}
+			if patchee.CreatedAt == nil {
+				patchee.CreatedAt = &timestamppb.Timestamp{}
+			}
+			childMask := &field_mask.FieldMask{}
+			for j := i; j < len(updateMask.Paths); j++ {
+				if trimPath := strings.TrimPrefix(updateMask.Paths[j], prefix+"CreatedAt."); trimPath != updateMask.Paths[j] {
+					childMask.Paths = append(childMask.Paths, trimPath)
+				}
+			}
+			if err := gorm1.MergeWithMask(patcher.CreatedAt, patchee.CreatedAt, childMask); err != nil {
+				return nil, nil
+			}
+		}
+		if f == prefix+"CreatedAt" {
+			updatedCreatedAt = true
+			patchee.CreatedAt = patcher.CreatedAt
+			continue
+		}
+		if !updatedUpdatedAt && strings.HasPrefix(f, prefix+"UpdatedAt.") {
+			if patcher.UpdatedAt == nil {
+				patchee.UpdatedAt = nil
+				continue
+			}
+			if patchee.UpdatedAt == nil {
+				patchee.UpdatedAt = &timestamppb.Timestamp{}
+			}
+			childMask := &field_mask.FieldMask{}
+			for j := i; j < len(updateMask.Paths); j++ {
+				if trimPath := strings.TrimPrefix(updateMask.Paths[j], prefix+"UpdatedAt."); trimPath != updateMask.Paths[j] {
+					childMask.Paths = append(childMask.Paths, trimPath)
+				}
+			}
+			if err := gorm1.MergeWithMask(patcher.UpdatedAt, patchee.UpdatedAt, childMask); err != nil {
+				return nil, nil
+			}
+		}
+		if f == prefix+"UpdatedAt" {
+			updatedUpdatedAt = true
+			patchee.UpdatedAt = patcher.UpdatedAt
+			continue
+		}
+	}
+	if err != nil {
+		return nil, err
+	}
+	return patchee, nil
+}
+
+// DefaultListSmartNote executes a gorm list call
+func DefaultListSmartNote(ctx context.Context, db *gorm.DB) ([]*SmartNote, error) {
+	in := SmartNote{}
+	ormObj, err := in.ToORM(ctx)
+	if err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormObj).(SmartNoteORMWithBeforeListApplyQuery); ok {
+		if db, err = hook.BeforeListApplyQuery(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	db, err = gorm1.ApplyCollectionOperators(ctx, db, &SmartNoteORM{}, &SmartNote{}, nil, nil, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormObj).(SmartNoteORMWithBeforeListFind); ok {
+		if db, err = hook.BeforeListFind(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	db = db.Where(&ormObj)
+	db = db.Order("id")
+	ormResponse := []SmartNoteORM{}
+	if err := db.Find(&ormResponse).Error; err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormObj).(SmartNoteORMWithAfterListFind); ok {
+		if err = hook.AfterListFind(ctx, db, &ormResponse); err != nil {
+			return nil, err
+		}
+	}
+	pbResponse := []*SmartNote{}
+	for _, responseEntry := range ormResponse {
+		temp, err := responseEntry.ToPB(ctx)
+		if err != nil {
+			return nil, err
+		}
+		pbResponse = append(pbResponse, &temp)
+	}
+	return pbResponse, nil
+}
+
+type SmartNoteORMWithBeforeListApplyQuery interface {
+	BeforeListApplyQuery(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type SmartNoteORMWithBeforeListFind interface {
+	BeforeListFind(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type SmartNoteORMWithAfterListFind interface {
+	AfterListFind(context.Context, *gorm.DB, *[]SmartNoteORM) error
 }
 
 // DefaultCreateForecast executes a basic gorm create call
@@ -30735,4 +31912,1488 @@ type VendorCreditLineORMWithBeforeListFind interface {
 }
 type VendorCreditLineORMWithAfterListFind interface {
 	AfterListFind(context.Context, *gorm.DB, *[]VendorCreditLineORM) error
+}
+
+// DefaultCreatePlaidAccountInvestmentTransaction executes a basic gorm create call
+func DefaultCreatePlaidAccountInvestmentTransaction(ctx context.Context, in *PlaidAccountInvestmentTransaction, db *gorm.DB) (*PlaidAccountInvestmentTransaction, error) {
+	if in == nil {
+		return nil, errors.NilArgumentError
+	}
+	ormObj, err := in.ToORM(ctx)
+	if err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormObj).(PlaidAccountInvestmentTransactionORMWithBeforeCreate_); ok {
+		if db, err = hook.BeforeCreate_(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	if err = db.Create(&ormObj).Error; err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormObj).(PlaidAccountInvestmentTransactionORMWithAfterCreate_); ok {
+		if err = hook.AfterCreate_(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	pbResponse, err := ormObj.ToPB(ctx)
+	return &pbResponse, err
+}
+
+type PlaidAccountInvestmentTransactionORMWithBeforeCreate_ interface {
+	BeforeCreate_(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type PlaidAccountInvestmentTransactionORMWithAfterCreate_ interface {
+	AfterCreate_(context.Context, *gorm.DB) error
+}
+
+func DefaultReadPlaidAccountInvestmentTransaction(ctx context.Context, in *PlaidAccountInvestmentTransaction, db *gorm.DB) (*PlaidAccountInvestmentTransaction, error) {
+	if in == nil {
+		return nil, errors.NilArgumentError
+	}
+	ormObj, err := in.ToORM(ctx)
+	if err != nil {
+		return nil, err
+	}
+	if ormObj.Id == 0 {
+		return nil, errors.EmptyIdError
+	}
+	if hook, ok := interface{}(&ormObj).(PlaidAccountInvestmentTransactionORMWithBeforeReadApplyQuery); ok {
+		if db, err = hook.BeforeReadApplyQuery(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	if db, err = gorm1.ApplyFieldSelection(ctx, db, nil, &PlaidAccountInvestmentTransactionORM{}); err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormObj).(PlaidAccountInvestmentTransactionORMWithBeforeReadFind); ok {
+		if db, err = hook.BeforeReadFind(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	ormResponse := PlaidAccountInvestmentTransactionORM{}
+	if err = db.Where(&ormObj).First(&ormResponse).Error; err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormResponse).(PlaidAccountInvestmentTransactionORMWithAfterReadFind); ok {
+		if err = hook.AfterReadFind(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	pbResponse, err := ormResponse.ToPB(ctx)
+	return &pbResponse, err
+}
+
+type PlaidAccountInvestmentTransactionORMWithBeforeReadApplyQuery interface {
+	BeforeReadApplyQuery(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type PlaidAccountInvestmentTransactionORMWithBeforeReadFind interface {
+	BeforeReadFind(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type PlaidAccountInvestmentTransactionORMWithAfterReadFind interface {
+	AfterReadFind(context.Context, *gorm.DB) error
+}
+
+func DefaultDeletePlaidAccountInvestmentTransaction(ctx context.Context, in *PlaidAccountInvestmentTransaction, db *gorm.DB) error {
+	if in == nil {
+		return errors.NilArgumentError
+	}
+	ormObj, err := in.ToORM(ctx)
+	if err != nil {
+		return err
+	}
+	if ormObj.Id == 0 {
+		return errors.EmptyIdError
+	}
+	if hook, ok := interface{}(&ormObj).(PlaidAccountInvestmentTransactionORMWithBeforeDelete_); ok {
+		if db, err = hook.BeforeDelete_(ctx, db); err != nil {
+			return err
+		}
+	}
+	err = db.Where(&ormObj).Delete(&PlaidAccountInvestmentTransactionORM{}).Error
+	if err != nil {
+		return err
+	}
+	if hook, ok := interface{}(&ormObj).(PlaidAccountInvestmentTransactionORMWithAfterDelete_); ok {
+		err = hook.AfterDelete_(ctx, db)
+	}
+	return err
+}
+
+type PlaidAccountInvestmentTransactionORMWithBeforeDelete_ interface {
+	BeforeDelete_(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type PlaidAccountInvestmentTransactionORMWithAfterDelete_ interface {
+	AfterDelete_(context.Context, *gorm.DB) error
+}
+
+func DefaultDeletePlaidAccountInvestmentTransactionSet(ctx context.Context, in []*PlaidAccountInvestmentTransaction, db *gorm.DB) error {
+	if in == nil {
+		return errors.NilArgumentError
+	}
+	var err error
+	keys := []uint64{}
+	for _, obj := range in {
+		ormObj, err := obj.ToORM(ctx)
+		if err != nil {
+			return err
+		}
+		if ormObj.Id == 0 {
+			return errors.EmptyIdError
+		}
+		keys = append(keys, ormObj.Id)
+	}
+	if hook, ok := (interface{}(&PlaidAccountInvestmentTransactionORM{})).(PlaidAccountInvestmentTransactionORMWithBeforeDeleteSet); ok {
+		if db, err = hook.BeforeDeleteSet(ctx, in, db); err != nil {
+			return err
+		}
+	}
+	err = db.Where("id in (?)", keys).Delete(&PlaidAccountInvestmentTransactionORM{}).Error
+	if err != nil {
+		return err
+	}
+	if hook, ok := (interface{}(&PlaidAccountInvestmentTransactionORM{})).(PlaidAccountInvestmentTransactionORMWithAfterDeleteSet); ok {
+		err = hook.AfterDeleteSet(ctx, in, db)
+	}
+	return err
+}
+
+type PlaidAccountInvestmentTransactionORMWithBeforeDeleteSet interface {
+	BeforeDeleteSet(context.Context, []*PlaidAccountInvestmentTransaction, *gorm.DB) (*gorm.DB, error)
+}
+type PlaidAccountInvestmentTransactionORMWithAfterDeleteSet interface {
+	AfterDeleteSet(context.Context, []*PlaidAccountInvestmentTransaction, *gorm.DB) error
+}
+
+// DefaultStrictUpdatePlaidAccountInvestmentTransaction clears / replaces / appends first level 1:many children and then executes a gorm update call
+func DefaultStrictUpdatePlaidAccountInvestmentTransaction(ctx context.Context, in *PlaidAccountInvestmentTransaction, db *gorm.DB) (*PlaidAccountInvestmentTransaction, error) {
+	if in == nil {
+		return nil, fmt.Errorf("Nil argument to DefaultStrictUpdatePlaidAccountInvestmentTransaction")
+	}
+	ormObj, err := in.ToORM(ctx)
+	if err != nil {
+		return nil, err
+	}
+	lockedRow := &PlaidAccountInvestmentTransactionORM{}
+	db.Model(&ormObj).Set("gorm:query_option", "FOR UPDATE").Where("id=?", ormObj.Id).First(lockedRow)
+	if hook, ok := interface{}(&ormObj).(PlaidAccountInvestmentTransactionORMWithBeforeStrictUpdateCleanup); ok {
+		if db, err = hook.BeforeStrictUpdateCleanup(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	if hook, ok := interface{}(&ormObj).(PlaidAccountInvestmentTransactionORMWithBeforeStrictUpdateSave); ok {
+		if db, err = hook.BeforeStrictUpdateSave(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	if err = db.Save(&ormObj).Error; err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormObj).(PlaidAccountInvestmentTransactionORMWithAfterStrictUpdateSave); ok {
+		if err = hook.AfterStrictUpdateSave(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	pbResponse, err := ormObj.ToPB(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return &pbResponse, err
+}
+
+type PlaidAccountInvestmentTransactionORMWithBeforeStrictUpdateCleanup interface {
+	BeforeStrictUpdateCleanup(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type PlaidAccountInvestmentTransactionORMWithBeforeStrictUpdateSave interface {
+	BeforeStrictUpdateSave(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type PlaidAccountInvestmentTransactionORMWithAfterStrictUpdateSave interface {
+	AfterStrictUpdateSave(context.Context, *gorm.DB) error
+}
+
+// DefaultPatchPlaidAccountInvestmentTransaction executes a basic gorm update call with patch behavior
+func DefaultPatchPlaidAccountInvestmentTransaction(ctx context.Context, in *PlaidAccountInvestmentTransaction, updateMask *field_mask.FieldMask, db *gorm.DB) (*PlaidAccountInvestmentTransaction, error) {
+	if in == nil {
+		return nil, errors.NilArgumentError
+	}
+	var pbObj PlaidAccountInvestmentTransaction
+	var err error
+	if hook, ok := interface{}(&pbObj).(PlaidAccountInvestmentTransactionWithBeforePatchRead); ok {
+		if db, err = hook.BeforePatchRead(ctx, in, updateMask, db); err != nil {
+			return nil, err
+		}
+	}
+	pbReadRes, err := DefaultReadPlaidAccountInvestmentTransaction(ctx, &PlaidAccountInvestmentTransaction{Id: in.GetId()}, db)
+	if err != nil {
+		return nil, err
+	}
+	pbObj = *pbReadRes
+	if hook, ok := interface{}(&pbObj).(PlaidAccountInvestmentTransactionWithBeforePatchApplyFieldMask); ok {
+		if db, err = hook.BeforePatchApplyFieldMask(ctx, in, updateMask, db); err != nil {
+			return nil, err
+		}
+	}
+	if _, err := DefaultApplyFieldMaskPlaidAccountInvestmentTransaction(ctx, &pbObj, in, updateMask, "", db); err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&pbObj).(PlaidAccountInvestmentTransactionWithBeforePatchSave); ok {
+		if db, err = hook.BeforePatchSave(ctx, in, updateMask, db); err != nil {
+			return nil, err
+		}
+	}
+	pbResponse, err := DefaultStrictUpdatePlaidAccountInvestmentTransaction(ctx, &pbObj, db)
+	if err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(pbResponse).(PlaidAccountInvestmentTransactionWithAfterPatchSave); ok {
+		if err = hook.AfterPatchSave(ctx, in, updateMask, db); err != nil {
+			return nil, err
+		}
+	}
+	return pbResponse, nil
+}
+
+type PlaidAccountInvestmentTransactionWithBeforePatchRead interface {
+	BeforePatchRead(context.Context, *PlaidAccountInvestmentTransaction, *field_mask.FieldMask, *gorm.DB) (*gorm.DB, error)
+}
+type PlaidAccountInvestmentTransactionWithBeforePatchApplyFieldMask interface {
+	BeforePatchApplyFieldMask(context.Context, *PlaidAccountInvestmentTransaction, *field_mask.FieldMask, *gorm.DB) (*gorm.DB, error)
+}
+type PlaidAccountInvestmentTransactionWithBeforePatchSave interface {
+	BeforePatchSave(context.Context, *PlaidAccountInvestmentTransaction, *field_mask.FieldMask, *gorm.DB) (*gorm.DB, error)
+}
+type PlaidAccountInvestmentTransactionWithAfterPatchSave interface {
+	AfterPatchSave(context.Context, *PlaidAccountInvestmentTransaction, *field_mask.FieldMask, *gorm.DB) error
+}
+
+// DefaultPatchSetPlaidAccountInvestmentTransaction executes a bulk gorm update call with patch behavior
+func DefaultPatchSetPlaidAccountInvestmentTransaction(ctx context.Context, objects []*PlaidAccountInvestmentTransaction, updateMasks []*field_mask.FieldMask, db *gorm.DB) ([]*PlaidAccountInvestmentTransaction, error) {
+	if len(objects) != len(updateMasks) {
+		return nil, fmt.Errorf(errors.BadRepeatedFieldMaskTpl, len(updateMasks), len(objects))
+	}
+
+	results := make([]*PlaidAccountInvestmentTransaction, 0, len(objects))
+	for i, patcher := range objects {
+		pbResponse, err := DefaultPatchPlaidAccountInvestmentTransaction(ctx, patcher, updateMasks[i], db)
+		if err != nil {
+			return nil, err
+		}
+
+		results = append(results, pbResponse)
+	}
+
+	return results, nil
+}
+
+// DefaultApplyFieldMaskPlaidAccountInvestmentTransaction patches an pbObject with patcher according to a field mask.
+func DefaultApplyFieldMaskPlaidAccountInvestmentTransaction(ctx context.Context, patchee *PlaidAccountInvestmentTransaction, patcher *PlaidAccountInvestmentTransaction, updateMask *field_mask.FieldMask, prefix string, db *gorm.DB) (*PlaidAccountInvestmentTransaction, error) {
+	if patcher == nil {
+		return nil, nil
+	} else if patchee == nil {
+		return nil, errors.NilArgumentError
+	}
+	var err error
+	var updatedTime bool
+	var updatedAdditionalProperties bool
+	for i, f := range updateMask.Paths {
+		if f == prefix+"AccountId" {
+			patchee.AccountId = patcher.AccountId
+			continue
+		}
+		if f == prefix+"Ammount" {
+			patchee.Ammount = patcher.Ammount
+			continue
+		}
+		if f == prefix+"InvestmentTransactionId" {
+			patchee.InvestmentTransactionId = patcher.InvestmentTransactionId
+			continue
+		}
+		if f == prefix+"SecurityId" {
+			patchee.SecurityId = patcher.SecurityId
+			continue
+		}
+		if f == prefix+"CurrentDate" {
+			patchee.CurrentDate = patcher.CurrentDate
+			continue
+		}
+		if f == prefix+"Name" {
+			patchee.Name = patcher.Name
+			continue
+		}
+		if f == prefix+"Quantity" {
+			patchee.Quantity = patcher.Quantity
+			continue
+		}
+		if f == prefix+"Amount" {
+			patchee.Amount = patcher.Amount
+			continue
+		}
+		if f == prefix+"Price" {
+			patchee.Price = patcher.Price
+			continue
+		}
+		if f == prefix+"Fees" {
+			patchee.Fees = patcher.Fees
+			continue
+		}
+		if f == prefix+"Type" {
+			patchee.Type = patcher.Type
+			continue
+		}
+		if f == prefix+"Subtype" {
+			patchee.Subtype = patcher.Subtype
+			continue
+		}
+		if f == prefix+"IsoCurrencyCode" {
+			patchee.IsoCurrencyCode = patcher.IsoCurrencyCode
+			continue
+		}
+		if f == prefix+"UnofficialCurrencyCode" {
+			patchee.UnofficialCurrencyCode = patcher.UnofficialCurrencyCode
+			continue
+		}
+		if f == prefix+"LinkId" {
+			patchee.LinkId = patcher.LinkId
+			continue
+		}
+		if f == prefix+"Id" {
+			patchee.Id = patcher.Id
+			continue
+		}
+		if f == prefix+"UserId" {
+			patchee.UserId = patcher.UserId
+			continue
+		}
+		if f == prefix+"CreatedAt" {
+			patchee.CreatedAt = patcher.CreatedAt
+			continue
+		}
+		if !updatedTime && strings.HasPrefix(f, prefix+"Time.") {
+			if patcher.Time == nil {
+				patchee.Time = nil
+				continue
+			}
+			if patchee.Time == nil {
+				patchee.Time = &timestamppb.Timestamp{}
+			}
+			childMask := &field_mask.FieldMask{}
+			for j := i; j < len(updateMask.Paths); j++ {
+				if trimPath := strings.TrimPrefix(updateMask.Paths[j], prefix+"Time."); trimPath != updateMask.Paths[j] {
+					childMask.Paths = append(childMask.Paths, trimPath)
+				}
+			}
+			if err := gorm1.MergeWithMask(patcher.Time, patchee.Time, childMask); err != nil {
+				return nil, nil
+			}
+		}
+		if f == prefix+"Time" {
+			updatedTime = true
+			patchee.Time = patcher.Time
+			continue
+		}
+		if !updatedAdditionalProperties && strings.HasPrefix(f, prefix+"AdditionalProperties.") {
+			if patcher.AdditionalProperties == nil {
+				patchee.AdditionalProperties = nil
+				continue
+			}
+			if patchee.AdditionalProperties == nil {
+				patchee.AdditionalProperties = &anypb.Any{}
+			}
+			childMask := &field_mask.FieldMask{}
+			for j := i; j < len(updateMask.Paths); j++ {
+				if trimPath := strings.TrimPrefix(updateMask.Paths[j], prefix+"AdditionalProperties."); trimPath != updateMask.Paths[j] {
+					childMask.Paths = append(childMask.Paths, trimPath)
+				}
+			}
+			if err := gorm1.MergeWithMask(patcher.AdditionalProperties, patchee.AdditionalProperties, childMask); err != nil {
+				return nil, nil
+			}
+		}
+		if f == prefix+"AdditionalProperties" {
+			updatedAdditionalProperties = true
+			patchee.AdditionalProperties = patcher.AdditionalProperties
+			continue
+		}
+	}
+	if err != nil {
+		return nil, err
+	}
+	return patchee, nil
+}
+
+// DefaultListPlaidAccountInvestmentTransaction executes a gorm list call
+func DefaultListPlaidAccountInvestmentTransaction(ctx context.Context, db *gorm.DB) ([]*PlaidAccountInvestmentTransaction, error) {
+	in := PlaidAccountInvestmentTransaction{}
+	ormObj, err := in.ToORM(ctx)
+	if err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormObj).(PlaidAccountInvestmentTransactionORMWithBeforeListApplyQuery); ok {
+		if db, err = hook.BeforeListApplyQuery(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	db, err = gorm1.ApplyCollectionOperators(ctx, db, &PlaidAccountInvestmentTransactionORM{}, &PlaidAccountInvestmentTransaction{}, nil, nil, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormObj).(PlaidAccountInvestmentTransactionORMWithBeforeListFind); ok {
+		if db, err = hook.BeforeListFind(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	db = db.Where(&ormObj)
+	db = db.Order("id")
+	ormResponse := []PlaidAccountInvestmentTransactionORM{}
+	if err := db.Find(&ormResponse).Error; err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormObj).(PlaidAccountInvestmentTransactionORMWithAfterListFind); ok {
+		if err = hook.AfterListFind(ctx, db, &ormResponse); err != nil {
+			return nil, err
+		}
+	}
+	pbResponse := []*PlaidAccountInvestmentTransaction{}
+	for _, responseEntry := range ormResponse {
+		temp, err := responseEntry.ToPB(ctx)
+		if err != nil {
+			return nil, err
+		}
+		pbResponse = append(pbResponse, &temp)
+	}
+	return pbResponse, nil
+}
+
+type PlaidAccountInvestmentTransactionORMWithBeforeListApplyQuery interface {
+	BeforeListApplyQuery(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type PlaidAccountInvestmentTransactionORMWithBeforeListFind interface {
+	BeforeListFind(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type PlaidAccountInvestmentTransactionORMWithAfterListFind interface {
+	AfterListFind(context.Context, *gorm.DB, *[]PlaidAccountInvestmentTransactionORM) error
+}
+
+// DefaultCreatePlaidAccountRecurringTransaction executes a basic gorm create call
+func DefaultCreatePlaidAccountRecurringTransaction(ctx context.Context, in *PlaidAccountRecurringTransaction, db *gorm.DB) (*PlaidAccountRecurringTransaction, error) {
+	if in == nil {
+		return nil, errors.NilArgumentError
+	}
+	ormObj, err := in.ToORM(ctx)
+	if err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormObj).(PlaidAccountRecurringTransactionORMWithBeforeCreate_); ok {
+		if db, err = hook.BeforeCreate_(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	if err = db.Create(&ormObj).Error; err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormObj).(PlaidAccountRecurringTransactionORMWithAfterCreate_); ok {
+		if err = hook.AfterCreate_(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	pbResponse, err := ormObj.ToPB(ctx)
+	return &pbResponse, err
+}
+
+type PlaidAccountRecurringTransactionORMWithBeforeCreate_ interface {
+	BeforeCreate_(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type PlaidAccountRecurringTransactionORMWithAfterCreate_ interface {
+	AfterCreate_(context.Context, *gorm.DB) error
+}
+
+func DefaultReadPlaidAccountRecurringTransaction(ctx context.Context, in *PlaidAccountRecurringTransaction, db *gorm.DB) (*PlaidAccountRecurringTransaction, error) {
+	if in == nil {
+		return nil, errors.NilArgumentError
+	}
+	ormObj, err := in.ToORM(ctx)
+	if err != nil {
+		return nil, err
+	}
+	if ormObj.Id == 0 {
+		return nil, errors.EmptyIdError
+	}
+	if hook, ok := interface{}(&ormObj).(PlaidAccountRecurringTransactionORMWithBeforeReadApplyQuery); ok {
+		if db, err = hook.BeforeReadApplyQuery(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	if db, err = gorm1.ApplyFieldSelection(ctx, db, nil, &PlaidAccountRecurringTransactionORM{}); err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormObj).(PlaidAccountRecurringTransactionORMWithBeforeReadFind); ok {
+		if db, err = hook.BeforeReadFind(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	ormResponse := PlaidAccountRecurringTransactionORM{}
+	if err = db.Where(&ormObj).First(&ormResponse).Error; err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormResponse).(PlaidAccountRecurringTransactionORMWithAfterReadFind); ok {
+		if err = hook.AfterReadFind(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	pbResponse, err := ormResponse.ToPB(ctx)
+	return &pbResponse, err
+}
+
+type PlaidAccountRecurringTransactionORMWithBeforeReadApplyQuery interface {
+	BeforeReadApplyQuery(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type PlaidAccountRecurringTransactionORMWithBeforeReadFind interface {
+	BeforeReadFind(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type PlaidAccountRecurringTransactionORMWithAfterReadFind interface {
+	AfterReadFind(context.Context, *gorm.DB) error
+}
+
+func DefaultDeletePlaidAccountRecurringTransaction(ctx context.Context, in *PlaidAccountRecurringTransaction, db *gorm.DB) error {
+	if in == nil {
+		return errors.NilArgumentError
+	}
+	ormObj, err := in.ToORM(ctx)
+	if err != nil {
+		return err
+	}
+	if ormObj.Id == 0 {
+		return errors.EmptyIdError
+	}
+	if hook, ok := interface{}(&ormObj).(PlaidAccountRecurringTransactionORMWithBeforeDelete_); ok {
+		if db, err = hook.BeforeDelete_(ctx, db); err != nil {
+			return err
+		}
+	}
+	err = db.Where(&ormObj).Delete(&PlaidAccountRecurringTransactionORM{}).Error
+	if err != nil {
+		return err
+	}
+	if hook, ok := interface{}(&ormObj).(PlaidAccountRecurringTransactionORMWithAfterDelete_); ok {
+		err = hook.AfterDelete_(ctx, db)
+	}
+	return err
+}
+
+type PlaidAccountRecurringTransactionORMWithBeforeDelete_ interface {
+	BeforeDelete_(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type PlaidAccountRecurringTransactionORMWithAfterDelete_ interface {
+	AfterDelete_(context.Context, *gorm.DB) error
+}
+
+func DefaultDeletePlaidAccountRecurringTransactionSet(ctx context.Context, in []*PlaidAccountRecurringTransaction, db *gorm.DB) error {
+	if in == nil {
+		return errors.NilArgumentError
+	}
+	var err error
+	keys := []uint64{}
+	for _, obj := range in {
+		ormObj, err := obj.ToORM(ctx)
+		if err != nil {
+			return err
+		}
+		if ormObj.Id == 0 {
+			return errors.EmptyIdError
+		}
+		keys = append(keys, ormObj.Id)
+	}
+	if hook, ok := (interface{}(&PlaidAccountRecurringTransactionORM{})).(PlaidAccountRecurringTransactionORMWithBeforeDeleteSet); ok {
+		if db, err = hook.BeforeDeleteSet(ctx, in, db); err != nil {
+			return err
+		}
+	}
+	err = db.Where("id in (?)", keys).Delete(&PlaidAccountRecurringTransactionORM{}).Error
+	if err != nil {
+		return err
+	}
+	if hook, ok := (interface{}(&PlaidAccountRecurringTransactionORM{})).(PlaidAccountRecurringTransactionORMWithAfterDeleteSet); ok {
+		err = hook.AfterDeleteSet(ctx, in, db)
+	}
+	return err
+}
+
+type PlaidAccountRecurringTransactionORMWithBeforeDeleteSet interface {
+	BeforeDeleteSet(context.Context, []*PlaidAccountRecurringTransaction, *gorm.DB) (*gorm.DB, error)
+}
+type PlaidAccountRecurringTransactionORMWithAfterDeleteSet interface {
+	AfterDeleteSet(context.Context, []*PlaidAccountRecurringTransaction, *gorm.DB) error
+}
+
+// DefaultStrictUpdatePlaidAccountRecurringTransaction clears / replaces / appends first level 1:many children and then executes a gorm update call
+func DefaultStrictUpdatePlaidAccountRecurringTransaction(ctx context.Context, in *PlaidAccountRecurringTransaction, db *gorm.DB) (*PlaidAccountRecurringTransaction, error) {
+	if in == nil {
+		return nil, fmt.Errorf("Nil argument to DefaultStrictUpdatePlaidAccountRecurringTransaction")
+	}
+	ormObj, err := in.ToORM(ctx)
+	if err != nil {
+		return nil, err
+	}
+	lockedRow := &PlaidAccountRecurringTransactionORM{}
+	db.Model(&ormObj).Set("gorm:query_option", "FOR UPDATE").Where("id=?", ormObj.Id).First(lockedRow)
+	if hook, ok := interface{}(&ormObj).(PlaidAccountRecurringTransactionORMWithBeforeStrictUpdateCleanup); ok {
+		if db, err = hook.BeforeStrictUpdateCleanup(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	if hook, ok := interface{}(&ormObj).(PlaidAccountRecurringTransactionORMWithBeforeStrictUpdateSave); ok {
+		if db, err = hook.BeforeStrictUpdateSave(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	if err = db.Save(&ormObj).Error; err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormObj).(PlaidAccountRecurringTransactionORMWithAfterStrictUpdateSave); ok {
+		if err = hook.AfterStrictUpdateSave(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	pbResponse, err := ormObj.ToPB(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return &pbResponse, err
+}
+
+type PlaidAccountRecurringTransactionORMWithBeforeStrictUpdateCleanup interface {
+	BeforeStrictUpdateCleanup(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type PlaidAccountRecurringTransactionORMWithBeforeStrictUpdateSave interface {
+	BeforeStrictUpdateSave(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type PlaidAccountRecurringTransactionORMWithAfterStrictUpdateSave interface {
+	AfterStrictUpdateSave(context.Context, *gorm.DB) error
+}
+
+// DefaultPatchPlaidAccountRecurringTransaction executes a basic gorm update call with patch behavior
+func DefaultPatchPlaidAccountRecurringTransaction(ctx context.Context, in *PlaidAccountRecurringTransaction, updateMask *field_mask.FieldMask, db *gorm.DB) (*PlaidAccountRecurringTransaction, error) {
+	if in == nil {
+		return nil, errors.NilArgumentError
+	}
+	var pbObj PlaidAccountRecurringTransaction
+	var err error
+	if hook, ok := interface{}(&pbObj).(PlaidAccountRecurringTransactionWithBeforePatchRead); ok {
+		if db, err = hook.BeforePatchRead(ctx, in, updateMask, db); err != nil {
+			return nil, err
+		}
+	}
+	pbReadRes, err := DefaultReadPlaidAccountRecurringTransaction(ctx, &PlaidAccountRecurringTransaction{Id: in.GetId()}, db)
+	if err != nil {
+		return nil, err
+	}
+	pbObj = *pbReadRes
+	if hook, ok := interface{}(&pbObj).(PlaidAccountRecurringTransactionWithBeforePatchApplyFieldMask); ok {
+		if db, err = hook.BeforePatchApplyFieldMask(ctx, in, updateMask, db); err != nil {
+			return nil, err
+		}
+	}
+	if _, err := DefaultApplyFieldMaskPlaidAccountRecurringTransaction(ctx, &pbObj, in, updateMask, "", db); err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&pbObj).(PlaidAccountRecurringTransactionWithBeforePatchSave); ok {
+		if db, err = hook.BeforePatchSave(ctx, in, updateMask, db); err != nil {
+			return nil, err
+		}
+	}
+	pbResponse, err := DefaultStrictUpdatePlaidAccountRecurringTransaction(ctx, &pbObj, db)
+	if err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(pbResponse).(PlaidAccountRecurringTransactionWithAfterPatchSave); ok {
+		if err = hook.AfterPatchSave(ctx, in, updateMask, db); err != nil {
+			return nil, err
+		}
+	}
+	return pbResponse, nil
+}
+
+type PlaidAccountRecurringTransactionWithBeforePatchRead interface {
+	BeforePatchRead(context.Context, *PlaidAccountRecurringTransaction, *field_mask.FieldMask, *gorm.DB) (*gorm.DB, error)
+}
+type PlaidAccountRecurringTransactionWithBeforePatchApplyFieldMask interface {
+	BeforePatchApplyFieldMask(context.Context, *PlaidAccountRecurringTransaction, *field_mask.FieldMask, *gorm.DB) (*gorm.DB, error)
+}
+type PlaidAccountRecurringTransactionWithBeforePatchSave interface {
+	BeforePatchSave(context.Context, *PlaidAccountRecurringTransaction, *field_mask.FieldMask, *gorm.DB) (*gorm.DB, error)
+}
+type PlaidAccountRecurringTransactionWithAfterPatchSave interface {
+	AfterPatchSave(context.Context, *PlaidAccountRecurringTransaction, *field_mask.FieldMask, *gorm.DB) error
+}
+
+// DefaultPatchSetPlaidAccountRecurringTransaction executes a bulk gorm update call with patch behavior
+func DefaultPatchSetPlaidAccountRecurringTransaction(ctx context.Context, objects []*PlaidAccountRecurringTransaction, updateMasks []*field_mask.FieldMask, db *gorm.DB) ([]*PlaidAccountRecurringTransaction, error) {
+	if len(objects) != len(updateMasks) {
+		return nil, fmt.Errorf(errors.BadRepeatedFieldMaskTpl, len(updateMasks), len(objects))
+	}
+
+	results := make([]*PlaidAccountRecurringTransaction, 0, len(objects))
+	for i, patcher := range objects {
+		pbResponse, err := DefaultPatchPlaidAccountRecurringTransaction(ctx, patcher, updateMasks[i], db)
+		if err != nil {
+			return nil, err
+		}
+
+		results = append(results, pbResponse)
+	}
+
+	return results, nil
+}
+
+// DefaultApplyFieldMaskPlaidAccountRecurringTransaction patches an pbObject with patcher according to a field mask.
+func DefaultApplyFieldMaskPlaidAccountRecurringTransaction(ctx context.Context, patchee *PlaidAccountRecurringTransaction, patcher *PlaidAccountRecurringTransaction, updateMask *field_mask.FieldMask, prefix string, db *gorm.DB) (*PlaidAccountRecurringTransaction, error) {
+	if patcher == nil {
+		return nil, nil
+	} else if patchee == nil {
+		return nil, errors.NilArgumentError
+	}
+	var err error
+	var updatedTime bool
+	var updatedAdditionalProperties bool
+	for i, f := range updateMask.Paths {
+		if f == prefix+"AccountId" {
+			patchee.AccountId = patcher.AccountId
+			continue
+		}
+		if f == prefix+"StreamId" {
+			patchee.StreamId = patcher.StreamId
+			continue
+		}
+		if f == prefix+"CategoryId" {
+			patchee.CategoryId = patcher.CategoryId
+			continue
+		}
+		if f == prefix+"Description" {
+			patchee.Description = patcher.Description
+			continue
+		}
+		if f == prefix+"MerchantName" {
+			patchee.MerchantName = patcher.MerchantName
+			continue
+		}
+		if f == prefix+"PersonalFinanceCategoryPrimary" {
+			patchee.PersonalFinanceCategoryPrimary = patcher.PersonalFinanceCategoryPrimary
+			continue
+		}
+		if f == prefix+"PersonalFinanceCategoryDetailed" {
+			patchee.PersonalFinanceCategoryDetailed = patcher.PersonalFinanceCategoryDetailed
+			continue
+		}
+		if f == prefix+"FirstDate" {
+			patchee.FirstDate = patcher.FirstDate
+			continue
+		}
+		if f == prefix+"LastDate" {
+			patchee.LastDate = patcher.LastDate
+			continue
+		}
+		if f == prefix+"Frequency" {
+			patchee.Frequency = patcher.Frequency
+			continue
+		}
+		if f == prefix+"TransactionIds" {
+			patchee.TransactionIds = patcher.TransactionIds
+			continue
+		}
+		if f == prefix+"AverageAmount" {
+			patchee.AverageAmount = patcher.AverageAmount
+			continue
+		}
+		if f == prefix+"AverageAmountIsoCurrencyCode" {
+			patchee.AverageAmountIsoCurrencyCode = patcher.AverageAmountIsoCurrencyCode
+			continue
+		}
+		if f == prefix+"LastAmount" {
+			patchee.LastAmount = patcher.LastAmount
+			continue
+		}
+		if f == prefix+"LastAmountIsoCurrencyCode" {
+			patchee.LastAmountIsoCurrencyCode = patcher.LastAmountIsoCurrencyCode
+			continue
+		}
+		if f == prefix+"IsActive" {
+			patchee.IsActive = patcher.IsActive
+			continue
+		}
+		if f == prefix+"Status" {
+			patchee.Status = patcher.Status
+			continue
+		}
+		if f == prefix+"UpdatedTime" {
+			patchee.UpdatedTime = patcher.UpdatedTime
+			continue
+		}
+		if f == prefix+"UserId" {
+			patchee.UserId = patcher.UserId
+			continue
+		}
+		if f == prefix+"LinkId" {
+			patchee.LinkId = patcher.LinkId
+			continue
+		}
+		if f == prefix+"Id" {
+			patchee.Id = patcher.Id
+			continue
+		}
+		if f == prefix+"Flow" {
+			patchee.Flow = patcher.Flow
+			continue
+		}
+		if !updatedTime && strings.HasPrefix(f, prefix+"Time.") {
+			if patcher.Time == nil {
+				patchee.Time = nil
+				continue
+			}
+			if patchee.Time == nil {
+				patchee.Time = &timestamppb.Timestamp{}
+			}
+			childMask := &field_mask.FieldMask{}
+			for j := i; j < len(updateMask.Paths); j++ {
+				if trimPath := strings.TrimPrefix(updateMask.Paths[j], prefix+"Time."); trimPath != updateMask.Paths[j] {
+					childMask.Paths = append(childMask.Paths, trimPath)
+				}
+			}
+			if err := gorm1.MergeWithMask(patcher.Time, patchee.Time, childMask); err != nil {
+				return nil, nil
+			}
+		}
+		if f == prefix+"Time" {
+			updatedTime = true
+			patchee.Time = patcher.Time
+			continue
+		}
+		if !updatedAdditionalProperties && strings.HasPrefix(f, prefix+"AdditionalProperties.") {
+			if patcher.AdditionalProperties == nil {
+				patchee.AdditionalProperties = nil
+				continue
+			}
+			if patchee.AdditionalProperties == nil {
+				patchee.AdditionalProperties = &anypb.Any{}
+			}
+			childMask := &field_mask.FieldMask{}
+			for j := i; j < len(updateMask.Paths); j++ {
+				if trimPath := strings.TrimPrefix(updateMask.Paths[j], prefix+"AdditionalProperties."); trimPath != updateMask.Paths[j] {
+					childMask.Paths = append(childMask.Paths, trimPath)
+				}
+			}
+			if err := gorm1.MergeWithMask(patcher.AdditionalProperties, patchee.AdditionalProperties, childMask); err != nil {
+				return nil, nil
+			}
+		}
+		if f == prefix+"AdditionalProperties" {
+			updatedAdditionalProperties = true
+			patchee.AdditionalProperties = patcher.AdditionalProperties
+			continue
+		}
+	}
+	if err != nil {
+		return nil, err
+	}
+	return patchee, nil
+}
+
+// DefaultListPlaidAccountRecurringTransaction executes a gorm list call
+func DefaultListPlaidAccountRecurringTransaction(ctx context.Context, db *gorm.DB) ([]*PlaidAccountRecurringTransaction, error) {
+	in := PlaidAccountRecurringTransaction{}
+	ormObj, err := in.ToORM(ctx)
+	if err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormObj).(PlaidAccountRecurringTransactionORMWithBeforeListApplyQuery); ok {
+		if db, err = hook.BeforeListApplyQuery(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	db, err = gorm1.ApplyCollectionOperators(ctx, db, &PlaidAccountRecurringTransactionORM{}, &PlaidAccountRecurringTransaction{}, nil, nil, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormObj).(PlaidAccountRecurringTransactionORMWithBeforeListFind); ok {
+		if db, err = hook.BeforeListFind(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	db = db.Where(&ormObj)
+	db = db.Order("id")
+	ormResponse := []PlaidAccountRecurringTransactionORM{}
+	if err := db.Find(&ormResponse).Error; err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormObj).(PlaidAccountRecurringTransactionORMWithAfterListFind); ok {
+		if err = hook.AfterListFind(ctx, db, &ormResponse); err != nil {
+			return nil, err
+		}
+	}
+	pbResponse := []*PlaidAccountRecurringTransaction{}
+	for _, responseEntry := range ormResponse {
+		temp, err := responseEntry.ToPB(ctx)
+		if err != nil {
+			return nil, err
+		}
+		pbResponse = append(pbResponse, &temp)
+	}
+	return pbResponse, nil
+}
+
+type PlaidAccountRecurringTransactionORMWithBeforeListApplyQuery interface {
+	BeforeListApplyQuery(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type PlaidAccountRecurringTransactionORMWithBeforeListFind interface {
+	BeforeListFind(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type PlaidAccountRecurringTransactionORMWithAfterListFind interface {
+	AfterListFind(context.Context, *gorm.DB, *[]PlaidAccountRecurringTransactionORM) error
+}
+
+// DefaultCreatePlaidAccountTransaction executes a basic gorm create call
+func DefaultCreatePlaidAccountTransaction(ctx context.Context, in *PlaidAccountTransaction, db *gorm.DB) (*PlaidAccountTransaction, error) {
+	if in == nil {
+		return nil, errors.NilArgumentError
+	}
+	ormObj, err := in.ToORM(ctx)
+	if err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormObj).(PlaidAccountTransactionORMWithBeforeCreate_); ok {
+		if db, err = hook.BeforeCreate_(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	if err = db.Create(&ormObj).Error; err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormObj).(PlaidAccountTransactionORMWithAfterCreate_); ok {
+		if err = hook.AfterCreate_(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	pbResponse, err := ormObj.ToPB(ctx)
+	return &pbResponse, err
+}
+
+type PlaidAccountTransactionORMWithBeforeCreate_ interface {
+	BeforeCreate_(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type PlaidAccountTransactionORMWithAfterCreate_ interface {
+	AfterCreate_(context.Context, *gorm.DB) error
+}
+
+func DefaultReadPlaidAccountTransaction(ctx context.Context, in *PlaidAccountTransaction, db *gorm.DB) (*PlaidAccountTransaction, error) {
+	if in == nil {
+		return nil, errors.NilArgumentError
+	}
+	ormObj, err := in.ToORM(ctx)
+	if err != nil {
+		return nil, err
+	}
+	if ormObj.Id == 0 {
+		return nil, errors.EmptyIdError
+	}
+	if hook, ok := interface{}(&ormObj).(PlaidAccountTransactionORMWithBeforeReadApplyQuery); ok {
+		if db, err = hook.BeforeReadApplyQuery(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	if db, err = gorm1.ApplyFieldSelection(ctx, db, nil, &PlaidAccountTransactionORM{}); err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormObj).(PlaidAccountTransactionORMWithBeforeReadFind); ok {
+		if db, err = hook.BeforeReadFind(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	ormResponse := PlaidAccountTransactionORM{}
+	if err = db.Where(&ormObj).First(&ormResponse).Error; err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormResponse).(PlaidAccountTransactionORMWithAfterReadFind); ok {
+		if err = hook.AfterReadFind(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	pbResponse, err := ormResponse.ToPB(ctx)
+	return &pbResponse, err
+}
+
+type PlaidAccountTransactionORMWithBeforeReadApplyQuery interface {
+	BeforeReadApplyQuery(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type PlaidAccountTransactionORMWithBeforeReadFind interface {
+	BeforeReadFind(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type PlaidAccountTransactionORMWithAfterReadFind interface {
+	AfterReadFind(context.Context, *gorm.DB) error
+}
+
+func DefaultDeletePlaidAccountTransaction(ctx context.Context, in *PlaidAccountTransaction, db *gorm.DB) error {
+	if in == nil {
+		return errors.NilArgumentError
+	}
+	ormObj, err := in.ToORM(ctx)
+	if err != nil {
+		return err
+	}
+	if ormObj.Id == 0 {
+		return errors.EmptyIdError
+	}
+	if hook, ok := interface{}(&ormObj).(PlaidAccountTransactionORMWithBeforeDelete_); ok {
+		if db, err = hook.BeforeDelete_(ctx, db); err != nil {
+			return err
+		}
+	}
+	err = db.Where(&ormObj).Delete(&PlaidAccountTransactionORM{}).Error
+	if err != nil {
+		return err
+	}
+	if hook, ok := interface{}(&ormObj).(PlaidAccountTransactionORMWithAfterDelete_); ok {
+		err = hook.AfterDelete_(ctx, db)
+	}
+	return err
+}
+
+type PlaidAccountTransactionORMWithBeforeDelete_ interface {
+	BeforeDelete_(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type PlaidAccountTransactionORMWithAfterDelete_ interface {
+	AfterDelete_(context.Context, *gorm.DB) error
+}
+
+func DefaultDeletePlaidAccountTransactionSet(ctx context.Context, in []*PlaidAccountTransaction, db *gorm.DB) error {
+	if in == nil {
+		return errors.NilArgumentError
+	}
+	var err error
+	keys := []uint64{}
+	for _, obj := range in {
+		ormObj, err := obj.ToORM(ctx)
+		if err != nil {
+			return err
+		}
+		if ormObj.Id == 0 {
+			return errors.EmptyIdError
+		}
+		keys = append(keys, ormObj.Id)
+	}
+	if hook, ok := (interface{}(&PlaidAccountTransactionORM{})).(PlaidAccountTransactionORMWithBeforeDeleteSet); ok {
+		if db, err = hook.BeforeDeleteSet(ctx, in, db); err != nil {
+			return err
+		}
+	}
+	err = db.Where("id in (?)", keys).Delete(&PlaidAccountTransactionORM{}).Error
+	if err != nil {
+		return err
+	}
+	if hook, ok := (interface{}(&PlaidAccountTransactionORM{})).(PlaidAccountTransactionORMWithAfterDeleteSet); ok {
+		err = hook.AfterDeleteSet(ctx, in, db)
+	}
+	return err
+}
+
+type PlaidAccountTransactionORMWithBeforeDeleteSet interface {
+	BeforeDeleteSet(context.Context, []*PlaidAccountTransaction, *gorm.DB) (*gorm.DB, error)
+}
+type PlaidAccountTransactionORMWithAfterDeleteSet interface {
+	AfterDeleteSet(context.Context, []*PlaidAccountTransaction, *gorm.DB) error
+}
+
+// DefaultStrictUpdatePlaidAccountTransaction clears / replaces / appends first level 1:many children and then executes a gorm update call
+func DefaultStrictUpdatePlaidAccountTransaction(ctx context.Context, in *PlaidAccountTransaction, db *gorm.DB) (*PlaidAccountTransaction, error) {
+	if in == nil {
+		return nil, fmt.Errorf("Nil argument to DefaultStrictUpdatePlaidAccountTransaction")
+	}
+	ormObj, err := in.ToORM(ctx)
+	if err != nil {
+		return nil, err
+	}
+	lockedRow := &PlaidAccountTransactionORM{}
+	db.Model(&ormObj).Set("gorm:query_option", "FOR UPDATE").Where("id=?", ormObj.Id).First(lockedRow)
+	if hook, ok := interface{}(&ormObj).(PlaidAccountTransactionORMWithBeforeStrictUpdateCleanup); ok {
+		if db, err = hook.BeforeStrictUpdateCleanup(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	if hook, ok := interface{}(&ormObj).(PlaidAccountTransactionORMWithBeforeStrictUpdateSave); ok {
+		if db, err = hook.BeforeStrictUpdateSave(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	if err = db.Save(&ormObj).Error; err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormObj).(PlaidAccountTransactionORMWithAfterStrictUpdateSave); ok {
+		if err = hook.AfterStrictUpdateSave(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	pbResponse, err := ormObj.ToPB(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return &pbResponse, err
+}
+
+type PlaidAccountTransactionORMWithBeforeStrictUpdateCleanup interface {
+	BeforeStrictUpdateCleanup(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type PlaidAccountTransactionORMWithBeforeStrictUpdateSave interface {
+	BeforeStrictUpdateSave(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type PlaidAccountTransactionORMWithAfterStrictUpdateSave interface {
+	AfterStrictUpdateSave(context.Context, *gorm.DB) error
+}
+
+// DefaultPatchPlaidAccountTransaction executes a basic gorm update call with patch behavior
+func DefaultPatchPlaidAccountTransaction(ctx context.Context, in *PlaidAccountTransaction, updateMask *field_mask.FieldMask, db *gorm.DB) (*PlaidAccountTransaction, error) {
+	if in == nil {
+		return nil, errors.NilArgumentError
+	}
+	var pbObj PlaidAccountTransaction
+	var err error
+	if hook, ok := interface{}(&pbObj).(PlaidAccountTransactionWithBeforePatchRead); ok {
+		if db, err = hook.BeforePatchRead(ctx, in, updateMask, db); err != nil {
+			return nil, err
+		}
+	}
+	pbReadRes, err := DefaultReadPlaidAccountTransaction(ctx, &PlaidAccountTransaction{Id: in.GetId()}, db)
+	if err != nil {
+		return nil, err
+	}
+	pbObj = *pbReadRes
+	if hook, ok := interface{}(&pbObj).(PlaidAccountTransactionWithBeforePatchApplyFieldMask); ok {
+		if db, err = hook.BeforePatchApplyFieldMask(ctx, in, updateMask, db); err != nil {
+			return nil, err
+		}
+	}
+	if _, err := DefaultApplyFieldMaskPlaidAccountTransaction(ctx, &pbObj, in, updateMask, "", db); err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&pbObj).(PlaidAccountTransactionWithBeforePatchSave); ok {
+		if db, err = hook.BeforePatchSave(ctx, in, updateMask, db); err != nil {
+			return nil, err
+		}
+	}
+	pbResponse, err := DefaultStrictUpdatePlaidAccountTransaction(ctx, &pbObj, db)
+	if err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(pbResponse).(PlaidAccountTransactionWithAfterPatchSave); ok {
+		if err = hook.AfterPatchSave(ctx, in, updateMask, db); err != nil {
+			return nil, err
+		}
+	}
+	return pbResponse, nil
+}
+
+type PlaidAccountTransactionWithBeforePatchRead interface {
+	BeforePatchRead(context.Context, *PlaidAccountTransaction, *field_mask.FieldMask, *gorm.DB) (*gorm.DB, error)
+}
+type PlaidAccountTransactionWithBeforePatchApplyFieldMask interface {
+	BeforePatchApplyFieldMask(context.Context, *PlaidAccountTransaction, *field_mask.FieldMask, *gorm.DB) (*gorm.DB, error)
+}
+type PlaidAccountTransactionWithBeforePatchSave interface {
+	BeforePatchSave(context.Context, *PlaidAccountTransaction, *field_mask.FieldMask, *gorm.DB) (*gorm.DB, error)
+}
+type PlaidAccountTransactionWithAfterPatchSave interface {
+	AfterPatchSave(context.Context, *PlaidAccountTransaction, *field_mask.FieldMask, *gorm.DB) error
+}
+
+// DefaultPatchSetPlaidAccountTransaction executes a bulk gorm update call with patch behavior
+func DefaultPatchSetPlaidAccountTransaction(ctx context.Context, objects []*PlaidAccountTransaction, updateMasks []*field_mask.FieldMask, db *gorm.DB) ([]*PlaidAccountTransaction, error) {
+	if len(objects) != len(updateMasks) {
+		return nil, fmt.Errorf(errors.BadRepeatedFieldMaskTpl, len(updateMasks), len(objects))
+	}
+
+	results := make([]*PlaidAccountTransaction, 0, len(objects))
+	for i, patcher := range objects {
+		pbResponse, err := DefaultPatchPlaidAccountTransaction(ctx, patcher, updateMasks[i], db)
+		if err != nil {
+			return nil, err
+		}
+
+		results = append(results, pbResponse)
+	}
+
+	return results, nil
+}
+
+// DefaultApplyFieldMaskPlaidAccountTransaction patches an pbObject with patcher according to a field mask.
+func DefaultApplyFieldMaskPlaidAccountTransaction(ctx context.Context, patchee *PlaidAccountTransaction, patcher *PlaidAccountTransaction, updateMask *field_mask.FieldMask, prefix string, db *gorm.DB) (*PlaidAccountTransaction, error) {
+	if patcher == nil {
+		return nil, nil
+	} else if patchee == nil {
+		return nil, errors.NilArgumentError
+	}
+	var err error
+	var updatedTime bool
+	var updatedAdditionalProperties bool
+	for i, f := range updateMask.Paths {
+		if f == prefix+"AccountId" {
+			patchee.AccountId = patcher.AccountId
+			continue
+		}
+		if f == prefix+"Amount" {
+			patchee.Amount = patcher.Amount
+			continue
+		}
+		if f == prefix+"IsoCurrencyCode" {
+			patchee.IsoCurrencyCode = patcher.IsoCurrencyCode
+			continue
+		}
+		if f == prefix+"UnofficialCurrencyCode" {
+			patchee.UnofficialCurrencyCode = patcher.UnofficialCurrencyCode
+			continue
+		}
+		if f == prefix+"TransactionId" {
+			patchee.TransactionId = patcher.TransactionId
+			continue
+		}
+		if f == prefix+"TransactionCode" {
+			patchee.TransactionCode = patcher.TransactionCode
+			continue
+		}
+		if f == prefix+"CurrentDate" {
+			patchee.CurrentDate = patcher.CurrentDate
+			continue
+		}
+		if f == prefix+"CurrentDatetime" {
+			patchee.CurrentDatetime = patcher.CurrentDatetime
+			continue
+		}
+		if f == prefix+"AuthorizedDate" {
+			patchee.AuthorizedDate = patcher.AuthorizedDate
+			continue
+		}
+		if f == prefix+"AuthorizedDatetime" {
+			patchee.AuthorizedDatetime = patcher.AuthorizedDatetime
+			continue
+		}
+		if f == prefix+"CategoryId" {
+			patchee.CategoryId = patcher.CategoryId
+			continue
+		}
+		if f == prefix+"Categories" {
+			patchee.Categories = patcher.Categories
+			continue
+		}
+		if f == prefix+"PersonalFinanceCategoryPrimary" {
+			patchee.PersonalFinanceCategoryPrimary = patcher.PersonalFinanceCategoryPrimary
+			continue
+		}
+		if f == prefix+"PersonalFinanceCategoryDetailed" {
+			patchee.PersonalFinanceCategoryDetailed = patcher.PersonalFinanceCategoryDetailed
+			continue
+		}
+		if f == prefix+"Name" {
+			patchee.Name = patcher.Name
+			continue
+		}
+		if f == prefix+"MerchantName" {
+			patchee.MerchantName = patcher.MerchantName
+			continue
+		}
+		if f == prefix+"CheckNumber" {
+			patchee.CheckNumber = patcher.CheckNumber
+			continue
+		}
+		if f == prefix+"PaymentChannel" {
+			patchee.PaymentChannel = patcher.PaymentChannel
+			continue
+		}
+		if f == prefix+"Pending" {
+			patchee.Pending = patcher.Pending
+			continue
+		}
+		if f == prefix+"PendingTransactionId" {
+			patchee.PendingTransactionId = patcher.PendingTransactionId
+			continue
+		}
+		if f == prefix+"AccountOwner" {
+			patchee.AccountOwner = patcher.AccountOwner
+			continue
+		}
+		if f == prefix+"PaymentMetaByOrderOf" {
+			patchee.PaymentMetaByOrderOf = patcher.PaymentMetaByOrderOf
+			continue
+		}
+		if f == prefix+"PaymentMetaPayee" {
+			patchee.PaymentMetaPayee = patcher.PaymentMetaPayee
+			continue
+		}
+		if f == prefix+"PaymentMetaPayer" {
+			patchee.PaymentMetaPayer = patcher.PaymentMetaPayer
+			continue
+		}
+		if f == prefix+"PaymentMetaPaymentMethod" {
+			patchee.PaymentMetaPaymentMethod = patcher.PaymentMetaPaymentMethod
+			continue
+		}
+		if f == prefix+"PaymentMetaPaymentProcessor" {
+			patchee.PaymentMetaPaymentProcessor = patcher.PaymentMetaPaymentProcessor
+			continue
+		}
+		if f == prefix+"PaymentMetaPpdId" {
+			patchee.PaymentMetaPpdId = patcher.PaymentMetaPpdId
+			continue
+		}
+		if f == prefix+"PaymentMetaReason" {
+			patchee.PaymentMetaReason = patcher.PaymentMetaReason
+			continue
+		}
+		if f == prefix+"PaymentMetaReferenceNumber" {
+			patchee.PaymentMetaReferenceNumber = patcher.PaymentMetaReferenceNumber
+			continue
+		}
+		if f == prefix+"LocationAddress" {
+			patchee.LocationAddress = patcher.LocationAddress
+			continue
+		}
+		if f == prefix+"LocationCity" {
+			patchee.LocationCity = patcher.LocationCity
+			continue
+		}
+		if f == prefix+"LocationRegion" {
+			patchee.LocationRegion = patcher.LocationRegion
+			continue
+		}
+		if f == prefix+"LocationPostalCode" {
+			patchee.LocationPostalCode = patcher.LocationPostalCode
+			continue
+		}
+		if f == prefix+"LocationCountry" {
+			patchee.LocationCountry = patcher.LocationCountry
+			continue
+		}
+		if f == prefix+"LocationLat" {
+			patchee.LocationLat = patcher.LocationLat
+			continue
+		}
+		if f == prefix+"LocationLon" {
+			patchee.LocationLon = patcher.LocationLon
+			continue
+		}
+		if f == prefix+"LocationStoreNumber" {
+			patchee.LocationStoreNumber = patcher.LocationStoreNumber
+			continue
+		}
+		if !updatedTime && strings.HasPrefix(f, prefix+"Time.") {
+			if patcher.Time == nil {
+				patchee.Time = nil
+				continue
+			}
+			if patchee.Time == nil {
+				patchee.Time = &timestamppb.Timestamp{}
+			}
+			childMask := &field_mask.FieldMask{}
+			for j := i; j < len(updateMask.Paths); j++ {
+				if trimPath := strings.TrimPrefix(updateMask.Paths[j], prefix+"Time."); trimPath != updateMask.Paths[j] {
+					childMask.Paths = append(childMask.Paths, trimPath)
+				}
+			}
+			if err := gorm1.MergeWithMask(patcher.Time, patchee.Time, childMask); err != nil {
+				return nil, nil
+			}
+		}
+		if f == prefix+"Time" {
+			updatedTime = true
+			patchee.Time = patcher.Time
+			continue
+		}
+		if !updatedAdditionalProperties && strings.HasPrefix(f, prefix+"AdditionalProperties.") {
+			if patcher.AdditionalProperties == nil {
+				patchee.AdditionalProperties = nil
+				continue
+			}
+			if patchee.AdditionalProperties == nil {
+				patchee.AdditionalProperties = &anypb.Any{}
+			}
+			childMask := &field_mask.FieldMask{}
+			for j := i; j < len(updateMask.Paths); j++ {
+				if trimPath := strings.TrimPrefix(updateMask.Paths[j], prefix+"AdditionalProperties."); trimPath != updateMask.Paths[j] {
+					childMask.Paths = append(childMask.Paths, trimPath)
+				}
+			}
+			if err := gorm1.MergeWithMask(patcher.AdditionalProperties, patchee.AdditionalProperties, childMask); err != nil {
+				return nil, nil
+			}
+		}
+		if f == prefix+"AdditionalProperties" {
+			updatedAdditionalProperties = true
+			patchee.AdditionalProperties = patcher.AdditionalProperties
+			continue
+		}
+		if f == prefix+"Id" {
+			patchee.Id = patcher.Id
+			continue
+		}
+		if f == prefix+"UserId" {
+			patchee.UserId = patcher.UserId
+			continue
+		}
+		if f == prefix+"LinkId" {
+			patchee.LinkId = patcher.LinkId
+			continue
+		}
+	}
+	if err != nil {
+		return nil, err
+	}
+	return patchee, nil
+}
+
+// DefaultListPlaidAccountTransaction executes a gorm list call
+func DefaultListPlaidAccountTransaction(ctx context.Context, db *gorm.DB) ([]*PlaidAccountTransaction, error) {
+	in := PlaidAccountTransaction{}
+	ormObj, err := in.ToORM(ctx)
+	if err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormObj).(PlaidAccountTransactionORMWithBeforeListApplyQuery); ok {
+		if db, err = hook.BeforeListApplyQuery(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	db, err = gorm1.ApplyCollectionOperators(ctx, db, &PlaidAccountTransactionORM{}, &PlaidAccountTransaction{}, nil, nil, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormObj).(PlaidAccountTransactionORMWithBeforeListFind); ok {
+		if db, err = hook.BeforeListFind(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	db = db.Where(&ormObj)
+	db = db.Order("id")
+	ormResponse := []PlaidAccountTransactionORM{}
+	if err := db.Find(&ormResponse).Error; err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormObj).(PlaidAccountTransactionORMWithAfterListFind); ok {
+		if err = hook.AfterListFind(ctx, db, &ormResponse); err != nil {
+			return nil, err
+		}
+	}
+	pbResponse := []*PlaidAccountTransaction{}
+	for _, responseEntry := range ormResponse {
+		temp, err := responseEntry.ToPB(ctx)
+		if err != nil {
+			return nil, err
+		}
+		pbResponse = append(pbResponse, &temp)
+	}
+	return pbResponse, nil
+}
+
+type PlaidAccountTransactionORMWithBeforeListApplyQuery interface {
+	BeforeListApplyQuery(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type PlaidAccountTransactionORMWithBeforeListFind interface {
+	BeforeListFind(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type PlaidAccountTransactionORMWithAfterListFind interface {
+	AfterListFind(context.Context, *gorm.DB, *[]PlaidAccountTransactionORM) error
 }

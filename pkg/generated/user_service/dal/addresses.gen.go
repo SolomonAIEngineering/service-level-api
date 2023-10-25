@@ -29,6 +29,7 @@ func newAddressORM(db *gorm.DB, opts ...gen.DOOption) addressORM {
 	tableName := _addressORM.addressORMDo.TableName()
 	_addressORM.ALL = field.NewAsterisk(tableName)
 	_addressORM.Address = field.NewString(tableName, "address")
+	_addressORM.BusinessAccountId = field.NewUint64(tableName, "business_account_id")
 	_addressORM.City = field.NewString(tableName, "city")
 	_addressORM.Id = field.NewUint64(tableName, "id")
 	_addressORM.Lattitude = field.NewString(tableName, "lattitude")
@@ -46,16 +47,17 @@ func newAddressORM(db *gorm.DB, opts ...gen.DOOption) addressORM {
 type addressORM struct {
 	addressORMDo
 
-	ALL           field.Asterisk
-	Address       field.String
-	City          field.String
-	Id            field.Uint64
-	Lattitude     field.String
-	Longitude     field.String
-	State         field.String
-	Unit          field.String
-	UserAccountId field.Uint64
-	Zipcode       field.String
+	ALL               field.Asterisk
+	Address           field.String
+	BusinessAccountId field.Uint64
+	City              field.String
+	Id                field.Uint64
+	Lattitude         field.String
+	Longitude         field.String
+	State             field.String
+	Unit              field.String
+	UserAccountId     field.Uint64
+	Zipcode           field.String
 
 	fieldMap map[string]field.Expr
 }
@@ -73,6 +75,7 @@ func (a addressORM) As(alias string) *addressORM {
 func (a *addressORM) updateTableName(table string) *addressORM {
 	a.ALL = field.NewAsterisk(table)
 	a.Address = field.NewString(table, "address")
+	a.BusinessAccountId = field.NewUint64(table, "business_account_id")
 	a.City = field.NewString(table, "city")
 	a.Id = field.NewUint64(table, "id")
 	a.Lattitude = field.NewString(table, "lattitude")
@@ -97,8 +100,9 @@ func (a *addressORM) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (a *addressORM) fillFieldMap() {
-	a.fieldMap = make(map[string]field.Expr, 9)
+	a.fieldMap = make(map[string]field.Expr, 10)
 	a.fieldMap["address"] = a.Address
+	a.fieldMap["business_account_id"] = a.BusinessAccountId
 	a.fieldMap["city"] = a.City
 	a.fieldMap["id"] = a.Id
 	a.fieldMap["lattitude"] = a.Lattitude

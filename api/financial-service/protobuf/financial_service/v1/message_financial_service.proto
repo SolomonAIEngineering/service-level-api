@@ -8,6 +8,7 @@ import "validate/validate.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 import "google/api/field_behavior.proto";
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/any.proto";
 
 option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/generated/financial_service/v1";
 
@@ -119,6 +120,12 @@ message StripeSubscription {
 message FinancialUserProfile {
   option (gorm.opts) = {ormable: true};
 
+  enum FinancialUserProfileType {
+    FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED = 0;
+    FINANCIAL_USER_PROFILE_TYPE_USER = 1;
+    FINANCIAL_USER_PROFILE_TYPE_BUSINESS = 2;
+  }
+
   // id
   uint64 id = 1 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
@@ -137,6 +144,7 @@ message FinancialUserProfile {
   string email = 8;
   repeated MergeLink merge_liink = 9;
   repeated PersonalActionableInsight actionable_personal_insights = 10 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+  FinancialUserProfileType profile_type = 11;
 }
 
 
@@ -382,6 +390,8 @@ message CreditAccount {
   string next_payment_due_date = 23;
    // the bank account status
   BankAccountStatus status = 24;
+  repeated PlaidAccountTransaction transactions = 25 [ (gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: false}];
+  repeated PlaidAccountRecurringTransaction recurring_transactions = 26 [ (gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: false}];
 }
 
 message MortgageAccount {
@@ -456,6 +466,7 @@ message InvestmentAccount {
   repeated InvestmentSecurity securities = 8 [ (gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
    // the bank account status
   BankAccountStatus status = 14;
+  repeated PlaidAccountTransaction transactions = 16 [ (gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: false}];
 }
 
 message BankAccount {
@@ -522,6 +533,10 @@ message BankAccount {
 
   // the bank account status
   BankAccountStatus status = 15;
+
+  // the set of transactions tied to this bank account
+  repeated PlaidAccountTransaction transactions = 16 [ (gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: false}];
+  repeated PlaidAccountRecurringTransaction recurring_transactions = 17 [ (gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: false}];
 }
 
 // Pocket is an abstraction of a over a bank account. A user can has at most 4 pockets per connected account
@@ -646,6 +661,40 @@ message SmartGoal {
 
   // Forecasts associated with the goal
   Forecast forecasts = 16 [(gorm.field).has_one = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+  
+  // Notes associated with the goal
+  repeated SmartNote notes = 17 [
+    (gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true},
+    (validate.rules).repeated.min_items = 0
+  ];
+}
+
+// Note schema
+message SmartNote {
+  option (gorm.opts) = {ormable: true};
+
+  // Unique identifier for the note
+  uint64 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+
+  // The user id who created the note. This can be useful if in the future you allow multiple users to add notes to the same goal.
+  uint64 user_id = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+
+  // The content of the note
+  // Validations:
+  // - must be at least 3 characters long
+  string content = 4 [
+    (validate.rules).string = {min_bytes: 3},
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"Note content here...\""
+    }
+  ];
+
+  // Timestamp indicating when the note was created
+  google.protobuf.Timestamp created_at = 5;
+
+  // Timestamp indicating when the note was last updated
+  google.protobuf.Timestamp updated_at = 6;
 }
 
 // The Forecast table stores information about each forecast generated for a particular goal,
@@ -1962,5 +2011,180 @@ message VendorCreditLine {
     uint64 id = 10;
 }
 
+message PlaidAccountInvestmentTransaction {
+  option (gorm.opts) = {ormable: true};
+    // @gotag: ch:"account_id"
+    string account_id = 1;
+    // @gotag: ch:"amount"
+    string ammount = 2;
+    // @gotag: ch:"investment_transaction_id"
+    string investment_transaction_id = 3;
+    // @gotag: ch:"security_id"
+    string security_id = 4;
+    // @gotag: ch:"date"
+    string current_date = 5;
+    // @gotag: ch:"name"
+    string name = 6;
+    // @gotag: ch:"quantity"
+    double quantity = 7;
+    // @gotag: ch:"amount"
+    double amount = 8;
+    // @gotag: ch:"price"
+    double price = 9;
+    // @gotag: ch:"fees"
+    double fees = 10;
+    // @gotag: ch:"type"
+    string type = 11;
+    // @gotag: ch:"subtype"
+    string subtype = 12;
+    // @gotag: ch:"iso_currency_code"
+    string iso_currency_code = 13;
+    // @gotag: ch:"unofficial_currency_code"
+    string unofficial_currency_code = 14;
+     // @gotag: ch:"link_id"
+    uint64 link_id = 15 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+        (validate.rules).uint64.gt = 0
+    ];
+    // @gotag: ch:"id"
+    uint64 id = 16 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+    ];
+        // @gotag: ch:"user_id"
+    uint64 user_id = 17 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+        (validate.rules).uint64.gt = 0
+    ];
 
+    string created_at = 18;
+    google.protobuf.Timestamp time = 20;
+    google.protobuf.Any additional_properties = 21;
+}
 
+message PlaidAccountRecurringTransaction {
+    option (gorm.opts) = {ormable: true};
+    // @gotag: ch:"account_id"
+    string account_id = 1;
+    // @gotag: ch:"stream_id"
+    string stream_id = 2;
+    // @gotag: ch:"category_id"
+    string category_id = 4;
+    // @gotag: ch:"description"
+    string description = 5;
+    // @gotag: ch:"merchant_name"
+    string merchant_name = 6;
+    // @gotag: ch:"personal_finance_category_primary"
+    string personal_finance_category_primary = 7;
+    // @gotag: ch:"personal_finance_category_detailed"
+    string personal_finance_category_detailed = 8;
+    // @gotag: ch:"first_date"
+    string first_date = 9;
+    // @gotag: ch:"last_date"
+    string last_date = 10;
+    // @gotag: ch:"frequency"
+    string frequency = 11;
+    // @gotag: ch:"transaction_ids,array"
+    string transaction_ids = 12;
+    // @gotag: ch:"average_amount"
+    string average_amount = 13;
+    // @gotag: ch:"average_amount_iso_currency_code"
+    string average_amount_iso_currency_code = 14;
+    // @gotag: ch:"last_amount"
+    string last_amount = 15;
+    // @gotag: ch:"last_amount_iso_currency_code"
+    string last_amount_iso_currency_code = 16;
+    // @gotag: ch:"is_active"
+    bool is_active = 17;
+    // @gotag: ch:"status"
+    string status = 18;
+    // @gotag: ch:"updated_time"
+    string updated_time = 19;
+    // @gotag: ch:"user_id"
+    uint64 user_id = 20 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+        (validate.rules).uint64.gt = 0
+    ];
+    // @gotag: ch:"link_id"
+    uint64 link_id = 21 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+        (validate.rules).uint64.gt = 0
+    ];
+    // @gotag: ch:"id"
+    uint64 id = 22 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+    ];
+    // @gotag: ch:"flow"
+    string flow = 23;
+    google.protobuf.Timestamp time = 25;
+    google.protobuf.Any additional_properties = 26;
+}
+
+message PlaidAccountTransaction {
+    option (gorm.opts) = {ormable: true};
+
+    // Basic transaction details
+    string account_id = 1; // @gotag: ch:"account_id"
+    double amount = 2;     // @gotag: ch:"amount"
+    string iso_currency_code = 3;     // @gotag: ch:"iso_currency_code"
+    string unofficial_currency_code = 4; // @gotag: ch:"unofficial_currency_code"
+    string transaction_id = 20;      // @gotag: ch:"transaction_id"
+    string transaction_code = 21;    // @gotag: ch:"transaction_code"
+    
+    // Date details
+    string current_date = 8;         // @gotag: ch:"date"
+    string current_datetime = 9;     // @gotag: ch:"datetime"
+    string authorized_date = 10;     // @gotag: ch:"authorized_date"
+    string authorized_datetime = 11; // @gotag: ch:"authorized_datetime"
+    
+    // Transaction categories
+    string category_id = 6;          // @gotag: ch:"category_id"
+    repeated string categories = 46; 
+    string personal_finance_category_primary = 26;   // @gotag: ch:"personal_finance_category_primary"
+    string personal_finance_category_detailed = 27;  // @gotag: ch:"personal_finance_category_detailed"
+    
+    // Merchant details
+    string name = 13;        // @gotag: ch:"name"
+    string merchant_name = 14;   // @gotag: ch:"merchant_name"
+    
+    // Payment details
+    string check_number = 7;     // @gotag: ch:"check_number"
+    string payment_channel = 16; // @gotag: ch:"payment_channel"
+    bool pending = 17;           // @gotag: ch:"pending"
+    string pending_transaction_id = 18;   // @gotag: ch:"pending_transaction_id"
+    string account_owner = 19;       // @gotag: ch:"account_owner"
+    string payment_meta_by_order_of = 36;
+    string payment_meta_payee = 37;
+    string payment_meta_payer = 38;
+    string payment_meta_payment_method = 39;
+    string payment_meta_payment_processor = 40;
+    string payment_meta_ppd_id = 41;
+    string payment_meta_reason = 42;
+    string payment_meta_reference_number = 43;
+    
+    // Location details
+    string location_address = 28;
+    string location_city = 29;
+    string location_region = 30;
+    string location_postal_code = 31;
+    string location_country = 32;
+    double location_lat = 33;
+    double location_lon = 34;
+    string location_store_number = 35;
+    
+    // Additional properties
+    google.protobuf.Timestamp time = 44;
+    google.protobuf.Any additional_properties = 45;
+    
+    // System generated fields
+    uint64 id = 22 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+    ];
+    uint64 user_id = 23 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+        (validate.rules).uint64.gt = 0
+    ];
+    uint64 link_id = 24 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+        (validate.rules).uint64.gt = 0
+    ];
+}

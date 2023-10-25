@@ -28,6 +28,7 @@ func newTagsORM(db *gorm.DB, opts ...gen.DOOption) tagsORM {
 
 	tableName := _tagsORM.tagsORMDo.TableName()
 	_tagsORM.ALL = field.NewAsterisk(tableName)
+	_tagsORM.BusinessAccountId = field.NewUint64(tableName, "business_account_id")
 	_tagsORM.Id = field.NewUint64(tableName, "id")
 	_tagsORM.Metadata = field.NewField(tableName, "metadata")
 	_tagsORM.TagDescription = field.NewString(tableName, "tag_description")
@@ -42,12 +43,13 @@ func newTagsORM(db *gorm.DB, opts ...gen.DOOption) tagsORM {
 type tagsORM struct {
 	tagsORMDo
 
-	ALL            field.Asterisk
-	Id             field.Uint64
-	Metadata       field.Field
-	TagDescription field.String
-	TagName        field.String
-	UserAccountId  field.Uint64
+	ALL               field.Asterisk
+	BusinessAccountId field.Uint64
+	Id                field.Uint64
+	Metadata          field.Field
+	TagDescription    field.String
+	TagName           field.String
+	UserAccountId     field.Uint64
 
 	fieldMap map[string]field.Expr
 }
@@ -64,6 +66,7 @@ func (t tagsORM) As(alias string) *tagsORM {
 
 func (t *tagsORM) updateTableName(table string) *tagsORM {
 	t.ALL = field.NewAsterisk(table)
+	t.BusinessAccountId = field.NewUint64(table, "business_account_id")
 	t.Id = field.NewUint64(table, "id")
 	t.Metadata = field.NewField(table, "metadata")
 	t.TagDescription = field.NewString(table, "tag_description")
@@ -85,7 +88,8 @@ func (t *tagsORM) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (t *tagsORM) fillFieldMap() {
-	t.fieldMap = make(map[string]field.Expr, 5)
+	t.fieldMap = make(map[string]field.Expr, 6)
+	t.fieldMap["business_account_id"] = t.BusinessAccountId
 	t.fieldMap["id"] = t.Id
 	t.fieldMap["metadata"] = t.Metadata
 	t.fieldMap["tag_description"] = t.TagDescription
