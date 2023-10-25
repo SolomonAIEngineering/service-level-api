@@ -155,6 +155,7 @@ export interface CreateUserRequest {
    * User account to create
    * Validations:
    * - cannot be nil hence required
+   * @brief Represents a user account in the context of simfinni.
    */
   account: UserAccount;
   /**
@@ -235,19 +236,28 @@ export type GetUserByEmailData = any;
 export type GetUserByEmailOrUsernameData = any;
 
 export interface GetUserByEmailOrUsernameResponse {
-  /** The account ID associated with the user */
+  /**
+   * The account ID associated with the user
+   * @brief Represents a user account in the context of simfinni.
+   */
   account?: UserAccount;
 }
 
 export interface GetUserByEmailResponse {
-  /** The account ID associated with the user */
+  /**
+   * The account ID associated with the user
+   * @brief Represents a user account in the context of simfinni.
+   */
   account?: UserAccount;
 }
 
 export type GetUserByUsernameData = any;
 
 export interface GetUserByUsernameResponse {
-  /** The account ID associated with the user */
+  /**
+   * The account ID associated with the user
+   * @brief Represents a user account in the context of simfinni.
+   */
   account?: UserAccount;
 }
 
@@ -272,6 +282,7 @@ export interface GetUserIdResponse {
  * request
  */
 export interface GetUserResponse {
+  /** @brief Represents a user account in the context of simfinni. */
   account?: UserAccount;
 }
 
@@ -326,6 +337,12 @@ export type PasswordResetData = any;
 export interface PasswordResetWebhookResponse {
   success?: boolean;
 }
+
+/**
+ * ProfileType: represents the type of account tied to a given profile
+ * @default "PROFILE_TYPE_UNSPECIFIED"
+ */
+export type ProfileType = "PROFILE_TYPE_UNSPECIFIED" | "PROFILE_TYPE_USER" | "PROFILE_TYPE_BUSINESS";
 
 export type ReadynessCheckData = any;
 
@@ -420,6 +437,7 @@ export interface UpdateUserRequest {
    * UserAccount to update
    * Validation:
    * - cannot nil hence required
+   * @brief Represents a user account in the context of simfinni.
    */
   account: UserAccount;
 }
@@ -429,133 +447,66 @@ export interface UpdateUserRequest {
  * the `update-user` request
  */
 export interface UpdateUserResponse {
+  /** @brief Represents a user account in the context of simfinni. */
   account?: UserAccount;
   accountUpdated?: boolean;
 }
 
-/** UserAccount: represents a user account in the context of simfinni */
+/** @brief Represents a user account in the context of simfinni. */
 export interface UserAccount {
-  /**
-   * the address associated with the user
-   * Validations:
-   * - can be empty
-   */
+  /** Enum indicating the type of profile (e.g., individual, corporate). */
+  accountType?: ProfileType;
+  /** Physical address associated with the user. */
   address?: Address;
   /**
-   * authentication service account id
+   * ID for the authentication service linked to this account.
    * @format uint64
    */
   authnAccountId?: string;
-  /**
-   * simple description specific to account should be less than 200 characters
-   * Validations:
-   * - can be empty
-   * @example "lksdjhfgsdhfghdsgfhgdha;hdgjsdfhaghsldfhagjkh;sdafjhsdjflhgjhjsfhgjsdhfjfkgjhsdfhgjhjdfhgjsdhjglsdjjghjdfhsjghjsadfhgjsdfhjghsdfkjghdfj"
-   */
+  /** Brief description about the user, up to 200 characters. */
   bio?: string;
-  businessAccountSettings?: BusinessAccountSettings;
   /**
-   * Company description
-   * @example "we help businesses stay in business"
+   * Timestamp for when the account was created.
+   * @format date-time
    */
-  companyDescription?: string;
-  /**
-   * Established Date is the date the company was created
-   * optional field for business profile
-   */
-  companyEstablishedDate?: string;
-  /**
-   * Industry Type is the type of business associated to this business
-   * @example "fintech"
-   */
-  companyIndustryType?: string;
-  /**
-   * Company Name is the name of the company profile
-   * @example "solomon-ai"
-   */
-  companyName?: string;
-  /**
-   * Website url of the business
-   * @example "https://solomon-ai.io"
-   */
-  companyWebsiteUrl?: string;
-  /** @format date-time */
   createdAt?: string;
   /**
-   * account email
-   * Validations:
-   * - must be an email and required
-   * @example "lksdjhfgsdhfghdsgfhgdh@gmail.com"
+   * Email associated with the user account.
+   * @example "sample@example.com"
    */
   email?: string;
-  /**
-   * account first name
-   * Validations:
-   * - can be empty
-   * @example "testuser96"
-   */
+  /** User's first name. */
   firstname?: string;
-  /**
-   * profile headline
-   * Validations:
-   * - can be empty
-   * @example "lksdjhfgsdhfghdsgfhgdha;hdgjsdfhaghsldfhagjkh;sdafjhsdjflhgjhjsfhgjsdhfjfkgjhsdfhgjhjdfhgjsdhjglsdjjghjdfhsjghjsadfhgjsdfhjghsdfkjghdfj"
-   */
+  /** Short headline for the user's profile. */
   headline?: string;
   /**
-   * account id
+   * Unique identifier for the account.
    * @format uint64
    */
   id?: string;
-  /**
-   * infers wether the account is active
-   * @example true
-   */
+  /** Indicates if the account is currently active. */
   isActive?: boolean;
-  /** IsBusinessAccount enables us to check if this is a business account of interest */
-  isBusinessAccount?: boolean;
-  /**
-   * isEmailVerified is a field denoting wether or not the user account has
-   * indeed verified their email address
-   * @example false
-   */
+  /** Indicates if the user's email has been verified. */
   isEmailVerified?: boolean;
-  /**
-   * account is private
-   * @example false
-   */
+  /** Indicates if the account is set to private. */
   isPrivate?: boolean;
-  /**
-   * account last name
-   * Validations:
-   * - can be empty
-   * @example "testuserlastname"
-   */
+  /** User's last name. */
   lastname?: string;
-  /**
-   * account phone number
-   * Validations:
-   * - mcan be empty
-   * @example "6513424124"
-   */
+  /** Phone number associated with the account. */
   phoneNumber?: string;
-  /**
-   * sample tags easily associable to account
-   * account first name
-   * Validations:
-   * - must be at provide between 1 and 10 tags
-   */
+  /** Tags associated with the user account, between 1 and 10. */
   tags?: Array<Tags>;
-  /** User settings for the fintech application. */
+  /** Settings specific to the user account. */
   userSettings?: UserSettings;
   /**
-   * account user name
-   * Validations:
-   * - must be at least 10 character
+   * Username associated with the account, minimum of 10 characters.
    * @example "testuser9696"
    */
   username?: string;
-  /** @format date-time */
+  /**
+   * Timestamp for when the email was verified.
+   * @format date-time
+   */
   verifiedAt?: string;
 }
 

@@ -353,6 +353,8 @@ func (m *FinancialUserProfile) validate(all bool) error {
 
 	}
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return FinancialUserProfileMultiError(errors)
 	}

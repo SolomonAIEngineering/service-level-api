@@ -1241,6 +1241,16 @@
         }
       }
     },
+    "ProfileType": {
+      "type": "string",
+      "enum": [
+        "PROFILE_TYPE_UNSPECIFIED",
+        "PROFILE_TYPE_USER",
+        "PROFILE_TYPE_BUSINESS"
+      ],
+      "default": "PROFILE_TYPE_UNSPECIFIED",
+      "title": "ProfileType: represents the type of account tied to a given profile"
+    },
     "ReadynessCheckResponse": {
       "type": "object",
       "properties": {
@@ -1388,31 +1398,28 @@
         "id": {
           "type": "string",
           "format": "uint64",
-          "title": "account id"
+          "description": "Unique identifier for the account."
         },
         "email": {
           "type": "string",
-          "example": "lksdjhfgsdhfghdsgfhgdh@gmail.com",
-          "title": "account email\nValidations:\n- must be an email and required"
+          "example": "sample@example.com",
+          "description": "Email associated with the user account."
         },
         "address": {
           "$ref": "#/definitions/Address",
-          "title": "the address associated with the user\nValidations:\n- can be empty"
+          "description": "Physical address associated with the user."
         },
         "bio": {
           "type": "string",
-          "example": "lksdjhfgsdhfghdsgfhgdha;hdgjsdfhaghsldfhagjkh;sdafjhsdjflhgjhjsfhgjsdhfjfkgjhsdfhgjhjdfhgjsdhjglsdjjghjdfhsjghjsadfhgjsdfhjghsdfkjghdfj",
-          "title": "simple description specific to account should be less than 200 characters\nValidations:\n- can be empty"
+          "description": "Brief description about the user, up to 200 characters."
         },
         "headline": {
           "type": "string",
-          "example": "lksdjhfgsdhfghdsgfhgdha;hdgjsdfhaghsldfhagjkh;sdafjhsdjflhgjhjsfhgjsdhfjfkgjhsdfhgjhjdfhgjsdhjglsdjjghjdfhsjghjsadfhgjsdfhjghsdfkjghdfj",
-          "title": "profile headline\nValidations:\n- can be empty"
+          "description": "Short headline for the user's profile."
         },
         "phoneNumber": {
           "type": "string",
-          "example": "6513424124",
-          "title": "account phone number\nValidations:\n- mcan be empty"
+          "description": "Phone number associated with the account."
         },
         "tags": {
           "type": "array",
@@ -1420,87 +1427,58 @@
             "type": "object",
             "$ref": "#/definitions/Tags"
           },
-          "title": "sample tags easily associable to account\naccount first name\nValidations:\n- must be at provide between 1 and 10 tags"
+          "description": "Tags associated with the user account, between 1 and 10."
         },
         "authnAccountId": {
           "type": "string",
           "format": "uint64",
-          "title": "authentication service account id"
+          "description": "ID for the authentication service linked to this account."
         },
         "isActive": {
           "type": "boolean",
-          "example": true,
-          "title": "infers wether the account is active"
+          "description": "Indicates if the account is currently active."
         },
         "firstname": {
           "type": "string",
-          "example": "testuser96",
-          "title": "account first name\nValidations:\n- can be empty"
+          "description": "User's first name."
         },
         "lastname": {
           "type": "string",
-          "example": "testuserlastname",
-          "title": "account last name\nValidations:\n- can be empty"
+          "description": "User's last name."
         },
         "username": {
           "type": "string",
           "example": "testuser9696",
-          "title": "account user name\nValidations:\n- must be at least 10 character"
+          "description": "Username associated with the account, minimum of 10 characters."
         },
         "isPrivate": {
           "type": "boolean",
-          "example": false,
-          "title": "account is private"
+          "description": "Indicates if the account is set to private."
         },
         "isEmailVerified": {
           "type": "boolean",
-          "example": false,
-          "title": "isEmailVerified is a field denoting wether or not the user account has\nindeed verified their email address"
+          "description": "Indicates if the user's email has been verified."
         },
         "createdAt": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "description": "Timestamp for when the account was created."
         },
         "verifiedAt": {
           "type": "string",
-          "format": "date-time"
-        },
-        "isBusinessAccount": {
-          "type": "boolean",
-          "title": "IsBusinessAccount enables us to check if this is a business account of interest"
-        },
-        "companyEstablishedDate": {
-          "type": "string",
-          "title": "Established Date is the date the company was created\noptional field for business profile"
-        },
-        "companyIndustryType": {
-          "type": "string",
-          "example": "fintech",
-          "title": "Industry Type is the type of business associated to this business"
-        },
-        "companyWebsiteUrl": {
-          "type": "string",
-          "example": "https://solomon-ai.io",
-          "title": "Website url of the business"
-        },
-        "companyDescription": {
-          "type": "string",
-          "example": "we help businesses stay in business",
-          "title": "Company description"
-        },
-        "companyName": {
-          "type": "string",
-          "example": "solomon-ai",
-          "title": "Company Name is the name of the company profile"
+          "format": "date-time",
+          "description": "Timestamp for when the email was verified."
         },
         "userSettings": {
-          "$ref": "#/definitions/UserSettings"
+          "$ref": "#/definitions/UserSettings",
+          "description": "Settings specific to the user account."
         },
-        "businessAccountSettings": {
-          "$ref": "#/definitions/BusinessAccountSettings"
+        "accountType": {
+          "$ref": "#/definitions/ProfileType",
+          "description": "Enum indicating the type of profile (e.g., individual, corporate)."
         }
       },
-      "title": "UserAccount: represents a user account in the context of simfinni"
+      "description": "@brief Represents a user account in the context of simfinni."
     },
     "UserSettings": {
       "type": "object",

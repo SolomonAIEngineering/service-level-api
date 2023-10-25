@@ -135,6 +135,8 @@ func (m *VirtualProfile) validate(all bool) error {
 
 	// no validation rules for Activated
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return VirtualProfileMultiError(errors)
 	}

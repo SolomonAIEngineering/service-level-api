@@ -31,6 +31,7 @@ func newFinancialUserProfileORM(db *gorm.DB, opts ...gen.DOOption) financialUser
 	_financialUserProfileORM.ALL = field.NewAsterisk(tableName)
 	_financialUserProfileORM.Email = field.NewString(tableName, "email")
 	_financialUserProfileORM.Id = field.NewUint64(tableName, "id")
+	_financialUserProfileORM.ProfileType = field.NewString(tableName, "profile_type")
 	_financialUserProfileORM.StripeCustomerId = field.NewString(tableName, "stripe_customer_id")
 	_financialUserProfileORM.UserId = field.NewUint64(tableName, "user_id")
 	_financialUserProfileORM.StripeSubscriptions = financialUserProfileORMHasOneStripeSubscriptions{
@@ -691,6 +692,7 @@ type financialUserProfileORM struct {
 	ALL                 field.Asterisk
 	Email               field.String
 	Id                  field.Uint64
+	ProfileType         field.String
 	StripeCustomerId    field.String
 	UserId              field.Uint64
 	StripeSubscriptions financialUserProfileORMHasOneStripeSubscriptions
@@ -720,6 +722,7 @@ func (f *financialUserProfileORM) updateTableName(table string) *financialUserPr
 	f.ALL = field.NewAsterisk(table)
 	f.Email = field.NewString(table, "email")
 	f.Id = field.NewUint64(table, "id")
+	f.ProfileType = field.NewString(table, "profile_type")
 	f.StripeCustomerId = field.NewString(table, "stripe_customer_id")
 	f.UserId = field.NewUint64(table, "user_id")
 
@@ -738,9 +741,10 @@ func (f *financialUserProfileORM) GetFieldByName(fieldName string) (field.OrderE
 }
 
 func (f *financialUserProfileORM) fillFieldMap() {
-	f.fieldMap = make(map[string]field.Expr, 9)
+	f.fieldMap = make(map[string]field.Expr, 10)
 	f.fieldMap["email"] = f.Email
 	f.fieldMap["id"] = f.Id
+	f.fieldMap["profile_type"] = f.ProfileType
 	f.fieldMap["stripe_customer_id"] = f.StripeCustomerId
 	f.fieldMap["user_id"] = f.UserId
 

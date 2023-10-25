@@ -6017,9 +6017,21 @@
             "type": "object",
             "$ref": "#/definitions/PersonalActionableInsight"
           }
+        },
+        "profileType": {
+          "$ref": "#/definitions/FinancialUserProfileType"
         }
       },
       "title": "FinancialUserProfile stores high level user profile details\nsuch as the id, user_id tied to the profile, and many more"
+    },
+    "FinancialUserProfileType": {
+      "type": "string",
+      "enum": [
+        "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED",
+        "FINANCIAL_USER_PROFILE_TYPE_USER",
+        "FINANCIAL_USER_PROFILE_TYPE_BUSINESS"
+      ],
+      "default": "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED"
     },
     "Forecast": {
       "type": "object",

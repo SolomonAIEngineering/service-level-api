@@ -15,6 +15,7 @@ type VirtualProfileORM struct {
 	Activated   bool
 	Communities []*CommunityProfileORM `gorm:"foreignkey:VirtualProfileId;association_foreignkey:Id;preload:true"`
 	Id          uint64
+	ProfileType string
 	User        *UserProfileORM `gorm:"foreignkey:VirtualProfileId;association_foreignkey:Id;preload:true"`
 	UserId      uint64
 }
@@ -55,6 +56,7 @@ func (m *VirtualProfile) ToORM(ctx context.Context) (VirtualProfileORM, error) {
 		}
 	}
 	to.Activated = m.Activated
+	to.ProfileType = VirtualProfile_VirtualProfileType_name[int32(m.ProfileType)]
 	if posthook, ok := interface{}(m).(VirtualProfileWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -92,6 +94,7 @@ func (m *VirtualProfileORM) ToPB(ctx context.Context) (VirtualProfile, error) {
 		}
 	}
 	to.Activated = m.Activated
+	to.ProfileType = VirtualProfile_VirtualProfileType(VirtualProfile_VirtualProfileType_value[m.ProfileType])
 	if posthook, ok := interface{}(m).(VirtualProfileWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -1272,6 +1275,10 @@ func DefaultApplyFieldMaskVirtualProfile(ctx context.Context, patchee *VirtualPr
 		}
 		if f == prefix+"Activated" {
 			patchee.Activated = patcher.Activated
+			continue
+		}
+		if f == prefix+"ProfileType" {
+			patchee.ProfileType = patcher.ProfileType
 			continue
 		}
 	}

@@ -1357,6 +1357,7 @@ export interface FinancialUserProfile {
   /** a user profile can have many links (connected institutions) of which finanical accounts are tied to (checking, savings, etc) */
   link?: Array<Link>;
   mergeLiink?: Array<MergeLink>;
+  profileType?: FinancialUserProfileType;
   stripeCustomerId?: string;
   /** the stripe subscriptions the user profile actively maintains */
   stripeSubscriptions?: StripeSubscription;
@@ -1366,6 +1367,12 @@ export interface FinancialUserProfile {
    */
   userId?: string;
 }
+
+/** @default "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED" */
+export type FinancialUserProfileType =
+  | "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED"
+  | "FINANCIAL_USER_PROFILE_TYPE_USER"
+  | "FINANCIAL_USER_PROFILE_TYPE_BUSINESS";
 
 /**
  * The Forecast table stores information about each forecast generated for a particular goal,

@@ -102,6 +102,7 @@ type FinancialUserProfileORM struct {
 	Id                         uint64
 	Link                       []*LinkORM      `gorm:"foreignkey:FinancialUserProfileId;association_foreignkey:Id;preload:true"`
 	MergeLiink                 []*MergeLinkORM `gorm:"foreignkey:FinancialUserProfileId;association_foreignkey:Id"`
+	ProfileType                string
 	StripeCustomerId           string
 	StripeSubscriptions        *StripeSubscriptionORM `gorm:"foreignkey:FinancialUserProfileId;association_foreignkey:Id"`
 	UserId                     uint64
@@ -177,6 +178,7 @@ func (m *FinancialUserProfile) ToORM(ctx context.Context) (FinancialUserProfileO
 			to.ActionablePersonalInsights = append(to.ActionablePersonalInsights, nil)
 		}
 	}
+	to.ProfileType = FinancialUserProfile_FinancialUserProfileType_name[int32(m.ProfileType)]
 	if posthook, ok := interface{}(m).(FinancialUserProfileWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -248,6 +250,7 @@ func (m *FinancialUserProfileORM) ToPB(ctx context.Context) (FinancialUserProfil
 			to.ActionablePersonalInsights = append(to.ActionablePersonalInsights, nil)
 		}
 	}
+	to.ProfileType = FinancialUserProfile_FinancialUserProfileType(FinancialUserProfile_FinancialUserProfileType_value[m.ProfileType])
 	if posthook, ok := interface{}(m).(FinancialUserProfileWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -8015,6 +8018,10 @@ func DefaultApplyFieldMaskFinancialUserProfile(ctx context.Context, patchee *Fin
 		}
 		if f == prefix+"ActionablePersonalInsights" {
 			patchee.ActionablePersonalInsights = patcher.ActionablePersonalInsights
+			continue
+		}
+		if f == prefix+"ProfileType" {
+			patchee.ProfileType = patcher.ProfileType
 			continue
 		}
 	}
