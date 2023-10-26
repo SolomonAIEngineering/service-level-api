@@ -16,6 +16,7 @@ func GetDatabaseSchemas() []interface{} {
 		IntegrationSettingsORM{},
 		NotificationSettingsORM{},
 		BusinessAccountSettingsORM{},
+		BusinessAccountORM{},
 	)
 	return schemas
 }

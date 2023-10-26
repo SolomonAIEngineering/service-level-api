@@ -80,6 +80,7 @@ func Test_WithContext(t *testing.T) {
 		qCtx.AIPoweredInsightsORM.UnderlyingDB().Statement.Context,
 		qCtx.AccountInformationORM.UnderlyingDB().Statement.Context,
 		qCtx.AddressORM.UnderlyingDB().Statement.Context,
+		qCtx.BusinessAccountORM.UnderlyingDB().Statement.Context,
 		qCtx.BusinessAccountSettingsORM.UnderlyingDB().Statement.Context,
 		qCtx.ContactInformationORM.UnderlyingDB().Statement.Context,
 		qCtx.FinancialPreferencesORM.UnderlyingDB().Statement.Context,

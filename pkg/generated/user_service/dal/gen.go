@@ -20,6 +20,7 @@ var (
 	AIPoweredInsightsORM       *aIPoweredInsightsORM
 	AccountInformationORM      *accountInformationORM
 	AddressORM                 *addressORM
+	BusinessAccountORM         *businessAccountORM
 	BusinessAccountSettingsORM *businessAccountSettingsORM
 	ContactInformationORM      *contactInformationORM
 	FinancialPreferencesORM    *financialPreferencesORM
@@ -36,6 +37,7 @@ func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
 	AIPoweredInsightsORM = &Q.AIPoweredInsightsORM
 	AccountInformationORM = &Q.AccountInformationORM
 	AddressORM = &Q.AddressORM
+	BusinessAccountORM = &Q.BusinessAccountORM
 	BusinessAccountSettingsORM = &Q.BusinessAccountSettingsORM
 	ContactInformationORM = &Q.ContactInformationORM
 	FinancialPreferencesORM = &Q.FinancialPreferencesORM
@@ -53,6 +55,7 @@ func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 		AIPoweredInsightsORM:       newAIPoweredInsightsORM(db, opts...),
 		AccountInformationORM:      newAccountInformationORM(db, opts...),
 		AddressORM:                 newAddressORM(db, opts...),
+		BusinessAccountORM:         newBusinessAccountORM(db, opts...),
 		BusinessAccountSettingsORM: newBusinessAccountSettingsORM(db, opts...),
 		ContactInformationORM:      newContactInformationORM(db, opts...),
 		FinancialPreferencesORM:    newFinancialPreferencesORM(db, opts...),
@@ -71,6 +74,7 @@ type Query struct {
 	AIPoweredInsightsORM       aIPoweredInsightsORM
 	AccountInformationORM      accountInformationORM
 	AddressORM                 addressORM
+	BusinessAccountORM         businessAccountORM
 	BusinessAccountSettingsORM businessAccountSettingsORM
 	ContactInformationORM      contactInformationORM
 	FinancialPreferencesORM    financialPreferencesORM
@@ -90,6 +94,7 @@ func (q *Query) clone(db *gorm.DB) *Query {
 		AIPoweredInsightsORM:       q.AIPoweredInsightsORM.clone(db),
 		AccountInformationORM:      q.AccountInformationORM.clone(db),
 		AddressORM:                 q.AddressORM.clone(db),
+		BusinessAccountORM:         q.BusinessAccountORM.clone(db),
 		BusinessAccountSettingsORM: q.BusinessAccountSettingsORM.clone(db),
 		ContactInformationORM:      q.ContactInformationORM.clone(db),
 		FinancialPreferencesORM:    q.FinancialPreferencesORM.clone(db),
@@ -116,6 +121,7 @@ func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 		AIPoweredInsightsORM:       q.AIPoweredInsightsORM.replaceDB(db),
 		AccountInformationORM:      q.AccountInformationORM.replaceDB(db),
 		AddressORM:                 q.AddressORM.replaceDB(db),
+		BusinessAccountORM:         q.BusinessAccountORM.replaceDB(db),
 		BusinessAccountSettingsORM: q.BusinessAccountSettingsORM.replaceDB(db),
 		ContactInformationORM:      q.ContactInformationORM.replaceDB(db),
 		FinancialPreferencesORM:    q.FinancialPreferencesORM.replaceDB(db),
@@ -132,6 +138,7 @@ type queryCtx struct {
 	AIPoweredInsightsORM       IAIPoweredInsightsORMDo
 	AccountInformationORM      IAccountInformationORMDo
 	AddressORM                 IAddressORMDo
+	BusinessAccountORM         IBusinessAccountORMDo
 	BusinessAccountSettingsORM IBusinessAccountSettingsORMDo
 	ContactInformationORM      IContactInformationORMDo
 	FinancialPreferencesORM    IFinancialPreferencesORMDo
@@ -148,6 +155,7 @@ func (q *Query) WithContext(ctx context.Context) *queryCtx {
 		AIPoweredInsightsORM:       q.AIPoweredInsightsORM.WithContext(ctx),
 		AccountInformationORM:      q.AccountInformationORM.WithContext(ctx),
 		AddressORM:                 q.AddressORM.WithContext(ctx),
+		BusinessAccountORM:         q.BusinessAccountORM.WithContext(ctx),
 		BusinessAccountSettingsORM: q.BusinessAccountSettingsORM.WithContext(ctx),
 		ContactInformationORM:      q.ContactInformationORM.WithContext(ctx),
 		FinancialPreferencesORM:    q.FinancialPreferencesORM.WithContext(ctx),
