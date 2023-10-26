@@ -243,7 +243,7 @@ message Address {
   ];
   // the address zipcode
   // Validations: 
-  // - must be exactly 5 characters
+  // - must be exactly 5 characters this is to ensure the client inputs the proper zip code
   string zipcode = 4 [
     (validate.rules).string.min_len = 5,
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {

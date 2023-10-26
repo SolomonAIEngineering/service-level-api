@@ -851,7 +851,7 @@ type Address struct {
 	Unit string `protobuf:"bytes,3,opt,name=unit,proto3" json:"unit,omitempty"`
 	// the address zipcode
 	// Validations:
-	// - must be exactly 5 characters
+	// - must be exactly 5 characters this is to ensure the client inputs the proper zip code
 	Zipcode string `protobuf:"bytes,4,opt,name=zipcode,proto3" json:"zipcode,omitempty"`
 	// the city
 	// Validations:

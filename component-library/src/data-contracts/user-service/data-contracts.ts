@@ -87,7 +87,7 @@ export interface Address {
   /**
    * the address zipcode
    * Validations:
-   * - must be exactly 5 characters
+   * - must be exactly 5 characters this is to ensure the client inputs the proper zip code
    * @example "12345"
    */
   zipcode?: string;

@@ -1672,7 +1672,7 @@
         "zipcode": {
           "type": "string",
           "example": "12345",
-          "title": "the address zipcode\nValidations: \n- must be exactly 5 characters"
+          "title": "the address zipcode\nValidations: \n- must be exactly 5 characters this is to ensure the client inputs the proper zip code"
         },
         "city": {
           "type": "string",
