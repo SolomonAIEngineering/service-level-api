@@ -46,7 +46,6 @@ const (
 	UserService_VerifyUserV2_FullMethodName               = "/user_service.v1.UserService/VerifyUserV2"
 	UserService_PasswordResetWebhookV2_FullMethodName     = "/user_service.v1.UserService/PasswordResetWebhookV2"
 	UserService_GetBusinessSettings_FullMethodName        = "/user_service.v1.UserService/GetBusinessSettings"
-	UserService_UpdateBusinessSettings_FullMethodName     = "/user_service.v1.UserService/UpdateBusinessSettings"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -162,14 +161,6 @@ type UserServiceClient interface {
 	// @param GetBusinessSettingsRequest Request containing the user ID of the business account.
 	// @return GetBusinessSettingsResponse Returns the current settings of the business account.
 	GetBusinessSettings(ctx context.Context, in *GetBusinessSettingsRequest, opts ...grpc.CallOption) (*GetBusinessSettingsResponse, error)
-	// @brief Updates business account settings.
-	//
-	// This RPC allows users to update settings for a business account. It takes in new settings
-	// as parameters and ensures they are applied to the account.
-	//
-	// @param UpdateBusinessSettingsRequest The request containing the updated settings.
-	// @return UpdateBusinessSettingsResponse Returns the status and result of the update process.
-	UpdateBusinessSettings(ctx context.Context, in *UpdateBusinessSettingsRequest, opts ...grpc.CallOption) (*UpdateBusinessSettingsResponse, error)
 }
 
 type userServiceClient struct {
@@ -423,15 +414,6 @@ func (c *userServiceClient) GetBusinessSettings(ctx context.Context, in *GetBusi
 	return out, nil
 }
 
-func (c *userServiceClient) UpdateBusinessSettings(ctx context.Context, in *UpdateBusinessSettingsRequest, opts ...grpc.CallOption) (*UpdateBusinessSettingsResponse, error) {
-	out := new(UpdateBusinessSettingsResponse)
-	err := c.cc.Invoke(ctx, UserService_UpdateBusinessSettings_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // UserServiceServer is the server API for UserService service.
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility
@@ -545,14 +527,6 @@ type UserServiceServer interface {
 	// @param GetBusinessSettingsRequest Request containing the user ID of the business account.
 	// @return GetBusinessSettingsResponse Returns the current settings of the business account.
 	GetBusinessSettings(context.Context, *GetBusinessSettingsRequest) (*GetBusinessSettingsResponse, error)
-	// @brief Updates business account settings.
-	//
-	// This RPC allows users to update settings for a business account. It takes in new settings
-	// as parameters and ensures they are applied to the account.
-	//
-	// @param UpdateBusinessSettingsRequest The request containing the updated settings.
-	// @return UpdateBusinessSettingsResponse Returns the status and result of the update process.
-	UpdateBusinessSettings(context.Context, *UpdateBusinessSettingsRequest) (*UpdateBusinessSettingsResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -640,9 +614,6 @@ func (UnimplementedUserServiceServer) PasswordResetWebhookV2(context.Context, *P
 }
 func (UnimplementedUserServiceServer) GetBusinessSettings(context.Context, *GetBusinessSettingsRequest) (*GetBusinessSettingsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBusinessSettings not implemented")
-}
-func (UnimplementedUserServiceServer) UpdateBusinessSettings(context.Context, *UpdateBusinessSettingsRequest) (*UpdateBusinessSettingsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateBusinessSettings not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 
@@ -1143,24 +1114,6 @@ func _UserService_GetBusinessSettings_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UserService_UpdateBusinessSettings_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateBusinessSettingsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(UserServiceServer).UpdateBusinessSettings(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: UserService_UpdateBusinessSettings_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).UpdateBusinessSettings(ctx, req.(*UpdateBusinessSettingsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1275,10 +1228,6 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetBusinessSettings",
 			Handler:    _UserService_GetBusinessSettings_Handler,
-		},
-		{
-			MethodName: "UpdateBusinessSettings",
-			Handler:    _UserService_UpdateBusinessSettings_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

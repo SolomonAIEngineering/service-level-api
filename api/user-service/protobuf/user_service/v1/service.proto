@@ -703,35 +703,4 @@ service UserService {
             }
         };
     }
-
-    /**
-    * @brief Updates business account settings.
-    *
-    * This RPC allows users to update settings for a business account. It takes in new settings 
-    * as parameters and ensures they are applied to the account.
-    * 
-    * @param UpdateBusinessSettingsRequest The request containing the updated settings.
-    * @return UpdateBusinessSettingsResponse Returns the status and result of the update process.
-    */
-    rpc UpdateBusinessSettings(UpdateBusinessSettingsRequest) returns (UpdateBusinessSettingsResponse) {
-        option (google.api.http) = {
-            put: "/api/v2/user/business/settings"
-            body: "*"
-        };
-        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-            summary: "Update Business Account Settings"
-            tags: ["business settings"]
-            operation_id: "UpdateBusinessSettingsV2"
-            description: "Allows modifications to the settings of a specific business account."
-            responses: {
-                key: "200"
-                value: {
-                    description: "A successful response indicating the outcome of the update process."
-                    schema: {
-                        json_schema: {ref: ".api.v1.UpdateBusinessSettingsResponse"}
-                    }
-                }
-            }
-        };
-    }
 }

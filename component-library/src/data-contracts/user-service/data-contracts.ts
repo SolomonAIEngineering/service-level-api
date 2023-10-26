@@ -631,16 +631,6 @@ export interface TaxSettings {
  */
 export type Theme = "THEME_UNSPECIFIED" | "THEME_LIGHT" | "THEME_DARK";
 
-export interface UpdateBusinessSettingsRequest {
-  businessSettings: BusinessAccountSettings;
-}
-
-export interface UpdateBusinessSettingsResponse {
-  success?: boolean;
-}
-
-export type UpdateBusinessSettingsV2Data = any;
-
 export type UpdateUserData = any;
 
 /**

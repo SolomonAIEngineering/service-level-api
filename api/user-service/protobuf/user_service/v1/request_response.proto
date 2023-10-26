@@ -251,17 +251,6 @@ message GetBusinessSettingsResponse {
   BusinessAccountSettings business_settings = 1;
 }
 
-message UpdateBusinessSettingsRequest {
-  BusinessAccountSettings business_settings = 1 [
-    (validate.rules).message.required = true,
-    (google.api.field_behavior) = REQUIRED  
-  ]; 
-}
-
-message UpdateBusinessSettingsResponse {
-  bool success = 1;
-}
-
 
 // ================================== V2 ================================= //
 /**
