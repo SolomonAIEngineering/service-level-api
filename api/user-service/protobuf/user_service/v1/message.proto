@@ -245,7 +245,7 @@ message Address {
   // Validations: 
   // - must be exactly 5 characters
   string zipcode = 4 [
-    (validate.rules).string.min_len = 0,
+    (validate.rules).string.min_len = 5,
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       example: "\"12345\""
     }  

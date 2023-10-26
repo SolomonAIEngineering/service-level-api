@@ -860,10 +860,10 @@ func (m *Address) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if utf8.RuneCountInString(m.GetZipcode()) < 0 {
+	if utf8.RuneCountInString(m.GetZipcode()) < 5 {
 		err := AddressValidationError{
 			field:  "Zipcode",
-			reason: "value length must be at least 0 runes",
+			reason: "value length must be at least 5 runes",
 		}
 		if !all {
 			return err
