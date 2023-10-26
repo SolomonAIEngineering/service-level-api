@@ -19,6 +19,6 @@
   "dependencies": {
     "@solomon-ai/component-library": "^1.58.0",
     "eventsource-parser": "^1.1.1",
-    "primereact": "^10.0.5"
+    "primereact": "^10.0.7"
   }
 }
