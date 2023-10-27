@@ -439,21 +439,17 @@ type FinancialServiceClient interface {
 	// API Version: 1.
 	// API:/api/v1/analytics/total-investment/user/{user_id}?securityId={securityId}&pageNumber={page_number}&pageSize={page_size}
 	GetTotalInvestmentBySecurity(ctx context.Context, in *GetTotalInvestmentBySecurityRequest, opts ...grpc.CallOption) (*GetTotalInvestmentBySecurityResponse, error)
-	// Description: Get financial context
-	// Parameters:
-	// - user_id - user id of the user
-	// API Version: 1.
-	// API:/api/v1/analytics/melody-financial-context/user/{user_id}
+	// Get financial context
 	GetMelodyFinancialContext(ctx context.Context, in *GetMelodyFinancialContextRequest, opts ...grpc.CallOption) (*GetMelodyFinancialContextResponse, error)
-	// Description: Get bank transaction counts
-	// Parameters:
-	// - user_id - user id of the user
-	// API Version: 1.
-	// API:/api/v1/analytics/melody-financial-context/user/{user_id}
+	// Gets transactions for a given bank account
 	GetTransactionsForBankAccount(ctx context.Context, in *GetTransactionsForBankAccountRequest, opts ...grpc.CallOption) (*GetTransactionsForBankAccountResponse, error)
+	// Gets the historical account balance of a given accout
 	GetHistoricalAccountBalance(ctx context.Context, in *GetHistoricalAccountBalanceRequest, opts ...grpc.CallOption) (*GetHistoricalAccountBalanceResponse, error)
+	// Adds default pocket to a bank account
 	AddDefaultPocketsToBankAccount(ctx context.Context, in *AddDefaultPocketsToBankAccountRequest, opts ...grpc.CallOption) (*AddDefaultPocketsToBankAccountResponse, error)
+	// Updates a pocket
 	UpdatePocket(ctx context.Context, in *UpdatePocketRequest, opts ...grpc.CallOption) (*UpdatePocketResponse, error)
+	// Deletes a pocket
 	DeletePocket(ctx context.Context, in *DeletePocketRequest, opts ...grpc.CallOption) (*DeletePocketResponse, error)
 	// Time Based Transaction Queries
 	GetTransactionsBetweenTimeRanges(ctx context.Context, in *GetTransactionsBetweenTimeRangesRequest, opts ...grpc.CallOption) (*GetTransactionsBetweenTimeRangesResponse, error)
@@ -1523,21 +1519,17 @@ type FinancialServiceServer interface {
 	// API Version: 1.
 	// API:/api/v1/analytics/total-investment/user/{user_id}?securityId={securityId}&pageNumber={page_number}&pageSize={page_size}
 	GetTotalInvestmentBySecurity(context.Context, *GetTotalInvestmentBySecurityRequest) (*GetTotalInvestmentBySecurityResponse, error)
-	// Description: Get financial context
-	// Parameters:
-	// - user_id - user id of the user
-	// API Version: 1.
-	// API:/api/v1/analytics/melody-financial-context/user/{user_id}
+	// Get financial context
 	GetMelodyFinancialContext(context.Context, *GetMelodyFinancialContextRequest) (*GetMelodyFinancialContextResponse, error)
-	// Description: Get bank transaction counts
-	// Parameters:
-	// - user_id - user id of the user
-	// API Version: 1.
-	// API:/api/v1/analytics/melody-financial-context/user/{user_id}
+	// Gets transactions for a given bank account
 	GetTransactionsForBankAccount(context.Context, *GetTransactionsForBankAccountRequest) (*GetTransactionsForBankAccountResponse, error)
+	// Gets the historical account balance of a given accout
 	GetHistoricalAccountBalance(context.Context, *GetHistoricalAccountBalanceRequest) (*GetHistoricalAccountBalanceResponse, error)
+	// Adds default pocket to a bank account
 	AddDefaultPocketsToBankAccount(context.Context, *AddDefaultPocketsToBankAccountRequest) (*AddDefaultPocketsToBankAccountResponse, error)
+	// Updates a pocket
 	UpdatePocket(context.Context, *UpdatePocketRequest) (*UpdatePocketResponse, error)
+	// Deletes a pocket
 	DeletePocket(context.Context, *DeletePocketRequest) (*DeletePocketResponse, error)
 	// Time Based Transaction Queries
 	GetTransactionsBetweenTimeRanges(context.Context, *GetTransactionsBetweenTimeRangesRequest) (*GetTransactionsBetweenTimeRangesResponse, error)

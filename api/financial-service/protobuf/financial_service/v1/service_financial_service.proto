@@ -1673,13 +1673,7 @@ service FinancialService {
     };
   }
 
-  /**
-    Description: Get financial context
-    Parameters:
-      - user_id - user id of the user
-    API Version: 1.
-    API:/api/v1/analytics/melody-financial-context/user/{user_id}
-  **/
+  // Get financial context
   rpc GetMelodyFinancialContext(GetMelodyFinancialContextRequest) returns (GetMelodyFinancialContextResponse) {
     option (google.api.http) = {
       get: "/api/v1/analytics/melody-financial-context/user/{user_id}"
@@ -1701,13 +1695,7 @@ service FinancialService {
     };
   }
 
-  /**
-    Description: Get bank transaction counts
-    Parameters:
-      - user_id - user id of the user
-    API Version: 1.
-    API:/api/v1/analytics/melody-financial-context/user/{user_id}
-  **/
+  // Gets transactions for a given bank account
   rpc GetTransactionsForBankAccount(GetTransactionsForBankAccountRequest) returns (GetTransactionsForBankAccountResponse) {
     option (google.api.http) = {get: "/api/v1/transactions/user/{user_id}/plaid-account-id/{plaid_account_id}/pageNumber/{page_number}/pageSize/{page_size}"};
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -1725,6 +1713,7 @@ service FinancialService {
     };
   }
 
+  // Gets the historical account balance of a given accout
   rpc GetHistoricalAccountBalance(GetHistoricalAccountBalanceRequest) returns (GetHistoricalAccountBalanceResponse) {
     option (google.api.http) = {get: "/api/v1/historical-account-balance/user/{user_id}/plaid-account-id/{plaid_account_id}"};
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -1742,6 +1731,7 @@ service FinancialService {
     };
   }
 
+  // Adds default pocket to a bank account
   rpc AddDefaultPocketsToBankAccount(AddDefaultPocketsToBankAccountRequest) returns (AddDefaultPocketsToBankAccountResponse) {
     option (google.api.http) = {
       post: "/api/v1/pocket/bank-account"
@@ -1764,8 +1754,7 @@ service FinancialService {
     };
   }
 
-
-
+  // Updates a pocket
   rpc UpdatePocket(UpdatePocketRequest) returns (UpdatePocketResponse) {
     option (google.api.http) = {
       put: "/api/v1/pocket"
@@ -1788,6 +1777,7 @@ service FinancialService {
     };
   }
 
+  // Deletes a pocket
   rpc DeletePocket(DeletePocketRequest) returns (DeletePocketResponse) {
     option (google.api.http) = {
       delete: "/api/v1/pocket/{pocket_id}"
