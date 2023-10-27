@@ -6764,8 +6764,6 @@ func (m *PasswordResetWebhookV2Request) validate(all bool) error {
 
 	// no validation rules for Token
 
-	// no validation rules for ProfileType
-
 	if len(errors) > 0 {
 		return PasswordResetWebhookV2RequestMultiError(errors)
 	}

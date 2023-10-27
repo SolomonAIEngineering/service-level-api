@@ -1403,18 +1403,6 @@
             "in": "query",
             "required": false,
             "type": "string"
-          },
-          {
-            "name": "profileType",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "enum": [
-              "PROFILE_TYPE_UNSPECIFIED",
-              "PROFILE_TYPE_USER",
-              "PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [

@@ -573,13 +573,6 @@ message PasswordResetWebhookV2Request {
       example: "\"username:testuser\""
     }
   ];
-  ProfileType profile_type = 3 [
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      min_length: 0,
-      example: "\"username:testuser\""
-    },
-    (google.api.field_behavior) = REQUIRED   
-  ];
 }
 
 message PasswordResetWebhookV2Response { bool success = 1; }

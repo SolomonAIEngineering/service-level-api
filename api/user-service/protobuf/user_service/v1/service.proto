@@ -310,10 +310,8 @@ service UserService {
         };
     }
 
-  // ====================================================== v2 ======================================================== //
     /**
     * @brief Retrieves details of a user account.
-    * 
     * This RPC provides access to detailed information about a user account
     * based on the provided user ID. The endpoint for this service is `/api/v2/user/{user_id}`.
     * The service provides a concise and clear response encapsulated in `GetUserV2Response`.
