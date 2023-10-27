@@ -67,99 +67,61 @@ type UserServiceClient interface {
 	VerifyUser(ctx context.Context, in *VerifyUserRequest, opts ...grpc.CallOption) (*VerifyUserResponse, error)
 	PasswordResetWebhook(ctx context.Context, in *PasswordResetWebhookRequest, opts ...grpc.CallOption) (*PasswordResetWebhookResponse, error)
 	// @brief Retrieves details of a user account.
-	//
 	// This RPC provides access to detailed information about a user account
 	// based on the provided user ID. The endpoint for this service is `/api/v2/user/{user_id}`.
 	// The service provides a concise and clear response encapsulated in `GetUserV2Response`.
-	//
-	// @param GetUserV2Request Request object containing the parameters needed to query the user details.
-	// @return GetUserV2Response Response object containing the details of the queried user.
+	// URI - /api/v2/user/{user_id}
 	GetUserV2(ctx context.Context, in *GetUserV2Request, opts ...grpc.CallOption) (*GetUserV2Response, error)
 	// @brief Fetches user account details based on the username.
-	//
 	// This RPC provides access to user account information based on the given username.
-	//
-	// @param GetUserByUsernameV2Request Request containing the desired username.
-	// @return GetUserByUsernameV2Response Returns the corresponding user details.
+	// URI -/api/v2/user/username/{username}
 	GetUserByUsernameV2(ctx context.Context, in *GetUserByUsernameV2Request, opts ...grpc.CallOption) (*GetUserByUsernameV2Response, error)
 	// @brief Fetches user account details based on the email.
-	//
 	// This RPC provides access to user account information based on the provided email.
-	//
-	// @param GetUserByEmailV2Request Request containing the desired email.
-	// @return GetUserByEmailV2Response Returns the corresponding user details.
+	// URI -/api/v2/user/email/{email}
 	GetUserByEmailV2(ctx context.Context, in *GetUserByEmailV2Request, opts ...grpc.CallOption) (*GetUserByEmailV2Response, error)
 	// Retrieves a user account using either email or username.
-	//
-	// @param GetUserByEmailOrUsernameV2Request Contains the email or username to query the account.
-	// @return GetUserByEmailOrUsernameV2Response Provides the status of the operation.
+	// URI - /api/v2/user/account
 	GetUserByEmailOrUsernameV2(ctx context.Context, in *GetUserByEmailOrUsernameV2Request, opts ...grpc.CallOption) (*GetUserByEmailOrUsernameV2Response, error)
 	// @brief Checks if a username exists for a given account type
-	//
-	// # This RPC performs checks to ensure a username exists based on the provided parameters
-	//
-	// @param CheckUsernameExistsV2Request Request containing the desired username.
-	// @return CheckUsernameExistsV2Response Returns the status of the request.
+	// This RPC performs checks to ensure a username exists based on the provided parameters
+	// URI - /api/v2/user/username/{username}/exists
 	CheckUsernameExistsV2(ctx context.Context, in *CheckUsernameExistsV2Request, opts ...grpc.CallOption) (*CheckUsernameExistsV2Response, error)
 	// @brief Checks if a email exists for a given account type
-	//
-	// # This RPC performs checks to ensure a email exists based on the provided parameters
-	//
-	// @param CheckEmailExistsV2Request Request containing the desired email.
-	// @return CheckEmailExistsV2Response Returns the status of the request.
+	// This RPC performs checks to ensure a email exists based on the provided parameters
+	// URI - /api/v2/user/email/{email}/exists
 	CheckEmailExistsV2(ctx context.Context, in *CheckEmailExistsV2Request, opts ...grpc.CallOption) (*CheckEmailExistsV2Response, error)
 	// @brief deletes a user account based on the provided user ID.
-	//
-	// # This RPC performs account deletion based on the provided parameter
-	//
-	// @param DeleteUserV2Request Request containing the desired parameters necessary for account deletion.
-	// @return DeleteUserV2Response Returns the status of the request.
+	// This RPC performs account deletion based on the provided parameter
+	// URI - /api/v2/user/{user_id}
 	DeleteUserV2(ctx context.Context, in *DeleteUserV2Request, opts ...grpc.CallOption) (*DeleteUserV2Response, error)
 	// @brief update a user account based on the provided parameters
-	//
-	// # This RPC updates the account of the requestor
-	//
-	// @param UpdateUserV2Request Request containing the desired parameters necessary for account updating.
-	// @return UpdateUserV2Response Returns the status of the request.
+	// This RPC updates the account of the requestor
+	// URI - /api/v2/user
 	UpdateUserV2(ctx context.Context, in *UpdateUserV2Request, opts ...grpc.CallOption) (*UpdateUserV2Response, error)
 	// @brief Creates a user account for the specified user of interest
-	//
-	// # This RPC creates either a user or business account based on the provided parameters
-	//
-	// @param CreateUserV2Request Request containing the desired parameters necessary for account creation.
-	// @return CreateUserV2Response Returns the status of the request.
+	// This RPC creates either a user or business account based on the provided parameters
+	// URI - /api/v2/user
 	CreateUserV2(ctx context.Context, in *CreateUserV2Request, opts ...grpc.CallOption) (*CreateUserV2Response, error)
 	// @brief Gets a user account id based on a provided set of parameters
-	//
-	// # This RPC queries the user id of an account based on certain provided parameters
-	//
-	// @param GetUserIdV2Request Request containing the desired parameters necessary for account querying.
-	// @return GetUserIdV2Response Returns the status of the request.
+	// This RPC queries the user id of an account based on certain provided parameters
+	// URI - /api/v2/user
 	GetUserIdV2(ctx context.Context, in *GetUserIdV2Request, opts ...grpc.CallOption) (*GetUserIdV2Response, error)
 	// @brief Verifies a user's email account.
-	//
 	// This RPC is used to perform email verification for a user account. It leverages the provided
 	// user ID and profile type to determine which user's email needs verification. On successful
 	// verification, it returns a confirmation of the process.
-	//
-	// @param VerifyUserV2Request The request containing the user ID and profile type.
-	// @return VerifyUserV2Response Returns the status and outcome of the email verification process.
+	// URI - /api/v2/user/verification/{user_id}/{profile_type}
 	VerifyUserV2(ctx context.Context, in *VerifyUserV2Request, opts ...grpc.CallOption) (*VerifyUserV2Response, error)
 	// @brief Handles password reset via webhook.
-	//
 	// This RPC facilitates the process of resetting a user's password using a webhook. It ensures
 	// that the provided credentials match an existing user and initiates the reset process.
-	//
-	// @param PasswordResetWebhookV2Request The request containing details needed for the password reset.
-	// @return PasswordResetWebhookV2Response Returns the status and result of the password reset process.
+	// URI - /api/v2/user/webhook/password-reset
 	PasswordResetWebhookV2(ctx context.Context, in *PasswordResetWebhookV2Request, opts ...grpc.CallOption) (*PasswordResetWebhookV2Response, error)
 	// @brief Retrieves business account settings.
-	//
 	// This RPC is used to fetch settings for a specific business account. It queries based on
 	// the user ID and returns the associated settings.
-	//
-	// @param GetBusinessSettingsRequest Request containing the user ID of the business account.
-	// @return GetBusinessSettingsResponse Returns the current settings of the business account.
+	// URI - /api/v2/user/business/settings/{user_id}
 	GetBusinessSettings(ctx context.Context, in *GetBusinessSettingsRequest, opts ...grpc.CallOption) (*GetBusinessSettingsResponse, error)
 }
 
@@ -433,99 +395,61 @@ type UserServiceServer interface {
 	VerifyUser(context.Context, *VerifyUserRequest) (*VerifyUserResponse, error)
 	PasswordResetWebhook(context.Context, *PasswordResetWebhookRequest) (*PasswordResetWebhookResponse, error)
 	// @brief Retrieves details of a user account.
-	//
 	// This RPC provides access to detailed information about a user account
 	// based on the provided user ID. The endpoint for this service is `/api/v2/user/{user_id}`.
 	// The service provides a concise and clear response encapsulated in `GetUserV2Response`.
-	//
-	// @param GetUserV2Request Request object containing the parameters needed to query the user details.
-	// @return GetUserV2Response Response object containing the details of the queried user.
+	// URI - /api/v2/user/{user_id}
 	GetUserV2(context.Context, *GetUserV2Request) (*GetUserV2Response, error)
 	// @brief Fetches user account details based on the username.
-	//
 	// This RPC provides access to user account information based on the given username.
-	//
-	// @param GetUserByUsernameV2Request Request containing the desired username.
-	// @return GetUserByUsernameV2Response Returns the corresponding user details.
+	// URI -/api/v2/user/username/{username}
 	GetUserByUsernameV2(context.Context, *GetUserByUsernameV2Request) (*GetUserByUsernameV2Response, error)
 	// @brief Fetches user account details based on the email.
-	//
 	// This RPC provides access to user account information based on the provided email.
-	//
-	// @param GetUserByEmailV2Request Request containing the desired email.
-	// @return GetUserByEmailV2Response Returns the corresponding user details.
+	// URI -/api/v2/user/email/{email}
 	GetUserByEmailV2(context.Context, *GetUserByEmailV2Request) (*GetUserByEmailV2Response, error)
 	// Retrieves a user account using either email or username.
-	//
-	// @param GetUserByEmailOrUsernameV2Request Contains the email or username to query the account.
-	// @return GetUserByEmailOrUsernameV2Response Provides the status of the operation.
+	// URI - /api/v2/user/account
 	GetUserByEmailOrUsernameV2(context.Context, *GetUserByEmailOrUsernameV2Request) (*GetUserByEmailOrUsernameV2Response, error)
 	// @brief Checks if a username exists for a given account type
-	//
-	// # This RPC performs checks to ensure a username exists based on the provided parameters
-	//
-	// @param CheckUsernameExistsV2Request Request containing the desired username.
-	// @return CheckUsernameExistsV2Response Returns the status of the request.
+	// This RPC performs checks to ensure a username exists based on the provided parameters
+	// URI - /api/v2/user/username/{username}/exists
 	CheckUsernameExistsV2(context.Context, *CheckUsernameExistsV2Request) (*CheckUsernameExistsV2Response, error)
 	// @brief Checks if a email exists for a given account type
-	//
-	// # This RPC performs checks to ensure a email exists based on the provided parameters
-	//
-	// @param CheckEmailExistsV2Request Request containing the desired email.
-	// @return CheckEmailExistsV2Response Returns the status of the request.
+	// This RPC performs checks to ensure a email exists based on the provided parameters
+	// URI - /api/v2/user/email/{email}/exists
 	CheckEmailExistsV2(context.Context, *CheckEmailExistsV2Request) (*CheckEmailExistsV2Response, error)
 	// @brief deletes a user account based on the provided user ID.
-	//
-	// # This RPC performs account deletion based on the provided parameter
-	//
-	// @param DeleteUserV2Request Request containing the desired parameters necessary for account deletion.
-	// @return DeleteUserV2Response Returns the status of the request.
+	// This RPC performs account deletion based on the provided parameter
+	// URI - /api/v2/user/{user_id}
 	DeleteUserV2(context.Context, *DeleteUserV2Request) (*DeleteUserV2Response, error)
 	// @brief update a user account based on the provided parameters
-	//
-	// # This RPC updates the account of the requestor
-	//
-	// @param UpdateUserV2Request Request containing the desired parameters necessary for account updating.
-	// @return UpdateUserV2Response Returns the status of the request.
+	// This RPC updates the account of the requestor
+	// URI - /api/v2/user
 	UpdateUserV2(context.Context, *UpdateUserV2Request) (*UpdateUserV2Response, error)
 	// @brief Creates a user account for the specified user of interest
-	//
-	// # This RPC creates either a user or business account based on the provided parameters
-	//
-	// @param CreateUserV2Request Request containing the desired parameters necessary for account creation.
-	// @return CreateUserV2Response Returns the status of the request.
+	// This RPC creates either a user or business account based on the provided parameters
+	// URI - /api/v2/user
 	CreateUserV2(context.Context, *CreateUserV2Request) (*CreateUserV2Response, error)
 	// @brief Gets a user account id based on a provided set of parameters
-	//
-	// # This RPC queries the user id of an account based on certain provided parameters
-	//
-	// @param GetUserIdV2Request Request containing the desired parameters necessary for account querying.
-	// @return GetUserIdV2Response Returns the status of the request.
+	// This RPC queries the user id of an account based on certain provided parameters
+	// URI - /api/v2/user
 	GetUserIdV2(context.Context, *GetUserIdV2Request) (*GetUserIdV2Response, error)
 	// @brief Verifies a user's email account.
-	//
 	// This RPC is used to perform email verification for a user account. It leverages the provided
 	// user ID and profile type to determine which user's email needs verification. On successful
 	// verification, it returns a confirmation of the process.
-	//
-	// @param VerifyUserV2Request The request containing the user ID and profile type.
-	// @return VerifyUserV2Response Returns the status and outcome of the email verification process.
+	// URI - /api/v2/user/verification/{user_id}/{profile_type}
 	VerifyUserV2(context.Context, *VerifyUserV2Request) (*VerifyUserV2Response, error)
 	// @brief Handles password reset via webhook.
-	//
 	// This RPC facilitates the process of resetting a user's password using a webhook. It ensures
 	// that the provided credentials match an existing user and initiates the reset process.
-	//
-	// @param PasswordResetWebhookV2Request The request containing details needed for the password reset.
-	// @return PasswordResetWebhookV2Response Returns the status and result of the password reset process.
+	// URI - /api/v2/user/webhook/password-reset
 	PasswordResetWebhookV2(context.Context, *PasswordResetWebhookV2Request) (*PasswordResetWebhookV2Response, error)
 	// @brief Retrieves business account settings.
-	//
 	// This RPC is used to fetch settings for a specific business account. It queries based on
 	// the user ID and returns the associated settings.
-	//
-	// @param GetBusinessSettingsRequest Request containing the user ID of the business account.
-	// @return GetBusinessSettingsResponse Returns the current settings of the business account.
+	// URI - /api/v2/user/business/settings/{user_id}
 	GetBusinessSettings(context.Context, *GetBusinessSettingsRequest) (*GetBusinessSettingsResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }

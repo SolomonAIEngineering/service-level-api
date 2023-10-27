@@ -8,6 +8,7 @@ import "validate/validate.proto";
 import "google/api/field_behavior.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 import "gogoproto/gogo.proto";
+import "financial_service/v1/message_financial_service.proto";
 
 option (gogoproto.gostring_all) = true;
 option (gogoproto.equal_all) = true;
@@ -34,6 +35,7 @@ message GetTransactionAggregatesRequest {
   string merchant_name = 6;
   int64 page_number = 7;
   int64 page_size = 8;  // Number of items to return per page.
+  FinancialUserProfileType profile_type = 9;
 }
 
 message GetTransactionAggregatesResponse {
@@ -49,6 +51,7 @@ message GetUserAccountBalanceHistoryRequest {
   ]; // User ID
   int64 page_number = 2;
   int64 page_size = 3;  // Number of items to return per page.
+  FinancialUserProfileType profile_type = 9;
 }
 
 message GetUserAccountBalanceHistoryResponse {
@@ -75,6 +78,7 @@ message GetUserCategoryMonthlyExpenditureRequest {
   uint32 month = 3; // Month in the format of YYYYMM
   int64 page_number = 4;
   int64 page_size = 5;  // Number of items to return per page.
+  FinancialUserProfileType profile_type = 9;
 }
 
 message GetUserCategoryMonthlyExpenditureResponse {
@@ -92,6 +96,7 @@ message GetUserCategoryMonthlyIncomeRequest {
   uint32 month = 3;
   int64 page_number = 4;
   int64 page_size = 5;  // Number of items to return per page.
+  FinancialUserProfileType profile_type = 9;
 }
 
 message GetUserCategoryMonthlyIncomeResponse {
@@ -108,6 +113,7 @@ message GetCategoryMonthlyTransactionCountRequest {
   string personal_finance_category_primary = 3; // optional
   int64 page_number = 4;
   int64 page_size = 5;  // Number of items to return per page.
+  FinancialUserProfileType profile_type = 9;
 }
 
 message GetCategoryMonthlyTransactionCountResponse {
@@ -123,6 +129,7 @@ message GetDebtToIncomeRatioRequest {
   uint32 month = 2; // optional
   int64 page_number = 3;
   int64 page_size = 4;  // Number of items to return per page.
+  FinancialUserProfileType profile_type = 9;
 }
 
 message GetDebtToIncomeRatioResponse {
@@ -139,6 +146,7 @@ message GetExpenseMetricsRequest {
   string personal_finance_category_primary = 3; // optional
   int64 page_number = 4;
   int64 page_size = 5;  // Number of items to return per page.
+  FinancialUserProfileType profile_type = 9;
 }
 
 message GetExpenseMetricsResponse {
@@ -155,6 +163,7 @@ message GetFinancialProfileRequest {
   uint32 month = 2; // optional
   int64 page_number = 3;
   int64 page_size = 4;  // Number of items to return per page.
+  FinancialUserProfileType profile_type = 9;
 }
 
 message GetFinancialProfileResponse {
@@ -171,6 +180,7 @@ message GetIncomeExpenseRatioRequest {
   uint32 month = 2; // optional
   int64 page_number = 3;
   int64 page_size = 4;  // Number of items to return per page.
+  FinancialUserProfileType profile_type = 9;
 }
 
 message GetIncomeExpenseRatioResponse {
@@ -188,6 +198,7 @@ message GetIncomeMetricsRequest {
   string personal_finance_category_primary = 3; // optional
   int64 page_number = 4;
   int64 page_size = 5;  // Number of items to return per page.
+  FinancialUserProfileType profile_type = 9;
 }
 
 message GetIncomeMetricsResponse {
@@ -206,6 +217,7 @@ message GetMerchantMonthlyExpenditureRequest {
   string merchant_name = 3; // optional
   int64 page_number = 4;
   int64 page_size = 5;  // Number of items to return per page.
+  FinancialUserProfileType profile_type = 9;
 }
 
 message GetMerchantMonthlyExpenditureResponse {
@@ -223,6 +235,7 @@ message GetMonthlyBalanceRequest {
   uint32 month = 2; // optional
   int64 page_number = 3;
   int64 page_size = 4;  // Number of items to return per page.
+  FinancialUserProfileType profile_type = 9;
 }
 
 message GetMonthlyBalanceResponse {
@@ -239,6 +252,7 @@ message GetMonthlyExpenditureRequest {
   uint32 month = 2;
   int64 page_number = 3;
   int64 page_size = 4;  // Number of items to return per page.
+  FinancialUserProfileType profile_type = 9;
 }
 
 message GetMonthlyExpenditureResponse {
@@ -255,6 +269,7 @@ message GetMonthlyIncomeRequest {
   uint32 month = 2;
   int64 page_number = 3;
   int64 page_size = 4;  // Number of items to return per page.
+  FinancialUserProfileType profile_type = 9;
 }
 
 message GetMonthlyIncomeResponse {
@@ -271,6 +286,7 @@ message GetMonthlySavingsRequest {
   uint32 month = 2;
   int64 page_number = 3;
   int64 page_size = 4;  // Number of items to return per page.
+  FinancialUserProfileType profile_type = 9;
 }
 
 message GetMonthlySavingsResponse {
@@ -288,6 +304,7 @@ message GetMonthlyTotalQuantityBySecurityAndUserRequest {
   string security_id = 3;
   int64 page_number = 4;
   int64 page_size = 5;  // Number of items to return per page.
+  FinancialUserProfileType profile_type = 9;
 }
 
 message GetMonthlyTotalQuantityBySecurityAndUserResponse {
@@ -304,6 +321,7 @@ message GetMonthlyTransactionCountRequest {
   uint32 month = 2;
   int64 page_number = 4;
   int64 page_size = 5;  // Number of items to return per page.
+  FinancialUserProfileType profile_type = 9;
 }
 
 message GetMonthlyTransactionCountResponse {
@@ -321,6 +339,7 @@ message GetPaymentChannelMonthlyExpenditureRequest {
   string payment_channel = 3;
   int64 page_number = 4;
   int64 page_size = 5;  // Number of items to return per page.
+  FinancialUserProfileType profile_type = 9;
 }
 
 message GetPaymentChannelMonthlyExpenditureResponse {
@@ -337,6 +356,7 @@ message GetTotalInvestmentBySecurityRequest {
   string security_id = 2;
   int64 page_number = 4;
   int64 page_size = 5;  // Number of items to return per page.
+  FinancialUserProfileType profile_type = 9;
 }
 
 message GetTotalInvestmentBySecurityResponse {
@@ -346,6 +366,7 @@ message GetTotalInvestmentBySecurityResponse {
 
 message GetMelodyFinancialContextRequest {
   uint64 user_id = 1;
+  FinancialUserProfileType profile_type = 9;
 }
 
 message GetMelodyFinancialContextResponse {
@@ -355,6 +376,7 @@ message GetMelodyFinancialContextResponse {
 message GetHistoricalAccountBalanceRequest {
   string plaid_account_id = 1;
   uint64 user_id = 2;
+  FinancialUserProfileType profile_type = 9;
 }
 
 message GetHistoricalAccountBalanceResponse {

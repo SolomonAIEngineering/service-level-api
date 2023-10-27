@@ -57,6 +57,7 @@ export interface AddDefaultPocketsToBankAccountRequest {
    * @format uint64
    */
   bankAccountId: string;
+  profileType: FinancialUserProfileType;
   /**
    * The user id
    * Validations:
@@ -790,6 +791,7 @@ export interface CreateBankAccountPayload {
    * - cannot be nil hence required
    */
   bankAccount: BankAccount;
+  profileType: FinancialUserProfileType;
 }
 
 /**
@@ -844,6 +846,7 @@ export interface CreateManualLinkRequest {
    * Two Items created for the same set of credentials at the same institution will be considered different and not share the same item_id.
    */
   manualAccountLink: Link;
+  profileType: FinancialUserProfileType;
   /**
    * The user id
    * Validations:
@@ -924,6 +927,7 @@ export type CreateSubscriptionData = any;
 
 export interface CreateSubscriptionRequest {
   priceId: string;
+  profileType: FinancialUserProfileType;
   /** @format uint64 */
   userId: string;
 }
@@ -2540,6 +2544,7 @@ export type MergeExchangePublicLinkTokenForAccountTokenData = any;
 export interface MergeExchangePublicLinkTokenForAccountTokenRequest {
   endUserOriginId: string;
   organizationName: string;
+  profileType: FinancialUserProfileType;
   publicToken: string;
   /**
    * The user id
@@ -2564,6 +2569,7 @@ export interface MergeGetPublicLinkTokenRequest {
   email: string;
   /** Your end user's organization. */
   organizationName: string;
+  profileType: FinancialUserProfileType;
   /**
    * The user id
    * Validations:
@@ -3232,6 +3238,7 @@ export interface PlaidExchangeTokenRequest {
   institutionId?: string;
   /** The institution name */
   institutionName?: string;
+  profileType: FinancialUserProfileType;
   /**
    * The public token
    * Validations:
@@ -3268,6 +3275,7 @@ export interface PlaidInitiateTokenExchangeRequest {
    * This field is optional, but required to enable the [returning user experience](https://plaid.com/docs/link/returning-user).
    */
   phoneNumber: string;
+  profileType: FinancialUserProfileType;
   /**
    * A unique ID representing the end user. Typically this will be a user ID number from your application.
    * Personally identifiable information, such as an email address or phone number,
@@ -3294,6 +3302,7 @@ export interface PlaidInitiateTokenUpdateRequest {
    * @format uint64
    */
   linkId: string;
+  profileType: FinancialUserProfileType;
   /**
    * The user id
    * Validations:

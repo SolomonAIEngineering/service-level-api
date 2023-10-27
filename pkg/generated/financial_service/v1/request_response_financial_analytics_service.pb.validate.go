@@ -82,6 +82,8 @@ func (m *GetTransactionAggregatesRequest) validate(all bool) error {
 
 	// no validation rules for PageSize
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return GetTransactionAggregatesRequestMultiError(errors)
 	}
@@ -341,6 +343,8 @@ func (m *GetUserAccountBalanceHistoryRequest) validate(all bool) error {
 	// no validation rules for PageNumber
 
 	// no validation rules for PageSize
+
+	// no validation rules for ProfileType
 
 	if len(errors) > 0 {
 		return GetUserAccountBalanceHistoryRequestMultiError(errors)
@@ -854,6 +858,8 @@ func (m *GetUserCategoryMonthlyExpenditureRequest) validate(all bool) error {
 
 	// no validation rules for PageSize
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return GetUserCategoryMonthlyExpenditureRequestMultiError(errors)
 	}
@@ -1119,6 +1125,8 @@ func (m *GetUserCategoryMonthlyIncomeRequest) validate(all bool) error {
 	// no validation rules for PageNumber
 
 	// no validation rules for PageSize
+
+	// no validation rules for ProfileType
 
 	if len(errors) > 0 {
 		return GetUserCategoryMonthlyIncomeRequestMultiError(errors)
@@ -1386,6 +1394,8 @@ func (m *GetCategoryMonthlyTransactionCountRequest) validate(all bool) error {
 
 	// no validation rules for PageSize
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return GetCategoryMonthlyTransactionCountRequestMultiError(errors)
 	}
@@ -1649,6 +1659,8 @@ func (m *GetDebtToIncomeRatioRequest) validate(all bool) error {
 
 	// no validation rules for PageSize
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return GetDebtToIncomeRatioRequestMultiError(errors)
 	}
@@ -1910,6 +1922,8 @@ func (m *GetExpenseMetricsRequest) validate(all bool) error {
 
 	// no validation rules for PageSize
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return GetExpenseMetricsRequestMultiError(errors)
 	}
@@ -2166,6 +2180,8 @@ func (m *GetFinancialProfileRequest) validate(all bool) error {
 	// no validation rules for PageNumber
 
 	// no validation rules for PageSize
+
+	// no validation rules for ProfileType
 
 	if len(errors) > 0 {
 		return GetFinancialProfileRequestMultiError(errors)
@@ -2424,6 +2440,8 @@ func (m *GetIncomeExpenseRatioRequest) validate(all bool) error {
 	// no validation rules for PageNumber
 
 	// no validation rules for PageSize
+
+	// no validation rules for ProfileType
 
 	if len(errors) > 0 {
 		return GetIncomeExpenseRatioRequestMultiError(errors)
@@ -2686,6 +2704,8 @@ func (m *GetIncomeMetricsRequest) validate(all bool) error {
 
 	// no validation rules for PageSize
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return GetIncomeMetricsRequestMultiError(errors)
 	}
@@ -2945,6 +2965,8 @@ func (m *GetMerchantMonthlyExpenditureRequest) validate(all bool) error {
 	// no validation rules for PageNumber
 
 	// no validation rules for PageSize
+
+	// no validation rules for ProfileType
 
 	if len(errors) > 0 {
 		return GetMerchantMonthlyExpenditureRequestMultiError(errors)
@@ -3208,6 +3230,8 @@ func (m *GetMonthlyBalanceRequest) validate(all bool) error {
 
 	// no validation rules for PageSize
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return GetMonthlyBalanceRequestMultiError(errors)
 	}
@@ -3464,6 +3488,8 @@ func (m *GetMonthlyExpenditureRequest) validate(all bool) error {
 	// no validation rules for PageNumber
 
 	// no validation rules for PageSize
+
+	// no validation rules for ProfileType
 
 	if len(errors) > 0 {
 		return GetMonthlyExpenditureRequestMultiError(errors)
@@ -3724,6 +3750,8 @@ func (m *GetMonthlyIncomeRequest) validate(all bool) error {
 
 	// no validation rules for PageSize
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return GetMonthlyIncomeRequestMultiError(errors)
 	}
@@ -3980,6 +4008,8 @@ func (m *GetMonthlySavingsRequest) validate(all bool) error {
 	// no validation rules for PageNumber
 
 	// no validation rules for PageSize
+
+	// no validation rules for ProfileType
 
 	if len(errors) > 0 {
 		return GetMonthlySavingsRequestMultiError(errors)
@@ -4241,6 +4271,8 @@ func (m *GetMonthlyTotalQuantityBySecurityAndUserRequest) validate(all bool) err
 	// no validation rules for PageNumber
 
 	// no validation rules for PageSize
+
+	// no validation rules for ProfileType
 
 	if len(errors) > 0 {
 		return GetMonthlyTotalQuantityBySecurityAndUserRequestMultiError(errors)
@@ -4518,6 +4550,8 @@ func (m *GetMonthlyTransactionCountRequest) validate(all bool) error {
 
 	// no validation rules for PageSize
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return GetMonthlyTransactionCountRequestMultiError(errors)
 	}
@@ -4784,6 +4818,8 @@ func (m *GetPaymentChannelMonthlyExpenditureRequest) validate(all bool) error {
 
 	// no validation rules for PageSize
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return GetPaymentChannelMonthlyExpenditureRequestMultiError(errors)
 	}
@@ -5048,6 +5084,8 @@ func (m *GetTotalInvestmentBySecurityRequest) validate(all bool) error {
 
 	// no validation rules for PageSize
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return GetTotalInvestmentBySecurityRequestMultiError(errors)
 	}
@@ -5296,6 +5334,8 @@ func (m *GetMelodyFinancialContextRequest) validate(all bool) error {
 
 	// no validation rules for UserId
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return GetMelodyFinancialContextRequestMultiError(errors)
 	}
@@ -5538,6 +5578,8 @@ func (m *GetHistoricalAccountBalanceRequest) validate(all bool) error {
 	// no validation rules for PlaidAccountId
 
 	// no validation rules for UserId
+
+	// no validation rules for ProfileType
 
 	if len(errors) > 0 {
 		return GetHistoricalAccountBalanceRequestMultiError(errors)

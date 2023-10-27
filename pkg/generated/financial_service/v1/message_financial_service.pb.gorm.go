@@ -179,7 +179,7 @@ func (m *FinancialUserProfile) ToORM(ctx context.Context) (FinancialUserProfileO
 			to.ActionablePersonalInsights = append(to.ActionablePersonalInsights, nil)
 		}
 	}
-	to.ProfileType = FinancialUserProfile_FinancialUserProfileType_name[int32(m.ProfileType)]
+	to.ProfileType = FinancialUserProfileType_name[int32(m.ProfileType)]
 	if posthook, ok := interface{}(m).(FinancialUserProfileWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -251,7 +251,7 @@ func (m *FinancialUserProfileORM) ToPB(ctx context.Context) (FinancialUserProfil
 			to.ActionablePersonalInsights = append(to.ActionablePersonalInsights, nil)
 		}
 	}
-	to.ProfileType = FinancialUserProfile_FinancialUserProfileType(FinancialUserProfile_FinancialUserProfileType_value[m.ProfileType])
+	to.ProfileType = FinancialUserProfileType(FinancialUserProfileType_value[m.ProfileType])
 	if posthook, ok := interface{}(m).(FinancialUserProfileWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}

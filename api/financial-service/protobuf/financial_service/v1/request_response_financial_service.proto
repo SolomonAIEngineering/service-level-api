@@ -59,6 +59,9 @@ message GetUserProfileRequest {
     (validate.rules).uint64.gt = 0,
     (google.api.field_behavior) = REQUIRED
   ];
+  FinancialUserProfileType profile_type = 9 [
+    (google.api.field_behavior) = REQUIRED
+  ];
 }
 
 // GetUserProfileResponse: Represents the response object returned as a response to
@@ -81,6 +84,9 @@ message DeleteUserProfileRequest {
   // - user_id must be greater than 0
   uint64 user_id = 1 [
     (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  FinancialUserProfileType profile_type = 9 [
     (google.api.field_behavior) = REQUIRED
   ];
 }
@@ -127,6 +133,9 @@ message CreateBankAccountRequest {
     (validate.rules).message.required = true,
     (google.api.field_behavior) = REQUIRED
   ];
+  FinancialUserProfileType profile_type = 9 [
+    (google.api.field_behavior) = REQUIRED
+  ];
 }
 
 // CreateBankAccountResponse: Represents the response object returned as a response to
@@ -168,6 +177,9 @@ message DeleteBankAccountRequest {
   // - bank_account_id must be greater than 0
   uint64 bank_account_id = 2 [
     (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  FinancialUserProfileType profile_type = 9 [
     (google.api.field_behavior) = REQUIRED
   ];
 }
@@ -507,6 +519,9 @@ message MergeGetPublicLinkTokenRequest {
   string email	= 3 [
     (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
+  ];
+  FinancialUserProfileType profile_type = 9 [
+    (google.api.field_behavior) = REQUIRED
   ]; 
 }
 
@@ -539,6 +554,9 @@ message MergeExchangePublicLinkTokenForAccountTokenRequest {
 
   string organization_name = 4  [
     (validate.rules).string.min_len = 1,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  FinancialUserProfileType profile_type = 9 [
     (google.api.field_behavior) = REQUIRED
   ];
 }
@@ -578,6 +596,9 @@ message PlaidInitiateTokenExchangeRequest {
   string phone_number = 4 [
     (google.api.field_behavior) = REQUIRED
   ];
+  FinancialUserProfileType profile_type = 9 [
+    (google.api.field_behavior) = REQUIRED
+  ];
 }
 
 message PlaidInitiateTokenExchangeResponse {
@@ -599,6 +620,9 @@ message PlaidInitiateTokenUpdateRequest {
   // - cannot be nil hence required
   uint64 link_id = 2 [
     (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  FinancialUserProfileType profile_type = 9 [
     (google.api.field_behavior) = REQUIRED
   ];
 }
@@ -628,6 +652,9 @@ message PlaidExchangeTokenRequest {
   string institution_id = 3;
   // The institution name
   string institution_name = 4;
+  FinancialUserProfileType profile_type = 9 [
+    (google.api.field_behavior) = REQUIRED
+  ];
 }
 
 message PlaidExchangeTokenResponse {
@@ -652,6 +679,9 @@ message GetInvestmentAcccountRequest {
     (validate.rules).uint64.gt = 0,
     (google.api.field_behavior) = REQUIRED
   ];
+  FinancialUserProfileType profile_type = 9 [
+    (google.api.field_behavior) = REQUIRED
+  ];
 }
 
 message GetInvestmentAcccountResponse {
@@ -672,6 +702,9 @@ message GetMortgageAccountRequest {
   // - mortage_account_id must be greater than 0
   uint64 mortgage_account_id = 2 [
     (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  FinancialUserProfileType profile_type = 9 [
     (google.api.field_behavior) = REQUIRED
   ];
 }
@@ -696,6 +729,9 @@ message GetLiabilityAccountRequest {
     (validate.rules).uint64.gt = 0,
     (google.api.field_behavior) = REQUIRED
   ];
+  FinancialUserProfileType profile_type = 9 [
+    (google.api.field_behavior) = REQUIRED
+  ];
 }
 
 message GetLiabilityAccountResponse {
@@ -718,6 +754,9 @@ message GetStudentLoanAccountRequest {
     (validate.rules).uint64.gt = 0,
     (google.api.field_behavior) = REQUIRED
   ];
+  FinancialUserProfileType profile_type = 9 [
+    (google.api.field_behavior) = REQUIRED
+  ];
 }
 
 message GetStudentLoanAccountResponse {
@@ -737,6 +776,9 @@ message CreateManualLinkRequest {
   // The manual account link
   Link manual_account_link = 2 [
     (validate.rules).message.required = true,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  FinancialUserProfileType profile_type = 9 [
     (google.api.field_behavior) = REQUIRED
   ];
 }
@@ -762,6 +804,9 @@ message GetLinkRequest {
     (validate.rules).uint64.gt = 0,
     (google.api.field_behavior) = REQUIRED
   ];
+  FinancialUserProfileType profile_type = 9 [
+    (google.api.field_behavior) = REQUIRED
+  ];
 }
 
 message GetLinkResponse {
@@ -776,6 +821,9 @@ message GetLinksRequest {
   // - user_id must be greater than 0
   uint64 user_id = 1 [
     (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  FinancialUserProfileType profile_type = 9 [
     (google.api.field_behavior) = REQUIRED
   ];
 }
@@ -801,6 +849,9 @@ message DeleteLinkRequest {
     (validate.rules).uint64.gt = 0,
     (google.api.field_behavior) = REQUIRED
   ];
+  FinancialUserProfileType profile_type = 9 [
+    (google.api.field_behavior) = REQUIRED
+  ];
 }
 
 message DeleteLinkResponse {
@@ -814,6 +865,9 @@ message GetReCurringTransactionsRequest {
   // - user_id must be greater than 0
   uint64 user_id = 2 [
     (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  FinancialUserProfileType profile_type = 9 [
     (google.api.field_behavior) = REQUIRED
   ];
 }
@@ -840,6 +894,9 @@ message GetTransactionsRequest {
 
   uint64 page_number = 3;
   uint64 page_size = 4;  
+  FinancialUserProfileType profile_type = 9 [
+    (google.api.field_behavior) = REQUIRED
+  ];
 }
 
 message GetTransactionsResponse {
@@ -926,6 +983,9 @@ message CreateSubscriptionRequest {
     (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
+  FinancialUserProfileType profile_type = 9 [
+    (google.api.field_behavior) = REQUIRED
+  ];
 }
 
 message CreateSubscriptionResponse {
@@ -949,7 +1009,10 @@ message GetTransactionsForBankAccountRequest {
   ];
 
   uint64 page_number = 3;
-  uint64 page_size = 4;  
+  uint64 page_size = 4;
+  FinancialUserProfileType profile_type = 9 [
+    (google.api.field_behavior) = REQUIRED
+  ];  
 }
 
 
@@ -972,6 +1035,9 @@ message AddDefaultPocketsToBankAccountRequest {
   // - bank_account_id must be greater than 0
   uint64 bank_account_id = 2 [
     (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  FinancialUserProfileType profile_type = 9 [
     (google.api.field_behavior) = REQUIRED
   ];
 }
@@ -1030,6 +1096,9 @@ message GetTransactionsBetweenTimeRangesRequest {
   uint64 end_time = 4;
   uint32 page = 5;   // Current page number
   uint32 limit = 6;  // Number of transactions per page
+  FinancialUserProfileType profile_type = 9 [
+    (google.api.field_behavior) = REQUIRED
+  ];
 }
 
 message GetTransactionsBetweenTimeRangesResponse {
@@ -1051,6 +1120,9 @@ message GetTransactionsForPastWeekRequest {
   ];
   uint32 page = 3;   // Current page number
   uint32 limit = 4;  // Number of transactions per page
+  FinancialUserProfileType profile_type = 9 [
+    (google.api.field_behavior) = REQUIRED
+  ];
 }
 
 message GetTransactionsForPastWeekResponse {
@@ -1071,6 +1143,9 @@ message GetTransactionsForPastMonthRequest {
   ];
   uint32 page = 3;   // Current page number
   uint32 limit = 4;  // Number of transactions per page
+  FinancialUserProfileType profile_type = 9 [
+    (google.api.field_behavior) = REQUIRED
+  ];
 }
 
 message GetTransactionsForPastMonthResponse {

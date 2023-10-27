@@ -376,6 +376,8 @@ func (m *GetUserProfileRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return GetUserProfileRequestMultiError(errors)
 	}
@@ -659,6 +661,8 @@ func (m *DeleteUserProfileRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
+
+	// no validation rules for ProfileType
 
 	if len(errors) > 0 {
 		return DeleteUserProfileRequestMultiError(errors)
@@ -1192,6 +1196,8 @@ func (m *CreateBankAccountRequest) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return CreateBankAccountRequestMultiError(errors)
 	}
@@ -1663,6 +1669,8 @@ func (m *DeleteBankAccountRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
+
+	// no validation rules for ProfileType
 
 	if len(errors) > 0 {
 		return DeleteBankAccountRequestMultiError(errors)
@@ -6542,6 +6550,8 @@ func (m *MergeGetPublicLinkTokenRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return MergeGetPublicLinkTokenRequestMultiError(errors)
 	}
@@ -6805,6 +6815,8 @@ func (m *MergeExchangePublicLinkTokenForAccountTokenRequest) validate(all bool) 
 		errors = append(errors, err)
 	}
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return MergeExchangePublicLinkTokenForAccountTokenRequestMultiError(errors)
 	}
@@ -7050,6 +7062,8 @@ func (m *PlaidInitiateTokenExchangeRequest) validate(all bool) error {
 
 	// no validation rules for PhoneNumber
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return PlaidInitiateTokenExchangeRequestMultiError(errors)
 	}
@@ -7286,6 +7300,8 @@ func (m *PlaidInitiateTokenUpdateRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
+
+	// no validation rules for ProfileType
 
 	if len(errors) > 0 {
 		return PlaidInitiateTokenUpdateRequestMultiError(errors)
@@ -7525,6 +7541,8 @@ func (m *PlaidExchangeTokenRequest) validate(all bool) error {
 
 	// no validation rules for InstitutionName
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return PlaidExchangeTokenRequestMultiError(errors)
 	}
@@ -7752,6 +7770,8 @@ func (m *GetInvestmentAcccountRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
+
+	// no validation rules for ProfileType
 
 	if len(errors) > 0 {
 		return GetInvestmentAcccountRequestMultiError(errors)
@@ -8010,6 +8030,8 @@ func (m *GetMortgageAccountRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return GetMortgageAccountRequestMultiError(errors)
 	}
@@ -8264,6 +8286,8 @@ func (m *GetLiabilityAccountRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
+
+	// no validation rules for ProfileType
 
 	if len(errors) > 0 {
 		return GetLiabilityAccountRequestMultiError(errors)
@@ -8520,6 +8544,8 @@ func (m *GetStudentLoanAccountRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
+
+	// no validation rules for ProfileType
 
 	if len(errors) > 0 {
 		return GetStudentLoanAccountRequestMultiError(errors)
@@ -8807,6 +8833,8 @@ func (m *CreateManualLinkRequest) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return CreateManualLinkRequestMultiError(errors)
 	}
@@ -9034,6 +9062,8 @@ func (m *GetLinkRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
+
+	// no validation rules for ProfileType
 
 	if len(errors) > 0 {
 		return GetLinkRequestMultiError(errors)
@@ -9274,6 +9304,8 @@ func (m *GetLinksRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
+
+	// no validation rules for ProfileType
 
 	if len(errors) > 0 {
 		return GetLinksRequestMultiError(errors)
@@ -9531,6 +9563,8 @@ func (m *DeleteLinkRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return DeleteLinkRequestMultiError(errors)
 	}
@@ -9747,6 +9781,8 @@ func (m *GetReCurringTransactionsRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
+
+	// no validation rules for ProfileType
 
 	if len(errors) > 0 {
 		return GetReCurringTransactionsRequestMultiError(errors)
@@ -10004,6 +10040,8 @@ func (m *GetTransactionsRequest) validate(all bool) error {
 	// no validation rules for PageNumber
 
 	// no validation rules for PageSize
+
+	// no validation rules for ProfileType
 
 	if len(errors) > 0 {
 		return GetTransactionsRequestMultiError(errors)
@@ -10763,6 +10801,8 @@ func (m *CreateSubscriptionRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return CreateSubscriptionRequestMultiError(errors)
 	}
@@ -10997,6 +11037,8 @@ func (m *GetTransactionsForBankAccountRequest) validate(all bool) error {
 	// no validation rules for PageNumber
 
 	// no validation rules for PageSize
+
+	// no validation rules for ProfileType
 
 	if len(errors) > 0 {
 		return GetTransactionsForBankAccountRequestMultiError(errors)
@@ -11265,6 +11307,8 @@ func (m *AddDefaultPocketsToBankAccountRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
+
+	// no validation rules for ProfileType
 
 	if len(errors) > 0 {
 		return AddDefaultPocketsToBankAccountRequestMultiError(errors)
@@ -12027,6 +12071,8 @@ func (m *GetTransactionsBetweenTimeRangesRequest) validate(all bool) error {
 
 	// no validation rules for Limit
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return GetTransactionsBetweenTimeRangesRequestMultiError(errors)
 	}
@@ -12304,6 +12350,8 @@ func (m *GetTransactionsForPastWeekRequest) validate(all bool) error {
 
 	// no validation rules for Limit
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return GetTransactionsForPastWeekRequestMultiError(errors)
 	}
@@ -12579,6 +12627,8 @@ func (m *GetTransactionsForPastMonthRequest) validate(all bool) error {
 	// no validation rules for Page
 
 	// no validation rules for Limit
+
+	// no validation rules for ProfileType
 
 	if len(errors) > 0 {
 		return GetTransactionsForPastMonthRequestMultiError(errors)
