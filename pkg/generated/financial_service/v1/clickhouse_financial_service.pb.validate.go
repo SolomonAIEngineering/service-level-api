@@ -4125,6 +4125,8 @@ func (m *MelodyFinancialContext) validate(all bool) error {
 
 	}
 
+	// no validation rules for FinancialUserProfileType
+
 	if len(errors) > 0 {
 		return MelodyFinancialContextMultiError(errors)
 	}

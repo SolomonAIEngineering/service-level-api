@@ -8816,6 +8816,9 @@
             "type": "object",
             "$ref": "#/definitions/StudentLoanAccount"
           }
+        },
+        "financialUserProfileType": {
+          "$ref": "#/definitions/FinancialUserProfileType"
         }
       },
       "description": "MelodyFinancialContext represents the financial context of a user.\nThis message is used to represent the financial context of a user."

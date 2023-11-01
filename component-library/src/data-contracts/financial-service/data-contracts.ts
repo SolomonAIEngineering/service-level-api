@@ -2492,6 +2492,7 @@ export interface MelodyFinancialContext {
   categories?: Array<CategoryMetricsFinancialSubProfile>;
   creditAccounts?: Array<CreditAccount>;
   expenses?: Array<ExpenseMetricsFinancialSubProfileMetrics>;
+  financialUserProfileType?: FinancialUserProfileType;
   income?: Array<IncomeMetricsFinancialSubProfile>;
   investmentAccounts?: Array<InvestmentAccount>;
   locations?: Array<LocationFinancialSubProfile>;

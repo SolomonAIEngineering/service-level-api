@@ -553,4 +553,5 @@ message MelodyFinancialContext{
    repeated CreditAccount credit_accounts = 9;
    repeated MortgageAccount mortgage_loan_accounts = 10;
    repeated StudentLoanAccount student_loan_accounts = 11;
+   FinancialUserProfileType financial_user_profile_type = 12;
 }
