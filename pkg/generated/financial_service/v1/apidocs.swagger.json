@@ -5240,6 +5240,9 @@
         },
         "id": {
           "type": "string"
+        },
+        "profileType": {
+          "$ref": "#/definitions/FinancialUserProfileType"
         }
       },
       "description": "Account Balance History\nThis message is used to represent the balance history of an account."
@@ -5971,6 +5974,9 @@
         "userId": {
           "type": "string",
           "format": "uint64"
+        },
+        "profileType": {
+          "$ref": "#/definitions/FinancialUserProfileType"
         }
       },
       "description": "CategoryMetricsFinancialSubProfile\nThis message is used to represent the financial sub profile of a category."
@@ -5992,6 +5998,9 @@
         "userId": {
           "type": "string",
           "format": "uint64"
+        },
+        "profileType": {
+          "$ref": "#/definitions/FinancialUserProfileType"
         }
       },
       "description": "CategoryMonthlyExpenditure represents the monthly expenditure of a category.\nThis message is used to represent the monthly expenditure of a category."
@@ -6013,6 +6022,9 @@
         "userId": {
           "type": "string",
           "format": "uint64"
+        },
+        "profileType": {
+          "$ref": "#/definitions/FinancialUserProfileType"
         }
       },
       "description": "CategoryMonthlyIncome\nThis message is used to represent the monthly income of a category."
@@ -6034,6 +6046,9 @@
         "userId": {
           "type": "string",
           "format": "uint64"
+        },
+        "profileType": {
+          "$ref": "#/definitions/FinancialUserProfileType"
         }
       },
       "description": "CategoryMonthlyTransactionCount\nThis message is used to represent the monthly transaction count of a category."
@@ -6669,6 +6684,9 @@
         "userId": {
           "type": "string",
           "format": "uint64"
+        },
+        "profileType": {
+          "$ref": "#/definitions/FinancialUserProfileType"
         }
       },
       "description": "DebtToIncomeRatio\nThis message is used to represent the debt to income ratio of a user."
@@ -6927,6 +6945,9 @@
         "userId": {
           "type": "string",
           "format": "uint64"
+        },
+        "profileType": {
+          "$ref": "#/definitions/FinancialUserProfileType"
         }
       },
       "description": "ExpenseMetrics\nThis message is used to represent the expense metrics of a user."
@@ -6961,6 +6982,9 @@
         "userId": {
           "type": "string",
           "format": "uint64"
+        },
+        "profileType": {
+          "$ref": "#/definitions/FinancialUserProfileType"
         }
       },
       "description": "ExpenseMetricsFinancialSubProfileMetrics\nThis message is used to represent the financial sub profile metrics of a user."
@@ -6990,6 +7014,9 @@
         "userId": {
           "type": "string",
           "format": "uint64"
+        },
+        "profileType": {
+          "$ref": "#/definitions/FinancialUserProfileType"
         }
       },
       "description": "FinancialProfile\nThis message is used to represent the financial profile of a user."
@@ -7765,6 +7792,9 @@
         "userId": {
           "type": "string",
           "format": "uint64"
+        },
+        "profileType": {
+          "$ref": "#/definitions/FinancialUserProfileType"
         }
       },
       "description": "IncomeExpenseRatio\nThis message is used to represent the income expense ratio of a user."
@@ -7790,6 +7820,9 @@
         "userId": {
           "type": "string",
           "format": "uint64"
+        },
+        "profileType": {
+          "$ref": "#/definitions/FinancialUserProfileType"
         }
       },
       "description": "IncomeMetrics\nThis message is used to represent the income metrics of a user."
@@ -7824,6 +7857,9 @@
         "userId": {
           "type": "string",
           "format": "uint64"
+        },
+        "profileType": {
+          "$ref": "#/definitions/FinancialUserProfileType"
         }
       },
       "description": "IncomeMetricsFinancialSubProfile\nThis message is used to represent the financial sub profile of a user."
@@ -8733,6 +8769,9 @@
         "month": {
           "type": "integer",
           "format": "int64"
+        },
+        "profileType": {
+          "$ref": "#/definitions/FinancialUserProfileType"
         }
       },
       "description": "LocationFinancialSubProfile\nThis message is used to represent the financial sub profile of a location."
@@ -8860,6 +8899,9 @@
         "month": {
           "type": "integer",
           "format": "int64"
+        },
+        "profileType": {
+          "$ref": "#/definitions/FinancialUserProfileType"
         }
       },
       "description": "MerchantFinancialSubProfile\nThis message is used to represent the financial sub profile of a merchant."
@@ -8881,6 +8923,9 @@
         "userId": {
           "type": "string",
           "format": "uint64"
+        },
+        "profileType": {
+          "$ref": "#/definitions/FinancialUserProfileType"
         }
       },
       "description": "MerchantMonthlyExpenditure\nThis message is used to represent the monthly expenditure of a merchant."
@@ -9087,6 +9132,9 @@
         "userId": {
           "type": "string",
           "format": "uint64"
+        },
+        "profileType": {
+          "$ref": "#/definitions/FinancialUserProfileType"
         }
       },
       "description": "MonthlyBalance\nThis message is used to represent the monthly balance of a user."
@@ -9105,6 +9153,9 @@
         "userId": {
           "type": "string",
           "format": "uint64"
+        },
+        "profileType": {
+          "$ref": "#/definitions/FinancialUserProfileType"
         }
       },
       "description": "MonthlyExpenditure\nThis message is used to represent the monthly expenditure of a user."
@@ -9123,6 +9174,9 @@
         "userId": {
           "type": "string",
           "format": "uint64"
+        },
+        "profileType": {
+          "$ref": "#/definitions/FinancialUserProfileType"
         }
       },
       "description": "MonthlyIncome\nThis message is used to represent the monthly income of a user."
@@ -9141,6 +9195,9 @@
         "userId": {
           "type": "string",
           "format": "uint64"
+        },
+        "profileType": {
+          "$ref": "#/definitions/FinancialUserProfileType"
         }
       },
       "description": "MonthlySavings\nThis message is used to represent the monthly savings of a user."
@@ -9162,6 +9219,9 @@
         "userId": {
           "type": "string",
           "format": "uint64"
+        },
+        "profileType": {
+          "$ref": "#/definitions/FinancialUserProfileType"
         }
       },
       "description": "MonthlyTotalQuantityBySecurityAndUser\nThis message is used to represent the monthly total quantity of a security."
@@ -9180,6 +9240,9 @@
         "userId": {
           "type": "string",
           "format": "uint64"
+        },
+        "profileType": {
+          "$ref": "#/definitions/FinancialUserProfileType"
         }
       },
       "description": "MonthlyTransactionCount\nThis message is used to represent the monthly transaction count of a user."
@@ -9409,6 +9472,9 @@
         "transactionCount": {
           "type": "string",
           "format": "uint64"
+        },
+        "profileType": {
+          "$ref": "#/definitions/FinancialUserProfileType"
         }
       },
       "description": "PaymentChannelMetricsFinancialSubProfile\nThis message is used to represent the financial sub profile of a payment channel."
@@ -9430,6 +9496,9 @@
         "userId": {
           "type": "string",
           "format": "uint64"
+        },
+        "profileType": {
+          "$ref": "#/definitions/FinancialUserProfileType"
         }
       },
       "description": "PaymentChannelMonthlyExpenditure\nThis message is used to represent the monthly expenditure of a payment channel."
@@ -10347,6 +10416,10 @@
         },
         "additionalProperties": {
           "$ref": "#/definitions/Any"
+        },
+        "profileType": {
+          "$ref": "#/definitions/FinancialUserProfileType",
+          "title": "@gotag: ch:\"profile_type\""
         }
       }
     },
@@ -10905,6 +10978,9 @@
         "userId": {
           "type": "string",
           "format": "uint64"
+        },
+        "profileType": {
+          "$ref": "#/definitions/FinancialUserProfileType"
         }
       },
       "description": "TotalInvestmentBySecurity\nThis message is used to represent the total investment of a security."
@@ -11072,6 +11148,10 @@
           "items": {
             "type": "string"
           }
+        },
+        "profileType": {
+          "$ref": "#/definitions/FinancialUserProfileType",
+          "title": "@gotag: ch:\"profile_type\""
         }
       }
     },
@@ -11105,6 +11185,9 @@
         "userId": {
           "type": "string",
           "format": "uint64"
+        },
+        "profileType": {
+          "$ref": "#/definitions/FinancialUserProfileType"
         }
       },
       "description": "TransactionAggregatesByMonth\nThis message is used to represent the transaction aggregates of a user."

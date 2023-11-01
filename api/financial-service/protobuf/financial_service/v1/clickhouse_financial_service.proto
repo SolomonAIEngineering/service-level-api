@@ -101,6 +101,8 @@ message InvestmentTransaction {
     int32 sign = 19;
     google.protobuf.Timestamp time = 20;
     google.protobuf.Any additional_properties = 21;
+    // @gotag: ch:"profile_type"
+    FinancialUserProfileType profile_type = 22;
 }
 
 message ReOccuringTransaction {
@@ -160,6 +162,8 @@ message ReOccuringTransaction {
     int32 sign = 24;
     google.protobuf.Timestamp time = 25;
     google.protobuf.Any additional_properties = 26;
+    // @gotag: ch:"profile_type"
+    FinancialUserProfileType profile_type = 27;
 }
 
 message Transaction {
@@ -237,6 +241,8 @@ message Transaction {
     google.protobuf.Timestamp time = 44;
     google.protobuf.Any additional_properties = 45;
     repeated string categories = 46;
+    // @gotag: ch:"profile_type"
+    FinancialUserProfileType profile_type = 47;
 }
 
 
@@ -253,6 +259,7 @@ message AccountBalanceHistory {
     string id = 7 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
     ];
+    FinancialUserProfileType profile_type = 22;
 }
 
 // CategoryMetricsFinancialSubProfile
@@ -269,6 +276,7 @@ message CategoryMetricsFinancialSubProfile {
     double spent_last_year = 8;
     double spent_last_two_years = 9;
     uint64 user_id = 10;
+    FinancialUserProfileType profile_type = 22;
 }
 
 // CategoryMonthlyExpenditure represents the monthly expenditure of a category.
@@ -279,6 +287,7 @@ message CategoryMonthlyExpenditure {
     string personal_finance_category_primary = 2;
     double total_spending = 3;
     uint64 user_id = 4;
+    FinancialUserProfileType profile_type = 22;
 }
 
 // CategoryMonthlyIncome
@@ -289,6 +298,7 @@ message CategoryMonthlyIncome {
     string personal_finance_category_primary = 2;
     double total_income = 3;
     uint64 user_id = 4;
+    FinancialUserProfileType profile_type = 22;
 }
 
 // CategoryMonthlyTransactionCount
@@ -299,6 +309,7 @@ message CategoryMonthlyTransactionCount {
     string personal_finance_category_primary = 2;
     uint32 transaction_count = 3;
     uint64 user_id = 4;
+    FinancialUserProfileType profile_type = 22;
 }
 
 // DebtToIncomeRatio
@@ -308,6 +319,7 @@ message DebtToIncomeRatio {
     uint32 month = 1;
     double ratio = 2;
     uint64 user_id = 3;
+    FinancialUserProfileType profile_type = 22;
 }
 
 // ExpenseMetrics
@@ -319,6 +331,7 @@ message ExpenseMetrics {
     uint64 transaction_count = 3;
     double total_expenses = 4;
     uint64 user_id = 8;
+    FinancialUserProfileType profile_type = 22;
 }
 
 
@@ -333,6 +346,7 @@ message ExpenseMetricsFinancialSubProfileMetrics {
     double average_monthly_discretionary_spending = 8;
     double average_monthly_recurring_spending = 9;
     uint64 user_id = 10;
+    FinancialUserProfileType profile_type = 22;
 }
 
 // FinancialProfile
@@ -345,6 +359,7 @@ message FinancialProfile {
     uint64 number_of_transactions = 5;
     string most_expensive_category = 6;
     uint64 user_id = 9;
+    FinancialUserProfileType profile_type = 22;
 }
 
 // IncomeExpenseRatio
@@ -354,6 +369,7 @@ message IncomeExpenseRatio {
     uint32 month = 1;
     double ratio = 2;
     uint64 user_id = 3;
+    FinancialUserProfileType profile_type = 22;
 }
 
 // IncomeMetrics
@@ -365,6 +381,7 @@ message IncomeMetrics {
     uint64 transaction_count = 3;
     double total_income = 4;
     uint64 user_id = 8;
+    FinancialUserProfileType profile_type = 22;
 }
 
 // IncomeMetricsFinancialSubProfile
@@ -378,6 +395,7 @@ message IncomeMetricsFinancialSubProfile {
     double income_last_six_months = 5;
     double income_last_year = 6;
     uint64 user_id = 8;
+    FinancialUserProfileType profile_type = 22;
 }
 
 // LocationFinancialSubProfile
@@ -394,6 +412,7 @@ message LocationFinancialSubProfile {
     double spent_last_two_years = 8;
     uint64 user_id = 9;
     uint32 month = 10;
+    FinancialUserProfileType profile_type = 22;
 }
 
 // MerchantFinancialSubProfile
@@ -409,6 +428,7 @@ message MerchantMetricsFinancialSubProfile {
     double spent_last_two_years = 8;
     uint64 user_id = 9;
     uint32 month = 10;
+    FinancialUserProfileType profile_type = 22;
 }
 
 // MerchantMonthlyExpenditure
@@ -419,6 +439,7 @@ message MerchantMonthlyExpenditure {
     string merchant_name = 2;
     double total_spending = 3;
     uint64 user_id = 4;
+    FinancialUserProfileType profile_type = 22;
 }
 
 // MonthlyBalance
@@ -428,6 +449,7 @@ message MonthlyBalance {
     uint32 month = 1;
     double net_balance = 2;
     uint64 user_id = 3;
+    FinancialUserProfileType profile_type = 22;
 }
 
 // MonthlyExpenditure
@@ -437,6 +459,7 @@ message MonthlyExpenditure {
     uint32 month = 1;
     double total_spending = 2;
     uint64 user_id = 3;
+    FinancialUserProfileType profile_type = 22;
 }
 
 // MonthlyIncome
@@ -446,6 +469,7 @@ message MonthlyIncome {
     uint32 month = 1;
     double total_income = 2;
     uint64 user_id = 3;
+    FinancialUserProfileType profile_type = 22;
 }
 
 // MonthlySavings
@@ -455,6 +479,7 @@ message MonthlySavings {
     uint32 month = 1;
     double net_savings = 2;
     uint64 user_id = 3;
+    FinancialUserProfileType profile_type = 22;
 }
 
 // MonthlyTotalQuantityBySecurityAndUser
@@ -465,6 +490,7 @@ message MonthlyTotalQuantityBySecurityAndUser {
     string security_id = 2;
     double total_quantity = 3;
     uint64 user_id = 4;
+    FinancialUserProfileType profile_type = 22;
 }
 
 // MonthlyTransactionCount
@@ -474,6 +500,7 @@ message MonthlyTransactionCount {
     uint32 month = 1;
     uint64 transaction_count = 2;
     uint64 user_id = 3;
+    FinancialUserProfileType profile_type = 22;
 }
 
 // PaymentChannelMetricsFinancialSubProfile
@@ -490,6 +517,7 @@ message PaymentChannelMetricsFinancialSubProfile {
     uint64 user_id = 8;
     uint32 month = 9;
     uint64 transaction_count = 10;
+    FinancialUserProfileType profile_type = 22;
 }
 
 // PaymentChannelMonthlyExpenditure
@@ -500,6 +528,7 @@ message PaymentChannelMonthlyExpenditure {
     string payment_channel = 2;
     double total_spending = 3;
     uint64 user_id = 4;
+    FinancialUserProfileType profile_type = 22;
 }
 
 // TotalInvestmentBySecurity
@@ -509,6 +538,7 @@ message TotalInvestmentBySecurity {
     string security_id = 1;
     double total_investment = 2;
     uint64 user_id = 3;
+    FinancialUserProfileType profile_type = 22;
 }
 
 
@@ -524,6 +554,7 @@ message TransactionAggregatesByMonth {
     uint64 transaction_count = 6;
     double total_amount = 7;
     uint64 user_id = 8;
+    FinancialUserProfileType profile_type = 22;
 }
 
 // UserFinancialHealthMetricsTable
@@ -537,6 +568,7 @@ message UserFinancialHealthMetricsTable {
     uint64 transaction_diversity = 5;
     double debt_to_income_ratio = 6;
     uint64 overdraft_frequency = 7;
+    FinancialUserProfileType profile_type = 22;
 }
 
 // MelodyFinancialContext represents the financial context of a user.

@@ -171,6 +171,8 @@ func (m *InvestmentTransaction) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return InvestmentTransactionMultiError(errors)
 	}
@@ -394,6 +396,8 @@ func (m *ReOccuringTransaction) validate(all bool) error {
 			}
 		}
 	}
+
+	// no validation rules for ProfileType
 
 	if len(errors) > 0 {
 		return ReOccuringTransactionMultiError(errors)
@@ -653,6 +657,8 @@ func (m *Transaction) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return TransactionMultiError(errors)
 	}
@@ -793,6 +799,8 @@ func (m *AccountBalanceHistory) validate(all bool) error {
 
 	// no validation rules for Id
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return AccountBalanceHistoryMultiError(errors)
 	}
@@ -916,6 +924,8 @@ func (m *CategoryMetricsFinancialSubProfile) validate(all bool) error {
 
 	// no validation rules for UserId
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return CategoryMetricsFinancialSubProfileMultiError(errors)
 	}
@@ -1028,6 +1038,8 @@ func (m *CategoryMonthlyExpenditure) validate(all bool) error {
 
 	// no validation rules for UserId
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return CategoryMonthlyExpenditureMultiError(errors)
 	}
@@ -1137,6 +1149,8 @@ func (m *CategoryMonthlyIncome) validate(all bool) error {
 	// no validation rules for TotalIncome
 
 	// no validation rules for UserId
+
+	// no validation rules for ProfileType
 
 	if len(errors) > 0 {
 		return CategoryMonthlyIncomeMultiError(errors)
@@ -1248,6 +1262,8 @@ func (m *CategoryMonthlyTransactionCount) validate(all bool) error {
 
 	// no validation rules for UserId
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return CategoryMonthlyTransactionCountMultiError(errors)
 	}
@@ -1356,6 +1372,8 @@ func (m *DebtToIncomeRatio) validate(all bool) error {
 	// no validation rules for Ratio
 
 	// no validation rules for UserId
+
+	// no validation rules for ProfileType
 
 	if len(errors) > 0 {
 		return DebtToIncomeRatioMultiError(errors)
@@ -1468,6 +1486,8 @@ func (m *ExpenseMetrics) validate(all bool) error {
 	// no validation rules for TotalExpenses
 
 	// no validation rules for UserId
+
+	// no validation rules for ProfileType
 
 	if len(errors) > 0 {
 		return ExpenseMetricsMultiError(errors)
@@ -1585,6 +1605,8 @@ func (m *ExpenseMetricsFinancialSubProfileMetrics) validate(all bool) error {
 
 	// no validation rules for UserId
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return ExpenseMetricsFinancialSubProfileMetricsMultiError(errors)
 	}
@@ -1701,6 +1723,8 @@ func (m *FinancialProfile) validate(all bool) error {
 
 	// no validation rules for UserId
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return FinancialProfileMultiError(errors)
 	}
@@ -1806,6 +1830,8 @@ func (m *IncomeExpenseRatio) validate(all bool) error {
 	// no validation rules for Ratio
 
 	// no validation rules for UserId
+
+	// no validation rules for ProfileType
 
 	if len(errors) > 0 {
 		return IncomeExpenseRatioMultiError(errors)
@@ -1918,6 +1944,8 @@ func (m *IncomeMetrics) validate(all bool) error {
 	// no validation rules for TotalIncome
 
 	// no validation rules for UserId
+
+	// no validation rules for ProfileType
 
 	if len(errors) > 0 {
 		return IncomeMetricsMultiError(errors)
@@ -2033,6 +2061,8 @@ func (m *IncomeMetricsFinancialSubProfile) validate(all bool) error {
 	// no validation rules for IncomeLastYear
 
 	// no validation rules for UserId
+
+	// no validation rules for ProfileType
 
 	if len(errors) > 0 {
 		return IncomeMetricsFinancialSubProfileMultiError(errors)
@@ -2158,6 +2188,8 @@ func (m *LocationFinancialSubProfile) validate(all bool) error {
 
 	// no validation rules for Month
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return LocationFinancialSubProfileMultiError(errors)
 	}
@@ -2280,6 +2312,8 @@ func (m *MerchantMetricsFinancialSubProfile) validate(all bool) error {
 
 	// no validation rules for Month
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return MerchantMetricsFinancialSubProfileMultiError(errors)
 	}
@@ -2392,6 +2426,8 @@ func (m *MerchantMonthlyExpenditure) validate(all bool) error {
 
 	// no validation rules for UserId
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return MerchantMonthlyExpenditureMultiError(errors)
 	}
@@ -2500,6 +2536,8 @@ func (m *MonthlyBalance) validate(all bool) error {
 
 	// no validation rules for UserId
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return MonthlyBalanceMultiError(errors)
 	}
@@ -2605,6 +2643,8 @@ func (m *MonthlyExpenditure) validate(all bool) error {
 	// no validation rules for TotalSpending
 
 	// no validation rules for UserId
+
+	// no validation rules for ProfileType
 
 	if len(errors) > 0 {
 		return MonthlyExpenditureMultiError(errors)
@@ -2714,6 +2754,8 @@ func (m *MonthlyIncome) validate(all bool) error {
 
 	// no validation rules for UserId
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return MonthlyIncomeMultiError(errors)
 	}
@@ -2819,6 +2861,8 @@ func (m *MonthlySavings) validate(all bool) error {
 	// no validation rules for NetSavings
 
 	// no validation rules for UserId
+
+	// no validation rules for ProfileType
 
 	if len(errors) > 0 {
 		return MonthlySavingsMultiError(errors)
@@ -2929,6 +2973,8 @@ func (m *MonthlyTotalQuantityBySecurityAndUser) validate(all bool) error {
 
 	// no validation rules for UserId
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return MonthlyTotalQuantityBySecurityAndUserMultiError(errors)
 	}
@@ -3038,6 +3084,8 @@ func (m *MonthlyTransactionCount) validate(all bool) error {
 	// no validation rules for TransactionCount
 
 	// no validation rules for UserId
+
+	// no validation rules for ProfileType
 
 	if len(errors) > 0 {
 		return MonthlyTransactionCountMultiError(errors)
@@ -3163,6 +3211,8 @@ func (m *PaymentChannelMetricsFinancialSubProfile) validate(all bool) error {
 
 	// no validation rules for TransactionCount
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return PaymentChannelMetricsFinancialSubProfileMultiError(errors)
 	}
@@ -3276,6 +3326,8 @@ func (m *PaymentChannelMonthlyExpenditure) validate(all bool) error {
 
 	// no validation rules for UserId
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return PaymentChannelMonthlyExpenditureMultiError(errors)
 	}
@@ -3385,6 +3437,8 @@ func (m *TotalInvestmentBySecurity) validate(all bool) error {
 	// no validation rules for TotalInvestment
 
 	// no validation rules for UserId
+
+	// no validation rules for ProfileType
 
 	if len(errors) > 0 {
 		return TotalInvestmentBySecurityMultiError(errors)
@@ -3503,6 +3557,8 @@ func (m *TransactionAggregatesByMonth) validate(all bool) error {
 	// no validation rules for TotalAmount
 
 	// no validation rules for UserId
+
+	// no validation rules for ProfileType
 
 	if len(errors) > 0 {
 		return TransactionAggregatesByMonthMultiError(errors)
@@ -3647,6 +3703,8 @@ func (m *UserFinancialHealthMetricsTable) validate(all bool) error {
 	// no validation rules for DebtToIncomeRatio
 
 	// no validation rules for OverdraftFrequency
+
+	// no validation rules for ProfileType
 
 	if len(errors) > 0 {
 		return UserFinancialHealthMetricsTableMultiError(errors)

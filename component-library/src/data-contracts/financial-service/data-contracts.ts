@@ -19,6 +19,7 @@ export interface AccountBalanceHistory {
   balance?: number;
   id?: string;
   isoCurrencyCode?: string;
+  profileType?: FinancialUserProfileType;
   /** @format int64 */
   sign?: number;
   /** @format date-time */
@@ -618,6 +619,7 @@ export interface CategoryMetricsFinancialSubProfile {
   /** @format int64 */
   month?: number;
   personalFinanceCategoryPrimary?: string;
+  profileType?: FinancialUserProfileType;
   /** @format double */
   spentLastMonth?: number;
   /** @format double */
@@ -644,6 +646,7 @@ export interface CategoryMonthlyExpenditure {
   /** @format int64 */
   month?: number;
   personalFinanceCategoryPrimary?: string;
+  profileType?: FinancialUserProfileType;
   /** @format double */
   totalSpending?: number;
   /** @format uint64 */
@@ -658,6 +661,7 @@ export interface CategoryMonthlyIncome {
   /** @format int64 */
   month?: number;
   personalFinanceCategoryPrimary?: string;
+  profileType?: FinancialUserProfileType;
   /** @format double */
   totalIncome?: number;
   /** @format uint64 */
@@ -672,6 +676,7 @@ export interface CategoryMonthlyTransactionCount {
   /** @format int64 */
   month?: number;
   personalFinanceCategoryPrimary?: string;
+  profileType?: FinancialUserProfileType;
   /** @format int64 */
   transactionCount?: number;
   /** @format uint64 */
@@ -1141,6 +1146,7 @@ export interface CreditNoteLineItem {
 export interface DebtToIncomeRatio {
   /** @format int64 */
   month?: number;
+  profileType?: FinancialUserProfileType;
   /** @format double */
   ratio?: number;
   /** @format uint64 */
@@ -1342,6 +1348,7 @@ export interface ExpenseMetrics {
   /** @format int64 */
   month?: number;
   personalFinanceCategoryPrimary?: string;
+  profileType?: FinancialUserProfileType;
   /** @format double */
   totalExpenses?: number;
   /** @format uint64 */
@@ -1361,6 +1368,7 @@ export interface ExpenseMetricsFinancialSubProfileMetrics {
   averageMonthlyRecurringSpending?: number;
   /** @format int64 */
   month?: number;
+  profileType?: FinancialUserProfileType;
   /** @format double */
   spentLastMonth?: number;
   /** @format double */
@@ -1381,6 +1389,7 @@ export interface FinancialProfile {
   mostExpensiveCategory?: string;
   /** @format uint64 */
   numberOfTransactions?: string;
+  profileType?: FinancialUserProfileType;
   /** @format double */
   totalExpenses?: number;
   /** @format double */
@@ -1885,6 +1894,7 @@ export interface HealthCheckResponse {
 export interface IncomeExpenseRatio {
   /** @format int64 */
   month?: number;
+  profileType?: FinancialUserProfileType;
   /** @format double */
   ratio?: number;
   /** @format uint64 */
@@ -1899,6 +1909,7 @@ export interface IncomeMetrics {
   /** @format int64 */
   month?: number;
   personalFinanceCategoryPrimary?: string;
+  profileType?: FinancialUserProfileType;
   /** @format double */
   totalIncome?: number;
   /** @format uint64 */
@@ -1924,6 +1935,7 @@ export interface IncomeMetricsFinancialSubProfile {
   incomeLastYear?: number;
   /** @format int64 */
   month?: number;
+  profileType?: FinancialUserProfileType;
   /** @format uint64 */
   userId?: string;
 }
@@ -2465,6 +2477,7 @@ export interface LocationFinancialSubProfile {
   locationCity?: string;
   /** @format int64 */
   month?: number;
+  profileType?: FinancialUserProfileType;
   /** @format double */
   spentLastMonth?: number;
   /** @format double */
@@ -2510,6 +2523,7 @@ export interface MerchantMetricsFinancialSubProfile {
   merchantName?: string;
   /** @format int64 */
   month?: number;
+  profileType?: FinancialUserProfileType;
   /** @format double */
   spentLastMonth?: number;
   /** @format double */
@@ -2534,6 +2548,7 @@ export interface MerchantMonthlyExpenditure {
   merchantName?: string;
   /** @format int64 */
   month?: number;
+  profileType?: FinancialUserProfileType;
   /** @format double */
   totalSpending?: number;
   /** @format uint64 */
@@ -2680,6 +2695,7 @@ export interface MonthlyBalance {
   month?: number;
   /** @format double */
   netBalance?: number;
+  profileType?: FinancialUserProfileType;
   /** @format uint64 */
   userId?: string;
 }
@@ -2691,6 +2707,7 @@ export interface MonthlyBalance {
 export interface MonthlyExpenditure {
   /** @format int64 */
   month?: number;
+  profileType?: FinancialUserProfileType;
   /** @format double */
   totalSpending?: number;
   /** @format uint64 */
@@ -2704,6 +2721,7 @@ export interface MonthlyExpenditure {
 export interface MonthlyIncome {
   /** @format int64 */
   month?: number;
+  profileType?: FinancialUserProfileType;
   /** @format double */
   totalIncome?: number;
   /** @format uint64 */
@@ -2719,6 +2737,7 @@ export interface MonthlySavings {
   month?: number;
   /** @format double */
   netSavings?: number;
+  profileType?: FinancialUserProfileType;
   /** @format uint64 */
   userId?: string;
 }
@@ -2730,6 +2749,7 @@ export interface MonthlySavings {
 export interface MonthlyTotalQuantityBySecurityAndUser {
   /** @format int64 */
   month?: number;
+  profileType?: FinancialUserProfileType;
   securityId?: string;
   /** @format double */
   totalQuantity?: number;
@@ -2744,6 +2764,7 @@ export interface MonthlyTotalQuantityBySecurityAndUser {
 export interface MonthlyTransactionCount {
   /** @format int64 */
   month?: number;
+  profileType?: FinancialUserProfileType;
   /** @format uint64 */
   transactionCount?: string;
   /** @format uint64 */
@@ -2845,6 +2866,7 @@ export interface PaymentChannelMetricsFinancialSubProfile {
   /** @format int64 */
   month?: number;
   paymentChannel?: string;
+  profileType?: FinancialUserProfileType;
   /** @format double */
   spentLastMonth?: number;
   /** @format double */
@@ -2871,6 +2893,7 @@ export interface PaymentChannelMonthlyExpenditure {
   /** @format int64 */
   month?: number;
   paymentChannel?: string;
+  profileType?: FinancialUserProfileType;
   /** @format double */
   totalSpending?: number;
   /** @format uint64 */
@@ -3635,6 +3658,8 @@ export interface ReOccuringTransaction {
   personalFinanceCategoryDetailed?: string;
   /** @gotag: ch:"personal_finance_category_primary" */
   personalFinanceCategoryPrimary?: string;
+  /** @gotag: ch:"profile_type" */
+  profileType?: FinancialUserProfileType;
   /** @format int32 */
   sign?: number;
   /**
@@ -4023,6 +4048,7 @@ export interface Token {
  * This message is used to represent the total investment of a security.
  */
 export interface TotalInvestmentBySecurity {
+  profileType?: FinancialUserProfileType;
   securityId?: string;
   /** @format double */
   totalInvestment?: number;
@@ -4178,6 +4204,8 @@ export interface Transaction {
   personalFinanceCategoryDetailed?: string;
   /** @gotag: ch:"personal_finance_category_primary" */
   personalFinanceCategoryPrimary?: string;
+  /** @gotag: ch:"profile_type" */
+  profileType?: FinancialUserProfileType;
   /** @format int32 */
   sign?: number;
   /** @format date-time */
@@ -4206,6 +4234,7 @@ export interface TransactionAggregatesByMonth {
   month?: number;
   paymentChannel?: string;
   personalFinanceCategoryPrimary?: string;
+  profileType?: FinancialUserProfileType;
   /** @format double */
   totalAmount?: number;
   /** @format uint64 */

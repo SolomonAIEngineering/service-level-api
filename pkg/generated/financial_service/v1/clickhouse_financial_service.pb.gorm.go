@@ -27,6 +27,7 @@ type InvestmentTransactionORM struct {
 	LinkId                  uint64
 	Name                    string
 	Price                   float64
+	ProfileType             string
 	Quantity                float64
 	SecurityId              string
 	Sign                    int32
@@ -75,6 +76,7 @@ func (m *InvestmentTransaction) ToORM(ctx context.Context) (InvestmentTransactio
 		t := m.Time.AsTime()
 		to.Time = &t
 	}
+	to.ProfileType = FinancialUserProfileType_name[int32(m.ProfileType)]
 	if posthook, ok := interface{}(m).(InvestmentTransactionWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -113,6 +115,7 @@ func (m *InvestmentTransactionORM) ToPB(ctx context.Context) (InvestmentTransact
 	if m.Time != nil {
 		to.Time = timestamppb.New(*m.Time)
 	}
+	to.ProfileType = FinancialUserProfileType(FinancialUserProfileType_value[m.ProfileType])
 	if posthook, ok := interface{}(m).(InvestmentTransactionWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -160,6 +163,7 @@ type ReOccuringTransactionORM struct {
 	MerchantName                    string
 	PersonalFinanceCategoryDetailed string
 	PersonalFinanceCategoryPrimary  string
+	ProfileType                     string
 	Sign                            int32
 	Status                          string
 	StreamId                        string
@@ -211,6 +215,7 @@ func (m *ReOccuringTransaction) ToORM(ctx context.Context) (ReOccuringTransactio
 		t := m.Time.AsTime()
 		to.Time = &t
 	}
+	to.ProfileType = FinancialUserProfileType_name[int32(m.ProfileType)]
 	if posthook, ok := interface{}(m).(ReOccuringTransactionWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -253,6 +258,7 @@ func (m *ReOccuringTransactionORM) ToPB(ctx context.Context) (ReOccuringTransact
 	if m.Time != nil {
 		to.Time = timestamppb.New(*m.Time)
 	}
+	to.ProfileType = FinancialUserProfileType(FinancialUserProfileType_value[m.ProfileType])
 	if posthook, ok := interface{}(m).(ReOccuringTransactionWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -319,6 +325,7 @@ type TransactionORM struct {
 	PendingTransactionId            string
 	PersonalFinanceCategoryDetailed string
 	PersonalFinanceCategoryPrimary  string
+	ProfileType                     string
 	Sign                            int32
 	Time                            *time.Time
 	TransactionCode                 string
@@ -390,6 +397,7 @@ func (m *Transaction) ToORM(ctx context.Context) (TransactionORM, error) {
 		to.Categories = make(pq.StringArray, len(m.Categories))
 		copy(to.Categories, m.Categories)
 	}
+	to.ProfileType = FinancialUserProfileType_name[int32(m.ProfileType)]
 	if posthook, ok := interface{}(m).(TransactionWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -453,6 +461,7 @@ func (m *TransactionORM) ToPB(ctx context.Context) (Transaction, error) {
 		to.Categories = make(pq.StringArray, len(m.Categories))
 		copy(to.Categories, m.Categories)
 	}
+	to.ProfileType = FinancialUserProfileType(FinancialUserProfileType_value[m.ProfileType])
 	if posthook, ok := interface{}(m).(TransactionWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -487,6 +496,7 @@ type AccountBalanceHistoryORM struct {
 	Balance         float64
 	Id              string
 	IsoCurrencyCode string
+	ProfileType     string
 	Sign            uint32
 	Time            *time.Time
 	UserId          uint64
@@ -517,6 +527,7 @@ func (m *AccountBalanceHistory) ToORM(ctx context.Context) (AccountBalanceHistor
 	to.UserId = m.UserId
 	to.Sign = m.Sign
 	to.Id = m.Id
+	to.ProfileType = FinancialUserProfileType_name[int32(m.ProfileType)]
 	if posthook, ok := interface{}(m).(AccountBalanceHistoryWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -542,6 +553,7 @@ func (m *AccountBalanceHistoryORM) ToPB(ctx context.Context) (AccountBalanceHist
 	to.UserId = m.UserId
 	to.Sign = m.Sign
 	to.Id = m.Id
+	to.ProfileType = FinancialUserProfileType(FinancialUserProfileType_value[m.ProfileType])
 	if posthook, ok := interface{}(m).(AccountBalanceHistoryWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -574,6 +586,7 @@ type AccountBalanceHistoryWithAfterToPB interface {
 type CategoryMetricsFinancialSubProfileORM struct {
 	Month                          uint32
 	PersonalFinanceCategoryPrimary string
+	ProfileType                    string
 	SpentLastMonth                 float64
 	SpentLastSixMonths             float64
 	SpentLastTwoWeeks              float64
@@ -609,6 +622,7 @@ func (m *CategoryMetricsFinancialSubProfile) ToORM(ctx context.Context) (Categor
 	to.SpentLastYear = m.SpentLastYear
 	to.SpentLastTwoYears = m.SpentLastTwoYears
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType_name[int32(m.ProfileType)]
 	if posthook, ok := interface{}(m).(CategoryMetricsFinancialSubProfileWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -635,6 +649,7 @@ func (m *CategoryMetricsFinancialSubProfileORM) ToPB(ctx context.Context) (Categ
 	to.SpentLastYear = m.SpentLastYear
 	to.SpentLastTwoYears = m.SpentLastTwoYears
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType(FinancialUserProfileType_value[m.ProfileType])
 	if posthook, ok := interface{}(m).(CategoryMetricsFinancialSubProfileWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -667,6 +682,7 @@ type CategoryMetricsFinancialSubProfileWithAfterToPB interface {
 type CategoryMonthlyExpenditureORM struct {
 	Month                          uint32
 	PersonalFinanceCategoryPrimary string
+	ProfileType                    string
 	TotalSpending                  float64
 	UserId                         uint64
 }
@@ -690,6 +706,7 @@ func (m *CategoryMonthlyExpenditure) ToORM(ctx context.Context) (CategoryMonthly
 	to.PersonalFinanceCategoryPrimary = m.PersonalFinanceCategoryPrimary
 	to.TotalSpending = m.TotalSpending
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType_name[int32(m.ProfileType)]
 	if posthook, ok := interface{}(m).(CategoryMonthlyExpenditureWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -710,6 +727,7 @@ func (m *CategoryMonthlyExpenditureORM) ToPB(ctx context.Context) (CategoryMonth
 	to.PersonalFinanceCategoryPrimary = m.PersonalFinanceCategoryPrimary
 	to.TotalSpending = m.TotalSpending
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType(FinancialUserProfileType_value[m.ProfileType])
 	if posthook, ok := interface{}(m).(CategoryMonthlyExpenditureWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -742,6 +760,7 @@ type CategoryMonthlyExpenditureWithAfterToPB interface {
 type CategoryMonthlyIncomeORM struct {
 	Month                          uint32
 	PersonalFinanceCategoryPrimary string
+	ProfileType                    string
 	TotalIncome                    float64
 	UserId                         uint64
 }
@@ -765,6 +784,7 @@ func (m *CategoryMonthlyIncome) ToORM(ctx context.Context) (CategoryMonthlyIncom
 	to.PersonalFinanceCategoryPrimary = m.PersonalFinanceCategoryPrimary
 	to.TotalIncome = m.TotalIncome
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType_name[int32(m.ProfileType)]
 	if posthook, ok := interface{}(m).(CategoryMonthlyIncomeWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -785,6 +805,7 @@ func (m *CategoryMonthlyIncomeORM) ToPB(ctx context.Context) (CategoryMonthlyInc
 	to.PersonalFinanceCategoryPrimary = m.PersonalFinanceCategoryPrimary
 	to.TotalIncome = m.TotalIncome
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType(FinancialUserProfileType_value[m.ProfileType])
 	if posthook, ok := interface{}(m).(CategoryMonthlyIncomeWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -817,6 +838,7 @@ type CategoryMonthlyIncomeWithAfterToPB interface {
 type CategoryMonthlyTransactionCountORM struct {
 	Month                          uint32
 	PersonalFinanceCategoryPrimary string
+	ProfileType                    string
 	TransactionCount               uint32
 	UserId                         uint64
 }
@@ -840,6 +862,7 @@ func (m *CategoryMonthlyTransactionCount) ToORM(ctx context.Context) (CategoryMo
 	to.PersonalFinanceCategoryPrimary = m.PersonalFinanceCategoryPrimary
 	to.TransactionCount = m.TransactionCount
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType_name[int32(m.ProfileType)]
 	if posthook, ok := interface{}(m).(CategoryMonthlyTransactionCountWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -860,6 +883,7 @@ func (m *CategoryMonthlyTransactionCountORM) ToPB(ctx context.Context) (Category
 	to.PersonalFinanceCategoryPrimary = m.PersonalFinanceCategoryPrimary
 	to.TransactionCount = m.TransactionCount
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType(FinancialUserProfileType_value[m.ProfileType])
 	if posthook, ok := interface{}(m).(CategoryMonthlyTransactionCountWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -890,9 +914,10 @@ type CategoryMonthlyTransactionCountWithAfterToPB interface {
 }
 
 type DebtToIncomeRatioORM struct {
-	Month  uint32
-	Ratio  float64
-	UserId uint64
+	Month       uint32
+	ProfileType string
+	Ratio       float64
+	UserId      uint64
 }
 
 // TableName overrides the default tablename generated by GORM
@@ -913,6 +938,7 @@ func (m *DebtToIncomeRatio) ToORM(ctx context.Context) (DebtToIncomeRatioORM, er
 	to.Month = m.Month
 	to.Ratio = m.Ratio
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType_name[int32(m.ProfileType)]
 	if posthook, ok := interface{}(m).(DebtToIncomeRatioWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -932,6 +958,7 @@ func (m *DebtToIncomeRatioORM) ToPB(ctx context.Context) (DebtToIncomeRatio, err
 	to.Month = m.Month
 	to.Ratio = m.Ratio
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType(FinancialUserProfileType_value[m.ProfileType])
 	if posthook, ok := interface{}(m).(DebtToIncomeRatioWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -964,6 +991,7 @@ type DebtToIncomeRatioWithAfterToPB interface {
 type ExpenseMetricsORM struct {
 	Month                          uint32
 	PersonalFinanceCategoryPrimary string
+	ProfileType                    string
 	TotalExpenses                  float64
 	TransactionCount               uint64
 	UserId                         uint64
@@ -989,6 +1017,7 @@ func (m *ExpenseMetrics) ToORM(ctx context.Context) (ExpenseMetricsORM, error) {
 	to.TransactionCount = m.TransactionCount
 	to.TotalExpenses = m.TotalExpenses
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType_name[int32(m.ProfileType)]
 	if posthook, ok := interface{}(m).(ExpenseMetricsWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -1010,6 +1039,7 @@ func (m *ExpenseMetricsORM) ToPB(ctx context.Context) (ExpenseMetrics, error) {
 	to.TransactionCount = m.TransactionCount
 	to.TotalExpenses = m.TotalExpenses
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType(FinancialUserProfileType_value[m.ProfileType])
 	if posthook, ok := interface{}(m).(ExpenseMetricsWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -1043,6 +1073,7 @@ type ExpenseMetricsFinancialSubProfileMetricsORM struct {
 	AverageMonthlyDiscretionarySpending float64
 	AverageMonthlyRecurringSpending     float64
 	Month                               uint32
+	ProfileType                         string
 	SpentLastMonth                      float64
 	SpentLastSixMonths                  float64
 	SpentLastWeek                       float64
@@ -1071,6 +1102,7 @@ func (m *ExpenseMetricsFinancialSubProfileMetrics) ToORM(ctx context.Context) (E
 	to.AverageMonthlyDiscretionarySpending = m.AverageMonthlyDiscretionarySpending
 	to.AverageMonthlyRecurringSpending = m.AverageMonthlyRecurringSpending
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType_name[int32(m.ProfileType)]
 	if posthook, ok := interface{}(m).(ExpenseMetricsFinancialSubProfileMetricsWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -1094,6 +1126,7 @@ func (m *ExpenseMetricsFinancialSubProfileMetricsORM) ToPB(ctx context.Context) 
 	to.AverageMonthlyDiscretionarySpending = m.AverageMonthlyDiscretionarySpending
 	to.AverageMonthlyRecurringSpending = m.AverageMonthlyRecurringSpending
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType(FinancialUserProfileType_value[m.ProfileType])
 	if posthook, ok := interface{}(m).(ExpenseMetricsFinancialSubProfileMetricsWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -1127,6 +1160,7 @@ type FinancialProfileORM struct {
 	Month                 uint32
 	MostExpensiveCategory string
 	NumberOfTransactions  uint64
+	ProfileType           string
 	TotalExpenses         float64
 	TotalIncome           float64
 	UserId                uint64
@@ -1153,6 +1187,7 @@ func (m *FinancialProfile) ToORM(ctx context.Context) (FinancialProfileORM, erro
 	to.NumberOfTransactions = m.NumberOfTransactions
 	to.MostExpensiveCategory = m.MostExpensiveCategory
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType_name[int32(m.ProfileType)]
 	if posthook, ok := interface{}(m).(FinancialProfileWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -1175,6 +1210,7 @@ func (m *FinancialProfileORM) ToPB(ctx context.Context) (FinancialProfile, error
 	to.NumberOfTransactions = m.NumberOfTransactions
 	to.MostExpensiveCategory = m.MostExpensiveCategory
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType(FinancialUserProfileType_value[m.ProfileType])
 	if posthook, ok := interface{}(m).(FinancialProfileWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -1205,9 +1241,10 @@ type FinancialProfileWithAfterToPB interface {
 }
 
 type IncomeExpenseRatioORM struct {
-	Month  uint32
-	Ratio  float64
-	UserId uint64
+	Month       uint32
+	ProfileType string
+	Ratio       float64
+	UserId      uint64
 }
 
 // TableName overrides the default tablename generated by GORM
@@ -1228,6 +1265,7 @@ func (m *IncomeExpenseRatio) ToORM(ctx context.Context) (IncomeExpenseRatioORM, 
 	to.Month = m.Month
 	to.Ratio = m.Ratio
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType_name[int32(m.ProfileType)]
 	if posthook, ok := interface{}(m).(IncomeExpenseRatioWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -1247,6 +1285,7 @@ func (m *IncomeExpenseRatioORM) ToPB(ctx context.Context) (IncomeExpenseRatio, e
 	to.Month = m.Month
 	to.Ratio = m.Ratio
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType(FinancialUserProfileType_value[m.ProfileType])
 	if posthook, ok := interface{}(m).(IncomeExpenseRatioWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -1279,6 +1318,7 @@ type IncomeExpenseRatioWithAfterToPB interface {
 type IncomeMetricsORM struct {
 	Month                          uint32
 	PersonalFinanceCategoryPrimary string
+	ProfileType                    string
 	TotalIncome                    float64
 	TransactionCount               uint64
 	UserId                         uint64
@@ -1304,6 +1344,7 @@ func (m *IncomeMetrics) ToORM(ctx context.Context) (IncomeMetricsORM, error) {
 	to.TransactionCount = m.TransactionCount
 	to.TotalIncome = m.TotalIncome
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType_name[int32(m.ProfileType)]
 	if posthook, ok := interface{}(m).(IncomeMetricsWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -1325,6 +1366,7 @@ func (m *IncomeMetricsORM) ToPB(ctx context.Context) (IncomeMetrics, error) {
 	to.TransactionCount = m.TransactionCount
 	to.TotalIncome = m.TotalIncome
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType(FinancialUserProfileType_value[m.ProfileType])
 	if posthook, ok := interface{}(m).(IncomeMetricsWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -1361,6 +1403,7 @@ type IncomeMetricsFinancialSubProfileORM struct {
 	IncomeLastTwoWeeks  float64
 	IncomeLastYear      float64
 	Month               uint32
+	ProfileType         string
 	UserId              uint64
 }
 
@@ -1386,6 +1429,7 @@ func (m *IncomeMetricsFinancialSubProfile) ToORM(ctx context.Context) (IncomeMet
 	to.IncomeLastSixMonths = m.IncomeLastSixMonths
 	to.IncomeLastYear = m.IncomeLastYear
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType_name[int32(m.ProfileType)]
 	if posthook, ok := interface{}(m).(IncomeMetricsFinancialSubProfileWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -1409,6 +1453,7 @@ func (m *IncomeMetricsFinancialSubProfileORM) ToPB(ctx context.Context) (IncomeM
 	to.IncomeLastSixMonths = m.IncomeLastSixMonths
 	to.IncomeLastYear = m.IncomeLastYear
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType(FinancialUserProfileType_value[m.ProfileType])
 	if posthook, ok := interface{}(m).(IncomeMetricsFinancialSubProfileWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -1441,6 +1486,7 @@ type IncomeMetricsFinancialSubProfileWithAfterToPB interface {
 type LocationFinancialSubProfileORM struct {
 	LocationCity       string
 	Month              uint32
+	ProfileType        string
 	SpentLastMonth     float64
 	SpentLastSixMonths float64
 	SpentLastTwoWeeks  float64
@@ -1476,6 +1522,7 @@ func (m *LocationFinancialSubProfile) ToORM(ctx context.Context) (LocationFinanc
 	to.SpentLastTwoYears = m.SpentLastTwoYears
 	to.UserId = m.UserId
 	to.Month = m.Month
+	to.ProfileType = FinancialUserProfileType_name[int32(m.ProfileType)]
 	if posthook, ok := interface{}(m).(LocationFinancialSubProfileWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -1502,6 +1549,7 @@ func (m *LocationFinancialSubProfileORM) ToPB(ctx context.Context) (LocationFina
 	to.SpentLastTwoYears = m.SpentLastTwoYears
 	to.UserId = m.UserId
 	to.Month = m.Month
+	to.ProfileType = FinancialUserProfileType(FinancialUserProfileType_value[m.ProfileType])
 	if posthook, ok := interface{}(m).(LocationFinancialSubProfileWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -1534,6 +1582,7 @@ type LocationFinancialSubProfileWithAfterToPB interface {
 type MerchantMetricsFinancialSubProfileORM struct {
 	MerchantName       string
 	Month              uint32
+	ProfileType        string
 	SpentLastMonth     float64
 	SpentLastSixMonths float64
 	SpentLastTwoWeeks  float64
@@ -1567,6 +1616,7 @@ func (m *MerchantMetricsFinancialSubProfile) ToORM(ctx context.Context) (Merchan
 	to.SpentLastTwoYears = m.SpentLastTwoYears
 	to.UserId = m.UserId
 	to.Month = m.Month
+	to.ProfileType = FinancialUserProfileType_name[int32(m.ProfileType)]
 	if posthook, ok := interface{}(m).(MerchantMetricsFinancialSubProfileWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -1592,6 +1642,7 @@ func (m *MerchantMetricsFinancialSubProfileORM) ToPB(ctx context.Context) (Merch
 	to.SpentLastTwoYears = m.SpentLastTwoYears
 	to.UserId = m.UserId
 	to.Month = m.Month
+	to.ProfileType = FinancialUserProfileType(FinancialUserProfileType_value[m.ProfileType])
 	if posthook, ok := interface{}(m).(MerchantMetricsFinancialSubProfileWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -1624,6 +1675,7 @@ type MerchantMetricsFinancialSubProfileWithAfterToPB interface {
 type MerchantMonthlyExpenditureORM struct {
 	MerchantName  string
 	Month         uint32
+	ProfileType   string
 	TotalSpending float64
 	UserId        uint64
 }
@@ -1647,6 +1699,7 @@ func (m *MerchantMonthlyExpenditure) ToORM(ctx context.Context) (MerchantMonthly
 	to.MerchantName = m.MerchantName
 	to.TotalSpending = m.TotalSpending
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType_name[int32(m.ProfileType)]
 	if posthook, ok := interface{}(m).(MerchantMonthlyExpenditureWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -1667,6 +1720,7 @@ func (m *MerchantMonthlyExpenditureORM) ToPB(ctx context.Context) (MerchantMonth
 	to.MerchantName = m.MerchantName
 	to.TotalSpending = m.TotalSpending
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType(FinancialUserProfileType_value[m.ProfileType])
 	if posthook, ok := interface{}(m).(MerchantMonthlyExpenditureWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -1697,9 +1751,10 @@ type MerchantMonthlyExpenditureWithAfterToPB interface {
 }
 
 type MonthlyBalanceORM struct {
-	Month      uint32
-	NetBalance float64
-	UserId     uint64
+	Month       uint32
+	NetBalance  float64
+	ProfileType string
+	UserId      uint64
 }
 
 // TableName overrides the default tablename generated by GORM
@@ -1720,6 +1775,7 @@ func (m *MonthlyBalance) ToORM(ctx context.Context) (MonthlyBalanceORM, error) {
 	to.Month = m.Month
 	to.NetBalance = m.NetBalance
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType_name[int32(m.ProfileType)]
 	if posthook, ok := interface{}(m).(MonthlyBalanceWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -1739,6 +1795,7 @@ func (m *MonthlyBalanceORM) ToPB(ctx context.Context) (MonthlyBalance, error) {
 	to.Month = m.Month
 	to.NetBalance = m.NetBalance
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType(FinancialUserProfileType_value[m.ProfileType])
 	if posthook, ok := interface{}(m).(MonthlyBalanceWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -1770,6 +1827,7 @@ type MonthlyBalanceWithAfterToPB interface {
 
 type MonthlyExpenditureORM struct {
 	Month         uint32
+	ProfileType   string
 	TotalSpending float64
 	UserId        uint64
 }
@@ -1792,6 +1850,7 @@ func (m *MonthlyExpenditure) ToORM(ctx context.Context) (MonthlyExpenditureORM, 
 	to.Month = m.Month
 	to.TotalSpending = m.TotalSpending
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType_name[int32(m.ProfileType)]
 	if posthook, ok := interface{}(m).(MonthlyExpenditureWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -1811,6 +1870,7 @@ func (m *MonthlyExpenditureORM) ToPB(ctx context.Context) (MonthlyExpenditure, e
 	to.Month = m.Month
 	to.TotalSpending = m.TotalSpending
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType(FinancialUserProfileType_value[m.ProfileType])
 	if posthook, ok := interface{}(m).(MonthlyExpenditureWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -1842,6 +1902,7 @@ type MonthlyExpenditureWithAfterToPB interface {
 
 type MonthlyIncomeORM struct {
 	Month       uint32
+	ProfileType string
 	TotalIncome float64
 	UserId      uint64
 }
@@ -1864,6 +1925,7 @@ func (m *MonthlyIncome) ToORM(ctx context.Context) (MonthlyIncomeORM, error) {
 	to.Month = m.Month
 	to.TotalIncome = m.TotalIncome
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType_name[int32(m.ProfileType)]
 	if posthook, ok := interface{}(m).(MonthlyIncomeWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -1883,6 +1945,7 @@ func (m *MonthlyIncomeORM) ToPB(ctx context.Context) (MonthlyIncome, error) {
 	to.Month = m.Month
 	to.TotalIncome = m.TotalIncome
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType(FinancialUserProfileType_value[m.ProfileType])
 	if posthook, ok := interface{}(m).(MonthlyIncomeWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -1913,9 +1976,10 @@ type MonthlyIncomeWithAfterToPB interface {
 }
 
 type MonthlySavingsORM struct {
-	Month      uint32
-	NetSavings float64
-	UserId     uint64
+	Month       uint32
+	NetSavings  float64
+	ProfileType string
+	UserId      uint64
 }
 
 // TableName overrides the default tablename generated by GORM
@@ -1936,6 +2000,7 @@ func (m *MonthlySavings) ToORM(ctx context.Context) (MonthlySavingsORM, error) {
 	to.Month = m.Month
 	to.NetSavings = m.NetSavings
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType_name[int32(m.ProfileType)]
 	if posthook, ok := interface{}(m).(MonthlySavingsWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -1955,6 +2020,7 @@ func (m *MonthlySavingsORM) ToPB(ctx context.Context) (MonthlySavings, error) {
 	to.Month = m.Month
 	to.NetSavings = m.NetSavings
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType(FinancialUserProfileType_value[m.ProfileType])
 	if posthook, ok := interface{}(m).(MonthlySavingsWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -1986,6 +2052,7 @@ type MonthlySavingsWithAfterToPB interface {
 
 type MonthlyTotalQuantityBySecurityAndUserORM struct {
 	Month         uint32
+	ProfileType   string
 	SecurityId    string
 	TotalQuantity float64
 	UserId        uint64
@@ -2010,6 +2077,7 @@ func (m *MonthlyTotalQuantityBySecurityAndUser) ToORM(ctx context.Context) (Mont
 	to.SecurityId = m.SecurityId
 	to.TotalQuantity = m.TotalQuantity
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType_name[int32(m.ProfileType)]
 	if posthook, ok := interface{}(m).(MonthlyTotalQuantityBySecurityAndUserWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -2030,6 +2098,7 @@ func (m *MonthlyTotalQuantityBySecurityAndUserORM) ToPB(ctx context.Context) (Mo
 	to.SecurityId = m.SecurityId
 	to.TotalQuantity = m.TotalQuantity
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType(FinancialUserProfileType_value[m.ProfileType])
 	if posthook, ok := interface{}(m).(MonthlyTotalQuantityBySecurityAndUserWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -2061,6 +2130,7 @@ type MonthlyTotalQuantityBySecurityAndUserWithAfterToPB interface {
 
 type MonthlyTransactionCountORM struct {
 	Month            uint32
+	ProfileType      string
 	TransactionCount uint64
 	UserId           uint64
 }
@@ -2083,6 +2153,7 @@ func (m *MonthlyTransactionCount) ToORM(ctx context.Context) (MonthlyTransaction
 	to.Month = m.Month
 	to.TransactionCount = m.TransactionCount
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType_name[int32(m.ProfileType)]
 	if posthook, ok := interface{}(m).(MonthlyTransactionCountWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -2102,6 +2173,7 @@ func (m *MonthlyTransactionCountORM) ToPB(ctx context.Context) (MonthlyTransacti
 	to.Month = m.Month
 	to.TransactionCount = m.TransactionCount
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType(FinancialUserProfileType_value[m.ProfileType])
 	if posthook, ok := interface{}(m).(MonthlyTransactionCountWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -2134,6 +2206,7 @@ type MonthlyTransactionCountWithAfterToPB interface {
 type PaymentChannelMetricsFinancialSubProfileORM struct {
 	Month              uint32
 	PaymentChannel     string
+	ProfileType        string
 	SpentLastMonth     float64
 	SpentLastSixMonths float64
 	SpentLastTwoWeeks  float64
@@ -2169,6 +2242,7 @@ func (m *PaymentChannelMetricsFinancialSubProfile) ToORM(ctx context.Context) (P
 	to.UserId = m.UserId
 	to.Month = m.Month
 	to.TransactionCount = m.TransactionCount
+	to.ProfileType = FinancialUserProfileType_name[int32(m.ProfileType)]
 	if posthook, ok := interface{}(m).(PaymentChannelMetricsFinancialSubProfileWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -2195,6 +2269,7 @@ func (m *PaymentChannelMetricsFinancialSubProfileORM) ToPB(ctx context.Context) 
 	to.UserId = m.UserId
 	to.Month = m.Month
 	to.TransactionCount = m.TransactionCount
+	to.ProfileType = FinancialUserProfileType(FinancialUserProfileType_value[m.ProfileType])
 	if posthook, ok := interface{}(m).(PaymentChannelMetricsFinancialSubProfileWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -2227,6 +2302,7 @@ type PaymentChannelMetricsFinancialSubProfileWithAfterToPB interface {
 type PaymentChannelMonthlyExpenditureORM struct {
 	Month          uint32
 	PaymentChannel string
+	ProfileType    string
 	TotalSpending  float64
 	UserId         uint64
 }
@@ -2250,6 +2326,7 @@ func (m *PaymentChannelMonthlyExpenditure) ToORM(ctx context.Context) (PaymentCh
 	to.PaymentChannel = m.PaymentChannel
 	to.TotalSpending = m.TotalSpending
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType_name[int32(m.ProfileType)]
 	if posthook, ok := interface{}(m).(PaymentChannelMonthlyExpenditureWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -2270,6 +2347,7 @@ func (m *PaymentChannelMonthlyExpenditureORM) ToPB(ctx context.Context) (Payment
 	to.PaymentChannel = m.PaymentChannel
 	to.TotalSpending = m.TotalSpending
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType(FinancialUserProfileType_value[m.ProfileType])
 	if posthook, ok := interface{}(m).(PaymentChannelMonthlyExpenditureWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -2300,6 +2378,7 @@ type PaymentChannelMonthlyExpenditureWithAfterToPB interface {
 }
 
 type TotalInvestmentBySecurityORM struct {
+	ProfileType     string
 	SecurityId      string
 	TotalInvestment float64
 	UserId          uint64
@@ -2323,6 +2402,7 @@ func (m *TotalInvestmentBySecurity) ToORM(ctx context.Context) (TotalInvestmentB
 	to.SecurityId = m.SecurityId
 	to.TotalInvestment = m.TotalInvestment
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType_name[int32(m.ProfileType)]
 	if posthook, ok := interface{}(m).(TotalInvestmentBySecurityWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -2342,6 +2422,7 @@ func (m *TotalInvestmentBySecurityORM) ToPB(ctx context.Context) (TotalInvestmen
 	to.SecurityId = m.SecurityId
 	to.TotalInvestment = m.TotalInvestment
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType(FinancialUserProfileType_value[m.ProfileType])
 	if posthook, ok := interface{}(m).(TotalInvestmentBySecurityWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -2377,6 +2458,7 @@ type TransactionAggregatesByMonthORM struct {
 	Month                          uint32
 	PaymentChannel                 string
 	PersonalFinanceCategoryPrimary string
+	ProfileType                    string
 	TotalAmount                    float64
 	TransactionCount               uint64
 	UserId                         uint64
@@ -2405,6 +2487,7 @@ func (m *TransactionAggregatesByMonth) ToORM(ctx context.Context) (TransactionAg
 	to.TransactionCount = m.TransactionCount
 	to.TotalAmount = m.TotalAmount
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType_name[int32(m.ProfileType)]
 	if posthook, ok := interface{}(m).(TransactionAggregatesByMonthWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -2429,6 +2512,7 @@ func (m *TransactionAggregatesByMonthORM) ToPB(ctx context.Context) (Transaction
 	to.TransactionCount = m.TransactionCount
 	to.TotalAmount = m.TotalAmount
 	to.UserId = m.UserId
+	to.ProfileType = FinancialUserProfileType(FinancialUserProfileType_value[m.ProfileType])
 	if posthook, ok := interface{}(m).(TransactionAggregatesByMonthWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -2463,6 +2547,7 @@ type UserFinancialHealthMetricsTableORM struct {
 	MonthlyExpenses      float64
 	MonthlyIncome        float64
 	OverdraftFrequency   uint64
+	ProfileType          string
 	Time                 *time.Time
 	TransactionDiversity uint64
 	UserId               uint64
@@ -2493,6 +2578,7 @@ func (m *UserFinancialHealthMetricsTable) ToORM(ctx context.Context) (UserFinanc
 	to.TransactionDiversity = m.TransactionDiversity
 	to.DebtToIncomeRatio = m.DebtToIncomeRatio
 	to.OverdraftFrequency = m.OverdraftFrequency
+	to.ProfileType = FinancialUserProfileType_name[int32(m.ProfileType)]
 	if posthook, ok := interface{}(m).(UserFinancialHealthMetricsTableWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -2518,6 +2604,7 @@ func (m *UserFinancialHealthMetricsTableORM) ToPB(ctx context.Context) (UserFina
 	to.TransactionDiversity = m.TransactionDiversity
 	to.DebtToIncomeRatio = m.DebtToIncomeRatio
 	to.OverdraftFrequency = m.OverdraftFrequency
+	to.ProfileType = FinancialUserProfileType(FinancialUserProfileType_value[m.ProfileType])
 	if posthook, ok := interface{}(m).(UserFinancialHealthMetricsTableWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -2949,6 +3036,10 @@ func DefaultApplyFieldMaskInvestmentTransaction(ctx context.Context, patchee *In
 		if f == prefix+"AdditionalProperties" {
 			updatedAdditionalProperties = true
 			patchee.AdditionalProperties = patcher.AdditionalProperties
+			continue
+		}
+		if f == prefix+"ProfileType" {
+			patchee.ProfileType = patcher.ProfileType
 			continue
 		}
 	}
@@ -3429,6 +3520,10 @@ func DefaultApplyFieldMaskReOccuringTransaction(ctx context.Context, patchee *Re
 		if f == prefix+"AdditionalProperties" {
 			updatedAdditionalProperties = true
 			patchee.AdditionalProperties = patcher.AdditionalProperties
+			continue
+		}
+		if f == prefix+"ProfileType" {
+			patchee.ProfileType = patcher.ProfileType
 			continue
 		}
 	}
@@ -3983,6 +4078,10 @@ func DefaultApplyFieldMaskTransaction(ctx context.Context, patchee *Transaction,
 			patchee.Categories = patcher.Categories
 			continue
 		}
+		if f == prefix+"ProfileType" {
+			patchee.ProfileType = patcher.ProfileType
+			continue
+		}
 	}
 	if err != nil {
 		return nil, err
@@ -4371,6 +4470,10 @@ func DefaultApplyFieldMaskAccountBalanceHistory(ctx context.Context, patchee *Ac
 			patchee.Id = patcher.Id
 			continue
 		}
+		if f == prefix+"ProfileType" {
+			patchee.ProfileType = patcher.ProfileType
+			continue
+		}
 	}
 	if err != nil {
 		return nil, err
@@ -4513,6 +4616,10 @@ func DefaultApplyFieldMaskCategoryMetricsFinancialSubProfile(ctx context.Context
 			patchee.UserId = patcher.UserId
 			continue
 		}
+		if f == prefix+"ProfileType" {
+			patchee.ProfileType = patcher.ProfileType
+			continue
+		}
 	}
 	if err != nil {
 		return nil, err
@@ -4628,6 +4735,10 @@ func DefaultApplyFieldMaskCategoryMonthlyExpenditure(ctx context.Context, patche
 		}
 		if f == prefix+"UserId" {
 			patchee.UserId = patcher.UserId
+			continue
+		}
+		if f == prefix+"ProfileType" {
+			patchee.ProfileType = patcher.ProfileType
 			continue
 		}
 	}
@@ -4747,6 +4858,10 @@ func DefaultApplyFieldMaskCategoryMonthlyIncome(ctx context.Context, patchee *Ca
 			patchee.UserId = patcher.UserId
 			continue
 		}
+		if f == prefix+"ProfileType" {
+			patchee.ProfileType = patcher.ProfileType
+			continue
+		}
 	}
 	if err != nil {
 		return nil, err
@@ -4864,6 +4979,10 @@ func DefaultApplyFieldMaskCategoryMonthlyTransactionCount(ctx context.Context, p
 			patchee.UserId = patcher.UserId
 			continue
 		}
+		if f == prefix+"ProfileType" {
+			patchee.ProfileType = patcher.ProfileType
+			continue
+		}
 	}
 	if err != nil {
 		return nil, err
@@ -4975,6 +5094,10 @@ func DefaultApplyFieldMaskDebtToIncomeRatio(ctx context.Context, patchee *DebtTo
 		}
 		if f == prefix+"UserId" {
 			patchee.UserId = patcher.UserId
+			continue
+		}
+		if f == prefix+"ProfileType" {
+			patchee.ProfileType = patcher.ProfileType
 			continue
 		}
 	}
@@ -5096,6 +5219,10 @@ func DefaultApplyFieldMaskExpenseMetrics(ctx context.Context, patchee *ExpenseMe
 		}
 		if f == prefix+"UserId" {
 			patchee.UserId = patcher.UserId
+			continue
+		}
+		if f == prefix+"ProfileType" {
+			patchee.ProfileType = patcher.ProfileType
 			continue
 		}
 	}
@@ -5227,6 +5354,10 @@ func DefaultApplyFieldMaskExpenseMetricsFinancialSubProfileMetrics(ctx context.C
 			patchee.UserId = patcher.UserId
 			continue
 		}
+		if f == prefix+"ProfileType" {
+			patchee.ProfileType = patcher.ProfileType
+			continue
+		}
 	}
 	if err != nil {
 		return nil, err
@@ -5352,6 +5483,10 @@ func DefaultApplyFieldMaskFinancialProfile(ctx context.Context, patchee *Financi
 			patchee.UserId = patcher.UserId
 			continue
 		}
+		if f == prefix+"ProfileType" {
+			patchee.ProfileType = patcher.ProfileType
+			continue
+		}
 	}
 	if err != nil {
 		return nil, err
@@ -5463,6 +5598,10 @@ func DefaultApplyFieldMaskIncomeExpenseRatio(ctx context.Context, patchee *Incom
 		}
 		if f == prefix+"UserId" {
 			patchee.UserId = patcher.UserId
+			continue
+		}
+		if f == prefix+"ProfileType" {
+			patchee.ProfileType = patcher.ProfileType
 			continue
 		}
 	}
@@ -5584,6 +5723,10 @@ func DefaultApplyFieldMaskIncomeMetrics(ctx context.Context, patchee *IncomeMetr
 		}
 		if f == prefix+"UserId" {
 			patchee.UserId = patcher.UserId
+			continue
+		}
+		if f == prefix+"ProfileType" {
+			patchee.ProfileType = patcher.ProfileType
 			continue
 		}
 	}
@@ -5713,6 +5856,10 @@ func DefaultApplyFieldMaskIncomeMetricsFinancialSubProfile(ctx context.Context, 
 		}
 		if f == prefix+"UserId" {
 			patchee.UserId = patcher.UserId
+			continue
+		}
+		if f == prefix+"ProfileType" {
+			patchee.ProfileType = patcher.ProfileType
 			continue
 		}
 	}
@@ -5856,6 +6003,10 @@ func DefaultApplyFieldMaskLocationFinancialSubProfile(ctx context.Context, patch
 			patchee.Month = patcher.Month
 			continue
 		}
+		if f == prefix+"ProfileType" {
+			patchee.ProfileType = patcher.ProfileType
+			continue
+		}
 	}
 	if err != nil {
 		return nil, err
@@ -5993,6 +6144,10 @@ func DefaultApplyFieldMaskMerchantMetricsFinancialSubProfile(ctx context.Context
 			patchee.Month = patcher.Month
 			continue
 		}
+		if f == prefix+"ProfileType" {
+			patchee.ProfileType = patcher.ProfileType
+			continue
+		}
 	}
 	if err != nil {
 		return nil, err
@@ -6110,6 +6265,10 @@ func DefaultApplyFieldMaskMerchantMonthlyExpenditure(ctx context.Context, patche
 			patchee.UserId = patcher.UserId
 			continue
 		}
+		if f == prefix+"ProfileType" {
+			patchee.ProfileType = patcher.ProfileType
+			continue
+		}
 	}
 	if err != nil {
 		return nil, err
@@ -6221,6 +6380,10 @@ func DefaultApplyFieldMaskMonthlyBalance(ctx context.Context, patchee *MonthlyBa
 		}
 		if f == prefix+"UserId" {
 			patchee.UserId = patcher.UserId
+			continue
+		}
+		if f == prefix+"ProfileType" {
+			patchee.ProfileType = patcher.ProfileType
 			continue
 		}
 	}
@@ -6336,6 +6499,10 @@ func DefaultApplyFieldMaskMonthlyExpenditure(ctx context.Context, patchee *Month
 			patchee.UserId = patcher.UserId
 			continue
 		}
+		if f == prefix+"ProfileType" {
+			patchee.ProfileType = patcher.ProfileType
+			continue
+		}
 	}
 	if err != nil {
 		return nil, err
@@ -6449,6 +6616,10 @@ func DefaultApplyFieldMaskMonthlyIncome(ctx context.Context, patchee *MonthlyInc
 			patchee.UserId = patcher.UserId
 			continue
 		}
+		if f == prefix+"ProfileType" {
+			patchee.ProfileType = patcher.ProfileType
+			continue
+		}
 	}
 	if err != nil {
 		return nil, err
@@ -6560,6 +6731,10 @@ func DefaultApplyFieldMaskMonthlySavings(ctx context.Context, patchee *MonthlySa
 		}
 		if f == prefix+"UserId" {
 			patchee.UserId = patcher.UserId
+			continue
+		}
+		if f == prefix+"ProfileType" {
+			patchee.ProfileType = patcher.ProfileType
 			continue
 		}
 	}
@@ -6679,6 +6854,10 @@ func DefaultApplyFieldMaskMonthlyTotalQuantityBySecurityAndUser(ctx context.Cont
 			patchee.UserId = patcher.UserId
 			continue
 		}
+		if f == prefix+"ProfileType" {
+			patchee.ProfileType = patcher.ProfileType
+			continue
+		}
 	}
 	if err != nil {
 		return nil, err
@@ -6790,6 +6969,10 @@ func DefaultApplyFieldMaskMonthlyTransactionCount(ctx context.Context, patchee *
 		}
 		if f == prefix+"UserId" {
 			patchee.UserId = patcher.UserId
+			continue
+		}
+		if f == prefix+"ProfileType" {
+			patchee.ProfileType = patcher.ProfileType
 			continue
 		}
 	}
@@ -6933,6 +7116,10 @@ func DefaultApplyFieldMaskPaymentChannelMetricsFinancialSubProfile(ctx context.C
 			patchee.TransactionCount = patcher.TransactionCount
 			continue
 		}
+		if f == prefix+"ProfileType" {
+			patchee.ProfileType = patcher.ProfileType
+			continue
+		}
 	}
 	if err != nil {
 		return nil, err
@@ -7050,6 +7237,10 @@ func DefaultApplyFieldMaskPaymentChannelMonthlyExpenditure(ctx context.Context, 
 			patchee.UserId = patcher.UserId
 			continue
 		}
+		if f == prefix+"ProfileType" {
+			patchee.ProfileType = patcher.ProfileType
+			continue
+		}
 	}
 	if err != nil {
 		return nil, err
@@ -7161,6 +7352,10 @@ func DefaultApplyFieldMaskTotalInvestmentBySecurity(ctx context.Context, patchee
 		}
 		if f == prefix+"UserId" {
 			patchee.UserId = patcher.UserId
+			continue
+		}
+		if f == prefix+"ProfileType" {
+			patchee.ProfileType = patcher.ProfileType
 			continue
 		}
 	}
@@ -7294,6 +7489,10 @@ func DefaultApplyFieldMaskTransactionAggregatesByMonth(ctx context.Context, patc
 		}
 		if f == prefix+"UserId" {
 			patchee.UserId = patcher.UserId
+			continue
+		}
+		if f == prefix+"ProfileType" {
+			patchee.ProfileType = patcher.ProfileType
 			continue
 		}
 	}
@@ -7443,6 +7642,10 @@ func DefaultApplyFieldMaskUserFinancialHealthMetricsTable(ctx context.Context, p
 		}
 		if f == prefix+"OverdraftFrequency" {
 			patchee.OverdraftFrequency = patcher.OverdraftFrequency
+			continue
+		}
+		if f == prefix+"ProfileType" {
+			patchee.ProfileType = patcher.ProfileType
 			continue
 		}
 	}
