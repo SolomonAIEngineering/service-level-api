@@ -30,6 +30,7 @@ type InvestmentTransactionInternal struct {
 	Type                    string    `ch:"Type,lc"`
 	UnofficialCurrencyCode  string    `ch:"UnofficialCurrencyCode,lc"`
 	UserId                  uint64    `ch:"UserId"`
+	ProfileType             string    `ch:"ProfileType"`
 }
 
 func (source *InvestmentTransactionInternal) ConvertToORM() *InvestmentTransactionORM {
@@ -53,6 +54,7 @@ func (source *InvestmentTransactionInternal) ConvertToORM() *InvestmentTransacti
 		Type:                    source.Type,
 		UnofficialCurrencyCode:  source.UnofficialCurrencyCode,
 		UserId:                  source.UserId,
+		ProfileType:             source.ProfileType,
 	}
 }
 
@@ -76,6 +78,7 @@ func (source *InvestmentTransactionORM) ConvertToInternal() *InvestmentTransacti
 		Type:                    source.Type,
 		UnofficialCurrencyCode:  source.UnofficialCurrencyCode,
 		UserId:                  source.UserId,
+		ProfileType:             source.ProfileType,
 	}
 
 	if source.Time != nil {
@@ -109,7 +112,20 @@ func (internal *InvestmentTransactionInternal) ConvertToInvestmentTransaction() 
 		Time:                    timestamppb.New(internal.Time),
 	}
 
+	tx.ProfileType = transformFinancialProfileType(internal.ProfileType)
+
 	return tx, nil
+}
+
+func transformFinancialProfileType(profileType string) FinancialUserProfileType {
+	switch profileType {
+	case FinancialUserProfileType_FINANCIAL_USER_PROFILE_TYPE_BUSINESS.String():
+		return FinancialUserProfileType_FINANCIAL_USER_PROFILE_TYPE_BUSINESS
+	case FinancialUserProfileType_FINANCIAL_USER_PROFILE_TYPE_USER.String():
+		return FinancialUserProfileType_FINANCIAL_USER_PROFILE_TYPE_USER
+	default:
+		return FinancialUserProfileType_FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED
+	}
 }
 
 func (internal *InvestmentTransaction) ConvertToInternal() (*InvestmentTransactionInternal, error) {
@@ -134,6 +150,7 @@ func (internal *InvestmentTransaction) ConvertToInternal() (*InvestmentTransacti
 		Type:                    internal.Type,
 		UnofficialCurrencyCode:  internal.UnofficialCurrencyCode,
 		UserId:                  internal.UserId,
+		ProfileType:             internal.ProfileType.String(),
 	}
 
 	if internal.Time != nil {

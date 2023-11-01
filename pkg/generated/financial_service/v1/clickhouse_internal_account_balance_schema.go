@@ -16,6 +16,7 @@ type AccountBalanceHistoryInternal struct {
 	Balance         float64   `ch:"Balance"`
 	UserId          uint64    `ch:"UserId"`
 	Sign            int8      `ch:"Sign"`
+	ProfileType     string    `ch:"ProfileType"`
 	Id              string    `ch:"Id,type:String,default:generateUUIDv4(),pk"`
 }
 
@@ -27,6 +28,7 @@ func (source *AccountBalanceHistoryInternal) ConvertToORM() *AccountBalanceHisto
 		IsoCurrencyCode: source.IsoCurrencyCode,
 		Sign:            uint32(source.Sign),
 		UserId:          source.UserId,
+		ProfileType:     source.ProfileType,
 	}
 }
 
@@ -39,6 +41,7 @@ func (source *AccountBalanceHistoryORM) ConvertToInternal() *AccountBalanceHisto
 		UserId:          source.UserId,
 		Sign:            int8(source.Sign),
 		Id:              source.Id,
+		ProfileType:     source.ProfileType,
 	}
 
 	if source.Time != nil {
@@ -57,6 +60,7 @@ func (internal *AccountBalanceHistory) ConvertToInternal() (*AccountBalanceHisto
 		UserId:          internal.UserId,
 		Sign:            int8(internal.Sign),
 		Id:              internal.Id,
+		ProfileType:     internal.ProfileType.String(),
 	}
 
 	if internal.Time != nil {
@@ -67,6 +71,7 @@ func (internal *AccountBalanceHistory) ConvertToInternal() (*AccountBalanceHisto
 }
 
 func (internal *AccountBalanceHistoryInternal) ConvertTo() (*AccountBalanceHistory, error) {
+
 	tx := &AccountBalanceHistory{
 		AccountId:       internal.AccountId,
 		Balance:         internal.Balance,
@@ -75,6 +80,15 @@ func (internal *AccountBalanceHistoryInternal) ConvertTo() (*AccountBalanceHisto
 		Sign:            uint32(internal.Sign),
 		Time:            timestamppb.New(internal.Time),
 		UserId:          internal.UserId,
+	}
+
+	switch internal.ProfileType {
+	case FinancialUserProfileType_FINANCIAL_USER_PROFILE_TYPE_BUSINESS.String():
+		tx.ProfileType = FinancialUserProfileType_FINANCIAL_USER_PROFILE_TYPE_BUSINESS
+	case FinancialUserProfileType_FINANCIAL_USER_PROFILE_TYPE_USER.String():
+		tx.ProfileType = FinancialUserProfileType_FINANCIAL_USER_PROFILE_TYPE_USER
+	default:
+		tx.ProfileType = FinancialUserProfileType_FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED
 	}
 
 	return tx, nil

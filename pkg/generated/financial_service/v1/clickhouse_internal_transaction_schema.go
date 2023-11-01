@@ -52,6 +52,7 @@ type TransactionInternal struct {
 	UnofficialCurrencyCode          string    `ch:"UnofficialCurrencyCode,lc"`
 	UserId                          uint64    `ch:"UserId"`
 	Categories                      []string  `ch:"Categories"`
+	ProfileType                     string    `ch:"ProfileType,lc"`
 }
 
 func (internal *TransactionInternal) ConvertToTransaction() (*Transaction, error) {
@@ -108,6 +109,7 @@ func (internal *Transaction) ConvertToInternal() (*TransactionInternal, error) {
 		UnofficialCurrencyCode:          internal.UnofficialCurrencyCode,
 		UserId:                          internal.UserId,
 		Categories:                      internal.Categories,
+		ProfileType:                     internal.ProfileType.String(),
 	}
 
 	if internal.Time != nil {
@@ -161,6 +163,7 @@ func (internal *TransactionInternal) ConvertToORM() *TransactionORM {
 		TransactionId:                   internal.TransactionId,
 		UnofficialCurrencyCode:          internal.UnofficialCurrencyCode,
 		UserId:                          internal.UserId,
+		ProfileType:                     internal.ProfileType,
 	}
 }
 
@@ -210,6 +213,7 @@ func (orm *TransactionORM) ConvertToInternal() *TransactionInternal {
 		UnofficialCurrencyCode:          orm.UnofficialCurrencyCode,
 		UserId:                          orm.UserId,
 		Categories:                      orm.Categories,
+		ProfileType:                     orm.ProfileType,
 	}
 
 	if orm.Time != nil {

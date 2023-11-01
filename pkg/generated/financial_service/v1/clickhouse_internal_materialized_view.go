@@ -20,6 +20,7 @@ type TransactionAggregatesByMonthInternal struct {
 	TransactionCount               uint64  `ch:"TransactionCount,type:UInt64"`
 	TotalAmount                    float64 `ch:"TotalAmount,type:Float64"`
 	UserId                         uint64  `ch:"UserId,type:UInt64"`
+	ProfileType                    string  `ch:"ProfileType"`
 }
 
 func (source *TransactionAggregatesByMonthInternal) ConvertToORM() *TransactionAggregatesByMonthORM {
@@ -32,6 +33,7 @@ func (source *TransactionAggregatesByMonthInternal) ConvertToORM() *TransactionA
 		TotalAmount:                    source.TotalAmount,
 		TransactionCount:               source.TransactionCount,
 		UserId:                         source.UserId,
+		ProfileType:                    source.ProfileType,
 	}
 }
 
@@ -45,6 +47,7 @@ func (source *TransactionAggregatesByMonthORM) ConvertToInternal() *TransactionA
 		TotalAmount:                    source.TotalAmount,
 		TransactionCount:               source.TransactionCount,
 		UserId:                         source.UserId,
+		ProfileType:                    source.ProfileType,
 	}
 }
 
@@ -58,6 +61,7 @@ func (source *TransactionAggregatesByMonthInternal) ConvertToProto() *Transactio
 		TotalAmount:                    source.TotalAmount,
 		TransactionCount:               source.TransactionCount,
 		UserId:                         source.UserId,
+		ProfileType:                    transformFinancialProfileType(source.ProfileType),
 	}
 }
 
@@ -67,6 +71,7 @@ type CategoryMonthlyExpenditureInternal struct {
 	PersonalFinanceCategoryPrimary string  `ch:"PersonalFinanceCategoryPrimary,type:String"`
 	TotalSpending                  float64 `ch:"TotalSpending,type:Float64"`
 	UserId                         uint64  `ch:"UserId,type:UInt64"`
+	ProfileType                    string  `ch:"ProfileType"`
 }
 
 func (source *CategoryMonthlyExpenditureInternal) ConvertToORM() *CategoryMonthlyExpenditureORM {
@@ -75,6 +80,7 @@ func (source *CategoryMonthlyExpenditureInternal) ConvertToORM() *CategoryMonthl
 		PersonalFinanceCategoryPrimary: source.PersonalFinanceCategoryPrimary,
 		TotalSpending:                  source.TotalSpending,
 		UserId:                         source.UserId,
+		ProfileType:                    source.ProfileType,
 	}
 }
 
@@ -84,6 +90,7 @@ func (source *CategoryMonthlyExpenditureORM) ConvertToInternal() *CategoryMonthl
 		PersonalFinanceCategoryPrimary: source.PersonalFinanceCategoryPrimary,
 		TotalSpending:                  source.TotalSpending,
 		UserId:                         source.UserId,
+		ProfileType:                    source.ProfileType,
 	}
 }
 
@@ -93,6 +100,7 @@ func (source *CategoryMonthlyExpenditureInternal) ConvertToProto() *CategoryMont
 		PersonalFinanceCategoryPrimary: source.PersonalFinanceCategoryPrimary,
 		TotalSpending:                  source.TotalSpending,
 		UserId:                         source.UserId,
+		ProfileType:                    transformFinancialProfileType(source.ProfileType),
 	}
 }
 
@@ -102,6 +110,7 @@ type CategoryMonthlyIncomeInternal struct {
 	PersonalFinanceCategoryPrimary string  `ch:"PersonalFinanceCategoryPrimary,type:String"`
 	TotalIncome                    float64 `ch:"TotalIncome,type:Float64"`
 	UserId                         uint64  `ch:"UserId,type:UInt64"`
+	ProfileType                    string  `ch:"ProfileType"`
 }
 
 func (source *CategoryMonthlyIncomeInternal) ConvertToORM() *CategoryMonthlyIncomeORM {
@@ -110,6 +119,7 @@ func (source *CategoryMonthlyIncomeInternal) ConvertToORM() *CategoryMonthlyInco
 		PersonalFinanceCategoryPrimary: source.PersonalFinanceCategoryPrimary,
 		TotalIncome:                    source.TotalIncome,
 		UserId:                         source.UserId,
+		ProfileType:                    source.ProfileType,
 	}
 }
 
@@ -119,6 +129,7 @@ func (source *CategoryMonthlyIncomeORM) ConvertToInternal() *CategoryMonthlyInco
 		PersonalFinanceCategoryPrimary: source.PersonalFinanceCategoryPrimary,
 		TotalIncome:                    source.TotalIncome,
 		UserId:                         source.UserId,
+		ProfileType:                    source.ProfileType,
 	}
 }
 
@@ -128,6 +139,7 @@ func (source *CategoryMonthlyIncomeInternal) ConvertToProto() *CategoryMonthlyIn
 		PersonalFinanceCategoryPrimary: source.PersonalFinanceCategoryPrimary,
 		TotalIncome:                    source.TotalIncome,
 		UserId:                         source.UserId,
+		ProfileType:                    transformFinancialProfileType(source.ProfileType),
 	}
 }
 
@@ -137,6 +149,7 @@ type CategoryMonthlyTransactionCountInternal struct {
 	PersonalFinanceCategoryPrimary string `ch:"PersonalFinanceCategoryPrimary,type:String"`
 	TransactionCount               uint32 `ch:"TransactionCount,type:UInt32"`
 	UserId                         uint64 `ch:"UserId,type:UInt64"`
+	ProfileType                    string `ch:"ProfileType"`
 }
 
 func (source *CategoryMonthlyTransactionCountInternal) ConvertToORM() *CategoryMonthlyTransactionCountORM {
@@ -145,6 +158,7 @@ func (source *CategoryMonthlyTransactionCountInternal) ConvertToORM() *CategoryM
 		PersonalFinanceCategoryPrimary: source.PersonalFinanceCategoryPrimary,
 		TransactionCount:               source.TransactionCount,
 		UserId:                         source.UserId,
+		ProfileType:                    source.ProfileType,
 	}
 }
 
@@ -154,6 +168,7 @@ func (source *CategoryMonthlyTransactionCountORM) ConvertToInternal() *CategoryM
 		PersonalFinanceCategoryPrimary: source.PersonalFinanceCategoryPrimary,
 		TransactionCount:               source.TransactionCount,
 		UserId:                         source.UserId,
+		ProfileType:                    source.ProfileType,
 	}
 }
 
@@ -163,37 +178,42 @@ func (source *CategoryMonthlyTransactionCountInternal) ConvertToProto() *Categor
 		PersonalFinanceCategoryPrimary: source.PersonalFinanceCategoryPrimary,
 		TransactionCount:               source.TransactionCount,
 		UserId:                         source.UserId,
+		ProfileType:                    transformFinancialProfileType(source.ProfileType),
 	}
 }
 
 type DebtToIncomeRatioInternal struct {
-	ch.CHModel `ch:"DebtToIncomeRatio,partition:toYYYYMM(time)"`
-	Month      uint32  `ch:"Month,type:UInt32"`
-	Ratio      float64 `ch:"Ratio,type:Float64"`
-	UserId     uint64  `ch:"UserId,type:UInt64"`
+	ch.CHModel  `ch:"DebtToIncomeRatio,partition:toYYYYMM(time)"`
+	Month       uint32  `ch:"Month,type:UInt32"`
+	Ratio       float64 `ch:"Ratio,type:Float64"`
+	UserId      uint64  `ch:"UserId,type:UInt64"`
+	ProfileType string  `ch:"ProfileType"`
 }
 
 func (source *DebtToIncomeRatioInternal) ConvertToORM() *DebtToIncomeRatioORM {
 	return &DebtToIncomeRatioORM{
-		Month:  source.Month,
-		Ratio:  source.Ratio,
-		UserId: source.UserId,
+		Month:       source.Month,
+		Ratio:       source.Ratio,
+		UserId:      source.UserId,
+		ProfileType: source.ProfileType,
 	}
 }
 
 func (source *DebtToIncomeRatioORM) ConvertToInternal() *DebtToIncomeRatioInternal {
 	return &DebtToIncomeRatioInternal{
-		Month:  source.Month,
-		Ratio:  source.Ratio,
-		UserId: source.UserId,
+		Month:       source.Month,
+		Ratio:       source.Ratio,
+		UserId:      source.UserId,
+		ProfileType: source.ProfileType,
 	}
 }
 
 func (source *DebtToIncomeRatioInternal) ConvertToProto() *DebtToIncomeRatio {
 	return &DebtToIncomeRatio{
-		Month:  source.Month,
-		Ratio:  source.Ratio,
-		UserId: source.UserId,
+		Month:       source.Month,
+		Ratio:       source.Ratio,
+		UserId:      source.UserId,
+		ProfileType: transformFinancialProfileType(source.ProfileType),
 	}
 }
 
@@ -208,6 +228,7 @@ type ExpenseMetricsInternal struct {
 	TransactionCount               uint64  `ch:"TransactionCount,type:UInt64"`
 	TotalExpenses                  float64 `ch:"TotalExpenses,type:Float64"`
 	UserId                         uint64  `ch:"UserId,type:UInt64"`
+	ProfileType                    string  `ch:"ProfileType"`
 }
 
 func (source *ExpenseMetricsInternal) ConvertToORM() *ExpenseMetricsORM {
@@ -217,6 +238,7 @@ func (source *ExpenseMetricsInternal) ConvertToORM() *ExpenseMetricsORM {
 		TotalExpenses:                  source.TotalExpenses,
 		TransactionCount:               source.TransactionCount,
 		UserId:                         source.UserId,
+		ProfileType:                    source.ProfileType,
 	}
 }
 
@@ -227,6 +249,7 @@ func (source *ExpenseMetricsORM) ConvertToInternal() *ExpenseMetricsInternal {
 		TotalExpenses:                  source.TotalExpenses,
 		TransactionCount:               source.TransactionCount,
 		UserId:                         source.UserId,
+		ProfileType:                    source.ProfileType,
 	}
 }
 
@@ -237,6 +260,7 @@ func (source *ExpenseMetricsInternal) ConvertToProto() *ExpenseMetrics {
 		TotalExpenses:                  source.TotalExpenses,
 		TransactionCount:               source.TransactionCount,
 		UserId:                         source.UserId,
+		ProfileType:                    transformFinancialProfileType(source.ProfileType),
 	}
 }
 
@@ -248,6 +272,7 @@ type FinancialProfileInternal struct {
 	NumberOfTransactions  uint64  `ch:"NumberOfTransactions,type:UInt64"`
 	MostExpensiveCategory string  `ch:"MostExpensiveCategory,type:String"`
 	UserId                uint64  `ch:"UserId,type:UInt64"`
+	ProfileType           string  `ch:"ProfileType"`
 }
 
 func (source *FinancialProfileInternal) ConvertToORM() *FinancialProfileORM {
@@ -258,6 +283,7 @@ func (source *FinancialProfileInternal) ConvertToORM() *FinancialProfileORM {
 		TotalExpenses:         source.TotalExpenses,
 		TotalIncome:           source.TotalIncome,
 		UserId:                source.UserId,
+		ProfileType:           source.ProfileType,
 	}
 }
 
@@ -269,6 +295,7 @@ func (source *FinancialProfileORM) ConvertToInternal() *FinancialProfileInternal
 		TotalExpenses:         source.TotalExpenses,
 		TotalIncome:           source.TotalIncome,
 		UserId:                source.UserId,
+		ProfileType:           source.ProfileType,
 	}
 }
 
@@ -280,37 +307,42 @@ func (source *FinancialProfileInternal) ConvertToProto() *FinancialProfile {
 		TotalExpenses:         source.TotalExpenses,
 		TotalIncome:           source.TotalIncome,
 		UserId:                source.UserId,
+		ProfileType:           transformFinancialProfileType(source.ProfileType),
 	}
 }
 
 type IncomeExpenseRatioInternal struct {
-	ch.CHModel `ch:"IncomeExpenseRatio,partition:toYYYYMM(time)"`
-	Month      uint32  `ch:"Month,type:UInt32"`
-	Ratio      float64 `ch:"Ratio,type:Float64"`
-	UserId     uint64  `ch:"UserId,type:UInt64"`
+	ch.CHModel  `ch:"IncomeExpenseRatio,partition:toYYYYMM(time)"`
+	Month       uint32  `ch:"Month,type:UInt32"`
+	Ratio       float64 `ch:"Ratio,type:Float64"`
+	UserId      uint64  `ch:"UserId,type:UInt64"`
+	ProfileType string  `ch:"ProfileType"`
 }
 
 func (source *IncomeExpenseRatioInternal) ConvertToORM() *IncomeExpenseRatioORM {
 	return &IncomeExpenseRatioORM{
-		Month:  source.Month,
-		Ratio:  source.Ratio,
-		UserId: source.UserId,
+		Month:       source.Month,
+		Ratio:       source.Ratio,
+		UserId:      source.UserId,
+		ProfileType: source.ProfileType,
 	}
 }
 
 func (source *IncomeExpenseRatioORM) ConvertToInternal() *IncomeExpenseRatioInternal {
 	return &IncomeExpenseRatioInternal{
-		Month:  source.Month,
-		Ratio:  source.Ratio,
-		UserId: source.UserId,
+		Month:       source.Month,
+		Ratio:       source.Ratio,
+		UserId:      source.UserId,
+		ProfileType: source.ProfileType,
 	}
 }
 
 func (source *IncomeExpenseRatioInternal) ConvertToProto() *IncomeExpenseRatio {
 	return &IncomeExpenseRatio{
-		Month:  source.Month,
-		Ratio:  source.Ratio,
-		UserId: source.UserId,
+		Month:       source.Month,
+		Ratio:       source.Ratio,
+		UserId:      source.UserId,
+		ProfileType: transformFinancialProfileType(source.ProfileType),
 	}
 }
 
@@ -321,6 +353,7 @@ type IncomeMetricsInternal struct {
 	TransactionCount               uint64  `ch:"TransactionCount,type:UInt64"`
 	TotalIncome                    float32 `ch:"TotalIncome,type:Float32"`
 	UserId                         uint64  `ch:"UserId,type:UInt64"`
+	ProfileType                    string  `ch:"ProfileType"`
 }
 
 func (source *IncomeMetricsInternal) ConvertToORM() *IncomeMetricsORM {
@@ -330,6 +363,7 @@ func (source *IncomeMetricsInternal) ConvertToORM() *IncomeMetricsORM {
 		TotalIncome:                    float64(source.TotalIncome),
 		TransactionCount:               source.TransactionCount,
 		UserId:                         source.UserId,
+		ProfileType:                    source.ProfileType,
 	}
 }
 
@@ -340,6 +374,7 @@ func (source *IncomeMetricsORM) ConvertToInternal() *IncomeMetricsInternal {
 		TotalIncome:                    float32(source.TotalIncome),
 		TransactionCount:               source.TransactionCount,
 		UserId:                         source.UserId,
+		ProfileType:                    source.ProfileType,
 	}
 }
 
@@ -350,6 +385,7 @@ func (source *IncomeMetricsInternal) ConvertToProto() *IncomeMetrics {
 		TotalIncome:                    float64(source.TotalIncome),
 		TransactionCount:               source.TransactionCount,
 		UserId:                         source.UserId,
+		ProfileType:                    transformFinancialProfileType(source.ProfileType),
 	}
 }
 
@@ -359,6 +395,7 @@ type MerchantMonthlyExpenditureInternal struct {
 	MerchantName  string  `ch:"MerchantName,type:String"`
 	TotalSpending float64 `ch:"TotalSpending,type:Float64"`
 	UserId        uint64  `ch:"UserId,type:UInt64"`
+	ProfileType   string  `ch:"ProfileType"`
 }
 
 func (source *MerchantMonthlyExpenditureInternal) ConvertToORM() *MerchantMonthlyExpenditureORM {
@@ -367,6 +404,7 @@ func (source *MerchantMonthlyExpenditureInternal) ConvertToORM() *MerchantMonthl
 		MerchantName:  source.MerchantName,
 		TotalSpending: source.TotalSpending,
 		UserId:        source.UserId,
+		ProfileType:   source.ProfileType,
 	}
 }
 
@@ -376,6 +414,7 @@ func (source *MerchantMonthlyExpenditureORM) ConvertToInternal() *MerchantMonthl
 		MerchantName:  source.MerchantName,
 		TotalSpending: source.TotalSpending,
 		UserId:        source.UserId,
+		ProfileType:   source.ProfileType,
 	}
 }
 
@@ -385,37 +424,42 @@ func (source *MerchantMonthlyExpenditureInternal) ConvertToProto() *MerchantMont
 		MerchantName:  source.MerchantName,
 		TotalSpending: source.TotalSpending,
 		UserId:        source.UserId,
+		ProfileType:   transformFinancialProfileType(source.ProfileType),
 	}
 }
 
 type MonthlyBalanceInternal struct {
-	ch.CHModel `ch:"MonthlyBalance,partition:toYYYYMM(time)"`
-	Month      uint32  `ch:"Month,type:UInt32"`
-	NetBalance float64 `ch:"NetBalance,type:Float64"`
-	UserId     uint64  `ch:"UserId,type:UInt64"`
+	ch.CHModel  `ch:"MonthlyBalance,partition:toYYYYMM(time)"`
+	Month       uint32  `ch:"Month,type:UInt32"`
+	NetBalance  float64 `ch:"NetBalance,type:Float64"`
+	UserId      uint64  `ch:"UserId,type:UInt64"`
+	ProfileType string  `ch:"ProfileType"`
 }
 
 func (source *MonthlyBalanceInternal) ConvertToORM() *MonthlyBalanceORM {
 	return &MonthlyBalanceORM{
-		Month:      source.Month,
-		NetBalance: source.NetBalance,
-		UserId:     source.UserId,
+		Month:       source.Month,
+		NetBalance:  source.NetBalance,
+		UserId:      source.UserId,
+		ProfileType: source.ProfileType,
 	}
 }
 
 func (source *MonthlyBalanceORM) ConvertToInternal() *MonthlyBalanceInternal {
 	return &MonthlyBalanceInternal{
-		Month:      source.Month,
-		NetBalance: source.NetBalance,
-		UserId:     source.UserId,
+		Month:       source.Month,
+		NetBalance:  source.NetBalance,
+		UserId:      source.UserId,
+		ProfileType: source.ProfileType,
 	}
 }
 
 func (source *MonthlyBalanceInternal) ConvertToProto() *MonthlyBalance {
 	return &MonthlyBalance{
-		Month:      source.Month,
-		NetBalance: source.NetBalance,
-		UserId:     source.UserId,
+		Month:       source.Month,
+		NetBalance:  source.NetBalance,
+		UserId:      source.UserId,
+		ProfileType: transformFinancialProfileType(source.ProfileType),
 	}
 }
 
@@ -424,6 +468,7 @@ type MonthlyExpenditureInternal struct {
 	Month         uint32  `ch:"Month,type:UInt32"`
 	TotalSpending float64 `ch:"TotalSpending,type:Float64"`
 	UserId        uint64  `ch:"UserId,type:UInt64"`
+	ProfileType   string  `ch:"ProfileType"`
 }
 
 func (source *MonthlyExpenditureInternal) ConvertToORM() *MonthlyExpenditureORM {
@@ -431,6 +476,7 @@ func (source *MonthlyExpenditureInternal) ConvertToORM() *MonthlyExpenditureORM 
 		Month:         source.Month,
 		TotalSpending: source.TotalSpending,
 		UserId:        source.UserId,
+		ProfileType:   source.ProfileType,
 	}
 }
 
@@ -439,6 +485,7 @@ func (source *MonthlyExpenditureORM) ConvertToInternal() *MonthlyExpenditureInte
 		Month:         source.Month,
 		TotalSpending: source.TotalSpending,
 		UserId:        source.UserId,
+		ProfileType:   source.ProfileType,
 	}
 }
 
@@ -447,6 +494,7 @@ func (source *MonthlyExpenditureInternal) ConvertToProto() *MonthlyExpenditure {
 		Month:         source.Month,
 		TotalSpending: source.TotalSpending,
 		UserId:        source.UserId,
+		ProfileType:   transformFinancialProfileType(source.ProfileType),
 	}
 }
 
@@ -455,6 +503,7 @@ type MonthlyIncomeInternal struct {
 	Month       uint32  `ch:"Month,type:UInt32"`
 	TotalIncome float64 `ch:"TotalIncome,type:Float64"`
 	UserId      uint64  `ch:"UserId,type:UInt64"`
+	ProfileType string  `ch:"ProfileType"`
 }
 
 func (source *MonthlyIncomeInternal) ConvertToORM() *MonthlyIncomeORM {
@@ -462,6 +511,7 @@ func (source *MonthlyIncomeInternal) ConvertToORM() *MonthlyIncomeORM {
 		Month:       source.Month,
 		TotalIncome: source.TotalIncome,
 		UserId:      source.UserId,
+		ProfileType: source.ProfileType,
 	}
 }
 
@@ -470,6 +520,7 @@ func (source *MonthlyIncomeORM) ConvertToInternal() *MonthlyIncomeInternal {
 		Month:       source.Month,
 		TotalIncome: source.TotalIncome,
 		UserId:      source.UserId,
+		ProfileType: source.ProfileType,
 	}
 }
 
@@ -478,37 +529,42 @@ func (source *MonthlyIncomeInternal) ConvertToProto() *MonthlyIncome {
 		Month:       source.Month,
 		TotalIncome: source.TotalIncome,
 		UserId:      source.UserId,
+		ProfileType: transformFinancialProfileType(source.ProfileType),
 	}
 }
 
 type MonthlySavingsInternal struct {
-	ch.CHModel `ch:"MonthlySavings,partition:toYYYYMM(time)"`
-	Month      uint32  `ch:"Month,type:UInt32"`
-	NetSavings float64 `ch:"NetSavings,type:Float64"`
-	UserId     uint64  `ch:"UserId,type:UInt64"`
+	ch.CHModel  `ch:"MonthlySavings,partition:toYYYYMM(time)"`
+	Month       uint32  `ch:"Month,type:UInt32"`
+	NetSavings  float64 `ch:"NetSavings,type:Float64"`
+	UserId      uint64  `ch:"UserId,type:UInt64"`
+	ProfileType string  `ch:"ProfileType"`
 }
 
 func (source *MonthlySavingsInternal) ConvertToORM() *MonthlySavingsORM {
 	return &MonthlySavingsORM{
-		Month:      source.Month,
-		NetSavings: source.NetSavings,
-		UserId:     source.UserId,
+		Month:       source.Month,
+		NetSavings:  source.NetSavings,
+		UserId:      source.UserId,
+		ProfileType: source.ProfileType,
 	}
 }
 
 func (source *MonthlySavingsORM) ConvertToInternal() *MonthlySavingsInternal {
 	return &MonthlySavingsInternal{
-		Month:      source.Month,
-		NetSavings: source.NetSavings,
-		UserId:     source.UserId,
+		Month:       source.Month,
+		NetSavings:  source.NetSavings,
+		UserId:      source.UserId,
+		ProfileType: source.ProfileType,
 	}
 }
 
 func (source *MonthlySavingsInternal) ConvertToProto() *MonthlySavings {
 	return &MonthlySavings{
-		Month:      source.Month,
-		NetSavings: source.NetSavings,
-		UserId:     source.UserId,
+		Month:       source.Month,
+		NetSavings:  source.NetSavings,
+		UserId:      source.UserId,
+		ProfileType: transformFinancialProfileType(source.ProfileType),
 	}
 }
 
@@ -518,6 +574,7 @@ type MonthlyTotalQuantityBySecurityAndUserInternal struct {
 	SecurityId    string  `ch:"SecurityId,type:String"`
 	TotalQuantity float64 `ch:"TotalQuantity,type:Float64"`
 	UserId        uint64  `ch:"UserId,type:UInt64"`
+	ProfileType   string  `ch:"ProfileType"`
 }
 
 func (source *MonthlyTotalQuantityBySecurityAndUserInternal) ConvertToORM() *MonthlyTotalQuantityBySecurityAndUserORM {
@@ -526,6 +583,7 @@ func (source *MonthlyTotalQuantityBySecurityAndUserInternal) ConvertToORM() *Mon
 		SecurityId:    source.SecurityId,
 		TotalQuantity: source.TotalQuantity,
 		UserId:        source.UserId,
+		ProfileType:   source.ProfileType,
 	}
 }
 
@@ -535,6 +593,7 @@ func (source *MonthlyTotalQuantityBySecurityAndUserORM) ConvertToInternal() *Mon
 		SecurityId:    source.SecurityId,
 		TotalQuantity: source.TotalQuantity,
 		UserId:        source.UserId,
+		ProfileType:   source.ProfileType,
 	}
 }
 
@@ -544,6 +603,7 @@ func (source *MonthlyTotalQuantityBySecurityAndUserInternal) ConvertToProto() *M
 		SecurityId:    source.SecurityId,
 		TotalQuantity: source.TotalQuantity,
 		UserId:        source.UserId,
+		ProfileType:   transformFinancialProfileType(source.ProfileType),
 	}
 }
 
@@ -552,6 +612,7 @@ type MonthlyTransactionCountInternal struct {
 	Month            uint32 `ch:"Month,type:UInt32"`
 	TransactionCount uint64 `ch:"TransactionCount,type:UInt64"`
 	UserId           uint64 `ch:"UserId,type:UInt64"`
+	ProfileType      string `ch:"ProfileType"`
 }
 
 func (source *MonthlyTransactionCountInternal) ConvertToORM() *MonthlyTransactionCountORM {
@@ -559,6 +620,7 @@ func (source *MonthlyTransactionCountInternal) ConvertToORM() *MonthlyTransactio
 		Month:            source.Month,
 		TransactionCount: source.TransactionCount,
 		UserId:           source.UserId,
+		ProfileType:      source.ProfileType,
 	}
 }
 
@@ -567,6 +629,7 @@ func (source *MonthlyTransactionCountORM) ConvertToInternal() *MonthlyTransactio
 		Month:            source.Month,
 		TransactionCount: source.TransactionCount,
 		UserId:           source.UserId,
+		ProfileType:      source.ProfileType,
 	}
 }
 
@@ -575,6 +638,7 @@ func (source *MonthlyTransactionCountInternal) ConvertToProto() *MonthlyTransact
 		Month:            source.Month,
 		TransactionCount: source.TransactionCount,
 		UserId:           source.UserId,
+		ProfileType:      transformFinancialProfileType(source.ProfileType),
 	}
 }
 
@@ -584,6 +648,7 @@ type PaymentChannelMonthlyExpenditureInternal struct {
 	PaymentChannel string  `ch:"PaymentChannel,type:String"`
 	TotalSpending  float64 `ch:"TotalSpending,type:Float64"`
 	UserId         uint64  `ch:"UserId,type:UInt64"`
+	ProfileType    string  `ch:"ProfileType"`
 }
 
 func (source *PaymentChannelMonthlyExpenditureInternal) ConvertToORM() *PaymentChannelMonthlyExpenditureORM {
@@ -592,6 +657,7 @@ func (source *PaymentChannelMonthlyExpenditureInternal) ConvertToORM() *PaymentC
 		PaymentChannel: source.PaymentChannel,
 		TotalSpending:  source.TotalSpending,
 		UserId:         source.UserId,
+		ProfileType:    source.ProfileType,
 	}
 }
 
@@ -601,6 +667,7 @@ func (source *PaymentChannelMonthlyExpenditureORM) ConvertToInternal() *PaymentC
 		PaymentChannel: source.PaymentChannel,
 		TotalSpending:  source.TotalSpending,
 		UserId:         source.UserId,
+		ProfileType:    source.ProfileType,
 	}
 }
 
@@ -610,6 +677,7 @@ func (source *PaymentChannelMonthlyExpenditureInternal) ConvertToProto() *Paymen
 		PaymentChannel: source.PaymentChannel,
 		TotalSpending:  source.TotalSpending,
 		UserId:         source.UserId,
+		ProfileType:    transformFinancialProfileType(source.ProfileType),
 	}
 }
 
@@ -618,6 +686,7 @@ type TotalInvestmentBySecurityInternal struct {
 	SecurityId      string  `ch:"SecurityId,type:String"`
 	TotalInvestment float64 `ch:"TotalInvestment,type:Float64"`
 	UserId          uint64  `ch:"UserId,type:UInt64"`
+	ProfileType     string  `ch:"ProfileType"`
 }
 
 func (source *TotalInvestmentBySecurityInternal) ConvertToORM() *TotalInvestmentBySecurityORM {
@@ -625,6 +694,7 @@ func (source *TotalInvestmentBySecurityInternal) ConvertToORM() *TotalInvestment
 		SecurityId:      source.SecurityId,
 		TotalInvestment: source.TotalInvestment,
 		UserId:          source.UserId,
+		ProfileType:     source.ProfileType,
 	}
 }
 
@@ -633,6 +703,7 @@ func (source *TotalInvestmentBySecurityORM) ConvertToInternal() *TotalInvestment
 		SecurityId:      source.SecurityId,
 		TotalInvestment: source.TotalInvestment,
 		UserId:          source.UserId,
+		ProfileType:     source.ProfileType,
 	}
 }
 
@@ -641,6 +712,7 @@ func (source *TotalInvestmentBySecurityInternal) ConvertToProto() *TotalInvestme
 		SecurityId:      source.SecurityId,
 		TotalInvestment: source.TotalInvestment,
 		UserId:          source.UserId,
+		ProfileType:     transformFinancialProfileType(source.ProfileType),
 	}
 }
 
@@ -656,6 +728,7 @@ type CategoryMetricsFinancialSubProfileInternal struct {
 	SpentLastYear                  float64 `ch:"SpentLastYear,type:Float64"`
 	SpentLastTwoYears              float64 `ch:"SpentLastTwoYears,type:Float64"`
 	UserId                         uint64  `ch:"UserId,type:UInt64"`
+	ProfileType                    string  `ch:"ProfileType"`
 }
 
 func (source *CategoryMetricsFinancialSubProfileInternal) ConvertToORM() *CategoryMetricsFinancialSubProfileORM {
@@ -670,6 +743,7 @@ func (source *CategoryMetricsFinancialSubProfileInternal) ConvertToORM() *Catego
 		SpentLastYear:                  source.SpentLastYear,
 		TransactionCount:               source.TransactionCount,
 		UserId:                         source.UserId,
+		ProfileType:                    source.ProfileType,
 	}
 }
 
@@ -685,6 +759,7 @@ func (source *CategoryMetricsFinancialSubProfileORM) ConvertToInternal() *Catego
 		SpentLastYear:                  source.SpentLastYear,
 		TransactionCount:               source.TransactionCount,
 		UserId:                         source.UserId,
+		ProfileType:                    source.ProfileType,
 	}
 }
 
@@ -700,6 +775,7 @@ func (source *CategoryMetricsFinancialSubProfileInternal) ConvertToProto() *Cate
 		SpentLastYear:                  source.SpentLastYear,
 		TransactionCount:               source.TransactionCount,
 		UserId:                         source.UserId,
+		ProfileType:                    transformFinancialProfileType(source.ProfileType),
 	}
 }
 
@@ -712,6 +788,7 @@ type IncomeMetricsFinancialSubProfileInternal struct {
 	IncomeLastSixMonths float64 `ch:"IncomeLastSixMonths,type:Float64"`
 	IncomeLastYear      float64 `ch:"IncomeLastYear,type:Float64"`
 	UserId              uint64  `ch:"UserId,type:UInt64"`
+	ProfileType         string  `ch:"ProfileType"`
 }
 
 func (source *IncomeMetricsFinancialSubProfileInternal) ConvertToORM() *IncomeMetricsFinancialSubProfileORM {
@@ -723,6 +800,7 @@ func (source *IncomeMetricsFinancialSubProfileInternal) ConvertToORM() *IncomeMe
 		IncomeLastTwoWeeks:  source.IncomeLastTwoWeeks,
 		IncomeLastYear:      source.IncomeLastYear,
 		UserId:              source.UserId,
+		ProfileType:         source.ProfileType,
 	}
 }
 
@@ -735,6 +813,7 @@ func (source *IncomeMetricsFinancialSubProfileORM) ConvertToInternal() *IncomeMe
 		IncomeLastTwoWeeks:  source.IncomeLastTwoWeeks,
 		IncomeLastYear:      source.IncomeLastYear,
 		UserId:              source.UserId,
+		ProfileType:         source.ProfileType,
 	}
 }
 
@@ -747,6 +826,7 @@ func (source *IncomeMetricsFinancialSubProfileInternal) ConvertToProto() *Income
 		IncomeLastTwoWeeks:  source.IncomeLastTwoWeeks,
 		IncomeLastYear:      source.IncomeLastYear,
 		UserId:              source.UserId,
+		ProfileType:         transformFinancialProfileType(source.ProfileType),
 	}
 }
 
@@ -759,6 +839,7 @@ type ExpenseMetricsFinancialSubProfileMetricsInternal struct {
 	AverageMonthlyDiscretionarySpending float64 `ch:"AverageMonthlyDiscretionarySpending,type:Float64"`
 	AverageMonthlyRecurringSpending     float64 `ch:"AverageMonthlyRecurringSpending,type:Float64"`
 	UserId                              uint64  `ch:"UserId,type:UInt64"`
+	ProfileType                         string  `ch:"ProfileType"`
 }
 
 func (source *ExpenseMetricsFinancialSubProfileMetricsInternal) ConvertToORM() *ExpenseMetricsFinancialSubProfileMetricsORM {
@@ -770,6 +851,7 @@ func (source *ExpenseMetricsFinancialSubProfileMetricsInternal) ConvertToORM() *
 		SpentLastSixMonths:                  source.SpentLastSixMonths,
 		SpentLastWeek:                       source.SpentLastWeek,
 		UserId:                              source.UserId,
+		ProfileType:                         source.ProfileType,
 	}
 }
 
@@ -782,6 +864,7 @@ func (source *ExpenseMetricsFinancialSubProfileMetricsORM) ConvertToInternal() *
 		SpentLastMonth:                      source.SpentLastMonth,
 		SpentLastWeek:                       source.SpentLastWeek,
 		UserId:                              source.UserId,
+		ProfileType:                         source.ProfileType,
 	}
 }
 
@@ -794,6 +877,7 @@ func (source *ExpenseMetricsFinancialSubProfileMetricsInternal) ConvertToProto()
 		AverageMonthlyDiscretionarySpending: source.AverageMonthlyDiscretionarySpending,
 		AverageMonthlyRecurringSpending:     source.AverageMonthlyRecurringSpending,
 		UserId:                              source.UserId,
+		ProfileType:                         transformFinancialProfileType(source.ProfileType),
 	}
 }
 
@@ -809,6 +893,7 @@ type LocationFinancialSubProfileInternal struct {
 	SpentLastYear      float64 `ch:"SpentLastYear,type:Float64"`
 	SpentLastTwoYears  float64 `ch:"SpentLastTwoYears,type:Float64"`
 	UserId             uint64  `ch:"UserId,type:UInt64"`
+	ProfileType        string  `ch:"ProfileType"`
 }
 
 func (source *LocationFinancialSubProfileInternal) ConvertToORM() *LocationFinancialSubProfileORM {
@@ -823,6 +908,7 @@ func (source *LocationFinancialSubProfileInternal) ConvertToORM() *LocationFinan
 		SpentLastYear:      source.SpentLastYear,
 		TransactionCount:   source.TransactionCount,
 		UserId:             source.UserId,
+		ProfileType:        source.ProfileType,
 	}
 }
 
@@ -838,6 +924,7 @@ func (source *LocationFinancialSubProfileORM) ConvertToInternal() *LocationFinan
 		SpentLastYear:      source.SpentLastYear,
 		TransactionCount:   source.TransactionCount,
 		UserId:             source.UserId,
+		ProfileType:        source.ProfileType,
 	}
 }
 
@@ -853,6 +940,7 @@ func (source *LocationFinancialSubProfileInternal) ConvertToProto() *LocationFin
 		SpentLastYear:      source.SpentLastYear,
 		TransactionCount:   source.TransactionCount,
 		UserId:             source.UserId,
+		ProfileType:        transformFinancialProfileType(source.ProfileType),
 	}
 }
 
@@ -867,6 +955,7 @@ type MerchantMetricsFinancialSubProfileInternal struct {
 	SpentLastTwoYears  float64 `ch:"SpentLastTwoYears,type:Float64"`
 	UserId             uint64  `ch:"UserId,type:UInt64"`
 	MerchantName       string  `ch:"MerchantName,type:String"`
+	ProfileType        string  `ch:"ProfileType"`
 }
 
 func (source *MerchantMetricsFinancialSubProfileInternal) ConvertToORM() *MerchantMetricsFinancialSubProfileORM {
@@ -880,6 +969,7 @@ func (source *MerchantMetricsFinancialSubProfileInternal) ConvertToORM() *Mercha
 		SpentLastWeek:      source.SpentLastWeek,
 		SpentLastYear:      source.SpentLastYear,
 		UserId:             source.UserId,
+		ProfileType:        source.ProfileType,
 	}
 }
 
@@ -894,6 +984,7 @@ func (source *MerchantMetricsFinancialSubProfileORM) ConvertToInternal() *Mercha
 		SpentLastWeek:      source.SpentLastWeek,
 		SpentLastYear:      source.SpentLastYear,
 		UserId:             source.UserId,
+		ProfileType:        source.ProfileType,
 	}
 }
 
@@ -908,6 +999,7 @@ func (source *MerchantMetricsFinancialSubProfileInternal) ConvertToProto() *Merc
 		SpentLastWeek:      source.SpentLastWeek,
 		SpentLastYear:      source.SpentLastYear,
 		UserId:             source.UserId,
+		ProfileType:        transformFinancialProfileType(source.ProfileType),
 	}
 }
 
@@ -923,6 +1015,7 @@ type PaymentChannelMetricsFinancialSubProfileInternal struct {
 	SpentLastYear      float64 `ch:"SpentLastYear,type:Float64"`
 	SpentLastTwoYears  float64 `ch:"SpentLastTwoYears,type:Float64"`
 	UserId             uint64  `ch:"UserId,type:UInt64"`
+	ProfileType        string  `ch:"ProfileType"`
 }
 
 func (source *PaymentChannelMetricsFinancialSubProfileInternal) ConvertToORM() *PaymentChannelMetricsFinancialSubProfileORM {
@@ -937,6 +1030,7 @@ func (source *PaymentChannelMetricsFinancialSubProfileInternal) ConvertToORM() *
 		SpentLastYear:      source.SpentLastYear,
 		TransactionCount:   source.TransactionCount,
 		UserId:             source.UserId,
+		ProfileType:        source.ProfileType,
 	}
 }
 
@@ -952,6 +1046,7 @@ func (source *PaymentChannelMetricsFinancialSubProfileORM) ConvertToInternal() *
 		SpentLastYear:      source.SpentLastYear,
 		TransactionCount:   source.TransactionCount,
 		UserId:             source.UserId,
+		ProfileType:        source.ProfileType,
 	}
 }
 
@@ -967,5 +1062,6 @@ func (source *PaymentChannelMetricsFinancialSubProfileInternal) ConvertToProto()
 		SpentLastYear:      source.SpentLastYear,
 		TransactionCount:   source.TransactionCount,
 		UserId:             source.UserId,
+		ProfileType:        transformFinancialProfileType(source.ProfileType),
 	}
 }

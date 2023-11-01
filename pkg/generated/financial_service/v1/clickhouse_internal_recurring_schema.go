@@ -33,6 +33,7 @@ type ReOccuringTransactionInternal struct {
 	TransactionIds                  string    `ch:"TransactionIds,lc"`
 	UpdatedTime                     string    `ch:"UpdatedTime,lc"`
 	UserId                          uint64    `ch:"UserId"`
+	ProfileType                     string    `ch:"ProfileType,lc"`
 }
 
 // Converts from ReOccuringTransactionInternal to ReOccuringTransactionORM
@@ -62,6 +63,7 @@ func (internal *ReOccuringTransactionInternal) ConvertToORM() *ReOccuringTransac
 		TransactionIds:                  internal.TransactionIds,
 		UpdatedTime:                     internal.UpdatedTime,
 		UserId:                          internal.UserId,
+		ProfileType:                     internal.ProfileType,
 	}
 }
 
@@ -103,6 +105,7 @@ func (internal *ReOccuringTransaction) ConvertToInternal() (*ReOccuringTransacti
 		TransactionIds:                  internal.TransactionIds,
 		UpdatedTime:                     internal.UpdatedTime,
 		UserId:                          internal.UserId,
+		ProfileType:                     internal.ProfileType.String(),
 	}
 
 	tx := ormRec.ConvertToInternal()
@@ -135,6 +138,7 @@ func (orm *ReOccuringTransactionORM) ConvertToInternal() *ReOccuringTransactionI
 		TransactionIds:                  orm.TransactionIds,
 		UpdatedTime:                     orm.UpdatedTime,
 		UserId:                          orm.UserId,
+		ProfileType:                     orm.ProfileType,
 	}
 
 	if orm.Time != nil {
