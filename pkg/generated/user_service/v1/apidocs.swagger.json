@@ -83,7 +83,8 @@
           }
         ],
         "tags": [
-          "user account"
+          "account",
+          "v1"
         ]
       },
       "post": {
@@ -133,7 +134,8 @@
           }
         ],
         "tags": [
-          "user account"
+          "account",
+          "v1"
         ]
       },
       "put": {
@@ -183,7 +185,8 @@
           }
         ],
         "tags": [
-          "user account"
+          "account",
+          "v1"
         ]
       }
     },
@@ -241,7 +244,8 @@
           }
         ],
         "tags": [
-          "user account"
+          "account",
+          "v1"
         ]
       }
     },
@@ -292,7 +296,8 @@
           }
         ],
         "tags": [
-          "user account"
+          "account",
+          "v1"
         ]
       }
     },
@@ -343,7 +348,8 @@
           }
         ],
         "tags": [
-          "user account"
+          "account",
+          "v1"
         ]
       }
     },
@@ -385,7 +391,8 @@
           }
         },
         "tags": [
-          "service health"
+          "service health",
+          "v1"
         ]
       }
     },
@@ -427,7 +434,8 @@
           }
         },
         "tags": [
-          "service readyness"
+          "service readyness",
+          "v1"
         ]
       }
     },
@@ -478,7 +486,8 @@
           }
         ],
         "tags": [
-          "user account"
+          "account",
+          "v1"
         ]
       }
     },
@@ -529,7 +538,8 @@
           }
         ],
         "tags": [
-          "user account"
+          "account",
+          "v1"
         ]
       }
     },
@@ -581,7 +591,8 @@
           }
         ],
         "tags": [
-          "user account"
+          "account",
+          "v1"
         ]
       }
     },
@@ -638,7 +649,9 @@
           }
         ],
         "tags": [
-          "password reset"
+          "password reset",
+          "v1",
+          "webhook"
         ]
       }
     },
@@ -690,7 +703,8 @@
           }
         ],
         "tags": [
-          "user account"
+          "account",
+          "v1"
         ]
       },
       "delete": {
@@ -740,7 +754,8 @@
           }
         ],
         "tags": [
-          "user account"
+          "account",
+          "v1"
         ]
       }
     },
@@ -810,7 +825,8 @@
           }
         ],
         "tags": [
-          "user account"
+          "account",
+          "v2"
         ]
       },
       "post": {
@@ -860,7 +876,8 @@
           }
         ],
         "tags": [
-          "user account"
+          "account",
+          "v2"
         ]
       },
       "put": {
@@ -910,7 +927,8 @@
           }
         ],
         "tags": [
-          "user account"
+          "account",
+          "v2"
         ]
       }
     },
@@ -980,7 +998,8 @@
           }
         ],
         "tags": [
-          "user account"
+          "account",
+          "v2"
         ]
       }
     },
@@ -1032,7 +1051,8 @@
           }
         ],
         "tags": [
-          "business settings"
+          "business settings",
+          "v2"
         ]
       }
     },
@@ -1095,7 +1115,8 @@
           }
         ],
         "tags": [
-          "User Account Management"
+          "account",
+          "v2"
         ]
       }
     },
@@ -1158,7 +1179,8 @@
           }
         ],
         "tags": [
-          "user account"
+          "account",
+          "v2"
         ]
       }
     },
@@ -1222,7 +1244,8 @@
           }
         ],
         "tags": [
-          "User Account Management"
+          "account",
+          "v2"
         ]
       }
     },
@@ -1286,7 +1309,8 @@
           }
         ],
         "tags": [
-          "user account"
+          "account",
+          "v2"
         ]
       }
     },
@@ -1349,7 +1373,8 @@
           }
         ],
         "tags": [
-          "user account"
+          "account",
+          "v2"
         ]
       }
     },
@@ -1406,7 +1431,8 @@
           }
         ],
         "tags": [
-          "password reset"
+          "password reset",
+          "v2"
         ]
       }
     },
@@ -1471,7 +1497,8 @@
           }
         ],
         "tags": [
-          "User Account Management"
+          "account",
+          "v2"
         ]
       },
       "delete": {
@@ -1534,7 +1561,8 @@
           }
         ],
         "tags": [
-          "user account"
+          "account",
+          "v2"
         ]
       }
     }
