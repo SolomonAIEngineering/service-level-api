@@ -2262,12 +2262,18 @@
                 },
                 "profileType": {
                   "$ref": "#/definitions/FinancialUserProfileType"
+                },
+                "linkId": {
+                  "type": "string",
+                  "format": "uint64",
+                  "title": "The linkId to associate this bank account with"
                 }
               },
               "title": "CreateBankAccountRequest: Represents the request object invoked against the financial\nservice to create a bank account for a given user",
               "required": [
                 "bankAccount",
-                "profileType"
+                "profileType",
+                "linkId"
               ]
             }
           }
@@ -5598,21 +5604,6 @@
         "status": {
           "$ref": "#/definitions/BankAccountStatus",
           "title": "the bank account status"
-        },
-        "transactions": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/PlaidAccountTransaction"
-          },
-          "title": "the set of transactions tied to this bank account"
-        },
-        "recurringTransactions": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/PlaidAccountRecurringTransaction"
-          }
         }
       },
       "required": [
@@ -6498,20 +6489,6 @@
         "status": {
           "$ref": "#/definitions/BankAccountStatus",
           "title": "the bank account status"
-        },
-        "transactions": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/PlaidAccountTransaction"
-          }
-        },
-        "recurringTransactions": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/PlaidAccountRecurringTransaction"
-          }
         }
       }
     },
@@ -8081,13 +8058,6 @@
         "status": {
           "$ref": "#/definitions/BankAccountStatus",
           "title": "the bank account status"
-        },
-        "transactions": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/PlaidAccountTransaction"
-          }
         }
       }
     },
@@ -9563,109 +9533,6 @@
         "PERSONAL_ACTIONABLE_INSIGHT_NAME_DISCRETIONARY_SPENDING"
       ],
       "default": "PERSONAL_ACTIONABLE_INSIGHT_NAME_UNSPECIFIED"
-    },
-    "PlaidAccountRecurringTransaction": {
-      "type": "object",
-      "properties": {
-        "accountId": {
-          "type": "string",
-          "title": "@gotag: ch:\"account_id\""
-        },
-        "streamId": {
-          "type": "string",
-          "title": "@gotag: ch:\"stream_id\""
-        },
-        "categoryId": {
-          "type": "string",
-          "title": "@gotag: ch:\"category_id\""
-        },
-        "description": {
-          "type": "string",
-          "title": "@gotag: ch:\"description\""
-        },
-        "merchantName": {
-          "type": "string",
-          "title": "@gotag: ch:\"merchant_name\""
-        },
-        "personalFinanceCategoryPrimary": {
-          "type": "string",
-          "title": "@gotag: ch:\"personal_finance_category_primary\""
-        },
-        "personalFinanceCategoryDetailed": {
-          "type": "string",
-          "title": "@gotag: ch:\"personal_finance_category_detailed\""
-        },
-        "firstDate": {
-          "type": "string",
-          "title": "@gotag: ch:\"first_date\""
-        },
-        "lastDate": {
-          "type": "string",
-          "title": "@gotag: ch:\"last_date\""
-        },
-        "frequency": {
-          "type": "string",
-          "title": "@gotag: ch:\"frequency\""
-        },
-        "transactionIds": {
-          "type": "string",
-          "title": "@gotag: ch:\"transaction_ids,array\""
-        },
-        "averageAmount": {
-          "type": "string",
-          "title": "@gotag: ch:\"average_amount\""
-        },
-        "averageAmountIsoCurrencyCode": {
-          "type": "string",
-          "title": "@gotag: ch:\"average_amount_iso_currency_code\""
-        },
-        "lastAmount": {
-          "type": "string",
-          "title": "@gotag: ch:\"last_amount\""
-        },
-        "lastAmountIsoCurrencyCode": {
-          "type": "string",
-          "title": "@gotag: ch:\"last_amount_iso_currency_code\""
-        },
-        "isActive": {
-          "type": "boolean",
-          "title": "@gotag: ch:\"is_active\""
-        },
-        "status": {
-          "type": "string",
-          "title": "@gotag: ch:\"status\""
-        },
-        "updatedTime": {
-          "type": "string",
-          "title": "@gotag: ch:\"updated_time\""
-        },
-        "userId": {
-          "type": "string",
-          "format": "uint64",
-          "title": "@gotag: ch:\"user_id\""
-        },
-        "linkId": {
-          "type": "string",
-          "format": "uint64",
-          "title": "@gotag: ch:\"link_id\""
-        },
-        "id": {
-          "type": "string",
-          "format": "uint64",
-          "title": "@gotag: ch:\"id\""
-        },
-        "flow": {
-          "type": "string",
-          "title": "@gotag: ch:\"flow\""
-        },
-        "time": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "additionalProperties": {
-          "$ref": "#/definitions/Any"
-        }
-      }
     },
     "PlaidAccountTransaction": {
       "type": "object",

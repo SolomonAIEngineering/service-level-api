@@ -1733,74 +1733,6 @@ func (m *CreditAccount) validate(all bool) error {
 
 	// no validation rules for Status
 
-	for idx, item := range m.GetTransactions() {
-		_, _ = idx, item
-
-		if all {
-			switch v := interface{}(item).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, CreditAccountValidationError{
-						field:  fmt.Sprintf("Transactions[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, CreditAccountValidationError{
-						field:  fmt.Sprintf("Transactions[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return CreditAccountValidationError{
-					field:  fmt.Sprintf("Transactions[%v]", idx),
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	}
-
-	for idx, item := range m.GetRecurringTransactions() {
-		_, _ = idx, item
-
-		if all {
-			switch v := interface{}(item).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, CreditAccountValidationError{
-						field:  fmt.Sprintf("RecurringTransactions[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, CreditAccountValidationError{
-						field:  fmt.Sprintf("RecurringTransactions[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return CreditAccountValidationError{
-					field:  fmt.Sprintf("RecurringTransactions[%v]", idx),
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	}
-
 	if len(errors) > 0 {
 		return CreditAccountMultiError(errors)
 	}
@@ -2157,40 +2089,6 @@ func (m *InvestmentAccount) validate(all bool) error {
 
 	// no validation rules for Status
 
-	for idx, item := range m.GetTransactions() {
-		_, _ = idx, item
-
-		if all {
-			switch v := interface{}(item).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, InvestmentAccountValidationError{
-						field:  fmt.Sprintf("Transactions[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, InvestmentAccountValidationError{
-						field:  fmt.Sprintf("Transactions[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return InvestmentAccountValidationError{
-					field:  fmt.Sprintf("Transactions[%v]", idx),
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	}
-
 	if len(errors) > 0 {
 		return InvestmentAccountMultiError(errors)
 	}
@@ -2359,74 +2257,6 @@ func (m *BankAccount) validate(all bool) error {
 	// no validation rules for Subtype
 
 	// no validation rules for Status
-
-	for idx, item := range m.GetTransactions() {
-		_, _ = idx, item
-
-		if all {
-			switch v := interface{}(item).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, BankAccountValidationError{
-						field:  fmt.Sprintf("Transactions[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, BankAccountValidationError{
-						field:  fmt.Sprintf("Transactions[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return BankAccountValidationError{
-					field:  fmt.Sprintf("Transactions[%v]", idx),
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	}
-
-	for idx, item := range m.GetRecurringTransactions() {
-		_, _ = idx, item
-
-		if all {
-			switch v := interface{}(item).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, BankAccountValidationError{
-						field:  fmt.Sprintf("RecurringTransactions[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, BankAccountValidationError{
-						field:  fmt.Sprintf("RecurringTransactions[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return BankAccountValidationError{
-					field:  fmt.Sprintf("RecurringTransactions[%v]", idx),
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	}
 
 	if len(errors) > 0 {
 		return BankAccountMultiError(errors)
