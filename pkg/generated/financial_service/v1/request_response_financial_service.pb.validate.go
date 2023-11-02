@@ -1198,6 +1198,17 @@ func (m *CreateBankAccountRequest) validate(all bool) error {
 
 	// no validation rules for ProfileType
 
+	if m.GetLinkId() <= 0 {
+		err := CreateBankAccountRequestValidationError{
+			field:  "LinkId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if len(errors) > 0 {
 		return CreateBankAccountRequestMultiError(errors)
 	}

@@ -8,7 +8,6 @@ import (
 	"context"
 	"strings"
 
-	financial_servicev1 "github.com/SolomonAIEngineering/service-level-api/pkg/generated/financial_service/v1"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 	"gorm.io/gorm/schema"
@@ -18,6 +17,8 @@ import (
 	"gorm.io/gen/helper"
 
 	"gorm.io/plugin/dbresolver"
+
+	financial_servicev1 "github.com/SolomonAIEngineering/service-level-api/pkg/generated/financial_service/v1"
 )
 
 func newPlaidAccountTransactionORM(db *gorm.DB, opts ...gen.DOOption) plaidAccountTransactionORM {
@@ -33,15 +34,12 @@ func newPlaidAccountTransactionORM(db *gorm.DB, opts ...gen.DOOption) plaidAccou
 	_plaidAccountTransactionORM.Amount = field.NewFloat64(tableName, "amount")
 	_plaidAccountTransactionORM.AuthorizedDate = field.NewString(tableName, "authorized_date")
 	_plaidAccountTransactionORM.AuthorizedDatetime = field.NewString(tableName, "authorized_datetime")
-	_plaidAccountTransactionORM.BankAccountId = field.NewUint64(tableName, "bank_account_id")
 	_plaidAccountTransactionORM.Categories = field.NewField(tableName, "categories")
 	_plaidAccountTransactionORM.CategoryId = field.NewString(tableName, "category_id")
 	_plaidAccountTransactionORM.CheckNumber = field.NewString(tableName, "check_number")
-	_plaidAccountTransactionORM.CreditAccountId = field.NewUint64(tableName, "credit_account_id")
 	_plaidAccountTransactionORM.CurrentDate = field.NewString(tableName, "current_date")
 	_plaidAccountTransactionORM.CurrentDatetime = field.NewString(tableName, "current_datetime")
 	_plaidAccountTransactionORM.Id = field.NewUint64(tableName, "id")
-	_plaidAccountTransactionORM.InvestmentAccountId = field.NewUint64(tableName, "investment_account_id")
 	_plaidAccountTransactionORM.IsoCurrencyCode = field.NewString(tableName, "iso_currency_code")
 	_plaidAccountTransactionORM.LinkId = field.NewUint64(tableName, "link_id")
 	_plaidAccountTransactionORM.LocationAddress = field.NewString(tableName, "location_address")
@@ -87,15 +85,12 @@ type plaidAccountTransactionORM struct {
 	Amount                          field.Float64
 	AuthorizedDate                  field.String
 	AuthorizedDatetime              field.String
-	BankAccountId                   field.Uint64
 	Categories                      field.Field
 	CategoryId                      field.String
 	CheckNumber                     field.String
-	CreditAccountId                 field.Uint64
 	CurrentDate                     field.String
 	CurrentDatetime                 field.String
 	Id                              field.Uint64
-	InvestmentAccountId             field.Uint64
 	IsoCurrencyCode                 field.String
 	LinkId                          field.Uint64
 	LocationAddress                 field.String
@@ -147,15 +142,12 @@ func (p *plaidAccountTransactionORM) updateTableName(table string) *plaidAccount
 	p.Amount = field.NewFloat64(table, "amount")
 	p.AuthorizedDate = field.NewString(table, "authorized_date")
 	p.AuthorizedDatetime = field.NewString(table, "authorized_datetime")
-	p.BankAccountId = field.NewUint64(table, "bank_account_id")
 	p.Categories = field.NewField(table, "categories")
 	p.CategoryId = field.NewString(table, "category_id")
 	p.CheckNumber = field.NewString(table, "check_number")
-	p.CreditAccountId = field.NewUint64(table, "credit_account_id")
 	p.CurrentDate = field.NewString(table, "current_date")
 	p.CurrentDatetime = field.NewString(table, "current_datetime")
 	p.Id = field.NewUint64(table, "id")
-	p.InvestmentAccountId = field.NewUint64(table, "investment_account_id")
 	p.IsoCurrencyCode = field.NewString(table, "iso_currency_code")
 	p.LinkId = field.NewUint64(table, "link_id")
 	p.LocationAddress = field.NewString(table, "location_address")
@@ -202,21 +194,18 @@ func (p *plaidAccountTransactionORM) GetFieldByName(fieldName string) (field.Ord
 }
 
 func (p *plaidAccountTransactionORM) fillFieldMap() {
-	p.fieldMap = make(map[string]field.Expr, 44)
+	p.fieldMap = make(map[string]field.Expr, 41)
 	p.fieldMap["account_id"] = p.AccountId
 	p.fieldMap["account_owner"] = p.AccountOwner
 	p.fieldMap["amount"] = p.Amount
 	p.fieldMap["authorized_date"] = p.AuthorizedDate
 	p.fieldMap["authorized_datetime"] = p.AuthorizedDatetime
-	p.fieldMap["bank_account_id"] = p.BankAccountId
 	p.fieldMap["categories"] = p.Categories
 	p.fieldMap["category_id"] = p.CategoryId
 	p.fieldMap["check_number"] = p.CheckNumber
-	p.fieldMap["credit_account_id"] = p.CreditAccountId
 	p.fieldMap["current_date"] = p.CurrentDate
 	p.fieldMap["current_datetime"] = p.CurrentDatetime
 	p.fieldMap["id"] = p.Id
-	p.fieldMap["investment_account_id"] = p.InvestmentAccountId
 	p.fieldMap["iso_currency_code"] = p.IsoCurrencyCode
 	p.fieldMap["link_id"] = p.LinkId
 	p.fieldMap["location_address"] = p.LocationAddress

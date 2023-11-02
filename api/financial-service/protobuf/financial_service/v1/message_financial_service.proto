@@ -390,8 +390,6 @@ message CreditAccount {
   string next_payment_due_date = 23;
    // the bank account status
   BankAccountStatus status = 24;
-  repeated PlaidAccountTransaction transactions = 25 [ (gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: false}];
-  repeated PlaidAccountRecurringTransaction recurring_transactions = 26 [ (gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: false}];
 }
 
 message MortgageAccount {
@@ -466,7 +464,6 @@ message InvestmentAccount {
   repeated InvestmentSecurity securities = 8 [ (gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
    // the bank account status
   BankAccountStatus status = 14;
-  repeated PlaidAccountTransaction transactions = 16 [ (gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: false}];
 }
 
 message BankAccount {
@@ -533,10 +530,6 @@ message BankAccount {
 
   // the bank account status
   BankAccountStatus status = 15;
-
-  // the set of transactions tied to this bank account
-  repeated PlaidAccountTransaction transactions = 16 [ (gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: false}];
-  repeated PlaidAccountRecurringTransaction recurring_transactions = 17 [ (gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: false}];
 }
 
 // Pocket is an abstraction of a over a bank account. A user can has at most 4 pockets per connected account

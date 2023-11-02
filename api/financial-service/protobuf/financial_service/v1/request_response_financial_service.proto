@@ -136,6 +136,12 @@ message CreateBankAccountRequest {
   FinancialUserProfileType profile_type = 9 [
     (google.api.field_behavior) = REQUIRED
   ];
+
+  // The linkId to associate this bank account with
+  uint64 link_id = 4  [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
 }
 
 // CreateBankAccountResponse: Represents the response object returned as a response to

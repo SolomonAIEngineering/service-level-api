@@ -1215,10 +1215,8 @@ type CreditAccountORM struct {
 	NextPaymentDueDate     string
 	Number                 string
 	PlaidAccountId         string
-	RecurringTransactions  []*PlaidAccountRecurringTransactionORM `gorm:"foreignkey:CreditAccountId;association_foreignkey:Id"`
 	Status                 string
 	Subtype                string
-	Transactions           []*PlaidAccountTransactionORM `gorm:"foreignkey:CreditAccountId;association_foreignkey:Id"`
 	Type                   string
 	UserId                 uint64
 }
@@ -1269,28 +1267,6 @@ func (m *CreditAccount) ToORM(ctx context.Context) (CreditAccountORM, error) {
 	to.MinimumPaymentAmount = m.MinimumPaymentAmount
 	to.NextPaymentDueDate = m.NextPaymentDueDate
 	to.Status = BankAccountStatus_name[int32(m.Status)]
-	for _, v := range m.Transactions {
-		if v != nil {
-			if tempTransactions, cErr := v.ToORM(ctx); cErr == nil {
-				to.Transactions = append(to.Transactions, &tempTransactions)
-			} else {
-				return to, cErr
-			}
-		} else {
-			to.Transactions = append(to.Transactions, nil)
-		}
-	}
-	for _, v := range m.RecurringTransactions {
-		if v != nil {
-			if tempRecurringTransactions, cErr := v.ToORM(ctx); cErr == nil {
-				to.RecurringTransactions = append(to.RecurringTransactions, &tempRecurringTransactions)
-			} else {
-				return to, cErr
-			}
-		} else {
-			to.RecurringTransactions = append(to.RecurringTransactions, nil)
-		}
-	}
 	if posthook, ok := interface{}(m).(CreditAccountWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -1338,28 +1314,6 @@ func (m *CreditAccountORM) ToPB(ctx context.Context) (CreditAccount, error) {
 	to.MinimumPaymentAmount = m.MinimumPaymentAmount
 	to.NextPaymentDueDate = m.NextPaymentDueDate
 	to.Status = BankAccountStatus(BankAccountStatus_value[m.Status])
-	for _, v := range m.Transactions {
-		if v != nil {
-			if tempTransactions, cErr := v.ToPB(ctx); cErr == nil {
-				to.Transactions = append(to.Transactions, &tempTransactions)
-			} else {
-				return to, cErr
-			}
-		} else {
-			to.Transactions = append(to.Transactions, nil)
-		}
-	}
-	for _, v := range m.RecurringTransactions {
-		if v != nil {
-			if tempRecurringTransactions, cErr := v.ToPB(ctx); cErr == nil {
-				to.RecurringTransactions = append(to.RecurringTransactions, &tempRecurringTransactions)
-			} else {
-				return to, cErr
-			}
-		} else {
-			to.RecurringTransactions = append(to.RecurringTransactions, nil)
-		}
-	}
 	if posthook, ok := interface{}(m).(CreditAccountWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -1565,7 +1519,6 @@ type InvestmentAccountORM struct {
 	Securities     []*InvestmentSecurityORM `gorm:"foreignkey:InvestmentAccountId;association_foreignkey:Id;preload:true"`
 	Status         string
 	Subtype        string
-	Transactions   []*PlaidAccountTransactionORM `gorm:"foreignkey:InvestmentAccountId;association_foreignkey:Id"`
 	Type           string
 	UserId         uint64
 }
@@ -1618,17 +1571,6 @@ func (m *InvestmentAccount) ToORM(ctx context.Context) (InvestmentAccountORM, er
 		}
 	}
 	to.Status = BankAccountStatus_name[int32(m.Status)]
-	for _, v := range m.Transactions {
-		if v != nil {
-			if tempTransactions, cErr := v.ToORM(ctx); cErr == nil {
-				to.Transactions = append(to.Transactions, &tempTransactions)
-			} else {
-				return to, cErr
-			}
-		} else {
-			to.Transactions = append(to.Transactions, nil)
-		}
-	}
 	if posthook, ok := interface{}(m).(InvestmentAccountWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -1678,17 +1620,6 @@ func (m *InvestmentAccountORM) ToPB(ctx context.Context) (InvestmentAccount, err
 		}
 	}
 	to.Status = BankAccountStatus(BankAccountStatus_value[m.Status])
-	for _, v := range m.Transactions {
-		if v != nil {
-			if tempTransactions, cErr := v.ToPB(ctx); cErr == nil {
-				to.Transactions = append(to.Transactions, &tempTransactions)
-			} else {
-				return to, cErr
-			}
-		} else {
-			to.Transactions = append(to.Transactions, nil)
-		}
-	}
 	if posthook, ok := interface{}(m).(InvestmentAccountWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -1719,22 +1650,20 @@ type InvestmentAccountWithAfterToPB interface {
 }
 
 type BankAccountORM struct {
-	Balance               float32
-	BalanceLimit          uint64
-	Currency              string
-	CurrentFunds          float64
-	Id                    uint64
-	LinkId                *uint64
-	Name                  string
-	Number                string
-	PlaidAccountId        string
-	Pockets               []*PocketORM                           `gorm:"foreignkey:BankAccountId;association_foreignkey:Id;preload:true"`
-	RecurringTransactions []*PlaidAccountRecurringTransactionORM `gorm:"foreignkey:BankAccountId;association_foreignkey:Id"`
-	Status                string
-	Subtype               string
-	Transactions          []*PlaidAccountTransactionORM `gorm:"foreignkey:BankAccountId;association_foreignkey:Id"`
-	Type                  string
-	UserId                uint64
+	Balance        float32
+	BalanceLimit   uint64
+	Currency       string
+	CurrentFunds   float64
+	Id             uint64
+	LinkId         *uint64
+	Name           string
+	Number         string
+	PlaidAccountId string
+	Pockets        []*PocketORM `gorm:"foreignkey:BankAccountId;association_foreignkey:Id;preload:true"`
+	Status         string
+	Subtype        string
+	Type           string
+	UserId         uint64
 }
 
 // TableName overrides the default tablename generated by GORM
@@ -1775,28 +1704,6 @@ func (m *BankAccount) ToORM(ctx context.Context) (BankAccountORM, error) {
 	to.PlaidAccountId = m.PlaidAccountId
 	to.Subtype = m.Subtype
 	to.Status = BankAccountStatus_name[int32(m.Status)]
-	for _, v := range m.Transactions {
-		if v != nil {
-			if tempTransactions, cErr := v.ToORM(ctx); cErr == nil {
-				to.Transactions = append(to.Transactions, &tempTransactions)
-			} else {
-				return to, cErr
-			}
-		} else {
-			to.Transactions = append(to.Transactions, nil)
-		}
-	}
-	for _, v := range m.RecurringTransactions {
-		if v != nil {
-			if tempRecurringTransactions, cErr := v.ToORM(ctx); cErr == nil {
-				to.RecurringTransactions = append(to.RecurringTransactions, &tempRecurringTransactions)
-			} else {
-				return to, cErr
-			}
-		} else {
-			to.RecurringTransactions = append(to.RecurringTransactions, nil)
-		}
-	}
 	if posthook, ok := interface{}(m).(BankAccountWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -1836,28 +1743,6 @@ func (m *BankAccountORM) ToPB(ctx context.Context) (BankAccount, error) {
 	to.PlaidAccountId = m.PlaidAccountId
 	to.Subtype = m.Subtype
 	to.Status = BankAccountStatus(BankAccountStatus_value[m.Status])
-	for _, v := range m.Transactions {
-		if v != nil {
-			if tempTransactions, cErr := v.ToPB(ctx); cErr == nil {
-				to.Transactions = append(to.Transactions, &tempTransactions)
-			} else {
-				return to, cErr
-			}
-		} else {
-			to.Transactions = append(to.Transactions, nil)
-		}
-	}
-	for _, v := range m.RecurringTransactions {
-		if v != nil {
-			if tempRecurringTransactions, cErr := v.ToPB(ctx); cErr == nil {
-				to.RecurringTransactions = append(to.RecurringTransactions, &tempRecurringTransactions)
-			} else {
-				return to, cErr
-			}
-		} else {
-			to.RecurringTransactions = append(to.RecurringTransactions, nil)
-		}
-	}
 	if posthook, ok := interface{}(m).(BankAccountWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -7634,9 +7519,7 @@ type PlaidAccountRecurringTransactionORM struct {
 	AccountId                       string
 	AverageAmount                   string
 	AverageAmountIsoCurrencyCode    string
-	BankAccountId                   *uint64
 	CategoryId                      string
-	CreditAccountId                 *uint64
 	Description                     string
 	FirstDate                       string
 	Flow                            string
@@ -7775,15 +7658,12 @@ type PlaidAccountTransactionORM struct {
 	Amount                          float64
 	AuthorizedDate                  string
 	AuthorizedDatetime              string
-	BankAccountId                   *uint64
 	Categories                      pq.StringArray `gorm:"type:text[]"`
 	CategoryId                      string
 	CheckNumber                     string
-	CreditAccountId                 *uint64
 	CurrentDate                     string
 	CurrentDatetime                 string
 	Id                              uint64
-	InvestmentAccountId             *uint64
 	IsoCurrencyCode                 string
 	LinkId                          uint64
 	LocationAddress                 string
@@ -11898,24 +11778,6 @@ func DefaultStrictUpdateCreditAccount(ctx context.Context, in *CreditAccount, db
 	if err = db.Where(filterAprs).Delete(AprORM{}).Error; err != nil {
 		return nil, err
 	}
-	filterRecurringTransactions := PlaidAccountRecurringTransactionORM{}
-	if ormObj.Id == 0 {
-		return nil, errors.EmptyIdError
-	}
-	filterRecurringTransactions.CreditAccountId = new(uint64)
-	*filterRecurringTransactions.CreditAccountId = ormObj.Id
-	if err = db.Where(filterRecurringTransactions).Delete(PlaidAccountRecurringTransactionORM{}).Error; err != nil {
-		return nil, err
-	}
-	filterTransactions := PlaidAccountTransactionORM{}
-	if ormObj.Id == 0 {
-		return nil, errors.EmptyIdError
-	}
-	filterTransactions.CreditAccountId = new(uint64)
-	*filterTransactions.CreditAccountId = ormObj.Id
-	if err = db.Where(filterTransactions).Delete(PlaidAccountTransactionORM{}).Error; err != nil {
-		return nil, err
-	}
 	if hook, ok := interface{}(&ormObj).(CreditAccountORMWithBeforeStrictUpdateSave); ok {
 		if db, err = hook.BeforeStrictUpdateSave(ctx, db); err != nil {
 			return nil, err
@@ -12111,14 +11973,6 @@ func DefaultApplyFieldMaskCreditAccount(ctx context.Context, patchee *CreditAcco
 		}
 		if f == prefix+"Status" {
 			patchee.Status = patcher.Status
-			continue
-		}
-		if f == prefix+"Transactions" {
-			patchee.Transactions = patcher.Transactions
-			continue
-		}
-		if f == prefix+"RecurringTransactions" {
-			patchee.RecurringTransactions = patcher.RecurringTransactions
 			continue
 		}
 	}
@@ -12838,15 +12692,6 @@ func DefaultStrictUpdateInvestmentAccount(ctx context.Context, in *InvestmentAcc
 	if err = db.Where(filterSecurities).Delete(InvestmentSecurityORM{}).Error; err != nil {
 		return nil, err
 	}
-	filterTransactions := PlaidAccountTransactionORM{}
-	if ormObj.Id == 0 {
-		return nil, errors.EmptyIdError
-	}
-	filterTransactions.InvestmentAccountId = new(uint64)
-	*filterTransactions.InvestmentAccountId = ormObj.Id
-	if err = db.Where(filterTransactions).Delete(PlaidAccountTransactionORM{}).Error; err != nil {
-		return nil, err
-	}
 	if hook, ok := interface{}(&ormObj).(InvestmentAccountORMWithBeforeStrictUpdateSave); ok {
 		if db, err = hook.BeforeStrictUpdateSave(ctx, db); err != nil {
 			return nil, err
@@ -13010,10 +12855,6 @@ func DefaultApplyFieldMaskInvestmentAccount(ctx context.Context, patchee *Invest
 		}
 		if f == prefix+"Status" {
 			patchee.Status = patcher.Status
-			continue
-		}
-		if f == prefix+"Transactions" {
-			patchee.Transactions = patcher.Transactions
 			continue
 		}
 	}
@@ -13252,24 +13093,6 @@ func DefaultStrictUpdateBankAccount(ctx context.Context, in *BankAccount, db *go
 	if err = db.Where(filterPockets).Delete(PocketORM{}).Error; err != nil {
 		return nil, err
 	}
-	filterRecurringTransactions := PlaidAccountRecurringTransactionORM{}
-	if ormObj.Id == 0 {
-		return nil, errors.EmptyIdError
-	}
-	filterRecurringTransactions.BankAccountId = new(uint64)
-	*filterRecurringTransactions.BankAccountId = ormObj.Id
-	if err = db.Where(filterRecurringTransactions).Delete(PlaidAccountRecurringTransactionORM{}).Error; err != nil {
-		return nil, err
-	}
-	filterTransactions := PlaidAccountTransactionORM{}
-	if ormObj.Id == 0 {
-		return nil, errors.EmptyIdError
-	}
-	filterTransactions.BankAccountId = new(uint64)
-	*filterTransactions.BankAccountId = ormObj.Id
-	if err = db.Where(filterTransactions).Delete(PlaidAccountTransactionORM{}).Error; err != nil {
-		return nil, err
-	}
 	if hook, ok := interface{}(&ormObj).(BankAccountORMWithBeforeStrictUpdateSave); ok {
 		if db, err = hook.BeforeStrictUpdateSave(ctx, db); err != nil {
 			return nil, err
@@ -13433,14 +13256,6 @@ func DefaultApplyFieldMaskBankAccount(ctx context.Context, patchee *BankAccount,
 		}
 		if f == prefix+"Status" {
 			patchee.Status = patcher.Status
-			continue
-		}
-		if f == prefix+"Transactions" {
-			patchee.Transactions = patcher.Transactions
-			continue
-		}
-		if f == prefix+"RecurringTransactions" {
-			patchee.RecurringTransactions = patcher.RecurringTransactions
 			continue
 		}
 	}
