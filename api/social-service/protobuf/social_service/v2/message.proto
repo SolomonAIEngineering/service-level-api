@@ -10,6 +10,12 @@ import "validate/validate.proto";
 
 option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/generated/social_service/v2";
 
+// virtual profile type of the user account
+enum VirtualProfileType {
+  VIRTUAL_PROFILE_TYPE_UNSPECIFIED = 0;
+  VIRTUAL_PROFILE_TYPE_USER = 1;
+  VIRTUAL_PROFILE_TYPE_BUSINESS = 2;
+}
 /*
     VirtualProfile: Every user/community has a virtual profile account id
    associated with it. A virtual profile abstracts a grouping of separate social
@@ -23,12 +29,6 @@ option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/gener
    associates such to user records. (in our case N = 2)
 */
 message VirtualProfile {
-  enum VirtualProfileType {
-    VIRTUAL_PROFILE_TYPE_UNSPECIFIED = 0;
-    VIRTUAL_PROFILE_TYPE_USER = 1;
-    VIRTUAL_PROFILE_TYPE_BUSINESS = 2;
-  }
-
   option (gorm.opts) = {ormable: true};
   // virtual account id
   uint64 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];

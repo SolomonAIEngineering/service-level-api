@@ -56,7 +56,7 @@ func (m *VirtualProfile) ToORM(ctx context.Context) (VirtualProfileORM, error) {
 		}
 	}
 	to.Activated = m.Activated
-	to.ProfileType = VirtualProfile_VirtualProfileType_name[int32(m.ProfileType)]
+	to.ProfileType = VirtualProfileType_name[int32(m.ProfileType)]
 	if posthook, ok := interface{}(m).(VirtualProfileWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -94,7 +94,7 @@ func (m *VirtualProfileORM) ToPB(ctx context.Context) (VirtualProfile, error) {
 		}
 	}
 	to.Activated = m.Activated
-	to.ProfileType = VirtualProfile_VirtualProfileType(VirtualProfile_VirtualProfileType_value[m.ProfileType])
+	to.ProfileType = VirtualProfileType(VirtualProfileType_value[m.ProfileType])
 	if posthook, ok := interface{}(m).(VirtualProfileWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}

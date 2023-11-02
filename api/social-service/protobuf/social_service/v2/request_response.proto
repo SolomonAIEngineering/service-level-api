@@ -37,7 +37,7 @@ message ReadynessCheckResponse {
 // GetUserProfileRequest: Represents the request object invoked against the
 // social service to obtain a user's social profile
 message GetUserProfileRequest {
-  // The user ID associated with the profile | type: uint64
+  // The user ID associated with the profile we want to get | type: uint64
   uint64 user_id = 1 [
     (validate.rules).uint64.gt = 0,
     (google.api.field_behavior) = REQUIRED
@@ -49,6 +49,8 @@ message GetUserProfileRequest {
   // The RequestorProfileType is an optional parameter which tells us what type
   // of profile is the requestor
   AccountType requestor_profile_type = 3;
+  VirtualProfileType requestor_virtual_profile_type = 4;
+  VirtualProfileType requested_virtual_profile_type = 5;
 }
 
 // GetCommunityProfileRequest: Represents the request object invoked against the
@@ -100,6 +102,7 @@ message CreateUserProfileRequest {
     (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
+  VirtualProfileType profile_type = 8;
 }
 
 // CreateCommunityProfileRequest: Represents the request object invoked against
@@ -118,6 +121,8 @@ message CreateCommunityProfileRequest {
     (validate.rules).uint64.gt = 0,
     (google.api.field_behavior) = REQUIRED
   ];
+  // the virtual profile type of the user creating the community profile
+  VirtualProfileType profile_type = 8;
 }
 
 // DeleteUserProfileRequest: Represents the request object invoked against the
@@ -130,6 +135,9 @@ message DeleteUserProfileRequest {
     (validate.rules).uint64.gt = 0,
     (google.api.field_behavior) = REQUIRED
   ];
+
+  // the virtual profile type of the user that is being deleted
+  VirtualProfileType profile_type = 8;
 }
 
 // DeleteCommunityProfileRequest: Represents the request object invoked against
@@ -147,6 +155,8 @@ message DeleteCommunityProfileRequest {
     (validate.rules).uint64.gt = 0,
     (google.api.field_behavior) = REQUIRED
   ];
+  // the profile type of the user that is trying to delete this community
+  VirtualProfileType requestor_profile_type = 3;
 }
 
 // EditUserProfileRequest: Represents the request object invoked against the
@@ -165,6 +175,9 @@ message EditUserProfileRequest {
     (validate.rules).message.required = true,
     (google.api.field_behavior) = REQUIRED
   ];
+
+  // the virtual profile of the user that is trying to perform the update
+  VirtualProfileType requestor_profile_type = 3;
 }
 
 // EditCommunityProfileRequest: Represents the request object invoked against
@@ -188,6 +201,8 @@ message EditCommunityProfileRequest {
     (validate.rules).uint64.gt = 0,
     (google.api.field_behavior) = REQUIRED
   ];
+  // the virtual profile of the user that is trying to perform the update
+  VirtualProfileType requestor_profile_type = 4;
 }
 
 // BlockUserProfileRequest: Represents the request object invoked against the
@@ -207,6 +222,10 @@ message BlockUserProfileRequest {
     (validate.rules).uint64.gt = 0,
     (google.api.field_behavior) = REQUIRED
   ];
+  // the profile type of the user that is trying to block another user
+  VirtualProfileType source_profile_type = 3;
+  // the profile type of the user that is being blocked
+  VirtualProfileType target_profile_type = 4;
 }
 
 // FollowProfileRequest: Represents the request object invoked against the
@@ -226,6 +245,10 @@ message FollowProfileRequest {
     (validate.rules).uint64.gt = 0,
     (google.api.field_behavior) = REQUIRED
   ];
+  // the profile type of the user that is trying to follow another user
+  VirtualProfileType source_profile_type = 3;
+  // the profile type of the user that is being followed
+  VirtualProfileType target_profile_type = 4;
 }
 
 // FollowCommunityProfileRequest: Represents the request object invoked against
@@ -243,6 +266,8 @@ message FollowCommunityProfileRequest {
     (validate.rules).uint64.gt = 0,
     (google.api.field_behavior) = REQUIRED
   ];
+  // the profile type of the user that is trying to follow another community
+  VirtualProfileType source_profile_type = 3;
 }
 
 // AcceptFollowProfileRequest: Represents the request object invoked against the
@@ -275,6 +300,8 @@ message CreatePostRequest {
   ];
   // The type of profile making the request | type: string
   AccountType account_type = 4 [(google.api.field_behavior) = REQUIRED];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 5;
 }
 
 // DeletePostRequest: Represents the request object invoked against the
@@ -296,6 +323,8 @@ message DeletePostRequest {
     (validate.rules).enum = {not_in: [0]},  
     (google.api.field_behavior) = REQUIRED
     ];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 4;
 }
 
 // EditPostRequest: Represents the request object invoked against the
@@ -338,6 +367,8 @@ message GetPostRequest {
     (validate.rules).enum = {not_in: [0]},  
     (google.api.field_behavior) = REQUIRED
     ];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 5;
 }
 
 // ReactionRequest: Represents the request object invoked against the
@@ -362,6 +393,8 @@ message ReactionRequest {
     (validate.rules).enum = {not_in: [0]},  
     (google.api.field_behavior) = REQUIRED
     ];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 6;
 }
 
 // GetUserFeedRequest: Represents the request object invoked against the
@@ -379,6 +412,8 @@ message GetUserFeedRequest {
   // The type of account making the request to obtain the feed | type: string
   AccountType account_type = 4 [(google.api.field_behavior) = REQUIRED];
   string next_page_token = 5;
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 6;
 }
 
 
@@ -426,6 +461,8 @@ message CreateCommentRequest {
     (validate.rules).enum = {not_in: [0]},  
     (google.api.field_behavior) = REQUIRED
     ];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 7;
 }
 
 // DeleteCommentRequest: Represents the request object invoked against the
@@ -468,6 +505,8 @@ message CreateTopicRequest {
     (validate.rules).message.required = true,
     (google.api.field_behavior) = REQUIRED
   ];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 6;
 }
 
 // GetPostsByTopicRequest: Represents the request object inoked against the
@@ -496,6 +535,8 @@ message GetPendingFollowsRequest {
     (validate.rules).uint64.gt = 0,
     (google.api.field_behavior) = REQUIRED
   ];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 2;
 }
 
 // GetCommunitiesUserFollowsRequest: Represent the request object invoked
@@ -515,6 +556,8 @@ message GetCommunitiesUserFollowsRequest {
     (validate.rules).uint64.gt = 0,
     (google.api.field_behavior) = REQUIRED
   ];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 6;
 }
 
 // GetTopicsOfCommunitiesUserFollowsRequest: Represents the request object
@@ -534,6 +577,8 @@ message GetTopicsOfCommunitiesUserFollowsRequest {
     (validate.rules).uint64.gt = 0,
     (google.api.field_behavior) = REQUIRED
   ];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 6;
 }
 
 // PaginationRequest: Represents the request object invoked against the
@@ -577,6 +622,8 @@ message AddPostQualityScoreRequest {
     (google.api.field_behavior) = REQUIRED,
     (validate.rules).enum = {not_in: [0]}
     ];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 6;
 }
 
 // AddCommentQualityScoreRequest: Represents the request object invoked against
@@ -603,6 +650,8 @@ message AddCommentQualityScoreRequest {
     (google.api.field_behavior) = REQUIRED,
     (validate.rules).enum = {not_in: [0]}
     ];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 6;
 }
 
 // ReportPostRequest: Represents the request object invoked against the
@@ -621,6 +670,8 @@ message ReportPostRequest {
     (validate.rules).enum = {not_in: [0]},  
     (google.api.field_behavior) = REQUIRED
   ];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 6;
 }
 
 // ReportCommentRequest: Represents the request object invoked against the
@@ -643,6 +694,8 @@ message ReportCommentRequest {
     (validate.rules).enum = {not_in: [0]},  
     (google.api.field_behavior) = REQUIRED
     ];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 6;
 }
 
 // GetBlogPostsByTagRequest: Represents the request object invoked against the
@@ -676,6 +729,8 @@ message DiscoverProfilesRequest {
     (google.api.field_behavior) = REQUIRED
   ];
   uint64 limit = 2;
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 6;
 }
 
 /// =========================================
@@ -922,6 +977,8 @@ message CreatePollRequest {
     (validate.rules).message.required = true,
     (google.api.field_behavior) = REQUIRED
   ];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 6;
 }
 
 message CreatePollResponse {
@@ -942,6 +999,8 @@ message DeletePollRequest {
     (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 6;
 }
 
 message DeletePollResponse {
@@ -962,6 +1021,8 @@ message GetPollRequest {
     (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 6;
 }
 
 message GetPollResponse {
@@ -976,6 +1037,8 @@ message GetPollsRequest {
     (validate.rules).uint64.gt = 0,
     (google.api.field_behavior) = REQUIRED
   ];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 6;
 }
 
 message GetPollsResponse {
@@ -1004,6 +1067,8 @@ message RespondToPollRequest {
     (validate.rules).uint64.gte = 0,
     (google.api.field_behavior) = REQUIRED
   ];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 6;
 }
 
 message RespondToPollResponse {
@@ -1024,6 +1089,8 @@ message CreateNoteRequest {
     (validate.rules).enum = {not_in: [0]}
     ];
   Note note = 4 [(validate.rules).message.required = true];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 6;
 }
 
 message CreateNoteResponse {
@@ -1052,7 +1119,9 @@ message DeleteNoteRequest {
   PostType post_type = 4 [
     (google.api.field_behavior) = REQUIRED,
     (validate.rules).enum = {not_in: [0]}
-    ];  
+    ];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 6;  
 }
 
 message DeleteNoteResponse {
@@ -1079,7 +1148,9 @@ message EditNoteRequest {
   PostType post_type = 5 [
     (validate.rules).enum = {not_in: [0]},  
     (google.api.field_behavior) = REQUIRED
-    ];  
+    ]; 
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 6;
 }
 
 message EditNoteResponse {
@@ -1096,6 +1167,8 @@ message CreatePublicationRequest {
     (google.api.field_behavior) = REQUIRED
   ];
   Publication publication = 2 [(validate.rules).message.required = true];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 6;
 }
 
 message CreatePublicationResponse {
@@ -1111,6 +1184,8 @@ message GetPublicationRequest {
     (validate.rules).uint64.gt = 1,
     (google.api.field_behavior) = REQUIRED
   ];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 6;
 }
 
 message GetPublicationResponse {
@@ -1126,6 +1201,8 @@ message DeletePublicationRequest {
     (validate.rules).uint64.gt = 1,
     (google.api.field_behavior) = REQUIRED
   ];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 6;
 }
 
 message DeletePublicationResponse {
@@ -1145,6 +1222,11 @@ message AddPublicationEditorRequest {
     (validate.rules).uint64.gt = 0,
     (google.api.field_behavior) = REQUIRED
   ];
+  // the admin profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType admin_profile_type = 5;
+
+  // the editor profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType editor_profile_type = 6;
 }
 
 message AddPublicationEditorResponse {
@@ -1164,6 +1246,11 @@ message DeletePublicationEditorRequest {
     (validate.rules).uint64.gt = 0,
     (google.api.field_behavior) = REQUIRED
   ];
+  // the admin profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType admin_profile_type = 5;
+
+  // the editor profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType editor_profile_type = 6;
 }
 
 message DeletePublicationEditorResponse {
@@ -1180,6 +1267,8 @@ message AddPostToPublicationRequest {
     (google.api.field_behavior) = REQUIRED
   ];
   Post post = 4 [(validate.rules).message.required = true];
+  // the editor profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType editor_profile_type = 6;
 }
 
 message AddPostToPublicationResponse {
@@ -1202,7 +1291,9 @@ message DeletePostFromPublicationRequest {
   PostType post_type = 5 [
     (validate.rules).enum = {not_in: [0]},  
     (google.api.field_behavior) = REQUIRED
-    ];  
+    ]; 
+  // the editor profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType editor_profile_type = 6; 
 }
 
 message DeletePostFromPublicationResponse {
@@ -1223,6 +1314,8 @@ message AddPostToThreadRequest {
     (validate.rules).enum = {not_in: [0]},
     (google.api.field_behavior) = REQUIRED
   ];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 6;
 }
 
 message AddPostToThreadResponse {
@@ -1250,6 +1343,8 @@ message RemovePostFromThreadRequest {
     (validate.rules).enum = {not_in: [0]},  
     (google.api.field_behavior) = REQUIRED
   ];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 6;
 }
 
 message RemovePostFromThreadResponse {
@@ -1267,7 +1362,9 @@ message GetPostThreadRequest {
   ];
   PostType post_type = 5 [
     (validate.rules).enum = {not_in: [0]},  
-    (google.api.field_behavior) = REQUIRED];  
+    (google.api.field_behavior) = REQUIRED];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 6;  
 }
 
 message GetPostThreadResponse {
@@ -1283,6 +1380,8 @@ message BookmarkPostRequest {
     (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 6;
 }
 
 message BookmarkPostResponse {
@@ -1301,7 +1400,9 @@ message RemoveBookmarkedPostRequest {
   PostType post_type = 5 [
     (validate.rules).enum = {not_in: [0]},  
    (google.api.field_behavior) = REQUIRED
-   ];  
+   ];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 6;
 }
 
 message RemoveBookmarkedPostResponse {
@@ -1317,6 +1418,8 @@ message BookmarkPublicationRequest {
     (validate.rules).uint64.gt = 0,
     (google.api.field_behavior) = REQUIRED
   ];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 6;
 }
 
 message BookmarkPublicationResponse {
@@ -1332,6 +1435,8 @@ message RemoveBookmarkedPublicationRequest {
     (validate.rules).uint64.gt = 1,
     (google.api.field_behavior) = REQUIRED
   ];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 6;
 }
 
 message RemoveBookmarkedPublicationResponse {
@@ -1352,6 +1457,8 @@ message GetFollowersRequest {
     (validate.rules).uint64.gt = 0,
     (google.api.field_behavior) = REQUIRED
   ];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 6;
 }
 
 message GetFollowersResponse {
@@ -1373,6 +1480,8 @@ message GetAccountsFollowingRequest {
     (validate.rules).uint64.gt = 0,
     (google.api.field_behavior) = REQUIRED
   ];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 6;
 }
 
 message GetAccountsFollowingResponse {
@@ -1391,7 +1500,9 @@ message ReactToPostRequest {
   PostType post_type = 5 [
     (validate.rules).enum = {not_in: [0]},  
     (google.api.field_behavior) = REQUIRED
-    ];  
+    ]; 
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 6; 
 }
 
 message ReactToPostResponse {
@@ -1421,7 +1532,8 @@ message ReactToCommentRequest {
     (validate.rules).enum = {not_in: [0]},    
     (google.api.field_behavior) = REQUIRED
   ];  
-
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 7;
 }
 
 message ReactToCommentResponse {
@@ -1450,7 +1562,9 @@ message ReactToCommentReplyRequest {
   PostType post_type = 7 [
     (validate.rules).enum = {not_in: [0]},  
     (google.api.field_behavior) = REQUIRED
-    ];  
+    ];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 8;  
 }
 
 message ReactToCommentReplyResponse {
@@ -1474,7 +1588,9 @@ message CreateCommentReplyRequest {
   PostType post_type = 5 [
     (validate.rules).enum = {not_in: [0]},  
     (google.api.field_behavior) = REQUIRED
-    ];  
+    ];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 6;  
 }
 
 message CreateCommentReplyResponse {
@@ -1501,7 +1617,9 @@ message DeleteCommentReplyRequest {
   PostType post_type = 7 [
     (validate.rules).enum = {not_in: [0]},    
     (google.api.field_behavior) = REQUIRED
-  ];  
+  ];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 8;  
 }
 
 message DeleteCommentReplyResponse {
@@ -1529,7 +1647,9 @@ message EditCommentReplyRequest {
   PostType post_type = 7 [
     (validate.rules).enum = {not_in: [0]},  
     (google.api.field_behavior) = REQUIRED
-    ];  
+    ];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 8;  
 }
 
 message EditCommentReplyResponse {
@@ -1552,7 +1672,9 @@ message GetCommentRepliesRequest {
   PostType post_type = 7 [
     (validate.rules).enum = {not_in: [0]},    
     (google.api.field_behavior) = REQUIRED
-  ];  
+  ];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 8;  
 }
 
 message GetCommentRepliesResponse {
@@ -1579,7 +1701,9 @@ message ReportCommentReplyRequest {
   PostType post_type = 7 [
     (validate.rules).enum = {not_in: [0]},  
     (google.api.field_behavior) = REQUIRED
-    ];  
+    ];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 8;  
 }
 
 message ReportCommentReplyResponse {
@@ -1604,6 +1728,8 @@ message SharePostRequest {
     (validate.rules).string = {min_bytes: 50},
     (google.api.field_behavior) = REQUIRED
   ];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 5;  
 }
 
 message SharePostResponse {
@@ -1614,6 +1740,8 @@ message GetBookmarkedPostsRequest {
   uint64 user_id = 1 [
     (validate.rules).uint64.gt = 0,
     (google.api.field_behavior) = REQUIRED];
+  // the profile type of the user that is perfoming this operation | type: string
+  VirtualProfileType requestor_profile_type = 5; 
 }
 
 message GetBookmarkedPostsResponse {
