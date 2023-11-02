@@ -1,13 +1,13 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Simfiny",
+    "title": "User Service",
     "description": "With our AI-driven financial recommendations track your spending, create a budget, save for the future, all while connecting with others who are on the same financial journey as you !",
     "version": "0.1",
     "contact": {
       "name": "YoanYomba",
-      "url": "https://simfiny.co",
-      "email": "yoan@simfinii.com"
+      "url": "https://solomon-ai.io",
+      "email": "yoanyomba@solomon-ai.co"
     },
     "license": {
       "name": "Apache-2.0",

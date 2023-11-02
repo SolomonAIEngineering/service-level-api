@@ -8,13 +8,13 @@ option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/gener
 
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   info: {
-    title: "Simfiny";
+    title: "User Service";
     description: "With our AI-driven financial recommendations track your spending, create a budget, save for the future, all while connecting with others who are on the same financial journey as you !";
     version: "0.1";
     contact: {
       name: "YoanYomba";
-      email: "yoan@simfinii.com";
-      url: "https://simfiny.co";
+      email: "yoanyomba@solomon-ai.co";
+      url: "https://solomon-ai.io";
     };
     license: {
       name: "Apache-2.0";
