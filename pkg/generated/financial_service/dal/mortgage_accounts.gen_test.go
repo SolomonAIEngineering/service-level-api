@@ -246,3 +246,33 @@ func Test_mortgageAccountORM_CountAll(t *testing.T) {
 		})
 	}
 }
+
+var MortgageAccountORMGetByIDTestCase = []TestCase{}
+
+func Test_mortgageAccountORM_GetByID(t *testing.T) {
+	mortgageAccountORM := newMortgageAccountORM(db)
+	do := mortgageAccountORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range MortgageAccountORMGetByIDTestCase {
+		t.Run("GetByID_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByID(tt.Input.Args[0].(uint64))
+			assert(t, "GetByID", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByID", res2, tt.Expectation.Ret[1])
+		})
+	}
+}
+
+var MortgageAccountORMGetByIDsTestCase = []TestCase{}
+
+func Test_mortgageAccountORM_GetByIDs(t *testing.T) {
+	mortgageAccountORM := newMortgageAccountORM(db)
+	do := mortgageAccountORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range MortgageAccountORMGetByIDsTestCase {
+		t.Run("GetByIDs_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByIDs(tt.Input.Args[0].([]uint64))
+			assert(t, "GetByIDs", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByIDs", res2, tt.Expectation.Ret[1])
+		})
+	}
+}

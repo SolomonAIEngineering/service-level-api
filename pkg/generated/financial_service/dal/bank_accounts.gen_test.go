@@ -246,3 +246,33 @@ func Test_bankAccountORM_CountAll(t *testing.T) {
 		})
 	}
 }
+
+var BankAccountORMGetByIDTestCase = []TestCase{}
+
+func Test_bankAccountORM_GetByID(t *testing.T) {
+	bankAccountORM := newBankAccountORM(db)
+	do := bankAccountORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range BankAccountORMGetByIDTestCase {
+		t.Run("GetByID_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByID(tt.Input.Args[0].(uint64))
+			assert(t, "GetByID", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByID", res2, tt.Expectation.Ret[1])
+		})
+	}
+}
+
+var BankAccountORMGetByIDsTestCase = []TestCase{}
+
+func Test_bankAccountORM_GetByIDs(t *testing.T) {
+	bankAccountORM := newBankAccountORM(db)
+	do := bankAccountORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range BankAccountORMGetByIDsTestCase {
+		t.Run("GetByIDs_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByIDs(tt.Input.Args[0].([]uint64))
+			assert(t, "GetByIDs", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByIDs", res2, tt.Expectation.Ret[1])
+		})
+	}
+}

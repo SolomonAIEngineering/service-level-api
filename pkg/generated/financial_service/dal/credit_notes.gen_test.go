@@ -246,3 +246,33 @@ func Test_creditNoteORM_CountAll(t *testing.T) {
 		})
 	}
 }
+
+var CreditNoteORMGetByIDTestCase = []TestCase{}
+
+func Test_creditNoteORM_GetByID(t *testing.T) {
+	creditNoteORM := newCreditNoteORM(db)
+	do := creditNoteORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range CreditNoteORMGetByIDTestCase {
+		t.Run("GetByID_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByID(tt.Input.Args[0].(uint64))
+			assert(t, "GetByID", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByID", res2, tt.Expectation.Ret[1])
+		})
+	}
+}
+
+var CreditNoteORMGetByIDsTestCase = []TestCase{}
+
+func Test_creditNoteORM_GetByIDs(t *testing.T) {
+	creditNoteORM := newCreditNoteORM(db)
+	do := creditNoteORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range CreditNoteORMGetByIDsTestCase {
+		t.Run("GetByIDs_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByIDs(tt.Input.Args[0].([]uint64))
+			assert(t, "GetByIDs", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByIDs", res2, tt.Expectation.Ret[1])
+		})
+	}
+}

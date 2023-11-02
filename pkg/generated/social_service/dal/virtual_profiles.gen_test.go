@@ -246,3 +246,33 @@ func Test_virtualProfileORM_CountAll(t *testing.T) {
 		})
 	}
 }
+
+var VirtualProfileORMGetByIDTestCase = []TestCase{}
+
+func Test_virtualProfileORM_GetByID(t *testing.T) {
+	virtualProfileORM := newVirtualProfileORM(db)
+	do := virtualProfileORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range VirtualProfileORMGetByIDTestCase {
+		t.Run("GetByID_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByID(tt.Input.Args[0].(uint64))
+			assert(t, "GetByID", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByID", res2, tt.Expectation.Ret[1])
+		})
+	}
+}
+
+var VirtualProfileORMGetByIDsTestCase = []TestCase{}
+
+func Test_virtualProfileORM_GetByIDs(t *testing.T) {
+	virtualProfileORM := newVirtualProfileORM(db)
+	do := virtualProfileORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range VirtualProfileORMGetByIDsTestCase {
+		t.Run("GetByIDs_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByIDs(tt.Input.Args[0].([]uint64))
+			assert(t, "GetByIDs", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByIDs", res2, tt.Expectation.Ret[1])
+		})
+	}
+}

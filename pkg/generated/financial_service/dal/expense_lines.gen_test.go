@@ -246,3 +246,33 @@ func Test_expenseLineORM_CountAll(t *testing.T) {
 		})
 	}
 }
+
+var ExpenseLineORMGetByIDTestCase = []TestCase{}
+
+func Test_expenseLineORM_GetByID(t *testing.T) {
+	expenseLineORM := newExpenseLineORM(db)
+	do := expenseLineORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range ExpenseLineORMGetByIDTestCase {
+		t.Run("GetByID_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByID(tt.Input.Args[0].(uint64))
+			assert(t, "GetByID", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByID", res2, tt.Expectation.Ret[1])
+		})
+	}
+}
+
+var ExpenseLineORMGetByIDsTestCase = []TestCase{}
+
+func Test_expenseLineORM_GetByIDs(t *testing.T) {
+	expenseLineORM := newExpenseLineORM(db)
+	do := expenseLineORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range ExpenseLineORMGetByIDsTestCase {
+		t.Run("GetByIDs_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByIDs(tt.Input.Args[0].([]uint64))
+			assert(t, "GetByIDs", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByIDs", res2, tt.Expectation.Ret[1])
+		})
+	}
+}

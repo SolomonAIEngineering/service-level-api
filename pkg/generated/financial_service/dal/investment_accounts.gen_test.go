@@ -246,3 +246,33 @@ func Test_investmentAccountORM_CountAll(t *testing.T) {
 		})
 	}
 }
+
+var InvestmentAccountORMGetByIDTestCase = []TestCase{}
+
+func Test_investmentAccountORM_GetByID(t *testing.T) {
+	investmentAccountORM := newInvestmentAccountORM(db)
+	do := investmentAccountORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range InvestmentAccountORMGetByIDTestCase {
+		t.Run("GetByID_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByID(tt.Input.Args[0].(uint64))
+			assert(t, "GetByID", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByID", res2, tt.Expectation.Ret[1])
+		})
+	}
+}
+
+var InvestmentAccountORMGetByIDsTestCase = []TestCase{}
+
+func Test_investmentAccountORM_GetByIDs(t *testing.T) {
+	investmentAccountORM := newInvestmentAccountORM(db)
+	do := investmentAccountORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range InvestmentAccountORMGetByIDsTestCase {
+		t.Run("GetByIDs_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByIDs(tt.Input.Args[0].([]uint64))
+			assert(t, "GetByIDs", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByIDs", res2, tt.Expectation.Ret[1])
+		})
+	}
+}

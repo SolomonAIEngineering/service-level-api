@@ -246,3 +246,33 @@ func Test_bookmarkORM_CountAll(t *testing.T) {
 		})
 	}
 }
+
+var BookmarkORMGetByIDTestCase = []TestCase{}
+
+func Test_bookmarkORM_GetByID(t *testing.T) {
+	bookmarkORM := newBookmarkORM(db)
+	do := bookmarkORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range BookmarkORMGetByIDTestCase {
+		t.Run("GetByID_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByID(tt.Input.Args[0].(uint64))
+			assert(t, "GetByID", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByID", res2, tt.Expectation.Ret[1])
+		})
+	}
+}
+
+var BookmarkORMGetByIDsTestCase = []TestCase{}
+
+func Test_bookmarkORM_GetByIDs(t *testing.T) {
+	bookmarkORM := newBookmarkORM(db)
+	do := bookmarkORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range BookmarkORMGetByIDsTestCase {
+		t.Run("GetByIDs_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByIDs(tt.Input.Args[0].([]uint64))
+			assert(t, "GetByIDs", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByIDs", res2, tt.Expectation.Ret[1])
+		})
+	}
+}

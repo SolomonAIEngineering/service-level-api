@@ -246,3 +246,33 @@ func Test_tagsORM_CountAll(t *testing.T) {
 		})
 	}
 }
+
+var TagsORMGetByIDTestCase = []TestCase{}
+
+func Test_tagsORM_GetByID(t *testing.T) {
+	tagsORM := newTagsORM(db)
+	do := tagsORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range TagsORMGetByIDTestCase {
+		t.Run("GetByID_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByID(tt.Input.Args[0].(uint64))
+			assert(t, "GetByID", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByID", res2, tt.Expectation.Ret[1])
+		})
+	}
+}
+
+var TagsORMGetByIDsTestCase = []TestCase{}
+
+func Test_tagsORM_GetByIDs(t *testing.T) {
+	tagsORM := newTagsORM(db)
+	do := tagsORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range TagsORMGetByIDsTestCase {
+		t.Run("GetByIDs_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByIDs(tt.Input.Args[0].([]uint64))
+			assert(t, "GetByIDs", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByIDs", res2, tt.Expectation.Ret[1])
+		})
+	}
+}

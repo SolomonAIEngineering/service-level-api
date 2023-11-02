@@ -246,3 +246,33 @@ func Test_integrationSettingsORM_CountAll(t *testing.T) {
 		})
 	}
 }
+
+var IntegrationSettingsORMGetByIDTestCase = []TestCase{}
+
+func Test_integrationSettingsORM_GetByID(t *testing.T) {
+	integrationSettingsORM := newIntegrationSettingsORM(db)
+	do := integrationSettingsORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range IntegrationSettingsORMGetByIDTestCase {
+		t.Run("GetByID_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByID(tt.Input.Args[0].(uint64))
+			assert(t, "GetByID", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByID", res2, tt.Expectation.Ret[1])
+		})
+	}
+}
+
+var IntegrationSettingsORMGetByIDsTestCase = []TestCase{}
+
+func Test_integrationSettingsORM_GetByIDs(t *testing.T) {
+	integrationSettingsORM := newIntegrationSettingsORM(db)
+	do := integrationSettingsORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range IntegrationSettingsORMGetByIDsTestCase {
+		t.Run("GetByIDs_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByIDs(tt.Input.Args[0].([]uint64))
+			assert(t, "GetByIDs", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByIDs", res2, tt.Expectation.Ret[1])
+		})
+	}
+}

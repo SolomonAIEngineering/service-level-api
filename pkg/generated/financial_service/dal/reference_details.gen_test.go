@@ -246,3 +246,33 @@ func Test_referenceDetailsORM_CountAll(t *testing.T) {
 		})
 	}
 }
+
+var ReferenceDetailsORMGetByIDTestCase = []TestCase{}
+
+func Test_referenceDetailsORM_GetByID(t *testing.T) {
+	referenceDetailsORM := newReferenceDetailsORM(db)
+	do := referenceDetailsORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range ReferenceDetailsORMGetByIDTestCase {
+		t.Run("GetByID_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByID(tt.Input.Args[0].(uint64))
+			assert(t, "GetByID", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByID", res2, tt.Expectation.Ret[1])
+		})
+	}
+}
+
+var ReferenceDetailsORMGetByIDsTestCase = []TestCase{}
+
+func Test_referenceDetailsORM_GetByIDs(t *testing.T) {
+	referenceDetailsORM := newReferenceDetailsORM(db)
+	do := referenceDetailsORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range ReferenceDetailsORMGetByIDsTestCase {
+		t.Run("GetByIDs_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByIDs(tt.Input.Args[0].([]uint64))
+			assert(t, "GetByIDs", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByIDs", res2, tt.Expectation.Ret[1])
+		})
+	}
+}

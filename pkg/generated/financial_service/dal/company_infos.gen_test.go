@@ -246,3 +246,33 @@ func Test_companyInfoORM_CountAll(t *testing.T) {
 		})
 	}
 }
+
+var CompanyInfoORMGetByIDTestCase = []TestCase{}
+
+func Test_companyInfoORM_GetByID(t *testing.T) {
+	companyInfoORM := newCompanyInfoORM(db)
+	do := companyInfoORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range CompanyInfoORMGetByIDTestCase {
+		t.Run("GetByID_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByID(tt.Input.Args[0].(uint64))
+			assert(t, "GetByID", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByID", res2, tt.Expectation.Ret[1])
+		})
+	}
+}
+
+var CompanyInfoORMGetByIDsTestCase = []TestCase{}
+
+func Test_companyInfoORM_GetByIDs(t *testing.T) {
+	companyInfoORM := newCompanyInfoORM(db)
+	do := companyInfoORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range CompanyInfoORMGetByIDsTestCase {
+		t.Run("GetByIDs_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByIDs(tt.Input.Args[0].([]uint64))
+			assert(t, "GetByIDs", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByIDs", res2, tt.Expectation.Ret[1])
+		})
+	}
+}

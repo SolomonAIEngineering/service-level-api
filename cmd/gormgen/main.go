@@ -44,6 +44,17 @@ type Querier interface {
 	// Additional Operations
 	// SELECT COUNT(*) FROM @@table
 	CountAll() (int, error) // returns count of all records
+
+	// SELECT * FROM @@table
+	//  {{where}}
+	//      id=@id
+	//  {{end}}
+	GetByID(id uint64) (gen.T, error) // returns struct and error
+	// SELECT * FROM @@table
+	//  {{where}}
+	//      id IN (@ids)
+	//  {{end}}
+	GetByIDs(ids []uint64) ([]gen.T, error) // returns slice of struct and error
 }
 
 func main() {

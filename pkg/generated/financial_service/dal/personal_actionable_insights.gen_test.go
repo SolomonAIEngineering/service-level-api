@@ -246,3 +246,33 @@ func Test_personalActionableInsightORM_CountAll(t *testing.T) {
 		})
 	}
 }
+
+var PersonalActionableInsightORMGetByIDTestCase = []TestCase{}
+
+func Test_personalActionableInsightORM_GetByID(t *testing.T) {
+	personalActionableInsightORM := newPersonalActionableInsightORM(db)
+	do := personalActionableInsightORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range PersonalActionableInsightORMGetByIDTestCase {
+		t.Run("GetByID_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByID(tt.Input.Args[0].(uint64))
+			assert(t, "GetByID", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByID", res2, tt.Expectation.Ret[1])
+		})
+	}
+}
+
+var PersonalActionableInsightORMGetByIDsTestCase = []TestCase{}
+
+func Test_personalActionableInsightORM_GetByIDs(t *testing.T) {
+	personalActionableInsightORM := newPersonalActionableInsightORM(db)
+	do := personalActionableInsightORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range PersonalActionableInsightORMGetByIDsTestCase {
+		t.Run("GetByIDs_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByIDs(tt.Input.Args[0].([]uint64))
+			assert(t, "GetByIDs", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByIDs", res2, tt.Expectation.Ret[1])
+		})
+	}
+}

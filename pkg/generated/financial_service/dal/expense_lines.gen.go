@@ -208,6 +208,8 @@ type IExpenseLineORMDo interface {
 	DeleteRecordByID(id int) (err error)
 	GetAllRecords(orderColumn string, limit int, offset int) (result []financial_servicev1.ExpenseLineORM, err error)
 	CountAll() (result int, err error)
+	GetByID(id uint64) (result financial_servicev1.ExpenseLineORM, err error)
+	GetByIDs(ids []uint64) (result []financial_servicev1.ExpenseLineORM, err error)
 }
 
 // SELECT * FROM @@table
@@ -335,6 +337,52 @@ func (e expenseLineORMDo) CountAll() (result int, err error) {
 
 	var executeSQL *gorm.DB
 	executeSQL = e.UnderlyingDB().Raw(generateSQL.String()).Take(&result) // ignore_security_alert
+	err = executeSQL.Error
+
+	return
+}
+
+// SELECT * FROM @@table
+// {{where}}
+//
+//	id=@id
+//
+// {{end}}
+func (e expenseLineORMDo) GetByID(id uint64) (result financial_servicev1.ExpenseLineORM, err error) {
+	var params []interface{}
+
+	var generateSQL strings.Builder
+	generateSQL.WriteString("SELECT * FROM expense_lines ")
+	var whereSQL0 strings.Builder
+	params = append(params, id)
+	whereSQL0.WriteString("id=? ")
+	helper.JoinWhereBuilder(&generateSQL, whereSQL0)
+
+	var executeSQL *gorm.DB
+	executeSQL = e.UnderlyingDB().Raw(generateSQL.String(), params...).Take(&result) // ignore_security_alert
+	err = executeSQL.Error
+
+	return
+}
+
+// SELECT * FROM @@table
+// {{where}}
+//
+//	id IN (@ids)
+//
+// {{end}}
+func (e expenseLineORMDo) GetByIDs(ids []uint64) (result []financial_servicev1.ExpenseLineORM, err error) {
+	var params []interface{}
+
+	var generateSQL strings.Builder
+	generateSQL.WriteString("SELECT * FROM expense_lines ")
+	var whereSQL0 strings.Builder
+	params = append(params, ids)
+	whereSQL0.WriteString("id IN (?) ")
+	helper.JoinWhereBuilder(&generateSQL, whereSQL0)
+
+	var executeSQL *gorm.DB
+	executeSQL = e.UnderlyingDB().Raw(generateSQL.String(), params...).Find(&result) // ignore_security_alert
 	err = executeSQL.Error
 
 	return

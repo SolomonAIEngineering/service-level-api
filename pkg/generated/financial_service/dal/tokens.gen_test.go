@@ -246,3 +246,33 @@ func Test_tokenORM_CountAll(t *testing.T) {
 		})
 	}
 }
+
+var TokenORMGetByIDTestCase = []TestCase{}
+
+func Test_tokenORM_GetByID(t *testing.T) {
+	tokenORM := newTokenORM(db)
+	do := tokenORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range TokenORMGetByIDTestCase {
+		t.Run("GetByID_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByID(tt.Input.Args[0].(uint64))
+			assert(t, "GetByID", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByID", res2, tt.Expectation.Ret[1])
+		})
+	}
+}
+
+var TokenORMGetByIDsTestCase = []TestCase{}
+
+func Test_tokenORM_GetByIDs(t *testing.T) {
+	tokenORM := newTokenORM(db)
+	do := tokenORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range TokenORMGetByIDsTestCase {
+		t.Run("GetByIDs_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByIDs(tt.Input.Args[0].([]uint64))
+			assert(t, "GetByIDs", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByIDs", res2, tt.Expectation.Ret[1])
+		})
+	}
+}

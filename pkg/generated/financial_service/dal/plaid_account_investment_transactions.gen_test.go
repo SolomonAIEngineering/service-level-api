@@ -246,3 +246,33 @@ func Test_plaidAccountInvestmentTransactionORM_CountAll(t *testing.T) {
 		})
 	}
 }
+
+var PlaidAccountInvestmentTransactionORMGetByIDTestCase = []TestCase{}
+
+func Test_plaidAccountInvestmentTransactionORM_GetByID(t *testing.T) {
+	plaidAccountInvestmentTransactionORM := newPlaidAccountInvestmentTransactionORM(db)
+	do := plaidAccountInvestmentTransactionORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range PlaidAccountInvestmentTransactionORMGetByIDTestCase {
+		t.Run("GetByID_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByID(tt.Input.Args[0].(uint64))
+			assert(t, "GetByID", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByID", res2, tt.Expectation.Ret[1])
+		})
+	}
+}
+
+var PlaidAccountInvestmentTransactionORMGetByIDsTestCase = []TestCase{}
+
+func Test_plaidAccountInvestmentTransactionORM_GetByIDs(t *testing.T) {
+	plaidAccountInvestmentTransactionORM := newPlaidAccountInvestmentTransactionORM(db)
+	do := plaidAccountInvestmentTransactionORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range PlaidAccountInvestmentTransactionORMGetByIDsTestCase {
+		t.Run("GetByIDs_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByIDs(tt.Input.Args[0].([]uint64))
+			assert(t, "GetByIDs", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByIDs", res2, tt.Expectation.Ret[1])
+		})
+	}
+}

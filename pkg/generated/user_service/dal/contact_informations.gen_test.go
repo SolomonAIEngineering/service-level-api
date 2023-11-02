@@ -246,3 +246,33 @@ func Test_contactInformationORM_CountAll(t *testing.T) {
 		})
 	}
 }
+
+var ContactInformationORMGetByIDTestCase = []TestCase{}
+
+func Test_contactInformationORM_GetByID(t *testing.T) {
+	contactInformationORM := newContactInformationORM(db)
+	do := contactInformationORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range ContactInformationORMGetByIDTestCase {
+		t.Run("GetByID_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByID(tt.Input.Args[0].(uint64))
+			assert(t, "GetByID", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByID", res2, tt.Expectation.Ret[1])
+		})
+	}
+}
+
+var ContactInformationORMGetByIDsTestCase = []TestCase{}
+
+func Test_contactInformationORM_GetByIDs(t *testing.T) {
+	contactInformationORM := newContactInformationORM(db)
+	do := contactInformationORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range ContactInformationORMGetByIDsTestCase {
+		t.Run("GetByIDs_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByIDs(tt.Input.Args[0].([]uint64))
+			assert(t, "GetByIDs", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByIDs", res2, tt.Expectation.Ret[1])
+		})
+	}
+}

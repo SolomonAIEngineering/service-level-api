@@ -246,3 +246,33 @@ func Test_stripeSubscriptionORM_CountAll(t *testing.T) {
 		})
 	}
 }
+
+var StripeSubscriptionORMGetByIDTestCase = []TestCase{}
+
+func Test_stripeSubscriptionORM_GetByID(t *testing.T) {
+	stripeSubscriptionORM := newStripeSubscriptionORM(db)
+	do := stripeSubscriptionORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range StripeSubscriptionORMGetByIDTestCase {
+		t.Run("GetByID_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByID(tt.Input.Args[0].(uint64))
+			assert(t, "GetByID", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByID", res2, tt.Expectation.Ret[1])
+		})
+	}
+}
+
+var StripeSubscriptionORMGetByIDsTestCase = []TestCase{}
+
+func Test_stripeSubscriptionORM_GetByIDs(t *testing.T) {
+	stripeSubscriptionORM := newStripeSubscriptionORM(db)
+	do := stripeSubscriptionORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range StripeSubscriptionORMGetByIDsTestCase {
+		t.Run("GetByIDs_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByIDs(tt.Input.Args[0].([]uint64))
+			assert(t, "GetByIDs", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByIDs", res2, tt.Expectation.Ret[1])
+		})
+	}
+}

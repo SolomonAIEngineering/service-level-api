@@ -246,3 +246,33 @@ func Test_milestoneORM_CountAll(t *testing.T) {
 		})
 	}
 }
+
+var MilestoneORMGetByIDTestCase = []TestCase{}
+
+func Test_milestoneORM_GetByID(t *testing.T) {
+	milestoneORM := newMilestoneORM(db)
+	do := milestoneORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range MilestoneORMGetByIDTestCase {
+		t.Run("GetByID_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByID(tt.Input.Args[0].(uint64))
+			assert(t, "GetByID", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByID", res2, tt.Expectation.Ret[1])
+		})
+	}
+}
+
+var MilestoneORMGetByIDsTestCase = []TestCase{}
+
+func Test_milestoneORM_GetByIDs(t *testing.T) {
+	milestoneORM := newMilestoneORM(db)
+	do := milestoneORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range MilestoneORMGetByIDsTestCase {
+		t.Run("GetByIDs_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByIDs(tt.Input.Args[0].([]uint64))
+			assert(t, "GetByIDs", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByIDs", res2, tt.Expectation.Ret[1])
+		})
+	}
+}

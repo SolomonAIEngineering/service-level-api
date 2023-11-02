@@ -246,3 +246,33 @@ func Test_addressORM_CountAll(t *testing.T) {
 		})
 	}
 }
+
+var AddressORMGetByIDTestCase = []TestCase{}
+
+func Test_addressORM_GetByID(t *testing.T) {
+	addressORM := newAddressORM(db)
+	do := addressORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range AddressORMGetByIDTestCase {
+		t.Run("GetByID_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByID(tt.Input.Args[0].(uint64))
+			assert(t, "GetByID", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByID", res2, tt.Expectation.Ret[1])
+		})
+	}
+}
+
+var AddressORMGetByIDsTestCase = []TestCase{}
+
+func Test_addressORM_GetByIDs(t *testing.T) {
+	addressORM := newAddressORM(db)
+	do := addressORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range AddressORMGetByIDsTestCase {
+		t.Run("GetByIDs_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByIDs(tt.Input.Args[0].([]uint64))
+			assert(t, "GetByIDs", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByIDs", res2, tt.Expectation.Ret[1])
+		})
+	}
+}

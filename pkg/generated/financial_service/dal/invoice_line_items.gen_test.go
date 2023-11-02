@@ -246,3 +246,33 @@ func Test_invoiceLineItemORM_CountAll(t *testing.T) {
 		})
 	}
 }
+
+var InvoiceLineItemORMGetByIDTestCase = []TestCase{}
+
+func Test_invoiceLineItemORM_GetByID(t *testing.T) {
+	invoiceLineItemORM := newInvoiceLineItemORM(db)
+	do := invoiceLineItemORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range InvoiceLineItemORMGetByIDTestCase {
+		t.Run("GetByID_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByID(tt.Input.Args[0].(uint64))
+			assert(t, "GetByID", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByID", res2, tt.Expectation.Ret[1])
+		})
+	}
+}
+
+var InvoiceLineItemORMGetByIDsTestCase = []TestCase{}
+
+func Test_invoiceLineItemORM_GetByIDs(t *testing.T) {
+	invoiceLineItemORM := newInvoiceLineItemORM(db)
+	do := invoiceLineItemORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range InvoiceLineItemORMGetByIDsTestCase {
+		t.Run("GetByIDs_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByIDs(tt.Input.Args[0].([]uint64))
+			assert(t, "GetByIDs", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByIDs", res2, tt.Expectation.Ret[1])
+		})
+	}
+}

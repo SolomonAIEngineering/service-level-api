@@ -246,3 +246,33 @@ func Test_smartNoteORM_CountAll(t *testing.T) {
 		})
 	}
 }
+
+var SmartNoteORMGetByIDTestCase = []TestCase{}
+
+func Test_smartNoteORM_GetByID(t *testing.T) {
+	smartNoteORM := newSmartNoteORM(db)
+	do := smartNoteORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range SmartNoteORMGetByIDTestCase {
+		t.Run("GetByID_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByID(tt.Input.Args[0].(uint64))
+			assert(t, "GetByID", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByID", res2, tt.Expectation.Ret[1])
+		})
+	}
+}
+
+var SmartNoteORMGetByIDsTestCase = []TestCase{}
+
+func Test_smartNoteORM_GetByIDs(t *testing.T) {
+	smartNoteORM := newSmartNoteORM(db)
+	do := smartNoteORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range SmartNoteORMGetByIDsTestCase {
+		t.Run("GetByIDs_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByIDs(tt.Input.Args[0].([]uint64))
+			assert(t, "GetByIDs", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByIDs", res2, tt.Expectation.Ret[1])
+		})
+	}
+}

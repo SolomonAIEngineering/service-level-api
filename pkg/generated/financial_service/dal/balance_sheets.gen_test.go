@@ -246,3 +246,33 @@ func Test_balanceSheetORM_CountAll(t *testing.T) {
 		})
 	}
 }
+
+var BalanceSheetORMGetByIDTestCase = []TestCase{}
+
+func Test_balanceSheetORM_GetByID(t *testing.T) {
+	balanceSheetORM := newBalanceSheetORM(db)
+	do := balanceSheetORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range BalanceSheetORMGetByIDTestCase {
+		t.Run("GetByID_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByID(tt.Input.Args[0].(uint64))
+			assert(t, "GetByID", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByID", res2, tt.Expectation.Ret[1])
+		})
+	}
+}
+
+var BalanceSheetORMGetByIDsTestCase = []TestCase{}
+
+func Test_balanceSheetORM_GetByIDs(t *testing.T) {
+	balanceSheetORM := newBalanceSheetORM(db)
+	do := balanceSheetORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range BalanceSheetORMGetByIDsTestCase {
+		t.Run("GetByIDs_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByIDs(tt.Input.Args[0].([]uint64))
+			assert(t, "GetByIDs", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByIDs", res2, tt.Expectation.Ret[1])
+		})
+	}
+}

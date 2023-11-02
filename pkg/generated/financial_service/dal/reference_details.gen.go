@@ -475,6 +475,8 @@ type IReferenceDetailsORMDo interface {
 	DeleteRecordByID(id int) (err error)
 	GetAllRecords(orderColumn string, limit int, offset int) (result []financial_servicev1.ReferenceDetailsORM, err error)
 	CountAll() (result int, err error)
+	GetByID(id uint64) (result financial_servicev1.ReferenceDetailsORM, err error)
+	GetByIDs(ids []uint64) (result []financial_servicev1.ReferenceDetailsORM, err error)
 }
 
 // SELECT * FROM @@table
@@ -602,6 +604,52 @@ func (r referenceDetailsORMDo) CountAll() (result int, err error) {
 
 	var executeSQL *gorm.DB
 	executeSQL = r.UnderlyingDB().Raw(generateSQL.String()).Take(&result) // ignore_security_alert
+	err = executeSQL.Error
+
+	return
+}
+
+// SELECT * FROM @@table
+// {{where}}
+//
+//	id=@id
+//
+// {{end}}
+func (r referenceDetailsORMDo) GetByID(id uint64) (result financial_servicev1.ReferenceDetailsORM, err error) {
+	var params []interface{}
+
+	var generateSQL strings.Builder
+	generateSQL.WriteString("SELECT * FROM reference_details ")
+	var whereSQL0 strings.Builder
+	params = append(params, id)
+	whereSQL0.WriteString("id=? ")
+	helper.JoinWhereBuilder(&generateSQL, whereSQL0)
+
+	var executeSQL *gorm.DB
+	executeSQL = r.UnderlyingDB().Raw(generateSQL.String(), params...).Take(&result) // ignore_security_alert
+	err = executeSQL.Error
+
+	return
+}
+
+// SELECT * FROM @@table
+// {{where}}
+//
+//	id IN (@ids)
+//
+// {{end}}
+func (r referenceDetailsORMDo) GetByIDs(ids []uint64) (result []financial_servicev1.ReferenceDetailsORM, err error) {
+	var params []interface{}
+
+	var generateSQL strings.Builder
+	generateSQL.WriteString("SELECT * FROM reference_details ")
+	var whereSQL0 strings.Builder
+	params = append(params, ids)
+	whereSQL0.WriteString("id IN (?) ")
+	helper.JoinWhereBuilder(&generateSQL, whereSQL0)
+
+	var executeSQL *gorm.DB
+	executeSQL = r.UnderlyingDB().Raw(generateSQL.String(), params...).Find(&result) // ignore_security_alert
 	err = executeSQL.Error
 
 	return

@@ -246,3 +246,33 @@ func Test_transactionDetailsORM_CountAll(t *testing.T) {
 		})
 	}
 }
+
+var TransactionDetailsORMGetByIDTestCase = []TestCase{}
+
+func Test_transactionDetailsORM_GetByID(t *testing.T) {
+	transactionDetailsORM := newTransactionDetailsORM(db)
+	do := transactionDetailsORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range TransactionDetailsORMGetByIDTestCase {
+		t.Run("GetByID_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByID(tt.Input.Args[0].(uint64))
+			assert(t, "GetByID", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByID", res2, tt.Expectation.Ret[1])
+		})
+	}
+}
+
+var TransactionDetailsORMGetByIDsTestCase = []TestCase{}
+
+func Test_transactionDetailsORM_GetByIDs(t *testing.T) {
+	transactionDetailsORM := newTransactionDetailsORM(db)
+	do := transactionDetailsORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range TransactionDetailsORMGetByIDsTestCase {
+		t.Run("GetByIDs_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByIDs(tt.Input.Args[0].([]uint64))
+			assert(t, "GetByIDs", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByIDs", res2, tt.Expectation.Ret[1])
+		})
+	}
+}

@@ -246,3 +246,33 @@ func Test_cashFlowStatementsORM_CountAll(t *testing.T) {
 		})
 	}
 }
+
+var CashFlowStatementsORMGetByIDTestCase = []TestCase{}
+
+func Test_cashFlowStatementsORM_GetByID(t *testing.T) {
+	cashFlowStatementsORM := newCashFlowStatementsORM(db)
+	do := cashFlowStatementsORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range CashFlowStatementsORMGetByIDTestCase {
+		t.Run("GetByID_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByID(tt.Input.Args[0].(uint64))
+			assert(t, "GetByID", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByID", res2, tt.Expectation.Ret[1])
+		})
+	}
+}
+
+var CashFlowStatementsORMGetByIDsTestCase = []TestCase{}
+
+func Test_cashFlowStatementsORM_GetByIDs(t *testing.T) {
+	cashFlowStatementsORM := newCashFlowStatementsORM(db)
+	do := cashFlowStatementsORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range CashFlowStatementsORMGetByIDsTestCase {
+		t.Run("GetByIDs_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByIDs(tt.Input.Args[0].([]uint64))
+			assert(t, "GetByIDs", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByIDs", res2, tt.Expectation.Ret[1])
+		})
+	}
+}

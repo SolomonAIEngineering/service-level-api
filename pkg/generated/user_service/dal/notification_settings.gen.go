@@ -168,6 +168,8 @@ type INotificationSettingsORMDo interface {
 	DeleteRecordByID(id int) (err error)
 	GetAllRecords(orderColumn string, limit int, offset int) (result []user_servicev1.NotificationSettingsORM, err error)
 	CountAll() (result int, err error)
+	GetByID(id uint64) (result user_servicev1.NotificationSettingsORM, err error)
+	GetByIDs(ids []uint64) (result []user_servicev1.NotificationSettingsORM, err error)
 }
 
 // SELECT * FROM @@table
@@ -295,6 +297,52 @@ func (n notificationSettingsORMDo) CountAll() (result int, err error) {
 
 	var executeSQL *gorm.DB
 	executeSQL = n.UnderlyingDB().Raw(generateSQL.String()).Take(&result) // ignore_security_alert
+	err = executeSQL.Error
+
+	return
+}
+
+// SELECT * FROM @@table
+// {{where}}
+//
+//	id=@id
+//
+// {{end}}
+func (n notificationSettingsORMDo) GetByID(id uint64) (result user_servicev1.NotificationSettingsORM, err error) {
+	var params []interface{}
+
+	var generateSQL strings.Builder
+	generateSQL.WriteString("SELECT * FROM notification_settings ")
+	var whereSQL0 strings.Builder
+	params = append(params, id)
+	whereSQL0.WriteString("id=? ")
+	helper.JoinWhereBuilder(&generateSQL, whereSQL0)
+
+	var executeSQL *gorm.DB
+	executeSQL = n.UnderlyingDB().Raw(generateSQL.String(), params...).Take(&result) // ignore_security_alert
+	err = executeSQL.Error
+
+	return
+}
+
+// SELECT * FROM @@table
+// {{where}}
+//
+//	id IN (@ids)
+//
+// {{end}}
+func (n notificationSettingsORMDo) GetByIDs(ids []uint64) (result []user_servicev1.NotificationSettingsORM, err error) {
+	var params []interface{}
+
+	var generateSQL strings.Builder
+	generateSQL.WriteString("SELECT * FROM notification_settings ")
+	var whereSQL0 strings.Builder
+	params = append(params, ids)
+	whereSQL0.WriteString("id IN (?) ")
+	helper.JoinWhereBuilder(&generateSQL, whereSQL0)
+
+	var executeSQL *gorm.DB
+	executeSQL = n.UnderlyingDB().Raw(generateSQL.String(), params...).Find(&result) // ignore_security_alert
 	err = executeSQL.Error
 
 	return

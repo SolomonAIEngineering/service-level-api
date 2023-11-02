@@ -246,3 +246,33 @@ func Test_plaidSyncORM_CountAll(t *testing.T) {
 		})
 	}
 }
+
+var PlaidSyncORMGetByIDTestCase = []TestCase{}
+
+func Test_plaidSyncORM_GetByID(t *testing.T) {
+	plaidSyncORM := newPlaidSyncORM(db)
+	do := plaidSyncORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range PlaidSyncORMGetByIDTestCase {
+		t.Run("GetByID_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByID(tt.Input.Args[0].(uint64))
+			assert(t, "GetByID", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByID", res2, tt.Expectation.Ret[1])
+		})
+	}
+}
+
+var PlaidSyncORMGetByIDsTestCase = []TestCase{}
+
+func Test_plaidSyncORM_GetByIDs(t *testing.T) {
+	plaidSyncORM := newPlaidSyncORM(db)
+	do := plaidSyncORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range PlaidSyncORMGetByIDsTestCase {
+		t.Run("GetByIDs_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByIDs(tt.Input.Args[0].([]uint64))
+			assert(t, "GetByIDs", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByIDs", res2, tt.Expectation.Ret[1])
+		})
+	}
+}

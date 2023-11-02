@@ -246,3 +246,33 @@ func Test_pocketORM_CountAll(t *testing.T) {
 		})
 	}
 }
+
+var PocketORMGetByIDTestCase = []TestCase{}
+
+func Test_pocketORM_GetByID(t *testing.T) {
+	pocketORM := newPocketORM(db)
+	do := pocketORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range PocketORMGetByIDTestCase {
+		t.Run("GetByID_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByID(tt.Input.Args[0].(uint64))
+			assert(t, "GetByID", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByID", res2, tt.Expectation.Ret[1])
+		})
+	}
+}
+
+var PocketORMGetByIDsTestCase = []TestCase{}
+
+func Test_pocketORM_GetByIDs(t *testing.T) {
+	pocketORM := newPocketORM(db)
+	do := pocketORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range PocketORMGetByIDsTestCase {
+		t.Run("GetByIDs_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByIDs(tt.Input.Args[0].([]uint64))
+			assert(t, "GetByIDs", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByIDs", res2, tt.Expectation.Ret[1])
+		})
+	}
+}

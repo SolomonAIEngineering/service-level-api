@@ -246,3 +246,33 @@ func Test_forecastORM_CountAll(t *testing.T) {
 		})
 	}
 }
+
+var ForecastORMGetByIDTestCase = []TestCase{}
+
+func Test_forecastORM_GetByID(t *testing.T) {
+	forecastORM := newForecastORM(db)
+	do := forecastORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range ForecastORMGetByIDTestCase {
+		t.Run("GetByID_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByID(tt.Input.Args[0].(uint64))
+			assert(t, "GetByID", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByID", res2, tt.Expectation.Ret[1])
+		})
+	}
+}
+
+var ForecastORMGetByIDsTestCase = []TestCase{}
+
+func Test_forecastORM_GetByIDs(t *testing.T) {
+	forecastORM := newForecastORM(db)
+	do := forecastORM.WithContext(context.Background()).Debug()
+
+	for i, tt := range ForecastORMGetByIDsTestCase {
+		t.Run("GetByIDs_"+strconv.Itoa(i), func(t *testing.T) {
+			res1, res2 := do.GetByIDs(tt.Input.Args[0].([]uint64))
+			assert(t, "GetByIDs", res1, tt.Expectation.Ret[0])
+			assert(t, "GetByIDs", res2, tt.Expectation.Ret[1])
+		})
+	}
+}
