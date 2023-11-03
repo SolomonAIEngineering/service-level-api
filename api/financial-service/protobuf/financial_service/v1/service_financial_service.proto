@@ -1873,7 +1873,7 @@ service FinancialService {
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       summary: "adds a note to a smart goal"
-      tags: ["smart-goal"]
+      tags: ["smart-note"]
       operation_id: "AddNoteToSmartGoal"
       description: "This endpoint adds a note to a smart goal"
       responses: {
@@ -1896,7 +1896,7 @@ service FinancialService {
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       summary: "updates a note to a smart goal"
-      tags: ["smart-goal"]
+      tags: ["smart-note"]
       operation_id: "UpdateNoteToSmartGoal"
       description: "This endpoint updates a note to a smart goal"
       responses: {
@@ -1918,7 +1918,7 @@ service FinancialService {
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       summary: "deletes a note from a smart goal"
-      tags: ["smart-goal"]
+      tags: ["smart-note"]
       operation_id: "DeleteNoteFromSmartGoal"
       description: "This endpoint deletes a note from a smart goal"
       responses: {
@@ -1940,7 +1940,7 @@ service FinancialService {
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       summary: "gets notes from a smart goal"
-      tags: ["smart-goal"]
+      tags: ["smart-note"]
       operation_id: "GetNotesFromSmartGoal"
       description: "This endpoint gets notes from a smart goal"
       responses: {
@@ -1962,7 +1962,7 @@ service FinancialService {
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       summary: "gets a note from a smart goal"
-      tags: ["smart-goal"]
+      tags: ["smart-note"]
       operation_id: "GetNoteFromSmartGoal"
       description: "This endpoint gets a note from a smart goal"
       responses: {

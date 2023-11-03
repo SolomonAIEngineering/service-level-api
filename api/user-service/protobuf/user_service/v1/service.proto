@@ -643,7 +643,7 @@ service UserService {
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             summary: "Retrieve Business Account Settings"
-            tags: ["business settings", "v2"]
+            tags: ["business settings"]
             operation_id: "RetrieveBusinessSettings"
             description: "Fetches settings associated with a specified business account using the user ID."
             responses: {
