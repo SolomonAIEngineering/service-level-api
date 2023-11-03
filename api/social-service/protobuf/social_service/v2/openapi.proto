@@ -7,13 +7,13 @@ import "protoc-gen-openapiv2/options/annotations.proto";
 option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/generated/social_service/v2";
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   info: {
-    title: "Simfiny";
-    description: "With our AI-driven financial recommendations track your spending, create a budget, save for the future, all while connecting with others who are on the same financial journey as you !";
+    title: "Social Service";
+    description: "Solomon AI Social Service";
     version: "0.1";
     contact: {
       name: "YoanYomba";
-      email: "yoan@simfinii.com";
-      url: "https://simfiny.co";
+      email: "yoanyomba@solomon-ai.co";
+      url: "https://solomon-ai.io";
     };
     license: {
       name: "Apache-2.0";
