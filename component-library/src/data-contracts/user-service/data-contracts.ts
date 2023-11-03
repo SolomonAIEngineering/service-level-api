@@ -387,6 +387,16 @@ export interface GetBusinessSettingsResponse {
   businessSettings?: BusinessAccountSettings;
 }
 
+/** Represents the response object for fetching user details by authn id. */
+export interface GetUserByAuthnIDV2Response {
+  /** BusinessAccount represents a business account within the context of solomon-ai. */
+  businessAccount?: BusinessAccount;
+  /** @brief Represents a user account in the context of simfinni. */
+  userAccount?: UserAccount;
+}
+
+export type GetUserByAuthnIdv2Data = any;
+
 export type GetUserByEmailData = any;
 
 export type GetUserByEmailOrUsernameData = any;

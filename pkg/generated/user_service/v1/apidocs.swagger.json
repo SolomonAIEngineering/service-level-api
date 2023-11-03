@@ -1003,6 +1003,72 @@
         ]
       }
     },
+    "/api/v2/user/authn/{authnId}": {
+      "get": {
+        "summary": "Retrieve user account details by authn id",
+        "description": "Fetches detailed information about a user account based on the specified authn ID.",
+        "operationId": "GetUserByAuthnIDV2",
+        "responses": {
+          "200": {
+            "description": "Successful retrieval of user account details.",
+            "schema": {
+              "$ref": ".api.v1.GetUserByAuthnIDV2Response"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "authnId",
+            "description": "Specifies the user's authn account ID.\n\nValidations:\n- Must be greater than 0.",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "profileType",
+            "description": "Indicates the profile type to be queried.\nFor example: \"username:testuser\"",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "PROFILE_TYPE_UNSPECIFIED",
+              "PROFILE_TYPE_USER",
+              "PROFILE_TYPE_BUSINESS"
+            ],
+            "default": "PROFILE_TYPE_UNSPECIFIED"
+          }
+        ],
+        "tags": [
+          "account",
+          "v2"
+        ]
+      }
+    },
     "/api/v2/user/business/settings/{userId}": {
       "get": {
         "summary": "Retrieve Business Account Settings",
@@ -2022,6 +2088,18 @@
           "$ref": "#/definitions/BusinessAccountSettings"
         }
       }
+    },
+    "GetUserByAuthnIDV2Response": {
+      "type": "object",
+      "properties": {
+        "userAccount": {
+          "$ref": "#/definitions/UserAccount"
+        },
+        "businessAccount": {
+          "$ref": "#/definitions/BusinessAccount"
+        }
+      },
+      "description": "Represents the response object for fetching user details by authn id."
     },
     "GetUserByEmailOrUsernameResponse": {
       "type": "object",

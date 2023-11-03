@@ -6949,3 +6949,307 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = PasswordResetWebhookV2ResponseValidationError{}
+
+// Validate checks the field values on GetUserByAuthnIDV2Request with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetUserByAuthnIDV2Request) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetUserByAuthnIDV2Request with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetUserByAuthnIDV2RequestMultiError, or nil if none found.
+func (m *GetUserByAuthnIDV2Request) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetUserByAuthnIDV2Request) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetAuthnId() <= 0 {
+		err := GetUserByAuthnIDV2RequestValidationError{
+			field:  "AuthnId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for ProfileType
+
+	if len(errors) > 0 {
+		return GetUserByAuthnIDV2RequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetUserByAuthnIDV2RequestMultiError is an error wrapping multiple validation
+// errors returned by GetUserByAuthnIDV2Request.ValidateAll() if the
+// designated constraints aren't met.
+type GetUserByAuthnIDV2RequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetUserByAuthnIDV2RequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetUserByAuthnIDV2RequestMultiError) AllErrors() []error { return m }
+
+// GetUserByAuthnIDV2RequestValidationError is the validation error returned by
+// GetUserByAuthnIDV2Request.Validate if the designated constraints aren't met.
+type GetUserByAuthnIDV2RequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetUserByAuthnIDV2RequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetUserByAuthnIDV2RequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetUserByAuthnIDV2RequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetUserByAuthnIDV2RequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetUserByAuthnIDV2RequestValidationError) ErrorName() string {
+	return "GetUserByAuthnIDV2RequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetUserByAuthnIDV2RequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetUserByAuthnIDV2Request.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetUserByAuthnIDV2RequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetUserByAuthnIDV2RequestValidationError{}
+
+// Validate checks the field values on GetUserByAuthnIDV2Response with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetUserByAuthnIDV2Response) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetUserByAuthnIDV2Response with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetUserByAuthnIDV2ResponseMultiError, or nil if none found.
+func (m *GetUserByAuthnIDV2Response) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetUserByAuthnIDV2Response) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	switch v := m.Account.(type) {
+	case *GetUserByAuthnIDV2Response_UserAccount:
+		if v == nil {
+			err := GetUserByAuthnIDV2ResponseValidationError{
+				field:  "Account",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetUserAccount()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GetUserByAuthnIDV2ResponseValidationError{
+						field:  "UserAccount",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GetUserByAuthnIDV2ResponseValidationError{
+						field:  "UserAccount",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetUserAccount()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetUserByAuthnIDV2ResponseValidationError{
+					field:  "UserAccount",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *GetUserByAuthnIDV2Response_BusinessAccount:
+		if v == nil {
+			err := GetUserByAuthnIDV2ResponseValidationError{
+				field:  "Account",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetBusinessAccount()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GetUserByAuthnIDV2ResponseValidationError{
+						field:  "BusinessAccount",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GetUserByAuthnIDV2ResponseValidationError{
+						field:  "BusinessAccount",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetBusinessAccount()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetUserByAuthnIDV2ResponseValidationError{
+					field:  "BusinessAccount",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+
+	if len(errors) > 0 {
+		return GetUserByAuthnIDV2ResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetUserByAuthnIDV2ResponseMultiError is an error wrapping multiple
+// validation errors returned by GetUserByAuthnIDV2Response.ValidateAll() if
+// the designated constraints aren't met.
+type GetUserByAuthnIDV2ResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetUserByAuthnIDV2ResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetUserByAuthnIDV2ResponseMultiError) AllErrors() []error { return m }
+
+// GetUserByAuthnIDV2ResponseValidationError is the validation error returned
+// by GetUserByAuthnIDV2Response.Validate if the designated constraints aren't met.
+type GetUserByAuthnIDV2ResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetUserByAuthnIDV2ResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetUserByAuthnIDV2ResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetUserByAuthnIDV2ResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetUserByAuthnIDV2ResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetUserByAuthnIDV2ResponseValidationError) ErrorName() string {
+	return "GetUserByAuthnIDV2ResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetUserByAuthnIDV2ResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetUserByAuthnIDV2Response.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetUserByAuthnIDV2ResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetUserByAuthnIDV2ResponseValidationError{}

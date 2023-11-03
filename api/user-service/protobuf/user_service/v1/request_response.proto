@@ -576,3 +576,46 @@ message PasswordResetWebhookV2Request {
 }
 
 message PasswordResetWebhookV2Response { bool success = 1; }
+
+/**
+ * Represents the request object used to obtain a user account by authn id.
+ */
+message GetUserByAuthnIDV2Request {
+  
+  /**
+   * Specifies the user's authn account ID.
+   * 
+   * Validations:
+   * - Must be greater than 0.
+   */
+  uint64 authn_id = 1  [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED   
+  ];
+
+  /**
+   * Indicates the profile type to be queried.
+   * For example: "username:testuser"
+   */
+  ProfileType profile_type = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"username:testuser\""
+    },
+    (google.api.field_behavior) = REQUIRED   
+  ];
+}
+
+/**
+ * Represents the response object for fetching user details by authn id.
+ */
+message GetUserByAuthnIDV2Response { 
+  
+  /**
+   * Contains the details of the account which can be either a user or a business account.
+   */
+  oneof account {
+    UserAccount user_account = 1;
+    BusinessAccount business_account = 2;
+  }  
+}

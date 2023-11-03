@@ -657,4 +657,23 @@ service UserService {
             }
         };
     }
+
+    rpc GetUserByAuthnIDV2(GetUserByAuthnIDV2Request) returns (GetUserByAuthnIDV2Response) {
+        option (google.api.http) = {get: "/api/v2/user/authn/{authn_id}"};
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Retrieve user account details by authn id",
+            tags: ["account", "v2"],
+            operation_id: "GetUserByAuthnIDV2",
+            description: "Fetches detailed information about a user account based on the specified authn ID.",
+            responses: {
+                key: "200",
+                value: {
+                    description: "Successful retrieval of user account details.",
+                    schema: {
+                        json_schema: {ref: ".api.v1.GetUserByAuthnIDV2Response"}
+                    }
+                }
+            }
+        };
+    }
 }
