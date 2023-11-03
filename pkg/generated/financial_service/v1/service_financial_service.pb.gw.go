@@ -6581,7 +6581,7 @@ func RegisterFinancialServiceHandlerServer(ctx context.Context, mux *runtime.Ser
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/financial_service.v1.FinancialService/GetNotesFromSmartGoal", runtime.WithHTTPPathPattern("/api/v1/smart-goal/note/{smart_goal_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/financial_service.v1.FinancialService/GetNotesFromSmartGoal", runtime.WithHTTPPathPattern("/api/v1/smart-goal/{smart_goal_id}/note"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8342,7 +8342,7 @@ func RegisterFinancialServiceHandlerClient(ctx context.Context, mux *runtime.Ser
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/financial_service.v1.FinancialService/GetNotesFromSmartGoal", runtime.WithHTTPPathPattern("/api/v1/smart-goal/note/{smart_goal_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/financial_service.v1.FinancialService/GetNotesFromSmartGoal", runtime.WithHTTPPathPattern("/api/v1/smart-goal/{smart_goal_id}/note"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8536,7 +8536,7 @@ var (
 
 	pattern_FinancialService_DeleteNoteFromSmartGoal_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v1", "smart-goal", "note", "note_id"}, ""))
 
-	pattern_FinancialService_GetNotesFromSmartGoal_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v1", "smart-goal", "note", "smart_goal_id"}, ""))
+	pattern_FinancialService_GetNotesFromSmartGoal_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v1", "smart-goal", "smart_goal_id", "note"}, ""))
 
 	pattern_FinancialService_GetNoteFromSmartGoal_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v1", "smart-goal", "note", "note_id"}, ""))
 )

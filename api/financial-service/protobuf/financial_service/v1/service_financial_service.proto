@@ -1936,7 +1936,7 @@ service FinancialService {
   // get notes from a smart goal
   rpc GetNotesFromSmartGoal(GetNotesFromSmartGoalRequest) returns (GetNotesFromSmartGoalResponse) {
     option (google.api.http) = {
-      get: "/api/v1/smart-goal/note/{smart_goal_id}"
+      get: "/api/v1/smart-goal/{smart_goal_id}/note"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       summary: "gets notes from a smart goal"

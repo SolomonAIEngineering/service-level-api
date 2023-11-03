@@ -4455,58 +4455,6 @@
         ]
       }
     },
-    "/api/v1/smart-goal/note/{smartGoalId}": {
-      "get": {
-        "summary": "gets notes from a smart goal",
-        "description": "This endpoint gets notes from a smart goal",
-        "operationId": "GetNotesFromSmartGoal",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": ".api.v1.GetNotesFromSmartGoalResponse"
-            }
-          },
-          "400": {
-            "description": "Request failed due to invalid input.",
-            "schema": {
-              "$ref": ".api.v1.ValidationErrorMessageResponse"
-            }
-          },
-          "404": {
-            "description": "Request failed due to incorrect path.",
-            "schema": {
-              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
-            }
-          },
-          "500": {
-            "description": "Request failed due to internal server error.",
-            "schema": {
-              "$ref": ".api.v1.InternalErrorMessageResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/Status"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "smartGoalId",
-            "description": "The smart goal id\nValidations:\n- smart_goal_id must be greater than 0",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "format": "uint64"
-          }
-        ],
-        "tags": [
-          "smart-note"
-        ]
-      }
-    },
     "/api/v1/smart-goal/pocket/{pocketId}": {
       "get": {
         "summary": "get smart goals by pocket id",
@@ -4608,6 +4556,58 @@
         ],
         "tags": [
           "smart goals"
+        ]
+      }
+    },
+    "/api/v1/smart-goal/{smartGoalId}/note": {
+      "get": {
+        "summary": "gets notes from a smart goal",
+        "description": "This endpoint gets notes from a smart goal",
+        "operationId": "GetNotesFromSmartGoal",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.GetNotesFromSmartGoalResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "smartGoalId",
+            "description": "The smart goal id\nValidations:\n- smart_goal_id must be greater than 0",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "smart-note"
         ]
       }
     },
