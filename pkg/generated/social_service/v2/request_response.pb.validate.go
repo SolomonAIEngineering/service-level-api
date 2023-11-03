@@ -583,10 +583,6 @@ func (m *GetUserProfileRequest) validate(all bool) error {
 
 	// no validation rules for RequestorProfileType
 
-	// no validation rules for RequestorVirtualProfileType
-
-	// no validation rules for RequestedVirtualProfileType
-
 	if len(errors) > 0 {
 		return GetUserProfileRequestMultiError(errors)
 	}
@@ -884,8 +880,6 @@ func (m *CreateUserProfileRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for ProfileType
-
 	if len(errors) > 0 {
 		return CreateUserProfileRequestMultiError(errors)
 	}
@@ -1039,8 +1033,6 @@ func (m *CreateCommunityProfileRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for ProfileType
-
 	if len(errors) > 0 {
 		return CreateCommunityProfileRequestMultiError(errors)
 	}
@@ -1154,8 +1146,6 @@ func (m *DeleteUserProfileRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
-
-	// no validation rules for ProfileType
 
 	if len(errors) > 0 {
 		return DeleteUserProfileRequestMultiError(errors)
@@ -1280,8 +1270,6 @@ func (m *DeleteCommunityProfileRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
-
-	// no validation rules for RequestorProfileType
 
 	if len(errors) > 0 {
 		return DeleteCommunityProfileRequestMultiError(errors)
@@ -1436,8 +1424,6 @@ func (m *EditUserProfileRequest) validate(all bool) error {
 			}
 		}
 	}
-
-	// no validation rules for RequestorProfileType
 
 	if len(errors) > 0 {
 		return EditUserProfileRequestMultiError(errors)
@@ -1603,8 +1589,6 @@ func (m *EditCommunityProfileRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for RequestorProfileType
-
 	if len(errors) > 0 {
 		return EditCommunityProfileRequestMultiError(errors)
 	}
@@ -1730,10 +1714,6 @@ func (m *BlockUserProfileRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for SourceProfileType
-
-	// no validation rules for TargetProfileType
-
 	if len(errors) > 0 {
 		return BlockUserProfileRequestMultiError(errors)
 	}
@@ -1858,10 +1838,6 @@ func (m *FollowProfileRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for SourceProfileType
-
-	// no validation rules for TargetProfileType
-
 	if len(errors) > 0 {
 		return FollowProfileRequestMultiError(errors)
 	}
@@ -1985,8 +1961,6 @@ func (m *FollowCommunityProfileRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
-
-	// no validation rules for SourceProfileType
 
 	if len(errors) > 0 {
 		return FollowCommunityProfileRequestMultiError(errors)
@@ -2259,8 +2233,6 @@ func (m *CreatePostRequest) validate(all bool) error {
 
 	// no validation rules for AccountType
 
-	// no validation rules for RequestorProfileType
-
 	if len(errors) > 0 {
 		return CreatePostRequestMultiError(errors)
 	}
@@ -2395,8 +2367,6 @@ func (m *DeletePostRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
-
-	// no validation rules for RequestorProfileType
 
 	if len(errors) > 0 {
 		return DeletePostRequestMultiError(errors)
@@ -2703,8 +2673,6 @@ func (m *GetPostRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for RequestorProfileType
-
 	if len(errors) > 0 {
 		return GetPostRequestMultiError(errors)
 	}
@@ -2844,8 +2812,6 @@ func (m *ReactionRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for RequestorProfileType
-
 	if len(errors) > 0 {
 		return ReactionRequestMultiError(errors)
 	}
@@ -2966,8 +2932,6 @@ func (m *GetUserFeedRequest) validate(all bool) error {
 	// no validation rules for AccountType
 
 	// no validation rules for NextPageToken
-
-	// no validation rules for RequestorProfileType
 
 	if len(errors) > 0 {
 		return GetUserFeedRequestMultiError(errors)
@@ -3266,8 +3230,6 @@ func (m *CreateCommentRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
-
-	// no validation rules for RequestorProfileType
 
 	if len(errors) > 0 {
 		return CreateCommentRequestMultiError(errors)
@@ -3576,8 +3538,6 @@ func (m *CreateTopicRequest) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for RequestorProfileType
-
 	if len(errors) > 0 {
 		return CreateTopicRequestMultiError(errors)
 	}
@@ -3815,8 +3775,6 @@ func (m *GetPendingFollowsRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for RequestorProfileType
-
 	if len(errors) > 0 {
 		return GetPendingFollowsRequestMultiError(errors)
 	}
@@ -3941,8 +3899,6 @@ func (m *GetCommunitiesUserFollowsRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
-
-	// no validation rules for RequestorProfileType
 
 	if len(errors) > 0 {
 		return GetCommunitiesUserFollowsRequestMultiError(errors)
@@ -4071,8 +4027,6 @@ func (m *GetTopicsOfCommunitiesUserFollowsRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
-
-	// no validation rules for RequestorProfileType
 
 	if len(errors) > 0 {
 		return GetTopicsOfCommunitiesUserFollowsRequestMultiError(errors)
@@ -4541,8 +4495,6 @@ func (m *AddPostQualityScoreRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for RequestorProfileType
-
 	if len(errors) > 0 {
 		return AddPostQualityScoreRequestMultiError(errors)
 	}
@@ -4704,8 +4656,6 @@ func (m *AddCommentQualityScoreRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for RequestorProfileType
-
 	if len(errors) > 0 {
 		return AddCommentQualityScoreRequestMultiError(errors)
 	}
@@ -4845,8 +4795,6 @@ func (m *ReportPostRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
-
-	// no validation rules for RequestorProfileType
 
 	if len(errors) > 0 {
 		return ReportPostRequestMultiError(errors)
@@ -4997,8 +4945,6 @@ func (m *ReportCommentRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
-
-	// no validation rules for RequestorProfileType
 
 	if len(errors) > 0 {
 		return ReportCommentRequestMultiError(errors)
@@ -5360,8 +5306,6 @@ func (m *DiscoverProfilesRequest) validate(all bool) error {
 	}
 
 	// no validation rules for Limit
-
-	// no validation rules for RequestorProfileType
 
 	if len(errors) > 0 {
 		return DiscoverProfilesRequestMultiError(errors)
@@ -10521,8 +10465,6 @@ func (m *CreatePollRequest) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for RequestorProfileType
-
 	if len(errors) > 0 {
 		return CreatePollRequestMultiError(errors)
 	}
@@ -10751,8 +10693,6 @@ func (m *DeletePollRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for RequestorProfileType
-
 	if len(errors) > 0 {
 		return DeletePollRequestMultiError(errors)
 	}
@@ -10980,8 +10920,6 @@ func (m *GetPollRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
-
-	// no validation rules for RequestorProfileType
 
 	if len(errors) > 0 {
 		return GetPollRequestMultiError(errors)
@@ -11222,8 +11160,6 @@ func (m *GetPollsRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
-
-	// no validation rules for RequestorProfileType
 
 	if len(errors) > 0 {
 		return GetPollsRequestMultiError(errors)
@@ -11502,8 +11438,6 @@ func (m *RespondToPollRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
-
-	// no validation rules for RequestorProfileType
 
 	if len(errors) > 0 {
 		return RespondToPollRequestMultiError(errors)
@@ -11810,8 +11744,6 @@ func (m *CreateNoteRequest) validate(all bool) error {
 			}
 		}
 	}
-
-	// no validation rules for RequestorProfileType
 
 	if len(errors) > 0 {
 		return CreateNoteRequestMultiError(errors)
@@ -12193,8 +12125,6 @@ func (m *DeleteNoteRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for RequestorProfileType
-
 	if len(errors) > 0 {
 		return DeleteNoteRequestMultiError(errors)
 	}
@@ -12488,8 +12418,6 @@ func (m *EditNoteRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
-
-	// no validation rules for RequestorProfileType
 
 	if len(errors) > 0 {
 		return EditNoteRequestMultiError(errors)
@@ -12874,8 +12802,6 @@ func (m *CreatePublicationRequest) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for RequestorProfileType
-
 	if len(errors) > 0 {
 		return CreatePublicationRequestMultiError(errors)
 	}
@@ -13103,8 +13029,6 @@ func (m *GetPublicationRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
-
-	// no validation rules for RequestorProfileType
 
 	if len(errors) > 0 {
 		return GetPublicationRequestMultiError(errors)
@@ -13361,8 +13285,6 @@ func (m *DeletePublicationRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for RequestorProfileType
-
 	if len(errors) > 0 {
 		return DeletePublicationRequestMultiError(errors)
 	}
@@ -13601,10 +13523,6 @@ func (m *AddPublicationEditorRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
-
-	// no validation rules for AdminProfileType
-
-	// no validation rules for EditorProfileType
 
 	if len(errors) > 0 {
 		return AddPublicationEditorRequestMultiError(errors)
@@ -13873,10 +13791,6 @@ func (m *DeletePublicationEditorRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
-
-	// no validation rules for AdminProfileType
-
-	// no validation rules for EditorProfileType
 
 	if len(errors) > 0 {
 		return DeletePublicationEditorRequestMultiError(errors)
@@ -14147,8 +14061,6 @@ func (m *AddPostToPublicationRequest) validate(all bool) error {
 			}
 		}
 	}
-
-	// no validation rules for EditorProfileType
 
 	if len(errors) > 0 {
 		return AddPostToPublicationRequestMultiError(errors)
@@ -14429,8 +14341,6 @@ func (m *DeletePostFromPublicationRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
-
-	// no validation rules for EditorProfileType
 
 	if len(errors) > 0 {
 		return DeletePostFromPublicationRequestMultiError(errors)
@@ -14719,8 +14629,6 @@ func (m *AddPostToThreadRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
-
-	// no validation rules for RequestorProfileType
 
 	if len(errors) > 0 {
 		return AddPostToThreadRequestMultiError(errors)
@@ -15102,8 +15010,6 @@ func (m *RemovePostFromThreadRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for RequestorProfileType
-
 	if len(errors) > 0 {
 		return RemovePostFromThreadRequestMultiError(errors)
 	}
@@ -15348,8 +15254,6 @@ func (m *GetPostThreadRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
-
-	// no validation rules for RequestorProfileType
 
 	if len(errors) > 0 {
 		return GetPostThreadRequestMultiError(errors)
@@ -15614,8 +15518,6 @@ func (m *BookmarkPostRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
-
-	// no validation rules for RequestorProfileType
 
 	if len(errors) > 0 {
 		return BookmarkPostRequestMultiError(errors)
@@ -15883,8 +15785,6 @@ func (m *RemoveBookmarkedPostRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for RequestorProfileType
-
 	if len(errors) > 0 {
 		return RemoveBookmarkedPostRequestMultiError(errors)
 	}
@@ -16146,8 +16046,6 @@ func (m *BookmarkPublicationRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for RequestorProfileType
-
 	if len(errors) > 0 {
 		return BookmarkPublicationRequestMultiError(errors)
 	}
@@ -16404,8 +16302,6 @@ func (m *RemoveBookmarkedPublicationRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
-
-	// no validation rules for RequestorProfileType
 
 	if len(errors) > 0 {
 		return RemoveBookmarkedPublicationRequestMultiError(errors)
@@ -16677,8 +16573,6 @@ func (m *GetFollowersRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
-
-	// no validation rules for RequestorProfileType
 
 	if len(errors) > 0 {
 		return GetFollowersRequestMultiError(errors)
@@ -16952,8 +16846,6 @@ func (m *GetAccountsFollowingRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
-
-	// no validation rules for RequestorProfileType
 
 	if len(errors) > 0 {
 		return GetAccountsFollowingRequestMultiError(errors)
@@ -17256,8 +17148,6 @@ func (m *ReactToPostRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
-
-	// no validation rules for RequestorProfileType
 
 	if len(errors) > 0 {
 		return ReactToPostRequestMultiError(errors)
@@ -17643,8 +17533,6 @@ func (m *ReactToCommentRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for RequestorProfileType
-
 	if len(errors) > 0 {
 		return ReactToCommentRequestMultiError(errors)
 	}
@@ -17940,8 +17828,6 @@ func (m *ReactToCommentReplyRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
-
-	// no validation rules for RequestorProfileType
 
 	if len(errors) > 0 {
 		return ReactToCommentReplyRequestMultiError(errors)
@@ -18265,8 +18151,6 @@ func (m *CreateCommentReplyRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for RequestorProfileType
-
 	if len(errors) > 0 {
 		return CreateCommentReplyRequestMultiError(errors)
 	}
@@ -18558,8 +18442,6 @@ func (m *DeleteCommentReplyRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
-
-	// no validation rules for RequestorProfileType
 
 	if len(errors) > 0 {
 		return DeleteCommentReplyRequestMultiError(errors)
@@ -18893,8 +18775,6 @@ func (m *EditCommentReplyRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for RequestorProfileType
-
 	if len(errors) > 0 {
 		return EditCommentReplyRequestMultiError(errors)
 	}
@@ -19175,8 +19055,6 @@ func (m *GetCommentRepliesRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
-
-	// no validation rules for RequestorProfileType
 
 	if len(errors) > 0 {
 		return GetCommentRepliesRequestMultiError(errors)
@@ -19475,8 +19353,6 @@ func (m *ReportCommentReplyRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for RequestorProfileType
-
 	if len(errors) > 0 {
 		return ReportCommentReplyRequestMultiError(errors)
 	}
@@ -19758,8 +19634,6 @@ func (m *SharePostRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for RequestorProfileType
-
 	if len(errors) > 0 {
 		return SharePostRequestMultiError(errors)
 	}
@@ -19978,8 +19852,6 @@ func (m *GetBookmarkedPostsRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
-
-	// no validation rules for RequestorProfileType
 
 	if len(errors) > 0 {
 		return GetBookmarkedPostsRequestMultiError(errors)

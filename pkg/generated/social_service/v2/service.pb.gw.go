@@ -67,10 +67,6 @@ func local_request_SocialService_ReadynessCheck_0(ctx context.Context, marshaler
 
 }
 
-var (
-	filter_SocialService_EditUserProfile_0 = &utilities.DoubleArray{Encoding: map[string]int{"profile": 0, "user_id": 1, "userId": 2}, Base: []int{1, 2, 3, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 2, 2, 3, 4}}
-)
-
 func request_SocialService_EditUserProfile_0(ctx context.Context, marshaler runtime.Marshaler, client SocialServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq EditUserProfileRequest
 	var metadata runtime.ServerMetadata
@@ -98,13 +94,6 @@ func request_SocialService_EditUserProfile_0(ctx context.Context, marshaler runt
 	protoReq.UserId, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_EditUserProfile_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.EditUserProfile(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -139,13 +128,6 @@ func local_request_SocialService_EditUserProfile_0(ctx context.Context, marshale
 	protoReq.UserId, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_EditUserProfile_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := server.EditUserProfile(ctx, &protoReq)
@@ -291,10 +273,6 @@ func local_request_SocialService_CreateUserProfile_0(ctx context.Context, marsha
 
 }
 
-var (
-	filter_SocialService_DeleteUserProfile_0 = &utilities.DoubleArray{Encoding: map[string]int{"user_id": 0, "userId": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
-)
-
 func request_SocialService_DeleteUserProfile_0(ctx context.Context, marshaler runtime.Marshaler, client SocialServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq DeleteUserProfileRequest
 	var metadata runtime.ServerMetadata
@@ -314,13 +292,6 @@ func request_SocialService_DeleteUserProfile_0(ctx context.Context, marshaler ru
 	protoReq.UserId, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_DeleteUserProfile_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.DeleteUserProfile(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -349,21 +320,10 @@ func local_request_SocialService_DeleteUserProfile_0(ctx context.Context, marsha
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
 	}
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_DeleteUserProfile_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
 	msg, err := server.DeleteUserProfile(ctx, &protoReq)
 	return msg, metadata, err
 
 }
-
-var (
-	filter_SocialService_BlockUserProfile_0 = &utilities.DoubleArray{Encoding: map[string]int{"source_user_id": 0, "sourceUserId": 1, "target_user_id": 2, "targetUserId": 3}, Base: []int{1, 1, 2, 3, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 2, 3, 4, 5}}
-)
 
 func request_SocialService_BlockUserProfile_0(ctx context.Context, marshaler runtime.Marshaler, client SocialServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq BlockUserProfileRequest
@@ -394,13 +354,6 @@ func request_SocialService_BlockUserProfile_0(ctx context.Context, marshaler run
 	protoReq.TargetUserId, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "target_user_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_BlockUserProfile_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.BlockUserProfile(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -439,21 +392,10 @@ func local_request_SocialService_BlockUserProfile_0(ctx context.Context, marshal
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "target_user_id", err)
 	}
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_BlockUserProfile_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
 	msg, err := server.BlockUserProfile(ctx, &protoReq)
 	return msg, metadata, err
 
 }
-
-var (
-	filter_SocialService_FollowProfile_0 = &utilities.DoubleArray{Encoding: map[string]int{"source_user_id": 0, "sourceUserId": 1, "target_user_id": 2, "targetUserId": 3}, Base: []int{1, 1, 2, 3, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 2, 3, 4, 5}}
-)
 
 func request_SocialService_FollowProfile_0(ctx context.Context, marshaler runtime.Marshaler, client SocialServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq FollowProfileRequest
@@ -484,13 +426,6 @@ func request_SocialService_FollowProfile_0(ctx context.Context, marshaler runtim
 	protoReq.TargetUserId, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "target_user_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_FollowProfile_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.FollowProfile(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -527,13 +462,6 @@ func local_request_SocialService_FollowProfile_0(ctx context.Context, marshaler 
 	protoReq.TargetUserId, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "target_user_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_FollowProfile_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := server.FollowProfile(ctx, &protoReq)
@@ -665,10 +593,6 @@ func local_request_SocialService_GetUserProfiles_0(ctx context.Context, marshale
 
 }
 
-var (
-	filter_SocialService_DiscoverProfiles_0 = &utilities.DoubleArray{Encoding: map[string]int{"user_id": 0, "userId": 1, "limit": 2}, Base: []int{1, 1, 2, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 2, 3, 4, 4}}
-)
-
 func request_SocialService_DiscoverProfiles_0(ctx context.Context, marshaler runtime.Marshaler, client SocialServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq DiscoverProfilesRequest
 	var metadata runtime.ServerMetadata
@@ -698,13 +622,6 @@ func request_SocialService_DiscoverProfiles_0(ctx context.Context, marshaler run
 	protoReq.Limit, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "limit", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_DiscoverProfiles_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.DiscoverProfiles(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -741,13 +658,6 @@ func local_request_SocialService_DiscoverProfiles_0(ctx context.Context, marshal
 	protoReq.Limit, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "limit", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_DiscoverProfiles_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := server.DiscoverProfiles(ctx, &protoReq)
@@ -991,10 +901,6 @@ func local_request_SocialService_GetCommunitiesUserFollows_0(ctx context.Context
 
 }
 
-var (
-	filter_SocialService_FollowCommunityProfile_0 = &utilities.DoubleArray{Encoding: map[string]int{"source_user_id": 0, "sourceUserId": 1, "target_community_profile_id": 2, "targetCommunityProfileId": 3}, Base: []int{1, 1, 2, 3, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 2, 3, 4, 5}}
-)
-
 func request_SocialService_FollowCommunityProfile_0(ctx context.Context, marshaler runtime.Marshaler, client SocialServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq FollowCommunityProfileRequest
 	var metadata runtime.ServerMetadata
@@ -1024,13 +930,6 @@ func request_SocialService_FollowCommunityProfile_0(ctx context.Context, marshal
 	protoReq.TargetCommunityProfileId, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "target_community_profile_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_FollowCommunityProfile_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.FollowCommunityProfile(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -1067,13 +966,6 @@ func local_request_SocialService_FollowCommunityProfile_0(ctx context.Context, m
 	protoReq.TargetCommunityProfileId, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "target_community_profile_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_FollowCommunityProfile_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := server.FollowCommunityProfile(ctx, &protoReq)
@@ -1153,10 +1045,6 @@ func local_request_SocialService_GetCommunityProfiles_0(ctx context.Context, mar
 
 }
 
-var (
-	filter_SocialService_DeleteCommunityProfile_0 = &utilities.DoubleArray{Encoding: map[string]int{"user_id": 0, "userId": 1, "community_profile_id": 2, "communityProfileId": 3}, Base: []int{1, 1, 2, 3, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 2, 3, 4, 5}}
-)
-
 func request_SocialService_DeleteCommunityProfile_0(ctx context.Context, marshaler runtime.Marshaler, client SocialServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq DeleteCommunityProfileRequest
 	var metadata runtime.ServerMetadata
@@ -1186,13 +1074,6 @@ func request_SocialService_DeleteCommunityProfile_0(ctx context.Context, marshal
 	protoReq.CommunityProfileId, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "community_profile_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_DeleteCommunityProfile_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.DeleteCommunityProfile(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -1231,21 +1112,10 @@ func local_request_SocialService_DeleteCommunityProfile_0(ctx context.Context, m
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "community_profile_id", err)
 	}
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_DeleteCommunityProfile_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
 	msg, err := server.DeleteCommunityProfile(ctx, &protoReq)
 	return msg, metadata, err
 
 }
-
-var (
-	filter_SocialService_EditCommunityProfile_0 = &utilities.DoubleArray{Encoding: map[string]int{"profile": 0, "user_id": 1, "userId": 2, "community_profile_id": 3, "communityProfileId": 4}, Base: []int{1, 2, 3, 4, 5, 6, 0, 0, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 1, 2, 2, 3, 4, 5, 6}}
-)
 
 func request_SocialService_EditCommunityProfile_0(ctx context.Context, marshaler runtime.Marshaler, client SocialServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq EditCommunityProfileRequest
@@ -1284,13 +1154,6 @@ func request_SocialService_EditCommunityProfile_0(ctx context.Context, marshaler
 	protoReq.CommunityProfileId, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "community_profile_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_EditCommunityProfile_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.EditCommunityProfile(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -1335,13 +1198,6 @@ func local_request_SocialService_EditCommunityProfile_0(ctx context.Context, mar
 	protoReq.CommunityProfileId, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "community_profile_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_EditCommunityProfile_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := server.EditCommunityProfile(ctx, &protoReq)
@@ -1435,10 +1291,6 @@ func local_request_SocialService_CreatePost_0(ctx context.Context, marshaler run
 
 }
 
-var (
-	filter_SocialService_DeletePost_0 = &utilities.DoubleArray{Encoding: map[string]int{"user_id": 0, "userId": 1, "post_id": 2, "postId": 3, "post_type": 4, "postType": 5}, Base: []int{1, 1, 2, 3, 4, 5, 6, 0, 0, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 1, 1, 2, 3, 4, 5, 6, 7}}
-)
-
 func request_SocialService_DeletePost_0(ctx context.Context, marshaler runtime.Marshaler, client SocialServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq DeletePostRequest
 	var metadata runtime.ServerMetadata
@@ -1482,13 +1334,6 @@ func request_SocialService_DeletePost_0(ctx context.Context, marshaler runtime.M
 	}
 
 	protoReq.PostType = PostType(e)
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_DeletePost_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
 
 	msg, err := client.DeletePost(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
@@ -1539,21 +1384,10 @@ func local_request_SocialService_DeletePost_0(ctx context.Context, marshaler run
 
 	protoReq.PostType = PostType(e)
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_DeletePost_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
 	msg, err := server.DeletePost(ctx, &protoReq)
 	return msg, metadata, err
 
 }
-
-var (
-	filter_SocialService_GetPost_0 = &utilities.DoubleArray{Encoding: map[string]int{"user_id": 0, "userId": 1, "post_id": 2, "postId": 3, "post_type": 4, "postType": 5}, Base: []int{1, 1, 2, 3, 4, 5, 6, 0, 0, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 1, 1, 2, 3, 4, 5, 6, 7}}
-)
 
 func request_SocialService_GetPost_0(ctx context.Context, marshaler runtime.Marshaler, client SocialServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetPostRequest
@@ -1598,13 +1432,6 @@ func request_SocialService_GetPost_0(ctx context.Context, marshaler runtime.Mars
 	}
 
 	protoReq.PostType = PostType(e)
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_GetPost_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
 
 	msg, err := client.GetPost(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
@@ -1654,13 +1481,6 @@ func local_request_SocialService_GetPost_0(ctx context.Context, marshaler runtim
 	}
 
 	protoReq.PostType = PostType(e)
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_GetPost_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
 
 	msg, err := server.GetPost(ctx, &protoReq)
 	return msg, metadata, err
@@ -1833,10 +1653,6 @@ func local_request_SocialService_EditPost_0(ctx context.Context, marshaler runti
 
 }
 
-var (
-	filter_SocialService_ReportPost_0 = &utilities.DoubleArray{Encoding: map[string]int{"user_id": 0, "userId": 1, "post_id": 2, "postId": 3, "post_type": 4, "postType": 5}, Base: []int{1, 1, 2, 3, 4, 5, 6, 0, 0, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 1, 1, 2, 3, 4, 5, 6, 7}}
-)
-
 func request_SocialService_ReportPost_0(ctx context.Context, marshaler runtime.Marshaler, client SocialServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq ReportPostRequest
 	var metadata runtime.ServerMetadata
@@ -1880,13 +1696,6 @@ func request_SocialService_ReportPost_0(ctx context.Context, marshaler runtime.M
 	}
 
 	protoReq.PostType = PostType(e)
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_ReportPost_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
 
 	msg, err := client.ReportPost(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
@@ -1937,21 +1746,10 @@ func local_request_SocialService_ReportPost_0(ctx context.Context, marshaler run
 
 	protoReq.PostType = PostType(e)
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_ReportPost_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
 	msg, err := server.ReportPost(ctx, &protoReq)
 	return msg, metadata, err
 
 }
-
-var (
-	filter_SocialService_SharePost_0 = &utilities.DoubleArray{Encoding: map[string]int{"content": 0, "user_id": 1, "userId": 2, "parent_post_id": 3, "parentPostId": 4, "parent_post_type": 5, "parentPostType": 6}, Base: []int{1, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 3, 4, 5, 6, 7, 8}}
-)
 
 func request_SocialService_SharePost_0(ctx context.Context, marshaler runtime.Marshaler, client SocialServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq SharePostRequest
@@ -2004,13 +1802,6 @@ func request_SocialService_SharePost_0(ctx context.Context, marshaler runtime.Ma
 	}
 
 	protoReq.ParentPostType = PostType(e)
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_SharePost_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
 
 	msg, err := client.SharePost(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
@@ -2069,21 +1860,10 @@ func local_request_SocialService_SharePost_0(ctx context.Context, marshaler runt
 
 	protoReq.ParentPostType = PostType(e)
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_SharePost_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
 	msg, err := server.SharePost(ctx, &protoReq)
 	return msg, metadata, err
 
 }
-
-var (
-	filter_SocialService_AddPostToThread_0 = &utilities.DoubleArray{Encoding: map[string]int{"post": 0, "user_id": 1, "userId": 2, "parent_post_id": 3, "parentPostId": 4, "post_type": 5, "postType": 6}, Base: []int{1, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 3, 4, 5, 6, 7, 8}}
-)
 
 func request_SocialService_AddPostToThread_0(ctx context.Context, marshaler runtime.Marshaler, client SocialServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq AddPostToThreadRequest
@@ -2136,13 +1916,6 @@ func request_SocialService_AddPostToThread_0(ctx context.Context, marshaler runt
 	}
 
 	protoReq.PostType = PostType(e)
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_AddPostToThread_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
 
 	msg, err := client.AddPostToThread(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
@@ -2201,21 +1974,10 @@ func local_request_SocialService_AddPostToThread_0(ctx context.Context, marshale
 
 	protoReq.PostType = PostType(e)
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_AddPostToThread_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
 	msg, err := server.AddPostToThread(ctx, &protoReq)
 	return msg, metadata, err
 
 }
-
-var (
-	filter_SocialService_RemovePostFromThread_0 = &utilities.DoubleArray{Encoding: map[string]int{"user_id": 0, "userId": 1, "parent_post_id": 2, "parentPostId": 3, "post_type": 4, "postType": 5, "participant_post_id": 6, "participantPostId": 7}, Base: []int{1, 1, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 4, 5, 6, 7, 8, 9}}
-)
 
 func request_SocialService_RemovePostFromThread_0(ctx context.Context, marshaler runtime.Marshaler, client SocialServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq RemovePostFromThreadRequest
@@ -2269,13 +2031,6 @@ func request_SocialService_RemovePostFromThread_0(ctx context.Context, marshaler
 	protoReq.ParticipantPostId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "participant_post_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_RemovePostFromThread_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.RemovePostFromThread(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -2335,13 +2090,6 @@ func local_request_SocialService_RemovePostFromThread_0(ctx context.Context, mar
 	protoReq.ParticipantPostId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "participant_post_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_RemovePostFromThread_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := server.RemovePostFromThread(ctx, &protoReq)
@@ -4321,10 +4069,6 @@ func local_request_SocialService_ReportCommentReply_0(ctx context.Context, marsh
 
 }
 
-var (
-	filter_SocialService_CreateTopic_0 = &utilities.DoubleArray{Encoding: map[string]int{"topic": 0, "user_id": 1, "userId": 2, "community_profile_id": 3, "communityProfileId": 4}, Base: []int{1, 2, 3, 4, 5, 6, 0, 0, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 1, 2, 2, 3, 4, 5, 6}}
-)
-
 func request_SocialService_CreateTopic_0(ctx context.Context, marshaler runtime.Marshaler, client SocialServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq CreateTopicRequest
 	var metadata runtime.ServerMetadata
@@ -4362,13 +4106,6 @@ func request_SocialService_CreateTopic_0(ctx context.Context, marshaler runtime.
 	protoReq.CommunityProfileId, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "community_profile_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_CreateTopic_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.CreateTopic(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -4413,13 +4150,6 @@ func local_request_SocialService_CreateTopic_0(ctx context.Context, marshaler ru
 	protoReq.CommunityProfileId, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "community_profile_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_CreateTopic_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := server.CreateTopic(ctx, &protoReq)
@@ -4497,10 +4227,6 @@ func local_request_SocialService_GetTopicsOfCommunitiesUserFollows_0(ctx context
 
 }
 
-var (
-	filter_SocialService_GetPendingFollows_0 = &utilities.DoubleArray{Encoding: map[string]int{"user_id": 0, "userId": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
-)
-
 func request_SocialService_GetPendingFollows_0(ctx context.Context, marshaler runtime.Marshaler, client SocialServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetPendingFollowsRequest
 	var metadata runtime.ServerMetadata
@@ -4520,13 +4246,6 @@ func request_SocialService_GetPendingFollows_0(ctx context.Context, marshaler ru
 	protoReq.UserId, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_GetPendingFollows_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.GetPendingFollows(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -4553,13 +4272,6 @@ func local_request_SocialService_GetPendingFollows_0(ctx context.Context, marsha
 	protoReq.UserId, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_GetPendingFollows_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := server.GetPendingFollows(ctx, &protoReq)
@@ -4773,10 +4485,6 @@ func local_request_SocialService_GetAccountsFollowing_0(ctx context.Context, mar
 
 }
 
-var (
-	filter_SocialService_CreatePoll_0 = &utilities.DoubleArray{Encoding: map[string]int{"poll": 0, "user_id": 1, "userId": 2}, Base: []int{1, 2, 3, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 2, 2, 3, 4}}
-)
-
 func request_SocialService_CreatePoll_0(ctx context.Context, marshaler runtime.Marshaler, client SocialServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq CreatePollRequest
 	var metadata runtime.ServerMetadata
@@ -4804,13 +4512,6 @@ func request_SocialService_CreatePoll_0(ctx context.Context, marshaler runtime.M
 	protoReq.UserId, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_CreatePoll_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.CreatePoll(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -4847,21 +4548,10 @@ func local_request_SocialService_CreatePoll_0(ctx context.Context, marshaler run
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
 	}
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_CreatePoll_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
 	msg, err := server.CreatePoll(ctx, &protoReq)
 	return msg, metadata, err
 
 }
-
-var (
-	filter_SocialService_DeletePoll_0 = &utilities.DoubleArray{Encoding: map[string]int{"user_id": 0, "userId": 1, "post_id": 2, "postId": 3}, Base: []int{1, 1, 2, 3, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 2, 3, 4, 5}}
-)
 
 func request_SocialService_DeletePoll_0(ctx context.Context, marshaler runtime.Marshaler, client SocialServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq DeletePollRequest
@@ -4892,13 +4582,6 @@ func request_SocialService_DeletePoll_0(ctx context.Context, marshaler runtime.M
 	protoReq.PostId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "post_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_DeletePoll_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.DeletePoll(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -4937,21 +4620,10 @@ func local_request_SocialService_DeletePoll_0(ctx context.Context, marshaler run
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "post_id", err)
 	}
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_DeletePoll_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
 	msg, err := server.DeletePoll(ctx, &protoReq)
 	return msg, metadata, err
 
 }
-
-var (
-	filter_SocialService_GetPoll_0 = &utilities.DoubleArray{Encoding: map[string]int{"user_id": 0, "userId": 1, "post_id": 2, "postId": 3}, Base: []int{1, 1, 2, 3, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 2, 3, 4, 5}}
-)
 
 func request_SocialService_GetPoll_0(ctx context.Context, marshaler runtime.Marshaler, client SocialServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetPollRequest
@@ -4982,13 +4654,6 @@ func request_SocialService_GetPoll_0(ctx context.Context, marshaler runtime.Mars
 	protoReq.PostId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "post_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_GetPoll_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.GetPoll(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -5027,21 +4692,10 @@ func local_request_SocialService_GetPoll_0(ctx context.Context, marshaler runtim
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "post_id", err)
 	}
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_GetPoll_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
 	msg, err := server.GetPoll(ctx, &protoReq)
 	return msg, metadata, err
 
 }
-
-var (
-	filter_SocialService_GetPolls_0 = &utilities.DoubleArray{Encoding: map[string]int{"user_id": 0, "userId": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
-)
 
 func request_SocialService_GetPolls_0(ctx context.Context, marshaler runtime.Marshaler, client SocialServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetPollsRequest
@@ -5062,13 +4716,6 @@ func request_SocialService_GetPolls_0(ctx context.Context, marshaler runtime.Mar
 	protoReq.UserId, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_GetPolls_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.GetPolls(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -5095,13 +4742,6 @@ func local_request_SocialService_GetPolls_0(ctx context.Context, marshaler runti
 	protoReq.UserId, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_GetPolls_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := server.GetPolls(ctx, &protoReq)
@@ -5521,10 +5161,6 @@ func local_request_SocialService_EditNote_0(ctx context.Context, marshaler runti
 
 }
 
-var (
-	filter_SocialService_CreatePublication_0 = &utilities.DoubleArray{Encoding: map[string]int{"publication": 0, "user_id": 1, "userId": 2}, Base: []int{1, 2, 3, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 2, 2, 3, 4}}
-)
-
 func request_SocialService_CreatePublication_0(ctx context.Context, marshaler runtime.Marshaler, client SocialServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq CreatePublicationRequest
 	var metadata runtime.ServerMetadata
@@ -5552,13 +5188,6 @@ func request_SocialService_CreatePublication_0(ctx context.Context, marshaler ru
 	protoReq.UserId, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_CreatePublication_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.CreatePublication(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -5595,21 +5224,10 @@ func local_request_SocialService_CreatePublication_0(ctx context.Context, marsha
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
 	}
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_CreatePublication_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
 	msg, err := server.CreatePublication(ctx, &protoReq)
 	return msg, metadata, err
 
 }
-
-var (
-	filter_SocialService_GetPublication_0 = &utilities.DoubleArray{Encoding: map[string]int{"user_id": 0, "userId": 1, "publication_id": 2, "publicationId": 3}, Base: []int{1, 1, 2, 3, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 2, 3, 4, 5}}
-)
 
 func request_SocialService_GetPublication_0(ctx context.Context, marshaler runtime.Marshaler, client SocialServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetPublicationRequest
@@ -5640,13 +5258,6 @@ func request_SocialService_GetPublication_0(ctx context.Context, marshaler runti
 	protoReq.PublicationId, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "publication_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_GetPublication_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.GetPublication(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -5685,21 +5296,10 @@ func local_request_SocialService_GetPublication_0(ctx context.Context, marshaler
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "publication_id", err)
 	}
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_GetPublication_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
 	msg, err := server.GetPublication(ctx, &protoReq)
 	return msg, metadata, err
 
 }
-
-var (
-	filter_SocialService_DeletePublication_0 = &utilities.DoubleArray{Encoding: map[string]int{"admin_user_id": 0, "adminUserId": 1, "publication_id": 2, "publicationId": 3}, Base: []int{1, 1, 2, 3, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 2, 3, 4, 5}}
-)
 
 func request_SocialService_DeletePublication_0(ctx context.Context, marshaler runtime.Marshaler, client SocialServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq DeletePublicationRequest
@@ -5730,13 +5330,6 @@ func request_SocialService_DeletePublication_0(ctx context.Context, marshaler ru
 	protoReq.PublicationId, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "publication_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_DeletePublication_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.DeletePublication(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -5775,21 +5368,10 @@ func local_request_SocialService_DeletePublication_0(ctx context.Context, marsha
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "publication_id", err)
 	}
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_DeletePublication_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
 	msg, err := server.DeletePublication(ctx, &protoReq)
 	return msg, metadata, err
 
 }
-
-var (
-	filter_SocialService_AddPublicationEditor_0 = &utilities.DoubleArray{Encoding: map[string]int{"admin_user_id": 0, "adminUserId": 1, "publication_id": 2, "publicationId": 3, "editor_user_id": 4, "editorUserId": 5}, Base: []int{1, 1, 2, 3, 4, 5, 6, 0, 0, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 1, 1, 2, 3, 4, 5, 6, 7}}
-)
 
 func request_SocialService_AddPublicationEditor_0(ctx context.Context, marshaler runtime.Marshaler, client SocialServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq AddPublicationEditorRequest
@@ -5830,13 +5412,6 @@ func request_SocialService_AddPublicationEditor_0(ctx context.Context, marshaler
 	protoReq.EditorUserId, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "editor_user_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_AddPublicationEditor_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.AddPublicationEditor(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -5885,21 +5460,10 @@ func local_request_SocialService_AddPublicationEditor_0(ctx context.Context, mar
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "editor_user_id", err)
 	}
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_AddPublicationEditor_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
 	msg, err := server.AddPublicationEditor(ctx, &protoReq)
 	return msg, metadata, err
 
 }
-
-var (
-	filter_SocialService_DeletePublicationEditor_0 = &utilities.DoubleArray{Encoding: map[string]int{"admin_user_id": 0, "adminUserId": 1, "publication_id": 2, "publicationId": 3, "editor_user_id": 4, "editorUserId": 5}, Base: []int{1, 1, 2, 3, 4, 5, 6, 0, 0, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 1, 1, 2, 3, 4, 5, 6, 7}}
-)
 
 func request_SocialService_DeletePublicationEditor_0(ctx context.Context, marshaler runtime.Marshaler, client SocialServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq DeletePublicationEditorRequest
@@ -5940,13 +5504,6 @@ func request_SocialService_DeletePublicationEditor_0(ctx context.Context, marsha
 	protoReq.EditorUserId, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "editor_user_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_DeletePublicationEditor_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.DeletePublicationEditor(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -5995,21 +5552,10 @@ func local_request_SocialService_DeletePublicationEditor_0(ctx context.Context, 
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "editor_user_id", err)
 	}
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_DeletePublicationEditor_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
 	msg, err := server.DeletePublicationEditor(ctx, &protoReq)
 	return msg, metadata, err
 
 }
-
-var (
-	filter_SocialService_AddPostToPublication_0 = &utilities.DoubleArray{Encoding: map[string]int{"post": 0, "editor_user_id": 1, "editorUserId": 2, "publication_id": 3, "publicationId": 4}, Base: []int{1, 2, 3, 4, 5, 6, 0, 0, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 1, 2, 2, 3, 4, 5, 6}}
-)
 
 func request_SocialService_AddPostToPublication_0(ctx context.Context, marshaler runtime.Marshaler, client SocialServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq AddPostToPublicationRequest
@@ -6048,13 +5594,6 @@ func request_SocialService_AddPostToPublication_0(ctx context.Context, marshaler
 	protoReq.PublicationId, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "publication_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_AddPostToPublication_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.AddPostToPublication(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -6099,13 +5638,6 @@ func local_request_SocialService_AddPostToPublication_0(ctx context.Context, mar
 	protoReq.PublicationId, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "publication_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_AddPostToPublication_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := server.AddPostToPublication(ctx, &protoReq)
@@ -6223,10 +5755,6 @@ func local_request_SocialService_DeletePostFromPublication_0(ctx context.Context
 
 }
 
-var (
-	filter_SocialService_BookmarkPost_0 = &utilities.DoubleArray{Encoding: map[string]int{"user_id": 0, "userId": 1, "post_id": 2, "postId": 3}, Base: []int{1, 1, 2, 3, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 2, 3, 4, 5}}
-)
-
 func request_SocialService_BookmarkPost_0(ctx context.Context, marshaler runtime.Marshaler, client SocialServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq BookmarkPostRequest
 	var metadata runtime.ServerMetadata
@@ -6256,13 +5784,6 @@ func request_SocialService_BookmarkPost_0(ctx context.Context, marshaler runtime
 	protoReq.PostId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "post_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_BookmarkPost_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.BookmarkPost(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -6301,21 +5822,10 @@ func local_request_SocialService_BookmarkPost_0(ctx context.Context, marshaler r
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "post_id", err)
 	}
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_BookmarkPost_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
 	msg, err := server.BookmarkPost(ctx, &protoReq)
 	return msg, metadata, err
 
 }
-
-var (
-	filter_SocialService_BookmarkPublication_0 = &utilities.DoubleArray{Encoding: map[string]int{"user_id": 0, "userId": 1, "publication_id": 2, "publicationId": 3}, Base: []int{1, 1, 2, 3, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 2, 3, 4, 5}}
-)
 
 func request_SocialService_BookmarkPublication_0(ctx context.Context, marshaler runtime.Marshaler, client SocialServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq BookmarkPublicationRequest
@@ -6346,13 +5856,6 @@ func request_SocialService_BookmarkPublication_0(ctx context.Context, marshaler 
 	protoReq.PublicationId, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "publication_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_BookmarkPublication_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.BookmarkPublication(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -6389,13 +5892,6 @@ func local_request_SocialService_BookmarkPublication_0(ctx context.Context, mars
 	protoReq.PublicationId, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "publication_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_BookmarkPublication_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := server.BookmarkPublication(ctx, &protoReq)
@@ -6493,10 +5989,6 @@ func local_request_SocialService_RemoveBookmarkedPost_0(ctx context.Context, mar
 
 }
 
-var (
-	filter_SocialService_RemoveBookmarkedPublication_0 = &utilities.DoubleArray{Encoding: map[string]int{"user_id": 0, "userId": 1, "publication_id": 2, "publicationId": 3}, Base: []int{1, 1, 2, 3, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 2, 3, 4, 5}}
-)
-
 func request_SocialService_RemoveBookmarkedPublication_0(ctx context.Context, marshaler runtime.Marshaler, client SocialServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq RemoveBookmarkedPublicationRequest
 	var metadata runtime.ServerMetadata
@@ -6526,13 +6018,6 @@ func request_SocialService_RemoveBookmarkedPublication_0(ctx context.Context, ma
 	protoReq.PublicationId, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "publication_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_RemoveBookmarkedPublication_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.RemoveBookmarkedPublication(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -6571,21 +6056,10 @@ func local_request_SocialService_RemoveBookmarkedPublication_0(ctx context.Conte
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "publication_id", err)
 	}
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_RemoveBookmarkedPublication_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
 	msg, err := server.RemoveBookmarkedPublication(ctx, &protoReq)
 	return msg, metadata, err
 
 }
-
-var (
-	filter_SocialService_GetBookmarkedPosts_0 = &utilities.DoubleArray{Encoding: map[string]int{"user_id": 0, "userId": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
-)
 
 func request_SocialService_GetBookmarkedPosts_0(ctx context.Context, marshaler runtime.Marshaler, client SocialServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetBookmarkedPostsRequest
@@ -6606,13 +6080,6 @@ func request_SocialService_GetBookmarkedPosts_0(ctx context.Context, marshaler r
 	protoReq.UserId, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_GetBookmarkedPosts_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.GetBookmarkedPosts(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -6639,13 +6106,6 @@ func local_request_SocialService_GetBookmarkedPosts_0(ctx context.Context, marsh
 	protoReq.UserId, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SocialService_GetBookmarkedPosts_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := server.GetBookmarkedPosts(ctx, &protoReq)

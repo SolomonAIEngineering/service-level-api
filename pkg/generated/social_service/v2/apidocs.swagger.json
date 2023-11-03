@@ -170,19 +170,6 @@
                 "profile"
               ]
             }
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the virtual profile of the user that is trying to perform the update",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -705,19 +692,6 @@
             "required": true,
             "type": "string",
             "format": "uint64"
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -908,19 +882,6 @@
             "required": true,
             "type": "string",
             "format": "uint64"
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -986,32 +947,6 @@
             "required": true,
             "type": "string",
             "format": "uint64"
-          },
-          {
-            "name": "adminProfileType",
-            "description": "the admin profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
-          },
-          {
-            "name": "editorProfileType",
-            "description": "the editor profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -1075,32 +1010,6 @@
             "required": true,
             "type": "string",
             "format": "uint64"
-          },
-          {
-            "name": "adminProfileType",
-            "description": "the admin profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
-          },
-          {
-            "name": "editorProfileType",
-            "description": "the editor profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -1167,19 +1076,6 @@
             "schema": {
               "$ref": "#/definitions/Post"
             }
-          },
-          {
-            "name": "editorProfileType",
-            "description": "the editor profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -1262,19 +1158,6 @@
               "POST_TYPE_SHORT_STORY"
             ],
             "default": "POST_TYPE_UNSPECIFIED"
-          },
-          {
-            "name": "editorProfileType",
-            "description": "the editor profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -1335,32 +1218,6 @@
             "required": true,
             "type": "string",
             "format": "uint64"
-          },
-          {
-            "name": "sourceProfileType",
-            "description": "the profile type of the user that is trying to block another user",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
-          },
-          {
-            "name": "targetProfileType",
-            "description": "the profile type of the user that is being blocked",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -1421,19 +1278,6 @@
             "required": true,
             "type": "string",
             "format": "uint64"
-          },
-          {
-            "name": "sourceProfileType",
-            "description": "the profile type of the user that is trying to follow another community",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -1494,32 +1338,6 @@
             "required": true,
             "type": "string",
             "format": "uint64"
-          },
-          {
-            "name": "sourceProfileType",
-            "description": "the profile type of the user that is trying to follow another user",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
-          },
-          {
-            "name": "targetProfileType",
-            "description": "the profile type of the user that is being followed",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -1593,30 +1411,6 @@
               "ACCOUNT_TYPE_COMMUNITY"
             ],
             "default": "ACCOUNT_TYPE_UNSPECIFIED"
-          },
-          {
-            "name": "requestorVirtualProfileType",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
-          },
-          {
-            "name": "requestedVirtualProfileType",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -1667,19 +1461,6 @@
             "required": true,
             "type": "string",
             "format": "uint64"
-          },
-          {
-            "name": "profileType",
-            "description": "the virtual profile type of the user that is being deleted",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -1761,9 +1542,6 @@
                 },
                 "profileImageUrl": {
                   "type": "string"
-                },
-                "profileType": {
-                  "$ref": "#/definitions/VirtualProfileType"
                 }
               },
               "title": "CreateUserProfileRequest: Represents the request object invoked against the\nsocial service to create a user profile account",
@@ -1836,10 +1614,6 @@
                 "profile": {
                   "$ref": "#/definitions/CommunityProfile",
                   "title": "the community profile being created | type: json_object"
-                },
-                "profileType": {
-                  "$ref": "#/definitions/VirtualProfileType",
-                  "title": "the virtual profile type of the user creating the community profile"
                 }
               },
               "title": "CreateCommunityProfileRequest: Represents the request object invoked against\nthe social service to create a community profile account",
@@ -1906,19 +1680,6 @@
             "required": true,
             "type": "string",
             "format": "uint64"
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is trying to delete this community",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -1989,19 +1750,6 @@
                 "profile"
               ]
             }
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the virtual profile of the user that is trying to perform the update",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -2074,19 +1822,6 @@
                 "topic"
               ]
             }
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -2145,19 +1880,6 @@
             "required": true,
             "type": "string",
             "format": "uint64"
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -2218,19 +1940,6 @@
             "required": true,
             "type": "string",
             "format": "uint64"
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -2283,19 +1992,6 @@
             "required": true,
             "type": "string",
             "format": "uint64"
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -2360,19 +2056,6 @@
                 "poll"
               ]
             }
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -2446,10 +2129,6 @@
                   "type": "string",
                   "format": "uint64",
                   "title": "the index of the poll option the user is responding with"
-                },
-                "requestorProfileType": {
-                  "$ref": "#/definitions/VirtualProfileType",
-                  "title": "the profile type of the user that is perfoming this operation | type: string"
                 }
               },
               "required": [
@@ -2516,19 +2195,6 @@
             "in": "path",
             "required": true,
             "type": "string"
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -2586,19 +2252,6 @@
             "in": "path",
             "required": true,
             "type": "string"
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -2651,19 +2304,6 @@
             "required": true,
             "type": "string",
             "format": "uint64"
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -2749,19 +2389,6 @@
               "ACCOUNT_TYPE_COMMUNITY"
             ],
             "default": "ACCOUNT_TYPE_UNSPECIFIED"
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -2847,19 +2474,6 @@
                 "content"
               ]
             }
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -2942,19 +2556,6 @@
             "schema": {
               "$ref": "#/definitions/Post"
             }
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -3035,19 +2636,6 @@
             "in": "path",
             "required": true,
             "type": "string"
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -3150,19 +2738,6 @@
               "POST_TYPE_SHORT_STORY"
             ],
             "default": "POST_TYPE_UNSPECIFIED"
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -3238,19 +2813,6 @@
               "POST_TYPE_SHORT_STORY"
             ],
             "default": "POST_TYPE_UNSPECIFIED"
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -3306,19 +2868,6 @@
             "in": "path",
             "required": true,
             "type": "string"
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -3427,19 +2976,6 @@
               "POST_TYPE_SHORT_STORY"
             ],
             "default": "POST_TYPE_UNSPECIFIED"
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -3534,19 +3070,6 @@
               "POST_TYPE_SHORT_STORY"
             ],
             "default": "POST_TYPE_UNSPECIFIED"
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -3628,19 +3151,6 @@
               "POST_TYPE_SHORT_STORY"
             ],
             "default": "POST_TYPE_UNSPECIFIED"
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -3717,10 +3227,6 @@
                 },
                 "postType": {
                   "$ref": "#/definitions/PostType"
-                },
-                "requestorProfileType": {
-                  "$ref": "#/definitions/VirtualProfileType",
-                  "title": "the profile type of the user that is perfoming this operation | type: string"
                 }
               },
               "required": [
@@ -3814,19 +3320,6 @@
               "POST_TYPE_SHORT_STORY"
             ],
             "default": "POST_TYPE_UNSPECIFIED"
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -3907,10 +3400,6 @@
                 },
                 "postType": {
                   "$ref": "#/definitions/PostType"
-                },
-                "requestorProfileType": {
-                  "$ref": "#/definitions/VirtualProfileType",
-                  "title": "the profile type of the user that is perfoming this operation | type: string"
                 }
               },
               "required": [
@@ -4031,19 +3520,6 @@
               "POST_TYPE_SHORT_STORY"
             ],
             "default": "POST_TYPE_UNSPECIFIED"
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -4123,10 +3599,6 @@
               "properties": {
                 "postType": {
                   "$ref": "#/definitions/PostType"
-                },
-                "requestorProfileType": {
-                  "$ref": "#/definitions/VirtualProfileType",
-                  "title": "the profile type of the user that is perfoming this operation | type: string"
                 }
               },
               "required": [
@@ -4207,10 +3679,6 @@
                 "postType": {
                   "$ref": "#/definitions/PostType",
                   "title": "The type of post being reacted to | type: string"
-                },
-                "requestorProfileType": {
-                  "$ref": "#/definitions/VirtualProfileType",
-                  "title": "the profile type of the user that is perfoming this operation | type: string"
                 }
               },
               "title": "ReportCommentRequest: Represents the request object invoked against the\nsocial service to report a comment",
@@ -4288,10 +3756,6 @@
                 },
                 "note": {
                   "$ref": "#/definitions/Note"
-                },
-                "requestorProfileType": {
-                  "$ref": "#/definitions/VirtualProfileType",
-                  "title": "the profile type of the user that is perfoming this operation | type: string"
                 }
               },
               "required": [
@@ -4379,19 +3843,6 @@
               "POST_TYPE_SHORT_STORY"
             ],
             "default": "POST_TYPE_UNSPECIFIED"
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -4479,19 +3930,6 @@
               "POST_TYPE_SHORT_STORY"
             ],
             "default": "POST_TYPE_UNSPECIFIED"
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -4580,19 +4018,6 @@
               "POST_TYPE_SHORT_STORY"
             ],
             "default": "POST_TYPE_UNSPECIFIED"
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -4668,19 +4093,6 @@
               "POST_TYPE_SHORT_STORY"
             ],
             "default": "POST_TYPE_UNSPECIFIED"
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -4757,19 +4169,6 @@
               "POST_TYPE_ARTICLE",
               "POST_TYPE_SHORT_STORY"
             ]
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -4844,19 +4243,6 @@
               "POST_TYPE_ARTICLE",
               "POST_TYPE_SHORT_STORY"
             ]
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -4931,19 +4317,6 @@
               "POST_TYPE_ARTICLE",
               "POST_TYPE_SHORT_STORY"
             ]
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -5021,19 +4394,6 @@
             "required": true,
             "type": "string",
             "format": "uint64"
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -5099,19 +4459,6 @@
             "required": true,
             "type": "string",
             "format": "uint64"
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -5171,19 +4518,6 @@
             "schema": {
               "$ref": "#/definitions/Publication"
             }
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -5242,19 +4576,6 @@
             "required": true,
             "type": "string",
             "format": "uint64"
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -5313,19 +4634,6 @@
             "required": true,
             "type": "string",
             "format": "uint64"
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -5382,19 +4690,6 @@
             "required": true,
             "type": "string",
             "format": "uint64"
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -5480,19 +4775,6 @@
             "in": "query",
             "required": false,
             "type": "string"
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -5552,19 +4834,6 @@
             "required": true,
             "type": "string",
             "format": "uint64"
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -5734,19 +5003,6 @@
               "POST_TYPE_SHORT_STORY"
             ],
             "default": "POST_TYPE_UNSPECIFIED"
-          },
-          {
-            "name": "requestorProfileType",
-            "description": "the profile type of the user that is perfoming this operation | type: string",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-              "VIRTUAL_PROFILE_TYPE_USER",
-              "VIRTUAL_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -8108,16 +7364,6 @@
         "tagName",
         "description"
       ]
-    },
-    "VirtualProfileType": {
-      "type": "string",
-      "enum": [
-        "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-        "VIRTUAL_PROFILE_TYPE_USER",
-        "VIRTUAL_PROFILE_TYPE_BUSINESS"
-      ],
-      "default": "VIRTUAL_PROFILE_TYPE_UNSPECIFIED",
-      "title": "virtual profile type of the user account"
     }
   }
 }

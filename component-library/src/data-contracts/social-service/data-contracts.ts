@@ -452,8 +452,6 @@ export type CreateCommunityProfileData = any;
 export interface CreateCommunityProfilePayload {
   /** the community profile being created | type: json_object */
   profile: CommunityProfile;
-  /** the virtual profile type of the user creating the community profile */
-  profileType?: VirtualProfileType;
 }
 
 /**
@@ -469,8 +467,6 @@ export type CreateNoteData = any;
 export interface CreateNotePayload {
   note?: Note;
   postType: PostType;
-  /** the profile type of the user that is perfoming this operation | type: string */
-  requestorProfileType?: VirtualProfileType;
 }
 
 export interface CreateNoteResponse {
@@ -522,7 +518,6 @@ export interface CreateUserProfilePayload {
   idsOfCommunitiesToFollow?: Array<string>;
   isPrivate?: boolean;
   profileImageUrl: string;
-  profileType?: VirtualProfileType;
   tags: Array<UserTags>;
   username: string;
 }
@@ -1569,16 +1564,12 @@ export type ReportCommentData = any;
 export interface ReportCommentPayload {
   /** The type of post being reacted to | type: string */
   postType: PostType;
-  /** the profile type of the user that is perfoming this operation | type: string */
-  requestorProfileType?: VirtualProfileType;
 }
 
 export type ReportCommentReplyData = any;
 
 export interface ReportCommentReplyPayload {
   postType: PostType;
-  /** the profile type of the user that is perfoming this operation | type: string */
-  requestorProfileType?: VirtualProfileType;
 }
 
 export interface ReportCommentReplyResponse {
@@ -1609,8 +1600,6 @@ export interface RespondToPollPayload {
    * @format uint64
    */
   pollOptionIdx: string;
-  /** the profile type of the user that is perfoming this operation | type: string */
-  requestorProfileType?: VirtualProfileType;
 }
 
 export interface RespondToPollResponse {
@@ -1954,12 +1943,3 @@ export interface UserTags {
    */
   tagName: string;
 }
-
-/**
- * virtual profile type of the user account
- * @default "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
- */
-export type VirtualProfileType =
-  | "VIRTUAL_PROFILE_TYPE_UNSPECIFIED"
-  | "VIRTUAL_PROFILE_TYPE_USER"
-  | "VIRTUAL_PROFILE_TYPE_BUSINESS";
