@@ -30,7 +30,7 @@ plugins:
     opt:
       - paths=source_relative
   - plugin: buf.build/community/pseudomuto-doc
-    out: ../../../docs/content/financial_service
+    out: ../../../service-docs/content/financial-service
     opt:
       - markdown,2.service-definition.md
   - plugin: buf.build/grpc-ecosystem/gateway:v2.16.0
