@@ -1,6 +1,6 @@
-# SolomonAI Backend Platform APIs
+# SolomonAI Backend Platform API Protocol Buffer Definitions & Component Library
 
-This tree hosts the configuration and APIs that drive [Envoy](https://www.envoyproxy.io/). The
+This tree hosts the configuration and APIs that drive [Solomon-AI](https://solomon-ai.io/). The
 APIs are also in some cases used by other proxy solutions that aim to interoperate with management
 systems and configuration generators that are built against this standard. Thus, we consider these a
 set of *universal platform plane* APIs. See [this](https://medium.com/@mattklein123/the-universal-data-plane-api-d15cec7a)
