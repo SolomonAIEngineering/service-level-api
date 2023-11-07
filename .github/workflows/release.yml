@@ -51,7 +51,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           changelog-file: CHANGELOG.md
           update-file: pkg/version/version.go
-          dry: false
+          # dry: false
 
   release-component-library:
     needs: release-golang
