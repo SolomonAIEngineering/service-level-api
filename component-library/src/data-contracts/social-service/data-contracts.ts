@@ -350,13 +350,13 @@ export interface CommunityProfile {
   algoliaId: string;
   /**
    * Defines rules community members must abide by
-   * community rules must be at least 50 characters long
+   * community rules must be at least 5 characters long
    * @example "community rules useful for generating a test community that we can test against. a community is really cool and ideal"
    */
   communityRules: string;
   /**
    * Desscription defines additional info about the community
-   * community description must be at least 50 characters long
+   * community description must be at least 5 characters long
    * @example "community description useful for generating a test community that we can test against. a community is really cool and ideal"
    */
   description: string;
@@ -1124,7 +1124,7 @@ export interface PollPost {
   comments?: Array<Comment>;
   /**
    * Content is the content the post witholds
-   * Content is a string of text that is at least 50 characters long
+   * Content is a string of text that is at least 5 characters long
    * @gotag: bson:"content"
    */
   content: string;
@@ -1334,7 +1334,7 @@ export interface Post {
   comments?: Array<Comment>;
   /**
    * Content is the content the post witholds
-   * Content is a string of text that is at least 50 characters long
+   * Content is a string of text that is at least 5 characters long
    * @gotag: bson:"content"
    */
   content: string;
@@ -1673,7 +1673,7 @@ export interface SharedPost {
   comments?: Array<Comment>;
   /**
    * Content is the content the post witholds
-   * Content is a string of text that is at least 50 characters long
+   * Content is a string of text that is at least 5 characters long
    * @gotag: bson:"content"
    */
   content: string;
@@ -1928,7 +1928,7 @@ export interface UserProfile {
 /** Tags: tags that can be associated to a record */
 export interface UserTags {
   /**
-   * the description of the tag ... tag must be at least 50 characters long
+   * the description of the tag ... tag must be at least 5 characters long
    * @example "test-description sakjlDKJGSAHGHFDHSGJHFGAHDFJKGSHAJDLgAKSGDHAS CSVDJKSADASKJHDASFDGJKJLHSAHGFJDSAHD kjskhdgfhgdhfgkhsdfdsdfdssdfsdf"
    */
   description: string;

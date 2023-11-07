@@ -171,9 +171,9 @@ message CommunityProfile {
     (google.api.field_behavior) = REQUIRED
   ];
   // Desscription defines additional info about the community
-  // community description must be at least 50 characters long
+  // community description must be at least 5 characters long
   string description = 4 [
-    (validate.rules).string = {min_bytes: 50},
+    (validate.rules).string = {min_bytes: 5},
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       min_length: 0,
       example: "\"community description useful for generating a test community that we can test against. a community is really cool and ideal\""
@@ -188,9 +188,9 @@ message CommunityProfile {
   // Followers outlines the number of followers this user profile has
   int64 followers = 8 [(google.api.field_behavior) = REQUIRED];
   // Defines rules community members must abide by
-  // community rules must be at least 50 characters long
+  // community rules must be at least 5 characters long
   string community_rules = 9 [
-    (validate.rules).string = {min_bytes: 50},
+    (validate.rules).string = {min_bytes: 5},
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       min_length: 0,
       example: "\"community rules useful for generating a test community that we can test against. a community is really cool and ideal\""
@@ -316,9 +316,9 @@ message UserTags {
     (google.api.field_behavior) = REQUIRED
   ];
 
-  // the description of the tag ... tag must be at least 50 characters long
+  // the description of the tag ... tag must be at least 5 characters long
   string description = 3 [
-    (validate.rules).string = {min_bytes: 50},
+    (validate.rules).string = {min_bytes: 5},
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       min_length: 0,
       example: "\"test-description sakjlDKJGSAHGHFDHSGJHFGAHDFJKGSHAJDLgAKSGDHAS CSVDJKSADASKJHDASFDGJKJLHSAHGFJDSAHD kjskhdgfhgdhfgkhsdfdsdfdssdfsdf\""
@@ -344,7 +344,7 @@ message Topic {
 
   // the description of the topic
   string description = 3 [
-    (validate.rules).string = {min_bytes: 50},
+    (validate.rules).string = {min_bytes: 5},
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       min_length: 0,
       example: "\"test-description sakjlDKJGSAHGHFDHSGJHFGAHDFJKGSHAJDLgAKSGDHAS CSVDJKSADASKJHDASFDGJKJLHSAHGFJDSAHD kjskhdgfhgdhfgkhsdfdsdfdssdfsdf\""

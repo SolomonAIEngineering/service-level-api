@@ -137,10 +137,10 @@ message Post {
     (validate.rules).enum.defined_only = true
   ];
   // Content is the content the post witholds
-  // Content is a string of text that is at least 50 characters long
+  // Content is a string of text that is at least 5 characters long
   // @gotag: bson:"content"
   string content = 4 [
-    (validate.rules).string = {min_bytes: 50},
+    (validate.rules).string = {min_bytes: 5},
     (google.api.field_behavior) = REQUIRED
   ];
   // Profiles mentioned in the post
@@ -252,10 +252,10 @@ message PollPost {
     (validate.rules).enum.defined_only = true
   ];
   // Content is the content the post witholds
-  // Content is a string of text that is at least 50 characters long
+  // Content is a string of text that is at least 5 characters long
   // @gotag: bson:"content"
   string content = 4 [
-    (validate.rules).string = {min_bytes: 50},
+    (validate.rules).string = {min_bytes: 5},
     (google.api.field_behavior) = REQUIRED
   ];
   // Profiles mentioned in the post
@@ -410,10 +410,10 @@ message SharedPost {
   // @gotag: bson:"createdAt"
   string created_at = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
   // Content is the content the post witholds
-  // Content is a string of text that is at least 50 characters long
+  // Content is a string of text that is at least 5 characters long
   // @gotag: bson:"content"
   string content = 6 [
-    (validate.rules).string = {min_bytes: 50},
+    (validate.rules).string = {min_bytes: 5},
     (google.api.field_behavior) = REQUIRED
   ];
   // Profiles mentioned in the post
@@ -567,7 +567,7 @@ message Note {
   // Content defining the note
   // @gotag: bson:"content"
   string content = 9 [
-    (validate.rules).string = {min_bytes: 50},
+    (validate.rules).string = {min_bytes: 5},
     (google.api.field_behavior) = REQUIRED
   ];
 

@@ -708,10 +708,10 @@ func (m *Post) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetContent()) < 50 {
+	if len(m.GetContent()) < 5 {
 		err := PostValidationError{
 			field:  "Content",
-			reason: "value length must be at least 50 bytes",
+			reason: "value length must be at least 5 bytes",
 		}
 		if !all {
 			return err
@@ -1069,10 +1069,10 @@ func (m *PollPost) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetContent()) < 50 {
+	if len(m.GetContent()) < 5 {
 		err := PollPostValidationError{
 			field:  "Content",
-			reason: "value length must be at least 50 bytes",
+			reason: "value length must be at least 5 bytes",
 		}
 		if !all {
 			return err
@@ -1621,10 +1621,10 @@ func (m *SharedPost) validate(all bool) error {
 
 	// no validation rules for CreatedAt
 
-	if len(m.GetContent()) < 50 {
+	if len(m.GetContent()) < 5 {
 		err := SharedPostValidationError{
 			field:  "Content",
-			reason: "value length must be at least 50 bytes",
+			reason: "value length must be at least 5 bytes",
 		}
 		if !all {
 			return err
@@ -2120,10 +2120,10 @@ func (m *Note) validate(all bool) error {
 
 	// no validation rules for CreatedAt
 
-	if len(m.GetContent()) < 50 {
+	if len(m.GetContent()) < 5 {
 		err := NoteValidationError{
 			field:  "Content",
-			reason: "value length must be at least 50 bytes",
+			reason: "value length must be at least 5 bytes",
 		}
 		if !all {
 			return err

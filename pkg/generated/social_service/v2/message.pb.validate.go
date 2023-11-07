@@ -486,10 +486,10 @@ func (m *CommunityProfile) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetDescription()) < 50 {
+	if len(m.GetDescription()) < 5 {
 		err := CommunityProfileValidationError{
 			field:  "Description",
-			reason: "value length must be at least 50 bytes",
+			reason: "value length must be at least 5 bytes",
 		}
 		if !all {
 			return err
@@ -503,10 +503,10 @@ func (m *CommunityProfile) validate(all bool) error {
 
 	// no validation rules for Followers
 
-	if len(m.GetCommunityRules()) < 50 {
+	if len(m.GetCommunityRules()) < 5 {
 		err := CommunityProfileValidationError{
 			field:  "CommunityRules",
-			reason: "value length must be at least 50 bytes",
+			reason: "value length must be at least 5 bytes",
 		}
 		if !all {
 			return err
@@ -858,10 +858,10 @@ func (m *UserTags) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetDescription()) < 50 {
+	if len(m.GetDescription()) < 5 {
 		err := UserTagsValidationError{
 			field:  "Description",
-			reason: "value length must be at least 50 bytes",
+			reason: "value length must be at least 5 bytes",
 		}
 		if !all {
 			return err
@@ -980,10 +980,10 @@ func (m *Topic) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetDescription()) < 50 {
+	if len(m.GetDescription()) < 5 {
 		err := TopicValidationError{
 			field:  "Description",
-			reason: "value length must be at least 50 bytes",
+			reason: "value length must be at least 5 bytes",
 		}
 		if !all {
 			return err

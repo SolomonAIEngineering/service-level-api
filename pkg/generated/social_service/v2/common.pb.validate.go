@@ -194,10 +194,10 @@ func (m *TopicsRequestPayload) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if utf8.RuneCountInString(m.GetDescription()) < 50 {
+	if utf8.RuneCountInString(m.GetDescription()) < 5 {
 		err := TopicsRequestPayloadValidationError{
 			field:  "Description",
-			reason: "value length must be at least 50 runes",
+			reason: "value length must be at least 5 runes",
 		}
 		if !all {
 			return err
@@ -329,10 +329,10 @@ func (m *CommunityProfileRequestPayload) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if utf8.RuneCountInString(m.GetDescription()) < 50 {
+	if utf8.RuneCountInString(m.GetDescription()) < 5 {
 		err := CommunityProfileRequestPayloadValidationError{
 			field:  "Description",
-			reason: "value length must be at least 50 runes",
+			reason: "value length must be at least 5 runes",
 		}
 		if !all {
 			return err
@@ -344,10 +344,10 @@ func (m *CommunityProfileRequestPayload) validate(all bool) error {
 
 	// no validation rules for Visible
 
-	if utf8.RuneCountInString(m.GetCommunityRules()) < 50 {
+	if utf8.RuneCountInString(m.GetCommunityRules()) < 5 {
 		err := CommunityProfileRequestPayloadValidationError{
 			field:  "CommunityRules",
-			reason: "value length must be at least 50 runes",
+			reason: "value length must be at least 5 runes",
 		}
 		if !all {
 			return err
@@ -503,10 +503,10 @@ func (m *PostRequestPayload) validate(all bool) error {
 
 	var errors []error
 
-	if utf8.RuneCountInString(m.GetContent()) < 50 {
+	if utf8.RuneCountInString(m.GetContent()) < 5 {
 		err := PostRequestPayloadValidationError{
 			field:  "Content",
-			reason: "value length must be at least 50 runes",
+			reason: "value length must be at least 5 runes",
 		}
 		if !all {
 			return err
@@ -661,10 +661,10 @@ func (m *PollRequestPayload) validate(all bool) error {
 
 	var errors []error
 
-	if utf8.RuneCountInString(m.GetContent()) < 50 {
+	if utf8.RuneCountInString(m.GetContent()) < 5 {
 		err := PollRequestPayloadValidationError{
 			field:  "Content",
-			reason: "value length must be at least 50 runes",
+			reason: "value length must be at least 5 runes",
 		}
 		if !all {
 			return err

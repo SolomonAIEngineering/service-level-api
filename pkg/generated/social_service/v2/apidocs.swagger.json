@@ -5417,7 +5417,7 @@
         "description": {
           "type": "string",
           "example": "community description useful for generating a test community that we can test against. a community is really cool and ideal",
-          "title": "Desscription defines additional info about the community\ncommunity description must be at least 50 characters long"
+          "title": "Desscription defines additional info about the community\ncommunity description must be at least 5 characters long"
         },
         "private": {
           "type": "boolean",
@@ -5435,7 +5435,7 @@
         "communityRules": {
           "type": "string",
           "example": "community rules useful for generating a test community that we can test against. a community is really cool and ideal",
-          "title": "Defines rules community members must abide by\ncommunity rules must be at least 50 characters long"
+          "title": "Defines rules community members must abide by\ncommunity rules must be at least 5 characters long"
         },
         "topics": {
           "type": "array",
@@ -6406,7 +6406,7 @@
         },
         "content": {
           "type": "string",
-          "title": "Content is the content the post witholds\nContent is a string of text that is at least 50 characters long\n@gotag: bson:\"content\""
+          "title": "Content is the content the post witholds\nContent is a string of text that is at least 5 characters long\n@gotag: bson:\"content\""
         },
         "mentions": {
           "type": "array",
@@ -6609,7 +6609,7 @@
         },
         "content": {
           "type": "string",
-          "title": "Content is the content the post witholds\nContent is a string of text that is at least 50 characters long\n@gotag: bson:\"content\""
+          "title": "Content is the content the post witholds\nContent is a string of text that is at least 5 characters long\n@gotag: bson:\"content\""
         },
         "mentions": {
           "type": "array",
@@ -7010,7 +7010,7 @@
         },
         "content": {
           "type": "string",
-          "title": "Content is the content the post witholds\nContent is a string of text that is at least 50 characters long\n@gotag: bson:\"content\""
+          "title": "Content is the content the post witholds\nContent is a string of text that is at least 5 characters long\n@gotag: bson:\"content\""
         },
         "mentions": {
           "type": "array",
@@ -7356,7 +7356,7 @@
         "description": {
           "type": "string",
           "example": "test-description sakjlDKJGSAHGHFDHSGJHFGAHDFJKGSHAJDLgAKSGDHAS CSVDJKSADASKJHDASFDGJKJLHSAHGFJDSAHD kjskhdgfhgdhfgkhsdfdsdfdssdfsdf",
-          "title": "the description of the tag ... tag must be at least 50 characters long"
+          "title": "the description of the tag ... tag must be at least 5 characters long"
         }
       },
       "title": "Tags: tags that can be associated to a record",

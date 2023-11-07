@@ -1600,7 +1600,7 @@ message SharePostRequest {
     (google.api.field_behavior) = REQUIRED
     ];
   string content = 4  [
-    (validate.rules).string = {min_bytes: 50},
+    (validate.rules).string = {min_bytes: 5},
     (google.api.field_behavior) = REQUIRED
   ];
 }

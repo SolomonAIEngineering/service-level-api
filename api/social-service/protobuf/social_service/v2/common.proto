@@ -51,7 +51,7 @@ message TopicsRequestPayload {
   ];
   // description refers to details about the topic
   string description = 2 [
-    (validate.rules).string.min_len = 50,
+    (validate.rules).string.min_len = 5,
     (google.api.field_behavior) = REQUIRED
   ];
   // Refers to the image tied to the created topic of interest
@@ -70,7 +70,7 @@ message CommunityProfileRequestPayload {
   ];
   // Desscription defines additional info about the community
   string description = 4 [
-    (validate.rules).string.min_len = 50,
+    (validate.rules).string.min_len = 5,
     (google.api.field_behavior) = REQUIRED
   ];
   // Private defines wether only approved followers can see what this profile
@@ -80,7 +80,7 @@ message CommunityProfileRequestPayload {
   bool visible = 6;
   // Defines rules community members must abide by
   string community_rules = 9 [
-    (validate.rules).string.min_len = 50,
+    (validate.rules).string.min_len = 5,
     (google.api.field_behavior) = REQUIRED
   ];
   // Defines topics assoociated with the community of interest
@@ -97,7 +97,7 @@ message CommunityProfileRequestPayload {
 message PostRequestPayload {
   // Content refers to the content in the post object.
   string content = 1 [
-    (validate.rules).string.min_len = 50,
+    (validate.rules).string.min_len = 5,
     (google.api.field_behavior) = REQUIRED
   ];
   // Title refers to the high level description of the post content
@@ -133,7 +133,7 @@ message PostRequestPayload {
 message PollRequestPayload {
   // Content refers to the content in the post object.
   string content = 1 [
-    (validate.rules).string.min_len = 50,
+    (validate.rules).string.min_len = 5,
     (google.api.field_behavior) = REQUIRED
   ];
   // Title refers to the high level description of the post content
