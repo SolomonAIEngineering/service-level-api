@@ -60,7 +60,6 @@ export * from './components/InvestmentAccountCard';
 export * from './components/InvestmentAccountHoverLabel';
 export * from './components/InvestmentHoldingCard';
 export * from './components/InvestmentSecurityCard';
-export * from './components/Layout';
 
 export * from './components/LineChart';
 export * from './components/MortgageAccountCard';
@@ -80,5 +79,19 @@ export * from './components/StudentLoanAccountHoverLabel';
 export * from './components/TransactionAnalyticsByMonth';
 export * from './components/TransactionCard';
 export * from './components/TransactionDataTable';
+
+export * from './components/Layout/multi-column-layout/multi-column-narrow-sidebar';
+export * from './components/Layout/multi-column-layout/multi-column-three-width';
+export * from './components/Layout/panel-layout';
+export * from './components/Layout/sidebar-layout/sidebar-basic';
+export * from './components/Layout/sidebar-layout/sidebar-simple';
+export * from './components/Layout/sidebar-layout/sidebar-with-constrained-area';
+export * from './components/Layout/sidebar-layout/sidebar-with-header';
+export * from './components/Layout/container-layout';
+export * from './components/Layout/stacked-layout/stacked-layout';
+export * from './components/Layout/stacked-layout/stacked-layout-nav-bottom-border';
+export * from './components/Layout/stacked-layout/stacked-layout-overlap';
+export * from './components/Layout/stacked-layout/stacked-layout-overlap-two-row';
+export * from './components/Layout/stacked-layout/stacked-layout-with-page-header';
 
 export * from './features';

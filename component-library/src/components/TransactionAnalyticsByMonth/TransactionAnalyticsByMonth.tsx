@@ -15,7 +15,7 @@ import {
   BarChart,
   ScatterChart,
 } from '@tremor/react';
-import * as React from 'react';
+import React from 'react';;
 import { createContext, ReactNode, RefObject, Component } from 'react';
 import {
   Card,

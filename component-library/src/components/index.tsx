@@ -23,7 +23,6 @@ export * from './InvestmentAccountCard';
 export * from './InvestmentAccountHoverLabel';
 export * from './InvestmentHoldingCard';
 export * from './InvestmentSecurityCard';
-export * from './Layout';
 export * from './LineChart';
 export * from './MortgageAccountCard';
 export * from './Notification';

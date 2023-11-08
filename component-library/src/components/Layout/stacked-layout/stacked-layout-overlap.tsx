@@ -2,15 +2,15 @@ import { Fragment, FC } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { cn } from 'src/lib-utils/utils';
-import { NavigationItem, User } from './stacked-layout-with-page-header';
+import { StackedLayoutNavigationItem, User } from './stacked-layout-with-page-header';
 
 /**
  * @interface StackedLayoutOverlapProps Represents the props for the StackedLayoutOverlap component
  */
 export interface StackedLayoutOverlapProps {
   user: User;
-  navigation: NavigationItem[];
-  userNavigation: NavigationItem[];
+  navigation: StackedLayoutNavigationItem[];
+  userNavigation: StackedLayoutNavigationItem[];
   title: string;
   children: React.ReactNode;
 }

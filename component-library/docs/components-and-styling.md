@@ -46,7 +46,7 @@ import {
   ExclamationIcon,
   InformationCircleIcon,
 } from '@heroicons/react/outline';
-import * as React from 'react';
+import React from 'react';;
 
 import { Button } from '@/components/Elements/Button';
 import { Dialog, DialogTitle } from '@/components/Elements/Dialog';
@@ -147,7 +147,7 @@ For larger projects, it is a good idea to build abstractions around all the shar
 
 ```typescript
 import clsx from 'clsx';
-import * as React from 'react';
+import React from 'react';;
 
 import { Spinner } from '@/components/Elements/Spinner';
 

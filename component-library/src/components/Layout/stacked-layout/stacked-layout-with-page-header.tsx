@@ -14,9 +14,9 @@ export interface User {
 }
 
 /**
- * @interface NavigationItem Represents a navigation item
+ * @interface StackedLayoutNavigationItem Represents a navigation item
  */
-export interface NavigationItem {
+export interface StackedLayoutNavigationItem {
   name: string;
   href: string;
   current?: boolean;
@@ -34,8 +34,8 @@ export interface NavigationItem {
  */
 export interface StackedLayoutNavWithPageHeaderProps {
   user: User;
-  navigation: NavigationItem[];
-  userNavigation: NavigationItem[];
+  navigation: StackedLayoutNavigationItem[];
+  userNavigation: StackedLayoutNavigationItem[];
   title: string;
 }
 

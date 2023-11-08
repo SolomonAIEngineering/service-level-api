@@ -1,11 +1,6 @@
 import React from "react";
 import { Card } from "../ui/card";
-
-type Stat = {
-  id: number;
-  name: string;
-  value: string;
-};
+import { Stat } from "./stats-section";
 
 interface StatsSectionStackedGridProps {
   theme?: "light" | "dark";
@@ -32,8 +27,8 @@ export const StatsSectionStackedGrid: React.FC<
 
   return (
     <Card className={`${bgColorClass} py-24 sm:py-32`}>
-      <div className="mx-auto  max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto  max-w-2xl lg:max-w-none">
+      <div className="px-6 mx-auto max-w-7xl lg:px-8">
+        <div className="max-w-2xl mx-auto lg:max-w-none">
           <div className="flex flex-col items-center justify-center text-center">
             <h2
               className={`text-3xl font-bold tracking-tight ${titleColor} sm:text-4xl`}

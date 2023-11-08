@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';;
 
 /**
  * Type definition for the stats data to be displayed in the StatsCard component.

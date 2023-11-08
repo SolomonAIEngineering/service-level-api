@@ -2,11 +2,11 @@ import { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { cn } from 'src/lib-utils/utils';
-import { NavigationItem } from '../stacked-layout/stacked-layout-with-page-header';
+import { StackedLayoutNavigationItem } from '../stacked-layout/stacked-layout-with-page-header';
 
 export interface MultiColumnThreeWidthProps {
-  navigation: NavigationItem[];
-  subNavigation: NavigationItem[];
+  navigation: StackedLayoutNavigationItem[];
+  subNavigation: StackedLayoutNavigationItem[];
 }
 
 export const MultiColumnThreeWidth: React.FC<MultiColumnThreeWidthProps> = ({

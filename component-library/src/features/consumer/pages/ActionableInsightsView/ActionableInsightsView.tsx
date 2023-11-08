@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';;
 import { createContext, ReactNode, RefObject, Component } from 'react';
 import {
   FinancialProfile,

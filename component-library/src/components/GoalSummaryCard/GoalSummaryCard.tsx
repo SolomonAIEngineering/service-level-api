@@ -1,5 +1,5 @@
 // GoalSummaryCard.tsx
-import * as React from 'react';
+import React from 'react';;
 import { SmartGoal } from 'src/data-contracts/financial-service/data-contracts';
 import DonutStatistic from '../DonutStatisticCard/DonutStatisticCard';
 

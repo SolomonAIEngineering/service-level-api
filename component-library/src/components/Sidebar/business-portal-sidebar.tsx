@@ -9,7 +9,7 @@ import {
   MagnifyingGlassIcon,
 } from '@heroicons/react/24/outline';
 
-interface NavigationItem {
+interface BusinessNavigationItem {
   name: string;
   href: string;
   icon: React.ForwardRefExoticComponent<
@@ -29,15 +29,15 @@ interface Team {
   current: boolean;
 }
 
-interface UserNavigationItem {
+interface UserBusinessNavigationItem {
   name: string;
   href: string;
 }
 
 export interface DashboardSidebarProps {
-  navigation?: NavigationItem[];
+  navigation?: BusinessNavigationItem[];
   teams?: Team[];
-  userNavigation?: UserNavigationItem[];
+  userNavigation?: UserBusinessNavigationItem[];
 }
 
 /**

@@ -3,7 +3,7 @@ import { Dialog, Popover, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 
-interface NavigationItem {
+interface NavNavigationItem {
   name: string;
   description?: string;
   href: string;
@@ -11,9 +11,9 @@ interface NavigationItem {
 }
 
 interface HeaderProps {
-  products: NavigationItem[];
-  callsToAction: NavigationItem[];
-  company: NavigationItem[];
+  products: NavNavigationItem[];
+  callsToAction: NavNavigationItem[];
+  company: NavNavigationItem[];
 }
 
 const DesktopNav = ({ products, callsToAction, company }: HeaderProps) => (

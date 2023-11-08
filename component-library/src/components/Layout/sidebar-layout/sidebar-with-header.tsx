@@ -11,12 +11,12 @@ import {
   MagnifyingGlassIcon,
 } from '@heroicons/react/20/solid';
 import { cn } from 'src/lib-utils/utils';
-import { NavigationItem } from '../stacked-layout/stacked-layout-with-page-header';
+import { StackedLayoutNavigationItem } from '../stacked-layout/stacked-layout-with-page-header';
 
 export interface SidebarWithHeaderProps {
-  navigation: NavigationItem[];
-  subNavigation: NavigationItem[];
-  userNavigation: NavigationItem[];
+  navigation: StackedLayoutNavigationItem[];
+  subNavigation: StackedLayoutNavigationItem[];
+  userNavigation: StackedLayoutNavigationItem[];
   children: React.ReactNode;
 }
 

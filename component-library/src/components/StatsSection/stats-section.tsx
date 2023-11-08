@@ -27,12 +27,12 @@ export const StatsSection: React.FC<StatsSectionProps> = ({
 
   return (
     <Card className={`${bgColorClass} py-24 sm:py-32`}>
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <dl className="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-3">
+      <div className="px-6 mx-auto max-w-7xl lg:px-8">
+        <dl className="grid grid-cols-1 text-center gap-x-8 gap-y-16 lg:grid-cols-3">
           {stats.map((stat) => (
             <div
               key={stat.id}
-              className="mx-auto flex max-w-xs flex-col gap-y-4"
+              className="flex flex-col max-w-xs mx-auto gap-y-4"
             >
               <dt className={`text-base leading-7 ${textBaseColor}`}>
                 {stat.name}

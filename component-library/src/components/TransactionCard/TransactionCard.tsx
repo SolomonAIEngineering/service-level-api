@@ -1,5 +1,5 @@
 // TransactionCard.tsx
-import * as React from 'react';
+import React from 'react';;
 
 interface Transaction {
   transactionID: string;

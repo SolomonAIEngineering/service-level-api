@@ -25,7 +25,7 @@ import {
   SmartGoal as ISmartGoal,
   Milestone,
 } from 'src/data-contracts/financial-service/data-contracts';
-import * as React from 'react';
+import React from 'react';;
 import { Button } from '../ui/button';
 import { BankAccountClass } from 'src/types/financial/bank-account';
 

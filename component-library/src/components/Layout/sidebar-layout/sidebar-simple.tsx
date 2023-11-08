@@ -4,12 +4,12 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 
 import { Card } from 'src/components/ui/card';
 import { cn } from 'src/lib-utils/utils';
-import { NavigationItem } from '../stacked-layout/stacked-layout-with-page-header';
+import { StackedLayoutNavigationItem } from '../stacked-layout/stacked-layout-with-page-header';
 
 export interface SidebarSimpleProps {
-  navigation: NavigationItem[];
-  subNavigation: NavigationItem[];
-  userNavigation: NavigationItem[];
+  navigation: StackedLayoutNavigationItem[];
+  subNavigation: StackedLayoutNavigationItem[];
+  userNavigation: StackedLayoutNavigationItem[];
   children: React.ReactNode;
 }
 

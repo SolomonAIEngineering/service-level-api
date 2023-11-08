@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';;
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { cn } from 'src/lib-utils/utils';

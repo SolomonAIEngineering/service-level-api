@@ -8,11 +8,11 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline';
 import { cn } from 'src/lib-utils/utils';
-import { NavigationItem } from '../stacked-layout/stacked-layout-with-page-header';
+import { StackedLayoutNavigationItem } from '../stacked-layout/stacked-layout-with-page-header';
 
 export interface MultiColumnNarrowSidebarProps {
-  navigation: NavigationItem[];
-  userNavigation: NavigationItem[];
+  navigation: StackedLayoutNavigationItem[];
+  userNavigation: StackedLayoutNavigationItem[];
   enableHeader: boolean;
 }
 
@@ -192,7 +192,7 @@ export const MultiColumnNarrowSidebar: React.FC<
     </>
   );
 };
-function HeaderHelperComponent(userNavigation: NavigationItem[]) {
+function HeaderHelperComponent(userNavigation: StackedLayoutNavigationItem[]) {
   return (
     <div className="flex self-stretch flex-1 gap-x-4 lg:gap-x-6">
       <form className="relative flex flex-1" action="#" method="GET">

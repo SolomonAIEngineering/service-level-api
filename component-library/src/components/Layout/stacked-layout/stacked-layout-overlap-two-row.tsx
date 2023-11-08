@@ -7,15 +7,15 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline';
 import { cn } from 'src/lib-utils/utils';
-import { NavigationItem, User } from './stacked-layout-with-page-header';
+import { StackedLayoutNavigationItem, User } from './stacked-layout-with-page-header';
 
 /**
  * @interface StackedLayoutOverlapTwoRowsProps Represents the props for the StackedLayoutOverlapTwoRows component
  */
 export interface StackedLayoutOverlapTwoRowsProps {
   user: User;
-  navigation: NavigationItem[];
-  userNavigation: NavigationItem[];
+  navigation: StackedLayoutNavigationItem[];
+  userNavigation: StackedLayoutNavigationItem[];
   title: string;
   children: React.ReactNode;
 }
