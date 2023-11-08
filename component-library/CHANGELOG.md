@@ -1,3 +1,11 @@
+# [1.106.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.105.0...v1.106.0) (2023-11-08)
+
+
+### Features
+
+* export create account api ([bf73720](https://github.com/SolomonAIEngineering/service-level-api/commit/bf73720f309e5e26595bcea19eff24ec5d0fd42e))
+* update create acct response ([52e3376](https://github.com/SolomonAIEngineering/service-level-api/commit/52e337652c75eaac6b83e3b8f9e6d5f2f5774cd7))
+
 # [1.105.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.104.0...v1.105.0) (2023-11-08)
 
 
