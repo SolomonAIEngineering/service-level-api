@@ -1,12 +1,14 @@
 import {
   BusinessAccount,
   CreateUserV2Request,
+  CreateUserV2Response,
   UserAccount,
 } from 'src/data-contracts/user-service/data-contracts';
 import { IRequest } from './IRequest';
 import { BusinessAccountClass } from '../financial/business-account';
 import { UserAccountClass } from '../user';
 import { getRandomString } from 'src/lib-utils/utils';
+import { ErrorResponse } from '../error/error-response';
 
 /**
  * Represents a request to create a user account or a business account.
@@ -89,6 +91,29 @@ export class CreateAccountV2RequestClass
       password: getRandomString(10),
       profileImage: getRandomString(10),
       userAccount: UserAccountClass.randomInstance(),
+    });
+  }
+}
+
+export class CreateUserV2ResponseClass
+  extends ErrorResponse
+  implements CreateUserV2Response
+{
+  /** @format uint64 */
+  userId?: string;
+
+  constructor(data?: Partial<CreateUserV2Response>) {
+    super();
+    if (data) {
+      Object.assign(this, {
+        ...data,
+      });
+    }
+  }
+
+  static randomInstance(): CreateUserV2Response {
+    return new CreateUserV2ResponseClass({
+      userId: getRandomString(10),
     });
   }
 }

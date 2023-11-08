@@ -233,6 +233,14 @@ export interface CreateUserV2Request {
 	/** @brief Represents a user account in the context of simfinni. */
 	userAccount?: UserAccount;
 }
+/**
+ * CreateUserResponse: Represents the response object returned as a response to
+ * the `create-user` request
+ */
+export interface CreateUserV2Response {
+	/** @format uint64 */
+	userId?: string;
+}
 /** @default "DASHBOARD_WIDGET_TRANSACTIONS_UNSPECIFIED" */
 export type DashboardWidget = "DASHBOARD_WIDGET_TRANSACTIONS_UNSPECIFIED" | "DASHBOARD_WIDGET_TRANSACTIONS_OVERVIEW" | "DASHBOARD_WIDGET_INVESTMENT_SUMMARY" | "DASHBOARD_WIDGET_MONTHLY_SPENDING_REPORT" | "DASHBOARD_WIDGET_SAVINGS_TRACKER" | "DASHBOARD_WIDGET_CREDIT_SCORE_MONITOR";
 export interface FinancialPreferences {
@@ -9066,6 +9074,12 @@ export declare class CreateAccountV2RequestClass implements IRequest, CreateUser
 	constructor(request: Partial<CreateUserV2Request>);
 	isValid(): boolean;
 	static randomInstance(): CreateUserV2Request;
+}
+export declare class CreateUserV2ResponseClass extends ErrorResponse implements CreateUserV2Response {
+	/** @format uint64 */
+	userId?: string;
+	constructor(data?: Partial<CreateUserV2Response>);
+	static randomInstance(): CreateUserV2Response;
 }
 /**
  * Represents individual data points for the chart.
