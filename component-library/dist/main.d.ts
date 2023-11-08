@@ -4,32 +4,6 @@ import { ColumnDef } from '@tanstack/react-table';
 import * as React from 'react';
 import { Component, ReactElement, ReactNode } from 'react';
 
-export interface AIPoweredInsights {
-	/**
-	 * List of areas of interest for insights
-	 * List of areas for insights
-	 */
-	areasOfInterest?: Array<string>;
-	/** True if user agrees to share data for insights */
-	dataSharing?: boolean;
-	/**
-	 * address id
-	 * @format uint64
-	 */
-	id?: string;
-	insightFrequency?: Frequency;
-}
-export interface AccountInformation {
-	businessName?: string;
-	businessRegistrationNumber?: string;
-	businessType?: BusinessType;
-	contactInfo?: ContactInformation;
-	/**
-	 * address id
-	 * @format uint64
-	 */
-	id?: string;
-}
 /** Address: represents an account's address */
 export interface Address {
 	/**
@@ -80,90 +54,18 @@ export interface Address {
 	/**
 	 * the address zipcode
 	 * Validations:
-	 * - must be exactly 5 characters
+	 * - must be exactly 5 characters this is to ensure the client inputs the proper zip code
 	 * @example "12345"
 	 */
 	zipcode?: string;
 }
-/** Business Account Settings */
-export interface BusinessAccountSettings {
-	accountInformation?: AccountInformation;
-	aiPoweredInsights?: AIPoweredInsights;
-	financialPreferences?: FinancialPreferences;
-	/**
-	 * address id
-	 * @format uint64
-	 */
-	id?: string;
-	integrationSettings?: IntegrationSettings;
-	notificationSettings?: NotificationSettings;
-}
-/** @default "BUSINESS_TYPE_UNSPECIFIED" */
-export type BusinessType = "BUSINESS_TYPE_UNSPECIFIED" | "BUSINESS_TYPE_SOLE_PROPRIETORSHIP" | "BUSINESS_TYPE_PARTNERSHIP" | "BUSINESS_TYPE_LLC" | "BUSINESS_TYPE_CORPORATION" | "BUSINESS_TYPE_OTHER";
-export interface ContactInformation {
-	address?: string;
-	email?: string;
-	/**
-	 * address id
-	 * @format uint64
-	 */
-	id?: string;
-	phoneNumber?: string;
-}
 /** @default "DASHBOARD_WIDGET_TRANSACTIONS_UNSPECIFIED" */
 export type DashboardWidget = "DASHBOARD_WIDGET_TRANSACTIONS_UNSPECIFIED" | "DASHBOARD_WIDGET_TRANSACTIONS_OVERVIEW" | "DASHBOARD_WIDGET_INVESTMENT_SUMMARY" | "DASHBOARD_WIDGET_MONTHLY_SPENDING_REPORT" | "DASHBOARD_WIDGET_SAVINGS_TRACKER" | "DASHBOARD_WIDGET_CREDIT_SCORE_MONITOR";
-export interface FinancialPreferences {
-	currencyPreference?: string;
-	financialYearStart?: string;
-	/**
-	 * address id
-	 * @format uint64
-	 */
-	id?: string;
-	taxSettings?: TaxSettings;
-}
 /**
- * frequency by which insights should be generated
- * @default "FREQUENCY_UNSPECIFIED"
+ * ProfileType: represents the type of account tied to a given profile
+ * @default "PROFILE_TYPE_UNSPECIFIED"
  */
-export type Frequency = "FREQUENCY_UNSPECIFIED" | "FREQUENCY_DAILY" | "FREQUENCY_WEEKLY" | "FREQUENCY_MONTHLY";
-export interface IntegrationSettings {
-	/** wether to enable linking bank account for account */
-	bankAccountLinking?: boolean;
-	/**
-	 * address id
-	 * @format uint64
-	 */
-	id?: string;
-	/**
-	 * list of supported third party apps of interest
-	 * List of connected third-party apps
-	 */
-	thirdPartyApps?: Array<string>;
-}
-export interface NotificationSettings {
-	/** True if user wants to be alerted for anomalies */
-	alerts?: boolean;
-	/**
-	 * address id
-	 * @format uint64
-	 */
-	id?: string;
-	/**
-	 * - TYPE_EMAIL: email based notification
-	 *  - TYPE_SMS: sms based notification
-	 *  - TYPE_IN_APP: app based notification
-	 */
-	notificationType?: NotificationSettingsType;
-}
-/**
- * type of enabled notification
- * - TYPE_EMAIL: email based notification
- *  - TYPE_SMS: sms based notification
- *  - TYPE_IN_APP: app based notification
- * @default "TYPE_UNSPECIFIED"
- */
-export type NotificationSettingsType = "TYPE_UNSPECIFIED" | "TYPE_EMAIL" | "TYPE_SMS" | "TYPE_IN_APP";
+export type ProfileType = "PROFILE_TYPE_UNSPECIFIED" | "PROFILE_TYPE_USER" | "PROFILE_TYPE_BUSINESS";
 /**
  * Investment preferences.
  * @default "RISK_TOLERANCE_UNSPECIFIED"
@@ -200,144 +102,66 @@ export interface Tags {
 	 */
 	tagName?: string;
 }
-export interface TaxSettings {
-	/**
-	 * address id
-	 * @format uint64
-	 */
-	id?: string;
-	taxCode?: string;
-	/** @format double */
-	taxPercentage?: number;
-}
 /**
  * Display and interaction preferences.
  * @default "THEME_UNSPECIFIED"
  */
 export type Theme = "THEME_UNSPECIFIED" | "THEME_LIGHT" | "THEME_DARK";
-/** UserAccount: represents a user account in the context of simfinni */
+/** @brief Represents a user account in the context of simfinni. */
 export interface UserAccount {
-	/**
-	 * the address associated with the user
-	 * Validations:
-	 * - can be empty
-	 */
+	/** Enum indicating the type of profile (e.g., individual, corporate). */
+	accountType?: ProfileType;
+	/** Physical address associated with the user. */
 	address?: Address;
 	/**
-	 * authentication service account id
+	 * ID for the authentication service linked to this account.
 	 * @format uint64
 	 */
 	authnAccountId?: string;
-	/**
-	 * simple description specific to account should be less than 200 characters
-	 * Validations:
-	 * - can be empty
-	 * @example "lksdjhfgsdhfghdsgfhgdha;hdgjsdfhaghsldfhagjkh;sdafjhsdjflhgjhjsfhgjsdhfjfkgjhsdfhgjhjdfhgjsdhjglsdjjghjdfhsjghjsadfhgjsdfhjghsdfkjghdfj"
-	 */
+	/** Brief description about the user, up to 200 characters. */
 	bio?: string;
-	businessAccountSettings?: BusinessAccountSettings;
 	/**
-	 * Company description
-	 * @example "we help businesses stay in business"
+	 * Timestamp for when the account was created.
+	 * @format date-time
 	 */
-	companyDescription?: string;
-	/**
-	 * Established Date is the date the company was created
-	 * optional field for business profile
-	 */
-	companyEstablishedDate?: string;
-	/**
-	 * Industry Type is the type of business associated to this business
-	 * @example "fintech"
-	 */
-	companyIndustryType?: string;
-	/**
-	 * Company Name is the name of the company profile
-	 * @example "solomon-ai"
-	 */
-	companyName?: string;
-	/**
-	 * Website url of the business
-	 * @example "https://solomon-ai.io"
-	 */
-	companyWebsiteUrl?: string;
-	/** @format date-time */
 	createdAt?: string;
 	/**
-	 * account email
-	 * Validations:
-	 * - must be an email and required
-	 * @example "lksdjhfgsdhfghdsgfhgdh@gmail.com"
+	 * Email associated with the user account.
+	 * @example "sample@example.com"
 	 */
 	email?: string;
-	/**
-	 * account first name
-	 * Validations:
-	 * - can be empty
-	 * @example "testuser96"
-	 */
+	/** User's first name. */
 	firstname?: string;
-	/**
-	 * profile headline
-	 * Validations:
-	 * - can be empty
-	 * @example "lksdjhfgsdhfghdsgfhgdha;hdgjsdfhaghsldfhagjkh;sdafjhsdjflhgjhjsfhgjsdhfjfkgjhsdfhgjhjdfhgjsdhjglsdjjghjdfhsjghjsadfhgjsdfhjghsdfkjghdfj"
-	 */
+	/** Short headline for the user's profile. */
 	headline?: string;
 	/**
-	 * account id
+	 * Unique identifier for the account.
 	 * @format uint64
 	 */
 	id?: string;
-	/**
-	 * infers wether the account is active
-	 * @example true
-	 */
+	/** Indicates if the account is currently active. */
 	isActive?: boolean;
-	/** IsBusinessAccount enables us to check if this is a business account of interest */
-	isBusinessAccount?: boolean;
-	/**
-	 * isEmailVerified is a field denoting wether or not the user account has
-	 * indeed verified their email address
-	 * @example false
-	 */
+	/** Indicates if the user's email has been verified. */
 	isEmailVerified?: boolean;
-	/**
-	 * account is private
-	 * @example false
-	 */
+	/** Indicates if the account is set to private. */
 	isPrivate?: boolean;
-	/**
-	 * account last name
-	 * Validations:
-	 * - can be empty
-	 * @example "testuserlastname"
-	 */
+	/** User's last name. */
 	lastname?: string;
-	/**
-	 * account phone number
-	 * Validations:
-	 * - mcan be empty
-	 * @example "6513424124"
-	 */
+	/** Phone number associated with the account. */
 	phoneNumber?: string;
-	/**
-	 * sample tags easily associable to account
-	 * account first name
-	 * Validations:
-	 * - must be at provide between 1 and 10 tags
-	 */
+	/** Tags associated with the user account, between 1 and 10. */
 	tags?: Array<Tags>;
-	/** User settings for the fintech application. */
+	/** Settings specific to the user account. */
 	userSettings?: UserSettings;
 	/**
-	 * account user name
-	 * Validations:
-	 * - must be at least 10 character
+	 * Username associated with the account, minimum of 10 characters.
 	 * @example "testuser9696"
 	 */
 	username?: string;
-	/** @format date-time */
+	/**
+	 * Timestamp for when the email was verified.
+	 * @format date-time
+	 */
 	verifiedAt?: string;
 }
 /** User settings for the fintech application. */
@@ -582,6 +406,7 @@ export interface AccountBalanceHistory {
 	balance?: number;
 	id?: string;
 	isoCurrencyCode?: string;
+	profileType?: FinancialUserProfileType;
 	/** @format int64 */
 	sign?: number;
 	/** @format date-time */
@@ -607,6 +432,57 @@ export interface ActionableInsight {
 	summarizedAction?: string;
 	/** associated tags with the generated insights */
 	tags?: Array<string>;
+}
+export type AddDefaultPocketsToBankAccountData = any;
+export interface AddDefaultPocketsToBankAccountRequest {
+	/**
+	 * The bank account id
+	 * Validations:
+	 * - bank_account_id must be greater than 0
+	 * @format uint64
+	 */
+	bankAccountId: string;
+	profileType: FinancialUserProfileType;
+	/**
+	 * The user id
+	 * Validations:
+	 * - user_id must be greater than 0
+	 * @format uint64
+	 */
+	userId: string;
+}
+export interface AddDefaultPocketsToBankAccountResponse {
+	/** The bank account id */
+	bankAccount?: BankAccount;
+}
+export type AddNoteToSmartGoalData = any;
+export interface AddNoteToSmartGoalRequest {
+	/**
+	 * The note to add
+	 * Validations:
+	 * - cannot be nil hence required
+	 */
+	note: SmartNote;
+	/**
+	 * The smart goal id
+	 * Validations:
+	 * - smart_goal_id must be greater than 0
+	 * @format uint64
+	 */
+	smartGoalId: string;
+}
+export interface AddNoteToSmartGoalResponse {
+	/**
+	 * The smart goal id
+	 * SmartGoal: The Goals table stores information about each financial goal, including the name of the goal,
+	 * its description, the target amount of money the user wants to save or invest, and the expected date of completion.
+	 *
+	 * The Goals table also includes columns for the start date of the goal, the current amount of money saved or
+	 * invested towards the goal, and a boolean flag indicating whether the goal has been achieved.
+	 * These additional columns allow the user to track their progress towards the goal and see how much
+	 * more they need to save or invest to reach their target amount.
+	 */
+	goal?: SmartGoal;
 }
 /** The Address object is used to represent a contact's or company's address. */
 export interface Address {
@@ -1103,6 +979,7 @@ export interface CategoryMetricsFinancialSubProfile {
 	/** @format int64 */
 	month?: number;
 	personalFinanceCategoryPrimary?: string;
+	profileType?: FinancialUserProfileType;
 	/** @format double */
 	spentLastMonth?: number;
 	/** @format double */
@@ -1128,6 +1005,7 @@ export interface CategoryMonthlyExpenditure {
 	/** @format int64 */
 	month?: number;
 	personalFinanceCategoryPrimary?: string;
+	profileType?: FinancialUserProfileType;
 	/** @format double */
 	totalSpending?: number;
 	/** @format uint64 */
@@ -1141,6 +1019,7 @@ export interface CategoryMonthlyIncome {
 	/** @format int64 */
 	month?: number;
 	personalFinanceCategoryPrimary?: string;
+	profileType?: FinancialUserProfileType;
 	/** @format double */
 	totalIncome?: number;
 	/** @format uint64 */
@@ -1154,6 +1033,7 @@ export interface CategoryMonthlyTransactionCount {
 	/** @format int64 */
 	month?: number;
 	personalFinanceCategoryPrimary?: string;
+	profileType?: FinancialUserProfileType;
 	/** @format int64 */
 	transactionCount?: number;
 	/** @format uint64 */
@@ -1269,6 +1149,12 @@ export interface CreateBankAccountPayload {
 	 * - cannot be nil hence required
 	 */
 	bankAccount: BankAccount;
+	/**
+	 * The linkId to associate this bank account with
+	 * @format uint64
+	 */
+	linkId: string;
+	profileType: FinancialUserProfileType;
 }
 /**
  * CreateBankAccountResponse: Represents the response object returned as a response to
@@ -1317,6 +1203,7 @@ export interface CreateManualLinkRequest {
 	 * Two Items created for the same set of credentials at the same institution will be considered different and not share the same item_id.
 	 */
 	manualAccountLink: Link;
+	profileType: FinancialUserProfileType;
 	/**
 	 * The user id
 	 * Validations:
@@ -1388,6 +1275,7 @@ export interface CreateSmartGoalResponse {
 export type CreateSubscriptionData = any;
 export interface CreateSubscriptionRequest {
 	priceId: string;
+	profileType: FinancialUserProfileType;
 	/** @format uint64 */
 	userId: string;
 }
@@ -1591,6 +1479,7 @@ export interface CreditNoteLineItem {
 export interface DebtToIncomeRatio {
 	/** @format int64 */
 	month?: number;
+	profileType?: FinancialUserProfileType;
 	/** @format double */
 	ratio?: number;
 	/** @format uint64 */
@@ -1619,6 +1508,16 @@ export interface DeleteLinkResponse {
 export type DeleteMilestoneData = any;
 export interface DeleteMilestoneResponse {
 	/** The milestone id */
+	deleted?: boolean;
+}
+export type DeleteNoteFromSmartGoalData = any;
+export interface DeleteNoteFromSmartGoalResponse {
+	/** The smart goal id */
+	deleted?: boolean;
+}
+export type DeletePocketData = any;
+export interface DeletePocketResponse {
+	/** The pocket id */
 	deleted?: boolean;
 }
 export type DeleteSmartGoalData = any;
@@ -1762,6 +1661,7 @@ export interface ExpenseMetrics {
 	/** @format int64 */
 	month?: number;
 	personalFinanceCategoryPrimary?: string;
+	profileType?: FinancialUserProfileType;
 	/** @format double */
 	totalExpenses?: number;
 	/** @format uint64 */
@@ -1780,6 +1680,7 @@ export interface ExpenseMetricsFinancialSubProfileMetrics {
 	averageMonthlyRecurringSpending?: number;
 	/** @format int64 */
 	month?: number;
+	profileType?: FinancialUserProfileType;
 	/** @format double */
 	spentLastMonth?: number;
 	/** @format double */
@@ -1799,6 +1700,7 @@ export interface FinancialProfile {
 	mostExpensiveCategory?: string;
 	/** @format uint64 */
 	numberOfTransactions?: string;
+	profileType?: FinancialUserProfileType;
 	/** @format double */
 	totalExpenses?: number;
 	/** @format double */
@@ -1822,6 +1724,7 @@ export interface FinancialUserProfile {
 	/** a user profile can have many links (connected institutions) of which finanical accounts are tied to (checking, savings, etc) */
 	link?: Array<Link>;
 	mergeLiink?: Array<MergeLink>;
+	profileType?: FinancialUserProfileType;
 	stripeCustomerId?: string;
 	/** the stripe subscriptions the user profile actively maintains */
 	stripeSubscriptions?: StripeSubscription;
@@ -1831,6 +1734,8 @@ export interface FinancialUserProfile {
 	 */
 	userId?: string;
 }
+/** @default "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED" */
+export type FinancialUserProfileType = "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED" | "FINANCIAL_USER_PROFILE_TYPE_USER" | "FINANCIAL_USER_PROFILE_TYPE_BUSINESS";
 /**
  * The Forecast table stores information about each forecast generated for a particular goal,
  * including the forecast date, the forecasted amount of money saved or invested for the
@@ -2032,6 +1937,16 @@ export interface GetMortgageAccountResponse {
 	/** The mortage account */
 	mortageAccount?: MortgageAccount;
 }
+export type GetNoteFromSmartGoalData = any;
+export interface GetNoteFromSmartGoalResponse {
+	/** The note */
+	note?: SmartNote;
+}
+export type GetNotesFromSmartGoalData = any;
+export interface GetNotesFromSmartGoalResponse {
+	/** The notes */
+	notes?: Array<SmartNote>;
+}
 export type GetPaymentChannelMonthlyExpenditureData = any;
 export interface GetPaymentChannelMonthlyExpenditureResponse {
 	/** @format int64 */
@@ -2070,12 +1985,70 @@ export interface GetTransactionAggregatesResponse {
 	transactionAggregates?: Array<TransactionAggregatesByMonth>;
 }
 export type GetTransactions2Data = any;
+export interface GetTransactionsBetweenTimeRangesResponse {
+	/**
+	 * Current page number
+	 * @format int64
+	 */
+	currentPage?: number;
+	/**
+	 * Total number of pages
+	 * @format int64
+	 */
+	totalAges?: number;
+	/**
+	 * Total number of transactions in the month
+	 * @format uint64
+	 */
+	totalTransactions?: string;
+	/** The transactions */
+	transactions?: Array<PlaidAccountTransaction>;
+}
+export type GetTransactionsByTimeData = any;
 export type GetTransactionsData = any;
 export interface GetTransactionsForBankAccountResponse {
 	/** @format uint64 */
 	nextPageNumber?: string;
 	/** The transactions */
 	transactions?: Array<Transaction>;
+}
+export type GetTransactionsForPastMonthData = any;
+export interface GetTransactionsForPastMonthResponse {
+	/**
+	 * Current page number
+	 * @format int64
+	 */
+	currentPage?: number;
+	/**
+	 * Total number of pages
+	 * @format int64
+	 */
+	totalPages?: number;
+	/**
+	 * Total number of transactions in the month
+	 * @format uint64
+	 */
+	totalTransactions?: string;
+	transactions?: Array<PlaidAccountTransaction>;
+}
+export type GetTransactionsForPastWeekData = any;
+export interface GetTransactionsForPastWeekResponse {
+	/**
+	 * Current page number
+	 * @format int64
+	 */
+	currentPage?: number;
+	/**
+	 * Total number of pages
+	 * @format int64
+	 */
+	totalPages?: number;
+	/**
+	 * Total number of transactions in the week
+	 * @format uint64
+	 */
+	totalTransactions?: string;
+	transactions?: Array<PlaidAccountTransaction>;
 }
 export interface GetTransactionsResponse {
 	/** @format uint64 */
@@ -2128,6 +2101,7 @@ export interface HealthCheckResponse {
 export interface IncomeExpenseRatio {
 	/** @format int64 */
 	month?: number;
+	profileType?: FinancialUserProfileType;
 	/** @format double */
 	ratio?: number;
 	/** @format uint64 */
@@ -2141,6 +2115,7 @@ export interface IncomeMetrics {
 	/** @format int64 */
 	month?: number;
 	personalFinanceCategoryPrimary?: string;
+	profileType?: FinancialUserProfileType;
 	/** @format double */
 	totalIncome?: number;
 	/** @format uint64 */
@@ -2165,6 +2140,7 @@ export interface IncomeMetricsFinancialSubProfile {
 	incomeLastYear?: number;
 	/** @format int64 */
 	month?: number;
+	profileType?: FinancialUserProfileType;
 	/** @format uint64 */
 	userId?: string;
 }
@@ -2681,6 +2657,7 @@ export interface LocationFinancialSubProfile {
 	locationCity?: string;
 	/** @format int64 */
 	month?: number;
+	profileType?: FinancialUserProfileType;
 	/** @format double */
 	spentLastMonth?: number;
 	/** @format double */
@@ -2707,6 +2684,7 @@ export interface MelodyFinancialContext {
 	categories?: Array<CategoryMetricsFinancialSubProfile>;
 	creditAccounts?: Array<CreditAccount>;
 	expenses?: Array<ExpenseMetricsFinancialSubProfileMetrics>;
+	financialUserProfileType?: FinancialUserProfileType;
 	income?: Array<IncomeMetricsFinancialSubProfile>;
 	investmentAccounts?: Array<InvestmentAccount>;
 	locations?: Array<LocationFinancialSubProfile>;
@@ -2723,6 +2701,7 @@ export interface MerchantMetricsFinancialSubProfile {
 	merchantName?: string;
 	/** @format int64 */
 	month?: number;
+	profileType?: FinancialUserProfileType;
 	/** @format double */
 	spentLastMonth?: number;
 	/** @format double */
@@ -2746,6 +2725,7 @@ export interface MerchantMonthlyExpenditure {
 	merchantName?: string;
 	/** @format int64 */
 	month?: number;
+	profileType?: FinancialUserProfileType;
 	/** @format double */
 	totalSpending?: number;
 	/** @format uint64 */
@@ -2755,6 +2735,7 @@ export type MergeExchangePublicLinkTokenForAccountTokenData = any;
 export interface MergeExchangePublicLinkTokenForAccountTokenRequest {
 	endUserOriginId: string;
 	organizationName: string;
+	profileType: FinancialUserProfileType;
 	publicToken: string;
 	/**
 	 * The user id
@@ -2776,6 +2757,7 @@ export interface MergeGetPublicLinkTokenRequest {
 	email: string;
 	/** Your end user's organization. */
 	organizationName: string;
+	profileType: FinancialUserProfileType;
 	/**
 	 * The user id
 	 * Validations:
@@ -2881,6 +2863,7 @@ export interface MonthlyBalance {
 	month?: number;
 	/** @format double */
 	netBalance?: number;
+	profileType?: FinancialUserProfileType;
 	/** @format uint64 */
 	userId?: string;
 }
@@ -2891,6 +2874,7 @@ export interface MonthlyBalance {
 export interface MonthlyExpenditure {
 	/** @format int64 */
 	month?: number;
+	profileType?: FinancialUserProfileType;
 	/** @format double */
 	totalSpending?: number;
 	/** @format uint64 */
@@ -2903,6 +2887,7 @@ export interface MonthlyExpenditure {
 export interface MonthlyIncome {
 	/** @format int64 */
 	month?: number;
+	profileType?: FinancialUserProfileType;
 	/** @format double */
 	totalIncome?: number;
 	/** @format uint64 */
@@ -2917,6 +2902,7 @@ export interface MonthlySavings {
 	month?: number;
 	/** @format double */
 	netSavings?: number;
+	profileType?: FinancialUserProfileType;
 	/** @format uint64 */
 	userId?: string;
 }
@@ -2927,6 +2913,7 @@ export interface MonthlySavings {
 export interface MonthlyTotalQuantityBySecurityAndUser {
 	/** @format int64 */
 	month?: number;
+	profileType?: FinancialUserProfileType;
 	securityId?: string;
 	/** @format double */
 	totalQuantity?: number;
@@ -2940,6 +2927,7 @@ export interface MonthlyTotalQuantityBySecurityAndUser {
 export interface MonthlyTransactionCount {
 	/** @format int64 */
 	month?: number;
+	profileType?: FinancialUserProfileType;
 	/** @format uint64 */
 	transactionCount?: string;
 	/** @format uint64 */
@@ -3038,6 +3026,7 @@ export interface PaymentChannelMetricsFinancialSubProfile {
 	/** @format int64 */
 	month?: number;
 	paymentChannel?: string;
+	profileType?: FinancialUserProfileType;
 	/** @format double */
 	spentLastMonth?: number;
 	/** @format double */
@@ -3063,6 +3052,7 @@ export interface PaymentChannelMonthlyExpenditure {
 	/** @format int64 */
 	month?: number;
 	paymentChannel?: string;
+	profileType?: FinancialUserProfileType;
 	/** @format double */
 	totalSpending?: number;
 	/** @format uint64 */
@@ -3093,11 +3083,191 @@ export interface PersonalActionableInsight {
 }
 /** @default "PERSONAL_ACTIONABLE_INSIGHT_NAME_UNSPECIFIED" */
 export type PersonalActionableInsightName = "PERSONAL_ACTIONABLE_INSIGHT_NAME_UNSPECIFIED" | "PERSONAL_ACTIONABLE_INSIGHT_NAME_EXPENSE" | "PERSONAL_ACTIONABLE_INSIGHT_NAME_EMERGENCY_FUND" | "PERSONAL_ACTIONABLE_INSIGHT_NAME_DEBT_PRIORITIZATION" | "PERSONAL_ACTIONABLE_INSIGHT_NAME_NON_ESSENTIAL_EXPENSES" | "PERSONAL_ACTIONABLE_INSIGHT_NAME_NON_SUBSCRIPTIONS" | "PERSONAL_ACTIONABLE_INSIGHT_NAME_DISCRETIONARY_SPENDING";
+export interface PlaidAccountTransaction {
+	/**
+	 * Basic transaction details
+	 * @gotag: ch:"account_id"
+	 */
+	accountId?: string;
+	/** @gotag: ch:"account_owner" */
+	accountOwner?: string;
+	/**
+	 * `Any` contains an arbitrary serialized protocol buffer message along with a
+	 * URL that describes the type of the serialized message.
+	 *
+	 * Protobuf library provides support to pack/unpack Any values in the form
+	 * of utility functions or additional generated methods of the Any type.
+	 *
+	 * Example 1: Pack and unpack a message in C++.
+	 *
+	 *     Foo foo = ...;
+	 *     Any any;
+	 *     any.PackFrom(foo);
+	 *     ...
+	 *     if (any.UnpackTo(&foo)) {
+	 *       ...
+	 *     }
+	 *
+	 * Example 2: Pack and unpack a message in Java.
+	 *
+	 *     Foo foo = ...;
+	 *     Any any = Any.pack(foo);
+	 *     ...
+	 *     if (any.is(Foo.class)) {
+	 *       foo = any.unpack(Foo.class);
+	 *     }
+	 *
+	 * Example 3: Pack and unpack a message in Python.
+	 *
+	 *     foo = Foo(...)
+	 *     any = Any()
+	 *     any.Pack(foo)
+	 *     ...
+	 *     if any.Is(Foo.DESCRIPTOR):
+	 *       any.Unpack(foo)
+	 *       ...
+	 *
+	 * Example 4: Pack and unpack a message in Go
+	 *
+	 *      foo := &pb.Foo{...}
+	 *      any, err := anypb.New(foo)
+	 *      if err != nil {
+	 *        ...
+	 *      }
+	 *      ...
+	 *      foo := &pb.Foo{}
+	 *      if err := any.UnmarshalTo(foo); err != nil {
+	 *        ...
+	 *      }
+	 *
+	 * The pack methods provided by protobuf library will by default use
+	 * 'type.googleapis.com/full.type.name' as the type URL and the unpack
+	 * methods only use the fully qualified type name after the last '/'
+	 * in the type URL, for example "foo.bar.com/x/y.z" will yield type
+	 * name "y.z".
+	 *
+	 *
+	 * JSON
+	 *
+	 * The JSON representation of an `Any` value uses the regular
+	 * representation of the deserialized, embedded message, with an
+	 * additional field `@type` which contains the type URL. Example:
+	 *
+	 *     package google.profile;
+	 *     message Person {
+	 *       string first_name = 1;
+	 *       string last_name = 2;
+	 *     }
+	 *
+	 *     {
+	 *       "@type": "type.googleapis.com/google.profile.Person",
+	 *       "firstName": <string>,
+	 *       "lastName": <string>
+	 *     }
+	 *
+	 * If the embedded message type is well-known and has a custom JSON
+	 * representation, that representation will be embedded adding a field
+	 * `value` which holds the custom JSON in addition to the `@type`
+	 * field. Example (for message [google.protobuf.Duration][]):
+	 *
+	 *     {
+	 *       "@type": "type.googleapis.com/google.protobuf.Duration",
+	 *       "value": "1.212s"
+	 *     }
+	 */
+	additionalProperties?: Any;
+	/**
+	 * @gotag: ch:"amount"
+	 * @format double
+	 */
+	amount?: number;
+	/** @gotag: ch:"authorized_date" */
+	authorizedDate?: string;
+	/** @gotag: ch:"authorized_datetime" */
+	authorizedDatetime?: string;
+	categories?: Array<string>;
+	/**
+	 * Transaction categories
+	 * @gotag: ch:"category_id"
+	 */
+	categoryId?: string;
+	/**
+	 * Payment details
+	 * @gotag: ch:"check_number"
+	 */
+	checkNumber?: string;
+	/**
+	 * Date details
+	 * @gotag: ch:"date"
+	 */
+	currentDate?: string;
+	/** @gotag: ch:"datetime" */
+	currentDatetime?: string;
+	/**
+	 * System generated fields
+	 * @format uint64
+	 */
+	id?: string;
+	/** @gotag: ch:"iso_currency_code" */
+	isoCurrencyCode?: string;
+	/** @format uint64 */
+	linkId?: string;
+	/** Location details */
+	locationAddress?: string;
+	locationCity?: string;
+	locationCountry?: string;
+	/** @format double */
+	locationLat?: number;
+	/** @format double */
+	locationLon?: number;
+	locationPostalCode?: string;
+	locationRegion?: string;
+	locationStoreNumber?: string;
+	/** @gotag: ch:"merchant_name" */
+	merchantName?: string;
+	/**
+	 * Merchant details
+	 * @gotag: ch:"name"
+	 */
+	name?: string;
+	/** @gotag: ch:"payment_channel" */
+	paymentChannel?: string;
+	paymentMetaByOrderOf?: string;
+	paymentMetaPayee?: string;
+	paymentMetaPayer?: string;
+	paymentMetaPaymentMethod?: string;
+	paymentMetaPaymentProcessor?: string;
+	paymentMetaPpdId?: string;
+	paymentMetaReason?: string;
+	paymentMetaReferenceNumber?: string;
+	/** @gotag: ch:"pending" */
+	pending?: boolean;
+	/** @gotag: ch:"pending_transaction_id" */
+	pendingTransactionId?: string;
+	/** @gotag: ch:"personal_finance_category_detailed" */
+	personalFinanceCategoryDetailed?: string;
+	/** @gotag: ch:"personal_finance_category_primary" */
+	personalFinanceCategoryPrimary?: string;
+	/**
+	 * Additional properties
+	 * @format date-time
+	 */
+	time?: string;
+	/** @gotag: ch:"transaction_code" */
+	transactionCode?: string;
+	/** @gotag: ch:"transaction_id" */
+	transactionId?: string;
+	/** @gotag: ch:"unofficial_currency_code" */
+	unofficialCurrencyCode?: string;
+	/** @format uint64 */
+	userId?: string;
+}
 export interface PlaidExchangeTokenRequest {
 	/** The institution id */
 	institutionId?: string;
 	/** The institution name */
 	institutionName?: string;
+	profileType: FinancialUserProfileType;
 	/**
 	 * The public token
 	 * Validations:
@@ -3132,6 +3302,7 @@ export interface PlaidInitiateTokenExchangeRequest {
 	 * This field is optional, but required to enable the [returning user experience](https://plaid.com/docs/link/returning-user).
 	 */
 	phoneNumber: string;
+	profileType: FinancialUserProfileType;
 	/**
 	 * A unique ID representing the end user. Typically this will be a user ID number from your application.
 	 * Personally identifiable information, such as an email address or phone number,
@@ -3156,6 +3327,7 @@ export interface PlaidInitiateTokenUpdateRequest {
 	 * @format uint64
 	 */
 	linkId: string;
+	profileType: FinancialUserProfileType;
 	/**
 	 * The user id
 	 * Validations:
@@ -3466,6 +3638,8 @@ export interface ReOccuringTransaction {
 	personalFinanceCategoryDetailed?: string;
 	/** @gotag: ch:"personal_finance_category_primary" */
 	personalFinanceCategoryPrimary?: string;
+	/** @gotag: ch:"profile_type" */
+	profileType?: FinancialUserProfileType;
 	/** @format int32 */
 	sign?: number;
 	/**
@@ -3637,6 +3811,8 @@ export interface SmartGoal {
 	 * @example "Buy a car"
 	 */
 	name?: string;
+	/** Notes associated with the goal */
+	notes?: Array<SmartNote>;
 	/**
 	 * the start date of the goal
 	 * @example "Active"
@@ -3650,6 +3826,36 @@ export interface SmartGoal {
 	targetAmount?: string;
 	/**
 	 * the user id to which this goal is tied to
+	 * @format uint64
+	 */
+	userId?: string;
+}
+/** Note schema */
+export interface SmartNote {
+	/**
+	 * The content of the note
+	 * Validations:
+	 * - must be at least 3 characters long
+	 * @example "Note content here..."
+	 */
+	content?: string;
+	/**
+	 * Timestamp indicating when the note was created
+	 * @format date-time
+	 */
+	createdAt?: string;
+	/**
+	 * Unique identifier for the note
+	 * @format uint64
+	 */
+	id?: string;
+	/**
+	 * Timestamp indicating when the note was last updated
+	 * @format date-time
+	 */
+	updatedAt?: string;
+	/**
+	 * The user id who created the note. This can be useful if in the future you allow multiple users to add notes to the same goal.
 	 * @format uint64
 	 */
 	userId?: string;
@@ -3783,6 +3989,7 @@ export interface Token {
  * This message is used to represent the total investment of a security.
  */
 export interface TotalInvestmentBySecurity {
+	profileType?: FinancialUserProfileType;
 	securityId?: string;
 	/** @format double */
 	totalInvestment?: number;
@@ -3937,6 +4144,8 @@ export interface Transaction {
 	personalFinanceCategoryDetailed?: string;
 	/** @gotag: ch:"personal_finance_category_primary" */
 	personalFinanceCategoryPrimary?: string;
+	/** @gotag: ch:"profile_type" */
+	profileType?: FinancialUserProfileType;
 	/** @format int32 */
 	sign?: number;
 	/** @format date-time */
@@ -3964,6 +4173,7 @@ export interface TransactionAggregatesByMonth {
 	month?: number;
 	paymentChannel?: string;
 	personalFinanceCategoryPrimary?: string;
+	profileType?: FinancialUserProfileType;
 	/** @format double */
 	totalAmount?: number;
 	/** @format uint64 */
@@ -4061,6 +4271,32 @@ export interface UpdateMilestoneRequest {
 export interface UpdateMilestoneResponse {
 	/** The milestone id */
 	milestone?: Milestone;
+}
+export type UpdateNoteToSmartGoalData = any;
+export interface UpdateNoteToSmartGoalRequest {
+	/**
+	 * The note to update
+	 * Validations:
+	 * - cannot be nil hence required
+	 */
+	note: SmartNote;
+}
+export interface UpdateNoteToSmartGoalResponse {
+	/** The smart goal id */
+	note?: SmartNote;
+}
+export type UpdatePocketData = any;
+export interface UpdatePocketRequest {
+	/**
+	 * The pocket to update
+	 * Validations:
+	 * - cannot be nil hence required
+	 */
+	pocket: Pocket;
+}
+export interface UpdatePocketResponse {
+	/** The pocket id */
+	pocket?: Pocket;
 }
 export type UpdateSmartGoalData = any;
 export interface UpdateSmartGoalRequest {
@@ -6538,7 +6774,7 @@ export interface UserProfile {
 /** Tags: tags that can be associated to a record */
 export interface UserTags {
 	/**
-	 * the description of the tag ... tag must be at least 50 characters long
+	 * the description of the tag ... tag must be at least 5 characters long
 	 * @example "test-description sakjlDKJGSAHGHFDHSGJHFGAHDFJKGSHAJDLgAKSGDHAS CSVDJKSADASKJHDASFDGJKJLHSAHGFJDSAHD kjskhdgfhgdhfgkhsdfdsdfdssdfsdf"
 	 */
 	description: string;
