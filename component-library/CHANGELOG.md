@@ -8,146 +8,127 @@
 
 # [1.105.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.104.0...v1.105.0) (2023-11-08)
 
-
 ### Features
 
-* update dist ([c002883](https://github.com/SolomonAIEngineering/service-level-api/commit/c00288368f4454de9d9f32a2b200fb015d7679a4))
+- update dist ([c002883](https://github.com/SolomonAIEngineering/service-level-api/commit/c00288368f4454de9d9f32a2b200fb015d7679a4))
 
 # [1.104.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.103.0...v1.104.0) (2023-11-08)
 
-
 ### Features
 
-* update release ([5ca8fae](https://github.com/SolomonAIEngineering/service-level-api/commit/5ca8faed2be691ae3acec51df303cb9a470b1d61))
+- update release ([5ca8fae](https://github.com/SolomonAIEngineering/service-level-api/commit/5ca8faed2be691ae3acec51df303cb9a470b1d61))
 
 # [1.58.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.57.0...v1.58.0) (2023-10-14)
 
-
 ### Features
 
-* enable declaration map ([440cccd](https://github.com/SolomonAIEngineering/service-level-api/commit/440cccd2004f5b754f367a1a6cd06255a6308016))
+- enable declaration map ([440cccd](https://github.com/SolomonAIEngineering/service-level-api/commit/440cccd2004f5b754f367a1a6cd06255a6308016))
 
 # [1.57.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.56.0...v1.57.0) (2023-10-14)
 
-
 ### Features
 
-* update components and ready for export ([#29](https://github.com/SolomonAIEngineering/service-level-api/issues/29)) ([1c4f35b](https://github.com/SolomonAIEngineering/service-level-api/commit/1c4f35bcf48ba0bc25b31847616d7b9ece855af6))
+- update components and ready for export ([#29](https://github.com/SolomonAIEngineering/service-level-api/issues/29)) ([1c4f35b](https://github.com/SolomonAIEngineering/service-level-api/commit/1c4f35bcf48ba0bc25b31847616d7b9ece855af6))
 
 # [1.56.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.55.0...v1.56.0) (2023-10-13)
 
-
 ### Features
 
-* update component lib ([d2df662](https://github.com/SolomonAIEngineering/service-level-api/commit/d2df6626f00564bb9881118642316554e71c4c87))
+- update component lib ([d2df662](https://github.com/SolomonAIEngineering/service-level-api/commit/d2df6626f00564bb9881118642316554e71c4c87))
 
 # [1.55.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.54.0...v1.55.0) (2023-10-13)
 
-
 ### Features
 
-* update component lib ([a2f5cc0](https://github.com/SolomonAIEngineering/service-level-api/commit/a2f5cc0864f3de93d339fdb5b2eafa079a20e14d))
+- update component lib ([a2f5cc0](https://github.com/SolomonAIEngineering/service-level-api/commit/a2f5cc0864f3de93d339fdb5b2eafa079a20e14d))
 
 # [1.54.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.53.0...v1.54.0) (2023-10-13)
 
-
 ### Features
 
-* update component lib ([fc42d01](https://github.com/SolomonAIEngineering/service-level-api/commit/fc42d01cf82bd9cacb6ee85907e9c67a10c1e565))
+- update component lib ([fc42d01](https://github.com/SolomonAIEngineering/service-level-api/commit/fc42d01cf82bd9cacb6ee85907e9c67a10c1e565))
 
 # [1.53.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.52.0...v1.53.0) (2023-10-13)
 
-
 ### Features
 
-* update component lib ([4d35d28](https://github.com/SolomonAIEngineering/service-level-api/commit/4d35d2800c5f440afcafaaba9da3298fccef8b41))
+- update component lib ([4d35d28](https://github.com/SolomonAIEngineering/service-level-api/commit/4d35d2800c5f440afcafaaba9da3298fccef8b41))
 
 # [1.52.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.51.0...v1.52.0) (2023-10-13)
 
-
 ### Features
 
-* update component lib ([6ba79fa](https://github.com/SolomonAIEngineering/service-level-api/commit/6ba79faf7f133f84fe5d79f09b0c6bbefe0e9b38))
+- update component lib ([6ba79fa](https://github.com/SolomonAIEngineering/service-level-api/commit/6ba79faf7f133f84fe5d79f09b0c6bbefe0e9b38))
 
 # [1.51.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.50.0...v1.51.0) (2023-10-13)
 
-
 ### Features
 
-* update component lib ([bb08aca](https://github.com/SolomonAIEngineering/service-level-api/commit/bb08aca659b67bcd410add54c94bf5a825faa3f2))
+- update component lib ([bb08aca](https://github.com/SolomonAIEngineering/service-level-api/commit/bb08aca659b67bcd410add54c94bf5a825faa3f2))
 
 # [1.50.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.49.0...v1.50.0) (2023-10-13)
 
-
 ### Features
 
-* update component lib ([f329b60](https://github.com/SolomonAIEngineering/service-level-api/commit/f329b60e961c85f356022932d7db665427b5445c))
-* update component lib ([f4ec2e3](https://github.com/SolomonAIEngineering/service-level-api/commit/f4ec2e381e1e9296e009898591096d250576c186))
+- update component lib ([f329b60](https://github.com/SolomonAIEngineering/service-level-api/commit/f329b60e961c85f356022932d7db665427b5445c))
+- update component lib ([f4ec2e3](https://github.com/SolomonAIEngineering/service-level-api/commit/f4ec2e381e1e9296e009898591096d250576c186))
 
 # [1.49.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.48.0...v1.49.0) (2023-10-13)
 
-
 ### Features
 
-* update npm release ref ([8f18b53](https://github.com/SolomonAIEngineering/service-level-api/commit/8f18b5352ff5a1c7b0b18441efa00edb2068b96f))
+- update npm release ref ([8f18b53](https://github.com/SolomonAIEngineering/service-level-api/commit/8f18b5352ff5a1c7b0b18441efa00edb2068b96f))
 
 # [1.48.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.47.0...v1.48.0) (2023-10-12)
 
-
 ### Features
 
-* update npm release ref ([756a553](https://github.com/SolomonAIEngineering/service-level-api/commit/756a553cd44c0dc05a87b7d2f70632cdeb0630e0))
-* update npm release ref ([04438bf](https://github.com/SolomonAIEngineering/service-level-api/commit/04438bfe0be4b82ed577cc37fd6bb7fce62a7617))
+- update npm release ref ([756a553](https://github.com/SolomonAIEngineering/service-level-api/commit/756a553cd44c0dc05a87b7d2f70632cdeb0630e0))
+- update npm release ref ([04438bf](https://github.com/SolomonAIEngineering/service-level-api/commit/04438bfe0be4b82ed577cc37fd6bb7fce62a7617))
 
 ## [1.47.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.46.0...v1.47.0) (2023-10-12)
 
-
 ### Features
 
-* update npm release ref ([b91382d](https://github.com/SolomonAIEngineering/service-level-api/commit/b91382d7c3af45a08cb462fbadb2bf280508cf0e))
-* update npm release ref ([cb25b45](https://github.com/SolomonAIEngineering/service-level-api/commit/cb25b45fa08a4dc91a50d36df89435d6bd57eeee))
+- update npm release ref ([b91382d](https://github.com/SolomonAIEngineering/service-level-api/commit/b91382d7c3af45a08cb462fbadb2bf280508cf0e))
+- update npm release ref ([cb25b45](https://github.com/SolomonAIEngineering/service-level-api/commit/cb25b45fa08a4dc91a50d36df89435d6bd57eeee))
 
 ## [1.46.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.45.0...v1.46.0) (2023-10-12)
 
-
 ### Features
 
-* update npm release ref ([ab1ab36](https://github.com/SolomonAIEngineering/service-level-api/commit/ab1ab36587ef47452973b2101d14eec1f0262f57))
-* update npm release ref ([c29c357](https://github.com/SolomonAIEngineering/service-level-api/commit/c29c35772c9b616c34d2cc47fecd608adb5d3cb3))
+- update npm release ref ([ab1ab36](https://github.com/SolomonAIEngineering/service-level-api/commit/ab1ab36587ef47452973b2101d14eec1f0262f57))
+- update npm release ref ([c29c357](https://github.com/SolomonAIEngineering/service-level-api/commit/c29c35772c9b616c34d2cc47fecd608adb5d3cb3))
 
 ## [1.45.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.44.0...v1.45.0) (2023-10-12)
 
-
 ### Features
 
-* update npm release ref ([2e2e0c2](https://github.com/SolomonAIEngineering/service-level-api/commit/2e2e0c2806af5010d8d0c1bd8acee7fe355e2998))
-* update npm release ref ([e0cbf18](https://github.com/SolomonAIEngineering/service-level-api/commit/e0cbf181123f395d301306f51131f374cc3eaa3a))
-* update npm release ref ([fccabdd](https://github.com/SolomonAIEngineering/service-level-api/commit/fccabdd2453adf3db9e359bd065206505d31f2c0))
-* update npm release ref ([2fc62fd](https://github.com/SolomonAIEngineering/service-level-api/commit/2fc62fd2c44771f404a8c29a4e66a5cf0ab8dd41))
+- update npm release ref ([2e2e0c2](https://github.com/SolomonAIEngineering/service-level-api/commit/2e2e0c2806af5010d8d0c1bd8acee7fe355e2998))
+- update npm release ref ([e0cbf18](https://github.com/SolomonAIEngineering/service-level-api/commit/e0cbf181123f395d301306f51131f374cc3eaa3a))
+- update npm release ref ([fccabdd](https://github.com/SolomonAIEngineering/service-level-api/commit/fccabdd2453adf3db9e359bd065206505d31f2c0))
+- update npm release ref ([2fc62fd](https://github.com/SolomonAIEngineering/service-level-api/commit/2fc62fd2c44771f404a8c29a4e66a5cf0ab8dd41))
 
 ## [1.44.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.43.0...v1.44.0) (2023-10-12)
 
-
 ### Features
 
-* update npm release ref ([279a74c](https://github.com/SolomonAIEngineering/service-level-api/commit/279a74c06f2ab8d649e09b4ceb91b75870620812))
-* update npm release ref ([f6d6143](https://github.com/SolomonAIEngineering/service-level-api/commit/f6d614314a344b181d143f6e4d5f460bd1e5084a))
-* update npm release ref ([e43a3a7](https://github.com/SolomonAIEngineering/service-level-api/commit/e43a3a71dba388d27212bc17784ebd3b6fee210e))
+- update npm release ref ([279a74c](https://github.com/SolomonAIEngineering/service-level-api/commit/279a74c06f2ab8d649e09b4ceb91b75870620812))
+- update npm release ref ([f6d6143](https://github.com/SolomonAIEngineering/service-level-api/commit/f6d614314a344b181d143f6e4d5f460bd1e5084a))
+- update npm release ref ([e43a3a7](https://github.com/SolomonAIEngineering/service-level-api/commit/e43a3a71dba388d27212bc17784ebd3b6fee210e))
 
 ## [1.43.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.42.0...v1.43.0) (2023-10-12)
 
-
 ### Features
 
-* update npm ref ([b21f374](https://github.com/SolomonAIEngineering/service-level-api/commit/b21f374832e14de8498b33f67a56029f06dc4e91))
-* update npm ref ([#21](https://github.com/SolomonAIEngineering/service-level-api/issues/21)) ([b0cf358](https://github.com/SolomonAIEngineering/service-level-api/commit/b0cf358af15efa3af715253c3524461813f6b08a))
+- update npm ref ([b21f374](https://github.com/SolomonAIEngineering/service-level-api/commit/b21f374832e14de8498b33f67a56029f06dc4e91))
+- update npm ref ([#21](https://github.com/SolomonAIEngineering/service-level-api/issues/21)) ([b0cf358](https://github.com/SolomonAIEngineering/service-level-api/commit/b0cf358af15efa3af715253c3524461813f6b08a))
 
 ## [1.42.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.41.0...v1.42.0) (2023-10-09)
 
-
 ### Features
 
-* add actionable insight ([d4f306d](https://github.com/SolomonAIEngineering/service-level-api/commit/d4f306dec21c5e515250e08f55c0659bca12d24d))
+- add actionable insight ([d4f306d](https://github.com/SolomonAIEngineering/service-level-api/commit/d4f306dec21c5e515250e08f55c0659bca12d24d))
 
 ## [1.41.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.40.0...v1.41.0) (2023-10-09)
 

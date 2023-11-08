@@ -33,25 +33,46 @@ export * from './components/AreaChart';
 export * from './components/AskSolomonAi';
 export * from './components/BankAccountCard';
 export * from './components/BankAccountHoverLabel';
+export * from './components/Banner';
+
 export * from './components/BarGraph';
 export * from './components/BudgetCard';
 export * from './components/CalendarCard';
+export * from './components/CommandPalletes';
+
 export * from './components/Container';
+export * from './components/CopyToClipboard';
+
 export * from './components/CreditAccountCard';
 export * from './components/CreditAccountHoverLabel';
 export * from './components/CreditCard';
+export * from './components/CTA';
+
 export * from './components/DonutStatisticCard';
+export * from './components/FlyoutMenu';
+
 export * from './components/GoalSummaryCard';
+export * from './components/Headers';
+export * from './components/HeaderSections';
+
 export * from './components/HistoricalAccountBalanceChart';
 export * from './components/InvestmentAccountCard';
 export * from './components/InvestmentAccountHoverLabel';
 export * from './components/InvestmentHoldingCard';
 export * from './components/InvestmentSecurityCard';
+export * from './components/Layout';
+
 export * from './components/LineChart';
 export * from './components/MortgageAccountCard';
+export * from './components/Notification';
+
 export * from './components/PieChart';
 export * from './components/RecurringTransactionCard';
 export * from './components/ScatterChart';
+export * from './components/Sidebar';
+
+export * from './components/StatsSection';
+
 export * from './components/StatisticCard';
 export * from './components/SimpleStatisticCard';
 export * from './components/StudentLoanAccountCard';

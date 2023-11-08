@@ -1,4 +1,4 @@
-module.exports =  {
+module.exports = {
   entries: [
     {
       filePath: './src/main.tsx',

@@ -156,7 +156,7 @@ const PersonalActionableInsightComponent: React.FC<{
             <div className="flex flex-row flex-wrap gap-3">
               {insight.tags.map((tag) => {
                 return (
-                  <Badge className="text-lg p-2" key={tag}>
+                  <Badge className="p-2 text-lg" key={tag}>
                     {tag}
                   </Badge>
                 );
@@ -170,7 +170,7 @@ const PersonalActionableInsightComponent: React.FC<{
               <div className="flex flex-row flex-wrap gap-2">
                 {insight.metricsToOptimizeFor.map((metric) => {
                   return (
-                    <Badge className="text-lg p-2" key={metric}>
+                    <Badge className="p-2 text-lg" key={metric}>
                       {metric}
                     </Badge>
                   );
