@@ -35,3 +35,4 @@ export * from './plaid-link';
 export * from './plaid-token-update';
 export * from './reset-password';
 export * from './update-user-profile';
+export * from './create-account-v2';

@@ -1,4 +1,5 @@
 import { Tags } from 'src/data-contracts/user-service/data-contracts';
+import { getRandomString } from 'src/lib-utils/utils';
 
 /**
  * Represents a metadata tag.
@@ -47,6 +48,17 @@ class TagClass implements Tags {
         ...data,
         metadata: data?.metadata || [],
       });
+  }
+
+  static randomInstance(): Tags {
+    // Placeholder implementation for generating a random Tag
+    // You will need to create an actual instance with random data here
+    return new TagClass({
+      id: getRandomString(10),
+      tagName: getRandomString(10),
+      tagDescription: getRandomString(10),
+      metadata: [getRandomString(10), getRandomString(10)],
+    });
   }
 
   /**

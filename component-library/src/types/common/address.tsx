@@ -1,4 +1,5 @@
 import { Address } from 'src/data-contracts/user-service/data-contracts';
+import { getRandomString } from 'src/lib-utils/utils';
 
 /**
  * Represents a geographic address.
@@ -69,6 +70,15 @@ class AddressClass implements Address {
    */
   getFullAddress(): string {
     return `${this.address}, ${this.city}, ${this.state} ${this.zipcode}`;
+  }
+
+  static randomInstance(): Address {
+    return new AddressClass({
+      address: getRandomString(10),
+      city: getRandomString(10),
+      state: getRandomString(10),
+      zipcode: getRandomString(10),
+    });
   }
 }
 

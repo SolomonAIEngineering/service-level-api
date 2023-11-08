@@ -1,10 +1,14 @@
+import { getRandomString } from 'src/lib-utils/utils';
 import { AddressClass } from '../common/address';
 import { TagClass } from '../common/tag';
 import {
   Address,
+  ProfileType,
   Tags,
   UserAccount,
+  UserSettings,
 } from 'src/data-contracts/user-service/data-contracts';
+import { UserSettingsClass } from './user-settings';
 
 /**
  * Represents a user's account in simfiny's backend.
@@ -58,25 +62,62 @@ interface UserAccountContractWithAccountID {
 class UserAccountClass
   implements UserAccount, UserAccountContractWithAccountID
 {
+  /** Enum indicating the type of profile (e.g., individual, corporate). */
+  accountType?: ProfileType;
+  /** Physical address associated with the user. */
   address?: Address = new AddressClass();
+  /**
+   * ID for the authentication service linked to this account.
+   * @format uint64
+   */
+  authnAccountId?: string;
+  /** Brief description about the user, up to 200 characters. */
   bio?: string;
+  /**
+   * Timestamp for when the account was created.
+   * @format date-time
+   */
+  createdAt?: string;
+  /**
+   * Email associated with the user account.
+   * @example "sample@example.com"
+   */
   email?: string;
+  /** User's first name. */
   firstname?: string;
-  lastname?: string;
-  username?: string;
+  /** Short headline for the user's profile. */
   headline?: string;
+  /**
+   * Unique identifier for the account.
+   * @format uint64
+   */
+  id?: string;
+  /** Indicates if the account is currently active. */
+  isActive?: boolean;
+  /** Indicates if the user's email has been verified. */
+  isEmailVerified?: boolean;
+  /** Indicates if the account is set to private. */
+  isPrivate?: boolean;
+  /** User's last name. */
+  lastname?: string;
+  /** Phone number associated with the account. */
   phoneNumber?: string;
+  /** Tags associated with the user account, between 1 and 10. */
+  tags?: Array<Tags>;
+  /** Settings specific to the user account. */
+  userSettings?: UserSettings;
+  /**
+   * Username associated with the account, minimum of 10 characters.
+   * @example "testuser9696"
+   */
+  username?: string;
+  /**
+   * Timestamp for when the email was verified.
+   * @format date-time
+   */
+  verifiedAt?: string;
   userAccountID?: string;
   userAuthnAccountID?: string;
-  id?: string;
-  tags?: Array<Tags>;
-  created_at?: string;
-  isEmailVerified?: boolean;
-  isPrivate?: boolean;
-  verifiedAt?: string;
-  isActive?: boolean;
-  authnAccountId?: string;
-  createdAt?: string;
 
   /**
    * A constructor function that takes in a data object and assigns the data to the UserAccount class.
@@ -174,6 +215,40 @@ class UserAccountClass
    */
   getID(): string | undefined {
     return this.id;
+  }
+
+  static randomInstance(): UserAccount {
+    // Placeholder implementation for generating a random UserAccount
+    // You will need to create an actual instance with random data here
+    return new UserAccountClass({
+      accountType: 'PROFILE_TYPE_USER',
+      address: AddressClass.randomInstance(),
+      authnAccountId: getRandomString(10),
+      bio: getRandomString(10),
+      createdAt: getRandomString(10),
+      email: getRandomString(10),
+      firstname: getRandomString(10),
+      headline: getRandomString(10),
+      id: getRandomString(10),
+      isActive: true,
+      isEmailVerified: true,
+      isPrivate: true,
+      lastname: getRandomString(10),
+      phoneNumber: getRandomString(10),
+      tags: [
+        TagClass.randomInstance(),
+        TagClass.randomInstance(),
+        TagClass.randomInstance(),
+        TagClass.randomInstance(),
+        TagClass.randomInstance(),
+        TagClass.randomInstance(),
+      ],
+      username: getRandomString(10),
+      verifiedAt: getRandomString(10),
+      userSettings: UserSettingsClass.randomInstance(),
+      userAccountID: getRandomString(10),
+      userAuthnAccountID: getRandomString(10),
+    });
   }
 }
 

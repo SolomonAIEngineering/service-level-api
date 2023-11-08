@@ -4,6 +4,32 @@ import { ColumnDef } from '@tanstack/react-table';
 import * as React from 'react';
 import { Component, ReactElement, ReactNode } from 'react';
 
+export interface AIPoweredInsights {
+	/**
+	 * List of areas of interest for insights
+	 * List of areas for insights
+	 */
+	areasOfInterest?: Array<string>;
+	/** True if user agrees to share data for insights */
+	dataSharing?: boolean;
+	/**
+	 * address id
+	 * @format uint64
+	 */
+	id?: string;
+	insightFrequency?: Frequency;
+}
+export interface AccountInformation {
+	businessName?: string;
+	businessRegistrationNumber?: string;
+	businessType?: BusinessType;
+	contactInfo?: ContactInformation;
+	/**
+	 * address id
+	 * @format uint64
+	 */
+	id?: string;
+}
 /** Address: represents an account's address */
 export interface Address {
 	/**
@@ -59,8 +85,208 @@ export interface Address {
 	 */
 	zipcode?: string;
 }
+/** BusinessAccount represents a business account within the context of solomon-ai. */
+export interface BusinessAccount {
+	/** The type of profile associated with the business account (e.g., individual, corporate). */
+	accountType?: ProfileType;
+	/** Physical address associated with the business account. */
+	address?: Address;
+	/**
+	 * Identifier for the associated authentication service account.
+	 * @format uint64
+	 */
+	authnAccountId?: string;
+	/**
+	 * Short description of the business account. Maximum of 200 characters.
+	 * @example "sample description"
+	 */
+	bio?: string;
+	/** Settings specific to the business account. */
+	businessAccountSettings?: BusinessAccountSettings;
+	/**
+	 * Description of the company associated with the business account.
+	 * @example "We help businesses succeed"
+	 */
+	companyDescription?: string;
+	/** Date when the company associated with the business account was established. */
+	companyEstablishedDate?: string;
+	/**
+	 * Industry type of the company associated with the business account.
+	 * @example "fintech"
+	 */
+	companyIndustryType?: string;
+	/**
+	 * Name of the company associated with the business account.
+	 * @example "Solomon AI"
+	 */
+	companyName?: string;
+	/**
+	 * Website URL of the company associated with the business account.
+	 * @example "https://solomon-ai.io"
+	 */
+	companyWebsiteUrl?: string;
+	/**
+	 * Timestamp indicating when the business account was created.
+	 * @format date-time
+	 */
+	createdAt?: string;
+	/**
+	 * Email associated with the business account.
+	 * @example "example@gmail.com"
+	 */
+	email?: string;
+	/**
+	 * Headline for the profile of the business account.
+	 * @example "sample headline"
+	 */
+	headline?: string;
+	/**
+	 * Unique identifier for the business account.
+	 * @format uint64
+	 */
+	id?: string;
+	/**
+	 * Indicates whether the business account is active.
+	 * @example true
+	 */
+	isActive?: boolean;
+	/**
+	 * Indicates whether the email associated with the business account has been verified.
+	 * @example false
+	 */
+	isEmailVerified?: boolean;
+	/**
+	 * Indicates whether the business account is private.
+	 * @example false
+	 */
+	isPrivate?: boolean;
+	/**
+	 * Phone number associated with the business account.
+	 * @example "6513424124"
+	 */
+	phoneNumber?: string;
+	/** Tags associated with the business account. Between 1 and 10 tags are allowed. */
+	tags?: Array<Tags>;
+	/**
+	 * Username for the business account. Must be at least 10 characters long.
+	 * @example "testuser9696"
+	 */
+	username?: string;
+	/**
+	 * Timestamp indicating when the email for the business account was verified.
+	 * @format date-time
+	 */
+	verifiedAt?: string;
+}
+/** Business Account Settings */
+export interface BusinessAccountSettings {
+	accountInformation?: AccountInformation;
+	aiPoweredInsights?: AIPoweredInsights;
+	financialPreferences?: FinancialPreferences;
+	/**
+	 * address id
+	 * @format uint64
+	 */
+	id?: string;
+	integrationSettings?: IntegrationSettings;
+	notificationSettings?: NotificationSettings;
+}
+/** @default "BUSINESS_TYPE_UNSPECIFIED" */
+export type BusinessType = "BUSINESS_TYPE_UNSPECIFIED" | "BUSINESS_TYPE_SOLE_PROPRIETORSHIP" | "BUSINESS_TYPE_PARTNERSHIP" | "BUSINESS_TYPE_LLC" | "BUSINESS_TYPE_CORPORATION" | "BUSINESS_TYPE_OTHER";
+export interface ContactInformation {
+	address?: string;
+	email?: string;
+	/**
+	 * address id
+	 * @format uint64
+	 */
+	id?: string;
+	phoneNumber?: string;
+}
+/**
+ * CreateUserV2Request: Represents the request object invoked against the user
+ * service to create a user account
+ */
+export interface CreateUserV2Request {
+	/** BusinessAccount represents a business account within the context of solomon-ai. */
+	businessAccount?: BusinessAccount;
+	/**
+	 * set of community IDs to follow
+	 * Validations:
+	 * - at least 0 and at most 20 community ids supported at one time
+	 */
+	communityIdsToFollow?: Array<string>;
+	/**
+	 * The password  of the user
+	 * Validations:
+	 * - must be a at least 10 characters long
+	 * @example "tesdfkdkfhsdgd"
+	 */
+	password: string;
+	/**
+	 * The profile image of the user
+	 * Validations:
+	 * - must be a valid URI
+	 * @example "lksdjhfgsdhfghdsgfhgdh.com"
+	 */
+	profileImage: string;
+	/** @brief Represents a user account in the context of simfinni. */
+	userAccount?: UserAccount;
+}
 /** @default "DASHBOARD_WIDGET_TRANSACTIONS_UNSPECIFIED" */
 export type DashboardWidget = "DASHBOARD_WIDGET_TRANSACTIONS_UNSPECIFIED" | "DASHBOARD_WIDGET_TRANSACTIONS_OVERVIEW" | "DASHBOARD_WIDGET_INVESTMENT_SUMMARY" | "DASHBOARD_WIDGET_MONTHLY_SPENDING_REPORT" | "DASHBOARD_WIDGET_SAVINGS_TRACKER" | "DASHBOARD_WIDGET_CREDIT_SCORE_MONITOR";
+export interface FinancialPreferences {
+	currencyPreference?: string;
+	financialYearStart?: string;
+	/**
+	 * address id
+	 * @format uint64
+	 */
+	id?: string;
+	taxSettings?: TaxSettings;
+}
+/**
+ * frequency by which insights should be generated
+ * @default "FREQUENCY_UNSPECIFIED"
+ */
+export type Frequency = "FREQUENCY_UNSPECIFIED" | "FREQUENCY_DAILY" | "FREQUENCY_WEEKLY" | "FREQUENCY_MONTHLY";
+export interface IntegrationSettings {
+	/** wether to enable linking bank account for account */
+	bankAccountLinking?: boolean;
+	/**
+	 * address id
+	 * @format uint64
+	 */
+	id?: string;
+	/**
+	 * list of supported third party apps of interest
+	 * List of connected third-party apps
+	 */
+	thirdPartyApps?: Array<string>;
+}
+export interface NotificationSettings {
+	/** True if user wants to be alerted for anomalies */
+	alerts?: boolean;
+	/**
+	 * address id
+	 * @format uint64
+	 */
+	id?: string;
+	/**
+	 * - TYPE_EMAIL: email based notification
+	 *  - TYPE_SMS: sms based notification
+	 *  - TYPE_IN_APP: app based notification
+	 */
+	notificationType?: NotificationSettingsType;
+}
+/**
+ * type of enabled notification
+ * - TYPE_EMAIL: email based notification
+ *  - TYPE_SMS: sms based notification
+ *  - TYPE_IN_APP: app based notification
+ * @default "TYPE_UNSPECIFIED"
+ */
+export type NotificationSettingsType = "TYPE_UNSPECIFIED" | "TYPE_EMAIL" | "TYPE_SMS" | "TYPE_IN_APP";
 /**
  * ProfileType: represents the type of account tied to a given profile
  * @default "PROFILE_TYPE_UNSPECIFIED"
@@ -101,6 +327,16 @@ export interface Tags {
 	 * @example "testtagname"
 	 */
 	tagName?: string;
+}
+export interface TaxSettings {
+	/**
+	 * address id
+	 * @format uint64
+	 */
+	id?: string;
+	taxCode?: string;
+	/** @format double */
+	taxPercentage?: number;
 }
 /**
  * Display and interaction preferences.
@@ -258,6 +494,7 @@ export declare class AddressClass implements Address {
 	 * @returns The formatted address string.
 	 */
 	getFullAddress(): string;
+	static randomInstance(): Address;
 }
 /**
  * Represents a metadata tag.
@@ -300,6 +537,7 @@ export declare class TagClass implements Tags {
 	 * @param {Partial<Tag>} [data] - Data used to populate the properties of the class.
 	 */
 	constructor(data?: Partial<Tags>);
+	static randomInstance(): Tags;
 	/**
 	 * Fetches the tag's description or provides a default empty string if not set.
 	 * @returns The tag's description or an empty string.
@@ -6664,6 +6902,150 @@ export declare class UserFinancialHealthMetricsTableClass {
 	 */
 	constructor(data: Partial<UserFinancialHealthMetricsTableClass>);
 }
+export declare class AccountInformationClass implements AccountInformation {
+	businessName?: string;
+	businessRegistrationNumber?: string;
+	businessType?: BusinessType;
+	contactInfo?: ContactInformation;
+	/**
+	 * address id
+	 * @format uint64
+	 */
+	id?: string;
+	constructor(data: Partial<AccountInformation>);
+	static randomInstance(): AccountInformation;
+}
+export declare class AIPoweredInsightsClass implements AIPoweredInsights {
+	/**
+	 * List of areas of interest for insights
+	 * List of areas for insights
+	 */
+	areasOfInterest?: Array<string>;
+	/** True if user agrees to share data for insights */
+	dataSharing?: boolean;
+	/**
+	 * address id
+	 * @format uint64
+	 */
+	id?: string;
+	insightFrequency?: Frequency;
+	constructor(data: Partial<AIPoweredInsights>);
+	static randomInstance(): AIPoweredInsights;
+}
+export declare class BusinessAccountSettingsClass implements BusinessAccountSettings {
+	accountInformation?: AccountInformation;
+	aiPoweredInsights?: AIPoweredInsights;
+	financialPreferences?: FinancialPreferences;
+	/**
+	 * address id
+	 * @format uint64
+	 */
+	id?: string;
+	integrationSettings?: IntegrationSettings;
+	notificationSettings?: NotificationSettings;
+	constructor(data: Partial<BusinessAccountSettings>);
+	static randomInstance(): BusinessAccountSettings;
+}
+export declare class BusinessAccountClass implements BusinessAccount {
+	accountType?: ProfileType;
+	address?: Address;
+	authnAccountId?: string;
+	bio?: string;
+	businessAccountSettings?: BusinessAccountSettings;
+	companyDescription?: string;
+	companyEstablishedDate?: string;
+	companyIndustryType?: string;
+	companyName?: string;
+	companyWebsiteUrl?: string;
+	createdAt?: string;
+	email?: string;
+	headline?: string;
+	id?: string;
+	isActive?: boolean;
+	isEmailVerified?: boolean;
+	isPrivate?: boolean;
+	phoneNumber?: string;
+	tags?: Array<Tags>;
+	username?: string;
+	verifiedAt?: string;
+	constructor(data: Partial<BusinessAccount>);
+	static randomInstance(): BusinessAccount;
+}
+export declare class ContactInformationClass implements ContactInformation {
+	address?: string;
+	email?: string;
+	/**
+	 * address id
+	 * @format uint64
+	 */
+	id?: string;
+	phoneNumber?: string;
+	constructor(data: Partial<ContactInformation>);
+	static randomInstance(): ContactInformation;
+}
+export declare class FinancialPreferencesClass implements FinancialPreferences {
+	currencyPreference?: string;
+	financialYearStart?: string;
+	/**
+	 * address id
+	 * @format uint64
+	 */
+	id?: string;
+	taxSettings?: TaxSettings;
+	constructor(data: Partial<FinancialPreferences>);
+	static randomInstance(): FinancialPreferences;
+}
+export declare class IntegrationSettingsClass implements IntegrationSettings {
+	/** wether to enable linking bank account for account */
+	bankAccountLinking?: boolean;
+	/**
+	 * address id
+	 * @format uint64
+	 */
+	id?: string;
+	/**
+	 * list of supported third party apps of interest
+	 * List of connected third-party apps
+	 */
+	thirdPartyApps?: Array<string>;
+	constructor(data: Partial<IntegrationSettings>);
+	static randomInstance(): IntegrationSettings;
+}
+export declare class NotificationSettingsClass implements NotificationSettings {
+	/** True if user wants to be alerted for anomalies */
+	alerts?: boolean;
+	/**
+	 * address id
+	 * @format uint64
+	 */
+	id?: string;
+	/**
+	 * - TYPE_EMAIL: email based notification
+	 *  - TYPE_SMS: sms based notification
+	 *  - TYPE_IN_APP: app based notification
+	 */
+	notificationType?: NotificationSettingsType;
+	constructor(data: Partial<NotificationSettings>);
+	static randomInstance(): NotificationSettings;
+}
+/**
+ * Represents a tax setting, including an ID, tax code, and tax percentage.
+ * @implements {TaxSettings}
+ * @class {TaxSettingsClass}
+ * @param {Partial<TaxSettings>} data
+ * @property {string} id
+ * @property {string} taxCode
+ * @property {number} taxPercentage
+ * @method {randomInstance} {TaxSettings}
+ * @returns {TaxSettingsClass}
+ */
+export declare class TaxSettingsClass implements TaxSettings {
+	id?: string;
+	taxCode?: string;
+	taxPercentage?: number;
+	constructor(data: Partial<TaxSettings>);
+	static randomInstance(): TaxSettings;
+}
 export interface Bookmark {
 	/**
 	 * the id of the blocked record
@@ -7128,25 +7510,62 @@ export interface UserAccountContractWithAccountID {
 	userAccountID?: string;
 }
 export declare class UserAccountClass implements UserAccount, UserAccountContractWithAccountID {
+	/** Enum indicating the type of profile (e.g., individual, corporate). */
+	accountType?: ProfileType;
+	/** Physical address associated with the user. */
 	address?: Address;
+	/**
+	 * ID for the authentication service linked to this account.
+	 * @format uint64
+	 */
+	authnAccountId?: string;
+	/** Brief description about the user, up to 200 characters. */
 	bio?: string;
+	/**
+	 * Timestamp for when the account was created.
+	 * @format date-time
+	 */
+	createdAt?: string;
+	/**
+	 * Email associated with the user account.
+	 * @example "sample@example.com"
+	 */
 	email?: string;
+	/** User's first name. */
 	firstname?: string;
-	lastname?: string;
-	username?: string;
+	/** Short headline for the user's profile. */
 	headline?: string;
+	/**
+	 * Unique identifier for the account.
+	 * @format uint64
+	 */
+	id?: string;
+	/** Indicates if the account is currently active. */
+	isActive?: boolean;
+	/** Indicates if the user's email has been verified. */
+	isEmailVerified?: boolean;
+	/** Indicates if the account is set to private. */
+	isPrivate?: boolean;
+	/** User's last name. */
+	lastname?: string;
+	/** Phone number associated with the account. */
 	phoneNumber?: string;
+	/** Tags associated with the user account, between 1 and 10. */
+	tags?: Array<Tags>;
+	/** Settings specific to the user account. */
+	userSettings?: UserSettings;
+	/**
+	 * Username associated with the account, minimum of 10 characters.
+	 * @example "testuser9696"
+	 */
+	username?: string;
+	/**
+	 * Timestamp for when the email was verified.
+	 * @format date-time
+	 */
+	verifiedAt?: string;
 	userAccountID?: string;
 	userAuthnAccountID?: string;
-	id?: string;
-	tags?: Array<Tags>;
-	created_at?: string;
-	isEmailVerified?: boolean;
-	isPrivate?: boolean;
-	verifiedAt?: string;
-	isActive?: boolean;
-	authnAccountId?: string;
-	createdAt?: string;
 	/**
 	 * A constructor function that takes in a data object and assigns the data to the UserAccount class.
 	 * @param [data] - The data that you want to assign to the object.
@@ -7208,6 +7627,42 @@ export declare class UserAccountClass implements UserAccount, UserAccountContrac
 	 * @memberof UserAccount
 	 */
 	getID(): string | undefined;
+	static randomInstance(): UserAccount;
+}
+export declare class UserSettingsClass implements UserSettings {
+	/** Display and interaction preferences. */
+	appTheme?: Theme;
+	/** Dashboard customization, e.g., specific widgets or reports. */
+	dashboardWidgets?: Array<DashboardWidget>;
+	/** Preferred date-time format. */
+	datetimeFormat?: string;
+	/** Currency preference. */
+	defaultCurrency?: string;
+	/** Notification preferences. */
+	emailNotifications?: boolean;
+	/** Option to share transaction history with friends/family. */
+	enableGoalJournal?: boolean;
+	/**
+	 * address id
+	 * @format uint64
+	 */
+	id?: string;
+	/** Investment preferences. */
+	investmentRiskTolerance?: RiskTolerance;
+	/** Language preference. */
+	preferredLanguage?: string;
+	/**
+	 * Privacy settings.
+	 *
+	 * Whether the user's profile is public.
+	 */
+	publicProfile?: boolean;
+	pushNotifications?: boolean;
+	smsNotifications?: boolean;
+	/** Two-factor authentication status. */
+	twoFactorAuthenticationEnabled?: boolean;
+	constructor(data: Partial<UserSettings>);
+	static randomInstance(): UserSettings;
 }
 export interface IRequest {
 	isValid(): boolean;
@@ -8569,6 +9024,48 @@ export declare class UpdateUserAccountResponseClass extends ErrorResponse {
 	accountUpdated: boolean;
 	account: UserAccount | undefined;
 	constructor(data?: Partial<UpdateUserAccountResponseClass>);
+}
+/**
+ * Represents a request to create a user account or a business account.
+ * @implements {IRequest} {CreateUserV2Request}
+ * @class {CreateAccountV2RequestClass}
+ * @extends {CreateUserV2Request}
+ * @param {Partial<CreateUserV2Request>} request
+ * @property {BusinessAccount} businessAccount
+ * @property {Array<string>} communityIdsToFollow
+ * @property {string} password
+ * @property {string} profileImage
+ * @property {UserAccount} userAccount
+ * @method {isValid} {boolean}
+ * @method {randomInstance} {CreateUserV2Request}
+ * @returns {CreateAccountV2RequestClass}
+ * @example
+ * import { CreateAccountV2RequestClass } from 'src/types/request-response/create-account-v2';
+ * const request = new CreateAccountV2RequestClass({
+ *  businessAccount: BusinessAccountClass.randomInstance(),
+ * communityIdsToFollow: [
+ * getRandomString(10),
+ * getRandomString(10),
+ * getRandomString(10),
+ * getRandomString(10),
+ * getRandomString(10),
+ * ],
+ * password: getRandomString(10),
+ * profileImage: getRandomString(10),
+ * userAccount: UserAccountClass.randomInstance(),
+ * });
+ * console.log(request.isValid()); // Outputs: true
+ * console.log(request.randomInstance()); // Outputs: CreateAccountV2RequestClass
+ */
+export declare class CreateAccountV2RequestClass implements IRequest, CreateUserV2Request {
+	businessAccount?: BusinessAccount;
+	communityIdsToFollow?: Array<string>;
+	password: string;
+	profileImage: string;
+	userAccount?: UserAccount;
+	constructor(request: Partial<CreateUserV2Request>);
+	isValid(): boolean;
+	static randomInstance(): CreateUserV2Request;
 }
 /**
  * Represents individual data points for the chart.
