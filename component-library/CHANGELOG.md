@@ -1,3 +1,10 @@
+# [1.90.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.89.0...v1.90.0) (2023-11-08)
+
+
+### Features
+
+* update semantic release ([2f56765](https://github.com/SolomonAIEngineering/service-level-api/commit/2f567650bda6876be4a712dbb5b5e15eeacf52a4))
+
 # [1.88.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.87.0...v1.88.0) (2023-11-08)
 
 
