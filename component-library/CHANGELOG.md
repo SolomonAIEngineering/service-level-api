@@ -1,3 +1,10 @@
+# [1.111.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.110.0...v1.111.0) (2023-11-09)
+
+
+### Features
+
+* update codebase ([a0629ca](https://github.com/SolomonAIEngineering/service-level-api/commit/a0629ca7adc3da7021a70ae6b2c3727015db4713))
+
 # [1.110.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.109.0...v1.110.0) (2023-11-09)
 
 ### Features
