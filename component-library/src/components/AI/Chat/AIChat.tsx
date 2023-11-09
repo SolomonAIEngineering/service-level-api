@@ -46,6 +46,11 @@ export type ChatProps = {
   model: OpenAIModel;
   userName: string;
   userAccount: UserAccount;
+  temperature: number;
+  top_p: number;
+  frequency_penalty: number;
+  presence_penalty: number;
+  max_tokens: number;
 };
 
 export const initialAnalyticMessage: ChatGPTMessage[] = [
@@ -69,6 +74,11 @@ const Chat = ({
   model,
   userName,
   userAccount,
+  temperature,
+  top_p,
+  frequency_penalty,
+  presence_penalty,
+  max_tokens,
 }: ChatProps) => {
   const [messages, setMessages] = useState<ChatGPTMessage[]>(initialMessages);
   const [input, setInput] = useState('');
@@ -109,6 +119,11 @@ const Chat = ({
       financialContext: baseContext.context,
       apiToken: apiToken,
       model: model,
+      temperature: temperature,
+      top_p: top_p,
+      frequency_penalty: frequency_penalty,
+      presence_penalty: presence_penalty,
+      max_tokens: max_tokens,
     });
     const reader = data.getReader();
     const decoder = new TextDecoder();

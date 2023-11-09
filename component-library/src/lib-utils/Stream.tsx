@@ -130,9 +130,24 @@ const handler = async (req: {
   financialContext: MelodyFinancialContext;
   apiToken: string;
   model: OpenAIModel;
+  temperature: number;
+  top_p: number;
+  frequency_penalty: number;
+  presence_penalty: number;
+  max_tokens: number;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 }): Promise<ReadableStream<any>> => {
-  const { last10messages, user, apiToken, model } = req;
+  const {
+    last10messages,
+    user,
+    apiToken,
+    model,
+    temperature,
+    max_tokens,
+    top_p,
+    frequency_penalty,
+    presence_penalty,
+  } = req;
   const messages: ChatGPTMessage[] = [
     {
       role: 'system',
@@ -153,13 +168,11 @@ Welcome your business's financial consultant: always precise, continuously enlig
   const payload: OpenAIStreamPayload = {
     model: model,
     messages: messages,
-    temperature: process.env.AI_TEMP ? parseFloat(process.env.AI_TEMP) : 0.7,
-    max_tokens: process.env.AI_MAX_TOKENS
-      ? parseInt(process.env.AI_MAX_TOKENS)
-      : 800,
-    top_p: 1,
-    frequency_penalty: 0,
-    presence_penalty: 0,
+    temperature: temperature,
+    max_tokens: max_tokens,
+    top_p: top_p,
+    frequency_penalty: frequency_penalty,
+    presence_penalty: presence_penalty,
     stream: true,
     user: user,
     n: 1,

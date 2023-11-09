@@ -23,7 +23,7 @@ import { Card, CardTitle } from 'src/components/ui/card';
 import { OpenAIModel } from 'src/components/AskSolomonAi/ChatHandler';
 import { Dialog, DialogContent, DialogTrigger } from 'src/components/ui/dialog';
 
-type SolomonProps = {
+export type SolomonProps = {
   children: React.ReactNode;
   className?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -38,6 +38,11 @@ type SolomonProps = {
   apiToken: string;
   model: OpenAIModel;
   componentType: ComponentType;
+  temperature: number;
+  top_p: number;
+  frequency_penalty: number;
+  presence_penalty: number;
+  max_tokens: number;
 };
 
 export type ComponentType = 'SHEET' | 'DIALOG';
@@ -69,6 +74,12 @@ export const AskSolomonAILayout: React.FC<SolomonProps> = ({
   instrumentationCallback,
   apiToken,
   model,
+  temperature,
+  top_p,
+  frequency_penalty,
+  presence_penalty,
+  max_tokens,
+  componentType,
 }) => {
   return (
     <div
@@ -87,10 +98,15 @@ export const AskSolomonAILayout: React.FC<SolomonProps> = ({
           financialContext={financialContext}
           apiToken={apiToken}
           model={model}
-          componentType={'SHEET'}
+          componentType={componentType}
           children={undefined}
           instrumentationCallback={instrumentationCallback}
           enableGlobalContext={enableGlobalContext}
+          temperature={temperature}
+          top_p={top_p}
+          frequency_penalty={frequency_penalty}
+          presence_penalty={presence_penalty}
+          max_tokens={max_tokens}
         />
       </div>
       {children}
@@ -109,6 +125,11 @@ export const AskSolomon: React.FC<SolomonProps> = ({
   apiToken,
   model,
   componentType,
+  temperature,
+  top_p,
+  frequency_penalty,
+  presence_penalty,
+  max_tokens,
 }) => {
   /**
    * State variable for the messages in the chat.
@@ -182,6 +203,11 @@ export const AskSolomon: React.FC<SolomonProps> = ({
       financialContext: context,
       apiToken: apiToken,
       model: model,
+      temperature: temperature,
+      top_p: top_p,
+      frequency_penalty: frequency_penalty,
+      presence_penalty: presence_penalty,
+      max_tokens: max_tokens,
     });
 
     const reader = data.getReader();
@@ -215,7 +241,7 @@ export const AskSolomon: React.FC<SolomonProps> = ({
             <p className="font-semibold"> Ask</p>
           </Button>
         </SheetTrigger>
-        <SheetContent className="p-5 border-4 border-gray-200 rounded-2xl flex flex-col justify-between md:min-w-[40%] md:p-20 overflow-y-auto">
+        <SheetContent className="p-5 border-4 border-gray-200 rounded-2xl flex flex-col justify-between md:min-w-[60%] md:p-20 overflow-y-auto">
           <SheetHeader>
             <SheetTitle>Ask Solomon AI</SheetTitle>
             <SheetDescription>

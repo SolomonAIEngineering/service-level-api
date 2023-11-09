@@ -62,11 +62,11 @@ export function ChatLine({ role = 'assistant', content }: ChatGPTMessage) {
           : 'flex justify-start clear-both'
       }
     >
-      <div className="float-right px-4 py-5 mb-5 bg-white rounded-lg shadow-lg ring-1 ring-zinc-100 dark:text-gray-600 sm:px-6">
+      <div className="float-right max-w-lg px-4 py-5 mb-5 bg-white rounded-lg shadow-lg ring-1 ring-zinc-100 dark:text-gray-600 sm:px-6">
         <div className="flex space-x-3">
           <div className="flex-1 gap-4">
-            <div className="flex flex-row justify-between">
-              <p className="text-gray-900 font-large text-xxl">
+            <div className="flex flex-row justify-between gap-2 w-[40%]">
+              <p className="text-xl text-gray-900 font-large">
                 {role == 'assistant' ? (
                   <BrainCog className="inline-block w-6 h-6 m-2" />
                 ) : (
