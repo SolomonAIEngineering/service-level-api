@@ -3,6 +3,7 @@
  */
 
 import { MelodyFinancialContext } from 'src/data-contracts/financial-service/data-contracts';
+import { UserAccount } from 'src/data-contracts/user-service/data-contracts';
 
 /**
  * IContextPrompt interface defines a contract for the PromptContext class.
@@ -33,12 +34,21 @@ class PromptContext implements IContextPrompt {
   private _globalContext: MelodyFinancialContext = {};
 
   /**
+   * A private instance of UserAccount.
+   */
+  private _userAccount: UserAccount = {};
+
+  /**
    * The constructor of the PromptContext class.
    * @param globalContext The global financial context.
    * @param userAccount The user account.
    */
-  public constructor(globalContext: MelodyFinancialContext) {
+  public constructor(
+    globalContext: MelodyFinancialContext,
+    userAccount: UserAccount,
+  ) {
     this._globalContext = globalContext;
+    this._userAccount = userAccount;
   }
 
   /**
@@ -87,6 +97,36 @@ class PromptContext implements IContextPrompt {
              Refer to the users financial context. Be sure to show citations. 
             `;
     }
+  }
+
+  /**
+   * getFinancialContextBasedPrompt method is used to get the prompt based on the global financial context and additional context.
+   * @param question The question to be used for the prompt.
+   * @param additionalContext Additional context to be used to generate the prompt.
+   * @returns A string value representing the prompt.
+   */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public getFinancialContextBasedPrompt(
+    question: string,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    additionalContext?: any,
+  ): string {
+    if (additionalContext) {
+      const questionContext: string = JSON.stringify(additionalContext).trim();
+      return `Given this global context 
+              ${this._globalContext}, and this additional 
+              details ${questionContext} act as a financial planning team advising this small business, and answer
+            this question in a personal fashion for ${this._userAccount.username}: ${question}`;
+    }
+
+    return `
+            Given this financial context
+            ${JSON.stringify(
+              this._globalContext,
+            )}, act as a financial planning team advising this small buisness. Answer the following question : ${question} in a personal fashion for ${
+      this._userAccount.username
+    }. Be specefic and give actionable solutions. Refer to the business' financial context. Be sure to show citations. 
+            `;
   }
 }
 

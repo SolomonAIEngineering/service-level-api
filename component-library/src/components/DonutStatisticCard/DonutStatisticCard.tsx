@@ -1,5 +1,5 @@
 // DonutStatisticCard.tsx
-import React from 'react';;
+import React from 'react';
 
 interface DonutStatisticCardProps {
   percentage: number;

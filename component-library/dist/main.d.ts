@@ -9103,29 +9103,6 @@ export interface CustomAreaChartProps {
 	label: string;
 	enableGrid?: boolean;
 }
-/**
- * This is the main layout for the Analytic AI card.
- *
- * @param children - The child components to render within this component.
- * @param className - The CSS classes to apply to the component.
- * @param context - The context for the AI to operate in.
- *
- * @example
- * ```
- * <AskSolomonAILayout context={context}>
- *   <ChildComponent />
- * </AskSolomonAILayout>
- * ```
- */
-export declare const AskSolomonAILayout: React.FC<{
-	children: React.ReactNode;
-	className?: string;
-	context: any;
-	sampleQuestions: string[];
-	userKey: string;
-	financialContext: MelodyFinancialContext;
-	userAccount: UserAccount;
-}>;
 /** @type {React.Context<T extends BankAccount>} */
 export declare const BankAccountContext: React.Context<BankAccount | undefined>;
 export declare const FinancialProfileContext: React.Context<FinancialProfile>;
@@ -10732,5 +10709,80 @@ export interface StackedLayoutOverlapTwoRowsProps {
 	title: string;
 	children: React.ReactNode;
 }
+/**
+ * Represents a role in a conversation with OpenAI's ChatGPT model.
+ */
+export type ChatGPTAgent = "user" | "system" | "assistant";
+export type OpenAIModel = " gpt-4-turbo" | "gpt-4" | "gpt-3.5" | "gpt-3.5-turbo";
+export type SolomonProps = {
+	children: React.ReactNode;
+	className?: string;
+	context: any | undefined;
+	sampleQuestions: string[];
+	enableGlobalContext?: boolean;
+	userId: string;
+	userName: string;
+	userAccount: UserAccount;
+	financialContext: MelodyFinancialContext;
+	instrumentationCallback?: () => void;
+	apiToken: string;
+	model: OpenAIModel;
+	componentType: ComponentType;
+};
+export type ComponentType = "SHEET" | "DIALOG";
+/**
+ * This is the main layout for the Analytic AI card.
+ *
+ * @param children - The child components to render within this component.
+ * @param className - The CSS classes to apply to the component.
+ * @param context - The context for the AI to operate in.
+ *
+ * @example
+ * ```
+ * <AskSolomonAILayout context={context}>
+ *   <ChildComponent />
+ * </AskSolomonAILayout>
+ * ```
+ */
+export declare const AskSolomonAILayout: React.FC<SolomonProps>;
+export declare const AskSolomon: React.FC<SolomonProps>;
+export interface ChatGPTMessage {
+	role: ChatGPTAgent;
+	content: string;
+}
+export declare const LoadingChatLine: () => import("react/jsx-runtime").JSX.Element;
+export declare function ChatLine({ role, content }: ChatGPTMessage): import("react/jsx-runtime").JSX.Element | null;
+export type InputMessageProps = {
+	input: string;
+	setInput: (input: string) => void;
+	sendMessage: (input: string) => void;
+};
+export declare const InputMessage: React.FC<InputMessageProps>;
+export declare const initialMessages: ChatGPTMessage[];
+export type ContextTypes = {
+	contextName: string;
+	context: any;
+};
+export type ChatProps = {
+	baseContext: ContextTypes;
+	sampleQuestions: string[];
+	secondaryContext?: ContextTypes[];
+	className?: string;
+	instrumentationCallback?: () => void;
+	apiToken: string;
+	model: OpenAIModel;
+	userName: string;
+	userAccount: UserAccount;
+};
+export declare const initialAnalyticMessage: ChatGPTMessage[];
+export declare const Chat: ({ baseContext, sampleQuestions, secondaryContext, className, instrumentationCallback, apiToken, model, userName, userAccount, }: ChatProps) => import("react/jsx-runtime").JSX.Element;
+export declare const EmbeddedContextPickerComponent: React.FC<{
+	className?: string;
+	messages: ChatGPTMessage[];
+	selectedContext: ContextTypes;
+	setContextCallback: (context: ContextTypes) => void;
+	baseContext: ContextTypes;
+	contextFamily: ContextTypes[];
+}>;
 
 export {};

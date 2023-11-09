@@ -1,4 +1,4 @@
-import React from 'react';;
+import React from 'react';
 import { createContext, ReactNode, RefObject, Component } from 'react';
 
 /** Context to provide a default value for the component. */

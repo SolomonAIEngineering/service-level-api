@@ -1,5 +1,5 @@
 import { PlusIcon } from 'lucide-react';
-import React from 'react';;
+import React from 'react';
 import { createContext, ReactNode, RefObject, Component } from 'react';
 import {
   HistoricalAccountBalanceChart,

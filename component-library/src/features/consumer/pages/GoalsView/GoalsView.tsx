@@ -1,4 +1,4 @@
-import React from 'react';;
+import React from 'react';
 import { createContext, ReactNode, RefObject, Component } from 'react';
 import BudgetCard from 'src/components/BudgetCard/BudgetCard';
 import {SimpleStatsCard} from 'src/components/SimpleStatisticCard/SimpleStatisticCard';

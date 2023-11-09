@@ -1,4 +1,4 @@
-import React from 'react';;
+import React from 'react';
 import { Budget } from 'src/data-contracts/financial-service/data-contracts';
 import { Label } from '../ui/label';
 import { ClipboardSignature } from 'lucide-react';

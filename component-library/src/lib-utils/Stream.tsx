@@ -3,6 +3,8 @@ import {
   ParsedEvent,
   ReconnectInterval,
 } from 'eventsource-parser';
+import { OpenAIModel } from 'src/components/AskSolomonAi/ChatHandler';
+import { MelodyFinancialContext } from 'src/data-contracts/financial-service/data-contracts';
 
 /**
  * Represents a role in a conversation with OpenAI's ChatGPT model.
@@ -21,7 +23,7 @@ export interface ChatGPTMessage {
  * Represents the payload for a streaming request to OpenAI's chat model.
  */
 export interface OpenAIStreamPayload {
-  model: string;
+  model: OpenAIModel;
   messages: ChatGPTMessage[];
   temperature: number;
   top_p: number;
@@ -39,7 +41,10 @@ export interface OpenAIStreamPayload {
  * @param payload - The payload for the request to OpenAI's chat model.
  * @returns A ReadableStream of the response from OpenAI's chat model.
  */
-export async function OpenAIStream(payload: OpenAIStreamPayload) {
+export async function OpenAIStream(
+  payload: OpenAIStreamPayload,
+  token: string,
+) {
   const encoder = new TextEncoder();
   const decoder = new TextDecoder();
 
@@ -49,7 +54,7 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
     'Content-Type': 'application/json',
     // open ai key
     // TODO: this should be in a .env file or passed in as part of the library configuraton
-    Authorization: `Bearer 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`,
+    Authorization: `Bearer ${token}`,
   };
 
   const res = await fetch('https://api.openai.com/v1/chat/completions', {
@@ -112,3 +117,55 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
 
   return stream;
 }
+
+/**
+ * Handler for processing chat requests and generating AI responses.
+ * @param req - Request object containing the last 10 messages, the user, and the financial context.
+ * @returns A readable stream containing the AI's responses.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const handler = async (req: {
+  last10messages: ChatGPTMessage[];
+  user: string;
+  financialContext: MelodyFinancialContext;
+  apiToken: string;
+  model: OpenAIModel;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+}): Promise<ReadableStream<any>> => {
+  const { last10messages, user, apiToken, model } = req;
+  const messages: ChatGPTMessage[] = [
+    {
+      role: 'system',
+      content: `Introducing a specialized AI assistant designed expressly for the financial intricacies faced by small businesses. This state-of-the-art tool combines deep financial expertise, strategic insight, and unparalleled eloquence, meticulously calibrated to navigate the complex landscape of business finance.
+
+This AI is more than just a tool—it is a trusted financial collaborator for your business. Its methodical approach ensures informed financial decision-making, fostering a comprehensive understanding of fiscal matters tailored to the needs of small enterprises. From investment strategies to payroll intricacies, tax obligations to cash flow management, it offers concise, authoritative guidance.
+
+Recognizing the unique challenges and opportunities inherent to small businesses, this assistant not only respects every financial decision but also proffers astute strategies for optimization and growth. With a commitment to remaining at the forefront of financial technologies and market trends, it guarantees that your business is consistently armed with up-to-date knowledge and best practices.
+
+Welcome your business's financial consultant: always precise, continuously enlightening, and dedicated to your enterprise's fiscal excellence.`,
+    },
+  ];
+
+  // only push the latest message from the user
+
+  messages.push(...last10messages);
+
+  const payload: OpenAIStreamPayload = {
+    model: model,
+    messages: messages,
+    temperature: process.env.AI_TEMP ? parseFloat(process.env.AI_TEMP) : 0.7,
+    max_tokens: process.env.AI_MAX_TOKENS
+      ? parseInt(process.env.AI_MAX_TOKENS)
+      : 800,
+    top_p: 1,
+    frequency_penalty: 0,
+    presence_penalty: 0,
+    stream: true,
+    user: user,
+    n: 1,
+  };
+
+  return await OpenAIStream(payload, apiToken);
+};
+
+export { handler };

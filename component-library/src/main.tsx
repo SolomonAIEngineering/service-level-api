@@ -30,7 +30,6 @@ export * from './data-contracts/user-service';
 export * from './data-contracts/social-service';
 
 export * from './components/AreaChart';
-export * from './components/AskSolomonAi';
 export * from './components/BankAccountCard';
 export * from './components/BankAccountHoverLabel';
 export * from './components/Banner';
@@ -93,5 +92,9 @@ export * from './components/Layout/stacked-layout/stacked-layout-nav-bottom-bord
 export * from './components/Layout/stacked-layout/stacked-layout-overlap';
 export * from './components/Layout/stacked-layout/stacked-layout-overlap-two-row';
 export * from './components/Layout/stacked-layout/stacked-layout-with-page-header';
-
+export * from './components/AI/Chat/AskAILayout';
+export * from './components/AI/Chat/AIChat';
+export * from './components/AI/Chat/ChatLine';
+export * from './components/AI/Chat/EmbeddedContextPicker';
+export * from './components/AI/Chat/InputMessage';
 export * from './features';

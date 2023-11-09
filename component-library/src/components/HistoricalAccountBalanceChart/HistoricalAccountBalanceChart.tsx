@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from 'react';;
+import React from 'react';
 import { createContext, ReactNode, RefObject, Component } from 'react';
 import {
   Card,

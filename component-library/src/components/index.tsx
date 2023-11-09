@@ -1,5 +1,4 @@
 export * from './AreaChart';
-export * from './AskSolomonAi';
 export * from './BankAccountCard';
 export * from './BankAccountHoverLabel';
 export * from './Banner';

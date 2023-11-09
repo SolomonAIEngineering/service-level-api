@@ -1,5 +1,5 @@
 // CreditCard.tsx
-import React from 'react';;
+import React from 'react';
 
 interface CreditCardProps {
   cardholderName: string;

@@ -5,6 +5,8 @@ import {
   OpenAIStreamPayload,
 } from 'src/lib-utils/Stream';
 
+export type OpenAIModel = ' gpt-4-turbo' | 'gpt-4' | 'gpt-3.5' | 'gpt-3.5-turbo';
+
 /**
  * Type definition for the request to process a chat.
  */
@@ -17,6 +19,11 @@ interface HandlerRequest {
 
   /** Financial context relevant for the chat. */
   financialContext: MelodyFinancialContext;
+  /**
+   * OpenAI API key.
+   */
+  openAIApiKey: string;
+  model: OpenAIModel;
 }
 
 /**
@@ -43,7 +50,7 @@ export class ChatProcessor {
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async process(req: HandlerRequest): Promise<ReadableStream<any>> {
-    const { last10messages, user } = req;
+    const { last10messages, user, openAIApiKey, model } = req;
     const messages: ChatGPTMessage[] = [
       {
         role: 'system',
@@ -54,7 +61,7 @@ export class ChatProcessor {
     messages.push(...last10messages);
 
     const payload: OpenAIStreamPayload = {
-      model: 'gpt-4',
+      model: model,
       messages: messages,
       temperature: 0.7,
       max_tokens: 900,
@@ -66,6 +73,6 @@ export class ChatProcessor {
       n: 1,
     };
 
-    return await OpenAIStream(payload);
+    return await OpenAIStream(payload, openAIApiKey);
   }
 }
