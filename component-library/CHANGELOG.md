@@ -7,17 +7,15 @@
 
 # [1.109.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.108.0...v1.109.0) (2023-11-09)
 
-
 ### Features
 
-* update component exported ([37ea4d7](https://github.com/SolomonAIEngineering/service-level-api/commit/37ea4d74f714b16b6e8e6060c10c34e3677eb46b))
+- update component exported ([37ea4d7](https://github.com/SolomonAIEngineering/service-level-api/commit/37ea4d74f714b16b6e8e6060c10c34e3677eb46b))
 
 # [1.108.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.107.0...v1.108.0) (2023-11-08)
 
-
 ### Features
 
-* update component lib ([353e840](https://github.com/SolomonAIEngineering/service-level-api/commit/353e840fdf519881d0053929527be9fb1437bdeb))
+- update component lib ([353e840](https://github.com/SolomonAIEngineering/service-level-api/commit/353e840fdf519881d0053929527be9fb1437bdeb))
 
 # [1.107.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.106.0...v1.107.0) (2023-11-08)
 

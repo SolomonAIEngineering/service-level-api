@@ -97,4 +97,6 @@ export * from './components/AI/Chat/AIChat';
 export * from './components/AI/Chat/ChatLine';
 export * from './components/AI/Chat/EmbeddedContextPicker';
 export * from './components/AI/Chat/InputMessage';
+
+export * from './components/CreateSmartGoalForm/CreateSmartGoalForm';
 export * from './features';

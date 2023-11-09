@@ -3,6 +3,8 @@
 import { ColumnDef } from '@tanstack/react-table';
 import React from 'react';
 import { Component, ReactElement, ReactNode } from 'react';
+import { UseFormReturn } from 'react-hook-form';
+import { z } from 'zod';
 
 export interface AIPoweredInsights {
 	/**
@@ -10728,6 +10730,11 @@ export type SolomonProps = {
 	apiToken: string;
 	model: OpenAIModel;
 	componentType: ComponentType;
+	temperature: number;
+	top_p: number;
+	frequency_penalty: number;
+	presence_penalty: number;
+	max_tokens: number;
 };
 export type ComponentType = "SHEET" | "DIALOG";
 /**
@@ -10773,9 +10780,14 @@ export type ChatProps = {
 	model: OpenAIModel;
 	userName: string;
 	userAccount: UserAccount;
+	temperature: number;
+	top_p: number;
+	frequency_penalty: number;
+	presence_penalty: number;
+	max_tokens: number;
 };
 export declare const initialAnalyticMessage: ChatGPTMessage[];
-export declare const Chat: ({ baseContext, sampleQuestions, secondaryContext, className, instrumentationCallback, apiToken, model, userName, userAccount, }: ChatProps) => import("react/jsx-runtime").JSX.Element;
+export declare const Chat: ({ baseContext, sampleQuestions, secondaryContext, className, instrumentationCallback, apiToken, model, userName, userAccount, temperature, top_p, frequency_penalty, presence_penalty, max_tokens, }: ChatProps) => import("react/jsx-runtime").JSX.Element;
 export declare const EmbeddedContextPickerComponent: React.FC<{
 	className?: string;
 	messages: ChatGPTMessage[];
@@ -10783,6 +10795,238 @@ export declare const EmbeddedContextPickerComponent: React.FC<{
 	setContextCallback: (context: ContextTypes) => void;
 	baseContext: ContextTypes;
 	contextFamily: ContextTypes[];
+}>;
+declare const smartGoalSchema: z.ZodObject<{
+	currentAmount: z.ZodOptional<z.ZodString>;
+	description: z.ZodString;
+	duration: z.ZodOptional<z.ZodString>;
+	endDate: z.ZodString;
+	forecasts: z.ZodOptional<z.ZodArray<z.ZodObject<{
+		forecastedAmount: z.ZodOptional<z.ZodString>;
+		forecastedCompletionDate: z.ZodOptional<z.ZodString>;
+		id: z.ZodOptional<z.ZodString>;
+		varianceAmount: z.ZodOptional<z.ZodString>;
+	}, "strip", z.ZodTypeAny, {
+		forecastedAmount?: string | undefined;
+		forecastedCompletionDate?: string | undefined;
+		id?: string | undefined;
+		varianceAmount?: string | undefined;
+	}, {
+		forecastedAmount?: string | undefined;
+		forecastedCompletionDate?: string | undefined;
+		id?: string | undefined;
+		varianceAmount?: string | undefined;
+	}>, "many">>;
+	goalType: z.ZodEnum<[
+		"GOAL_TYPE_SAVINGS",
+		"GOAL_TYPE_INVESTMENT",
+		"GOAL_TYPE_DEBT",
+		"GOAL_TYPE_EXPENSE"
+	]>;
+	id: z.ZodOptional<z.ZodString>;
+	isCompleted: z.ZodOptional<z.ZodBoolean>;
+	milestones: z.ZodOptional<z.ZodArray<z.ZodObject<{
+		budget: z.ZodOptional<z.ZodObject<{
+			category: z.ZodOptional<z.ZodObject<{
+				id: z.ZodOptional<z.ZodString>;
+				name: z.ZodString;
+				description: z.ZodString;
+				subcategories: z.ZodArray<z.ZodString, "many">;
+			}, "strip", z.ZodTypeAny, {
+				name: string;
+				description: string;
+				subcategories: string[];
+				id?: string | undefined;
+			}, {
+				name: string;
+				description: string;
+				subcategories: string[];
+				id?: string | undefined;
+			}>>;
+			description: z.ZodString;
+			endDate: z.ZodString;
+			id: z.ZodOptional<z.ZodString>;
+			name: z.ZodString;
+			startDate: z.ZodString;
+		}, "strip", z.ZodTypeAny, {
+			name: string;
+			description: string;
+			endDate: string;
+			startDate: string;
+			category?: {
+				name: string;
+				description: string;
+				subcategories: string[];
+				id?: string | undefined;
+			} | undefined;
+			id?: string | undefined;
+		}, {
+			name: string;
+			description: string;
+			endDate: string;
+			startDate: string;
+			category?: {
+				name: string;
+				description: string;
+				subcategories: string[];
+				id?: string | undefined;
+			} | undefined;
+			id?: string | undefined;
+		}>>;
+		description: z.ZodString;
+		id: z.ZodOptional<z.ZodString>;
+		isCompleted: z.ZodOptional<z.ZodBoolean>;
+		name: z.ZodString;
+		targetAmount: z.ZodString;
+		targetDate: z.ZodString;
+	}, "strip", z.ZodTypeAny, {
+		name: string;
+		description: string;
+		targetAmount: string;
+		targetDate: string;
+		budget?: {
+			name: string;
+			description: string;
+			endDate: string;
+			startDate: string;
+			category?: {
+				name: string;
+				description: string;
+				subcategories: string[];
+				id?: string | undefined;
+			} | undefined;
+			id?: string | undefined;
+		} | undefined;
+		id?: string | undefined;
+		isCompleted?: boolean | undefined;
+	}, {
+		name: string;
+		description: string;
+		targetAmount: string;
+		targetDate: string;
+		budget?: {
+			name: string;
+			description: string;
+			endDate: string;
+			startDate: string;
+			category?: {
+				name: string;
+				description: string;
+				subcategories: string[];
+				id?: string | undefined;
+			} | undefined;
+			id?: string | undefined;
+		} | undefined;
+		id?: string | undefined;
+		isCompleted?: boolean | undefined;
+	}>, "many">>;
+	name: z.ZodString;
+	startDate: z.ZodString;
+	targetAmount: z.ZodString;
+	userId: z.ZodOptional<z.ZodString>;
+}, "strip", z.ZodTypeAny, {
+	name: string;
+	description: string;
+	endDate: string;
+	startDate: string;
+	targetAmount: string;
+	goalType: "GOAL_TYPE_SAVINGS" | "GOAL_TYPE_INVESTMENT" | "GOAL_TYPE_DEBT" | "GOAL_TYPE_EXPENSE";
+	currentAmount?: string | undefined;
+	duration?: string | undefined;
+	forecasts?: {
+		forecastedAmount?: string | undefined;
+		forecastedCompletionDate?: string | undefined;
+		id?: string | undefined;
+		varianceAmount?: string | undefined;
+	}[] | undefined;
+	id?: string | undefined;
+	isCompleted?: boolean | undefined;
+	milestones?: {
+		name: string;
+		description: string;
+		targetAmount: string;
+		targetDate: string;
+		budget?: {
+			name: string;
+			description: string;
+			endDate: string;
+			startDate: string;
+			category?: {
+				name: string;
+				description: string;
+				subcategories: string[];
+				id?: string | undefined;
+			} | undefined;
+			id?: string | undefined;
+		} | undefined;
+		id?: string | undefined;
+		isCompleted?: boolean | undefined;
+	}[] | undefined;
+	userId?: string | undefined;
+}, {
+	name: string;
+	description: string;
+	endDate: string;
+	startDate: string;
+	targetAmount: string;
+	goalType: "GOAL_TYPE_SAVINGS" | "GOAL_TYPE_INVESTMENT" | "GOAL_TYPE_DEBT" | "GOAL_TYPE_EXPENSE";
+	currentAmount?: string | undefined;
+	duration?: string | undefined;
+	forecasts?: {
+		forecastedAmount?: string | undefined;
+		forecastedCompletionDate?: string | undefined;
+		id?: string | undefined;
+		varianceAmount?: string | undefined;
+	}[] | undefined;
+	id?: string | undefined;
+	isCompleted?: boolean | undefined;
+	milestones?: {
+		name: string;
+		description: string;
+		targetAmount: string;
+		targetDate: string;
+		budget?: {
+			name: string;
+			description: string;
+			endDate: string;
+			startDate: string;
+			category?: {
+				name: string;
+				description: string;
+				subcategories: string[];
+				id?: string | undefined;
+			} | undefined;
+			id?: string | undefined;
+		} | undefined;
+		id?: string | undefined;
+		isCompleted?: boolean | undefined;
+	}[] | undefined;
+	userId?: string | undefined;
+}>;
+export type SmartGoalZodSchema = z.infer<typeof smartGoalSchema>;
+export type FormReturnProps = UseFormReturn<SmartGoalZodSchema, any, undefined>;
+export declare const BankAccountSelector: React.FC<{
+	accounts: BankAccount[];
+	selectedAccount?: BankAccount;
+	setSelectedAccount: (account: BankAccount) => void;
+}>;
+export declare const MultiStepSmartGoalForm: React.FC<{
+	className?: string;
+	callback: (smartGoal: SmartGoal) => void;
+	bankAccounts: BankAccount[];
+	userName: string;
+	userProfileImage: string;
+	globalFinancialContext: MelodyFinancialContext;
+	userAccount: UserAccountClass;
+	instrumentationCallback?: () => void;
+	userId: string;
+	apiToken: string;
+	model: OpenAIModel;
+	temperature: number;
+	top_p: number;
+	frequency_penalty: number;
+	presence_penalty: number;
+	max_tokens: number;
 }>;
 
 export {};

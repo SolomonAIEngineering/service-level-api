@@ -36,7 +36,7 @@ Default.args = {
   frequency_penalty: 0,
   presence_penalty: 0,
   max_tokens: 800,
-  apiToken: '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',
+  apiToken: '',
 
   // ...other props
 };

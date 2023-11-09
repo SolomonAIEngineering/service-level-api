@@ -1,6 +1,5 @@
 // Chat.stories.tsx
 import { Story, Meta } from '@storybook/react';
-import { Chat, ChatProps } from './AIChat';
 import { JSX } from 'react/jsx-runtime';
 import { UserAccountClass } from 'src/types';
 import { AskSolomonAILayout, SolomonProps } from './AskAILayout';
@@ -13,12 +12,6 @@ export default {
 const Template: Story<SolomonProps> = (
   args: JSX.IntrinsicAttributes & SolomonProps,
 ) => <AskSolomonAILayout {...args} />;
-
-// You would replace the following props with actual valid props that your component expects.
-const baseContextMock = {
-  contextName: 'finance',
-  context: {}, // Your context object here
-};
 
 const sampleQuestionsMock = [
   'How can I improve my savings?',
@@ -36,7 +29,7 @@ Default.args = {
   frequency_penalty: 0,
   presence_penalty: 0,
   max_tokens: 800,
-  apiToken: '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',
+  apiToken: '',
   componentType: 'DIALOG',
 
   // ...other props
@@ -53,7 +46,7 @@ Secondary.args = {
   frequency_penalty: 0,
   presence_penalty: 0,
   max_tokens: 800,
-  apiToken: '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',
+  apiToken: '',
   componentType: 'SHEET',
 
   // ...other props

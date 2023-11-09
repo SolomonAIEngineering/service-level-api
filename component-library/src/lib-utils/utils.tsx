@@ -374,3 +374,39 @@ export const convertToReadablePersonalInsightName = (
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
     .join(' ');
 };
+
+
+/**
+ * Capitalizes the first letter of each word in a sentence while keeping the rest of the words in lowercase.
+ *
+ * @param {string} sentence - The input sentence to be capitalized.
+ * @returns {string} A new string with the first letter of each word capitalized.
+ *
+ * @example
+ * const sentence = "this is a sample sentence";
+ * const capitalizedSentence = capitalizeFirstLetterOfWords(sentence);
+ * console.log(capitalizedSentence); // Output: "This Is A Sample Sentence"
+ */
+export function capitalizeFirstLetterOfWords(sentence: string): string {
+  const words = sentence.split(" ");
+  const capitalizedWords = words.map((word) => {
+    if (word.length === 0) {
+      return word; // Return an empty word as is
+    }
+    const firstLetter = word.charAt(0).toUpperCase();
+    const restOfString = word.slice(1).toLowerCase();
+    return firstLetter + restOfString;
+  });
+  return capitalizedWords.join(" ");
+}
+
+/**
+ * Checks if the provided object has no own properties.
+ *
+ * @param obj - The object to check.
+ * @returns True if the object is empty; otherwise, false.
+ */
+/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+export function isEmptyObject(obj: Record<string, any>): boolean {
+  return Object.keys(obj).length === 0;
+}
