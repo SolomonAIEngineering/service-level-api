@@ -33,6 +33,7 @@ type Props = {
   header?: string;
   description?: string;
   onSubmit?: () => void;
+  isValid?: boolean;
 };
 
 export const MultiFormItem = ({
@@ -43,6 +44,7 @@ export const MultiFormItem = ({
   header,
   description,
   onSubmit,
+  isValid = true,
 }: Props) => {
   const [isLoading] = useState(false);
 
@@ -74,7 +76,7 @@ export const MultiFormItem = ({
           <>
             <Button
               onClick={() => setStep((prev) => prev + 1)}
-              // disabled={!isValid}
+              disabled={!isValid}
             >
               Next
             </Button>

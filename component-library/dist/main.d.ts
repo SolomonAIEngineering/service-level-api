@@ -10631,6 +10631,7 @@ export interface SidebarBasicProps {
 	userName: string;
 	userProfileImage: string;
 	className?: string;
+	disableImage?: boolean;
 }
 export declare const SidebarBasic: React.FC<SidebarBasicProps>;
 export interface SidebarSimpleProps {

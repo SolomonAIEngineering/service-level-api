@@ -50,6 +50,7 @@ export const CategoryForm: React.FC<BaseFormProps<CategoryZodSchema>> = ({
           setStep={setStep}
           header="Lets Categorize This Goal!"
           description="Categorize Your Goal for Laser-Focused Progress"
+          isValid={form.formState.isValid}
         >
           <div className="space-y-8">
             <CategoryFormFieldName

@@ -7,6 +7,7 @@ export interface SidebarBasicProps {
   userName: string;
   userProfileImage: string;
   className?: string;
+  disableImage?: boolean;
 }
 
 export const SidebarBasic: React.FC<SidebarBasicProps> = ({
@@ -14,6 +15,7 @@ export const SidebarBasic: React.FC<SidebarBasicProps> = ({
   userName,
   userProfileImage,
   className,
+  disableImage,
 }) => {
   return (
     <Card
@@ -53,17 +55,19 @@ export const SidebarBasic: React.FC<SidebarBasicProps> = ({
             </ul>
           </li>
 
-          <li className="mt-auto -mx-6">
-            <div className="flex items-center px-6 py-3 text-sm font-semibold leading-6 text-white gap-x-4 hover:bg-black">
-              <img
-                className="w-8 h-8 bg-black rounded-full"
-                src={userProfileImage}
-                alt=""
-              />
-              <span className="sr-only">Your profile</span>
-              <span aria-hidden="true">{userName}</span>
-            </div>
-          </li>
+          {disableImage === false && (
+            <li className="mt-auto -mx-6">
+              <div className="flex items-center px-6 py-3 text-sm font-semibold leading-6 text-white gap-x-4 hover:bg-black">
+                <img
+                  className="w-8 h-8 bg-black rounded-full"
+                  src={userProfileImage}
+                  alt=""
+                />
+                <span className="sr-only">Your profile</span>
+                <span aria-hidden="true">{userName}</span>
+              </div>
+            </li>
+          )}
         </ul>
       </nav>
     </Card>

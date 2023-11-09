@@ -41,6 +41,7 @@ export const BudgetForm: React.FC<BaseFormProps<BudgetZodSchema>> = ({
         setStep={setStep}
         header="Cant achieve a financial milestone without a budget"
         description="Craft Your Financial Blueprint: Shape the Perfect Budget for a Prosperous Tomorrow"
+        isValid={form.formState.isValid}
       >
         <div className="flex flex-col gap-2 m-auto">
           <BudgetFormNameField

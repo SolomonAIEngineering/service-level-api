@@ -46,6 +46,7 @@ export const MilestoneForm: React.FC<BaseFormProps<MilestoneZodSchema>> = ({
           setStep={setStep}
           header="Milestones are pretty important. Lets Craft One"
           description="Chart Your Progress: Carve Out Your Pivotal Milestones on the Journey to Success!"
+          isValid={form.formState.isValid}
         >
           <div className="flex flex-col gap-4">
             <MilestoneFormNameFormField

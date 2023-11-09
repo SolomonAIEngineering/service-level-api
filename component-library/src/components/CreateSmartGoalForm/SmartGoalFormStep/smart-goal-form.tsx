@@ -41,6 +41,7 @@ export const SmartGoalForm: React.FC<BaseFormProps<SmartGoalZodSchema>> = ({
           setStep={setStep}
           header="Craft Your Ultimate Smart Goal"
           description="Unleash Your Vision: Strategically Craft Your Ultimate Smart Goal!"
+          isValid={form.formState.isValid}
         >
           <div className="space-y-8">
             <SmartGoalFormNameField
