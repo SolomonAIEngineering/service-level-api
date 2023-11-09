@@ -263,54 +263,44 @@ export const MultiStepCreateBusinessAccountForm: React.FC<{
           <Form {...form}>
             <form>
               {step === 1 && (
-                <div>
-                  <BusinessAccountOnBoardingStep1Form
-                    form={step1Form}
-                    variant={'first'}
-                    setStep={setStep}
-                  />
-                </div>
+                <BusinessAccountOnBoardingStep1Form
+                  form={step1Form}
+                  variant={'first'}
+                  setStep={setStep}
+                />
               )}
               {step === 2 && (
-                <div>
-                  <BusinessAccountOnBoardingStep2Form
-                    form={step2Form}
-                    variant={'middle'}
-                    setStep={setStep}
-                  />
-                </div>
+                <BusinessAccountOnBoardingStep2Form
+                  form={step2Form}
+                  variant={'middle'}
+                  setStep={setStep}
+                />
               )}
               {step === 3 && (
-                <div>
-                  <BusinessAccountOnBoardingStep3Form
-                    form={step3Form}
-                    variant={'middle'}
-                    setStep={setStep}
-                  />
-                </div>
+                <BusinessAccountOnBoardingStep3Form
+                  form={step3Form}
+                  variant={'middle'}
+                  setStep={setStep}
+                />
               )}{' '}
               {step === 4 && (
-                <div>
-                  <BusinessAccountOnBoardingStep4Form
-                    form={step4Form}
-                    variant={'middle'}
-                    setStep={setStep}
-                  />
-                </div>
+                <BusinessAccountOnBoardingStep4Form
+                  form={step4Form}
+                  variant={'middle'}
+                  setStep={setStep}
+                />
               )}
               {step === 5 && (
-                <div>
-                  <SubmitBusinessAccountOnboardingForm
-                    onSubmit={onSubmit}
-                    setStep={setStep}
-                    step1Form={step1Form}
-                    step2Form={step2Form}
-                    step3Form={step3Form}
-                    step4Form={step4Form}
-                    businessAccountFrom={form}
-                    variant={'last'}
-                  />
-                </div>
+                <SubmitBusinessAccountOnboardingForm
+                  onSubmit={onSubmit}
+                  setStep={setStep}
+                  step1Form={step1Form}
+                  step2Form={step2Form}
+                  step3Form={step3Form}
+                  step4Form={step4Form}
+                  businessAccountFrom={form}
+                  variant={'last'}
+                />
               )}
             </form>
           </Form>
