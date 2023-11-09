@@ -15,7 +15,7 @@ import {
 export const BusinessAccountOnBoardingStep4Form: React.FC<
   BusinessOnboardingBaseFormProps<Step4ZodSchema>
 > = ({ form, setStep, className, variant }) => (
-  <Card className={cn('w-fit p-[4%]', className)}>
+  <Card className={cn('w-fit p-[3%]', className)}>
     <Form {...form}>
       <BusinessAccountOnboardingMultiFormItem
         form={form}
