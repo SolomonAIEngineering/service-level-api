@@ -125,7 +125,7 @@ export const Step4ProfileImageField: React.FC<
       control={form.control}
       name="profileImage"
       /* eslint-disable-next-line @typescript-eslint/no-unused-vars  */
-      render={({}) => (
+      render={() => (
         <FormItem className="flex flex-col">
           <FormLabel className="text-lg font-bold">Avatar</FormLabel>
           <Accordion type="single">

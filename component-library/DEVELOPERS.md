@@ -137,7 +137,8 @@ Begin by creating `Button.tsx`:
 `src/components/Button/Button.tsx`
 
 ```tsx
-import React from 'react';
+import \* as React from 'react';
+
 
 export interface ButtonProps {
   label: string;
@@ -516,7 +517,8 @@ Lets add it! The simplest example to update `src/App.tsx` is:
 `src/App.tsx`
 
 ```tsx
-import React from 'react';
+import \* as React from 'react';
+
 import { Button } from '@alexeagleson/template-react-component-library';
 
 function App() {
@@ -557,7 +559,8 @@ Next we will indicate that these styles are meant to be applied on our button co
 `src/components/Button/Button.tsx`
 
 ```tsx
-import React from 'react';
+import \* as React from 'react';
+
 import './Button.css';
 
 export interface ButtonProps {
@@ -763,7 +766,8 @@ Inside of our Button directory, create a new file called `Button.test.tsx`
 `src/components/Button/Button.test.tsx`
 
 ```tsx
-import React from 'react';
+import \* as React from 'react';
+
 import { render } from '@testing-library/react';
 
 import Button from './Button';
@@ -887,7 +891,8 @@ Now let's create a simple story for our button. Create a new file in the `Button
 `src/components/Button/Button.stories.tsx`
 
 ```tsx
-import React from 'react';
+import \* as React from 'react';
+
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import Button from './Button';
 

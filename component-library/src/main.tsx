@@ -97,6 +97,9 @@ export * from './components/AI/Chat/AIChat';
 export * from './components/AI/Chat/ChatLine';
 export * from './components/AI/Chat/EmbeddedContextPicker';
 export * from './components/AI/Chat/InputMessage';
+export * from './components/SmartTextArea/smart-textarea';
+export * from './features/business/pages/ComplianceView/ComplianceView';
 
 export * from './components/CreateSmartGoalForm/CreateSmartGoalForm';
+export * from './components/CreateBusinessAccountForm/CreateBusinessAccountForm';
 export * from './features';

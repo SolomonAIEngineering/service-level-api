@@ -144,7 +144,7 @@ export class AccountsView<T extends CombinedAccounts> extends Component<
           ref={this.myRef}
         >
           {/** left column which will display most of account level data */}
-          <div className="md:col-span-3 gap-3">
+          <div className="gap-3 md:col-span-3">
             {/** we display the account statitic row first */}
             <AccountStatisticRow account={account} />
 
@@ -264,7 +264,7 @@ const GoalsAndMilestoneSection: React.FC<{
         <div className="flex flex-row flex-wrap">
           {/** TODO: compute the percentage of active goals and their completion */}
           {/** this is the list of goals */}
-          <div className="flex flex-row md:grid md:grid-cols-4 gap-2">
+          <div className="flex flex-row gap-2 md:grid md:grid-cols-4">
             {sortedGoals.map((goal, index) => {
               // If the goal name is undefined, return null to skip rendering
               if (!goal.name) return null;
@@ -331,7 +331,7 @@ const MilestoneSubSection: React.FC<{
         </Button>
       </div>
 
-      <div className="grid md:grid-cols-2 border rounded-xl">
+      <div className="grid border md:grid-cols-2 rounded-xl">
         <div className="p-[10%]">
           <Label className="pt-[5%] font-bold text-lg">
             {' '}
@@ -367,7 +367,7 @@ const AccountPocketsStatisticRow: React.FC<{
   if (pockets == undefined || pockets.length === 0) {
     return (
       <Label>
-        <div className="text-2xl font-base pb-4">
+        <div className="pb-4 text-2xl font-base">
           You have no pockets defined for this account
         </div>
       </Label>
@@ -379,7 +379,7 @@ const AccountPocketsStatisticRow: React.FC<{
       <Label>
         <div className="text-2xl font-semibold">Your Pockets</div>
       </Label>
-      <div className="md:grid md:grid-cols-2 gap-2">
+      <div className="gap-2 md:grid md:grid-cols-2">
         {pockets.map((pocket) => (
           <SimpleStatsCard
             title={formatPocketType(pocket.type ?? 'POCKET_TYPE_FUN_MONEY')}
@@ -406,7 +406,7 @@ const AccountStatisticRow: React.FC<{
   if (instanceOfBankAccount) {
     const bankAccount = account as BankAccountClass;
     return (
-      <div className="md:grid md:grid-cols-2 md:items-center gap-3">
+      <div className="gap-3 md:grid md:grid-cols-2 md:items-center">
         <SimpleStatsCard
           title={'Available Balance'}
           metric={bankAccount.balance}
@@ -424,7 +424,7 @@ const AccountStatisticRow: React.FC<{
   if (instanceOfCreditAccount) {
     const creditAccount = account as CreditAccountClass;
     return (
-      <div className="md:grid md:grid-cols-2 items-center gap-3">
+      <div className="items-center gap-3 md:grid md:grid-cols-2">
         <SimpleStatsCard
           title={'Last Payment Amount'}
           metric={creditAccount.lastPaymentAmount}
@@ -442,7 +442,7 @@ const AccountStatisticRow: React.FC<{
   if (instanceOfStudentLoanAccount) {
     const studentLoanAccount = account as StudentLoanAccountClass;
     return (
-      <div className="md:grid md:grid-cols-2 items-center gap-3">
+      <div className="items-center gap-3 md:grid md:grid-cols-2">
         <SimpleStatsCard
           title={'Last Payment Amount'}
           metric={studentLoanAccount.lastPaymentAmount}
@@ -460,7 +460,7 @@ const AccountStatisticRow: React.FC<{
   if (instanceOfInvestmentAccount) {
     const investmentAccount = account as InvestmentAccountClass;
     return (
-      <div className="md:grid md:grid-cols-2 items-center gap-3">
+      <div className="items-center gap-3 md:grid md:grid-cols-2">
         <SimpleStatsCard title={'Balance'} metric={investmentAccount.balance} />
         <SimpleStatsCard
           title={'Current Funds'}

@@ -1,4 +1,7 @@
-import { Tags } from 'src/data-contracts/user-service/data-contracts';
+import {
+  ProfileType,
+  Tags,
+} from 'src/data-contracts/user-service/data-contracts';
 
 import { IRequest } from './IRequest';
 
@@ -10,6 +13,8 @@ import { IRequest } from './IRequest';
  * @class UserRegistrationAccountDetails
  * */
 export class UserRegistrationAccountDetails {
+  /** Enum indicating the type of profile (e.g., individual, corporate). */
+  accountType: ProfileType = 'PROFILE_TYPE_USER';
   /** account id */
   id = 0;
   /**
@@ -100,6 +105,7 @@ export class UserRegistrationAccountDetails {
       isEmailVerified: this.isEmailVerified,
       createdAt: this.createdAt ? this.createdAt.toISOString() : undefined,
       verifiedAt: this.verifiedAt ? this.verifiedAt.toISOString() : undefined,
+      accountType: this.accountType,
     };
   }
 }

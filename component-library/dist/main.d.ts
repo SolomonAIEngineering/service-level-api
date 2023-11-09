@@ -7733,6 +7733,8 @@ export declare class CheckUsernameExistsResponseClass extends ErrorResponse {
 	private fromPartial;
 }
 export declare class UserRegistrationAccountDetails {
+	/** Enum indicating the type of profile (e.g., individual, corporate). */
+	accountType: ProfileType;
 	/** account id */
 	id: number;
 	/**
@@ -7814,6 +7816,7 @@ export declare class UserRegistrationAccountDetails {
 		isEmailVerified: boolean;
 		createdAt: string | undefined;
 		verifiedAt: string | undefined;
+		accountType: ProfileType;
 	};
 }
 /**
@@ -7845,6 +7848,7 @@ export declare class CreateAccountRequestClass implements IRequest {
 			isEmailVerified: boolean;
 			createdAt: string | undefined;
 			verifiedAt: string | undefined;
+			accountType: ProfileType;
 		};
 		communityIdsToFollow: number[];
 		profileImage: string;
@@ -10771,6 +10775,7 @@ export type ContextTypes = {
 	contextName: string;
 	context: any;
 };
+export type AIAgentContext = "COMPLIANCE" | "FINANCIAL" | "RISK";
 export type ChatProps = {
 	baseContext: ContextTypes;
 	sampleQuestions: string[];
@@ -10780,15 +10785,16 @@ export type ChatProps = {
 	apiToken: string;
 	model: OpenAIModel;
 	userName: string;
-	userAccount: UserAccount;
+	userAccount: UserAccount | BusinessAccount;
 	temperature: number;
 	top_p: number;
 	frequency_penalty: number;
 	presence_penalty: number;
 	max_tokens: number;
+	agentContext?: AIAgentContext;
 };
 export declare const initialAnalyticMessage: ChatGPTMessage[];
-export declare const Chat: ({ baseContext, sampleQuestions, secondaryContext, className, instrumentationCallback, apiToken, model, userName, userAccount, temperature, top_p, frequency_penalty, presence_penalty, max_tokens, }: ChatProps) => import("react/jsx-runtime").JSX.Element;
+export declare const Chat: ({ baseContext, sampleQuestions, secondaryContext, className, instrumentationCallback, apiToken, model, userName, userAccount, temperature, top_p, frequency_penalty, presence_penalty, max_tokens, agentContext, }: ChatProps) => import("react/jsx-runtime").JSX.Element;
 export declare const EmbeddedContextPickerComponent: React.FC<{
 	className?: string;
 	messages: ChatGPTMessage[];
@@ -10797,6 +10803,40 @@ export declare const EmbeddedContextPickerComponent: React.FC<{
 	baseContext: ContextTypes;
 	contextFamily: ContextTypes[];
 }>;
+export interface SmartTextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+	context: any;
+	globalFinancialContext: MelodyFinancialContext;
+	sampleQuestions: string[];
+	enableGlobalContext?: boolean;
+	userId: string;
+	userName: string;
+	userAccount: UserAccount;
+	financialContext: MelodyFinancialContext;
+	instrumentationCallback?: () => void;
+	apiToken: string;
+	model: OpenAIModel;
+	temperature: number;
+	top_p: number;
+	frequency_penalty: number;
+	presence_penalty: number;
+	max_tokens: number;
+}
+export declare const SmartTextarea: React.ForwardRefExoticComponent<SmartTextareaProps & React.RefAttributes<HTMLTextAreaElement>>;
+export interface ComplianceViewProps {
+	navigation: StackedLayoutNavigationItem[];
+	subNavigation: StackedLayoutNavigationItem[];
+	account: BusinessAccount;
+	apiToken: string;
+	model: OpenAIModel;
+	temperature: number;
+	top_p: number;
+	frequency_penalty: number;
+	presence_penalty: number;
+	max_tokens: number;
+	globalContext: MelodyFinancialContext;
+	enableHeader: boolean;
+}
+export declare const ComplianceView: React.FC<ComplianceViewProps>;
 declare const smartGoalSchema: z.ZodObject<{
 	currentAmount: z.ZodOptional<z.ZodString>;
 	description: z.ZodString;
@@ -11028,6 +11068,11 @@ export declare const MultiStepSmartGoalForm: React.FC<{
 	frequency_penalty: number;
 	presence_penalty: number;
 	max_tokens: number;
+}>;
+export declare const MultiStepCreateBusinessAccountForm: React.FC<{
+	className?: string;
+	callback: (data: CreateAccountV2RequestClass) => void;
+	instrumentationCallback?: () => void;
 }>;
 
 export {};

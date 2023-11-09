@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { MelodyFinancialContext } from 'src/data-contracts/financial-service/data-contracts';
 
 import { cn } from 'src/lib-utils/utils';

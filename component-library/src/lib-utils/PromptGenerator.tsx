@@ -3,7 +3,10 @@
  */
 
 import { MelodyFinancialContext } from 'src/data-contracts/financial-service/data-contracts';
-import { UserAccount } from 'src/data-contracts/user-service/data-contracts';
+import {
+  BusinessAccount,
+  UserAccount,
+} from 'src/data-contracts/user-service/data-contracts';
 
 /**
  * IContextPrompt interface defines a contract for the PromptContext class.
@@ -36,7 +39,7 @@ class PromptContext implements IContextPrompt {
   /**
    * A private instance of UserAccount.
    */
-  private _userAccount: UserAccount = {};
+  private _userAccount: UserAccount | BusinessAccount = {};
 
   /**
    * The constructor of the PromptContext class.
@@ -45,7 +48,7 @@ class PromptContext implements IContextPrompt {
    */
   public constructor(
     globalContext: MelodyFinancialContext,
-    userAccount: UserAccount,
+    userAccount: UserAccount | BusinessAccount,
   ) {
     this._globalContext = globalContext;
     this._userAccount = userAccount;
@@ -96,6 +99,103 @@ class PromptContext implements IContextPrompt {
             in a personal fashion for ${userKey}. Be specific and give actionable solutions.
              Refer to the users financial context. Be sure to show citations. 
             `;
+    }
+  }
+
+  /**
+   * getComplianceAdvice method is used to provide compliance advice based on New York regulations and additional context.
+   * @param question The compliance question to be addressed.
+   * @param userKey The identifier for the small business seeking advice.
+   * @param additionalContext Additional context to tailor the compliance advice.
+   * @param isSmallBusiness Flag to determine if the user is a small business (always true for this method).
+   * @returns A string value representing the tailored compliance advice.
+   */
+  public getComplianceAdvice(
+    question: string,
+    userKey: string,
+    additionalContext?: string,
+    isSmallBusiness: boolean = true,
+  ): string {
+    if (additionalContext) {
+      const complianceContext: string =
+        JSON.stringify(additionalContext).trim();
+      const questionPrefix = `Given the New York compliance regulations 
+            ${this._globalContext}, and these additional 
+            details ${complianceContext}`;
+      return `${questionPrefix}, as a compliance officer specializing in small business regulations with 
+             a focus on New York state laws, provide personalized compliance guidance for ${userKey}: 
+             ${question}`;
+    }
+
+    // For small businesses, the isSmallBusiness flag is always true, but it's kept for consistency and future scalability
+    if (isSmallBusiness) {
+      return `
+          Given the New York compliance regulations
+          ${JSON.stringify(
+            this._globalContext,
+          )}, as a compliance officer specializing in small business regulations. Provide personalized 
+          compliance guidance for the following issue: ${question} 
+          for the small business identified by ${userKey}. Ensure your advice is specific to New York state laws 
+          and give practical steps for compliance. Reference any relevant legal texts or precedents where necessary. 
+          `;
+    } else {
+      return `
+          Given the New York compliance regulations
+          ${JSON.stringify(
+            this._globalContext,
+          )}, as a compliance officer specializing in small business regulations. Provide personalized 
+          compliance guidance for the following issue: ${question} 
+          for the small business identified by ${userKey}. Ensure your advice is specific to New York state laws 
+          and give practical steps for compliance. Reference any relevant legal texts or precedents where necessary. 
+          `;
+    }
+  }
+
+  /**
+   * getRiskAssessment method is used to provide risk assessment based on New York small business environment and additional context.
+   * @param question The risk-related question to be addressed.
+   * @param userKey The identifier for the small business seeking risk assessment.
+   * @param additionalContext Additional context to tailor the risk assessment.
+   * @param isSmallBusiness Flag to determine if the user is a small business (always true for this method).
+   * @returns A string value representing the tailored risk assessment.
+   */
+  public getRiskAssessment(
+    question: string,
+    userKey: string,
+    additionalContext?: string,
+    isSmallBusiness: boolean = true,
+  ): string {
+    if (additionalContext) {
+      const riskContext: string = JSON.stringify(additionalContext).trim();
+      const questionPrefix = `Considering the specific risks associated with small businesses in New York 
+            and the following additional details ${riskContext},`;
+      return `${questionPrefix} as a risk officer with expertise in the New York small business sector, provide a detailed 
+             risk assessment for ${userKey}: ${question}`;
+    }
+
+    // Since this method is specifically for small businesses, the isSmallBusiness flag is set to true by default
+    if (isSmallBusiness) {
+      return `
+          Considering the specific risks associated with small businesses in New York 
+          ${JSON.stringify(
+            this._globalContext,
+          )}, as a risk officer, conduct a thorough risk assessment for the issue: ${question} 
+          for the small business ${userKey}. Your assessment should include identification of potential risks, 
+          evaluation of their impact, and recommended mitigation strategies. Be sure to address the unique 
+          challenges that New York small businesses face. Reference relevant local regulations and industry standards 
+          as necessary.
+          `;
+    } else {
+      return `
+          Considering the specific risks associated with small businesses in New York 
+          ${JSON.stringify(
+            this._globalContext,
+          )}, as a risk officer, conduct a thorough risk assessment for the issue: ${question} 
+          for the small business ${userKey}. Your assessment should include identification of potential risks, 
+          evaluation of their impact, and recommended mitigation strategies. Be sure to address the unique 
+          challenges that New York small businesses face. Reference relevant local regulations and industry standards 
+          as necessary.
+          `;
     }
   }
 

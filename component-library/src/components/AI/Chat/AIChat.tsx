@@ -10,7 +10,10 @@ import { cn } from 'src/lib-utils/utils';
 import { PromptContext } from 'src/lib-utils/PromptGenerator';
 import { handler } from 'src/lib-utils/Stream';
 import { OpenAIModel } from 'src/components/AskSolomonAi/ChatHandler';
-import { UserAccount } from 'src/data-contracts/user-service/data-contracts';
+import {
+  BusinessAccount,
+  UserAccount,
+} from 'src/data-contracts/user-service/data-contracts';
 
 // default first message to display in UI (not necessary to define the prompt)
 export const initialMessages: ChatGPTMessage[] = [
@@ -36,6 +39,8 @@ export type ContextTypes = {
   context: any;
 };
 
+type AIAgentContext = 'COMPLIANCE' | 'FINANCIAL' | 'RISK';
+
 export type ChatProps = {
   baseContext: ContextTypes;
   sampleQuestions: string[];
@@ -45,12 +50,13 @@ export type ChatProps = {
   apiToken: string;
   model: OpenAIModel;
   userName: string;
-  userAccount: UserAccount;
+  userAccount: UserAccount | BusinessAccount;
   temperature: number;
   top_p: number;
   frequency_penalty: number;
   presence_penalty: number;
   max_tokens: number;
+  agentContext?: AIAgentContext;
 };
 
 export const initialAnalyticMessage: ChatGPTMessage[] = [
@@ -79,6 +85,7 @@ const Chat = ({
   frequency_penalty,
   presence_penalty,
   max_tokens,
+  agentContext,
 }: ChatProps) => {
   const [messages, setMessages] = useState<ChatGPTMessage[]>(initialMessages);
   const [input, setInput] = useState('');
@@ -98,8 +105,30 @@ const Chat = ({
       instrumentationCallback();
     }
 
-    const contextDrivenQuestion =
-      promptGenerator.getFinancialContextBasedPrompt(message);
+    let questionContext = '';
+    if (agentContext !== undefined) {
+      switch (agentContext) {
+        case 'COMPLIANCE':
+          questionContext = promptGenerator.getComplianceAdvice(
+            message,
+            userKey,
+          );
+          break;
+        case 'RISK':
+          questionContext = promptGenerator.getRiskAssessment(message, userKey);
+          break;
+        case 'FINANCIAL':
+          questionContext =
+            promptGenerator.getFinancialContextBasedPrompt(message);
+          break;
+        default:
+          questionContext =
+            promptGenerator.getFinancialContextBasedPrompt(message);
+          break;
+      }
+    } else {
+      questionContext = promptGenerator.getFinancialContextBasedPrompt(message);
+    }
 
     const newMessages = [
       ...messages,
@@ -109,7 +138,7 @@ const Chat = ({
     setMessages(newMessages);
     const last10messages = [
       ...newMessages.slice(-2),
-      { role: 'user', content: contextDrivenQuestion } as ChatGPTMessage,
+      { role: 'user', content: questionContext } as ChatGPTMessage,
     ]; // remember last 2 messages
 
     // TODO: wrap around a try catch block
