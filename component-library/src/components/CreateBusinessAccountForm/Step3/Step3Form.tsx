@@ -1,38 +1,52 @@
 import { BusinessOnboardingBaseFormProps } from '../base';
-import { Step3ZodSchema } from '../zod-schema';
-import { cn } from 'src/lib-utils/utils';
-import { Card } from 'src/components/ui/card';
-import { Form } from 'src/components/ui/form';
+import { BusinessAccountZodSchema } from '../zod-schema';
+import { isEmptyObject } from 'src/lib-utils/utils';
 import { BusinessAccountOnboardingMultiFormItem } from '../BusinessAccountOnboardingFormItem';
-import {
-  Step3AddressField,
-  Step3CityField,
-  Step3StateField,
-  Step3UnitField,
-  Step3ZipCodeField,
-} from './Step3Field';
+import { Textarea } from 'src/components/ui/textarea';
 
 export const BusinessAccountOnBoardingStep3Form: React.FC<
-  BusinessOnboardingBaseFormProps<Step3ZodSchema>
-> = ({ form, setStep, className, variant }) => (
-  <Card className={cn('w-fit p-[3%]', className)}>
-    <Form {...form}>
-      <BusinessAccountOnboardingMultiFormItem
-        form={form}
-        variant={variant}
-        setStep={setStep}
-        header="Keep Your Business On Track"
-        description="Tell Us Where Your Business Operates"
-        isValid={form.formState.isValid}
-      >
-        <div className="flex flex-col m-auto space-y-5">
-          <Step3AddressField form={form} />
-          <Step3CityField form={form} />
-          <Step3StateField form={form} />
-          <Step3ZipCodeField form={form} />
-          <Step3UnitField form={form} />{' '}
-        </div>
-      </BusinessAccountOnboardingMultiFormItem>
-    </Form>
-  </Card>
-);
+  BusinessOnboardingBaseFormProps<BusinessAccountZodSchema>
+> = ({ setStep, className, variant, register, errors, getValue }) => {
+  const isValid = () => {
+    if (
+      (isEmptyObject(errors) &&
+        (getValue('address.address') === '' ||
+          getValue('address.city') === '' ||
+          getValue('address.state') === '' ||
+          getValue('address.unit') === '' ||
+          getValue('address.zipcode') === '')) ||
+      !isEmptyObject(errors)
+    ) {
+      return false;
+    }
+    return true;
+  };
+
+  return (
+    <BusinessAccountOnboardingMultiFormItem
+      variant={variant}
+      setStep={setStep}
+      header="Keep Your Business On Track"
+      description="Tell Us Where Your Business Operates"
+      isValid={isValid()}
+      className={className}
+    >
+      <div className="flex flex-col m-auto space-y-5">
+        <Textarea placeholder="Address" {...register('address.address')} />
+        {errors.address?.address && (
+          <span>{errors.address?.address.message}</span>
+        )}
+        <Textarea placeholder="City" {...register('address.city')} />
+        {errors.address?.city && <span>{errors.address?.city.message}</span>}
+        <Textarea placeholder="State" {...register('address.state')} />
+        {errors.address?.state && <span>{errors.address?.state.message}</span>}
+        <Textarea placeholder="Unit" {...register('address.unit')} />
+        {errors.address?.unit && <span>{errors.address?.unit.message}</span>}
+        <Textarea placeholder="Zip Code" {...register('address.zipcode')} />
+        {errors.address?.zipcode && (
+          <span>{errors.address?.zipcode.message}</span>
+        )}
+      </div>
+    </BusinessAccountOnboardingMultiFormItem>
+  );
+};

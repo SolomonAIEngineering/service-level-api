@@ -1,40 +1,67 @@
 import { BusinessOnboardingBaseFormProps } from '../base';
-import { Step2ZodSchema } from '../zod-schema';
-import { cn } from 'src/lib-utils/utils';
-import { Card } from 'src/components/ui/card';
-import { Form } from 'src/components/ui/form';
+import { BusinessAccountZodSchema } from '../zod-schema';
+import { isEmptyObject } from 'src/lib-utils/utils';
 import { BusinessAccountOnboardingMultiFormItem } from '../BusinessAccountOnboardingFormItem';
-import {
-  Step2PhoneNumberField,
-  Step2CompanyNameField,
-  Step2CompanyDescriptionField,
-  Step2CompanyWebsiteField,
-  Step2IndustryField,
-  Step2EstablishedField,
-} from './Step2Field';
+import { Textarea } from 'src/components/ui/textarea';
 
 export const BusinessAccountOnBoardingStep2Form: React.FC<
-  BusinessOnboardingBaseFormProps<Step2ZodSchema>
-> = ({ form, setStep, className, variant }) => (
-  <Card className={cn('w-fit p-[3%]', className)}>
-    <Form {...form}>
-      <BusinessAccountOnboardingMultiFormItem
-        form={form}
-        variant={variant}
-        setStep={setStep}
-        header="Your Business Matters"
-        description="Give Us Some More Information About Your Business"
-        isValid={form.formState.isValid}
-      >
-        <div className="flex flex-col m-auto space-y-5">
-          <Step2PhoneNumberField form={form} />
-          <Step2CompanyNameField form={form} />
-          <Step2CompanyDescriptionField form={form} />{' '}
-          <Step2CompanyWebsiteField form={form} />{' '}
-          <Step2IndustryField form={form} />{' '}
-          <Step2EstablishedField form={form} />{' '}
-        </div>
-      </BusinessAccountOnboardingMultiFormItem>
-    </Form>
-  </Card>
-);
+  BusinessOnboardingBaseFormProps<BusinessAccountZodSchema>
+> = ({ setStep, className, variant, register, getValue, errors }) => {
+  const isValid = () => {
+    if (
+      (isEmptyObject(errors) &&
+        (getValue('phoneNumber') === '' ||
+          getValue('companyName') === '' ||
+          getValue('companyDescription') === '' ||
+          getValue('companyWebsite') === '' ||
+          getValue('companyEstablished') === '')) ||
+      !isEmptyObject(errors)
+    ) {
+      return false;
+    }
+    return true;
+  };
+
+  return (
+    <BusinessAccountOnboardingMultiFormItem
+      variant={variant}
+      setStep={setStep}
+      header="Your Business Matters"
+      description="Give Us Some More Information About Your Business"
+      isValid={isValid()}
+      className={className}
+    >
+      <div className="flex flex-col m-auto space-y-5">
+        <Textarea placeholder="Phone Number" {...register('phoneNumber')} />
+        {errors.phoneNumber && <span>{errors.phoneNumber.message}</span>}
+        <Textarea placeholder="Company Name" {...register('companyName')} />
+        {errors.companyName && <span>{errors.companyName.message}</span>}
+
+        <Textarea
+          placeholder="Company Description"
+          {...register('companyDescription')}
+        />
+        {errors.companyDescription && (
+          <span>{errors.companyDescription.message}</span>
+        )}
+
+        <Textarea
+          placeholder="Company Website"
+          {...register('companyWebsite')}
+        />
+        {errors.companyWebsite && <span>{errors.companyWebsite.message}</span>}
+
+        <Textarea placeholder="Industry" {...register('industry')} />
+        {errors.industry && <span>{errors.industry.message}</span>}
+
+        <Textarea
+          placeholder="Company Established Date"
+          {...register('companyEstablished')}
+        />
+        {errors.companyEstablished && (
+          <span>{errors.companyEstablished.message}</span>
+        )}
+      </div>
+    </BusinessAccountOnboardingMultiFormItem>
+  );
+};

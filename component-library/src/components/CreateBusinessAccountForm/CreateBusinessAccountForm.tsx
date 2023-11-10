@@ -1,16 +1,5 @@
-import {
-  BusinessAccountZodSchema,
-  Step1Schema,
-  Step1ZodSchema,
-  Step2Schema,
-  Step2ZodSchema,
-  Step3Schema,
-  Step3ZodSchema,
-  Step4Schema,
-  Step4ZodSchema,
-  businessAccountSchema,
-} from './zod-schema';
-import { Form, useForm } from 'react-hook-form';
+import { BusinessAccountZodSchema, businessAccountSchema } from './zod-schema';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from '../ui/use-toast';
 import { CreateAccountV2RequestClass } from 'src/types/request-response/create-account-v2';
@@ -46,10 +35,10 @@ const defaultValues: Partial<BusinessAccountZodSchema> = {
   },
   bio: '',
   companyDescription: '',
-  companyEstablishedDate: '',
-  companyIndustryType: '',
+  companyEstablished: '',
+  industry: '',
   companyName: '',
-  companyWebsiteUrl: '',
+  companyWebsite: '',
   email: '',
   headline: '',
   id: '',
@@ -70,68 +59,22 @@ export const MultiStepCreateBusinessAccountForm: React.FC<{
   const [step, setStep] = useState(1);
 
   // The form gets al the state updates and preserves the state
-  const form = useForm<BusinessAccountZodSchema>({
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    getValues,
+    formState: { errors },
+  } = useForm<BusinessAccountZodSchema>({
     resolver: zodResolver(businessAccountSchema),
     defaultValues,
     mode: 'onChange',
   });
 
-  const step1Default: Partial<Step1ZodSchema> = {
-    headline: form.getValues('headline'),
-    bio: form.getValues('bio'),
-    tags: form.getValues('tags'),
-  };
-
-  const step1Form = useForm<Step1ZodSchema>({
-    resolver: zodResolver(Step1Schema),
-    defaultValues: step1Default,
-    mode: 'onChange',
-  });
-
-  const step2Default: Partial<Step2ZodSchema> = {
-    companyName: form.getValues('companyName'),
-    companyDescription: form.getValues('companyDescription'),
-    industry: form.getValues('companyIndustryType'),
-    companyWebsite: form.getValues('companyWebsiteUrl'),
-    companyEstablished: form.getValues('companyEstablishedDate'),
-  };
-
-  const step2Form = useForm<Step2ZodSchema>({
-    resolver: zodResolver(Step2Schema),
-    defaultValues: step2Default,
-    mode: 'onChange',
-  });
-
-  const addr = form.getValues('address') ?? {};
-  const step3Default: Partial<Step3ZodSchema> = {
-    address: addr.address,
-    city: addr.city,
-    state: addr.state,
-    zipcode: addr.zipcode,
-    unit: addr.unit,
-  };
-
-  const step3Form = useForm<Step3ZodSchema>({
-    resolver: zodResolver(Step3Schema),
-    defaultValues: step3Default,
-    mode: 'onChange',
-  });
-
-  const step4Default: Partial<Step4ZodSchema> = {
-    email: form.getValues('email'),
-    userName: form.getValues('username'),
-    password: form.getValues('password'),
-    confirmPassword: form.getValues('confirmPassword'),
-    profileImage: form.getValues('profileImage'),
-  };
-
-  const step4Form = useForm<Step4ZodSchema>({
-    resolver: zodResolver(Step4Schema),
-    defaultValues: step4Default,
-    mode: 'onChange',
-  });
-
-  const onSubmit = (data: BusinessAccountZodSchema) => {
+  const onSubmit: SubmitHandler<BusinessAccountZodSchema> = (
+    data: BusinessAccountZodSchema,
+  ) => {
+    console.log(data);
     // perform validations
     if (data.password !== data.confirmPassword) {
       // show error message
@@ -176,10 +119,10 @@ export const MultiStepCreateBusinessAccountForm: React.FC<{
       address: address,
       bio: data.bio,
       companyDescription: data.companyDescription,
-      companyEstablishedDate: data.companyEstablishedDate,
-      companyIndustryType: data.companyIndustryType,
+      companyEstablishedDate: data.companyEstablished,
+      companyIndustryType: data.industry,
       companyName: data.companyName,
-      companyWebsiteUrl: data.companyWebsiteUrl,
+      companyWebsiteUrl: data.companyWebsite,
       email: data.email,
       headline: data.headline,
       id: data.id,
@@ -260,50 +203,59 @@ export const MultiStepCreateBusinessAccountForm: React.FC<{
           />
         </div>
         <div className="w-[80%]">
-          <Form {...form}>
-            <form>
-              {step === 1 && (
-                <BusinessAccountOnBoardingStep1Form
-                  form={step1Form}
-                  variant={'first'}
-                  setStep={setStep}
-                />
-              )}
-              {step === 2 && (
-                <BusinessAccountOnBoardingStep2Form
-                  form={step2Form}
-                  variant={'middle'}
-                  setStep={setStep}
-                />
-              )}
-              {step === 3 && (
-                <BusinessAccountOnBoardingStep3Form
-                  form={step3Form}
-                  variant={'middle'}
-                  setStep={setStep}
-                />
-              )}{' '}
-              {step === 4 && (
-                <BusinessAccountOnBoardingStep4Form
-                  form={step4Form}
-                  variant={'middle'}
-                  setStep={setStep}
-                />
-              )}
-              {step === 5 && (
-                <SubmitBusinessAccountOnboardingForm
-                  onSubmit={onSubmit}
-                  setStep={setStep}
-                  step1Form={step1Form}
-                  step2Form={step2Form}
-                  step3Form={step3Form}
-                  step4Form={step4Form}
-                  businessAccountFrom={form}
-                  variant={'last'}
-                />
-              )}
-            </form>
-          </Form>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            {step === 1 && (
+              <BusinessAccountOnBoardingStep1Form
+                setValue={setValue}
+                getValue={getValues}
+                variant={'first'}
+                setStep={setStep}
+                register={register}
+                errors={errors}
+                className="p-[3%]"
+              />
+            )}
+            {step === 2 && (
+              <BusinessAccountOnBoardingStep2Form
+                setValue={setValue}
+                getValue={getValues}
+                variant={'middle'}
+                setStep={setStep}
+                register={register}
+                errors={errors}
+                className="p-[3%]"
+              />
+            )}
+            {step === 3 && (
+              <BusinessAccountOnBoardingStep3Form
+                setValue={setValue}
+                getValue={getValues}
+                variant={'middle'}
+                setStep={setStep}
+                register={register}
+                errors={errors}
+                className="p-[3%]"
+              />
+            )}{' '}
+            {step === 4 && (
+              <BusinessAccountOnBoardingStep4Form
+                setValue={setValue}
+                getValue={getValues}
+                variant={'middle'}
+                setStep={setStep}
+                register={register}
+                errors={errors}
+                className="p-[3%]"
+              />
+            )}
+            {step === 5 && (
+              <SubmitBusinessAccountOnboardingForm
+                setStep={setStep}
+                variant={'last'}
+                className="p-[3%]"
+              />
+            )}
+          </form>
         </div>
       </div>
     </Card>

@@ -7,24 +7,21 @@
 
 # [1.113.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.112.0...v1.113.0) (2023-11-09)
 
-
 ### Features
 
-* checkpoint ([a0a6e51](https://github.com/SolomonAIEngineering/service-level-api/commit/a0a6e519be05b4751d09606c26797fa47b4eccc2))
+- checkpoint ([a0a6e51](https://github.com/SolomonAIEngineering/service-level-api/commit/a0a6e519be05b4751d09606c26797fa47b4eccc2))
 
 # [1.112.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.111.0...v1.112.0) (2023-11-09)
 
-
 ### Features
 
-* checkpoint ([a21f902](https://github.com/SolomonAIEngineering/service-level-api/commit/a21f902cb8a65eefdf58a2772d91330b8eb30fee))
+- checkpoint ([a21f902](https://github.com/SolomonAIEngineering/service-level-api/commit/a21f902cb8a65eefdf58a2772d91330b8eb30fee))
 
 # [1.111.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.110.0...v1.111.0) (2023-11-09)
 
-
 ### Features
 
-* update codebase ([a0629ca](https://github.com/SolomonAIEngineering/service-level-api/commit/a0629ca7adc3da7021a70ae6b2c3727015db4713))
+- update codebase ([a0629ca](https://github.com/SolomonAIEngineering/service-level-api/commit/a0629ca7adc3da7021a70ae6b2c3727015db4713))
 
 # [1.110.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.109.0...v1.110.0) (2023-11-09)
 

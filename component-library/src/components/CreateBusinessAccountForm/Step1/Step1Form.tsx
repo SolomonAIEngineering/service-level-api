@@ -1,29 +1,38 @@
 import { BusinessOnboardingBaseFormProps } from '../base';
-import { Step1ZodSchema } from '../zod-schema';
-import { Step1BioField, Step1HeadlineField } from './Step1Field';
-import { cn } from 'src/lib-utils/utils';
-import { Card } from 'src/components/ui/card';
-import { Form } from 'src/components/ui/form';
+import { BusinessAccountZodSchema } from '../zod-schema';
 import { BusinessAccountOnboardingMultiFormItem } from '../BusinessAccountOnboardingFormItem';
+import { Textarea } from 'src/components/ui/textarea';
+import { isEmptyObject } from '../../../lib-utils/utils';
 
 export const BusinessAccountOnBoardingStep1Form: React.FC<
-  BusinessOnboardingBaseFormProps<Step1ZodSchema>
-> = ({ form, setStep, className, variant }) => (
-  <Card className={cn('w-fit p-[3%]', className)}>
-    <Form {...form}>
-      <BusinessAccountOnboardingMultiFormItem
-        form={form}
-        variant={variant}
-        setStep={setStep}
-        header="Welcome To Solomon AI"
-        description="Give A Brief Description Of Your Business"
-        isValid={form.formState.isValid}
-      >
-        <div className="flex flex-col m-auto space-y-5">
-          <Step1BioField form={form} />
-          <Step1HeadlineField form={form} />
-        </div>
-      </BusinessAccountOnboardingMultiFormItem>
-    </Form>
-  </Card>
-);
+  BusinessOnboardingBaseFormProps<BusinessAccountZodSchema>
+> = ({ setStep, className, variant, register, errors, getValue }) => {
+  const isValid = () => {
+    if (
+      (isEmptyObject(errors) && getValue('bio') === '') ||
+      getValue('headline') === '' ||
+      !isEmptyObject(errors)
+    ) {
+      return false;
+    }
+    return true;
+  };
+
+  return (
+    <BusinessAccountOnboardingMultiFormItem
+      variant={variant}
+      setStep={setStep}
+      header="Welcome To Solomon AI"
+      description="Give A Brief Description Of Your Business"
+      isValid={isValid()}
+      className={className}
+    >
+      <div className="flex flex-col m-auto space-y-5">
+        <Textarea placeholder="Bio" {...register('bio')} />{' '}
+        {errors.bio && <span>{errors.bio.message}</span>}
+        <Textarea placeholder="headline" {...register('headline')} />{' '}
+        {errors.headline && <span>{errors.headline.message}</span>}
+      </div>
+    </BusinessAccountOnboardingMultiFormItem>
+  );
+};

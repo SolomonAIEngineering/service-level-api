@@ -1,26 +1,7 @@
-import { UseFormReturn } from 'react-hook-form';
-import {
-  BusinessAccountZodSchema,
-  Step1ZodSchema,
-  Step2ZodSchema,
-  Step3ZodSchema,
-  Step4ZodSchema,
-} from './zod-schema';
 import { Dispatch, ReactNode, SetStateAction, useState } from 'react';
 import { HeaderSectionSimple } from '../HeaderSections';
 import { Button } from '../ui/button';
-
-type formProps =
-  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-  | UseFormReturn<Step1ZodSchema, any, undefined>
-  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-  | UseFormReturn<Step2ZodSchema, any, undefined>
-  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-  | UseFormReturn<Step3ZodSchema, any, undefined>
-  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-  | UseFormReturn<Step4ZodSchema, any, undefined>
-  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-  | UseFormReturn<BusinessAccountZodSchema, any, undefined>;
+import { cn } from 'src/lib-utils/utils';
 
 export type BusinessOnboardingMultiStepVariant = 'first' | 'middle' | 'last';
 
@@ -29,27 +10,25 @@ type Props = {
   buttonText?: string;
   children?: ReactNode;
   setStep: Dispatch<SetStateAction<number>>;
-  form: formProps;
   header?: string;
   description?: string;
-  onSubmit?: () => void;
   isValid?: boolean;
+  className?: string;
 };
 
 export const BusinessAccountOnboardingMultiFormItem = ({
   variant,
-  buttonText = 'Next step',
   setStep,
   children,
   header,
   description,
-  onSubmit,
   isValid = true,
+  className,
 }: Props) => {
   const [isLoading] = useState(false);
 
   return (
-    <div className="flex flex-col gap-y-5">
+    <div className={cn('flex flex-col gap-y-5', className)}>
       {header && description && (
         <HeaderSectionSimple
           title={header ?? ''}
@@ -83,16 +62,7 @@ export const BusinessAccountOnboardingMultiFormItem = ({
           </>
         )}
 
-        {variant === 'last' &&
-          (onSubmit !== undefined ? (
-            <Button
-              onClick={() => {
-                onSubmit();
-              }}
-            >
-              {'Confirm' || buttonText}
-            </Button>
-          ) : null)}
+        {variant === 'last' && <Button type="submit"> Submit </Button>}
       </div>
     </div>
   );
