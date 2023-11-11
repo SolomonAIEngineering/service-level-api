@@ -10,12 +10,16 @@ export const BusinessAccountOnBoardingStep3Form: React.FC<
   const isValid = () => {
     if (
       (isEmptyObject(errors) &&
-        (getValue('address.address') === '' ||
-          getValue('address.city') === '' ||
-          getValue('address.state') === '' ||
-          getValue('address.unit') === '' ||
-          getValue('address.zipcode') === '')) ||
-      !isEmptyObject(errors)
+        getValue('address.address') === '' &&
+        getValue('address.city') === '' &&
+        getValue('address.state') === '' &&
+        getValue('address.unit') === '' &&
+        getValue('address.zipcode') === '') ||
+      errors.address?.address !== undefined ||
+      errors.address?.city !== undefined ||
+      errors.address?.state !== undefined ||
+      errors.address?.unit !== undefined ||
+      errors.address?.zipcode !== undefined
     ) {
       return false;
     }

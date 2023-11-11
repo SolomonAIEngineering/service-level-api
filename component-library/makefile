@@ -4,6 +4,13 @@ new-component:
 storybook:
 	npm run storybook
 
-precommit:
-	npm run precommit
 	npm run build
+
+format:
+	npm run format
+
+lint:
+	npx eslint . --ext .ts,.tsx
+
+precommit: lint format
+	npm run precommit

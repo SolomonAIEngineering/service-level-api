@@ -9,20 +9,25 @@ import { Input } from 'src/components/ui/input';
 export const BusinessAccountOnBoardingStep4Form: React.FC<
   BusinessOnboardingBaseFormProps<BusinessAccountZodSchema>
 > = ({ setValue, setStep, className, variant, register, errors, getValue }) => {
-  const isValid = () => {
-    if (
-      (isEmptyObject(errors) &&
-        (getValue('username') === '' ||
-          getValue('email') === '' ||
-          getValue('confirmPassword') === '' ||
-          getValue('password') === '' ||
-          getValue('profileImage') === '')) ||
-      !isEmptyObject(errors)
-    ) {
-      return false;
-    }
-    return true;
-  };
+    const isValid = () => {
+      console.log(getValue('profileImage'));
+      if (
+        (isEmptyObject(errors) &&
+          getValue('confirmPassword') === '' &&
+          getValue('username') === '' &&
+          getValue('email') === '' &&
+          getValue('password') === '' &&
+          getValue('profileImage') === '') ||
+        errors.confirmPassword !== undefined ||
+        errors.username !== undefined ||
+        errors.email !== undefined ||
+        errors.password !== undefined ||
+        errors.profileImage !== undefined
+      ) {
+        return false;
+      }
+      return true;
+    };
 
   return (
     <BusinessAccountOnboardingMultiFormItem

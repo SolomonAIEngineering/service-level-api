@@ -74,7 +74,6 @@ export const MultiStepCreateBusinessAccountForm: React.FC<{
   const onSubmit: SubmitHandler<BusinessAccountZodSchema> = (
     data: BusinessAccountZodSchema,
   ) => {
-    console.log(data);
     // perform validations
     if (data.password !== data.confirmPassword) {
       // show error message
@@ -192,13 +191,13 @@ export const MultiStepCreateBusinessAccountForm: React.FC<{
 
   return (
     <Card className={cn('p-[2%] w-full', className)}>
-      <div className="flex flex-row gap-2">
+      <div className="flex flex-col gap-2 md:flex-row">
         <div className="w-[20%]">
           <SidebarBasic
             navigationItems={SmartGoalNavigationItem}
             userName={''}
             userProfileImage={''}
-            className="h-full "
+            className="flex-row hidden h-full md:block md:flex-col"
             disableImage={true}
           />
         </div>

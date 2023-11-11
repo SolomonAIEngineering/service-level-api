@@ -106,7 +106,9 @@ export const businessAccountSchema = z.object({
   bio: z.string().min(10, {
     message: 'Please provide a bio.',
   }),
-  tags: z.array(tagsSchema).optional(),
+  tags: z.array(tagsSchema).min(3, {
+    message: 'Please select at least three interests.',
+  }),
   id: z.string().optional(),
   isActive: z.boolean().optional(),
   isEmailVerified: z.boolean().optional(),

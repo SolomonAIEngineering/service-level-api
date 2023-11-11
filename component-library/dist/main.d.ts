@@ -7,287 +7,303 @@ import { UseFormReturn } from 'react-hook-form';
 import { z } from 'zod';
 
 export interface AIPoweredInsights {
-	/**
-	 * List of areas of interest for insights
-	 * List of areas for insights
-	 */
-	areasOfInterest?: Array<string>;
-	/** True if user agrees to share data for insights */
-	dataSharing?: boolean;
-	/**
-	 * address id
-	 * @format uint64
-	 */
-	id?: string;
-	insightFrequency?: Frequency;
+  /**
+   * List of areas of interest for insights
+   * List of areas for insights
+   */
+  areasOfInterest?: Array<string>;
+  /** True if user agrees to share data for insights */
+  dataSharing?: boolean;
+  /**
+   * address id
+   * @format uint64
+   */
+  id?: string;
+  insightFrequency?: Frequency;
 }
 export interface AccountInformation {
-	businessName?: string;
-	businessRegistrationNumber?: string;
-	businessType?: BusinessType;
-	contactInfo?: ContactInformation;
-	/**
-	 * address id
-	 * @format uint64
-	 */
-	id?: string;
+  businessName?: string;
+  businessRegistrationNumber?: string;
+  businessType?: BusinessType;
+  contactInfo?: ContactInformation;
+  /**
+   * address id
+   * @format uint64
+   */
+  id?: string;
 }
 /** Address: represents an account's address */
 export interface Address {
-	/**
-	 * the address field
-	 * Validations:
-	 * - must be at least 5 character long (meaning cannot be empty)
-	 * @example "1234 5th Ave"
-	 */
-	address?: string;
-	/**
-	 * the city
-	 * Validations:
-	 * - must be at least 3 characters long (meaning cannot be empty)
-	 * @example "New York"
-	 */
-	city?: string;
-	/**
-	 * address id
-	 * @format uint64
-	 */
-	id?: string;
-	/**
-	 * latittude
-	 * Validations: None - can be empty
-	 * @example "40.123456"
-	 */
-	lattitude?: string;
-	/**
-	 * longitude
-	 * Validations: None - can be empty
-	 * @example "-73.987654"
-	 */
-	longitude?: string;
-	/**
-	 * the state/municipality
-	 * Validations
-	 * - must be at least 2 characters long
-	 * @example "New York"
-	 */
-	state?: string;
-	/**
-	 * the unit if the address is an apartment
-	 * Validations:
-	 * - must be at least 1 character long (meaning cannot be empty)
-	 * @example "Apt 1"
-	 */
-	unit?: string;
-	/**
-	 * the address zipcode
-	 * Validations:
-	 * - must be exactly 5 characters this is to ensure the client inputs the proper zip code
-	 * @example "12345"
-	 */
-	zipcode?: string;
+  /**
+   * the address field
+   * Validations:
+   * - must be at least 5 character long (meaning cannot be empty)
+   * @example "1234 5th Ave"
+   */
+  address?: string;
+  /**
+   * the city
+   * Validations:
+   * - must be at least 3 characters long (meaning cannot be empty)
+   * @example "New York"
+   */
+  city?: string;
+  /**
+   * address id
+   * @format uint64
+   */
+  id?: string;
+  /**
+   * latittude
+   * Validations: None - can be empty
+   * @example "40.123456"
+   */
+  lattitude?: string;
+  /**
+   * longitude
+   * Validations: None - can be empty
+   * @example "-73.987654"
+   */
+  longitude?: string;
+  /**
+   * the state/municipality
+   * Validations
+   * - must be at least 2 characters long
+   * @example "New York"
+   */
+  state?: string;
+  /**
+   * the unit if the address is an apartment
+   * Validations:
+   * - must be at least 1 character long (meaning cannot be empty)
+   * @example "Apt 1"
+   */
+  unit?: string;
+  /**
+   * the address zipcode
+   * Validations:
+   * - must be exactly 5 characters this is to ensure the client inputs the proper zip code
+   * @example "12345"
+   */
+  zipcode?: string;
 }
 /** BusinessAccount represents a business account within the context of solomon-ai. */
 export interface BusinessAccount {
-	/** The type of profile associated with the business account (e.g., individual, corporate). */
-	accountType?: ProfileType;
-	/** Physical address associated with the business account. */
-	address?: Address;
-	/**
-	 * Identifier for the associated authentication service account.
-	 * @format uint64
-	 */
-	authnAccountId?: string;
-	/**
-	 * Short description of the business account. Maximum of 200 characters.
-	 * @example "sample description"
-	 */
-	bio?: string;
-	/** Settings specific to the business account. */
-	businessAccountSettings?: BusinessAccountSettings;
-	/**
-	 * Description of the company associated with the business account.
-	 * @example "We help businesses succeed"
-	 */
-	companyDescription?: string;
-	/** Date when the company associated with the business account was established. */
-	companyEstablishedDate?: string;
-	/**
-	 * Industry type of the company associated with the business account.
-	 * @example "fintech"
-	 */
-	companyIndustryType?: string;
-	/**
-	 * Name of the company associated with the business account.
-	 * @example "Solomon AI"
-	 */
-	companyName?: string;
-	/**
-	 * Website URL of the company associated with the business account.
-	 * @example "https://solomon-ai.io"
-	 */
-	companyWebsiteUrl?: string;
-	/**
-	 * Timestamp indicating when the business account was created.
-	 * @format date-time
-	 */
-	createdAt?: string;
-	/**
-	 * Email associated with the business account.
-	 * @example "example@gmail.com"
-	 */
-	email?: string;
-	/**
-	 * Headline for the profile of the business account.
-	 * @example "sample headline"
-	 */
-	headline?: string;
-	/**
-	 * Unique identifier for the business account.
-	 * @format uint64
-	 */
-	id?: string;
-	/**
-	 * Indicates whether the business account is active.
-	 * @example true
-	 */
-	isActive?: boolean;
-	/**
-	 * Indicates whether the email associated with the business account has been verified.
-	 * @example false
-	 */
-	isEmailVerified?: boolean;
-	/**
-	 * Indicates whether the business account is private.
-	 * @example false
-	 */
-	isPrivate?: boolean;
-	/**
-	 * Phone number associated with the business account.
-	 * @example "6513424124"
-	 */
-	phoneNumber?: string;
-	/** Tags associated with the business account. Between 1 and 10 tags are allowed. */
-	tags?: Array<Tags>;
-	/**
-	 * Username for the business account. Must be at least 10 characters long.
-	 * @example "testuser9696"
-	 */
-	username?: string;
-	/**
-	 * Timestamp indicating when the email for the business account was verified.
-	 * @format date-time
-	 */
-	verifiedAt?: string;
+  /** The type of profile associated with the business account (e.g., individual, corporate). */
+  accountType?: ProfileType;
+  /** Physical address associated with the business account. */
+  address?: Address;
+  /**
+   * Identifier for the associated authentication service account.
+   * @format uint64
+   */
+  authnAccountId?: string;
+  /**
+   * Short description of the business account. Maximum of 200 characters.
+   * @example "sample description"
+   */
+  bio?: string;
+  /** Settings specific to the business account. */
+  businessAccountSettings?: BusinessAccountSettings;
+  /**
+   * Description of the company associated with the business account.
+   * @example "We help businesses succeed"
+   */
+  companyDescription?: string;
+  /** Date when the company associated with the business account was established. */
+  companyEstablishedDate?: string;
+  /**
+   * Industry type of the company associated with the business account.
+   * @example "fintech"
+   */
+  companyIndustryType?: string;
+  /**
+   * Name of the company associated with the business account.
+   * @example "Solomon AI"
+   */
+  companyName?: string;
+  /**
+   * Website URL of the company associated with the business account.
+   * @example "https://solomon-ai.io"
+   */
+  companyWebsiteUrl?: string;
+  /**
+   * Timestamp indicating when the business account was created.
+   * @format date-time
+   */
+  createdAt?: string;
+  /**
+   * Email associated with the business account.
+   * @example "example@gmail.com"
+   */
+  email?: string;
+  /**
+   * Headline for the profile of the business account.
+   * @example "sample headline"
+   */
+  headline?: string;
+  /**
+   * Unique identifier for the business account.
+   * @format uint64
+   */
+  id?: string;
+  /**
+   * Indicates whether the business account is active.
+   * @example true
+   */
+  isActive?: boolean;
+  /**
+   * Indicates whether the email associated with the business account has been verified.
+   * @example false
+   */
+  isEmailVerified?: boolean;
+  /**
+   * Indicates whether the business account is private.
+   * @example false
+   */
+  isPrivate?: boolean;
+  /**
+   * Phone number associated with the business account.
+   * @example "6513424124"
+   */
+  phoneNumber?: string;
+  /** Tags associated with the business account. Between 1 and 10 tags are allowed. */
+  tags?: Array<Tags>;
+  /**
+   * Username for the business account. Must be at least 10 characters long.
+   * @example "testuser9696"
+   */
+  username?: string;
+  /**
+   * Timestamp indicating when the email for the business account was verified.
+   * @format date-time
+   */
+  verifiedAt?: string;
 }
 /** Business Account Settings */
 export interface BusinessAccountSettings {
-	accountInformation?: AccountInformation;
-	aiPoweredInsights?: AIPoweredInsights;
-	financialPreferences?: FinancialPreferences;
-	/**
-	 * address id
-	 * @format uint64
-	 */
-	id?: string;
-	integrationSettings?: IntegrationSettings;
-	notificationSettings?: NotificationSettings;
+  accountInformation?: AccountInformation;
+  aiPoweredInsights?: AIPoweredInsights;
+  financialPreferences?: FinancialPreferences;
+  /**
+   * address id
+   * @format uint64
+   */
+  id?: string;
+  integrationSettings?: IntegrationSettings;
+  notificationSettings?: NotificationSettings;
 }
 /** @default "BUSINESS_TYPE_UNSPECIFIED" */
-export type BusinessType = "BUSINESS_TYPE_UNSPECIFIED" | "BUSINESS_TYPE_SOLE_PROPRIETORSHIP" | "BUSINESS_TYPE_PARTNERSHIP" | "BUSINESS_TYPE_LLC" | "BUSINESS_TYPE_CORPORATION" | "BUSINESS_TYPE_OTHER";
+export type BusinessType =
+  | 'BUSINESS_TYPE_UNSPECIFIED'
+  | 'BUSINESS_TYPE_SOLE_PROPRIETORSHIP'
+  | 'BUSINESS_TYPE_PARTNERSHIP'
+  | 'BUSINESS_TYPE_LLC'
+  | 'BUSINESS_TYPE_CORPORATION'
+  | 'BUSINESS_TYPE_OTHER';
 export interface ContactInformation {
-	address?: string;
-	email?: string;
-	/**
-	 * address id
-	 * @format uint64
-	 */
-	id?: string;
-	phoneNumber?: string;
+  address?: string;
+  email?: string;
+  /**
+   * address id
+   * @format uint64
+   */
+  id?: string;
+  phoneNumber?: string;
 }
 /**
  * CreateUserV2Request: Represents the request object invoked against the user
  * service to create a user account
  */
 export interface CreateUserV2Request {
-	/** BusinessAccount represents a business account within the context of solomon-ai. */
-	businessAccount?: BusinessAccount;
-	/**
-	 * set of community IDs to follow
-	 * Validations:
-	 * - at least 0 and at most 20 community ids supported at one time
-	 */
-	communityIdsToFollow?: Array<string>;
-	/**
-	 * The password  of the user
-	 * Validations:
-	 * - must be a at least 10 characters long
-	 * @example "tesdfkdkfhsdgd"
-	 */
-	password: string;
-	/**
-	 * The profile image of the user
-	 * Validations:
-	 * - must be a valid URI
-	 * @example "lksdjhfgsdhfghdsgfhgdh.com"
-	 */
-	profileImage: string;
-	/** @brief Represents a user account in the context of simfinni. */
-	userAccount?: UserAccount;
+  /** BusinessAccount represents a business account within the context of solomon-ai. */
+  businessAccount?: BusinessAccount;
+  /**
+   * set of community IDs to follow
+   * Validations:
+   * - at least 0 and at most 20 community ids supported at one time
+   */
+  communityIdsToFollow?: Array<string>;
+  /**
+   * The password  of the user
+   * Validations:
+   * - must be a at least 10 characters long
+   * @example "tesdfkdkfhsdgd"
+   */
+  password: string;
+  /**
+   * The profile image of the user
+   * Validations:
+   * - must be a valid URI
+   * @example "lksdjhfgsdhfghdsgfhgdh.com"
+   */
+  profileImage: string;
+  /** @brief Represents a user account in the context of simfinni. */
+  userAccount?: UserAccount;
 }
 /**
  * CreateUserResponse: Represents the response object returned as a response to
  * the `create-user` request
  */
 export interface CreateUserV2Response {
-	/** @format uint64 */
-	userId?: string;
+  /** @format uint64 */
+  userId?: string;
 }
 /** @default "DASHBOARD_WIDGET_TRANSACTIONS_UNSPECIFIED" */
-export type DashboardWidget = "DASHBOARD_WIDGET_TRANSACTIONS_UNSPECIFIED" | "DASHBOARD_WIDGET_TRANSACTIONS_OVERVIEW" | "DASHBOARD_WIDGET_INVESTMENT_SUMMARY" | "DASHBOARD_WIDGET_MONTHLY_SPENDING_REPORT" | "DASHBOARD_WIDGET_SAVINGS_TRACKER" | "DASHBOARD_WIDGET_CREDIT_SCORE_MONITOR";
+export type DashboardWidget =
+  | 'DASHBOARD_WIDGET_TRANSACTIONS_UNSPECIFIED'
+  | 'DASHBOARD_WIDGET_TRANSACTIONS_OVERVIEW'
+  | 'DASHBOARD_WIDGET_INVESTMENT_SUMMARY'
+  | 'DASHBOARD_WIDGET_MONTHLY_SPENDING_REPORT'
+  | 'DASHBOARD_WIDGET_SAVINGS_TRACKER'
+  | 'DASHBOARD_WIDGET_CREDIT_SCORE_MONITOR';
 export interface FinancialPreferences {
-	currencyPreference?: string;
-	financialYearStart?: string;
-	/**
-	 * address id
-	 * @format uint64
-	 */
-	id?: string;
-	taxSettings?: TaxSettings;
+  currencyPreference?: string;
+  financialYearStart?: string;
+  /**
+   * address id
+   * @format uint64
+   */
+  id?: string;
+  taxSettings?: TaxSettings;
 }
 /**
  * frequency by which insights should be generated
  * @default "FREQUENCY_UNSPECIFIED"
  */
-export type Frequency = "FREQUENCY_UNSPECIFIED" | "FREQUENCY_DAILY" | "FREQUENCY_WEEKLY" | "FREQUENCY_MONTHLY";
+export type Frequency =
+  | 'FREQUENCY_UNSPECIFIED'
+  | 'FREQUENCY_DAILY'
+  | 'FREQUENCY_WEEKLY'
+  | 'FREQUENCY_MONTHLY';
 export interface IntegrationSettings {
-	/** wether to enable linking bank account for account */
-	bankAccountLinking?: boolean;
-	/**
-	 * address id
-	 * @format uint64
-	 */
-	id?: string;
-	/**
-	 * list of supported third party apps of interest
-	 * List of connected third-party apps
-	 */
-	thirdPartyApps?: Array<string>;
+  /** wether to enable linking bank account for account */
+  bankAccountLinking?: boolean;
+  /**
+   * address id
+   * @format uint64
+   */
+  id?: string;
+  /**
+   * list of supported third party apps of interest
+   * List of connected third-party apps
+   */
+  thirdPartyApps?: Array<string>;
 }
 export interface NotificationSettings {
-	/** True if user wants to be alerted for anomalies */
-	alerts?: boolean;
-	/**
-	 * address id
-	 * @format uint64
-	 */
-	id?: string;
-	/**
-	 * - TYPE_EMAIL: email based notification
-	 *  - TYPE_SMS: sms based notification
-	 *  - TYPE_IN_APP: app based notification
-	 */
-	notificationType?: NotificationSettingsType;
+  /** True if user wants to be alerted for anomalies */
+  alerts?: boolean;
+  /**
+   * address id
+   * @format uint64
+   */
+  id?: string;
+  /**
+   * - TYPE_EMAIL: email based notification
+   *  - TYPE_SMS: sms based notification
+   *  - TYPE_IN_APP: app based notification
+   */
+  notificationType?: NotificationSettingsType;
 }
 /**
  * type of enabled notification
@@ -296,153 +312,164 @@ export interface NotificationSettings {
  *  - TYPE_IN_APP: app based notification
  * @default "TYPE_UNSPECIFIED"
  */
-export type NotificationSettingsType = "TYPE_UNSPECIFIED" | "TYPE_EMAIL" | "TYPE_SMS" | "TYPE_IN_APP";
+export type NotificationSettingsType =
+  | 'TYPE_UNSPECIFIED'
+  | 'TYPE_EMAIL'
+  | 'TYPE_SMS'
+  | 'TYPE_IN_APP';
 /**
  * ProfileType: represents the type of account tied to a given profile
  * @default "PROFILE_TYPE_UNSPECIFIED"
  */
-export type ProfileType = "PROFILE_TYPE_UNSPECIFIED" | "PROFILE_TYPE_USER" | "PROFILE_TYPE_BUSINESS";
+export type ProfileType =
+  | 'PROFILE_TYPE_UNSPECIFIED'
+  | 'PROFILE_TYPE_USER'
+  | 'PROFILE_TYPE_BUSINESS';
 /**
  * Investment preferences.
  * @default "RISK_TOLERANCE_UNSPECIFIED"
  */
-export type RiskTolerance = "RISK_TOLERANCE_UNSPECIFIED" | "RISK_TOLERANCE_LOW" | "RISK_TOLERANCE_MEDIUM" | "RISK_TOLERANCE_HIGH";
+export type RiskTolerance =
+  | 'RISK_TOLERANCE_UNSPECIFIED'
+  | 'RISK_TOLERANCE_LOW'
+  | 'RISK_TOLERANCE_MEDIUM'
+  | 'RISK_TOLERANCE_HIGH';
 /** Tags: represents metadata tags associated to an account */
 export interface Tags {
-	/**
-	 * tag id
-	 * @format uint64
-	 */
-	id?: string;
-	/**
-	 * metadata associated with tag
-	 * validations:
-	 * - must provide between 1 and 10 metadata tags
-	 * @example ["testmetadata1","testmetadata2"]
-	 */
-	metadata?: Array<string>;
-	/**
-	 * description of tag
-	 * validations:
-	 * - cannot be empty
-	 * - must be at least 10 characters long
-	 * @example "testtagdescription"
-	 */
-	tagDescription?: string;
-	/**
-	 * name of tag
-	 * validations:
-	 * - cannot be empty
-	 * - must be at least 3 characters long
-	 * @example "testtagname"
-	 */
-	tagName?: string;
+  /**
+   * tag id
+   * @format uint64
+   */
+  id?: string;
+  /**
+   * metadata associated with tag
+   * validations:
+   * - must provide between 1 and 10 metadata tags
+   * @example ["testmetadata1","testmetadata2"]
+   */
+  metadata?: Array<string>;
+  /**
+   * description of tag
+   * validations:
+   * - cannot be empty
+   * - must be at least 10 characters long
+   * @example "testtagdescription"
+   */
+  tagDescription?: string;
+  /**
+   * name of tag
+   * validations:
+   * - cannot be empty
+   * - must be at least 3 characters long
+   * @example "testtagname"
+   */
+  tagName?: string;
 }
 export interface TaxSettings {
-	/**
-	 * address id
-	 * @format uint64
-	 */
-	id?: string;
-	taxCode?: string;
-	/** @format double */
-	taxPercentage?: number;
+  /**
+   * address id
+   * @format uint64
+   */
+  id?: string;
+  taxCode?: string;
+  /** @format double */
+  taxPercentage?: number;
 }
 /**
  * Display and interaction preferences.
  * @default "THEME_UNSPECIFIED"
  */
-export type Theme = "THEME_UNSPECIFIED" | "THEME_LIGHT" | "THEME_DARK";
+export type Theme = 'THEME_UNSPECIFIED' | 'THEME_LIGHT' | 'THEME_DARK';
 /** @brief Represents a user account in the context of simfinni. */
 export interface UserAccount {
-	/** Enum indicating the type of profile (e.g., individual, corporate). */
-	accountType?: ProfileType;
-	/** Physical address associated with the user. */
-	address?: Address;
-	/**
-	 * ID for the authentication service linked to this account.
-	 * @format uint64
-	 */
-	authnAccountId?: string;
-	/** Brief description about the user, up to 200 characters. */
-	bio?: string;
-	/**
-	 * Timestamp for when the account was created.
-	 * @format date-time
-	 */
-	createdAt?: string;
-	/**
-	 * Email associated with the user account.
-	 * @example "sample@example.com"
-	 */
-	email?: string;
-	/** User's first name. */
-	firstname?: string;
-	/** Short headline for the user's profile. */
-	headline?: string;
-	/**
-	 * Unique identifier for the account.
-	 * @format uint64
-	 */
-	id?: string;
-	/** Indicates if the account is currently active. */
-	isActive?: boolean;
-	/** Indicates if the user's email has been verified. */
-	isEmailVerified?: boolean;
-	/** Indicates if the account is set to private. */
-	isPrivate?: boolean;
-	/** User's last name. */
-	lastname?: string;
-	/** Phone number associated with the account. */
-	phoneNumber?: string;
-	/** Tags associated with the user account, between 1 and 10. */
-	tags?: Array<Tags>;
-	/** Settings specific to the user account. */
-	userSettings?: UserSettings;
-	/**
-	 * Username associated with the account, minimum of 10 characters.
-	 * @example "testuser9696"
-	 */
-	username?: string;
-	/**
-	 * Timestamp for when the email was verified.
-	 * @format date-time
-	 */
-	verifiedAt?: string;
+  /** Enum indicating the type of profile (e.g., individual, corporate). */
+  accountType?: ProfileType;
+  /** Physical address associated with the user. */
+  address?: Address;
+  /**
+   * ID for the authentication service linked to this account.
+   * @format uint64
+   */
+  authnAccountId?: string;
+  /** Brief description about the user, up to 200 characters. */
+  bio?: string;
+  /**
+   * Timestamp for when the account was created.
+   * @format date-time
+   */
+  createdAt?: string;
+  /**
+   * Email associated with the user account.
+   * @example "sample@example.com"
+   */
+  email?: string;
+  /** User's first name. */
+  firstname?: string;
+  /** Short headline for the user's profile. */
+  headline?: string;
+  /**
+   * Unique identifier for the account.
+   * @format uint64
+   */
+  id?: string;
+  /** Indicates if the account is currently active. */
+  isActive?: boolean;
+  /** Indicates if the user's email has been verified. */
+  isEmailVerified?: boolean;
+  /** Indicates if the account is set to private. */
+  isPrivate?: boolean;
+  /** User's last name. */
+  lastname?: string;
+  /** Phone number associated with the account. */
+  phoneNumber?: string;
+  /** Tags associated with the user account, between 1 and 10. */
+  tags?: Array<Tags>;
+  /** Settings specific to the user account. */
+  userSettings?: UserSettings;
+  /**
+   * Username associated with the account, minimum of 10 characters.
+   * @example "testuser9696"
+   */
+  username?: string;
+  /**
+   * Timestamp for when the email was verified.
+   * @format date-time
+   */
+  verifiedAt?: string;
 }
 /** User settings for the fintech application. */
 export interface UserSettings {
-	/** Display and interaction preferences. */
-	appTheme?: Theme;
-	/** Dashboard customization, e.g., specific widgets or reports. */
-	dashboardWidgets?: Array<DashboardWidget>;
-	/** Preferred date-time format. */
-	datetimeFormat?: string;
-	/** Currency preference. */
-	defaultCurrency?: string;
-	/** Notification preferences. */
-	emailNotifications?: boolean;
-	/** Option to share transaction history with friends/family. */
-	enableGoalJournal?: boolean;
-	/**
-	 * address id
-	 * @format uint64
-	 */
-	id?: string;
-	/** Investment preferences. */
-	investmentRiskTolerance?: RiskTolerance;
-	/** Language preference. */
-	preferredLanguage?: string;
-	/**
-	 * Privacy settings.
-	 *
-	 * Whether the user's profile is public.
-	 */
-	publicProfile?: boolean;
-	pushNotifications?: boolean;
-	smsNotifications?: boolean;
-	/** Two-factor authentication status. */
-	twoFactorAuthenticationEnabled?: boolean;
+  /** Display and interaction preferences. */
+  appTheme?: Theme;
+  /** Dashboard customization, e.g., specific widgets or reports. */
+  dashboardWidgets?: Array<DashboardWidget>;
+  /** Preferred date-time format. */
+  datetimeFormat?: string;
+  /** Currency preference. */
+  defaultCurrency?: string;
+  /** Notification preferences. */
+  emailNotifications?: boolean;
+  /** Option to share transaction history with friends/family. */
+  enableGoalJournal?: boolean;
+  /**
+   * address id
+   * @format uint64
+   */
+  id?: string;
+  /** Investment preferences. */
+  investmentRiskTolerance?: RiskTolerance;
+  /** Language preference. */
+  preferredLanguage?: string;
+  /**
+   * Privacy settings.
+   *
+   * Whether the user's profile is public.
+   */
+  publicProfile?: boolean;
+  pushNotifications?: boolean;
+  smsNotifications?: boolean;
+  /** Two-factor authentication status. */
+  twoFactorAuthenticationEnabled?: boolean;
 }
 /**
  * Represents a geographic address.
@@ -479,32 +506,32 @@ export interface UserSettings {
  * @property id - A unique identifier for the address.
  */
 export declare class AddressClass implements Address {
-	address?: string;
-	city?: string;
-	state?: string;
-	unit?: string;
-	zipcode?: string;
-	lattitude?: string;
-	longitude?: string;
-	id?: string;
-	/**
-	 * Initializes a new instance of the `Address` class.
-	 * @param [data] - The data used to populate the properties of the class.
-	 */
-	constructor(data?: Partial<Address>);
-	/**
-	 * Returns a formatted string of the full address.
-	 *
-	 * @example
-	 * ```ts
-	 * const location = new Address({address: "123 Main St", city: "Anytown", state: "CA", zipcode: "12345"});
-	 * console.log(location.getFullAddress()); // Outputs: "123 Main St, Anytown, CA 12345"
-	 * ```
-	 *
-	 * @returns The formatted address string.
-	 */
-	getFullAddress(): string;
-	static randomInstance(): Address;
+  address?: string;
+  city?: string;
+  state?: string;
+  unit?: string;
+  zipcode?: string;
+  lattitude?: string;
+  longitude?: string;
+  id?: string;
+  /**
+   * Initializes a new instance of the `Address` class.
+   * @param [data] - The data used to populate the properties of the class.
+   */
+  constructor(data?: Partial<Address>);
+  /**
+   * Returns a formatted string of the full address.
+   *
+   * @example
+   * ```ts
+   * const location = new Address({address: "123 Main St", city: "Anytown", state: "CA", zipcode: "12345"});
+   * console.log(location.getFullAddress()); // Outputs: "123 Main St, Anytown, CA 12345"
+   * ```
+   *
+   * @returns The formatted address string.
+   */
+  getFullAddress(): string;
+  static randomInstance(): Address;
 }
 /**
  * Represents a metadata tag.
@@ -538,231 +565,231 @@ export declare class AddressClass implements Address {
  * @author Yoan Yomba
  */
 export declare class TagClass implements Tags {
-	id?: string;
-	tagName?: string;
-	tagDescription?: string;
-	metadata?: string[];
-	/**
-	 * Initializes a new instance of the `Tag` class.
-	 * @param {Partial<Tag>} [data] - Data used to populate the properties of the class.
-	 */
-	constructor(data?: Partial<Tags>);
-	static randomInstance(): Tags;
-	/**
-	 * Fetches the tag's description or provides a default empty string if not set.
-	 * @returns The tag's description or an empty string.
-	 */
-	getDescription(): string;
-	/**
-	 * Fetches the tag's name or provides a default empty string if not set.
-	 * @returns The tag's name or an empty string.
-	 */
-	getName(): string;
-	/**
-	 * Fetches the tag's metadata or provides a default empty array if not set.
-	 * @returns The tag's metadata array or an empty array.
-	 */
-	getMetadata(): string[];
+  id?: string;
+  tagName?: string;
+  tagDescription?: string;
+  metadata?: string[];
+  /**
+   * Initializes a new instance of the `Tag` class.
+   * @param {Partial<Tag>} [data] - Data used to populate the properties of the class.
+   */
+  constructor(data?: Partial<Tags>);
+  static randomInstance(): Tags;
+  /**
+   * Fetches the tag's description or provides a default empty string if not set.
+   * @returns The tag's description or an empty string.
+   */
+  getDescription(): string;
+  /**
+   * Fetches the tag's name or provides a default empty string if not set.
+   * @returns The tag's name or an empty string.
+   */
+  getName(): string;
+  /**
+   * Fetches the tag's metadata or provides a default empty array if not set.
+   * @returns The tag's metadata array or an empty array.
+   */
+  getMetadata(): string[];
 }
 /**
  * Represents metadata associated with an error.
  * This might be directly from a service or part of an error response.
  */
 export declare class ErrorMetadata {
-	/**
-	 * An optional numeric code indicating the specific error.
-	 */
-	code?: number;
-	/**
-	 * An optional status string providing more context about the error's nature.
-	 */
-	status?: string;
-	/**
-	 * A more descriptive message explaining the error.
-	 */
-	message?: string;
-	/**
-	 * Detailed breakdown or additional information about the error.
-	 * This can be useful for debugging or for more granular client-side handling.
-	 */
-	details?: string[];
-	/**
-	 * Creates a new instance of ErrorMetadata.
-	 *
-	 * @param data - A partial structure representing ErrorMetadata. Used for initialization.
-	 */
-	constructor(data?: Partial<ErrorMetadata>);
+  /**
+   * An optional numeric code indicating the specific error.
+   */
+  code?: number;
+  /**
+   * An optional status string providing more context about the error's nature.
+   */
+  status?: string;
+  /**
+   * A more descriptive message explaining the error.
+   */
+  message?: string;
+  /**
+   * Detailed breakdown or additional information about the error.
+   * This can be useful for debugging or for more granular client-side handling.
+   */
+  details?: string[];
+  /**
+   * Creates a new instance of ErrorMetadata.
+   *
+   * @param data - A partial structure representing ErrorMetadata. Used for initialization.
+   */
+  constructor(data?: Partial<ErrorMetadata>);
 }
 /**
  * Represents an error response from the backend or service.
  */
 export declare class BackendError {
-	/**
-	 * Contains an array of error metadata detailing the specifics of the error(s).
-	 */
-	response: {
-		errors: ErrorMetadata[];
-	};
-	/**
-	 * Creates a new instance of BackendError.
-	 *
-	 * @param data - A partial structure representing BackendError. Used for initialization.
-	 */
-	constructor(data?: Partial<BackendError>);
+  /**
+   * Contains an array of error metadata detailing the specifics of the error(s).
+   */
+  response: {
+    errors: ErrorMetadata[];
+  };
+  /**
+   * Creates a new instance of BackendError.
+   *
+   * @param data - A partial structure representing BackendError. Used for initialization.
+   */
+  constructor(data?: Partial<BackendError>);
 }
 /**
  * Represents an error message that might include HTTP-specific details.
  */
 export declare class ErrorMessage {
-	/**
-	 * Contains the backend error details.
-	 */
-	http_body: BackendError;
-	/**
-	 * Represents the HTTP status code associated with this error.
-	 */
-	http_status_code: number;
-	/**
-	 * Creates a new instance of ErrorMessage.
-	 *
-	 * @param data - A partial structure representing ErrorMessage. Used for initialization.
-	 */
-	constructor(data?: Partial<ErrorMessage>);
+  /**
+   * Contains the backend error details.
+   */
+  http_body: BackendError;
+  /**
+   * Represents the HTTP status code associated with this error.
+   */
+  http_status_code: number;
+  /**
+   * Creates a new instance of ErrorMessage.
+   *
+   * @param data - A partial structure representing ErrorMessage. Used for initialization.
+   */
+  constructor(data?: Partial<ErrorMessage>);
 }
 /**
  * Represents a full error response, which may be returned to a client or user.
  */
 export declare class ErrorResponse {
-	/**
-	 * Contains the error message details including HTTP specifics.
-	 */
-	error_message: ErrorMessage;
-	/**
-	 * Creates a new instance of ErrorResponse.
-	 *
-	 * @param data - A partial structure representing ErrorResponse. Used for initialization.
-	 */
-	constructor(data?: Partial<ErrorResponse>);
+  /**
+   * Contains the error message details including HTTP specifics.
+   */
+  error_message: ErrorMessage;
+  /**
+   * Creates a new instance of ErrorResponse.
+   *
+   * @param data - A partial structure representing ErrorResponse. Used for initialization.
+   */
+  constructor(data?: Partial<ErrorResponse>);
 }
 /**
  * Account Balance History
  * This message is used to represent the balance history of an account.
  */
 export interface AccountBalanceHistory {
-	accountId?: string;
-	/** @format double */
-	balance?: number;
-	id?: string;
-	isoCurrencyCode?: string;
-	profileType?: FinancialUserProfileType;
-	/** @format int64 */
-	sign?: number;
-	/** @format date-time */
-	time?: string;
-	/** @format uint64 */
-	userId?: string;
+  accountId?: string;
+  /** @format double */
+  balance?: number;
+  id?: string;
+  isoCurrencyCode?: string;
+  profileType?: FinancialUserProfileType;
+  /** @format int64 */
+  sign?: number;
+  /** @format date-time */
+  time?: string;
+  /** @format uint64 */
+  userId?: string;
 }
 /**
  * An actionable insight serves as a basic insight users
  * can leverage and act upon and is typically generated based off of their financial contexts
  */
 export interface ActionableInsight {
-	/** for each user we generate a detailed actionable insights for them to see */
-	detailedAction?: string;
-	/**
-	 * the time the insight was generated
-	 * @format date-time
-	 */
-	generatedTime?: string;
-	/** @format uint64 */
-	id?: string;
-	/** for each user we generate a summarized insight targeted at optimizing a certain condition */
-	summarizedAction?: string;
-	/** associated tags with the generated insights */
-	tags?: Array<string>;
+  /** for each user we generate a detailed actionable insights for them to see */
+  detailedAction?: string;
+  /**
+   * the time the insight was generated
+   * @format date-time
+   */
+  generatedTime?: string;
+  /** @format uint64 */
+  id?: string;
+  /** for each user we generate a summarized insight targeted at optimizing a certain condition */
+  summarizedAction?: string;
+  /** associated tags with the generated insights */
+  tags?: Array<string>;
 }
 export type AddDefaultPocketsToBankAccountData = any;
 export interface AddDefaultPocketsToBankAccountRequest {
-	/**
-	 * The bank account id
-	 * Validations:
-	 * - bank_account_id must be greater than 0
-	 * @format uint64
-	 */
-	bankAccountId: string;
-	profileType: FinancialUserProfileType;
-	/**
-	 * The user id
-	 * Validations:
-	 * - user_id must be greater than 0
-	 * @format uint64
-	 */
-	userId: string;
+  /**
+   * The bank account id
+   * Validations:
+   * - bank_account_id must be greater than 0
+   * @format uint64
+   */
+  bankAccountId: string;
+  profileType: FinancialUserProfileType;
+  /**
+   * The user id
+   * Validations:
+   * - user_id must be greater than 0
+   * @format uint64
+   */
+  userId: string;
 }
 export interface AddDefaultPocketsToBankAccountResponse {
-	/** The bank account id */
-	bankAccount?: BankAccount;
+  /** The bank account id */
+  bankAccount?: BankAccount;
 }
 export type AddNoteToSmartGoalData = any;
 export interface AddNoteToSmartGoalRequest {
-	/**
-	 * The note to add
-	 * Validations:
-	 * - cannot be nil hence required
-	 */
-	note: SmartNote;
-	/**
-	 * The smart goal id
-	 * Validations:
-	 * - smart_goal_id must be greater than 0
-	 * @format uint64
-	 */
-	smartGoalId: string;
+  /**
+   * The note to add
+   * Validations:
+   * - cannot be nil hence required
+   */
+  note: SmartNote;
+  /**
+   * The smart goal id
+   * Validations:
+   * - smart_goal_id must be greater than 0
+   * @format uint64
+   */
+  smartGoalId: string;
 }
 export interface AddNoteToSmartGoalResponse {
-	/**
-	 * The smart goal id
-	 * SmartGoal: The Goals table stores information about each financial goal, including the name of the goal,
-	 * its description, the target amount of money the user wants to save or invest, and the expected date of completion.
-	 *
-	 * The Goals table also includes columns for the start date of the goal, the current amount of money saved or
-	 * invested towards the goal, and a boolean flag indicating whether the goal has been achieved.
-	 * These additional columns allow the user to track their progress towards the goal and see how much
-	 * more they need to save or invest to reach their target amount.
-	 */
-	goal?: SmartGoal;
+  /**
+   * The smart goal id
+   * SmartGoal: The Goals table stores information about each financial goal, including the name of the goal,
+   * its description, the target amount of money the user wants to save or invest, and the expected date of completion.
+   *
+   * The Goals table also includes columns for the start date of the goal, the current amount of money saved or
+   * invested towards the goal, and a boolean flag indicating whether the goal has been achieved.
+   * These additional columns allow the user to track their progress towards the goal and see how much
+   * more they need to save or invest to reach their target amount.
+   */
+  goal?: SmartGoal;
 }
 /** The Address object is used to represent a contact's or company's address. */
 export interface Address {
-	/** Line 1 of the address's street. */
-	street1?: string;
-	/** Line 2 of the address's street. */
-	street2?: string;
-	/** The address's city. */
-	city?: string;
-	/** The address's country. */
-	country?: string;
-	/**
-	 * country's subdivision
-	 * Typically, this might just be 'state' but used your field name to keep it consistent with the JSON
-	 */
-	countrySubdivision?: string;
-	/**
-	 * the database record's id
-	 * @format uint64
-	 */
-	id?: string;
-	/**
-	 * This is the datetime that this object was last updated by Merge
-	 * Consider using google.protobuf.Timestamp if precise time manipulation is required
-	 * @format date-time
-	 */
-	modifiedAt?: string;
-	/** The address's state or region. */
-	state?: string;
-	type?: string;
-	/** The address's zip code. */
-	zipCode?: string;
+  /** Line 1 of the address's street. */
+  street1?: string;
+  /** Line 2 of the address's street. */
+  street2?: string;
+  /** The address's city. */
+  city?: string;
+  /** The address's country. */
+  country?: string;
+  /**
+   * country's subdivision
+   * Typically, this might just be 'state' but used your field name to keep it consistent with the JSON
+   */
+  countrySubdivision?: string;
+  /**
+   * the database record's id
+   * @format uint64
+   */
+  id?: string;
+  /**
+   * This is the datetime that this object was last updated by Merge
+   * Consider using google.protobuf.Timestamp if precise time manipulation is required
+   * @format date-time
+   */
+  modifiedAt?: string;
+  /** The address's state or region. */
+  state?: string;
+  type?: string;
+  /** The address's zip code. */
+  zipCode?: string;
 }
 /**
  * `Any` contains an arbitrary serialized protocol buffer message along with a
@@ -849,200 +876,206 @@ export interface Address {
  *     }
  */
 export interface Any {
-	/**
-	 * A URL/resource name that uniquely identifies the type of the serialized
-	 * protocol buffer message. This string must contain at least
-	 * one "/" character. The last segment of the URL's path must represent
-	 * the fully qualified name of the type (as in
-	 * `path/google.protobuf.Duration`). The name should be in a canonical form
-	 * (e.g., leading "." is not accepted).
-	 *
-	 * In practice, teams usually precompile into the binary all types that they
-	 * expect it to use in the context of Any. However, for URLs which use the
-	 * scheme `http`, `https`, or no scheme, one can optionally set up a type
-	 * server that maps type URLs to message definitions as follows:
-	 *
-	 * * If no scheme is provided, `https` is assumed.
-	 * * An HTTP GET on the URL must yield a [google.protobuf.Type][]
-	 *   value in binary format, or produce an error.
-	 * * Applications are allowed to cache lookup results based on the
-	 *   URL, or have them precompiled into a binary to avoid any
-	 *   lookup. Therefore, binary compatibility needs to be preserved
-	 *   on changes to types. (Use versioned type names to manage
-	 *   breaking changes.)
-	 *
-	 * Note: this functionality is not currently available in the official
-	 * protobuf release, and it is not used for type URLs beginning with
-	 * type.googleapis.com.
-	 *
-	 * Schemes other than `http`, `https` (or the empty scheme) might be
-	 * used with implementation specific semantics.
-	 */
-	"@type"?: string;
-	[key: string]: any;
+  /**
+   * A URL/resource name that uniquely identifies the type of the serialized
+   * protocol buffer message. This string must contain at least
+   * one "/" character. The last segment of the URL's path must represent
+   * the fully qualified name of the type (as in
+   * `path/google.protobuf.Duration`). The name should be in a canonical form
+   * (e.g., leading "." is not accepted).
+   *
+   * In practice, teams usually precompile into the binary all types that they
+   * expect it to use in the context of Any. However, for URLs which use the
+   * scheme `http`, `https`, or no scheme, one can optionally set up a type
+   * server that maps type URLs to message definitions as follows:
+   *
+   * * If no scheme is provided, `https` is assumed.
+   * * An HTTP GET on the URL must yield a [google.protobuf.Type][]
+   *   value in binary format, or produce an error.
+   * * Applications are allowed to cache lookup results based on the
+   *   URL, or have them precompiled into a binary to avoid any
+   *   lookup. Therefore, binary compatibility needs to be preserved
+   *   on changes to types. (Use versioned type names to manage
+   *   breaking changes.)
+   *
+   * Note: this functionality is not currently available in the official
+   * protobuf release, and it is not used for type URLs beginning with
+   * type.googleapis.com.
+   *
+   * Schemes other than `http`, `https` (or the empty scheme) might be
+   * used with implementation specific semantics.
+   */
+  '@type'?: string;
+  [key: string]: any;
 }
 export interface Apr {
-	/** @format double */
-	balanceSubjectToApr?: number;
-	/** @format uint64 */
-	id?: string;
-	/** @format double */
-	interestChargeAmount?: number;
-	/** @format double */
-	percentage?: number;
-	type?: string;
+  /** @format double */
+  balanceSubjectToApr?: number;
+  /** @format uint64 */
+  id?: string;
+  /** @format double */
+  interestChargeAmount?: number;
+  /** @format double */
+  percentage?: number;
+  type?: string;
 }
 /** The AccountingAttachment object is used to represent a company's attachments. */
 export interface Attachments {
-	/** The company the accounting attachment belongs to. */
-	company?: string;
-	/** The attachment's name. */
-	fileName?: string;
-	/** The attachment's url. */
-	fileUrl?: string;
-	/** @format uint64 */
-	id?: string;
-	/** the object's id as stored in merge */
-	mergeAccountId?: string;
-	/**
-	 * This is the datetime that this object was last updated by Merge
-	 * @format date-time
-	 */
-	modifiedAt?: string;
-	/** The third-party API ID of the matching object. */
-	remoteId?: string;
-	/** Indicates whether or not this object has been deleted by third party webhooks. */
-	remoteWasDeleted?: boolean;
+  /** The company the accounting attachment belongs to. */
+  company?: string;
+  /** The attachment's name. */
+  fileName?: string;
+  /** The attachment's url. */
+  fileUrl?: string;
+  /** @format uint64 */
+  id?: string;
+  /** the object's id as stored in merge */
+  mergeAccountId?: string;
+  /**
+   * This is the datetime that this object was last updated by Merge
+   * @format date-time
+   */
+  modifiedAt?: string;
+  /** The third-party API ID of the matching object. */
+  remoteId?: string;
+  /** Indicates whether or not this object has been deleted by third party webhooks. */
+  remoteWasDeleted?: boolean;
 }
 /**
  * The BalanceSheet object shows a company’s assets, liabilities, and equity. Assets should be equal
  * to liability and equity combined.  This shows the company’s financial health at a specific point in time.
  */
 export interface BalanceSheet {
-	/** The balance sheet's total assets. */
-	assets?: Array<ReportItem>;
-	/**
-	 * Company object for the given BalanceSheet object. May not necessarily be the compnay name but the
-	 * company reference
-	 */
-	company?: string;
-	currency?: string;
-	/**
-	 * The balance sheet's date. The balance sheet data will
-	 *  reflect the company's financial position this point in time.
-	 *
-	 * Consider using google.protobuf.Timestamp
-	 * @format date-time
-	 */
-	date?: string;
-	/** The balance sheet's total equity. */
-	equity?: Array<ReportItem>;
-	/** @format uint64 */
-	id?: string;
-	/** The balance sheet's total liabilities. */
-	liabilities?: Array<ReportItem>;
-	/** the id as stored in merge */
-	mergeAccountId?: string;
-	/**
-	 * This is the datetime that this object was last updated by Merge
-	 * Consider using google.protobuf.Timestamp
-	 * @format date-time
-	 */
-	modifiedAt?: string;
-	/** The balance sheet's name. */
-	name?: string;
-	/**
-	 * The balance sheet's net assets.
-	 * @format int64
-	 */
-	netAssets?: string;
-	/**
-	 * The time that balance sheet was generated by the accounting system.
-	 *
-	 * Consider using google.protobuf.Timestamp
-	 * @format date-time
-	 */
-	remoteGeneratedAt?: string;
-	/** The third-party API ID of the matching object. */
-	remoteId?: string;
-	/** Indicates whether or not this object has been deleted by third party webhooks. */
-	remoteWasDeleted?: boolean;
+  /** The balance sheet's total assets. */
+  assets?: Array<ReportItem>;
+  /**
+   * Company object for the given BalanceSheet object. May not necessarily be the compnay name but the
+   * company reference
+   */
+  company?: string;
+  currency?: string;
+  /**
+   * The balance sheet's date. The balance sheet data will
+   *  reflect the company's financial position this point in time.
+   *
+   * Consider using google.protobuf.Timestamp
+   * @format date-time
+   */
+  date?: string;
+  /** The balance sheet's total equity. */
+  equity?: Array<ReportItem>;
+  /** @format uint64 */
+  id?: string;
+  /** The balance sheet's total liabilities. */
+  liabilities?: Array<ReportItem>;
+  /** the id as stored in merge */
+  mergeAccountId?: string;
+  /**
+   * This is the datetime that this object was last updated by Merge
+   * Consider using google.protobuf.Timestamp
+   * @format date-time
+   */
+  modifiedAt?: string;
+  /** The balance sheet's name. */
+  name?: string;
+  /**
+   * The balance sheet's net assets.
+   * @format int64
+   */
+  netAssets?: string;
+  /**
+   * The time that balance sheet was generated by the accounting system.
+   *
+   * Consider using google.protobuf.Timestamp
+   * @format date-time
+   */
+  remoteGeneratedAt?: string;
+  /** The third-party API ID of the matching object. */
+  remoteId?: string;
+  /** Indicates whether or not this object has been deleted by third party webhooks. */
+  remoteWasDeleted?: boolean;
 }
 export interface BankAccount {
-	/**
-	 * the bank account balance
-	 * @format float
-	 */
-	balance: number;
-	/** @format uint64 */
-	balanceLimit?: string;
-	/** the bank account currency */
-	currency: string;
-	/** @format double */
-	currentFunds: number;
-	/**
-	 * id
-	 * @format uint64
-	 */
-	id?: string;
-	/** the bank account name */
-	name: string;
-	/** the bank account number */
-	number: string;
-	/** plaid account id mapped to this bank account */
-	plaidAccountId?: string;
-	/**
-	 * the set of "virtualized accounts this user witholds"
-	 * NOTE: these pockets are automatically created by the system
-	 * when a user connects a bank account
-	 */
-	pockets?: Array<Pocket>;
-	/** the bank account status */
-	status?: BankAccountStatus;
-	/** account subtype */
-	subtype?: string;
-	/** the bank account type */
-	type: BankAccountType;
-	/**
-	 * the user id to which this bank account is tied to
-	 * @format uint64
-	 */
-	userId?: string;
+  /**
+   * the bank account balance
+   * @format float
+   */
+  balance: number;
+  /** @format uint64 */
+  balanceLimit?: string;
+  /** the bank account currency */
+  currency: string;
+  /** @format double */
+  currentFunds: number;
+  /**
+   * id
+   * @format uint64
+   */
+  id?: string;
+  /** the bank account name */
+  name: string;
+  /** the bank account number */
+  number: string;
+  /** plaid account id mapped to this bank account */
+  plaidAccountId?: string;
+  /**
+   * the set of "virtualized accounts this user witholds"
+   * NOTE: these pockets are automatically created by the system
+   * when a user connects a bank account
+   */
+  pockets?: Array<Pocket>;
+  /** the bank account status */
+  status?: BankAccountStatus;
+  /** account subtype */
+  subtype?: string;
+  /** the bank account type */
+  type: BankAccountType;
+  /**
+   * the user id to which this bank account is tied to
+   * @format uint64
+   */
+  userId?: string;
 }
 /** @default "BANK_ACCOUNT_STATUS_UNSPECIFIED" */
-export type BankAccountStatus = "BANK_ACCOUNT_STATUS_UNSPECIFIED" | "BANK_ACCOUNT_STATUS_ACTIVE" | "BANK_ACCOUNT_STATUS_INACTIVE";
+export type BankAccountStatus =
+  | 'BANK_ACCOUNT_STATUS_UNSPECIFIED'
+  | 'BANK_ACCOUNT_STATUS_ACTIVE'
+  | 'BANK_ACCOUNT_STATUS_INACTIVE';
 /** @default "BANK_ACCOUNT_TYPE_UNSPECIFIED" */
-export type BankAccountType = "BANK_ACCOUNT_TYPE_UNSPECIFIED" | "BANK_ACCOUNT_TYPE_PLAID" | "BANK_ACCOUNT_TYPE_MANUAL";
+export type BankAccountType =
+  | 'BANK_ACCOUNT_TYPE_UNSPECIFIED'
+  | 'BANK_ACCOUNT_TYPE_PLAID'
+  | 'BANK_ACCOUNT_TYPE_MANUAL';
 /**
  * The Budgets table stores information about each budget created by the user,
  * including the name of the budget, the start and end dates, and the user ID.
  */
 export interface Budget {
-	/**
-	 * category associated with the goal
-	 * The Categories table stores information about the different categories of expenses or income,
-	 * such as "Housing", "Food", "Transportation", and "Entertainment". Each category has one or more
-	 * subcategories, which are stored in the Subcategories table.
-	 *
-	 * For example, the "Housing" category might have subcategories for "Rent", "Utilities", and "Home Maintenance".
-	 */
-	category?: Category;
-	description?: string;
-	/** the time the goal was updated */
-	endDate?: string;
-	/**
-	 * id
-	 * @format uint64
-	 */
-	id?: string;
-	/**
-	 * The name of the budget
-	 * @minLength 10
-	 * @example "Buy a car"
-	 */
-	name?: string;
-	/** the time the goal was created */
-	startDate?: string;
+  /**
+   * category associated with the goal
+   * The Categories table stores information about the different categories of expenses or income,
+   * such as "Housing", "Food", "Transportation", and "Entertainment". Each category has one or more
+   * subcategories, which are stored in the Subcategories table.
+   *
+   * For example, the "Housing" category might have subcategories for "Rent", "Utilities", and "Home Maintenance".
+   */
+  category?: Category;
+  description?: string;
+  /** the time the goal was updated */
+  endDate?: string;
+  /**
+   * id
+   * @format uint64
+   */
+  id?: string;
+  /**
+   * The name of the budget
+   * @minLength 10
+   * @example "Buy a car"
+   */
+  name?: string;
+  /** the time the goal was created */
+  startDate?: string;
 }
 /**
  * The Account object is what companies use to track transactions.
@@ -1051,145 +1084,145 @@ export interface Budget {
  * Note: a company can have a multitude of these accounts
  */
 export interface BusinessChartOfAccounts {
-	/** The account's number. */
-	accountNumber?: string;
-	/**
-	 * The account's broadest grouping. Possible values include: ASSET, EQUITY, EXPENSE,
-	 * LIABILITY, REVENUE. In cases where there is no clear mapping, the original
-	 * value passed through will be returned.
-	 */
-	classification?: string;
-	/** The company the account belongs to. */
-	company?: string;
-	currency?: string;
-	/**
-	 * The account's current balance.
-	 * @format double
-	 */
-	currentBalance?: number;
-	/** The account's description. */
-	description?: string;
-	/**
-	 * the database record's id
-	 * @format uint64
-	 */
-	id?: string;
-	/** the account id as stored in merge-api. this is a required field */
-	mergeAccountId: string;
-	/**
-	 * This is the datetime that this object was last updated by Merge
-	 * @format date-time
-	 */
-	modifiedAt?: string;
-	/** The account's name. */
-	name?: string;
-	/** ID of the parent account. */
-	parentAccountId?: string;
-	/**
-	 * The third-party matching id for the object. For example, this field will be the id
-	 * as seen in quickbooks for a sample remote connection against quickbookks
-	 */
-	remoteId?: string;
-	/** Indicates whether or not this object has been deleted by third party webhooks. */
-	remoteWasDeleted?: boolean;
-	/**
-	 * The account's status. Possible values include: ACTIVE, PENDING, INACTIVE. In cases where there is
-	 *  no clear mapping, the original value passed through will be returned.
-	 */
-	status?: string;
-	/** The account's type is a narrower and more specific grouping within the account's classification. */
-	type?: string;
+  /** The account's number. */
+  accountNumber?: string;
+  /**
+   * The account's broadest grouping. Possible values include: ASSET, EQUITY, EXPENSE,
+   * LIABILITY, REVENUE. In cases where there is no clear mapping, the original
+   * value passed through will be returned.
+   */
+  classification?: string;
+  /** The company the account belongs to. */
+  company?: string;
+  currency?: string;
+  /**
+   * The account's current balance.
+   * @format double
+   */
+  currentBalance?: number;
+  /** The account's description. */
+  description?: string;
+  /**
+   * the database record's id
+   * @format uint64
+   */
+  id?: string;
+  /** the account id as stored in merge-api. this is a required field */
+  mergeAccountId: string;
+  /**
+   * This is the datetime that this object was last updated by Merge
+   * @format date-time
+   */
+  modifiedAt?: string;
+  /** The account's name. */
+  name?: string;
+  /** ID of the parent account. */
+  parentAccountId?: string;
+  /**
+   * The third-party matching id for the object. For example, this field will be the id
+   * as seen in quickbooks for a sample remote connection against quickbookks
+   */
+  remoteId?: string;
+  /** Indicates whether or not this object has been deleted by third party webhooks. */
+  remoteWasDeleted?: boolean;
+  /**
+   * The account's status. Possible values include: ACTIVE, PENDING, INACTIVE. In cases where there is
+   *  no clear mapping, the original value passed through will be returned.
+   */
+  status?: string;
+  /** The account's type is a narrower and more specific grouping within the account's classification. */
+  type?: string;
 }
 /**
  * The Transaction includes different types of transactions. The Transactions object does not cover expenses, credit notes,
  * vendor credit, invoices, purchase orders, and journal entries. See the “transaction_type” field for more information.
  */
 export interface BusinessTransaction {
-	account?: string;
-	accountingPeriod?: string;
-	company?: string;
-	contact?: string;
-	currency?: string;
-	/** Assuming string, but might be better as float or double. */
-	exchangeRate?: string;
-	/** @format uint64 */
-	id?: string;
-	lineItems?: Array<TransactionLineItem>;
-	mergeAccountId?: string;
-	/** @format date-time */
-	modifiedAt?: string;
-	number?: string;
-	remoteId?: string;
-	remoteWasDeleted?: boolean;
-	/** Might be better as double. */
-	totalAmount?: string;
-	trackingCategories?: Array<string>;
-	/** @format date-time */
-	transactionDate?: string;
-	transactionType?: string;
+  account?: string;
+  accountingPeriod?: string;
+  company?: string;
+  contact?: string;
+  currency?: string;
+  /** Assuming string, but might be better as float or double. */
+  exchangeRate?: string;
+  /** @format uint64 */
+  id?: string;
+  lineItems?: Array<TransactionLineItem>;
+  mergeAccountId?: string;
+  /** @format date-time */
+  modifiedAt?: string;
+  number?: string;
+  remoteId?: string;
+  remoteWasDeleted?: boolean;
+  /** Might be better as double. */
+  totalAmount?: string;
+  trackingCategories?: Array<string>;
+  /** @format date-time */
+  transactionDate?: string;
+  transactionType?: string;
 }
 /**
  * The CashFlowStatement object shows operating activities, investing activities, and financing activities over a
  * period of time (month, quarter, or year).
  */
 export interface CashFlowStatements {
-	/**
-	 * Cash and cash equivalents at the beginning of the cash flow statement's period.
-	 * @format double
-	 */
-	cashAtBeginningOfPeriod?: number;
-	/**
-	 * Cash and cash equivalents at the beginning of the cash flow statement's period.
-	 * @format double
-	 */
-	cashAtEndOfPeriod?: number;
-	/** The company the cash flow statement belongs to. */
-	company?: string;
-	/** The cash flow statement's currency */
-	currency?: string;
-	/**
-	 * The cash flow statement's end period.
-	 *
-	 * Consider using google.protobuf.Timestamp
-	 * @format date-time
-	 */
-	endPeriod?: string;
-	/** Financing activities */
-	financingActivities?: Array<ReportItem>;
-	/** @format uint64 */
-	id?: string;
-	/** Investing activities */
-	investingActivities?: Array<ReportItem>;
-	/** the cashflow statements id as stored in merge */
-	mergeRecordId?: string;
-	/**
-	 * This is the datetime that this object was last updated by Merge
-	 * Consider using google.protobuf.Timestamp
-	 * @format date-time
-	 */
-	modifiedAt?: string;
-	/** The cash flow statement's name. */
-	name?: string;
-	/** Operating activities */
-	operatingActivities?: Array<ReportItem>;
-	/**
-	 * The time that cash flow statement was generated by the accounting system.
-	 *
-	 * Consider using google.protobuf.Timestamp
-	 * @format date-time
-	 */
-	remoteGeneratedAt?: string;
-	/** The third-party API ID of the matching object. */
-	remoteId?: string;
-	/** Indicates whether or not this object has been deleted by third party webhooks. */
-	remoteWasDeleted?: boolean;
-	/**
-	 * The cash flow statement's start period.
-	 *
-	 * Consider using google.protobuf.Timestamp
-	 * @format date-time
-	 */
-	startPeriod?: string;
+  /**
+   * Cash and cash equivalents at the beginning of the cash flow statement's period.
+   * @format double
+   */
+  cashAtBeginningOfPeriod?: number;
+  /**
+   * Cash and cash equivalents at the beginning of the cash flow statement's period.
+   * @format double
+   */
+  cashAtEndOfPeriod?: number;
+  /** The company the cash flow statement belongs to. */
+  company?: string;
+  /** The cash flow statement's currency */
+  currency?: string;
+  /**
+   * The cash flow statement's end period.
+   *
+   * Consider using google.protobuf.Timestamp
+   * @format date-time
+   */
+  endPeriod?: string;
+  /** Financing activities */
+  financingActivities?: Array<ReportItem>;
+  /** @format uint64 */
+  id?: string;
+  /** Investing activities */
+  investingActivities?: Array<ReportItem>;
+  /** the cashflow statements id as stored in merge */
+  mergeRecordId?: string;
+  /**
+   * This is the datetime that this object was last updated by Merge
+   * Consider using google.protobuf.Timestamp
+   * @format date-time
+   */
+  modifiedAt?: string;
+  /** The cash flow statement's name. */
+  name?: string;
+  /** Operating activities */
+  operatingActivities?: Array<ReportItem>;
+  /**
+   * The time that cash flow statement was generated by the accounting system.
+   *
+   * Consider using google.protobuf.Timestamp
+   * @format date-time
+   */
+  remoteGeneratedAt?: string;
+  /** The third-party API ID of the matching object. */
+  remoteId?: string;
+  /** Indicates whether or not this object has been deleted by third party webhooks. */
+  remoteWasDeleted?: boolean;
+  /**
+   * The cash flow statement's start period.
+   *
+   * Consider using google.protobuf.Timestamp
+   * @format date-time
+   */
+  startPeriod?: string;
 }
 /**
  * The Categories table stores information about the different categories of expenses or income,
@@ -1199,191 +1232,191 @@ export interface CashFlowStatements {
  * For example, the "Housing" category might have subcategories for "Rent", "Utilities", and "Home Maintenance".
  */
 export interface Category {
-	/**
-	 * The description of the category
-	 * @minLength 10
-	 * @example "Housing is a category primarily for housing"
-	 */
-	description?: string;
-	/**
-	 * id
-	 * @format uint64
-	 */
-	id?: string;
-	/**
-	 * The name of the category
-	 * @minLength 3
-	 * @example "Housing"
-	 */
-	name?: string;
-	/** the sub categories of the category */
-	subcategories?: Array<string>;
+  /**
+   * The description of the category
+   * @minLength 10
+   * @example "Housing is a category primarily for housing"
+   */
+  description?: string;
+  /**
+   * id
+   * @format uint64
+   */
+  id?: string;
+  /**
+   * The name of the category
+   * @minLength 3
+   * @example "Housing"
+   */
+  name?: string;
+  /** the sub categories of the category */
+  subcategories?: Array<string>;
 }
 /**
  * CategoryMetricsFinancialSubProfile
  * This message is used to represent the financial sub profile of a category.
  */
 export interface CategoryMetricsFinancialSubProfile {
-	/** @format int64 */
-	month?: number;
-	personalFinanceCategoryPrimary?: string;
-	profileType?: FinancialUserProfileType;
-	/** @format double */
-	spentLastMonth?: number;
-	/** @format double */
-	spentLastSixMonths?: number;
-	/** @format double */
-	spentLastTwoWeeks?: number;
-	/** @format double */
-	spentLastTwoYears?: number;
-	/** @format double */
-	spentLastWeek?: number;
-	/** @format double */
-	spentLastYear?: number;
-	/** @format uint64 */
-	transactionCount?: string;
-	/** @format uint64 */
-	userId?: string;
+  /** @format int64 */
+  month?: number;
+  personalFinanceCategoryPrimary?: string;
+  profileType?: FinancialUserProfileType;
+  /** @format double */
+  spentLastMonth?: number;
+  /** @format double */
+  spentLastSixMonths?: number;
+  /** @format double */
+  spentLastTwoWeeks?: number;
+  /** @format double */
+  spentLastTwoYears?: number;
+  /** @format double */
+  spentLastWeek?: number;
+  /** @format double */
+  spentLastYear?: number;
+  /** @format uint64 */
+  transactionCount?: string;
+  /** @format uint64 */
+  userId?: string;
 }
 /**
  * CategoryMonthlyExpenditure represents the monthly expenditure of a category.
  * This message is used to represent the monthly expenditure of a category.
  */
 export interface CategoryMonthlyExpenditure {
-	/** @format int64 */
-	month?: number;
-	personalFinanceCategoryPrimary?: string;
-	profileType?: FinancialUserProfileType;
-	/** @format double */
-	totalSpending?: number;
-	/** @format uint64 */
-	userId?: string;
+  /** @format int64 */
+  month?: number;
+  personalFinanceCategoryPrimary?: string;
+  profileType?: FinancialUserProfileType;
+  /** @format double */
+  totalSpending?: number;
+  /** @format uint64 */
+  userId?: string;
 }
 /**
  * CategoryMonthlyIncome
  * This message is used to represent the monthly income of a category.
  */
 export interface CategoryMonthlyIncome {
-	/** @format int64 */
-	month?: number;
-	personalFinanceCategoryPrimary?: string;
-	profileType?: FinancialUserProfileType;
-	/** @format double */
-	totalIncome?: number;
-	/** @format uint64 */
-	userId?: string;
+  /** @format int64 */
+  month?: number;
+  personalFinanceCategoryPrimary?: string;
+  profileType?: FinancialUserProfileType;
+  /** @format double */
+  totalIncome?: number;
+  /** @format uint64 */
+  userId?: string;
 }
 /**
  * CategoryMonthlyTransactionCount
  * This message is used to represent the monthly transaction count of a category.
  */
 export interface CategoryMonthlyTransactionCount {
-	/** @format int64 */
-	month?: number;
-	personalFinanceCategoryPrimary?: string;
-	profileType?: FinancialUserProfileType;
-	/** @format int64 */
-	transactionCount?: number;
-	/** @format uint64 */
-	userId?: string;
+  /** @format int64 */
+  month?: number;
+  personalFinanceCategoryPrimary?: string;
+  profileType?: FinancialUserProfileType;
+  /** @format int64 */
+  transactionCount?: number;
+  /** @format uint64 */
+  userId?: string;
 }
 /** The CompanyInfo object is used to represent a company's information. */
 export interface CompanyInfo {
-	/** the company's addresses */
-	addresses?: Array<Address>;
-	/** The currency set in the company's accounting platform. */
-	currency?: string;
-	/**
-	 * The company's fiscal year end day.
-	 * @format int32
-	 */
-	fiscalYearEndDay?: number;
-	/**
-	 * The company's fiscal year end month.
-	 * @format int32
-	 */
-	fiscalYearEndMonth?: number;
-	/**
-	 * the id of the record in our system
-	 * @format uint64
-	 */
-	id?: string;
-	/** The company's legal name. */
-	legalName?: string;
-	/** the id of the record as stored in merge */
-	mergeAccountId?: string;
-	/**
-	 * This is the datetime that this object was last updated by Merge
-	 * @format date-time
-	 */
-	modifiedAt?: string;
-	/** The company's name. */
-	name?: string;
-	/** the company's phone numbers */
-	phoneNumbers?: Array<string>;
-	/**
-	 * When the third party's company was created.
-	 *
-	 * Consider using google.protobuf.Timestamp
-	 * @format date-time
-	 */
-	remoteCreatedAt?: string;
-	/** The third-party API ID of the matching object. */
-	remoteId?: string;
-	/** Indicates whether or not this object has been deleted by third party webhooks. */
-	remoteWasDeleted?: boolean;
-	/** The company's tax number. */
-	taxNumber?: string;
-	/** The company's urls. */
-	urls?: Array<string>;
+  /** the company's addresses */
+  addresses?: Array<Address>;
+  /** The currency set in the company's accounting platform. */
+  currency?: string;
+  /**
+   * The company's fiscal year end day.
+   * @format int32
+   */
+  fiscalYearEndDay?: number;
+  /**
+   * The company's fiscal year end month.
+   * @format int32
+   */
+  fiscalYearEndMonth?: number;
+  /**
+   * the id of the record in our system
+   * @format uint64
+   */
+  id?: string;
+  /** The company's legal name. */
+  legalName?: string;
+  /** the id of the record as stored in merge */
+  mergeAccountId?: string;
+  /**
+   * This is the datetime that this object was last updated by Merge
+   * @format date-time
+   */
+  modifiedAt?: string;
+  /** The company's name. */
+  name?: string;
+  /** the company's phone numbers */
+  phoneNumbers?: Array<string>;
+  /**
+   * When the third party's company was created.
+   *
+   * Consider using google.protobuf.Timestamp
+   * @format date-time
+   */
+  remoteCreatedAt?: string;
+  /** The third-party API ID of the matching object. */
+  remoteId?: string;
+  /** Indicates whether or not this object has been deleted by third party webhooks. */
+  remoteWasDeleted?: boolean;
+  /** The company's tax number. */
+  taxNumber?: string;
+  /** The company's urls. */
+  urls?: Array<string>;
 }
 /** The Contact object refers to either a supplier or a customer. */
 export interface Contacts {
-	/**
-	 * Address object IDs for the given Contacts object.
-	 *
-	 * These are IDs, not the Address structure itself
-	 */
-	addressesIds?: Array<string>;
-	/** The company the contact belongs to. */
-	company?: string;
-	/** The currency the contact's transactions are in. */
-	currency?: string;
-	/** The contact's email address. */
-	emailAddress?: string;
-	/** @format uint64 */
-	id?: string;
-	/** Whether the contact is a customer. */
-	isCustomer?: boolean;
-	/** Whether the contact is a supplier. */
-	isSupplier?: boolean;
-	/** The account id as seen in merge */
-	mergeAccountId?: string;
-	/**
-	 * This is the datetime that this object was last updated by Merge
-	 * Consider using google.protobuf.Timestamp
-	 * @format date-time
-	 */
-	modifiedAt?: string;
-	/** The contact's name. */
-	name?: string;
-	/** Phone numbers of the contact */
-	phoneNumbers?: Array<string>;
-	/** The third-party API ID of the matching object. */
-	remoteId?: string;
-	/**
-	 * When the third party's contact was updated.
-	 *
-	 * Consider using google.protobuf.Timestamp
-	 * @format date-time
-	 */
-	remoteUpdatedAt?: string;
-	/** Indicates whether or not this object has been deleted by third party webhooks. */
-	remoteWasDeleted?: boolean;
-	/** The contact's status */
-	status?: string;
-	/** The contact's tax number. */
-	taxNumber?: string;
+  /**
+   * Address object IDs for the given Contacts object.
+   *
+   * These are IDs, not the Address structure itself
+   */
+  addressesIds?: Array<string>;
+  /** The company the contact belongs to. */
+  company?: string;
+  /** The currency the contact's transactions are in. */
+  currency?: string;
+  /** The contact's email address. */
+  emailAddress?: string;
+  /** @format uint64 */
+  id?: string;
+  /** Whether the contact is a customer. */
+  isCustomer?: boolean;
+  /** Whether the contact is a supplier. */
+  isSupplier?: boolean;
+  /** The account id as seen in merge */
+  mergeAccountId?: string;
+  /**
+   * This is the datetime that this object was last updated by Merge
+   * Consider using google.protobuf.Timestamp
+   * @format date-time
+   */
+  modifiedAt?: string;
+  /** The contact's name. */
+  name?: string;
+  /** Phone numbers of the contact */
+  phoneNumbers?: Array<string>;
+  /** The third-party API ID of the matching object. */
+  remoteId?: string;
+  /**
+   * When the third party's contact was updated.
+   *
+   * Consider using google.protobuf.Timestamp
+   * @format date-time
+   */
+  remoteUpdatedAt?: string;
+  /** Indicates whether or not this object has been deleted by third party webhooks. */
+  remoteWasDeleted?: boolean;
+  /** The contact's status */
+  status?: string;
+  /** The contact's tax number. */
+  taxNumber?: string;
 }
 export type CreateBankAccountData = any;
 /**
@@ -1391,145 +1424,145 @@ export type CreateBankAccountData = any;
  * service to create a bank account for a given user
  */
 export interface CreateBankAccountPayload {
-	/**
-	 * The bank account to create
-	 * Validations:
-	 * - cannot be nil hence required
-	 */
-	bankAccount: BankAccount;
-	/**
-	 * The linkId to associate this bank account with
-	 * @format uint64
-	 */
-	linkId: string;
-	profileType: FinancialUserProfileType;
+  /**
+   * The bank account to create
+   * Validations:
+   * - cannot be nil hence required
+   */
+  bankAccount: BankAccount;
+  /**
+   * The linkId to associate this bank account with
+   * @format uint64
+   */
+  linkId: string;
+  profileType: FinancialUserProfileType;
 }
 /**
  * CreateBankAccountResponse: Represents the response object returned as a response to
  * the `create bank account` request
  */
 export interface CreateBankAccountResponse {
-	/**
-	 * The bank account id
-	 * @format uint64
-	 */
-	bankAccountId?: string;
+  /**
+   * The bank account id
+   * @format uint64
+   */
+  bankAccountId?: string;
 }
 export type CreateBudgetData = any;
 export interface CreateBudgetRequest {
-	/**
-	 * The budget to create
-	 * Validations:
-	 * - cannot be nil hence required
-	 * The Budgets table stores information about each budget created by the user,
-	 * including the name of the budget, the start and end dates, and the user ID.
-	 */
-	budget: Budget;
-	/**
-	 * The milestone to associate this budget with
-	 * @format uint64
-	 */
-	milestroneId: string;
+  /**
+   * The budget to create
+   * Validations:
+   * - cannot be nil hence required
+   * The Budgets table stores information about each budget created by the user,
+   * including the name of the budget, the start and end dates, and the user ID.
+   */
+  budget: Budget;
+  /**
+   * The milestone to associate this budget with
+   * @format uint64
+   */
+  milestroneId: string;
 }
 export interface CreateBudgetResponse {
-	/**
-	 * The budget id
-	 * @format uint64
-	 */
-	budgetId?: string;
+  /**
+   * The budget id
+   * @format uint64
+   */
+  budgetId?: string;
 }
 export type CreateLinkData = any;
 export interface CreateManualLinkRequest {
-	/**
-	 * The manual account link
-	 * A Link represents a login at a financial institution. A single end-user of your application might have accounts at different financial
-	 * institutions, which means they would have multiple different Items. An Item is not the same as a financial institution account,
-	 * although every account will be associated with an Item. For example, if a user has one login at their bank that allows them to access
-	 * both their checking account and their savings account, a single Item would be associated with both of those accounts. Each Item
-	 * linked within your application will have a corresponding access_token, which is a token that you can use to make API requests related
-	 * to that specific Item.
-	 * Two Items created for the same set of credentials at the same institution will be considered different and not share the same item_id.
-	 */
-	manualAccountLink: Link;
-	profileType: FinancialUserProfileType;
-	/**
-	 * The user id
-	 * Validations:
-	 * - user_id must be greater than 0
-	 * @format uint64
-	 */
-	userId: string;
+  /**
+   * The manual account link
+   * A Link represents a login at a financial institution. A single end-user of your application might have accounts at different financial
+   * institutions, which means they would have multiple different Items. An Item is not the same as a financial institution account,
+   * although every account will be associated with an Item. For example, if a user has one login at their bank that allows them to access
+   * both their checking account and their savings account, a single Item would be associated with both of those accounts. Each Item
+   * linked within your application will have a corresponding access_token, which is a token that you can use to make API requests related
+   * to that specific Item.
+   * Two Items created for the same set of credentials at the same institution will be considered different and not share the same item_id.
+   */
+  manualAccountLink: Link;
+  profileType: FinancialUserProfileType;
+  /**
+   * The user id
+   * Validations:
+   * - user_id must be greater than 0
+   * @format uint64
+   */
+  userId: string;
 }
 export interface CreateManualLinkResponse {
-	/**
-	 * The link's id
-	 * @format uint64
-	 */
-	linkId?: string;
+  /**
+   * The link's id
+   * @format uint64
+   */
+  linkId?: string;
 }
 export type CreateMilestoneData = any;
 export interface CreateMilestoneRequest {
-	/**
-	 * The milestone to create
-	 * Validations:
-	 * - cannot be nil hence required
-	 */
-	milestone: Milestone;
-	/**
-	 * The smart goal id
-	 * Validations:
-	 * - smart_goal_id must be greater than 0
-	 * @format uint64
-	 */
-	smartGoalId: string;
+  /**
+   * The milestone to create
+   * Validations:
+   * - cannot be nil hence required
+   */
+  milestone: Milestone;
+  /**
+   * The smart goal id
+   * Validations:
+   * - smart_goal_id must be greater than 0
+   * @format uint64
+   */
+  smartGoalId: string;
 }
 export interface CreateMilestoneResponse {
-	/**
-	 * The milestone id
-	 * @format uint64
-	 */
-	milestoneId?: string;
+  /**
+   * The milestone id
+   * @format uint64
+   */
+  milestoneId?: string;
 }
 export type CreateSmartGoalData = any;
 export interface CreateSmartGoalRequest {
-	/**
-	 * The pocket account id
-	 * Validations:
-	 * - pocket_account_id must be greater than 0
-	 * @format uint64
-	 */
-	pocketId: string;
-	/**
-	 * The smart goal to create
-	 * Validations:
-	 * - cannot be nil hence required
-	 * SmartGoal: The Goals table stores information about each financial goal, including the name of the goal,
-	 * its description, the target amount of money the user wants to save or invest, and the expected date of completion.
-	 *
-	 * The Goals table also includes columns for the start date of the goal, the current amount of money saved or
-	 * invested towards the goal, and a boolean flag indicating whether the goal has been achieved.
-	 * These additional columns allow the user to track their progress towards the goal and see how much
-	 * more they need to save or invest to reach their target amount.
-	 */
-	smartGoal: SmartGoal;
+  /**
+   * The pocket account id
+   * Validations:
+   * - pocket_account_id must be greater than 0
+   * @format uint64
+   */
+  pocketId: string;
+  /**
+   * The smart goal to create
+   * Validations:
+   * - cannot be nil hence required
+   * SmartGoal: The Goals table stores information about each financial goal, including the name of the goal,
+   * its description, the target amount of money the user wants to save or invest, and the expected date of completion.
+   *
+   * The Goals table also includes columns for the start date of the goal, the current amount of money saved or
+   * invested towards the goal, and a boolean flag indicating whether the goal has been achieved.
+   * These additional columns allow the user to track their progress towards the goal and see how much
+   * more they need to save or invest to reach their target amount.
+   */
+  smartGoal: SmartGoal;
 }
 export interface CreateSmartGoalResponse {
-	/**
-	 * The smart goal id
-	 * @format uint64
-	 */
-	smartGoalId?: string;
+  /**
+   * The smart goal id
+   * @format uint64
+   */
+  smartGoalId?: string;
 }
 export type CreateSubscriptionData = any;
 export interface CreateSubscriptionRequest {
-	priceId: string;
-	profileType: FinancialUserProfileType;
-	/** @format uint64 */
-	userId: string;
+  priceId: string;
+  profileType: FinancialUserProfileType;
+  /** @format uint64 */
+  userId: string;
 }
 export interface CreateSubscriptionResponse {
-	paymentIntentClientSecret?: string;
-	subscriptionId?: string;
+  paymentIntentClientSecret?: string;
+  subscriptionId?: string;
 }
 export type CreateUserProfileData = any;
 /**
@@ -1537,241 +1570,241 @@ export type CreateUserProfileData = any;
  * service to create a user profile
  */
 export interface CreateUserProfileRequest {
-	/** the email of the account to create */
-	email: string;
-	/**
-	 * User profile to create
-	 * Validations:
-	 * - cannot be nil hence required
-	 */
-	profile: FinancialUserProfile;
+  /** the email of the account to create */
+  email: string;
+  /**
+   * User profile to create
+   * Validations:
+   * - cannot be nil hence required
+   */
+  profile: FinancialUserProfile;
 }
 /**
  * CreateUserProfileResponse: Represents the response object returned as a response to
  * the `create user profile` request
  */
 export interface CreateUserProfileResponse {
-	/** @format uint64 */
-	userId?: string;
+  /** @format uint64 */
+  userId?: string;
 }
 export interface CreditAccount {
-	/** the aprs */
-	aprs?: Array<Apr>;
-	/**
-	 * the bank account balance
-	 * @format float
-	 */
-	balance?: number;
-	/**
-	 * balance limit
-	 * @format uint64
-	 */
-	balanceLimit?: string;
-	/**
-	 * current funds on the account
-	 * @format double
-	 */
-	currentFunds?: number;
-	/**
-	 * id
-	 * @format uint64
-	 */
-	id?: string;
-	/** wether the account is overdue */
-	isOverdue?: boolean;
-	/**
-	 * the last payment amount
-	 * @format double
-	 */
-	lastPaymentAmount?: number;
-	/** the last payment date */
-	lastPaymentDate?: string;
-	/**
-	 * the last statement balance
-	 * @format double
-	 */
-	lastStatementBalance?: number;
-	/** the last statement issue date */
-	lastStatementIssueDate?: string;
-	/**
-	 * the minimum amount due date
-	 * @format double
-	 */
-	minimumAmountDueDate?: number;
-	/**
-	 * the minimum payment amount
-	 * @format double
-	 */
-	minimumPaymentAmount?: number;
-	/** the account name */
-	name?: string;
-	/** the next payment date */
-	nextPaymentDate?: string;
-	/** the next payment due date */
-	nextPaymentDueDate?: string;
-	/** the bank account number */
-	number?: string;
-	/** plaid account id mapped to this bank account */
-	plaidAccountId?: string;
-	/** the bank account status */
-	status?: BankAccountStatus;
-	/** accoint subtype */
-	subtype?: string;
-	/** the bank account type */
-	type?: string;
-	/**
-	 * the user id to which this bank account is tied to
-	 * @format uint64
-	 */
-	userId?: string;
+  /** the aprs */
+  aprs?: Array<Apr>;
+  /**
+   * the bank account balance
+   * @format float
+   */
+  balance?: number;
+  /**
+   * balance limit
+   * @format uint64
+   */
+  balanceLimit?: string;
+  /**
+   * current funds on the account
+   * @format double
+   */
+  currentFunds?: number;
+  /**
+   * id
+   * @format uint64
+   */
+  id?: string;
+  /** wether the account is overdue */
+  isOverdue?: boolean;
+  /**
+   * the last payment amount
+   * @format double
+   */
+  lastPaymentAmount?: number;
+  /** the last payment date */
+  lastPaymentDate?: string;
+  /**
+   * the last statement balance
+   * @format double
+   */
+  lastStatementBalance?: number;
+  /** the last statement issue date */
+  lastStatementIssueDate?: string;
+  /**
+   * the minimum amount due date
+   * @format double
+   */
+  minimumAmountDueDate?: number;
+  /**
+   * the minimum payment amount
+   * @format double
+   */
+  minimumPaymentAmount?: number;
+  /** the account name */
+  name?: string;
+  /** the next payment date */
+  nextPaymentDate?: string;
+  /** the next payment due date */
+  nextPaymentDueDate?: string;
+  /** the bank account number */
+  number?: string;
+  /** plaid account id mapped to this bank account */
+  plaidAccountId?: string;
+  /** the bank account status */
+  status?: BankAccountStatus;
+  /** accoint subtype */
+  subtype?: string;
+  /** the bank account type */
+  type?: string;
+  /**
+   * the user id to which this bank account is tied to
+   * @format uint64
+   */
+  userId?: string;
 }
 /**
  * The CreditNote object is an accounts payable transaction used when to represent a gift or refund to a customer.
  * A credit note will contain information on the amount of credit owed, the customer, and the account.
  */
 export interface CreditNote {
-	/** The accounting period that the CreditNote was generated in. */
-	accountingPeriod?: string;
-	/** The company the credit note belongs to. */
-	company?: string;
-	/** The credit note's contact. */
-	contact?: string;
-	currency?: string;
-	/**
-	 * The credit note's exchange rate.
-	 *
-	 * Consider using double or float if this represents a number
-	 */
-	exchangeRate?: string;
-	/**
-	 * the database record id as stored in our systems
-	 * @format uint64
-	 */
-	id?: string;
-	lineItems?: Array<CreditNoteLineItem>;
-	/** the id as stored in merge */
-	mergeAccountId?: string;
-	/**
-	 * Consider using google.protobuf.Timestamp
-	 * @format date-time
-	 */
-	modifiedAt?: string;
-	/** The credit note's number. */
-	number?: string;
-	/**
-	 * Array of Payment object IDs
-	 * These are IDs
-	 */
-	paymentIds?: Array<string>;
-	/**
-	 * The amount of value remaining in the credit note that the customer can use.
-	 * @format double
-	 */
-	remainingCredit?: number;
-	/**
-	 * Consider using google.protobuf.Timestamp
-	 * @format date-time
-	 */
-	remoteCreatedAt?: string;
-	/** The third-party API ID of the matching object. */
-	remoteId?: string;
-	/**
-	 * Consider using google.protobuf.Timestamp
-	 * @format date-time
-	 */
-	remoteUpdatedAt?: string;
-	remoteWasDeleted?: boolean;
-	/** The credit note's status. */
-	status?: string;
-	/**
-	 * The credit note's total amount.
-	 * @format double
-	 */
-	totalAmount?: number;
-	/** These are IDs */
-	trackingCategories?: Array<string>;
-	/**
-	 * The credit note's transaction date.
-	 *
-	 * Consider using google.protobuf.Timestamp
-	 * @format date-time
-	 */
-	transactionDate?: string;
+  /** The accounting period that the CreditNote was generated in. */
+  accountingPeriod?: string;
+  /** The company the credit note belongs to. */
+  company?: string;
+  /** The credit note's contact. */
+  contact?: string;
+  currency?: string;
+  /**
+   * The credit note's exchange rate.
+   *
+   * Consider using double or float if this represents a number
+   */
+  exchangeRate?: string;
+  /**
+   * the database record id as stored in our systems
+   * @format uint64
+   */
+  id?: string;
+  lineItems?: Array<CreditNoteLineItem>;
+  /** the id as stored in merge */
+  mergeAccountId?: string;
+  /**
+   * Consider using google.protobuf.Timestamp
+   * @format date-time
+   */
+  modifiedAt?: string;
+  /** The credit note's number. */
+  number?: string;
+  /**
+   * Array of Payment object IDs
+   * These are IDs
+   */
+  paymentIds?: Array<string>;
+  /**
+   * The amount of value remaining in the credit note that the customer can use.
+   * @format double
+   */
+  remainingCredit?: number;
+  /**
+   * Consider using google.protobuf.Timestamp
+   * @format date-time
+   */
+  remoteCreatedAt?: string;
+  /** The third-party API ID of the matching object. */
+  remoteId?: string;
+  /**
+   * Consider using google.protobuf.Timestamp
+   * @format date-time
+   */
+  remoteUpdatedAt?: string;
+  remoteWasDeleted?: boolean;
+  /** The credit note's status. */
+  status?: string;
+  /**
+   * The credit note's total amount.
+   * @format double
+   */
+  totalAmount?: number;
+  /** These are IDs */
+  trackingCategories?: Array<string>;
+  /**
+   * The credit note's transaction date.
+   *
+   * Consider using google.protobuf.Timestamp
+   * @format date-time
+   */
+  transactionDate?: string;
 }
 export interface CreditNoteLineItem {
-	/** This seems to be an ID */
-	account?: string;
-	company?: string;
-	description?: string;
-	/** @format uint64 */
-	id?: string;
-	item?: string;
-	name?: string;
-	quantity?: string;
-	remoteId?: string;
-	/** This seems to be an ID */
-	taxRate?: string;
-	/** Consider using double or float */
-	totalLineAmount?: string;
-	/** These are IDs */
-	trackingCategories?: Array<string>;
-	/** This seems to be an ID */
-	trackingCategory?: string;
-	/** Consider using double or float if this represents a number */
-	unitPrice?: string;
+  /** This seems to be an ID */
+  account?: string;
+  company?: string;
+  description?: string;
+  /** @format uint64 */
+  id?: string;
+  item?: string;
+  name?: string;
+  quantity?: string;
+  remoteId?: string;
+  /** This seems to be an ID */
+  taxRate?: string;
+  /** Consider using double or float */
+  totalLineAmount?: string;
+  /** These are IDs */
+  trackingCategories?: Array<string>;
+  /** This seems to be an ID */
+  trackingCategory?: string;
+  /** Consider using double or float if this represents a number */
+  unitPrice?: string;
 }
 /**
  * DebtToIncomeRatio
  * This message is used to represent the debt to income ratio of a user.
  */
 export interface DebtToIncomeRatio {
-	/** @format int64 */
-	month?: number;
-	profileType?: FinancialUserProfileType;
-	/** @format double */
-	ratio?: number;
-	/** @format uint64 */
-	userId?: string;
+  /** @format int64 */
+  month?: number;
+  profileType?: FinancialUserProfileType;
+  /** @format double */
+  ratio?: number;
+  /** @format uint64 */
+  userId?: string;
 }
 export interface DeleteBankAccountResponse {
-	/**
-	 * The bank account id
-	 * @example "true"
-	 */
-	deleted?: boolean;
+  /**
+   * The bank account id
+   * @example "true"
+   */
+  deleted?: boolean;
 }
 export type DeleteBudgetData = any;
 export interface DeleteBudgetResponse {
-	/** The budget id */
-	deleted?: boolean;
+  /** The budget id */
+  deleted?: boolean;
 }
 export type DeleteLinkData = any;
 export interface DeleteLinkResponse {
-	/**
-	 * The link's id
-	 * @format uint64
-	 */
-	linkId?: string;
+  /**
+   * The link's id
+   * @format uint64
+   */
+  linkId?: string;
 }
 export type DeleteMilestoneData = any;
 export interface DeleteMilestoneResponse {
-	/** The milestone id */
-	deleted?: boolean;
+  /** The milestone id */
+  deleted?: boolean;
 }
 export type DeleteNoteFromSmartGoalData = any;
 export interface DeleteNoteFromSmartGoalResponse {
-	/** The smart goal id */
-	deleted?: boolean;
+  /** The smart goal id */
+  deleted?: boolean;
 }
 export type DeletePocketData = any;
 export interface DeletePocketResponse {
-	/** The pocket id */
-	deleted?: boolean;
+  /** The pocket id */
+  deleted?: boolean;
 }
 export type DeleteSmartGoalData = any;
 export interface DeleteSmartGoalResponse {
-	/** The smart goal id */
-	deleted?: boolean;
+  /** The smart goal id */
+  deleted?: boolean;
 }
 export type DeleteUserProfile2Data = any;
 export type DeleteUserProfileData = any;
@@ -1780,7 +1813,7 @@ export type DeleteUserProfileData = any;
  * the `delete user profile` request
  */
 export interface DeleteUserProfileResponse {
-	profileDeleted?: boolean;
+  profileDeleted?: boolean;
 }
 export type ExchangePlaidTokenData = any;
 /**
@@ -1788,202 +1821,205 @@ export type ExchangePlaidTokenData = any;
  * Each expense object is dedicated to a grouping of expenses, with each expense recorded in the lines object.
  */
 export interface Expense {
-	/** The expense's payment account. */
-	account?: string;
-	/** The accounting period that the Expense was generated in. */
-	accountingPeriod?: string;
-	/** The company the expense belongs to. */
-	company?: string;
-	/** The expense's contact. */
-	contact?: string;
-	/** The expense's currency */
-	currency?: string;
-	/**
-	 * The expense's exchange rate.
-	 *
-	 * Consider using double or float if this represents a number
-	 */
-	exchangeRate?: string;
-	/** @format uint64 */
-	id?: string;
-	/** The ExpenseLine object is used to represent an expense's line items. */
-	lines?: Array<ExpenseLine>;
-	/** The expense's private note. */
-	memo?: string;
-	mergeAccountId?: string;
-	/**
-	 * This is the datetime that this object was last updated by Merge
-	 * Consider using google.protobuf.Timestamp
-	 * @format date-time
-	 */
-	modifiedAt?: string;
-	/**
-	 * When the expense was created.
-	 *
-	 * Consider using google.protobuf.Timestamp
-	 * @format date-time
-	 */
-	remoteCreatedAt?: string;
-	/** The third-party API ID of the matching object. */
-	remoteId?: string;
-	/** Indicates whether or not this object has been deleted by third party webhooks. */
-	remoteWasDeleted?: boolean;
-	/**
-	 * The expense's total amount before tax.
-	 * @format double
-	 */
-	subTotal?: number;
-	/**
-	 * The expense's total amount.
-	 * @format double
-	 */
-	totalAmount?: number;
-	/**
-	 * The expense's total tax amount.
-	 * @format double
-	 */
-	totalTaxAmount?: number;
-	/** These are IDs */
-	trackingCategories?: Array<string>;
-	/**
-	 * When the transaction occurred.
-	 *
-	 * Consider using google.protobuf.Timestamp
-	 * @format date-time
-	 */
-	transactionDate?: string;
+  /** The expense's payment account. */
+  account?: string;
+  /** The accounting period that the Expense was generated in. */
+  accountingPeriod?: string;
+  /** The company the expense belongs to. */
+  company?: string;
+  /** The expense's contact. */
+  contact?: string;
+  /** The expense's currency */
+  currency?: string;
+  /**
+   * The expense's exchange rate.
+   *
+   * Consider using double or float if this represents a number
+   */
+  exchangeRate?: string;
+  /** @format uint64 */
+  id?: string;
+  /** The ExpenseLine object is used to represent an expense's line items. */
+  lines?: Array<ExpenseLine>;
+  /** The expense's private note. */
+  memo?: string;
+  mergeAccountId?: string;
+  /**
+   * This is the datetime that this object was last updated by Merge
+   * Consider using google.protobuf.Timestamp
+   * @format date-time
+   */
+  modifiedAt?: string;
+  /**
+   * When the expense was created.
+   *
+   * Consider using google.protobuf.Timestamp
+   * @format date-time
+   */
+  remoteCreatedAt?: string;
+  /** The third-party API ID of the matching object. */
+  remoteId?: string;
+  /** Indicates whether or not this object has been deleted by third party webhooks. */
+  remoteWasDeleted?: boolean;
+  /**
+   * The expense's total amount before tax.
+   * @format double
+   */
+  subTotal?: number;
+  /**
+   * The expense's total amount.
+   * @format double
+   */
+  totalAmount?: number;
+  /**
+   * The expense's total tax amount.
+   * @format double
+   */
+  totalTaxAmount?: number;
+  /** These are IDs */
+  trackingCategories?: Array<string>;
+  /**
+   * When the transaction occurred.
+   *
+   * Consider using google.protobuf.Timestamp
+   * @format date-time
+   */
+  transactionDate?: string;
 }
 /** The ExpenseLine object is used to represent an expense's line items. */
 export interface ExpenseLine {
-	/** The expense's payment account. */
-	account?: string;
-	/** The company the line belongs to. */
-	company?: string;
-	/**
-	 * The expense's contact.
-	 *
-	 * Optional based on provided JSON
-	 */
-	contact?: string;
-	/** The expense line item's currency */
-	currency?: string;
-	/** The description of the item that was purchased by the company. */
-	description?: string;
-	/**
-	 * The expense line item's exchange rate.
-	 *
-	 * Consider using double or float if this represents a number
-	 */
-	exchangeRate?: string;
-	/** @format uint64 */
-	id?: string;
-	/**
-	 * The line's item.
-	 *
-	 * This seems to be an ID
-	 */
-	item?: string;
-	/**
-	 * This is the datetime that this object was last updated by Merge
-	 * Consider using google.protobuf.Timestamp
-	 * @format date-time
-	 */
-	modifiedAt?: string;
-	/**
-	 * The line's net amount.
-	 * @format double
-	 */
-	netAmount?: number;
-	/** The third-party API ID of the matching object. */
-	remoteId?: string;
-	/** These are IDs */
-	trackingCategories?: Array<string>;
-	/** This seems to be an ID */
-	trackingCategory?: string;
+  /** The expense's payment account. */
+  account?: string;
+  /** The company the line belongs to. */
+  company?: string;
+  /**
+   * The expense's contact.
+   *
+   * Optional based on provided JSON
+   */
+  contact?: string;
+  /** The expense line item's currency */
+  currency?: string;
+  /** The description of the item that was purchased by the company. */
+  description?: string;
+  /**
+   * The expense line item's exchange rate.
+   *
+   * Consider using double or float if this represents a number
+   */
+  exchangeRate?: string;
+  /** @format uint64 */
+  id?: string;
+  /**
+   * The line's item.
+   *
+   * This seems to be an ID
+   */
+  item?: string;
+  /**
+   * This is the datetime that this object was last updated by Merge
+   * Consider using google.protobuf.Timestamp
+   * @format date-time
+   */
+  modifiedAt?: string;
+  /**
+   * The line's net amount.
+   * @format double
+   */
+  netAmount?: number;
+  /** The third-party API ID of the matching object. */
+  remoteId?: string;
+  /** These are IDs */
+  trackingCategories?: Array<string>;
+  /** This seems to be an ID */
+  trackingCategory?: string;
 }
 /**
  * ExpenseMetrics
  * This message is used to represent the expense metrics of a user.
  */
 export interface ExpenseMetrics {
-	/** @format int64 */
-	month?: number;
-	personalFinanceCategoryPrimary?: string;
-	profileType?: FinancialUserProfileType;
-	/** @format double */
-	totalExpenses?: number;
-	/** @format uint64 */
-	transactionCount?: string;
-	/** @format uint64 */
-	userId?: string;
+  /** @format int64 */
+  month?: number;
+  personalFinanceCategoryPrimary?: string;
+  profileType?: FinancialUserProfileType;
+  /** @format double */
+  totalExpenses?: number;
+  /** @format uint64 */
+  transactionCount?: string;
+  /** @format uint64 */
+  userId?: string;
 }
 /**
  * ExpenseMetricsFinancialSubProfileMetrics
  * This message is used to represent the financial sub profile metrics of a user.
  */
 export interface ExpenseMetricsFinancialSubProfileMetrics {
-	/** @format double */
-	averageMonthlyDiscretionarySpending?: number;
-	/** @format double */
-	averageMonthlyRecurringSpending?: number;
-	/** @format int64 */
-	month?: number;
-	profileType?: FinancialUserProfileType;
-	/** @format double */
-	spentLastMonth?: number;
-	/** @format double */
-	spentLastSixMonths?: number;
-	/** @format double */
-	spentLastWeek?: number;
-	/** @format uint64 */
-	userId?: string;
+  /** @format double */
+  averageMonthlyDiscretionarySpending?: number;
+  /** @format double */
+  averageMonthlyRecurringSpending?: number;
+  /** @format int64 */
+  month?: number;
+  profileType?: FinancialUserProfileType;
+  /** @format double */
+  spentLastMonth?: number;
+  /** @format double */
+  spentLastSixMonths?: number;
+  /** @format double */
+  spentLastWeek?: number;
+  /** @format uint64 */
+  userId?: string;
 }
 /**
  * FinancialProfile
  * This message is used to represent the financial profile of a user.
  */
 export interface FinancialProfile {
-	/** @format int64 */
-	month?: number;
-	mostExpensiveCategory?: string;
-	/** @format uint64 */
-	numberOfTransactions?: string;
-	profileType?: FinancialUserProfileType;
-	/** @format double */
-	totalExpenses?: number;
-	/** @format double */
-	totalIncome?: number;
-	/** @format uint64 */
-	userId?: string;
+  /** @format int64 */
+  month?: number;
+  mostExpensiveCategory?: string;
+  /** @format uint64 */
+  numberOfTransactions?: string;
+  profileType?: FinancialUserProfileType;
+  /** @format double */
+  totalExpenses?: number;
+  /** @format double */
+  totalIncome?: number;
+  /** @format uint64 */
+  userId?: string;
 }
 /**
  * FinancialUserProfile stores high level user profile details
  * such as the id, user_id tied to the profile, and many more
  */
 export interface FinancialUserProfile {
-	actionableInsights?: Array<ActionableInsight>;
-	actionablePersonalInsights?: Array<PersonalActionableInsight>;
-	email?: string;
-	/**
-	 * id
-	 * @format uint64
-	 */
-	id?: string;
-	/** a user profile can have many links (connected institutions) of which finanical accounts are tied to (checking, savings, etc) */
-	link?: Array<Link>;
-	mergeLiink?: Array<MergeLink>;
-	profileType?: FinancialUserProfileType;
-	stripeCustomerId?: string;
-	/** the stripe subscriptions the user profile actively maintains */
-	stripeSubscriptions?: StripeSubscription;
-	/**
-	 * the user id tied to the profile
-	 * @format uint64
-	 */
-	userId?: string;
+  actionableInsights?: Array<ActionableInsight>;
+  actionablePersonalInsights?: Array<PersonalActionableInsight>;
+  email?: string;
+  /**
+   * id
+   * @format uint64
+   */
+  id?: string;
+  /** a user profile can have many links (connected institutions) of which finanical accounts are tied to (checking, savings, etc) */
+  link?: Array<Link>;
+  mergeLiink?: Array<MergeLink>;
+  profileType?: FinancialUserProfileType;
+  stripeCustomerId?: string;
+  /** the stripe subscriptions the user profile actively maintains */
+  stripeSubscriptions?: StripeSubscription;
+  /**
+   * the user id tied to the profile
+   * @format uint64
+   */
+  userId?: string;
 }
 /** @default "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED" */
-export type FinancialUserProfileType = "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED" | "FINANCIAL_USER_PROFILE_TYPE_USER" | "FINANCIAL_USER_PROFILE_TYPE_BUSINESS";
+export type FinancialUserProfileType =
+  | 'FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED'
+  | 'FINANCIAL_USER_PROFILE_TYPE_USER'
+  | 'FINANCIAL_USER_PROFILE_TYPE_BUSINESS';
 /**
  * The Forecast table stores information about each forecast generated for a particular goal,
  * including the forecast date, the forecasted amount of money saved or invested for the
@@ -1991,37 +2027,37 @@ export type FinancialUserProfileType = "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED"
  * This allows the user to track how well they are progressing towards their goal and make adjustments as needed.
  */
 export interface Forecast {
-	/**
-	 * the forecasted amount of the goal
-	 * @example "Active"
-	 */
-	forecastedAmount?: string;
-	/**
-	 * the forecasted completion date of the goal
-	 * @example "Active"
-	 */
-	forecastedCompletionDate?: string;
-	/**
-	 * id
-	 * @format uint64
-	 */
-	id?: string;
-	/**
-	 * the forecasted variance of the goal between the forecasted and target amounts
-	 * @example "Active"
-	 */
-	varianceAmount?: string;
+  /**
+   * the forecasted amount of the goal
+   * @example "Active"
+   */
+  forecastedAmount?: string;
+  /**
+   * the forecasted completion date of the goal
+   * @example "Active"
+   */
+  forecastedCompletionDate?: string;
+  /**
+   * id
+   * @format uint64
+   */
+  id?: string;
+  /**
+   * the forecasted variance of the goal between the forecasted and target amounts
+   * @example "Active"
+   */
+  varianceAmount?: string;
 }
 export type GetAccountBalanceData = any;
 export type GetAccountBalanceHistoryData = any;
 export interface GetAccountBalanceHistoryResponse {
-	/** List of account balance history records for specific account */
-	accountBalanceHistory?: Array<AccountBalanceHistory>;
+  /** List of account balance history records for specific account */
+  accountBalanceHistory?: Array<AccountBalanceHistory>;
 }
 export type GetAllBudgetsData = any;
 export interface GetAllBudgetsResponse {
-	/** The budgets */
-	budgets?: Array<Budget>;
+  /** The budgets */
+  budgets?: Array<Budget>;
 }
 export type GetBankAccountData = any;
 /**
@@ -2029,298 +2065,298 @@ export type GetBankAccountData = any;
  * the `get bank account` request
  */
 export interface GetBankAccountResponse {
-	/** The bank account */
-	bankAccount?: BankAccount;
+  /** The bank account */
+  bankAccount?: BankAccount;
 }
 export type GetBudgetData = any;
 export interface GetBudgetResponse {
-	/**
-	 * The budget
-	 * The Budgets table stores information about each budget created by the user,
-	 * including the name of the budget, the start and end dates, and the user ID.
-	 */
-	budget?: Budget;
+  /**
+   * The budget
+   * The Budgets table stores information about each budget created by the user,
+   * including the name of the budget, the start and end dates, and the user ID.
+   */
+  budget?: Budget;
 }
 export type GetCategoryMonthlyTransactionCountData = any;
 export interface GetCategoryMonthlyTransactionCountResponse {
-	categoryMonthlyTransactionCount?: Array<CategoryMonthlyTransactionCount>;
-	/** @format int64 */
-	nextPageNumber?: string;
+  categoryMonthlyTransactionCount?: Array<CategoryMonthlyTransactionCount>;
+  /** @format int64 */
+  nextPageNumber?: string;
 }
 export type GetDebtToIncomeRatioData = any;
 export interface GetDebtToIncomeRatioResponse {
-	debtToIncomeRatios?: Array<DebtToIncomeRatio>;
-	/** @format int64 */
-	nextPageNumber?: string;
+  debtToIncomeRatios?: Array<DebtToIncomeRatio>;
+  /** @format int64 */
+  nextPageNumber?: string;
 }
 export type GetExpenseMetricsData = any;
 export interface GetExpenseMetricsResponse {
-	expenseMetrics?: Array<ExpenseMetrics>;
-	/** @format int64 */
-	nextPageNumber?: string;
+  expenseMetrics?: Array<ExpenseMetrics>;
+  /** @format int64 */
+  nextPageNumber?: string;
 }
 export type GetFinancialProfileData = any;
 export interface GetFinancialProfileResponse {
-	financialProfiles?: Array<FinancialProfile>;
-	/** @format int64 */
-	nextPageNumber?: string;
+  financialProfiles?: Array<FinancialProfile>;
+  /** @format int64 */
+  nextPageNumber?: string;
 }
 export type GetForecastData = any;
 export interface GetForecastResponse {
-	/**
-	 * The forecast
-	 * The Forecast table stores information about each forecast generated for a particular goal,
-	 * including the forecast date, the forecasted amount of money saved or invested for the
-	 * goal by the target date, and the variance between the forecasted and target amounts.
-	 * This allows the user to track how well they are progressing towards their goal and make adjustments as needed.
-	 */
-	forecast?: Forecast;
+  /**
+   * The forecast
+   * The Forecast table stores information about each forecast generated for a particular goal,
+   * including the forecast date, the forecasted amount of money saved or invested for the
+   * goal by the target date, and the variance between the forecasted and target amounts.
+   * This allows the user to track how well they are progressing towards their goal and make adjustments as needed.
+   */
+  forecast?: Forecast;
 }
 export interface GetHistoricalAccountBalanceResponse {
-	historicalAccountBalance?: Array<AccountBalanceHistory>;
+  historicalAccountBalance?: Array<AccountBalanceHistory>;
 }
 export type GetIncomeExpenseRatioData = any;
 export interface GetIncomeExpenseRatioResponse {
-	incomeExpenseRatios?: Array<IncomeExpenseRatio>;
-	/** @format int64 */
-	nextPageNumber?: string;
+  incomeExpenseRatios?: Array<IncomeExpenseRatio>;
+  /** @format int64 */
+  nextPageNumber?: string;
 }
 export type GetIncomeMetricsData = any;
 export interface GetIncomeMetricsResponse {
-	incomeMetrics?: Array<IncomeMetrics>;
-	/** @format int64 */
-	nextPageNumber?: string;
+  incomeMetrics?: Array<IncomeMetrics>;
+  /** @format int64 */
+  nextPageNumber?: string;
 }
 export interface GetInvestmentAcccountResponse {
-	/** The investment account */
-	investmentAccount?: InvestmentAccount;
+  /** The investment account */
+  investmentAccount?: InvestmentAccount;
 }
 export type GetInvestmentAccountData = any;
 export type GetLiabilityAccountData = any;
 export interface GetLiabilityAccountResponse {
-	/** The liability account */
-	liabilityAccount?: CreditAccount;
+  /** The liability account */
+  liabilityAccount?: CreditAccount;
 }
 export type GetLinkData = any;
 export interface GetLinkResponse {
-	/**
-	 * The link
-	 * A Link represents a login at a financial institution. A single end-user of your application might have accounts at different financial
-	 * institutions, which means they would have multiple different Items. An Item is not the same as a financial institution account,
-	 * although every account will be associated with an Item. For example, if a user has one login at their bank that allows them to access
-	 * both their checking account and their savings account, a single Item would be associated with both of those accounts. Each Item
-	 * linked within your application will have a corresponding access_token, which is a token that you can use to make API requests related
-	 * to that specific Item.
-	 * Two Items created for the same set of credentials at the same institution will be considered different and not share the same item_id.
-	 */
-	link?: Link;
+  /**
+   * The link
+   * A Link represents a login at a financial institution. A single end-user of your application might have accounts at different financial
+   * institutions, which means they would have multiple different Items. An Item is not the same as a financial institution account,
+   * although every account will be associated with an Item. For example, if a user has one login at their bank that allows them to access
+   * both their checking account and their savings account, a single Item would be associated with both of those accounts. Each Item
+   * linked within your application will have a corresponding access_token, which is a token that you can use to make API requests related
+   * to that specific Item.
+   * Two Items created for the same set of credentials at the same institution will be considered different and not share the same item_id.
+   */
+  link?: Link;
 }
 export type GetLinksData = any;
 export interface GetLinksResponse {
-	/** The links */
-	links?: Array<Link>;
+  /** The links */
+  links?: Array<Link>;
 }
 export type GetMelodyFinancialContextData = any;
 export interface GetMelodyFinancialContextResponse {
-	/**
-	 * MelodyFinancialContext represents the financial context of a user.
-	 * This message is used to represent the financial context of a user.
-	 */
-	melodyFinancialContext?: MelodyFinancialContext;
+  /**
+   * MelodyFinancialContext represents the financial context of a user.
+   * This message is used to represent the financial context of a user.
+   */
+  melodyFinancialContext?: MelodyFinancialContext;
 }
 export type GetMerchantMonthlyExpenditureData = any;
 export interface GetMerchantMonthlyExpenditureResponse {
-	merchantMonthlyExpenditures?: Array<MerchantMonthlyExpenditure>;
-	/** @format int64 */
-	nextPageNumber?: string;
+  merchantMonthlyExpenditures?: Array<MerchantMonthlyExpenditure>;
+  /** @format int64 */
+  nextPageNumber?: string;
 }
 export type GetMilestoneData = any;
 export interface GetMilestoneResponse {
-	/** The milestone */
-	milestone?: Milestone;
+  /** The milestone */
+  milestone?: Milestone;
 }
 export interface GetMilestonesBySmartGoalIdResponse {
-	/** The milestones */
-	milestones?: Array<Milestone>;
+  /** The milestones */
+  milestones?: Array<Milestone>;
 }
 export type GetMilestonesData = any;
 export type GetMonthlyBalanceData = any;
 export interface GetMonthlyBalanceResponse {
-	monthlyBalances?: Array<MonthlyBalance>;
-	/** @format int64 */
-	nextPageNumber?: string;
+  monthlyBalances?: Array<MonthlyBalance>;
+  /** @format int64 */
+  nextPageNumber?: string;
 }
 export type GetMonthlyExpenditureData = any;
 export interface GetMonthlyExpenditureResponse {
-	monthlyExpenditures?: Array<MonthlyExpenditure>;
-	/** @format int64 */
-	nextPageNumber?: string;
+  monthlyExpenditures?: Array<MonthlyExpenditure>;
+  /** @format int64 */
+  nextPageNumber?: string;
 }
 export type GetMonthlyIncomeData = any;
 export interface GetMonthlyIncomeResponse {
-	monthlyIncomes?: Array<MonthlyIncome>;
-	/** @format int64 */
-	nextPageNumber?: string;
+  monthlyIncomes?: Array<MonthlyIncome>;
+  /** @format int64 */
+  nextPageNumber?: string;
 }
 export type GetMonthlySavingsData = any;
 export interface GetMonthlySavingsResponse {
-	monthlySavings?: Array<MonthlySavings>;
-	/** @format int64 */
-	nextPageNumber?: string;
+  monthlySavings?: Array<MonthlySavings>;
+  /** @format int64 */
+  nextPageNumber?: string;
 }
 export type GetMonthlyTotalQuantityBySecurityAndUserData = any;
 export interface GetMonthlyTotalQuantityBySecurityAndUserResponse {
-	monthlyTotalQuantityBySecurityAndUser?: Array<MonthlyTotalQuantityBySecurityAndUser>;
-	/** @format int64 */
-	nextPageNumber?: string;
+  monthlyTotalQuantityBySecurityAndUser?: Array<MonthlyTotalQuantityBySecurityAndUser>;
+  /** @format int64 */
+  nextPageNumber?: string;
 }
 export type GetMonthlyTransactionCountData = any;
 export interface GetMonthlyTransactionCountResponse {
-	monthlyTransactionCounts?: Array<MonthlyTransactionCount>;
-	/** @format int64 */
-	nextPageNumber?: string;
+  monthlyTransactionCounts?: Array<MonthlyTransactionCount>;
+  /** @format int64 */
+  nextPageNumber?: string;
 }
 export type GetMortageAccountData = any;
 export interface GetMortgageAccountResponse {
-	/** The mortage account */
-	mortageAccount?: MortgageAccount;
+  /** The mortage account */
+  mortageAccount?: MortgageAccount;
 }
 export type GetNoteFromSmartGoalData = any;
 export interface GetNoteFromSmartGoalResponse {
-	/** The note */
-	note?: SmartNote;
+  /** The note */
+  note?: SmartNote;
 }
 export type GetNotesFromSmartGoalData = any;
 export interface GetNotesFromSmartGoalResponse {
-	/** The notes */
-	notes?: Array<SmartNote>;
+  /** The notes */
+  notes?: Array<SmartNote>;
 }
 export type GetPaymentChannelMonthlyExpenditureData = any;
 export interface GetPaymentChannelMonthlyExpenditureResponse {
-	/** @format int64 */
-	nextPageNumber?: string;
-	paymentChannelMonthlyExpenditure?: Array<PaymentChannelMonthlyExpenditure>;
+  /** @format int64 */
+  nextPageNumber?: string;
+  paymentChannelMonthlyExpenditure?: Array<PaymentChannelMonthlyExpenditure>;
 }
 export type GetPocketData = any;
 export interface GetPocketResponse {
-	/** The pocket account */
-	pocket?: Pocket;
+  /** The pocket account */
+  pocket?: Pocket;
 }
 export interface GetReCurringTransactionsResponse {
-	/** The re-occuring transactions */
-	reCcuringTransactions?: Array<ReOccuringTransaction>;
+  /** The re-occuring transactions */
+  reCcuringTransactions?: Array<ReOccuringTransaction>;
 }
 export type GetRecurringTransactionsData = any;
 export type GetSmartGoalsByPocketIdData = any;
 export interface GetSmartGoalsByPocketIdResponse {
-	/** The smart goals */
-	smartGoals?: Array<SmartGoal>;
+  /** The smart goals */
+  smartGoals?: Array<SmartGoal>;
 }
 export type GetStudentLoanAccountData = any;
 export interface GetStudentLoanAccountResponse {
-	/** The student loan account */
-	studentLoanAccount?: StudentLoanAccount;
+  /** The student loan account */
+  studentLoanAccount?: StudentLoanAccount;
 }
 export type GetTotalInvestmentBySecurityData = any;
 export interface GetTotalInvestmentBySecurityResponse {
-	/** @format int64 */
-	nextPageNumber?: string;
-	totalInvestmentBySecurity?: Array<TotalInvestmentBySecurity>;
+  /** @format int64 */
+  nextPageNumber?: string;
+  totalInvestmentBySecurity?: Array<TotalInvestmentBySecurity>;
 }
 export interface GetTransactionAggregatesResponse {
-	/** @format int64 */
-	nextPageNumber?: string;
-	transactionAggregates?: Array<TransactionAggregatesByMonth>;
+  /** @format int64 */
+  nextPageNumber?: string;
+  transactionAggregates?: Array<TransactionAggregatesByMonth>;
 }
 export type GetTransactions2Data = any;
 export interface GetTransactionsBetweenTimeRangesResponse {
-	/**
-	 * Current page number
-	 * @format int64
-	 */
-	currentPage?: number;
-	/**
-	 * Total number of pages
-	 * @format int64
-	 */
-	totalAges?: number;
-	/**
-	 * Total number of transactions in the month
-	 * @format uint64
-	 */
-	totalTransactions?: string;
-	/** The transactions */
-	transactions?: Array<PlaidAccountTransaction>;
+  /**
+   * Current page number
+   * @format int64
+   */
+  currentPage?: number;
+  /**
+   * Total number of pages
+   * @format int64
+   */
+  totalAges?: number;
+  /**
+   * Total number of transactions in the month
+   * @format uint64
+   */
+  totalTransactions?: string;
+  /** The transactions */
+  transactions?: Array<PlaidAccountTransaction>;
 }
 export type GetTransactionsByTimeData = any;
 export type GetTransactionsData = any;
 export interface GetTransactionsForBankAccountResponse {
-	/** @format uint64 */
-	nextPageNumber?: string;
-	/** The transactions */
-	transactions?: Array<Transaction>;
+  /** @format uint64 */
+  nextPageNumber?: string;
+  /** The transactions */
+  transactions?: Array<Transaction>;
 }
 export type GetTransactionsForPastMonthData = any;
 export interface GetTransactionsForPastMonthResponse {
-	/**
-	 * Current page number
-	 * @format int64
-	 */
-	currentPage?: number;
-	/**
-	 * Total number of pages
-	 * @format int64
-	 */
-	totalPages?: number;
-	/**
-	 * Total number of transactions in the month
-	 * @format uint64
-	 */
-	totalTransactions?: string;
-	transactions?: Array<PlaidAccountTransaction>;
+  /**
+   * Current page number
+   * @format int64
+   */
+  currentPage?: number;
+  /**
+   * Total number of pages
+   * @format int64
+   */
+  totalPages?: number;
+  /**
+   * Total number of transactions in the month
+   * @format uint64
+   */
+  totalTransactions?: string;
+  transactions?: Array<PlaidAccountTransaction>;
 }
 export type GetTransactionsForPastWeekData = any;
 export interface GetTransactionsForPastWeekResponse {
-	/**
-	 * Current page number
-	 * @format int64
-	 */
-	currentPage?: number;
-	/**
-	 * Total number of pages
-	 * @format int64
-	 */
-	totalPages?: number;
-	/**
-	 * Total number of transactions in the week
-	 * @format uint64
-	 */
-	totalTransactions?: string;
-	transactions?: Array<PlaidAccountTransaction>;
+  /**
+   * Current page number
+   * @format int64
+   */
+  currentPage?: number;
+  /**
+   * Total number of pages
+   * @format int64
+   */
+  totalPages?: number;
+  /**
+   * Total number of transactions in the week
+   * @format uint64
+   */
+  totalTransactions?: string;
+  transactions?: Array<PlaidAccountTransaction>;
 }
 export interface GetTransactionsResponse {
-	/** @format uint64 */
-	nextPageNumber?: string;
-	/** The transactions */
-	transactions?: Array<Transaction>;
+  /** @format uint64 */
+  nextPageNumber?: string;
+  /** The transactions */
+  transactions?: Array<Transaction>;
 }
 export type GetUserAccountBalanceHistoryData = any;
 export interface GetUserAccountBalanceHistoryResponse {
-	/** List of account balance history records */
-	accountBalanceHistory?: Array<AccountBalanceHistory>;
+  /** List of account balance history records */
+  accountBalanceHistory?: Array<AccountBalanceHistory>;
 }
 export type GetUserCategoryMonthlyExpenditureData = any;
 export interface GetUserCategoryMonthlyExpenditureResponse {
-	/** List of CategoryMonthlyExpenditure records for the user */
-	categoryMonthlyExpenditure?: Array<CategoryMonthlyExpenditure>;
-	/** @format int64 */
-	nextPageNumber?: string;
+  /** List of CategoryMonthlyExpenditure records for the user */
+  categoryMonthlyExpenditure?: Array<CategoryMonthlyExpenditure>;
+  /** @format int64 */
+  nextPageNumber?: string;
 }
 export type GetUserCategoryMonthlyIncomeData = any;
 export interface GetUserCategoryMonthlyIncomeResponse {
-	categoryMonthlyIncome?: Array<CategoryMonthlyIncome>;
-	/** @format int64 */
-	nextPageNumber?: string;
+  categoryMonthlyIncome?: Array<CategoryMonthlyIncome>;
+  /** @format int64 */
+  nextPageNumber?: string;
 }
 export type GetUserProfileData = any;
 /**
@@ -2328,69 +2364,74 @@ export type GetUserProfileData = any;
  * the `get user profile` request
  */
 export interface GetUserProfileResponse {
-	/**
-	 * financial context for the user
-	 * MelodyFinancialContext represents the financial context of a user.
-	 * This message is used to represent the financial context of a user.
-	 */
-	financialContext: MelodyFinancialContext;
-	profile?: FinancialUserProfile;
+  /**
+   * financial context for the user
+   * MelodyFinancialContext represents the financial context of a user.
+   * This message is used to represent the financial context of a user.
+   */
+  financialContext: MelodyFinancialContext;
+  profile?: FinancialUserProfile;
 }
 /** @default "GOAL_TYPE_UNSPECIFIED" */
-export type GoalType = "GOAL_TYPE_UNSPECIFIED" | "GOAL_TYPE_SAVINGS" | "GOAL_TYPE_INVESTMENT" | "GOAL_TYPE_DEBT" | "GOAL_TYPE_EXPENSE";
+export type GoalType =
+  | 'GOAL_TYPE_UNSPECIFIED'
+  | 'GOAL_TYPE_SAVINGS'
+  | 'GOAL_TYPE_INVESTMENT'
+  | 'GOAL_TYPE_DEBT'
+  | 'GOAL_TYPE_EXPENSE';
 export type HealthCheckData = any;
 export interface HealthCheckResponse {
-	healthy?: boolean;
+  healthy?: boolean;
 }
 /**
  * IncomeExpenseRatio
  * This message is used to represent the income expense ratio of a user.
  */
 export interface IncomeExpenseRatio {
-	/** @format int64 */
-	month?: number;
-	profileType?: FinancialUserProfileType;
-	/** @format double */
-	ratio?: number;
-	/** @format uint64 */
-	userId?: string;
+  /** @format int64 */
+  month?: number;
+  profileType?: FinancialUserProfileType;
+  /** @format double */
+  ratio?: number;
+  /** @format uint64 */
+  userId?: string;
 }
 /**
  * IncomeMetrics
  * This message is used to represent the income metrics of a user.
  */
 export interface IncomeMetrics {
-	/** @format int64 */
-	month?: number;
-	personalFinanceCategoryPrimary?: string;
-	profileType?: FinancialUserProfileType;
-	/** @format double */
-	totalIncome?: number;
-	/** @format uint64 */
-	transactionCount?: string;
-	/** @format uint64 */
-	userId?: string;
+  /** @format int64 */
+  month?: number;
+  personalFinanceCategoryPrimary?: string;
+  profileType?: FinancialUserProfileType;
+  /** @format double */
+  totalIncome?: number;
+  /** @format uint64 */
+  transactionCount?: string;
+  /** @format uint64 */
+  userId?: string;
 }
 /**
  * IncomeMetricsFinancialSubProfile
  * This message is used to represent the financial sub profile of a user.
  */
 export interface IncomeMetricsFinancialSubProfile {
-	/** @format double */
-	incomeLastMonth?: number;
-	/** @format double */
-	incomeLastSixMonths?: number;
-	/** @format double */
-	incomeLastTwoMonths?: number;
-	/** @format double */
-	incomeLastTwoWeeks?: number;
-	/** @format double */
-	incomeLastYear?: number;
-	/** @format int64 */
-	month?: number;
-	profileType?: FinancialUserProfileType;
-	/** @format uint64 */
-	userId?: string;
+  /** @format double */
+  incomeLastMonth?: number;
+  /** @format double */
+  incomeLastSixMonths?: number;
+  /** @format double */
+  incomeLastTwoMonths?: number;
+  /** @format double */
+  incomeLastTwoWeeks?: number;
+  /** @format double */
+  incomeLastYear?: number;
+  /** @format int64 */
+  month?: number;
+  profileType?: FinancialUserProfileType;
+  /** @format uint64 */
+  userId?: string;
 }
 /**
  * The IncomeStatement object is used to represent a company’s income, the cost of sales, operating expenses,
@@ -2398,409 +2439,409 @@ export interface IncomeMetricsFinancialSubProfile {
  * operating profit, and net income. This represents a period of time (month, quarter, or year).
  */
 export interface IncomeStatement {
-	/** The company the income statement belongs to. */
-	company?: string;
-	/** cost of sales */
-	costOfSales?: Array<ReportItem>;
-	/** The income statement's currency. */
-	currency?: string;
-	/**
-	 * The income statement's end period.
-	 * @format date-time
-	 */
-	endPeriod?: string;
-	/**
-	 * The revenue minus the cost of sale.
-	 * @format int32
-	 */
-	grossProfit?: number;
-	/** @format uint64 */
-	id?: string;
-	/** income */
-	income?: Array<ReportItem>;
-	/**
-	 * This is the datetime that this object was last updated by Merge
-	 * @format date-time
-	 */
-	modifiedAt?: string;
-	/** The income statement's name. */
-	name?: string;
-	/**
-	 * The gross profit minus the total expenses.
-	 * @format int32
-	 */
-	netIncome?: number;
-	/**
-	 * The revenue minus the operating expenses.
-	 * @format int32
-	 */
-	netOperatingIncome?: number;
-	nonOperatingExpenses?: Array<ReportItem>;
-	/** operating expenses */
-	operatingExpenses?: Array<ReportItem>;
-	/** The third-party API ID of the matching object. */
-	remoteId?: string;
-	/** Indicates whether or not this object has been deleted by third party webhooks. */
-	remoteWasDeleted?: boolean;
-	/**
-	 * The income statement's start period.
-	 * @format date-time
-	 */
-	startPeriod?: string;
+  /** The company the income statement belongs to. */
+  company?: string;
+  /** cost of sales */
+  costOfSales?: Array<ReportItem>;
+  /** The income statement's currency. */
+  currency?: string;
+  /**
+   * The income statement's end period.
+   * @format date-time
+   */
+  endPeriod?: string;
+  /**
+   * The revenue minus the cost of sale.
+   * @format int32
+   */
+  grossProfit?: number;
+  /** @format uint64 */
+  id?: string;
+  /** income */
+  income?: Array<ReportItem>;
+  /**
+   * This is the datetime that this object was last updated by Merge
+   * @format date-time
+   */
+  modifiedAt?: string;
+  /** The income statement's name. */
+  name?: string;
+  /**
+   * The gross profit minus the total expenses.
+   * @format int32
+   */
+  netIncome?: number;
+  /**
+   * The revenue minus the operating expenses.
+   * @format int32
+   */
+  netOperatingIncome?: number;
+  nonOperatingExpenses?: Array<ReportItem>;
+  /** operating expenses */
+  operatingExpenses?: Array<ReportItem>;
+  /** The third-party API ID of the matching object. */
+  remoteId?: string;
+  /** Indicates whether or not this object has been deleted by third party webhooks. */
+  remoteWasDeleted?: boolean;
+  /**
+   * The income statement's start period.
+   * @format date-time
+   */
+  startPeriod?: string;
 }
 export type InitiatePlaidSetupData = any;
 export type InitiatePlaidTokenUpdateData = any;
 export interface InvesmentHolding {
-	/**
-	 * @format double
-	 * @example "15"
-	 */
-	costBasis?: number;
-	/**
-	 * id
-	 * @format uint64
-	 */
-	id?: string;
-	/**
-	 * @format double
-	 * @example "13.73"
-	 */
-	institutionPrice?: number;
-	/** @example "2021-04-13" */
-	institutionPriceAsOf?: string;
-	/** @example "2022-06-07T23:01:00Z" */
-	institutionPriceDatetime?: string;
-	/**
-	 * @format double
-	 * @example "4437.35905"
-	 */
-	institutionValue?: number;
-	/** @example "USD" */
-	isoCurrencyCode?: string;
-	/**
-	 * The name of the investment holding
-	 * @minLength 3
-	 * @example "nfdkjfjksdhjhfjsdhjgf"
-	 */
-	name?: string;
-	/**
-	 * plaid account id
-	 * @example "k67E4xKvMlhmleEa4pg9hlwGGNnnEeixPolGm"
-	 */
-	plaidAccountId?: string;
-	/**
-	 * @format double
-	 * @example "25000"
-	 */
-	quantity?: number;
-	/** @example "vLRMV3MvY1FYNP91on35CJD5QN5rw9Fpa9qOL" */
-	securityId?: string;
-	/** @example "USD" */
-	unofficialCurrencyCode?: string;
+  /**
+   * @format double
+   * @example "15"
+   */
+  costBasis?: number;
+  /**
+   * id
+   * @format uint64
+   */
+  id?: string;
+  /**
+   * @format double
+   * @example "13.73"
+   */
+  institutionPrice?: number;
+  /** @example "2021-04-13" */
+  institutionPriceAsOf?: string;
+  /** @example "2022-06-07T23:01:00Z" */
+  institutionPriceDatetime?: string;
+  /**
+   * @format double
+   * @example "4437.35905"
+   */
+  institutionValue?: number;
+  /** @example "USD" */
+  isoCurrencyCode?: string;
+  /**
+   * The name of the investment holding
+   * @minLength 3
+   * @example "nfdkjfjksdhjhfjsdhjgf"
+   */
+  name?: string;
+  /**
+   * plaid account id
+   * @example "k67E4xKvMlhmleEa4pg9hlwGGNnnEeixPolGm"
+   */
+  plaidAccountId?: string;
+  /**
+   * @format double
+   * @example "25000"
+   */
+  quantity?: number;
+  /** @example "vLRMV3MvY1FYNP91on35CJD5QN5rw9Fpa9qOL" */
+  securityId?: string;
+  /** @example "USD" */
+  unofficialCurrencyCode?: string;
 }
 export interface InvestmentAccount {
-	/**
-	 * the bank account balance
-	 * @format float
-	 */
-	balance?: number;
-	/** @format uint64 */
-	balanceLimit?: string;
-	/** @format double */
-	currentFunds?: number;
-	/** invesment holding is the set of securities this account witholds */
-	holdings?: Array<InvesmentHolding>;
-	/**
-	 * id
-	 * @format uint64
-	 */
-	id?: string;
-	/** the account name */
-	name?: string;
-	/** the bank account number */
-	number?: string;
-	/** plaid account id mapped to this bank account */
-	plaidAccountId?: string;
-	/** the set of securities this account witholds */
-	securities?: Array<InvestmentSecurity>;
-	/** the bank account status */
-	status?: BankAccountStatus;
-	/** accoint subtype */
-	subtype?: string;
-	/** the bank account type */
-	type?: string;
-	/**
-	 * the user id to which this bank account is tied to
-	 * @format uint64
-	 */
-	userId?: string;
+  /**
+   * the bank account balance
+   * @format float
+   */
+  balance?: number;
+  /** @format uint64 */
+  balanceLimit?: string;
+  /** @format double */
+  currentFunds?: number;
+  /** invesment holding is the set of securities this account witholds */
+  holdings?: Array<InvesmentHolding>;
+  /**
+   * id
+   * @format uint64
+   */
+  id?: string;
+  /** the account name */
+  name?: string;
+  /** the bank account number */
+  number?: string;
+  /** plaid account id mapped to this bank account */
+  plaidAccountId?: string;
+  /** the set of securities this account witholds */
+  securities?: Array<InvestmentSecurity>;
+  /** the bank account status */
+  status?: BankAccountStatus;
+  /** accoint subtype */
+  subtype?: string;
+  /** the bank account type */
+  type?: string;
+  /**
+   * the user id to which this bank account is tied to
+   * @format uint64
+   */
+  userId?: string;
 }
 export interface InvestmentSecurity {
-	/**
-	 * @format double
-	 * @example " 0.140034616"
-	 */
-	closePrice?: number;
-	/** @example "2022-01-24" */
-	closePriceAsOf?: string;
-	/** @example "dfkjhdgjdhhgd" */
-	cusip?: string;
-	/**
-	 * id
-	 * @format uint64
-	 */
-	id?: string;
-	/** @example "ins_3" */
-	institutionId?: string;
-	/** @example "dfkjhdgjdhhgd" */
-	institutionSecurityId?: string;
-	/** @example "true" */
-	isCashEquivalent?: boolean;
-	/** @example "dfkjhdgjdhhgd" */
-	isin?: string;
-	/** @example "USD" */
-	isoCurrencyCode?: string;
-	/** @example "Dogecoin" */
-	name?: string;
-	/** @example "dfkjhdgjdhhgd" */
-	proxySecurityId?: string;
-	/** @example "vLRMV3MvY1FYNP91on35CJD5QN5rw9Fpa9qOL" */
-	securityId?: string;
-	/** @example "dfkjhdgjdhhgd" */
-	sedol?: string;
-	/** @example "DOGE" */
-	tickerSymbol?: string;
-	/** @example "cryptocurrency" */
-	type?: string;
-	/** @example "USD" */
-	unofficialCurrencyCode?: string;
-	/** @example "2022-06-07T23:01:00Z" */
-	updateDatetime?: string;
+  /**
+   * @format double
+   * @example " 0.140034616"
+   */
+  closePrice?: number;
+  /** @example "2022-01-24" */
+  closePriceAsOf?: string;
+  /** @example "dfkjhdgjdhhgd" */
+  cusip?: string;
+  /**
+   * id
+   * @format uint64
+   */
+  id?: string;
+  /** @example "ins_3" */
+  institutionId?: string;
+  /** @example "dfkjhdgjdhhgd" */
+  institutionSecurityId?: string;
+  /** @example "true" */
+  isCashEquivalent?: boolean;
+  /** @example "dfkjhdgjdhhgd" */
+  isin?: string;
+  /** @example "USD" */
+  isoCurrencyCode?: string;
+  /** @example "Dogecoin" */
+  name?: string;
+  /** @example "dfkjhdgjdhhgd" */
+  proxySecurityId?: string;
+  /** @example "vLRMV3MvY1FYNP91on35CJD5QN5rw9Fpa9qOL" */
+  securityId?: string;
+  /** @example "dfkjhdgjdhhgd" */
+  sedol?: string;
+  /** @example "DOGE" */
+  tickerSymbol?: string;
+  /** @example "cryptocurrency" */
+  type?: string;
+  /** @example "USD" */
+  unofficialCurrencyCode?: string;
+  /** @example "2022-06-07T23:01:00Z" */
+  updateDatetime?: string;
 }
 /** The Invoice object represents an itemized record of goods and/or services sold to a customer. */
 export interface Invoice {
-	/** The accounting period that the Invoice was generated in. */
-	accountingPeriod?: string;
-	/**
-	 * The invoice's remaining balance.
-	 * @format float
-	 */
-	balance?: number;
-	/** The company the invoice belongs to. */
-	company?: string;
-	/** The invoice's contact. */
-	contact?: string;
-	/** The invoice's currency */
-	currency?: string;
-	/**
-	 * The invoice's due date.
-	 * @format date-time
-	 */
-	dueDate?: string;
-	/** The invoice's exchange rate. */
-	exchangeRate?: string;
-	/** @format uint64 */
-	id?: string;
-	/**
-	 * The invoice's issue date.
-	 * @format date-time
-	 */
-	issueDate?: string;
-	lineItems?: Array<InvoiceLineItem>;
-	/** The invoice's private note. */
-	memo?: string;
-	/** the account id as stored in merge */
-	mergeAccountId?: string;
-	/** @format date-time */
-	modifiedAt?: string;
-	/** The invoice's number. */
-	number?: string;
-	/**
-	 * The invoice's paid date.
-	 * @format date-time
-	 */
-	paidOnDate?: string;
-	/** Array of Payment object IDs. */
-	payments?: Array<string>;
-	purchaseOrders?: Array<string>;
-	/** The third-party API ID of the matching object. */
-	remoteId?: string;
-	/**
-	 * When the third party's invoice entry was updated.
-	 * @format date-time
-	 */
-	remoteUpdatedAt?: string;
-	remoteWasDeleted?: boolean;
-	status?: string;
-	/**
-	 * The total amount being paid before taxes.
-	 * @format float
-	 */
-	subTotal?: number;
-	/**
-	 * The invoice's total amount.
-	 * @format float
-	 */
-	totalAmount?: number;
-	/**
-	 * The total discounts applied to the total cost.
-	 * @format float
-	 */
-	totalDiscount?: number;
-	/**
-	 * The total amount being paid in taxes.
-	 * @format float
-	 */
-	totalTaxAmount?: number;
-	trackingCategories?: Array<string>;
-	/**
-	 * Whether the invoice is an accounts receivable or accounts payable
-	 *  If type is accounts_payable, the invoice is a bill. If type is
-	 *  accounts_receivable, it is an invoice. Possible values include: ACCOUNTS_RECEIVABLE, ACCOUNTS_PAYABLE.
-	 */
-	type?: string;
+  /** The accounting period that the Invoice was generated in. */
+  accountingPeriod?: string;
+  /**
+   * The invoice's remaining balance.
+   * @format float
+   */
+  balance?: number;
+  /** The company the invoice belongs to. */
+  company?: string;
+  /** The invoice's contact. */
+  contact?: string;
+  /** The invoice's currency */
+  currency?: string;
+  /**
+   * The invoice's due date.
+   * @format date-time
+   */
+  dueDate?: string;
+  /** The invoice's exchange rate. */
+  exchangeRate?: string;
+  /** @format uint64 */
+  id?: string;
+  /**
+   * The invoice's issue date.
+   * @format date-time
+   */
+  issueDate?: string;
+  lineItems?: Array<InvoiceLineItem>;
+  /** The invoice's private note. */
+  memo?: string;
+  /** the account id as stored in merge */
+  mergeAccountId?: string;
+  /** @format date-time */
+  modifiedAt?: string;
+  /** The invoice's number. */
+  number?: string;
+  /**
+   * The invoice's paid date.
+   * @format date-time
+   */
+  paidOnDate?: string;
+  /** Array of Payment object IDs. */
+  payments?: Array<string>;
+  purchaseOrders?: Array<string>;
+  /** The third-party API ID of the matching object. */
+  remoteId?: string;
+  /**
+   * When the third party's invoice entry was updated.
+   * @format date-time
+   */
+  remoteUpdatedAt?: string;
+  remoteWasDeleted?: boolean;
+  status?: string;
+  /**
+   * The total amount being paid before taxes.
+   * @format float
+   */
+  subTotal?: number;
+  /**
+   * The invoice's total amount.
+   * @format float
+   */
+  totalAmount?: number;
+  /**
+   * The total discounts applied to the total cost.
+   * @format float
+   */
+  totalDiscount?: number;
+  /**
+   * The total amount being paid in taxes.
+   * @format float
+   */
+  totalTaxAmount?: number;
+  trackingCategories?: Array<string>;
+  /**
+   * Whether the invoice is an accounts receivable or accounts payable
+   *  If type is accounts_payable, the invoice is a bill. If type is
+   *  accounts_receivable, it is an invoice. Possible values include: ACCOUNTS_RECEIVABLE, ACCOUNTS_PAYABLE.
+   */
+  type?: string;
 }
 /** The Invoice object represents an itemized record of goods and/or services sold to a customer. */
 export interface InvoiceLineItem {
-	account?: string;
-	/** The company the line item belongs to. */
-	company?: string;
-	/** The line item's currency */
-	currency?: string;
-	/** The line item's description. */
-	description?: string;
-	/** The line item's exchange rate. */
-	exchangeRate?: string;
-	/** @format uint64 */
-	id?: string;
-	item?: string;
-	/** the id of the record as stored in merge */
-	mergeAccountId?: string;
-	/**
-	 * This is the datetime that this object was last updated by Merge
-	 * Consider using google.protobuf.Timestamp
-	 * @format date-time
-	 */
-	modifiedAt?: string;
-	/**
-	 * The line item's quantity.
-	 * @format int32
-	 */
-	quantity?: number;
-	/** The third-party API ID of the matching object. */
-	remoteId?: string;
-	/**
-	 * The line item's total amount.
-	 * @format float
-	 */
-	totalAmount?: number;
-	trackingCategories?: Array<string>;
-	trackingCategory?: string;
-	/**
-	 * The line item's unit price.
-	 * @format float
-	 */
-	unitPrice?: number;
+  account?: string;
+  /** The company the line item belongs to. */
+  company?: string;
+  /** The line item's currency */
+  currency?: string;
+  /** The line item's description. */
+  description?: string;
+  /** The line item's exchange rate. */
+  exchangeRate?: string;
+  /** @format uint64 */
+  id?: string;
+  item?: string;
+  /** the id of the record as stored in merge */
+  mergeAccountId?: string;
+  /**
+   * This is the datetime that this object was last updated by Merge
+   * Consider using google.protobuf.Timestamp
+   * @format date-time
+   */
+  modifiedAt?: string;
+  /**
+   * The line item's quantity.
+   * @format int32
+   */
+  quantity?: number;
+  /** The third-party API ID of the matching object. */
+  remoteId?: string;
+  /**
+   * The line item's total amount.
+   * @format float
+   */
+  totalAmount?: number;
+  trackingCategories?: Array<string>;
+  trackingCategory?: string;
+  /**
+   * The line item's unit price.
+   * @format float
+   */
+  unitPrice?: number;
 }
 /** The Item object refers to the goods involved in a transaction. */
 export interface Item {
-	/** The company the item belongs to. */
-	company?: string;
-	/** @format uint64 */
-	id?: string;
-	mergeAccountId?: string;
-	/**
-	 * This is the datetime that this object was last updated by Merge
-	 * @format date-time
-	 */
-	modifiedAt?: string;
-	/** The item's name. */
-	name?: string;
-	/** References the default account used to record a purchase of the item. */
-	purchaseAccount?: string;
-	/**
-	 * The price at which the item is purchased from a vendor.
-	 * @format float
-	 */
-	purchasePrice?: number;
-	/** The third-party API ID of the matching object. */
-	remoteId?: string;
-	/**
-	 * When the third party's item note was updated.
-	 * @format date-time
-	 */
-	remoteUpdatedAt?: string;
-	/** Indicates whether or not this object has been deleted by third party webhooks. */
-	remoteWasDeleted?: boolean;
-	/** References the default account used to record a sale. */
-	salesAccount?: string;
-	status?: string;
-	/**
-	 * The item's unit price.
-	 * @format float
-	 */
-	unitPrice?: number;
+  /** The company the item belongs to. */
+  company?: string;
+  /** @format uint64 */
+  id?: string;
+  mergeAccountId?: string;
+  /**
+   * This is the datetime that this object was last updated by Merge
+   * @format date-time
+   */
+  modifiedAt?: string;
+  /** The item's name. */
+  name?: string;
+  /** References the default account used to record a purchase of the item. */
+  purchaseAccount?: string;
+  /**
+   * The price at which the item is purchased from a vendor.
+   * @format float
+   */
+  purchasePrice?: number;
+  /** The third-party API ID of the matching object. */
+  remoteId?: string;
+  /**
+   * When the third party's item note was updated.
+   * @format date-time
+   */
+  remoteUpdatedAt?: string;
+  /** Indicates whether or not this object has been deleted by third party webhooks. */
+  remoteWasDeleted?: boolean;
+  /** References the default account used to record a sale. */
+  salesAccount?: string;
+  status?: string;
+  /**
+   * The item's unit price.
+   * @format float
+   */
+  unitPrice?: number;
 }
 /**
  * The JournalEntry object is used to get a record of all manually created entries made in a company’s general ledger.
  * The journal line items for each journal entry should sum to zero.
  */
 export interface JournalEntry {
-	/** The accounting period that the JournalEntry was generated in. */
-	accountingPeriod?: string;
-	company?: string;
-	currency?: string;
-	/** Assuming string due to the example provided, but could be float or double. */
-	exchangeRate?: string;
-	/** @format uint64 */
-	id?: string;
-	/** Reference number for identifying journal entries. */
-	journalNumber?: string;
-	lines?: Array<JournalLine>;
-	/** The journal entry's private note. */
-	memo?: string;
-	/** the id of the record as stored in merge */
-	mergeAccountId?: string;
-	/** @format date-time */
-	modifiedAt?: string;
-	paymentIds?: Array<string>;
-	postingStatus?: string;
-	/**
-	 * When the third party's journal entry was created.
-	 * @format date-time
-	 */
-	remoteCreatedAt?: string;
-	remoteId?: string;
-	/** @format date-time */
-	remoteUpdatedAt?: string;
-	remoteWasDeleted?: boolean;
-	trackingCategories?: Array<string>;
-	/**
-	 * The journal entry's transaction date.
-	 * @format date-time
-	 */
-	transactionDate?: string;
+  /** The accounting period that the JournalEntry was generated in. */
+  accountingPeriod?: string;
+  company?: string;
+  currency?: string;
+  /** Assuming string due to the example provided, but could be float or double. */
+  exchangeRate?: string;
+  /** @format uint64 */
+  id?: string;
+  /** Reference number for identifying journal entries. */
+  journalNumber?: string;
+  lines?: Array<JournalLine>;
+  /** The journal entry's private note. */
+  memo?: string;
+  /** the id of the record as stored in merge */
+  mergeAccountId?: string;
+  /** @format date-time */
+  modifiedAt?: string;
+  paymentIds?: Array<string>;
+  postingStatus?: string;
+  /**
+   * When the third party's journal entry was created.
+   * @format date-time
+   */
+  remoteCreatedAt?: string;
+  remoteId?: string;
+  /** @format date-time */
+  remoteUpdatedAt?: string;
+  remoteWasDeleted?: boolean;
+  trackingCategories?: Array<string>;
+  /**
+   * The journal entry's transaction date.
+   * @format date-time
+   */
+  transactionDate?: string;
 }
 /** The JournalLine object is used to represent a journal entry's line items. */
 export interface JournalLine {
-	account?: string;
-	company?: string;
-	contact?: string;
-	description?: string;
-	/** Assuming string due to the example provided, but could be float or double. */
-	exchangeRate?: string;
-	/** @format uint64 */
-	id?: string;
-	/** @format date-time */
-	modifiedAt?: string;
-	/**
-	 * Might want to use double or a more precise type
-	 * @format float
-	 */
-	netAmount?: number;
-	remoteId?: string;
-	trackingCategories?: Array<string>;
-	trackingCategory?: string;
+  account?: string;
+  company?: string;
+  contact?: string;
+  description?: string;
+  /** Assuming string due to the example provided, but could be float or double. */
+  exchangeRate?: string;
+  /** @format uint64 */
+  id?: string;
+  /** @format date-time */
+  modifiedAt?: string;
+  /**
+   * Might want to use double or a more precise type
+   * @format float
+   */
+  netAmount?: number;
+  remoteId?: string;
+  trackingCategories?: Array<string>;
+  trackingCategory?: string;
 }
 /**
  * A Link represents a login at a financial institution. A single end-user of your application might have accounts at different financial
@@ -2812,810 +2853,828 @@ export interface JournalLine {
  * Two Items created for the same set of credentials at the same institution will be considered different and not share the same item_id.
  */
 export interface Link {
-	/**
-	 * a link event - or client login event can have many connected bank accounts
-	 * for example a log in link against one instition like chase can have many account (checking and savings)
-	 * it is important though to ensure that if a link against an instition already exists, we dont fascilitate duplicated
-	 */
-	bankAccounts?: Array<BankAccount>;
-	/** credit accounts tied to a user */
-	creditAccounts?: Array<CreditAccount>;
-	customInstitutionName?: string;
-	description?: string;
-	errorCode?: string;
-	expirationDate?: string;
-	/**
-	 * id
-	 * @format uint64
-	 */
-	id?: string;
-	institutionName?: string;
-	/**
-	 * a link event - or client login event can have many connected investment accounts
-	 * for example a log in link against one instition like fidelity can have many accounts (401k and investment account)
-	 * it is important though to ensure that if a link against an instition already exists, we dont fascilitate duplicated
-	 */
-	investmentAccounts?: Array<InvestmentAccount>;
-	lastManualSync?: string;
-	lastSuccessfulUpdate?: string;
-	linkStatus?: LinkStatus;
-	/** the type of link this is ... can be either a manual or plaid link type */
-	linkType?: LinkType;
-	/** mortgage accounts tied to a user */
-	mortgageAccounts?: Array<MortgageAccount>;
-	newAccountsAvailable?: boolean;
-	/** the id of the institution this link is tied to and against */
-	plaidInstitutionId?: string;
-	plaidLink?: PlaidLink;
-	plaidNewAccountsAvailable?: boolean;
-	plaidSync?: PlaidSync;
-	shouldBeUpdated?: boolean;
-	/** student loan accounts tied to a link */
-	studentLoanAccounts?: Array<StudentLoanAccount>;
-	/**
-	 * token object witholds an access token which is a token used to make API requests related to a specific Item. You will typically obtain an access_token
-	 * by calling /item/public_token/exchange. For more details, see the Token exchange flow. An access_token does not expire,
-	 * although it may require updating, such as when a user changes their password, or when working with European institutions
-	 * that comply with PSD2's 90-day consent window. For more information, see When to use update mode.
-	 * Access tokens should always be stored securely, and associated with the user whose data they represent.
-	 * If compromised, an access_token can be rotated via /item/access_token/invalidate. If no longer needed,
-	 * it can be revoked via /item/remove.(gorm.field).has_one = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
-	 */
-	token?: Token;
-	updatedAt?: string;
+  /**
+   * a link event - or client login event can have many connected bank accounts
+   * for example a log in link against one instition like chase can have many account (checking and savings)
+   * it is important though to ensure that if a link against an instition already exists, we dont fascilitate duplicated
+   */
+  bankAccounts?: Array<BankAccount>;
+  /** credit accounts tied to a user */
+  creditAccounts?: Array<CreditAccount>;
+  customInstitutionName?: string;
+  description?: string;
+  errorCode?: string;
+  expirationDate?: string;
+  /**
+   * id
+   * @format uint64
+   */
+  id?: string;
+  institutionName?: string;
+  /**
+   * a link event - or client login event can have many connected investment accounts
+   * for example a log in link against one instition like fidelity can have many accounts (401k and investment account)
+   * it is important though to ensure that if a link against an instition already exists, we dont fascilitate duplicated
+   */
+  investmentAccounts?: Array<InvestmentAccount>;
+  lastManualSync?: string;
+  lastSuccessfulUpdate?: string;
+  linkStatus?: LinkStatus;
+  /** the type of link this is ... can be either a manual or plaid link type */
+  linkType?: LinkType;
+  /** mortgage accounts tied to a user */
+  mortgageAccounts?: Array<MortgageAccount>;
+  newAccountsAvailable?: boolean;
+  /** the id of the institution this link is tied to and against */
+  plaidInstitutionId?: string;
+  plaidLink?: PlaidLink;
+  plaidNewAccountsAvailable?: boolean;
+  plaidSync?: PlaidSync;
+  shouldBeUpdated?: boolean;
+  /** student loan accounts tied to a link */
+  studentLoanAccounts?: Array<StudentLoanAccount>;
+  /**
+   * token object witholds an access token which is a token used to make API requests related to a specific Item. You will typically obtain an access_token
+   * by calling /item/public_token/exchange. For more details, see the Token exchange flow. An access_token does not expire,
+   * although it may require updating, such as when a user changes their password, or when working with European institutions
+   * that comply with PSD2's 90-day consent window. For more information, see When to use update mode.
+   * Access tokens should always be stored securely, and associated with the user whose data they represent.
+   * If compromised, an access_token can be rotated via /item/access_token/invalidate. If no longer needed,
+   * it can be revoked via /item/remove.(gorm.field).has_one = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+   */
+  token?: Token;
+  updatedAt?: string;
 }
 /** @default "LINK_STATUS_UNSPECIFIED" */
-export type LinkStatus = "LINK_STATUS_UNSPECIFIED" | "LINK_STATUS_SETUP" | "LINK_STATUS_PENDING" | "LINK_STATUS_ERROR" | "LINK_STATUS_SUCCESS" | "LINK_STATUS_PENDING_EXPIRATION" | "LINK_STATUS_REVOKED" | "LINK_STATUS_ITEM_LOGIN_REQUIRED";
+export type LinkStatus =
+  | 'LINK_STATUS_UNSPECIFIED'
+  | 'LINK_STATUS_SETUP'
+  | 'LINK_STATUS_PENDING'
+  | 'LINK_STATUS_ERROR'
+  | 'LINK_STATUS_SUCCESS'
+  | 'LINK_STATUS_PENDING_EXPIRATION'
+  | 'LINK_STATUS_REVOKED'
+  | 'LINK_STATUS_ITEM_LOGIN_REQUIRED';
 /** @default "LINK_TYPE_UNSPECIFIED" */
-export type LinkType = "LINK_TYPE_UNSPECIFIED" | "LINK_TYPE_PLAID" | "LINK_TYPE_MANUAL";
+export type LinkType =
+  | 'LINK_TYPE_UNSPECIFIED'
+  | 'LINK_TYPE_PLAID'
+  | 'LINK_TYPE_MANUAL';
 export interface LinkedAccountingAccount {
-	/** Represent a company's attachments. a business can have many attachments */
-	attachments?: Array<Attachments>;
-	/** The CompanyInfo object is used to represent a company's information. */
-	companyInfo?: Array<CompanyInfo>;
-	/**
-	 * id
-	 * @format uint64
-	 */
-	id?: string;
-	/** a business can have many purchase orders */
-	purchaseOrders?: Array<PurchaseOrder>;
-	/**
-	 * ReferenceDetails: These are the objects that provide additional context or information about the transactions.
-	 * They include things like Accounts, Contacts, Items, and Tax Rates.
-	 */
-	referenceDetails?: ReferenceDetails;
-	/**
-	 * a business can have one report object
-	 * ReportDetails: These are the summaries or overviews of the financial data. They include things
-	 * like Balance Sheets, Income Statements, and Cash Flow Statements.
-	 */
-	reportDetails?: ReportDetails;
-	/**
-	 * TransactionDetails: These are the actual financial transactions that occur within an accounting system.
-	 * They include things like Invoices, Payments, Expenses, and Journal Entries.
-	 */
-	transactionsDetails?: TransactionDetails;
+  /** Represent a company's attachments. a business can have many attachments */
+  attachments?: Array<Attachments>;
+  /** The CompanyInfo object is used to represent a company's information. */
+  companyInfo?: Array<CompanyInfo>;
+  /**
+   * id
+   * @format uint64
+   */
+  id?: string;
+  /** a business can have many purchase orders */
+  purchaseOrders?: Array<PurchaseOrder>;
+  /**
+   * ReferenceDetails: These are the objects that provide additional context or information about the transactions.
+   * They include things like Accounts, Contacts, Items, and Tax Rates.
+   */
+  referenceDetails?: ReferenceDetails;
+  /**
+   * a business can have one report object
+   * ReportDetails: These are the summaries or overviews of the financial data. They include things
+   * like Balance Sheets, Income Statements, and Cash Flow Statements.
+   */
+  reportDetails?: ReportDetails;
+  /**
+   * TransactionDetails: These are the actual financial transactions that occur within an accounting system.
+   * They include things like Invoices, Payments, Expenses, and Journal Entries.
+   */
+  transactionsDetails?: TransactionDetails;
 }
 /**
  * LocationFinancialSubProfile
  * This message is used to represent the financial sub profile of a location.
  */
 export interface LocationFinancialSubProfile {
-	locationCity?: string;
-	/** @format int64 */
-	month?: number;
-	profileType?: FinancialUserProfileType;
-	/** @format double */
-	spentLastMonth?: number;
-	/** @format double */
-	spentLastSixMonths?: number;
-	/** @format double */
-	spentLastTwoWeeks?: number;
-	/** @format double */
-	spentLastTwoYears?: number;
-	/** @format double */
-	spentLastWeek?: number;
-	/** @format double */
-	spentLastYear?: number;
-	/** @format uint64 */
-	transactionCount?: string;
-	/** @format uint64 */
-	userId?: string;
+  locationCity?: string;
+  /** @format int64 */
+  month?: number;
+  profileType?: FinancialUserProfileType;
+  /** @format double */
+  spentLastMonth?: number;
+  /** @format double */
+  spentLastSixMonths?: number;
+  /** @format double */
+  spentLastTwoWeeks?: number;
+  /** @format double */
+  spentLastTwoYears?: number;
+  /** @format double */
+  spentLastWeek?: number;
+  /** @format double */
+  spentLastYear?: number;
+  /** @format uint64 */
+  transactionCount?: string;
+  /** @format uint64 */
+  userId?: string;
 }
 /**
  * MelodyFinancialContext represents the financial context of a user.
  * This message is used to represent the financial context of a user.
  */
 export interface MelodyFinancialContext {
-	bankAccounts?: Array<BankAccount>;
-	categories?: Array<CategoryMetricsFinancialSubProfile>;
-	creditAccounts?: Array<CreditAccount>;
-	expenses?: Array<ExpenseMetricsFinancialSubProfileMetrics>;
-	financialUserProfileType?: FinancialUserProfileType;
-	income?: Array<IncomeMetricsFinancialSubProfile>;
-	investmentAccounts?: Array<InvestmentAccount>;
-	locations?: Array<LocationFinancialSubProfile>;
-	merchants?: Array<MerchantMetricsFinancialSubProfile>;
-	mortgageLoanAccounts?: Array<MortgageAccount>;
-	paymentChannels?: Array<PaymentChannelMetricsFinancialSubProfile>;
-	studentLoanAccounts?: Array<StudentLoanAccount>;
+  bankAccounts?: Array<BankAccount>;
+  categories?: Array<CategoryMetricsFinancialSubProfile>;
+  creditAccounts?: Array<CreditAccount>;
+  expenses?: Array<ExpenseMetricsFinancialSubProfileMetrics>;
+  financialUserProfileType?: FinancialUserProfileType;
+  income?: Array<IncomeMetricsFinancialSubProfile>;
+  investmentAccounts?: Array<InvestmentAccount>;
+  locations?: Array<LocationFinancialSubProfile>;
+  merchants?: Array<MerchantMetricsFinancialSubProfile>;
+  mortgageLoanAccounts?: Array<MortgageAccount>;
+  paymentChannels?: Array<PaymentChannelMetricsFinancialSubProfile>;
+  studentLoanAccounts?: Array<StudentLoanAccount>;
 }
 /**
  * MerchantFinancialSubProfile
  * This message is used to represent the financial sub profile of a merchant.
  */
 export interface MerchantMetricsFinancialSubProfile {
-	merchantName?: string;
-	/** @format int64 */
-	month?: number;
-	profileType?: FinancialUserProfileType;
-	/** @format double */
-	spentLastMonth?: number;
-	/** @format double */
-	spentLastSixMonths?: number;
-	/** @format double */
-	spentLastTwoWeeks?: number;
-	/** @format double */
-	spentLastTwoYears?: number;
-	/** @format double */
-	spentLastWeek?: number;
-	/** @format double */
-	spentLastYear?: number;
-	/** @format uint64 */
-	userId?: string;
+  merchantName?: string;
+  /** @format int64 */
+  month?: number;
+  profileType?: FinancialUserProfileType;
+  /** @format double */
+  spentLastMonth?: number;
+  /** @format double */
+  spentLastSixMonths?: number;
+  /** @format double */
+  spentLastTwoWeeks?: number;
+  /** @format double */
+  spentLastTwoYears?: number;
+  /** @format double */
+  spentLastWeek?: number;
+  /** @format double */
+  spentLastYear?: number;
+  /** @format uint64 */
+  userId?: string;
 }
 /**
  * MerchantMonthlyExpenditure
  * This message is used to represent the monthly expenditure of a merchant.
  */
 export interface MerchantMonthlyExpenditure {
-	merchantName?: string;
-	/** @format int64 */
-	month?: number;
-	profileType?: FinancialUserProfileType;
-	/** @format double */
-	totalSpending?: number;
-	/** @format uint64 */
-	userId?: string;
+  merchantName?: string;
+  /** @format int64 */
+  month?: number;
+  profileType?: FinancialUserProfileType;
+  /** @format double */
+  totalSpending?: number;
+  /** @format uint64 */
+  userId?: string;
 }
 export type MergeExchangePublicLinkTokenForAccountTokenData = any;
 export interface MergeExchangePublicLinkTokenForAccountTokenRequest {
-	endUserOriginId: string;
-	organizationName: string;
-	profileType: FinancialUserProfileType;
-	publicToken: string;
-	/**
-	 * The user id
-	 * Validations:
-	 * - user_id must be greater than 0
-	 * @format uint64
-	 */
-	userId: string;
+  endUserOriginId: string;
+  organizationName: string;
+  profileType: FinancialUserProfileType;
+  publicToken: string;
+  /**
+   * The user id
+   * Validations:
+   * - user_id must be greater than 0
+   * @format uint64
+   */
+  userId: string;
 }
 export interface MergeExchangePublicLinkTokenForAccountTokenResponse {
-	success: boolean;
+  success: boolean;
 }
 export type MergeGetPublicLinkTokenData = any;
 export interface MergeGetPublicLinkTokenRequest {
-	/**
-	 * Your end user's email address. This is purely for
-	 * identification purposes - setting this value will not cause any emails to be sent.
-	 */
-	email: string;
-	/** Your end user's organization. */
-	organizationName: string;
-	profileType: FinancialUserProfileType;
-	/**
-	 * The user id
-	 * Validations:
-	 * - user_id must be greater than 0
-	 * This unique identifier typically represents the ID for your end user in your product's database. T
-	 * his value must be distinct from other Linked Accounts' unique identifiers.
-	 * @format uint64
-	 */
-	userId: string;
+  /**
+   * Your end user's email address. This is purely for
+   * identification purposes - setting this value will not cause any emails to be sent.
+   */
+  email: string;
+  /** Your end user's organization. */
+  organizationName: string;
+  profileType: FinancialUserProfileType;
+  /**
+   * The user id
+   * Validations:
+   * - user_id must be greater than 0
+   * This unique identifier typically represents the ID for your end user in your product's database. T
+   * his value must be distinct from other Linked Accounts' unique identifiers.
+   * @format uint64
+   */
+  userId: string;
 }
 export interface MergeGetPublicLinkTokenResponse {
-	endUserOriginId?: string;
-	integrationName?: string;
-	linkToken?: string;
-	magicLinkUrl?: string;
-	organizationName?: string;
+  endUserOriginId?: string;
+  integrationName?: string;
+  linkToken?: string;
+  magicLinkUrl?: string;
+  organizationName?: string;
 }
 /** =============================== */
 export interface MergeLink {
-	/**
-	 * When you request a link token to initiate a Merge Link session, Merge determines whether to create a new linked account or modify
-	 * an existing linked account based on a combination of the end_user_origin_id and the category. If you want to support multiple
-	 * connections, you simply need to provide a different end_user_origin_id for each company.
-	 *
-	 * This approach enables you to link multiple instances of the same integration (like QuickBooks) for the same end user.
-	 * It also has the added security benefit of not exposing any internal end_user_origin_ids.
-	 */
-	account?: Array<LinkedAccountingAccount>;
-	category?: string;
-	endUserEmailAddress?: string;
-	endUserOrganizationName?: string;
-	endUserOriginId?: string;
-	/**
-	 * id
-	 * @format uint64
-	 */
-	id?: string;
-	integration?: string;
-	integrationImage?: string;
-	integrationName?: string;
-	integrationSlug?: string;
-	integrationSquareImage?: string;
-	isDuplicate?: boolean;
-	mergeLinkedAccountId?: string;
-	status?: string;
-	token?: Token;
-	webhookListenerUrl?: string;
+  /**
+   * When you request a link token to initiate a Merge Link session, Merge determines whether to create a new linked account or modify
+   * an existing linked account based on a combination of the end_user_origin_id and the category. If you want to support multiple
+   * connections, you simply need to provide a different end_user_origin_id for each company.
+   *
+   * This approach enables you to link multiple instances of the same integration (like QuickBooks) for the same end user.
+   * It also has the added security benefit of not exposing any internal end_user_origin_ids.
+   */
+  account?: Array<LinkedAccountingAccount>;
+  category?: string;
+  endUserEmailAddress?: string;
+  endUserOrganizationName?: string;
+  endUserOriginId?: string;
+  /**
+   * id
+   * @format uint64
+   */
+  id?: string;
+  integration?: string;
+  integrationImage?: string;
+  integrationName?: string;
+  integrationSlug?: string;
+  integrationSquareImage?: string;
+  isDuplicate?: boolean;
+  mergeLinkedAccountId?: string;
+  status?: string;
+  token?: Token;
+  webhookListenerUrl?: string;
 }
 /**
  * Milestone: represents a milestone in the context of simfinni. A financial milestone that is both smart
  * and achievable. A milestone is a sub goal of a goal and is tied to a goal by the goal id
  */
 export interface Milestone {
-	/**
-	 * the budget associated with the milestone
-	 * The Budgets table stores information about each budget created by the user,
-	 * including the name of the budget, the start and end dates, and the user ID.
-	 */
-	budget?: Budget;
-	/**
-	 * The description of the miletone
-	 * Validations:
-	 * - must be at least 3 characters long
-	 * @example "Buy a car"
-	 */
-	description?: string;
-	/**
-	 * id
-	 * @format uint64
-	 */
-	id?: string;
-	/**
-	 * wethe milestone is completed or not
-	 * @example true
-	 */
-	isCompleted?: boolean;
-	/**
-	 * The name of the milestone
-	 * Validations:
-	 * - must be at least 3 characters long
-	 * @example "Buy a car"
-	 */
-	name?: string;
-	/**
-	 * the target amount of the milestone
-	 * @example "Active"
-	 */
-	targetAmount?: string;
-	/**
-	 * the target date of the milestone
-	 * Validations:
-	 * - must be at least 3 characters long
-	 * @example "testtagdescription"
-	 */
-	targetDate?: string;
+  /**
+   * the budget associated with the milestone
+   * The Budgets table stores information about each budget created by the user,
+   * including the name of the budget, the start and end dates, and the user ID.
+   */
+  budget?: Budget;
+  /**
+   * The description of the miletone
+   * Validations:
+   * - must be at least 3 characters long
+   * @example "Buy a car"
+   */
+  description?: string;
+  /**
+   * id
+   * @format uint64
+   */
+  id?: string;
+  /**
+   * wethe milestone is completed or not
+   * @example true
+   */
+  isCompleted?: boolean;
+  /**
+   * The name of the milestone
+   * Validations:
+   * - must be at least 3 characters long
+   * @example "Buy a car"
+   */
+  name?: string;
+  /**
+   * the target amount of the milestone
+   * @example "Active"
+   */
+  targetAmount?: string;
+  /**
+   * the target date of the milestone
+   * Validations:
+   * - must be at least 3 characters long
+   * @example "testtagdescription"
+   */
+  targetDate?: string;
 }
 /**
  * MonthlyBalance
  * This message is used to represent the monthly balance of a user.
  */
 export interface MonthlyBalance {
-	/** @format int64 */
-	month?: number;
-	/** @format double */
-	netBalance?: number;
-	profileType?: FinancialUserProfileType;
-	/** @format uint64 */
-	userId?: string;
+  /** @format int64 */
+  month?: number;
+  /** @format double */
+  netBalance?: number;
+  profileType?: FinancialUserProfileType;
+  /** @format uint64 */
+  userId?: string;
 }
 /**
  * MonthlyExpenditure
  * This message is used to represent the monthly expenditure of a user.
  */
 export interface MonthlyExpenditure {
-	/** @format int64 */
-	month?: number;
-	profileType?: FinancialUserProfileType;
-	/** @format double */
-	totalSpending?: number;
-	/** @format uint64 */
-	userId?: string;
+  /** @format int64 */
+  month?: number;
+  profileType?: FinancialUserProfileType;
+  /** @format double */
+  totalSpending?: number;
+  /** @format uint64 */
+  userId?: string;
 }
 /**
  * MonthlyIncome
  * This message is used to represent the monthly income of a user.
  */
 export interface MonthlyIncome {
-	/** @format int64 */
-	month?: number;
-	profileType?: FinancialUserProfileType;
-	/** @format double */
-	totalIncome?: number;
-	/** @format uint64 */
-	userId?: string;
+  /** @format int64 */
+  month?: number;
+  profileType?: FinancialUserProfileType;
+  /** @format double */
+  totalIncome?: number;
+  /** @format uint64 */
+  userId?: string;
 }
 /**
  * MonthlySavings
  * This message is used to represent the monthly savings of a user.
  */
 export interface MonthlySavings {
-	/** @format int64 */
-	month?: number;
-	/** @format double */
-	netSavings?: number;
-	profileType?: FinancialUserProfileType;
-	/** @format uint64 */
-	userId?: string;
+  /** @format int64 */
+  month?: number;
+  /** @format double */
+  netSavings?: number;
+  profileType?: FinancialUserProfileType;
+  /** @format uint64 */
+  userId?: string;
 }
 /**
  * MonthlyTotalQuantityBySecurityAndUser
  * This message is used to represent the monthly total quantity of a security.
  */
 export interface MonthlyTotalQuantityBySecurityAndUser {
-	/** @format int64 */
-	month?: number;
-	profileType?: FinancialUserProfileType;
-	securityId?: string;
-	/** @format double */
-	totalQuantity?: number;
-	/** @format uint64 */
-	userId?: string;
+  /** @format int64 */
+  month?: number;
+  profileType?: FinancialUserProfileType;
+  securityId?: string;
+  /** @format double */
+  totalQuantity?: number;
+  /** @format uint64 */
+  userId?: string;
 }
 /**
  * MonthlyTransactionCount
  * This message is used to represent the monthly transaction count of a user.
  */
 export interface MonthlyTransactionCount {
-	/** @format int64 */
-	month?: number;
-	profileType?: FinancialUserProfileType;
-	/** @format uint64 */
-	transactionCount?: string;
-	/** @format uint64 */
-	userId?: string;
+  /** @format int64 */
+  month?: number;
+  profileType?: FinancialUserProfileType;
+  /** @format uint64 */
+  transactionCount?: string;
+  /** @format uint64 */
+  userId?: string;
 }
 export interface MortgageAccount {
-	accountNumber?: string;
-	/** @format double */
-	currentLateFee?: number;
-	/** @format double */
-	escrowBalance?: number;
-	hasPmi?: boolean;
-	hasPrepaymentPenalty?: boolean;
-	/** @format uint64 */
-	id?: string;
-	/** @format double */
-	interestRatePercentage?: number;
-	interestRateType?: string;
-	/** @format double */
-	lastPaymentAmount?: number;
-	lastPaymentDate?: string;
-	loanTerm?: string;
-	loanTypeDescription?: string;
-	maturityDate?: string;
-	/** @format double */
-	nextMonthlyPayment?: number;
-	nextPaymentDueDate?: string;
-	/** @format double */
-	originalPrincipalBalance?: number;
-	/** @format double */
-	originalPropertyValue?: number;
-	originationDate?: string;
-	/** @format double */
-	originationPrincipalAmount?: number;
-	/** @format double */
-	outstandingPrincipalBalance?: number;
-	/** @format double */
-	pastDueAmount?: number;
-	/** @format double */
-	paymentAmount?: number;
-	paymentDate?: string;
-	plaidAccountId?: string;
-	propertyAddressCity?: string;
-	propertyAddressPostalCode?: string;
-	propertyAddressState?: string;
-	propertyAddressStreet?: string;
-	propertyCountry?: string;
-	propertyRegion?: string;
-	/** the bank account status */
-	status?: BankAccountStatus;
-	/** @format double */
-	ytdInterestPaid?: number;
-	/** @format double */
-	ytdPrincipalPaid?: number;
+  accountNumber?: string;
+  /** @format double */
+  currentLateFee?: number;
+  /** @format double */
+  escrowBalance?: number;
+  hasPmi?: boolean;
+  hasPrepaymentPenalty?: boolean;
+  /** @format uint64 */
+  id?: string;
+  /** @format double */
+  interestRatePercentage?: number;
+  interestRateType?: string;
+  /** @format double */
+  lastPaymentAmount?: number;
+  lastPaymentDate?: string;
+  loanTerm?: string;
+  loanTypeDescription?: string;
+  maturityDate?: string;
+  /** @format double */
+  nextMonthlyPayment?: number;
+  nextPaymentDueDate?: string;
+  /** @format double */
+  originalPrincipalBalance?: number;
+  /** @format double */
+  originalPropertyValue?: number;
+  originationDate?: string;
+  /** @format double */
+  originationPrincipalAmount?: number;
+  /** @format double */
+  outstandingPrincipalBalance?: number;
+  /** @format double */
+  pastDueAmount?: number;
+  /** @format double */
+  paymentAmount?: number;
+  paymentDate?: string;
+  plaidAccountId?: string;
+  propertyAddressCity?: string;
+  propertyAddressPostalCode?: string;
+  propertyAddressState?: string;
+  propertyAddressStreet?: string;
+  propertyCountry?: string;
+  propertyRegion?: string;
+  /** the bank account status */
+  status?: BankAccountStatus;
+  /** @format double */
+  ytdInterestPaid?: number;
+  /** @format double */
+  ytdPrincipalPaid?: number;
 }
 /** The Payment object represents general payments made towards a specific transaction. */
 export interface Payment {
-	/** The supplier’s or customer’s account in which the payment is made. */
-	account?: string;
-	/** The accounting period that the Payment was generated in. */
-	accountingPeriod?: string;
-	company?: string;
-	contact?: string;
-	currency?: string;
-	/** Assuming string due to the example provided, but could be float or double. */
-	exchangeRate?: string;
-	/** @format uint64 */
-	id?: string;
-	/** the id as stored in merge */
-	mergeAccountId?: string;
-	/**
-	 * This is the datetime that this object was last updated by Merge
-	 * @format date-time
-	 */
-	modifiedAt?: string;
-	remoteId?: string;
-	/** @format date-time */
-	remoteUpdatedAt?: string;
-	remoteWasDeleted?: boolean;
-	/**
-	 * The total amount of money being paid to the supplier, or customer, after taxes.
-	 *
-	 * Might want to use double or a more precise type
-	 * @format float
-	 */
-	totalAmount?: number;
-	trackingCategories?: Array<string>;
-	/** @format date-time */
-	transactionDate?: string;
+  /** The supplier’s or customer’s account in which the payment is made. */
+  account?: string;
+  /** The accounting period that the Payment was generated in. */
+  accountingPeriod?: string;
+  company?: string;
+  contact?: string;
+  currency?: string;
+  /** Assuming string due to the example provided, but could be float or double. */
+  exchangeRate?: string;
+  /** @format uint64 */
+  id?: string;
+  /** the id as stored in merge */
+  mergeAccountId?: string;
+  /**
+   * This is the datetime that this object was last updated by Merge
+   * @format date-time
+   */
+  modifiedAt?: string;
+  remoteId?: string;
+  /** @format date-time */
+  remoteUpdatedAt?: string;
+  remoteWasDeleted?: boolean;
+  /**
+   * The total amount of money being paid to the supplier, or customer, after taxes.
+   *
+   * Might want to use double or a more precise type
+   * @format float
+   */
+  totalAmount?: number;
+  trackingCategories?: Array<string>;
+  /** @format date-time */
+  transactionDate?: string;
 }
 /**
  * PaymentChannelMetricsFinancialSubProfile
  * This message is used to represent the financial sub profile of a payment channel.
  */
 export interface PaymentChannelMetricsFinancialSubProfile {
-	/** @format int64 */
-	month?: number;
-	paymentChannel?: string;
-	profileType?: FinancialUserProfileType;
-	/** @format double */
-	spentLastMonth?: number;
-	/** @format double */
-	spentLastSixMonths?: number;
-	/** @format double */
-	spentLastTwoWeeks?: number;
-	/** @format double */
-	spentLastTwoYears?: number;
-	/** @format double */
-	spentLastWeek?: number;
-	/** @format double */
-	spentLastYear?: number;
-	/** @format uint64 */
-	transactionCount?: string;
-	/** @format uint64 */
-	userId?: string;
+  /** @format int64 */
+  month?: number;
+  paymentChannel?: string;
+  profileType?: FinancialUserProfileType;
+  /** @format double */
+  spentLastMonth?: number;
+  /** @format double */
+  spentLastSixMonths?: number;
+  /** @format double */
+  spentLastTwoWeeks?: number;
+  /** @format double */
+  spentLastTwoYears?: number;
+  /** @format double */
+  spentLastWeek?: number;
+  /** @format double */
+  spentLastYear?: number;
+  /** @format uint64 */
+  transactionCount?: string;
+  /** @format uint64 */
+  userId?: string;
 }
 /**
  * PaymentChannelMonthlyExpenditure
  * This message is used to represent the monthly expenditure of a payment channel.
  */
 export interface PaymentChannelMonthlyExpenditure {
-	/** @format int64 */
-	month?: number;
-	paymentChannel?: string;
-	profileType?: FinancialUserProfileType;
-	/** @format double */
-	totalSpending?: number;
-	/** @format uint64 */
-	userId?: string;
+  /** @format int64 */
+  month?: number;
+  paymentChannel?: string;
+  profileType?: FinancialUserProfileType;
+  /** @format double */
+  totalSpending?: number;
+  /** @format uint64 */
+  userId?: string;
 }
 export interface PersonalActionableInsight {
-	/** insight action */
-	action?: string;
-	/** insight description */
-	description?: string;
-	/** insight expected benefit */
-	expectedBenefit?: string;
-	/**
-	 * insight generated time
-	 * @format date-time
-	 */
-	generatedTime?: string;
-	/** @format uint64 */
-	id?: string;
-	/** insight name */
-	insightName?: PersonalActionableInsightName;
-	/** metrics to optimize for */
-	metricsToOptimizeFor?: Array<string>;
-	/** insight tags */
-	tags?: Array<string>;
-	/** insight takeaway */
-	takeaway?: string;
+  /** insight action */
+  action?: string;
+  /** insight description */
+  description?: string;
+  /** insight expected benefit */
+  expectedBenefit?: string;
+  /**
+   * insight generated time
+   * @format date-time
+   */
+  generatedTime?: string;
+  /** @format uint64 */
+  id?: string;
+  /** insight name */
+  insightName?: PersonalActionableInsightName;
+  /** metrics to optimize for */
+  metricsToOptimizeFor?: Array<string>;
+  /** insight tags */
+  tags?: Array<string>;
+  /** insight takeaway */
+  takeaway?: string;
 }
 /** @default "PERSONAL_ACTIONABLE_INSIGHT_NAME_UNSPECIFIED" */
-export type PersonalActionableInsightName = "PERSONAL_ACTIONABLE_INSIGHT_NAME_UNSPECIFIED" | "PERSONAL_ACTIONABLE_INSIGHT_NAME_EXPENSE" | "PERSONAL_ACTIONABLE_INSIGHT_NAME_EMERGENCY_FUND" | "PERSONAL_ACTIONABLE_INSIGHT_NAME_DEBT_PRIORITIZATION" | "PERSONAL_ACTIONABLE_INSIGHT_NAME_NON_ESSENTIAL_EXPENSES" | "PERSONAL_ACTIONABLE_INSIGHT_NAME_NON_SUBSCRIPTIONS" | "PERSONAL_ACTIONABLE_INSIGHT_NAME_DISCRETIONARY_SPENDING";
+export type PersonalActionableInsightName =
+  | 'PERSONAL_ACTIONABLE_INSIGHT_NAME_UNSPECIFIED'
+  | 'PERSONAL_ACTIONABLE_INSIGHT_NAME_EXPENSE'
+  | 'PERSONAL_ACTIONABLE_INSIGHT_NAME_EMERGENCY_FUND'
+  | 'PERSONAL_ACTIONABLE_INSIGHT_NAME_DEBT_PRIORITIZATION'
+  | 'PERSONAL_ACTIONABLE_INSIGHT_NAME_NON_ESSENTIAL_EXPENSES'
+  | 'PERSONAL_ACTIONABLE_INSIGHT_NAME_NON_SUBSCRIPTIONS'
+  | 'PERSONAL_ACTIONABLE_INSIGHT_NAME_DISCRETIONARY_SPENDING';
 export interface PlaidAccountTransaction {
-	/**
-	 * Basic transaction details
-	 * @gotag: ch:"account_id"
-	 */
-	accountId?: string;
-	/** @gotag: ch:"account_owner" */
-	accountOwner?: string;
-	/**
-	 * `Any` contains an arbitrary serialized protocol buffer message along with a
-	 * URL that describes the type of the serialized message.
-	 *
-	 * Protobuf library provides support to pack/unpack Any values in the form
-	 * of utility functions or additional generated methods of the Any type.
-	 *
-	 * Example 1: Pack and unpack a message in C++.
-	 *
-	 *     Foo foo = ...;
-	 *     Any any;
-	 *     any.PackFrom(foo);
-	 *     ...
-	 *     if (any.UnpackTo(&foo)) {
-	 *       ...
-	 *     }
-	 *
-	 * Example 2: Pack and unpack a message in Java.
-	 *
-	 *     Foo foo = ...;
-	 *     Any any = Any.pack(foo);
-	 *     ...
-	 *     if (any.is(Foo.class)) {
-	 *       foo = any.unpack(Foo.class);
-	 *     }
-	 *
-	 * Example 3: Pack and unpack a message in Python.
-	 *
-	 *     foo = Foo(...)
-	 *     any = Any()
-	 *     any.Pack(foo)
-	 *     ...
-	 *     if any.Is(Foo.DESCRIPTOR):
-	 *       any.Unpack(foo)
-	 *       ...
-	 *
-	 * Example 4: Pack and unpack a message in Go
-	 *
-	 *      foo := &pb.Foo{...}
-	 *      any, err := anypb.New(foo)
-	 *      if err != nil {
-	 *        ...
-	 *      }
-	 *      ...
-	 *      foo := &pb.Foo{}
-	 *      if err := any.UnmarshalTo(foo); err != nil {
-	 *        ...
-	 *      }
-	 *
-	 * The pack methods provided by protobuf library will by default use
-	 * 'type.googleapis.com/full.type.name' as the type URL and the unpack
-	 * methods only use the fully qualified type name after the last '/'
-	 * in the type URL, for example "foo.bar.com/x/y.z" will yield type
-	 * name "y.z".
-	 *
-	 *
-	 * JSON
-	 *
-	 * The JSON representation of an `Any` value uses the regular
-	 * representation of the deserialized, embedded message, with an
-	 * additional field `@type` which contains the type URL. Example:
-	 *
-	 *     package google.profile;
-	 *     message Person {
-	 *       string first_name = 1;
-	 *       string last_name = 2;
-	 *     }
-	 *
-	 *     {
-	 *       "@type": "type.googleapis.com/google.profile.Person",
-	 *       "firstName": <string>,
-	 *       "lastName": <string>
-	 *     }
-	 *
-	 * If the embedded message type is well-known and has a custom JSON
-	 * representation, that representation will be embedded adding a field
-	 * `value` which holds the custom JSON in addition to the `@type`
-	 * field. Example (for message [google.protobuf.Duration][]):
-	 *
-	 *     {
-	 *       "@type": "type.googleapis.com/google.protobuf.Duration",
-	 *       "value": "1.212s"
-	 *     }
-	 */
-	additionalProperties?: Any;
-	/**
-	 * @gotag: ch:"amount"
-	 * @format double
-	 */
-	amount?: number;
-	/** @gotag: ch:"authorized_date" */
-	authorizedDate?: string;
-	/** @gotag: ch:"authorized_datetime" */
-	authorizedDatetime?: string;
-	categories?: Array<string>;
-	/**
-	 * Transaction categories
-	 * @gotag: ch:"category_id"
-	 */
-	categoryId?: string;
-	/**
-	 * Payment details
-	 * @gotag: ch:"check_number"
-	 */
-	checkNumber?: string;
-	/**
-	 * Date details
-	 * @gotag: ch:"date"
-	 */
-	currentDate?: string;
-	/** @gotag: ch:"datetime" */
-	currentDatetime?: string;
-	/**
-	 * System generated fields
-	 * @format uint64
-	 */
-	id?: string;
-	/** @gotag: ch:"iso_currency_code" */
-	isoCurrencyCode?: string;
-	/** @format uint64 */
-	linkId?: string;
-	/** Location details */
-	locationAddress?: string;
-	locationCity?: string;
-	locationCountry?: string;
-	/** @format double */
-	locationLat?: number;
-	/** @format double */
-	locationLon?: number;
-	locationPostalCode?: string;
-	locationRegion?: string;
-	locationStoreNumber?: string;
-	/** @gotag: ch:"merchant_name" */
-	merchantName?: string;
-	/**
-	 * Merchant details
-	 * @gotag: ch:"name"
-	 */
-	name?: string;
-	/** @gotag: ch:"payment_channel" */
-	paymentChannel?: string;
-	paymentMetaByOrderOf?: string;
-	paymentMetaPayee?: string;
-	paymentMetaPayer?: string;
-	paymentMetaPaymentMethod?: string;
-	paymentMetaPaymentProcessor?: string;
-	paymentMetaPpdId?: string;
-	paymentMetaReason?: string;
-	paymentMetaReferenceNumber?: string;
-	/** @gotag: ch:"pending" */
-	pending?: boolean;
-	/** @gotag: ch:"pending_transaction_id" */
-	pendingTransactionId?: string;
-	/** @gotag: ch:"personal_finance_category_detailed" */
-	personalFinanceCategoryDetailed?: string;
-	/** @gotag: ch:"personal_finance_category_primary" */
-	personalFinanceCategoryPrimary?: string;
-	/**
-	 * Additional properties
-	 * @format date-time
-	 */
-	time?: string;
-	/** @gotag: ch:"transaction_code" */
-	transactionCode?: string;
-	/** @gotag: ch:"transaction_id" */
-	transactionId?: string;
-	/** @gotag: ch:"unofficial_currency_code" */
-	unofficialCurrencyCode?: string;
-	/** @format uint64 */
-	userId?: string;
+  /**
+   * Basic transaction details
+   * @gotag: ch:"account_id"
+   */
+  accountId?: string;
+  /** @gotag: ch:"account_owner" */
+  accountOwner?: string;
+  /**
+   * `Any` contains an arbitrary serialized protocol buffer message along with a
+   * URL that describes the type of the serialized message.
+   *
+   * Protobuf library provides support to pack/unpack Any values in the form
+   * of utility functions or additional generated methods of the Any type.
+   *
+   * Example 1: Pack and unpack a message in C++.
+   *
+   *     Foo foo = ...;
+   *     Any any;
+   *     any.PackFrom(foo);
+   *     ...
+   *     if (any.UnpackTo(&foo)) {
+   *       ...
+   *     }
+   *
+   * Example 2: Pack and unpack a message in Java.
+   *
+   *     Foo foo = ...;
+   *     Any any = Any.pack(foo);
+   *     ...
+   *     if (any.is(Foo.class)) {
+   *       foo = any.unpack(Foo.class);
+   *     }
+   *
+   * Example 3: Pack and unpack a message in Python.
+   *
+   *     foo = Foo(...)
+   *     any = Any()
+   *     any.Pack(foo)
+   *     ...
+   *     if any.Is(Foo.DESCRIPTOR):
+   *       any.Unpack(foo)
+   *       ...
+   *
+   * Example 4: Pack and unpack a message in Go
+   *
+   *      foo := &pb.Foo{...}
+   *      any, err := anypb.New(foo)
+   *      if err != nil {
+   *        ...
+   *      }
+   *      ...
+   *      foo := &pb.Foo{}
+   *      if err := any.UnmarshalTo(foo); err != nil {
+   *        ...
+   *      }
+   *
+   * The pack methods provided by protobuf library will by default use
+   * 'type.googleapis.com/full.type.name' as the type URL and the unpack
+   * methods only use the fully qualified type name after the last '/'
+   * in the type URL, for example "foo.bar.com/x/y.z" will yield type
+   * name "y.z".
+   *
+   *
+   * JSON
+   *
+   * The JSON representation of an `Any` value uses the regular
+   * representation of the deserialized, embedded message, with an
+   * additional field `@type` which contains the type URL. Example:
+   *
+   *     package google.profile;
+   *     message Person {
+   *       string first_name = 1;
+   *       string last_name = 2;
+   *     }
+   *
+   *     {
+   *       "@type": "type.googleapis.com/google.profile.Person",
+   *       "firstName": <string>,
+   *       "lastName": <string>
+   *     }
+   *
+   * If the embedded message type is well-known and has a custom JSON
+   * representation, that representation will be embedded adding a field
+   * `value` which holds the custom JSON in addition to the `@type`
+   * field. Example (for message [google.protobuf.Duration][]):
+   *
+   *     {
+   *       "@type": "type.googleapis.com/google.protobuf.Duration",
+   *       "value": "1.212s"
+   *     }
+   */
+  additionalProperties?: Any;
+  /**
+   * @gotag: ch:"amount"
+   * @format double
+   */
+  amount?: number;
+  /** @gotag: ch:"authorized_date" */
+  authorizedDate?: string;
+  /** @gotag: ch:"authorized_datetime" */
+  authorizedDatetime?: string;
+  categories?: Array<string>;
+  /**
+   * Transaction categories
+   * @gotag: ch:"category_id"
+   */
+  categoryId?: string;
+  /**
+   * Payment details
+   * @gotag: ch:"check_number"
+   */
+  checkNumber?: string;
+  /**
+   * Date details
+   * @gotag: ch:"date"
+   */
+  currentDate?: string;
+  /** @gotag: ch:"datetime" */
+  currentDatetime?: string;
+  /**
+   * System generated fields
+   * @format uint64
+   */
+  id?: string;
+  /** @gotag: ch:"iso_currency_code" */
+  isoCurrencyCode?: string;
+  /** @format uint64 */
+  linkId?: string;
+  /** Location details */
+  locationAddress?: string;
+  locationCity?: string;
+  locationCountry?: string;
+  /** @format double */
+  locationLat?: number;
+  /** @format double */
+  locationLon?: number;
+  locationPostalCode?: string;
+  locationRegion?: string;
+  locationStoreNumber?: string;
+  /** @gotag: ch:"merchant_name" */
+  merchantName?: string;
+  /**
+   * Merchant details
+   * @gotag: ch:"name"
+   */
+  name?: string;
+  /** @gotag: ch:"payment_channel" */
+  paymentChannel?: string;
+  paymentMetaByOrderOf?: string;
+  paymentMetaPayee?: string;
+  paymentMetaPayer?: string;
+  paymentMetaPaymentMethod?: string;
+  paymentMetaPaymentProcessor?: string;
+  paymentMetaPpdId?: string;
+  paymentMetaReason?: string;
+  paymentMetaReferenceNumber?: string;
+  /** @gotag: ch:"pending" */
+  pending?: boolean;
+  /** @gotag: ch:"pending_transaction_id" */
+  pendingTransactionId?: string;
+  /** @gotag: ch:"personal_finance_category_detailed" */
+  personalFinanceCategoryDetailed?: string;
+  /** @gotag: ch:"personal_finance_category_primary" */
+  personalFinanceCategoryPrimary?: string;
+  /**
+   * Additional properties
+   * @format date-time
+   */
+  time?: string;
+  /** @gotag: ch:"transaction_code" */
+  transactionCode?: string;
+  /** @gotag: ch:"transaction_id" */
+  transactionId?: string;
+  /** @gotag: ch:"unofficial_currency_code" */
+  unofficialCurrencyCode?: string;
+  /** @format uint64 */
+  userId?: string;
 }
 export interface PlaidExchangeTokenRequest {
-	/** The institution id */
-	institutionId?: string;
-	/** The institution name */
-	institutionName?: string;
-	profileType: FinancialUserProfileType;
-	/**
-	 * The public token
-	 * Validations:
-	 * - cannot be nil hence required
-	 */
-	publicToken: string;
-	/**
-	 * The user id
-	 * Validations:
-	 * - user_id must be greater than 0
-	 * @format uint64
-	 */
-	userId: string;
+  /** The institution id */
+  institutionId?: string;
+  /** The institution name */
+  institutionName?: string;
+  profileType: FinancialUserProfileType;
+  /**
+   * The public token
+   * Validations:
+   * - cannot be nil hence required
+   */
+  publicToken: string;
+  /**
+   * The user id
+   * Validations:
+   * - user_id must be greater than 0
+   * @format uint64
+   */
+  userId: string;
 }
 export interface PlaidExchangeTokenResponse {
-	/** wether the operation was successful */
-	success: boolean;
+  /** wether the operation was successful */
+  success: boolean;
 }
 export interface PlaidInitiateTokenExchangeRequest {
-	/**
-	 * The user's email address. This field is optional, but required to enable the
-	 * [pre-authenticated returning user flow](https://plaid.com/docs/link/returning-user/#enabling-the-returning-user-experience).
-	 */
-	email: string;
-	/**
-	 * The user's full legal name. This is an optional field used in
-	 * the [returning user experience](https://plaid.com/docs/link/returning-user) to associate Items to the user.
-	 */
-	fullName: string;
-	/**
-	 * The user's phone number in [E.164](https://en.wikipedia.org/wiki/E.164) format.
-	 * This field is optional, but required to enable the [returning user experience](https://plaid.com/docs/link/returning-user).
-	 */
-	phoneNumber: string;
-	profileType: FinancialUserProfileType;
-	/**
-	 * A unique ID representing the end user. Typically this will be a user ID number from your application.
-	 * Personally identifiable information, such as an email address or phone number,
-	 * should not be used in the `client_user_id`. It is currently used as a means of searching logs
-	 * for the given user in the Plaid Dashboard.
-	 * Validations:
-	 * - user_id must be greater than 0
-	 * @format uint64
-	 */
-	userId: string;
+  /**
+   * The user's email address. This field is optional, but required to enable the
+   * [pre-authenticated returning user flow](https://plaid.com/docs/link/returning-user/#enabling-the-returning-user-experience).
+   */
+  email: string;
+  /**
+   * The user's full legal name. This is an optional field used in
+   * the [returning user experience](https://plaid.com/docs/link/returning-user) to associate Items to the user.
+   */
+  fullName: string;
+  /**
+   * The user's phone number in [E.164](https://en.wikipedia.org/wiki/E.164) format.
+   * This field is optional, but required to enable the [returning user experience](https://plaid.com/docs/link/returning-user).
+   */
+  phoneNumber: string;
+  profileType: FinancialUserProfileType;
+  /**
+   * A unique ID representing the end user. Typically this will be a user ID number from your application.
+   * Personally identifiable information, such as an email address or phone number,
+   * should not be used in the `client_user_id`. It is currently used as a means of searching logs
+   * for the given user in the Plaid Dashboard.
+   * Validations:
+   * - user_id must be greater than 0
+   * @format uint64
+   */
+  userId: string;
 }
 export interface PlaidInitiateTokenExchangeResponse {
-	expiration?: string;
-	linkToken?: string;
-	plaidRequestId?: string;
+  expiration?: string;
+  linkToken?: string;
+  plaidRequestId?: string;
 }
 export interface PlaidInitiateTokenUpdateRequest {
-	/**
-	 * The link id we want to update for
-	 * Validations:
-	 * - cannot be nil hence required
-	 * @format uint64
-	 */
-	linkId: string;
-	profileType: FinancialUserProfileType;
-	/**
-	 * The user id
-	 * Validations:
-	 * - user_id must be greater than 0
-	 * @format uint64
-	 */
-	userId: string;
+  /**
+   * The link id we want to update for
+   * Validations:
+   * - cannot be nil hence required
+   * @format uint64
+   */
+  linkId: string;
+  profileType: FinancialUserProfileType;
+  /**
+   * The user id
+   * Validations:
+   * - user_id must be greater than 0
+   * @format uint64
+   */
+  userId: string;
 }
 export interface PlaidInitiateTokenUpdateResponse {
-	expiration?: string;
-	linkToken?: string;
+  expiration?: string;
+  linkToken?: string;
 }
 export interface PlaidLink {
-	/**
-	 * id
-	 * @format uint64
-	 */
-	id?: string;
-	institutionId?: string;
-	institutionName?: string;
-	itemId?: string;
-	products?: Array<string>;
-	usePlaidSync?: boolean;
-	webhookUrl?: string;
+  /**
+   * id
+   * @format uint64
+   */
+  id?: string;
+  institutionId?: string;
+  institutionName?: string;
+  itemId?: string;
+  products?: Array<string>;
+  usePlaidSync?: boolean;
+  webhookUrl?: string;
 }
 export interface PlaidSync {
-	/** @format int64 */
-	added?: string;
-	/**
-	 * id
-	 * @format uint64
-	 */
-	id?: string;
-	/** @format int64 */
-	modified?: string;
-	nextCursor?: string;
-	/** @format int64 */
-	removed?: string;
-	timeStamp?: string;
-	trigger?: string;
+  /** @format int64 */
+  added?: string;
+  /**
+   * id
+   * @format uint64
+   */
+  id?: string;
+  /** @format int64 */
+  modified?: string;
+  nextCursor?: string;
+  /** @format int64 */
+  removed?: string;
+  timeStamp?: string;
+  trigger?: string;
 }
 /**
  * Pocket is an abstraction of a over a bank account. A user can has at most 4 pockets per connected account
@@ -3626,296 +3685,313 @@ export interface PlaidSync {
  * 3. Adding a smart goal to the pocket
  */
 export interface Pocket {
-	/** the set of smart goals this user witholds */
-	goals?: Array<SmartGoal>;
-	/**
-	 * id
-	 * @format uint64
-	 */
-	id?: string;
-	/** The type of the pocket */
-	type?: PocketType;
+  /** the set of smart goals this user witholds */
+  goals?: Array<SmartGoal>;
+  /**
+   * id
+   * @format uint64
+   */
+  id?: string;
+  /** The type of the pocket */
+  type?: PocketType;
 }
 /** @default "POCKET_TYPE_UNSPECIFIED" */
-export type PocketType = "POCKET_TYPE_UNSPECIFIED" | "POCKET_TYPE_DISCRETIONARY_SPENDING" | "POCKET_TYPE_FUN_MONEY" | "POCKET_TYPE_DEBT_REDUCTION" | "POCKET_TYPE_EMERGENCY_FUND" | "POCKET_TYPE_INVESTMENT" | "POCKET_TYPE_SHORT_TERM_SAVINGS" | "POCKET_TYPE_LONG_TERM_SAVINGS";
+export type PocketType =
+  | 'POCKET_TYPE_UNSPECIFIED'
+  | 'POCKET_TYPE_DISCRETIONARY_SPENDING'
+  | 'POCKET_TYPE_FUN_MONEY'
+  | 'POCKET_TYPE_DEBT_REDUCTION'
+  | 'POCKET_TYPE_EMERGENCY_FUND'
+  | 'POCKET_TYPE_INVESTMENT'
+  | 'POCKET_TYPE_SHORT_TERM_SAVINGS'
+  | 'POCKET_TYPE_LONG_TERM_SAVINGS';
 export type ProcessStripeWebhookData = any;
 export type ProcessWebhookData = any;
 export interface ProcessWebhookRequest {
-	/** A list of account_ids for accounts that have new or updated recurring transactions data. */
-	accountIds?: Array<string>;
-	/** An array of account_id's for accounts that contain new liabilities.' */
-	accountIdsWithNewLiabilities?: Array<string>;
-	/** An object with keys of account_id's that are mapped to their respective liabilities fields that changed. */
-	accountIdsWithUpdatedLiabilities?: Array<string>;
-	/** The time at which the user's access_token will expire. This field will only be present */
-	consentExpirationTime?: string;
-	/** The Plaid environment the webhook was sent from */
-	environment?: string;
-	/**
-	 * We use standard HTTP response codes for success and failure notifications,
-	 * and our errors are further classified by error_type. In general, 200 HTTP codes
-	 * correspond to success, 40X codes are for developer- or user-related failures, and
-	 * 50X codes are for Plaid-related issues. An Item with a non-null error object will
-	 * only be part of an API response when calling /item/get to view Item status. Otherwise,
-	 * error fields will be null if no error has occurred; if an error has occurred, an error
-	 * code will be returned instead.
-	 */
-	error?: Record<string, Any>;
-	/** Indicates if historical pull information is available. */
-	historicalUpdateComplete?: string;
-	/** Indicates if initial pull information is available. */
-	initialUpdateComplete?: boolean;
-	/** The item_id of the Item associated with this webhook, warning, or error */
-	itemId?: string;
-	/**
-	 * The number of new holdings reported since the last time this webhook was fired.
-	 * @format uint64
-	 */
-	newHoldings?: string;
-	/** The number of new, unfetched transactions available */
-	newTransactions?: Array<string>;
-	/** An array of transaction_ids corresponding to the removed transactions */
-	removedTransactions?: Array<string>;
-	/**
-	 * The number of updated holdings reported since the last time this webhook was fired.
-	 * @gotag: json:"updated_holdings"
-	 * @format uint64
-	 */
-	updatedHoldings?: string;
-	webhookCode: string;
-	webhookType: string;
+  /** A list of account_ids for accounts that have new or updated recurring transactions data. */
+  accountIds?: Array<string>;
+  /** An array of account_id's for accounts that contain new liabilities.' */
+  accountIdsWithNewLiabilities?: Array<string>;
+  /** An object with keys of account_id's that are mapped to their respective liabilities fields that changed. */
+  accountIdsWithUpdatedLiabilities?: Array<string>;
+  /** The time at which the user's access_token will expire. This field will only be present */
+  consentExpirationTime?: string;
+  /** The Plaid environment the webhook was sent from */
+  environment?: string;
+  /**
+   * We use standard HTTP response codes for success and failure notifications,
+   * and our errors are further classified by error_type. In general, 200 HTTP codes
+   * correspond to success, 40X codes are for developer- or user-related failures, and
+   * 50X codes are for Plaid-related issues. An Item with a non-null error object will
+   * only be part of an API response when calling /item/get to view Item status. Otherwise,
+   * error fields will be null if no error has occurred; if an error has occurred, an error
+   * code will be returned instead.
+   */
+  error?: Record<string, Any>;
+  /** Indicates if historical pull information is available. */
+  historicalUpdateComplete?: string;
+  /** Indicates if initial pull information is available. */
+  initialUpdateComplete?: boolean;
+  /** The item_id of the Item associated with this webhook, warning, or error */
+  itemId?: string;
+  /**
+   * The number of new holdings reported since the last time this webhook was fired.
+   * @format uint64
+   */
+  newHoldings?: string;
+  /** The number of new, unfetched transactions available */
+  newTransactions?: Array<string>;
+  /** An array of transaction_ids corresponding to the removed transactions */
+  removedTransactions?: Array<string>;
+  /**
+   * The number of updated holdings reported since the last time this webhook was fired.
+   * @gotag: json:"updated_holdings"
+   * @format uint64
+   */
+  updatedHoldings?: string;
+  webhookCode: string;
+  webhookType: string;
 }
 export type ProcessWebhookResponse = object;
 /** The PurchaseOrder object is a record of request for a product or service between a buyer and seller. */
 export interface PurchaseOrder {
-	/** The accounting period that the PurchaseOrder was generated in. */
-	accountingPeriod?: string;
-	/** The company the purchase order belongs to. */
-	company?: string;
-	/** The purchase order's currency. */
-	currency?: string;
-	/** The contact making the purchase order. */
-	customer?: string;
-	/** The purchase order's delivery address. */
-	deliveryAddress?: Address;
-	/**
-	 * The purchase order's delivery date.
-	 * @format date-time
-	 */
-	deliveryDate?: string;
-	/** Assuming string, but might be better as float or double. */
-	exchangeRate?: string;
-	/** @format uint64 */
-	id?: string;
-	/**
-	 * The purchase order's issue date.
-	 * @format date-time
-	 */
-	issueDate?: string;
-	lineItems?: Array<PurchaseOrderLineItem>;
-	/** A memo attached to the purchase order. */
-	memo?: string;
-	mergeAccountId?: string;
-	/** @format date-time */
-	modifiedAt?: string;
-	/** The human-readable number of the purchase order. */
-	purchaseOrderNumber?: string;
-	/** @format date-time */
-	remoteCreatedAt?: string;
-	remoteId?: string;
-	/** @format date-time */
-	remoteUpdatedAt?: string;
-	remoteWasDeleted?: boolean;
-	status?: string;
-	/**
-	 * The purchase order's total amount.
-	 *
-	 * Might be better as double.
-	 * @format float
-	 */
-	totalAmount?: number;
-	trackingCategories?: Array<string>;
-	/** The party fulfilling the purchase order. */
-	vendor?: string;
+  /** The accounting period that the PurchaseOrder was generated in. */
+  accountingPeriod?: string;
+  /** The company the purchase order belongs to. */
+  company?: string;
+  /** The purchase order's currency. */
+  currency?: string;
+  /** The contact making the purchase order. */
+  customer?: string;
+  /** The purchase order's delivery address. */
+  deliveryAddress?: Address;
+  /**
+   * The purchase order's delivery date.
+   * @format date-time
+   */
+  deliveryDate?: string;
+  /** Assuming string, but might be better as float or double. */
+  exchangeRate?: string;
+  /** @format uint64 */
+  id?: string;
+  /**
+   * The purchase order's issue date.
+   * @format date-time
+   */
+  issueDate?: string;
+  lineItems?: Array<PurchaseOrderLineItem>;
+  /** A memo attached to the purchase order. */
+  memo?: string;
+  mergeAccountId?: string;
+  /** @format date-time */
+  modifiedAt?: string;
+  /** The human-readable number of the purchase order. */
+  purchaseOrderNumber?: string;
+  /** @format date-time */
+  remoteCreatedAt?: string;
+  remoteId?: string;
+  /** @format date-time */
+  remoteUpdatedAt?: string;
+  remoteWasDeleted?: boolean;
+  status?: string;
+  /**
+   * The purchase order's total amount.
+   *
+   * Might be better as double.
+   * @format float
+   */
+  totalAmount?: number;
+  trackingCategories?: Array<string>;
+  /** The party fulfilling the purchase order. */
+  vendor?: string;
 }
 /** The PurchaseOrderLineItem object is used to represent a purchase order's line item. */
 export interface PurchaseOrderLineItem {
-	account?: string;
-	company?: string;
-	currency?: string;
-	description?: string;
-	/** Assuming string, but might be better as float or double. */
-	exchangeRate?: string;
-	/** @format uint64 */
-	id?: string;
-	item?: string;
-	/** @format date-time */
-	modifiedAt?: string;
-	/** @format int32 */
-	quantity?: number;
-	remoteId?: string;
-	taxAmount?: string;
-	totalLineAmount?: string;
-	trackingCategories?: Array<string>;
-	trackingCategory?: string;
-	/** Assuming string, but might be better as float or double. */
-	unitPrice?: string;
+  account?: string;
+  company?: string;
+  currency?: string;
+  description?: string;
+  /** Assuming string, but might be better as float or double. */
+  exchangeRate?: string;
+  /** @format uint64 */
+  id?: string;
+  item?: string;
+  /** @format date-time */
+  modifiedAt?: string;
+  /** @format int32 */
+  quantity?: number;
+  remoteId?: string;
+  taxAmount?: string;
+  totalLineAmount?: string;
+  trackingCategories?: Array<string>;
+  trackingCategory?: string;
+  /** Assuming string, but might be better as float or double. */
+  unitPrice?: string;
 }
 /** @default "RE_CURRING_FLOW_UNSPECIFIED" */
-export type ReCurringFlow = "RE_CURRING_FLOW_UNSPECIFIED" | "RE_CURRING_FLOW_INFLOW" | "RE_CURRING_FLOW_OUTFLOW";
+export type ReCurringFlow =
+  | 'RE_CURRING_FLOW_UNSPECIFIED'
+  | 'RE_CURRING_FLOW_INFLOW'
+  | 'RE_CURRING_FLOW_OUTFLOW';
 export interface ReOccuringTransaction {
-	/** @gotag: ch:"account_id" */
-	accountId?: string;
-	/**
-	 * `Any` contains an arbitrary serialized protocol buffer message along with a
-	 * URL that describes the type of the serialized message.
-	 *
-	 * Protobuf library provides support to pack/unpack Any values in the form
-	 * of utility functions or additional generated methods of the Any type.
-	 *
-	 * Example 1: Pack and unpack a message in C++.
-	 *
-	 *     Foo foo = ...;
-	 *     Any any;
-	 *     any.PackFrom(foo);
-	 *     ...
-	 *     if (any.UnpackTo(&foo)) {
-	 *       ...
-	 *     }
-	 *
-	 * Example 2: Pack and unpack a message in Java.
-	 *
-	 *     Foo foo = ...;
-	 *     Any any = Any.pack(foo);
-	 *     ...
-	 *     if (any.is(Foo.class)) {
-	 *       foo = any.unpack(Foo.class);
-	 *     }
-	 *
-	 * Example 3: Pack and unpack a message in Python.
-	 *
-	 *     foo = Foo(...)
-	 *     any = Any()
-	 *     any.Pack(foo)
-	 *     ...
-	 *     if any.Is(Foo.DESCRIPTOR):
-	 *       any.Unpack(foo)
-	 *       ...
-	 *
-	 * Example 4: Pack and unpack a message in Go
-	 *
-	 *      foo := &pb.Foo{...}
-	 *      any, err := anypb.New(foo)
-	 *      if err != nil {
-	 *        ...
-	 *      }
-	 *      ...
-	 *      foo := &pb.Foo{}
-	 *      if err := any.UnmarshalTo(foo); err != nil {
-	 *        ...
-	 *      }
-	 *
-	 * The pack methods provided by protobuf library will by default use
-	 * 'type.googleapis.com/full.type.name' as the type URL and the unpack
-	 * methods only use the fully qualified type name after the last '/'
-	 * in the type URL, for example "foo.bar.com/x/y.z" will yield type
-	 * name "y.z".
-	 *
-	 *
-	 * JSON
-	 *
-	 * The JSON representation of an `Any` value uses the regular
-	 * representation of the deserialized, embedded message, with an
-	 * additional field `@type` which contains the type URL. Example:
-	 *
-	 *     package google.profile;
-	 *     message Person {
-	 *       string first_name = 1;
-	 *       string last_name = 2;
-	 *     }
-	 *
-	 *     {
-	 *       "@type": "type.googleapis.com/google.profile.Person",
-	 *       "firstName": <string>,
-	 *       "lastName": <string>
-	 *     }
-	 *
-	 * If the embedded message type is well-known and has a custom JSON
-	 * representation, that representation will be embedded adding a field
-	 * `value` which holds the custom JSON in addition to the `@type`
-	 * field. Example (for message [google.protobuf.Duration][]):
-	 *
-	 *     {
-	 *       "@type": "type.googleapis.com/google.protobuf.Duration",
-	 *       "value": "1.212s"
-	 *     }
-	 */
-	additionalProperties?: Any;
-	/** @gotag: ch:"average_amount" */
-	averageAmount?: string;
-	/** @gotag: ch:"average_amount_iso_currency_code" */
-	averageAmountIsoCurrencyCode?: string;
-	/** @gotag: ch:"category_id" */
-	categoryId?: string;
-	/** @gotag: ch:"description" */
-	description?: string;
-	/** @gotag: ch:"first_date" */
-	firstDate?: string;
-	/** @gotag: ch:"flow" */
-	flow?: ReCurringFlow;
-	/** @gotag: ch:"frequency" */
-	frequency?: ReOccuringTransactionsFrequency;
-	/** @gotag: ch:"id" */
-	id?: string;
-	/** @gotag: ch:"is_active" */
-	isActive?: boolean;
-	/** @gotag: ch:"last_amount" */
-	lastAmount?: string;
-	/** @gotag: ch:"last_amount_iso_currency_code" */
-	lastAmountIsoCurrencyCode?: string;
-	/** @gotag: ch:"last_date" */
-	lastDate?: string;
-	/**
-	 * @gotag: ch:"link_id"
-	 * @format uint64
-	 */
-	linkId?: string;
-	/** @gotag: ch:"merchant_name" */
-	merchantName?: string;
-	/** @gotag: ch:"personal_finance_category_detailed" */
-	personalFinanceCategoryDetailed?: string;
-	/** @gotag: ch:"personal_finance_category_primary" */
-	personalFinanceCategoryPrimary?: string;
-	/** @gotag: ch:"profile_type" */
-	profileType?: FinancialUserProfileType;
-	/** @format int32 */
-	sign?: number;
-	/**
-	 * @gotag: ch:"status"
-	 *  - RE_OCCURING_TRANSACTIONS_STATUS_MATURE: A MATURE recurring stream should have at least 3 transactions and happen
-	 *  on a regular cadence (For Annual recurring stream, we will mark it MATURE after 2 instances).
-	 *  - RE_OCCURING_TRANSACTIONS_STATUS_EARLY_DETECTION: When a recurring transaction first appears in the transaction history and before it fulfills
-	 * the requirement of a mature stream, the status will be EARLY_DETECTION.
-	 *  - RE_OCCURING_TRANSACTIONS_STATUS_TOMBSTONED: A stream that was previously in the EARLY_DETECTION status will move to the TOMBSTONED
-	 * status when no further transactions were found at the next expected date.
-	 */
-	status?: ReOccuringTransactionsStatus;
-	/** @gotag: ch:"stream_id" */
-	streamId?: string;
-	/** @format date-time */
-	time?: string;
-	/** @gotag: ch:"transaction_ids,array" */
-	transactionIds?: string;
-	/** @gotag: ch:"updated_time" */
-	updatedTime?: string;
-	/**
-	 * @gotag: ch:"user_id"
-	 * @format uint64
-	 */
-	userId?: string;
+  /** @gotag: ch:"account_id" */
+  accountId?: string;
+  /**
+   * `Any` contains an arbitrary serialized protocol buffer message along with a
+   * URL that describes the type of the serialized message.
+   *
+   * Protobuf library provides support to pack/unpack Any values in the form
+   * of utility functions or additional generated methods of the Any type.
+   *
+   * Example 1: Pack and unpack a message in C++.
+   *
+   *     Foo foo = ...;
+   *     Any any;
+   *     any.PackFrom(foo);
+   *     ...
+   *     if (any.UnpackTo(&foo)) {
+   *       ...
+   *     }
+   *
+   * Example 2: Pack and unpack a message in Java.
+   *
+   *     Foo foo = ...;
+   *     Any any = Any.pack(foo);
+   *     ...
+   *     if (any.is(Foo.class)) {
+   *       foo = any.unpack(Foo.class);
+   *     }
+   *
+   * Example 3: Pack and unpack a message in Python.
+   *
+   *     foo = Foo(...)
+   *     any = Any()
+   *     any.Pack(foo)
+   *     ...
+   *     if any.Is(Foo.DESCRIPTOR):
+   *       any.Unpack(foo)
+   *       ...
+   *
+   * Example 4: Pack and unpack a message in Go
+   *
+   *      foo := &pb.Foo{...}
+   *      any, err := anypb.New(foo)
+   *      if err != nil {
+   *        ...
+   *      }
+   *      ...
+   *      foo := &pb.Foo{}
+   *      if err := any.UnmarshalTo(foo); err != nil {
+   *        ...
+   *      }
+   *
+   * The pack methods provided by protobuf library will by default use
+   * 'type.googleapis.com/full.type.name' as the type URL and the unpack
+   * methods only use the fully qualified type name after the last '/'
+   * in the type URL, for example "foo.bar.com/x/y.z" will yield type
+   * name "y.z".
+   *
+   *
+   * JSON
+   *
+   * The JSON representation of an `Any` value uses the regular
+   * representation of the deserialized, embedded message, with an
+   * additional field `@type` which contains the type URL. Example:
+   *
+   *     package google.profile;
+   *     message Person {
+   *       string first_name = 1;
+   *       string last_name = 2;
+   *     }
+   *
+   *     {
+   *       "@type": "type.googleapis.com/google.profile.Person",
+   *       "firstName": <string>,
+   *       "lastName": <string>
+   *     }
+   *
+   * If the embedded message type is well-known and has a custom JSON
+   * representation, that representation will be embedded adding a field
+   * `value` which holds the custom JSON in addition to the `@type`
+   * field. Example (for message [google.protobuf.Duration][]):
+   *
+   *     {
+   *       "@type": "type.googleapis.com/google.protobuf.Duration",
+   *       "value": "1.212s"
+   *     }
+   */
+  additionalProperties?: Any;
+  /** @gotag: ch:"average_amount" */
+  averageAmount?: string;
+  /** @gotag: ch:"average_amount_iso_currency_code" */
+  averageAmountIsoCurrencyCode?: string;
+  /** @gotag: ch:"category_id" */
+  categoryId?: string;
+  /** @gotag: ch:"description" */
+  description?: string;
+  /** @gotag: ch:"first_date" */
+  firstDate?: string;
+  /** @gotag: ch:"flow" */
+  flow?: ReCurringFlow;
+  /** @gotag: ch:"frequency" */
+  frequency?: ReOccuringTransactionsFrequency;
+  /** @gotag: ch:"id" */
+  id?: string;
+  /** @gotag: ch:"is_active" */
+  isActive?: boolean;
+  /** @gotag: ch:"last_amount" */
+  lastAmount?: string;
+  /** @gotag: ch:"last_amount_iso_currency_code" */
+  lastAmountIsoCurrencyCode?: string;
+  /** @gotag: ch:"last_date" */
+  lastDate?: string;
+  /**
+   * @gotag: ch:"link_id"
+   * @format uint64
+   */
+  linkId?: string;
+  /** @gotag: ch:"merchant_name" */
+  merchantName?: string;
+  /** @gotag: ch:"personal_finance_category_detailed" */
+  personalFinanceCategoryDetailed?: string;
+  /** @gotag: ch:"personal_finance_category_primary" */
+  personalFinanceCategoryPrimary?: string;
+  /** @gotag: ch:"profile_type" */
+  profileType?: FinancialUserProfileType;
+  /** @format int32 */
+  sign?: number;
+  /**
+   * @gotag: ch:"status"
+   *  - RE_OCCURING_TRANSACTIONS_STATUS_MATURE: A MATURE recurring stream should have at least 3 transactions and happen
+   *  on a regular cadence (For Annual recurring stream, we will mark it MATURE after 2 instances).
+   *  - RE_OCCURING_TRANSACTIONS_STATUS_EARLY_DETECTION: When a recurring transaction first appears in the transaction history and before it fulfills
+   * the requirement of a mature stream, the status will be EARLY_DETECTION.
+   *  - RE_OCCURING_TRANSACTIONS_STATUS_TOMBSTONED: A stream that was previously in the EARLY_DETECTION status will move to the TOMBSTONED
+   * status when no further transactions were found at the next expected date.
+   */
+  status?: ReOccuringTransactionsStatus;
+  /** @gotag: ch:"stream_id" */
+  streamId?: string;
+  /** @format date-time */
+  time?: string;
+  /** @gotag: ch:"transaction_ids,array" */
+  transactionIds?: string;
+  /** @gotag: ch:"updated_time" */
+  updatedTime?: string;
+  /**
+   * @gotag: ch:"user_id"
+   * @format uint64
+   */
+  userId?: string;
 }
 /** @default "RE_OCCURING_TRANSACTIONS_FREQUENCY_UNSPECIFIED" */
-export type ReOccuringTransactionsFrequency = "RE_OCCURING_TRANSACTIONS_FREQUENCY_UNSPECIFIED" | "RE_OCCURING_TRANSACTIONS_FREQUENCY_WEEKLY" | "RE_OCCURING_TRANSACTIONS_FREQUENCY_BIWEEKLY" | "RE_OCCURING_TRANSACTIONS_FREQUENCY_SEMI_MONTHLY" | "RE_OCCURING_TRANSACTIONS_FREQUENCY_MONTHLY" | "RE_OCCURING_TRANSACTIONS_FREQUENCY_ANNUALLY";
+export type ReOccuringTransactionsFrequency =
+  | 'RE_OCCURING_TRANSACTIONS_FREQUENCY_UNSPECIFIED'
+  | 'RE_OCCURING_TRANSACTIONS_FREQUENCY_WEEKLY'
+  | 'RE_OCCURING_TRANSACTIONS_FREQUENCY_BIWEEKLY'
+  | 'RE_OCCURING_TRANSACTIONS_FREQUENCY_SEMI_MONTHLY'
+  | 'RE_OCCURING_TRANSACTIONS_FREQUENCY_MONTHLY'
+  | 'RE_OCCURING_TRANSACTIONS_FREQUENCY_ANNUALLY';
 /**
  *  - RE_OCCURING_TRANSACTIONS_STATUS_MATURE: A MATURE recurring stream should have at least 3 transactions and happen
  *  on a regular cadence (For Annual recurring stream, we will mark it MATURE after 2 instances).
@@ -3925,77 +4001,81 @@ export type ReOccuringTransactionsFrequency = "RE_OCCURING_TRANSACTIONS_FREQUENC
  * status when no further transactions were found at the next expected date.
  * @default "RE_OCCURING_TRANSACTIONS_STATUS_UNSPECIFIED"
  */
-export type ReOccuringTransactionsStatus = "RE_OCCURING_TRANSACTIONS_STATUS_UNSPECIFIED" | "RE_OCCURING_TRANSACTIONS_STATUS_MATURE" | "RE_OCCURING_TRANSACTIONS_STATUS_EARLY_DETECTION" | "RE_OCCURING_TRANSACTIONS_STATUS_TOMBSTONED";
+export type ReOccuringTransactionsStatus =
+  | 'RE_OCCURING_TRANSACTIONS_STATUS_UNSPECIFIED'
+  | 'RE_OCCURING_TRANSACTIONS_STATUS_MATURE'
+  | 'RE_OCCURING_TRANSACTIONS_STATUS_EARLY_DETECTION'
+  | 'RE_OCCURING_TRANSACTIONS_STATUS_TOMBSTONED';
 export type ReadynessCheckData = any;
 export interface ReadynessCheckResponse {
-	healthy?: boolean;
+  healthy?: boolean;
 }
 /**
  * ReferenceDetails: These are the objects that provide additional context or information about the transactions.
  * They include things like Accounts, Contacts, Items, and Tax Rates.
  */
 export interface ReferenceDetails {
-	/** The Account object is what companies use to track transactions. They can be both bank accounts or a general ledger account (also called a chart of accounts). */
-	chartOfAccounts?: Array<BusinessChartOfAccounts>;
-	/** The Contact object refers to either a supplier or a customer. */
-	contacts?: Array<Contacts>;
-	/**
-	 * id
-	 * @format uint64
-	 */
-	id?: string;
-	/** a business can have many items */
-	items?: Array<Item>;
-	/** a business can have many tax rates */
-	taxRates?: Array<TaxRate>;
+  /** The Account object is what companies use to track transactions. They can be both bank accounts or a general ledger account (also called a chart of accounts). */
+  chartOfAccounts?: Array<BusinessChartOfAccounts>;
+  /** The Contact object refers to either a supplier or a customer. */
+  contacts?: Array<Contacts>;
+  /**
+   * id
+   * @format uint64
+   */
+  id?: string;
+  /** a business can have many items */
+  items?: Array<Item>;
+  /** a business can have many tax rates */
+  taxRates?: Array<TaxRate>;
 }
 /**
  * ReportDetails: These are the summaries or overviews of the financial data. They include things
  * like Balance Sheets, Income Statements, and Cash Flow Statements.
  */
 export interface ReportDetails {
-	/**
-	 * The BalanceSheet object shows a company’s assets, liabilities, and equity. Assets should be equal to liability and equity combined. This shows the company’s financial health at a specific point in time.
-	 * a business can have many balance sheets
-	 */
-	balanceSheets?: Array<BalanceSheet>;
-	/**
-	 * The CashFlowStatement object shows operating activities, investing activities, and financing activities over a period of time (month, quarter, or year).
-	 * a company can have many cash flow statements
-	 */
-	cashFlowStatements?: Array<CashFlowStatements>;
-	/**
-	 * id
-	 * @format uint64
-	 */
-	id?: string;
-	/** a business can have many income statements */
-	incomeStatements?: Array<IncomeStatement>;
+  /**
+   * The BalanceSheet object shows a company’s assets, liabilities, and equity. Assets should be equal to liability and equity combined. This shows the company’s financial health at a specific point in time.
+   * a business can have many balance sheets
+   */
+  balanceSheets?: Array<BalanceSheet>;
+  /**
+   * The CashFlowStatement object shows operating activities, investing activities, and financing activities over a period of time (month, quarter, or year).
+   * a company can have many cash flow statements
+   */
+  cashFlowStatements?: Array<CashFlowStatements>;
+  /**
+   * id
+   * @format uint64
+   */
+  id?: string;
+  /** a business can have many income statements */
+  incomeStatements?: Array<IncomeStatement>;
 }
 /**
  * The ReportItem object is used to represent a report item for a Balance Sheet,
  * Cash Flow Statement or Profit and Loss Report.
  */
 export interface ReportItem {
-	/** The company the report item belongs to. may not necessarily be the company name but a reference instead */
-	company?: string;
-	/** @format uint64 */
-	id?: string;
-	/**
-	 * This is the datetime that this object was last updated by Merge
-	 * Consider using google.protobuf.Timestamp
-	 * @format date-time
-	 */
-	modifiedAt?: string;
-	/** The report item's name. */
-	name?: string;
-	/** the id as stored in the third-party system */
-	remoteId?: string;
-	/**
-	 * The report item's value.
-	 * @format int64
-	 */
-	value?: string;
+  /** The company the report item belongs to. may not necessarily be the company name but a reference instead */
+  company?: string;
+  /** @format uint64 */
+  id?: string;
+  /**
+   * This is the datetime that this object was last updated by Merge
+   * Consider using google.protobuf.Timestamp
+   * @format date-time
+   */
+  modifiedAt?: string;
+  /** The report item's name. */
+  name?: string;
+  /** the id as stored in the third-party system */
+  remoteId?: string;
+  /**
+   * The report item's value.
+   * @format int64
+   */
+  value?: string;
 }
 /**
  * SmartGoal: The Goals table stores information about each financial goal, including the name of the goal,
@@ -4007,427 +4087,438 @@ export interface ReportItem {
  * more they need to save or invest to reach their target amount.
  */
 export interface SmartGoal {
-	/**
-	 * the current amount of the goal
-	 * current amount of money saved or invested towards the goal
-	 * @example "Active"
-	 */
-	currentAmount?: string;
-	/**
-	 * The description of the goal
-	 * Validations:
-	 * - must be at least 3 characters long
-	 * @example "Buy a car"
-	 */
-	description?: string;
-	/**
-	 * The duration of the goal
-	 * @example "Active"
-	 */
-	duration?: string;
-	/**
-	 * the end date of the goal
-	 * @example "Active"
-	 */
-	endDate?: string;
-	/**
-	 * Forecasts associated with the goal
-	 * The Forecast table stores information about each forecast generated for a particular goal,
-	 * including the forecast date, the forecasted amount of money saved or invested for the
-	 * goal by the target date, and the variance between the forecasted and target amounts.
-	 * This allows the user to track how well they are progressing towards their goal and make adjustments as needed.
-	 */
-	forecasts?: Forecast;
-	/** The type of the goal */
-	goalType?: GoalType;
-	/**
-	 * id
-	 * @format uint64
-	 */
-	id?: string;
-	/**
-	 * wether the goal has been achieved or not
-	 * @example true
-	 */
-	isCompleted?: boolean;
-	/** Milestones associated with the goal */
-	milestones?: Array<Milestone>;
-	/**
-	 * The name of the goal
-	 * Validations:
-	 * - must be at least 3 characters long
-	 * @example "Buy a car"
-	 */
-	name?: string;
-	/** Notes associated with the goal */
-	notes?: Array<SmartNote>;
-	/**
-	 * the start date of the goal
-	 * @example "Active"
-	 */
-	startDate?: string;
-	/**
-	 * the target amount of the goal
-	 * amount of money the user wants to save or invest
-	 * @example "Active"
-	 */
-	targetAmount?: string;
-	/**
-	 * the user id to which this goal is tied to
-	 * @format uint64
-	 */
-	userId?: string;
+  /**
+   * the current amount of the goal
+   * current amount of money saved or invested towards the goal
+   * @example "Active"
+   */
+  currentAmount?: string;
+  /**
+   * The description of the goal
+   * Validations:
+   * - must be at least 3 characters long
+   * @example "Buy a car"
+   */
+  description?: string;
+  /**
+   * The duration of the goal
+   * @example "Active"
+   */
+  duration?: string;
+  /**
+   * the end date of the goal
+   * @example "Active"
+   */
+  endDate?: string;
+  /**
+   * Forecasts associated with the goal
+   * The Forecast table stores information about each forecast generated for a particular goal,
+   * including the forecast date, the forecasted amount of money saved or invested for the
+   * goal by the target date, and the variance between the forecasted and target amounts.
+   * This allows the user to track how well they are progressing towards their goal and make adjustments as needed.
+   */
+  forecasts?: Forecast;
+  /** The type of the goal */
+  goalType?: GoalType;
+  /**
+   * id
+   * @format uint64
+   */
+  id?: string;
+  /**
+   * wether the goal has been achieved or not
+   * @example true
+   */
+  isCompleted?: boolean;
+  /** Milestones associated with the goal */
+  milestones?: Array<Milestone>;
+  /**
+   * The name of the goal
+   * Validations:
+   * - must be at least 3 characters long
+   * @example "Buy a car"
+   */
+  name?: string;
+  /** Notes associated with the goal */
+  notes?: Array<SmartNote>;
+  /**
+   * the start date of the goal
+   * @example "Active"
+   */
+  startDate?: string;
+  /**
+   * the target amount of the goal
+   * amount of money the user wants to save or invest
+   * @example "Active"
+   */
+  targetAmount?: string;
+  /**
+   * the user id to which this goal is tied to
+   * @format uint64
+   */
+  userId?: string;
 }
 /** Note schema */
 export interface SmartNote {
-	/**
-	 * The content of the note
-	 * Validations:
-	 * - must be at least 3 characters long
-	 * @example "Note content here..."
-	 */
-	content?: string;
-	/**
-	 * Timestamp indicating when the note was created
-	 * @format date-time
-	 */
-	createdAt?: string;
-	/**
-	 * Unique identifier for the note
-	 * @format uint64
-	 */
-	id?: string;
-	/**
-	 * Timestamp indicating when the note was last updated
-	 * @format date-time
-	 */
-	updatedAt?: string;
-	/**
-	 * The user id who created the note. This can be useful if in the future you allow multiple users to add notes to the same goal.
-	 * @format uint64
-	 */
-	userId?: string;
+  /**
+   * The content of the note
+   * Validations:
+   * - must be at least 3 characters long
+   * @example "Note content here..."
+   */
+  content?: string;
+  /**
+   * Timestamp indicating when the note was created
+   * @format date-time
+   */
+  createdAt?: string;
+  /**
+   * Unique identifier for the note
+   * @format uint64
+   */
+  id?: string;
+  /**
+   * Timestamp indicating when the note was last updated
+   * @format date-time
+   */
+  updatedAt?: string;
+  /**
+   * The user id who created the note. This can be useful if in the future you allow multiple users to add notes to the same goal.
+   * @format uint64
+   */
+  userId?: string;
 }
 export interface Status {
-	/** @format int32 */
-	code?: number;
-	details?: Array<Any>;
-	message?: string;
+  /** @format int32 */
+  code?: number;
+  details?: Array<Any>;
+  message?: string;
 }
 /** StripeSubscription stores high level stripe subscription details of which the user profile has */
 export interface StripeSubscription {
-	/** @format uint64 */
-	id?: string;
-	/** wether the subscription is trialing */
-	isTrialing?: boolean;
-	/** stripe subscription active until */
-	stripeSubscriptionActiveUntil?: string;
-	/** stripe subscription id tied to the customer */
-	stripeSubscriptionId?: string;
-	/** stripe subscription status */
-	stripeSubscriptionStatus?: StripeSubscriptionStatus;
-	/** stripe webhook latest timestamp */
-	stripeWebhookLatestTimestamp?: string;
+  /** @format uint64 */
+  id?: string;
+  /** wether the subscription is trialing */
+  isTrialing?: boolean;
+  /** stripe subscription active until */
+  stripeSubscriptionActiveUntil?: string;
+  /** stripe subscription id tied to the customer */
+  stripeSubscriptionId?: string;
+  /** stripe subscription status */
+  stripeSubscriptionStatus?: StripeSubscriptionStatus;
+  /** stripe webhook latest timestamp */
+  stripeWebhookLatestTimestamp?: string;
 }
 /** @default "STRIPE_SUBSCRIPTION_STATUS_UNSPECIFIED" */
-export type StripeSubscriptionStatus = "STRIPE_SUBSCRIPTION_STATUS_UNSPECIFIED" | "STRIPE_SUBSCRIPTION_STATUS_TRIALING" | "STRIPE_SUBSCRIPTION_STATUS_ACTIVE" | "STRIPE_SUBSCRIPTION_STATUS_PAST_DUE" | "STRIPE_SUBSCRIPTION_STATUS_CANCELED" | "STRIPE_SUBSCRIPTION_STATUS_UNPAID" | "STRIPE_SUBSCRIPTION_STATUS_COMPLETE" | "STRIPE_SUBSCRIPTION_STATUS_INCOMPLETE" | "STRIPE_SUBSCRIPTION_STATUS_INCOMPLETE_EXPIRED" | "STRIPE_SUBSCRIPTION_STATUS_CREATED" | "STRIPE_SUBSCRIPTION_STATUS_PAUSED";
+export type StripeSubscriptionStatus =
+  | 'STRIPE_SUBSCRIPTION_STATUS_UNSPECIFIED'
+  | 'STRIPE_SUBSCRIPTION_STATUS_TRIALING'
+  | 'STRIPE_SUBSCRIPTION_STATUS_ACTIVE'
+  | 'STRIPE_SUBSCRIPTION_STATUS_PAST_DUE'
+  | 'STRIPE_SUBSCRIPTION_STATUS_CANCELED'
+  | 'STRIPE_SUBSCRIPTION_STATUS_UNPAID'
+  | 'STRIPE_SUBSCRIPTION_STATUS_COMPLETE'
+  | 'STRIPE_SUBSCRIPTION_STATUS_INCOMPLETE'
+  | 'STRIPE_SUBSCRIPTION_STATUS_INCOMPLETE_EXPIRED'
+  | 'STRIPE_SUBSCRIPTION_STATUS_CREATED'
+  | 'STRIPE_SUBSCRIPTION_STATUS_PAUSED';
 export interface StripeWebhookRequest {
-	body?: string;
-	signature?: string;
+  body?: string;
+  signature?: string;
 }
 export interface StripeWebhookResponse {
-	message?: string;
+  message?: string;
 }
 export interface StudentLoanAccount {
-	disbursementDates?: Array<string>;
-	expectedPayoffDate?: string;
-	guarantor?: string;
-	/**
-	 * id
-	 * @format uint64
-	 */
-	id?: string;
-	/** @format double */
-	interestRatePercentage?: number;
-	isOverdue?: boolean;
-	/** @format double */
-	lastPaymentAmount?: number;
-	lastPaymentDate?: string;
-	lastStatementIssueDate?: string;
-	loanEndDate?: string;
-	loanName?: string;
-	loanType?: string;
-	/** @format double */
-	minimumPaymentAmount?: number;
-	/** the account name */
-	name?: string;
-	nextPaymentDueDate?: string;
-	originationDate?: string;
-	/** @format double */
-	originationPrincipalAmount?: number;
-	/** @format double */
-	outstandingInterestAmount?: number;
-	paymentReferenceNumber?: string;
-	plaidAccountId?: string;
-	pslfStatusEstimatedEligibilityDate?: string;
-	/** @format int32 */
-	pslfStatusPaymentsMade?: number;
-	/** @format int32 */
-	pslfStatusPaymentsRemaining?: number;
-	repaymentPlanDescription?: string;
-	repaymentPlanType?: string;
-	sequenceNumber?: string;
-	servicerAddressCity?: string;
-	servicerAddressCountry?: string;
-	servicerAddressPostalCode?: string;
-	servicerAddressRegion?: string;
-	servicerAddressState?: string;
-	servicerAddressStreet?: string;
-	/** the bank account status */
-	status?: BankAccountStatus;
-	/**
-	 * the user id to which this bank account is tied to
-	 * @format uint64
-	 */
-	userId?: string;
-	/** @format double */
-	ytdInterestPaid?: number;
-	/** @format double */
-	ytdPrincipalPaid?: number;
+  disbursementDates?: Array<string>;
+  expectedPayoffDate?: string;
+  guarantor?: string;
+  /**
+   * id
+   * @format uint64
+   */
+  id?: string;
+  /** @format double */
+  interestRatePercentage?: number;
+  isOverdue?: boolean;
+  /** @format double */
+  lastPaymentAmount?: number;
+  lastPaymentDate?: string;
+  lastStatementIssueDate?: string;
+  loanEndDate?: string;
+  loanName?: string;
+  loanType?: string;
+  /** @format double */
+  minimumPaymentAmount?: number;
+  /** the account name */
+  name?: string;
+  nextPaymentDueDate?: string;
+  originationDate?: string;
+  /** @format double */
+  originationPrincipalAmount?: number;
+  /** @format double */
+  outstandingInterestAmount?: number;
+  paymentReferenceNumber?: string;
+  plaidAccountId?: string;
+  pslfStatusEstimatedEligibilityDate?: string;
+  /** @format int32 */
+  pslfStatusPaymentsMade?: number;
+  /** @format int32 */
+  pslfStatusPaymentsRemaining?: number;
+  repaymentPlanDescription?: string;
+  repaymentPlanType?: string;
+  sequenceNumber?: string;
+  servicerAddressCity?: string;
+  servicerAddressCountry?: string;
+  servicerAddressPostalCode?: string;
+  servicerAddressRegion?: string;
+  servicerAddressState?: string;
+  servicerAddressStreet?: string;
+  /** the bank account status */
+  status?: BankAccountStatus;
+  /**
+   * the user id to which this bank account is tied to
+   * @format uint64
+   */
+  userId?: string;
+  /** @format double */
+  ytdInterestPaid?: number;
+  /** @format double */
+  ytdPrincipalPaid?: number;
 }
 /** The TaxRate object is used to represent a tax rate. */
 export interface TaxRate {
-	company?: string;
-	description?: string;
-	/** @format double */
-	effectiveTaxRate?: number;
-	/** @format uint64 */
-	id?: string;
-	mergeAccountId?: string;
-	/** @format date-time */
-	modifiedAt?: string;
-	remoteId?: string;
-	remoteWasDeleted?: boolean;
-	/** @format double */
-	totalTaxRate?: number;
+  company?: string;
+  description?: string;
+  /** @format double */
+  effectiveTaxRate?: number;
+  /** @format uint64 */
+  id?: string;
+  mergeAccountId?: string;
+  /** @format date-time */
+  modifiedAt?: string;
+  remoteId?: string;
+  remoteWasDeleted?: boolean;
+  /** @format double */
+  totalTaxRate?: number;
 }
 export interface Token {
-	accessToken?: string;
-	/**
-	 * id
-	 * @format uint64
-	 */
-	id?: string;
-	/** the id of the item the token is tied to */
-	itemId?: string;
-	keyId?: string;
-	/**
-	 * last time you performed a merge fetch
-	 * @format date-time
-	 */
-	lastMergeCreatedAt?: string;
-	/** This is what you'll pass to Merge as the end_user_origin_id. */
-	mergeEndUserOriginId?: string;
-	/** The integration slug/identifier. This is returned at the end of the linking flow. */
-	mergeIntegrationSlug?: string;
-	version?: string;
+  accessToken?: string;
+  /**
+   * id
+   * @format uint64
+   */
+  id?: string;
+  /** the id of the item the token is tied to */
+  itemId?: string;
+  keyId?: string;
+  /**
+   * last time you performed a merge fetch
+   * @format date-time
+   */
+  lastMergeCreatedAt?: string;
+  /** This is what you'll pass to Merge as the end_user_origin_id. */
+  mergeEndUserOriginId?: string;
+  /** The integration slug/identifier. This is returned at the end of the linking flow. */
+  mergeIntegrationSlug?: string;
+  version?: string;
 }
 /**
  * TotalInvestmentBySecurity
  * This message is used to represent the total investment of a security.
  */
 export interface TotalInvestmentBySecurity {
-	profileType?: FinancialUserProfileType;
-	securityId?: string;
-	/** @format double */
-	totalInvestment?: number;
-	/** @format uint64 */
-	userId?: string;
+  profileType?: FinancialUserProfileType;
+  securityId?: string;
+  /** @format double */
+  totalInvestment?: number;
+  /** @format uint64 */
+  userId?: string;
 }
 export interface Transaction {
-	/** @gotag: ch:"account_id" */
-	accountId?: string;
-	/** @gotag: ch:"account_owner" */
-	accountOwner?: string;
-	/**
-	 * `Any` contains an arbitrary serialized protocol buffer message along with a
-	 * URL that describes the type of the serialized message.
-	 *
-	 * Protobuf library provides support to pack/unpack Any values in the form
-	 * of utility functions or additional generated methods of the Any type.
-	 *
-	 * Example 1: Pack and unpack a message in C++.
-	 *
-	 *     Foo foo = ...;
-	 *     Any any;
-	 *     any.PackFrom(foo);
-	 *     ...
-	 *     if (any.UnpackTo(&foo)) {
-	 *       ...
-	 *     }
-	 *
-	 * Example 2: Pack and unpack a message in Java.
-	 *
-	 *     Foo foo = ...;
-	 *     Any any = Any.pack(foo);
-	 *     ...
-	 *     if (any.is(Foo.class)) {
-	 *       foo = any.unpack(Foo.class);
-	 *     }
-	 *
-	 * Example 3: Pack and unpack a message in Python.
-	 *
-	 *     foo = Foo(...)
-	 *     any = Any()
-	 *     any.Pack(foo)
-	 *     ...
-	 *     if any.Is(Foo.DESCRIPTOR):
-	 *       any.Unpack(foo)
-	 *       ...
-	 *
-	 * Example 4: Pack and unpack a message in Go
-	 *
-	 *      foo := &pb.Foo{...}
-	 *      any, err := anypb.New(foo)
-	 *      if err != nil {
-	 *        ...
-	 *      }
-	 *      ...
-	 *      foo := &pb.Foo{}
-	 *      if err := any.UnmarshalTo(foo); err != nil {
-	 *        ...
-	 *      }
-	 *
-	 * The pack methods provided by protobuf library will by default use
-	 * 'type.googleapis.com/full.type.name' as the type URL and the unpack
-	 * methods only use the fully qualified type name after the last '/'
-	 * in the type URL, for example "foo.bar.com/x/y.z" will yield type
-	 * name "y.z".
-	 *
-	 *
-	 * JSON
-	 *
-	 * The JSON representation of an `Any` value uses the regular
-	 * representation of the deserialized, embedded message, with an
-	 * additional field `@type` which contains the type URL. Example:
-	 *
-	 *     package google.profile;
-	 *     message Person {
-	 *       string first_name = 1;
-	 *       string last_name = 2;
-	 *     }
-	 *
-	 *     {
-	 *       "@type": "type.googleapis.com/google.profile.Person",
-	 *       "firstName": <string>,
-	 *       "lastName": <string>
-	 *     }
-	 *
-	 * If the embedded message type is well-known and has a custom JSON
-	 * representation, that representation will be embedded adding a field
-	 * `value` which holds the custom JSON in addition to the `@type`
-	 * field. Example (for message [google.protobuf.Duration][]):
-	 *
-	 *     {
-	 *       "@type": "type.googleapis.com/google.protobuf.Duration",
-	 *       "value": "1.212s"
-	 *     }
-	 */
-	additionalProperties?: Any;
-	/**
-	 * @gotag: ch:"amount"
-	 * @format double
-	 */
-	amount?: number;
-	/** @gotag: ch:"authorized_date" */
-	authorizedDate?: string;
-	/** @gotag: ch:"authorized_datetime" */
-	authorizedDatetime?: string;
-	categories?: Array<string>;
-	/** @gotag: ch:"category_id" */
-	categoryId?: string;
-	/** @gotag: ch:"check_number" */
-	checkNumber?: string;
-	/** @gotag: ch:"date" */
-	currentDate?: string;
-	/** @gotag: ch:"datetime" */
-	currentDatetime?: string;
-	id?: string;
-	/** @gotag: ch:"iso_currency_code" */
-	isoCurrencyCode?: string;
-	/**
-	 * @gotag: ch:"link_id"
-	 * @format uint64
-	 */
-	linkId?: string;
-	locationAddress?: string;
-	locationCity?: string;
-	locationCountry?: string;
-	/** @format double */
-	locationLat?: number;
-	/** @format double */
-	locationLon?: number;
-	locationPostalCode?: string;
-	locationRegion?: string;
-	locationStoreNumber?: string;
-	/** @gotag: ch:"merchant_name" */
-	merchantName?: string;
-	/** @gotag: ch:"name" */
-	name?: string;
-	/** @gotag: ch:"payment_channel" */
-	paymentChannel?: string;
-	paymentMetaByOrderOf?: string;
-	paymentMetaPayee?: string;
-	paymentMetaPayer?: string;
-	paymentMetaPaymentMethod?: string;
-	paymentMetaPaymentProcessor?: string;
-	paymentMetaPpdId?: string;
-	paymentMetaReason?: string;
-	paymentMetaReferenceNumber?: string;
-	/** @gotag: ch:"pending" */
-	pending?: boolean;
-	/** @gotag: ch:"pending_transaction_id" */
-	pendingTransactionId?: string;
-	/** @gotag: ch:"personal_finance_category_detailed" */
-	personalFinanceCategoryDetailed?: string;
-	/** @gotag: ch:"personal_finance_category_primary" */
-	personalFinanceCategoryPrimary?: string;
-	/** @gotag: ch:"profile_type" */
-	profileType?: FinancialUserProfileType;
-	/** @format int32 */
-	sign?: number;
-	/** @format date-time */
-	time?: string;
-	/** @gotag: ch:"transaction_code" */
-	transactionCode?: string;
-	/** @gotag: ch:"transaction_id" */
-	transactionId?: string;
-	/** @gotag: ch:"unofficial_currency_code" */
-	unofficialCurrencyCode?: string;
-	/**
-	 * @gotag: ch:"user_id"
-	 * @format uint64
-	 */
-	userId?: string;
+  /** @gotag: ch:"account_id" */
+  accountId?: string;
+  /** @gotag: ch:"account_owner" */
+  accountOwner?: string;
+  /**
+   * `Any` contains an arbitrary serialized protocol buffer message along with a
+   * URL that describes the type of the serialized message.
+   *
+   * Protobuf library provides support to pack/unpack Any values in the form
+   * of utility functions or additional generated methods of the Any type.
+   *
+   * Example 1: Pack and unpack a message in C++.
+   *
+   *     Foo foo = ...;
+   *     Any any;
+   *     any.PackFrom(foo);
+   *     ...
+   *     if (any.UnpackTo(&foo)) {
+   *       ...
+   *     }
+   *
+   * Example 2: Pack and unpack a message in Java.
+   *
+   *     Foo foo = ...;
+   *     Any any = Any.pack(foo);
+   *     ...
+   *     if (any.is(Foo.class)) {
+   *       foo = any.unpack(Foo.class);
+   *     }
+   *
+   * Example 3: Pack and unpack a message in Python.
+   *
+   *     foo = Foo(...)
+   *     any = Any()
+   *     any.Pack(foo)
+   *     ...
+   *     if any.Is(Foo.DESCRIPTOR):
+   *       any.Unpack(foo)
+   *       ...
+   *
+   * Example 4: Pack and unpack a message in Go
+   *
+   *      foo := &pb.Foo{...}
+   *      any, err := anypb.New(foo)
+   *      if err != nil {
+   *        ...
+   *      }
+   *      ...
+   *      foo := &pb.Foo{}
+   *      if err := any.UnmarshalTo(foo); err != nil {
+   *        ...
+   *      }
+   *
+   * The pack methods provided by protobuf library will by default use
+   * 'type.googleapis.com/full.type.name' as the type URL and the unpack
+   * methods only use the fully qualified type name after the last '/'
+   * in the type URL, for example "foo.bar.com/x/y.z" will yield type
+   * name "y.z".
+   *
+   *
+   * JSON
+   *
+   * The JSON representation of an `Any` value uses the regular
+   * representation of the deserialized, embedded message, with an
+   * additional field `@type` which contains the type URL. Example:
+   *
+   *     package google.profile;
+   *     message Person {
+   *       string first_name = 1;
+   *       string last_name = 2;
+   *     }
+   *
+   *     {
+   *       "@type": "type.googleapis.com/google.profile.Person",
+   *       "firstName": <string>,
+   *       "lastName": <string>
+   *     }
+   *
+   * If the embedded message type is well-known and has a custom JSON
+   * representation, that representation will be embedded adding a field
+   * `value` which holds the custom JSON in addition to the `@type`
+   * field. Example (for message [google.protobuf.Duration][]):
+   *
+   *     {
+   *       "@type": "type.googleapis.com/google.protobuf.Duration",
+   *       "value": "1.212s"
+   *     }
+   */
+  additionalProperties?: Any;
+  /**
+   * @gotag: ch:"amount"
+   * @format double
+   */
+  amount?: number;
+  /** @gotag: ch:"authorized_date" */
+  authorizedDate?: string;
+  /** @gotag: ch:"authorized_datetime" */
+  authorizedDatetime?: string;
+  categories?: Array<string>;
+  /** @gotag: ch:"category_id" */
+  categoryId?: string;
+  /** @gotag: ch:"check_number" */
+  checkNumber?: string;
+  /** @gotag: ch:"date" */
+  currentDate?: string;
+  /** @gotag: ch:"datetime" */
+  currentDatetime?: string;
+  id?: string;
+  /** @gotag: ch:"iso_currency_code" */
+  isoCurrencyCode?: string;
+  /**
+   * @gotag: ch:"link_id"
+   * @format uint64
+   */
+  linkId?: string;
+  locationAddress?: string;
+  locationCity?: string;
+  locationCountry?: string;
+  /** @format double */
+  locationLat?: number;
+  /** @format double */
+  locationLon?: number;
+  locationPostalCode?: string;
+  locationRegion?: string;
+  locationStoreNumber?: string;
+  /** @gotag: ch:"merchant_name" */
+  merchantName?: string;
+  /** @gotag: ch:"name" */
+  name?: string;
+  /** @gotag: ch:"payment_channel" */
+  paymentChannel?: string;
+  paymentMetaByOrderOf?: string;
+  paymentMetaPayee?: string;
+  paymentMetaPayer?: string;
+  paymentMetaPaymentMethod?: string;
+  paymentMetaPaymentProcessor?: string;
+  paymentMetaPpdId?: string;
+  paymentMetaReason?: string;
+  paymentMetaReferenceNumber?: string;
+  /** @gotag: ch:"pending" */
+  pending?: boolean;
+  /** @gotag: ch:"pending_transaction_id" */
+  pendingTransactionId?: string;
+  /** @gotag: ch:"personal_finance_category_detailed" */
+  personalFinanceCategoryDetailed?: string;
+  /** @gotag: ch:"personal_finance_category_primary" */
+  personalFinanceCategoryPrimary?: string;
+  /** @gotag: ch:"profile_type" */
+  profileType?: FinancialUserProfileType;
+  /** @format int32 */
+  sign?: number;
+  /** @format date-time */
+  time?: string;
+  /** @gotag: ch:"transaction_code" */
+  transactionCode?: string;
+  /** @gotag: ch:"transaction_id" */
+  transactionId?: string;
+  /** @gotag: ch:"unofficial_currency_code" */
+  unofficialCurrencyCode?: string;
+  /**
+   * @gotag: ch:"user_id"
+   * @format uint64
+   */
+  userId?: string;
 }
 /**
  * TransactionAggregatesByMonth
  * This message is used to represent the transaction aggregates of a user.
  */
 export interface TransactionAggregatesByMonth {
-	locationCity?: string;
-	merchantName?: string;
-	/** @format int64 */
-	month?: number;
-	paymentChannel?: string;
-	personalFinanceCategoryPrimary?: string;
-	profileType?: FinancialUserProfileType;
-	/** @format double */
-	totalAmount?: number;
-	/** @format uint64 */
-	transactionCount?: string;
-	/** @format uint64 */
-	userId?: string;
+  locationCity?: string;
+  merchantName?: string;
+  /** @format int64 */
+  month?: number;
+  paymentChannel?: string;
+  personalFinanceCategoryPrimary?: string;
+  profileType?: FinancialUserProfileType;
+  /** @format double */
+  totalAmount?: number;
+  /** @format uint64 */
+  transactionCount?: string;
+  /** @format uint64 */
+  userId?: string;
 }
 export type TransactionAggregatesData = any;
 /**
@@ -4435,139 +4526,139 @@ export type TransactionAggregatesData = any;
  * They include things like Invoices, Payments, Expenses, and Journal Entries.
  */
 export interface TransactionDetails {
-	/** a business can have many credit notes */
-	creditNotes?: Array<CreditNote>;
-	/** a business can have many expenses */
-	expenses?: Array<Expense>;
-	/**
-	 * id
-	 * @format uint64
-	 */
-	id?: string;
-	/** a business can have many invoices */
-	invoices?: Array<Invoice>;
-	/** a business can have many journal entries */
-	journalEntries?: Array<JournalEntry>;
-	/** a business can have many payments */
-	payments?: Array<Payment>;
-	/** a business can have many transactions */
-	transactions?: Array<BusinessTransaction>;
-	/** a business can have many vendor credits */
-	vendorCredits?: Array<VendorCredit>;
+  /** a business can have many credit notes */
+  creditNotes?: Array<CreditNote>;
+  /** a business can have many expenses */
+  expenses?: Array<Expense>;
+  /**
+   * id
+   * @format uint64
+   */
+  id?: string;
+  /** a business can have many invoices */
+  invoices?: Array<Invoice>;
+  /** a business can have many journal entries */
+  journalEntries?: Array<JournalEntry>;
+  /** a business can have many payments */
+  payments?: Array<Payment>;
+  /** a business can have many transactions */
+  transactions?: Array<BusinessTransaction>;
+  /** a business can have many vendor credits */
+  vendorCredits?: Array<VendorCredit>;
 }
 export interface TransactionLineItem {
-	account?: string;
-	company?: string;
-	currency?: string;
-	/** Assuming string, but might be better as float or double. */
-	exchangeRate?: string;
-	/** @format uint64 */
-	id?: string;
-	item?: string;
-	memo?: string;
-	/** @format date-time */
-	modifiedAt?: string;
-	quantity?: string;
-	remoteId?: string;
-	taxRate?: string;
-	totalLineAmount?: string;
-	trackingCategories?: Array<string>;
-	trackingCategory?: string;
-	unitPrice?: string;
+  account?: string;
+  company?: string;
+  currency?: string;
+  /** Assuming string, but might be better as float or double. */
+  exchangeRate?: string;
+  /** @format uint64 */
+  id?: string;
+  item?: string;
+  memo?: string;
+  /** @format date-time */
+  modifiedAt?: string;
+  quantity?: string;
+  remoteId?: string;
+  taxRate?: string;
+  totalLineAmount?: string;
+  trackingCategories?: Array<string>;
+  trackingCategory?: string;
+  unitPrice?: string;
 }
 export type UpdateBankAccountData = any;
 export interface UpdateBankAccountRequest {
-	/**
-	 * The bank account to update
-	 * Validations:
-	 * - cannot be nil hence required
-	 */
-	bankAccount: BankAccount;
+  /**
+   * The bank account to update
+   * Validations:
+   * - cannot be nil hence required
+   */
+  bankAccount: BankAccount;
 }
 export interface UpdateBankAccountResponse {
-	/** The bank account */
-	bankAccount?: BankAccount;
-	/** The bank account id */
-	updated?: boolean;
+  /** The bank account */
+  bankAccount?: BankAccount;
+  /** The bank account id */
+  updated?: boolean;
 }
 export interface UpdateBudgetRequest {
-	/**
-	 * The budget to update
-	 * Validations:
-	 * - cannot be nil hence required
-	 * The Budgets table stores information about each budget created by the user,
-	 * including the name of the budget, the start and end dates, and the user ID.
-	 */
-	budget: Budget;
+  /**
+   * The budget to update
+   * Validations:
+   * - cannot be nil hence required
+   * The Budgets table stores information about each budget created by the user,
+   * including the name of the budget, the start and end dates, and the user ID.
+   */
+  budget: Budget;
 }
 export interface UpdateBudgetResponse {
-	/**
-	 * The budget id
-	 * The Budgets table stores information about each budget created by the user,
-	 * including the name of the budget, the start and end dates, and the user ID.
-	 */
-	budget?: Budget;
+  /**
+   * The budget id
+   * The Budgets table stores information about each budget created by the user,
+   * including the name of the budget, the start and end dates, and the user ID.
+   */
+  budget?: Budget;
 }
 export interface UpdateMilestoneRequest {
-	/**
-	 * The milestone to update
-	 * Validations:
-	 * - cannot be nil hence required
-	 */
-	milestone: Milestone;
+  /**
+   * The milestone to update
+   * Validations:
+   * - cannot be nil hence required
+   */
+  milestone: Milestone;
 }
 export interface UpdateMilestoneResponse {
-	/** The milestone id */
-	milestone?: Milestone;
+  /** The milestone id */
+  milestone?: Milestone;
 }
 export type UpdateNoteToSmartGoalData = any;
 export interface UpdateNoteToSmartGoalRequest {
-	/**
-	 * The note to update
-	 * Validations:
-	 * - cannot be nil hence required
-	 */
-	note: SmartNote;
+  /**
+   * The note to update
+   * Validations:
+   * - cannot be nil hence required
+   */
+  note: SmartNote;
 }
 export interface UpdateNoteToSmartGoalResponse {
-	/** The smart goal id */
-	note?: SmartNote;
+  /** The smart goal id */
+  note?: SmartNote;
 }
 export type UpdatePocketData = any;
 export interface UpdatePocketRequest {
-	/**
-	 * The pocket to update
-	 * Validations:
-	 * - cannot be nil hence required
-	 */
-	pocket: Pocket;
+  /**
+   * The pocket to update
+   * Validations:
+   * - cannot be nil hence required
+   */
+  pocket: Pocket;
 }
 export interface UpdatePocketResponse {
-	/** The pocket id */
-	pocket?: Pocket;
+  /** The pocket id */
+  pocket?: Pocket;
 }
 export type UpdateSmartGoalData = any;
 export interface UpdateSmartGoalRequest {
-	/**
-	 * The smart goal to update
-	 * Validations:
-	 * - cannot be nil hence required
-	 * SmartGoal: The Goals table stores information about each financial goal, including the name of the goal,
-	 * its description, the target amount of money the user wants to save or invest, and the expected date of completion.
-	 *
-	 * The Goals table also includes columns for the start date of the goal, the current amount of money saved or
-	 * invested towards the goal, and a boolean flag indicating whether the goal has been achieved.
-	 * These additional columns allow the user to track their progress towards the goal and see how much
-	 * more they need to save or invest to reach their target amount.
-	 */
-	smartGoal: SmartGoal;
+  /**
+   * The smart goal to update
+   * Validations:
+   * - cannot be nil hence required
+   * SmartGoal: The Goals table stores information about each financial goal, including the name of the goal,
+   * its description, the target amount of money the user wants to save or invest, and the expected date of completion.
+   *
+   * The Goals table also includes columns for the start date of the goal, the current amount of money saved or
+   * invested towards the goal, and a boolean flag indicating whether the goal has been achieved.
+   * These additional columns allow the user to track their progress towards the goal and see how much
+   * more they need to save or invest to reach their target amount.
+   */
+  smartGoal: SmartGoal;
 }
 export interface UpdateSmartGoalResponse {
-	/**
-	 * The smart goal id
-	 * @format uint64
-	 */
-	smartGoalId?: string;
+  /**
+   * The smart goal id
+   * @format uint64
+   */
+  smartGoalId?: string;
 }
 export type UpdateUserProfileData = any;
 /**
@@ -4575,20 +4666,20 @@ export type UpdateUserProfileData = any;
  * service to update a user profile
  */
 export interface UpdateUserProfileRequest {
-	/**
-	 * User profile to update
-	 * Validation:
-	 * - cannot nil hence required
-	 */
-	profile: FinancialUserProfile;
+  /**
+   * User profile to update
+   * Validation:
+   * - cannot nil hence required
+   */
+  profile: FinancialUserProfile;
 }
 /**
  * UpdateUserProfileResponse: Represents the response object returned as a response to
  * the `update user profile` request
  */
 export interface UpdateUserProfileResponse {
-	profile?: FinancialUserProfile;
-	profileUpdated?: boolean;
+  profile?: FinancialUserProfile;
+  profileUpdated?: boolean;
 }
 export type UpdatesBudgetData = any;
 export type UpdatesMilestoneData = any;
@@ -4598,143 +4689,143 @@ export type UpdatesMilestoneData = any;
  * and the account.
  */
 export interface VendorCredit {
-	accountingPeriod?: string;
-	company?: string;
-	currency?: string;
-	/** Assuming string, but might be better as float or double. */
-	exchangeRate?: string;
-	/** @format uint64 */
-	id?: string;
-	lines?: Array<VendorCreditLine>;
-	mergeAccountId?: string;
-	/** @format date-time */
-	modifiedAt?: string;
-	number?: string;
-	remoteId?: string;
-	remoteWasDeleted?: boolean;
-	/**
-	 * Using double for more precision.
-	 * @format double
-	 */
-	totalAmount?: number;
-	trackingCategories?: Array<string>;
-	/** @format date-time */
-	transactionDate?: string;
-	vendor?: string;
+  accountingPeriod?: string;
+  company?: string;
+  currency?: string;
+  /** Assuming string, but might be better as float or double. */
+  exchangeRate?: string;
+  /** @format uint64 */
+  id?: string;
+  lines?: Array<VendorCreditLine>;
+  mergeAccountId?: string;
+  /** @format date-time */
+  modifiedAt?: string;
+  number?: string;
+  remoteId?: string;
+  remoteWasDeleted?: boolean;
+  /**
+   * Using double for more precision.
+   * @format double
+   */
+  totalAmount?: number;
+  trackingCategories?: Array<string>;
+  /** @format date-time */
+  transactionDate?: string;
+  vendor?: string;
 }
 /** The VendorCreditLine object is used to represent a vendor credit's line items. */
 export interface VendorCreditLine {
-	account?: string;
-	company?: string;
-	description?: string;
-	/** Assuming string, but might be better as float or double. */
-	exchangeRate?: string;
-	/** @format uint64 */
-	id?: string;
-	/**
-	 * Could use a specific Timestamp type for this if you need.
-	 * @format date-time
-	 */
-	modifiedAt?: string;
-	/**
-	 * Using double for more precision.
-	 * @format double
-	 */
-	netAmount?: number;
-	remoteId?: string;
-	trackingCategories?: Array<string>;
-	trackingCategory?: string;
+  account?: string;
+  company?: string;
+  description?: string;
+  /** Assuming string, but might be better as float or double. */
+  exchangeRate?: string;
+  /** @format uint64 */
+  id?: string;
+  /**
+   * Could use a specific Timestamp type for this if you need.
+   * @format date-time
+   */
+  modifiedAt?: string;
+  /**
+   * Using double for more precision.
+   * @format double
+   */
+  netAmount?: number;
+  remoteId?: string;
+  trackingCategories?: Array<string>;
+  trackingCategory?: string;
 }
 export declare class InvestmentSecurityClass implements InvestmentSecurity {
-	/** id */
-	id: string;
-	closePrice: number;
-	closePriceAsOf: string;
-	cusip: string;
-	institutionId: string;
-	institutionSecurityId: string;
-	isCashEquivalent: boolean;
-	isin: string;
-	isoCurrencyCode: string;
-	name: string;
-	proxySecurityId: string;
-	securityId: string;
-	sedol: string;
-	tickerSymbol: string;
-	type: string;
-	unofficialCurrencyCode: string;
-	updateDatetime: string;
-	constructor(data: Partial<InvestmentSecurity>);
-	static randomInstance(): InvestmentSecurity;
+  /** id */
+  id: string;
+  closePrice: number;
+  closePriceAsOf: string;
+  cusip: string;
+  institutionId: string;
+  institutionSecurityId: string;
+  isCashEquivalent: boolean;
+  isin: string;
+  isoCurrencyCode: string;
+  name: string;
+  proxySecurityId: string;
+  securityId: string;
+  sedol: string;
+  tickerSymbol: string;
+  type: string;
+  unofficialCurrencyCode: string;
+  updateDatetime: string;
+  constructor(data: Partial<InvestmentSecurity>);
+  static randomInstance(): InvestmentSecurity;
 }
 export declare class MilestoneClass implements Milestone {
-	/** id */
-	id: string;
-	/**
-	 * The name of the milestone
-	 * Validations:
-	 * - must be at least 3 characters long
-	 */
-	name: string;
-	/**
-	 * The description of the miletone
-	 * Validations:
-	 * - must be at least 3 characters long
-	 */
-	description: string;
-	/**
-	 * the target date of the milestone
-	 * Validations:
-	 * - must be at least 3 characters long
-	 */
-	targetDate: string;
-	/** the target amount of the milestone */
-	targetAmount: string;
-	/** wethe milestone is completed or not */
-	isCompleted: boolean;
-	/** the budget associated with the milestone */
-	budget: Budget | undefined;
-	constructor(data: Partial<Milestone>);
-	/**
-	 * Creates a random instance of the Milestone class with all fields populated.
-	 * @returns {Milestone} A random Milestone.
-	 */
-	static randomInstance(): Milestone;
+  /** id */
+  id: string;
+  /**
+   * The name of the milestone
+   * Validations:
+   * - must be at least 3 characters long
+   */
+  name: string;
+  /**
+   * The description of the miletone
+   * Validations:
+   * - must be at least 3 characters long
+   */
+  description: string;
+  /**
+   * the target date of the milestone
+   * Validations:
+   * - must be at least 3 characters long
+   */
+  targetDate: string;
+  /** the target amount of the milestone */
+  targetAmount: string;
+  /** wethe milestone is completed or not */
+  isCompleted: boolean;
+  /** the budget associated with the milestone */
+  budget: Budget | undefined;
+  constructor(data: Partial<Milestone>);
+  /**
+   * Creates a random instance of the Milestone class with all fields populated.
+   * @returns {Milestone} A random Milestone.
+   */
+  static randomInstance(): Milestone;
 }
 export declare class MortgageAccountClass implements MortgageAccount {
-	id: string;
-	plaidAccountId: string;
-	accountNumber: string;
-	currentLateFee: number;
-	escrowBalance: number;
-	hasPmi: boolean;
-	hasPrepaymentPenalty: boolean;
-	lastPaymentAmount: number;
-	lastPaymentDate: string;
-	loanTerm: string;
-	loanTypeDescription: string;
-	maturityDate: string;
-	nextMonthlyPayment: number;
-	nextPaymentDueDate: string;
-	originalPrincipalBalance: number;
-	originalPropertyValue: number;
-	outstandingPrincipalBalance: number;
-	paymentAmount: number;
-	paymentDate: string;
-	originationDate: string;
-	originationPrincipalAmount: number;
-	pastDueAmount: number;
-	ytdInterestPaid: number;
-	ytdPrincipalPaid: number;
-	propertyAddressCity: string;
-	propertyAddressState: string;
-	propertyAddressStreet: string;
-	propertyAddressPostalCode: string;
-	propertyRegion: string;
-	propertyCountry: string;
-	interestRatePercentage: number;
-	interestRateType: string;
-	constructor(data: Partial<MortgageAccount>);
+  id: string;
+  plaidAccountId: string;
+  accountNumber: string;
+  currentLateFee: number;
+  escrowBalance: number;
+  hasPmi: boolean;
+  hasPrepaymentPenalty: boolean;
+  lastPaymentAmount: number;
+  lastPaymentDate: string;
+  loanTerm: string;
+  loanTypeDescription: string;
+  maturityDate: string;
+  nextMonthlyPayment: number;
+  nextPaymentDueDate: string;
+  originalPrincipalBalance: number;
+  originalPropertyValue: number;
+  outstandingPrincipalBalance: number;
+  paymentAmount: number;
+  paymentDate: string;
+  originationDate: string;
+  originationPrincipalAmount: number;
+  pastDueAmount: number;
+  ytdInterestPaid: number;
+  ytdPrincipalPaid: number;
+  propertyAddressCity: string;
+  propertyAddressState: string;
+  propertyAddressStreet: string;
+  propertyAddressPostalCode: string;
+  propertyRegion: string;
+  propertyCountry: string;
+  interestRatePercentage: number;
+  interestRateType: string;
+  constructor(data: Partial<MortgageAccount>);
 }
 /**
  * Pocket represents the Pocket entity.
@@ -4744,320 +4835,320 @@ export declare class MortgageAccountClass implements MortgageAccount {
  * @implements {IPocket}
  * */
 export declare class PocketClass implements Pocket {
-	/** id */
-	id: string;
-	/** the set of smart goals this user witholds */
-	goals: SmartGoal[];
-	/** The type of the pocket */
-	type: PocketType;
-	constructor(data: Partial<Pocket>);
-	/**
-	 * Creates a random instance of the Pocket class with all fields populated.
-	 * @returns {Pocket} A random pocket.
-	 */
-	static randomInstance(): Pocket;
+  /** id */
+  id: string;
+  /** the set of smart goals this user witholds */
+  goals: SmartGoal[];
+  /** The type of the pocket */
+  type: PocketType;
+  constructor(data: Partial<Pocket>);
+  /**
+   * Creates a random instance of the Pocket class with all fields populated.
+   * @returns {Pocket} A random pocket.
+   */
+  static randomInstance(): Pocket;
 }
 export declare class SmartGoalClass implements SmartGoal {
-	/** id */
-	id: string;
-	/** the user id to which this goal is tied to */
-	userId: string;
-	/**
-	 * The name of the goal
-	 * Validations:
-	 * - must be at least 3 characters long
-	 */
-	name: string;
-	/**
-	 * The description of the goal
-	 * Validations:
-	 * - must be at least 3 characters long
-	 */
-	description: string;
-	/** wether the goal has been achieved or not */
-	isCompleted: boolean;
-	/** The type of the goal */
-	goalType: GoalType;
-	/** The duration of the goal */
-	duration: string;
-	/** the start date of the goal */
-	startDate: string;
-	/** the end date of the goal */
-	endDate: string;
-	/**
-	 * the target amount of the goal
-	 * amount of money the user wants to save or invest
-	 */
-	targetAmount: string;
-	/**
-	 * the current amount of the goal
-	 * current amount of money saved or invested towards the goal
-	 */
-	currentAmount: string;
-	/** Milestones associated with the goal */
-	milestones: Milestone[];
-	/** Forecasts associated with the goal */
-	forecasts: Forecast | undefined;
-	constructor(data: Partial<SmartGoal>);
-	/**
-	 * Creates a random instance of the SmartGoal class with all fields populated.
-	 * @returns {SmartGoal} A random SmartGoal.
-	 */
-	static randomInstance(): SmartGoal;
+  /** id */
+  id: string;
+  /** the user id to which this goal is tied to */
+  userId: string;
+  /**
+   * The name of the goal
+   * Validations:
+   * - must be at least 3 characters long
+   */
+  name: string;
+  /**
+   * The description of the goal
+   * Validations:
+   * - must be at least 3 characters long
+   */
+  description: string;
+  /** wether the goal has been achieved or not */
+  isCompleted: boolean;
+  /** The type of the goal */
+  goalType: GoalType;
+  /** The duration of the goal */
+  duration: string;
+  /** the start date of the goal */
+  startDate: string;
+  /** the end date of the goal */
+  endDate: string;
+  /**
+   * the target amount of the goal
+   * amount of money the user wants to save or invest
+   */
+  targetAmount: string;
+  /**
+   * the current amount of the goal
+   * current amount of money saved or invested towards the goal
+   */
+  currentAmount: string;
+  /** Milestones associated with the goal */
+  milestones: Milestone[];
+  /** Forecasts associated with the goal */
+  forecasts: Forecast | undefined;
+  constructor(data: Partial<SmartGoal>);
+  /**
+   * Creates a random instance of the SmartGoal class with all fields populated.
+   * @returns {SmartGoal} A random SmartGoal.
+   */
+  static randomInstance(): SmartGoal;
 }
 export declare class ForecastClass implements Forecast {
-	/** id */
-	id: string;
-	/** the forecasted amount of the goal */
-	forecastedAmount: string;
-	/** the forecasted completion date of the goal */
-	forecastedCompletionDate: string;
-	/** the forecasted variance of the goal between the forecasted and target amounts */
-	varianceAmount: string;
-	constructor(data: Partial<Forecast>);
-	/**
-	 * Creates a random instance of the Forecast class with all fields populated.
-	 * @returns {Forecast} A random Forecast.
-	 */
-	static randomInstance(): Forecast;
+  /** id */
+  id: string;
+  /** the forecasted amount of the goal */
+  forecastedAmount: string;
+  /** the forecasted completion date of the goal */
+  forecastedCompletionDate: string;
+  /** the forecasted variance of the goal between the forecasted and target amounts */
+  varianceAmount: string;
+  constructor(data: Partial<Forecast>);
+  /**
+   * Creates a random instance of the Forecast class with all fields populated.
+   * @returns {Forecast} A random Forecast.
+   */
+  static randomInstance(): Forecast;
 }
 export declare class InvestmentAccountClass implements InvestmentAccount {
-	/** id */
-	id: string;
-	/** the user id to which this bank account is tied to */
-	userId: string;
-	/** the account name */
-	name: string;
-	/** the bank account number */
-	number: string;
-	/** the bank account type */
-	type: string;
-	/** the bank account balance */
-	balance: number;
-	currentFunds: number;
-	balanceLimit: string;
-	/** plaid account id mapped to this bank account */
-	plaidAccountId: string;
-	/** accoint subtype */
-	subtype: string;
-	/** invesment holding is the set of securities this account witholds */
-	holdings: InvesmentHolding[];
-	/** the set of securities this account witholds */
-	securities: InvestmentSecurity[];
-	constructor(data: Partial<InvestmentAccount>);
-	static randomInstance(): InvestmentAccount;
+  /** id */
+  id: string;
+  /** the user id to which this bank account is tied to */
+  userId: string;
+  /** the account name */
+  name: string;
+  /** the bank account number */
+  number: string;
+  /** the bank account type */
+  type: string;
+  /** the bank account balance */
+  balance: number;
+  currentFunds: number;
+  balanceLimit: string;
+  /** plaid account id mapped to this bank account */
+  plaidAccountId: string;
+  /** accoint subtype */
+  subtype: string;
+  /** invesment holding is the set of securities this account witholds */
+  holdings: InvesmentHolding[];
+  /** the set of securities this account witholds */
+  securities: InvestmentSecurity[];
+  constructor(data: Partial<InvestmentAccount>);
+  static randomInstance(): InvestmentAccount;
 }
 export declare class AprClass implements Apr {
-	id: string;
-	percentage: number;
-	type: string;
-	balanceSubjectToApr: number;
-	interestChargeAmount: number;
-	constructor(data: Partial<Apr>);
-	static randomInstance(): Apr;
+  id: string;
+  percentage: number;
+  type: string;
+  balanceSubjectToApr: number;
+  interestChargeAmount: number;
+  constructor(data: Partial<Apr>);
+  static randomInstance(): Apr;
 }
 export declare class BudgetClass implements Budget {
-	/** id */
-	id: string;
-	/** The name of the budget */
-	name: string;
-	description: string;
-	/** the time the goal was created */
-	startDate: string;
-	/** the time the goal was updated */
-	endDate: string;
-	/** category associated with the goal */
-	category: Category | undefined;
-	constructor(data: Partial<Budget>);
-	/**
-	 * Creates a random instance of the Budget class with all fields populated.
-	 * @returns {Budget} A random Budget.
-	 */
-	static randomInstance(): Budget;
+  /** id */
+  id: string;
+  /** The name of the budget */
+  name: string;
+  description: string;
+  /** the time the goal was created */
+  startDate: string;
+  /** the time the goal was updated */
+  endDate: string;
+  /** category associated with the goal */
+  category: Category | undefined;
+  constructor(data: Partial<Budget>);
+  /**
+   * Creates a random instance of the Budget class with all fields populated.
+   * @returns {Budget} A random Budget.
+   */
+  static randomInstance(): Budget;
 }
 export declare class CategoryClass implements Category {
-	/** id */
-	id: string;
-	/** The name of the category */
-	name: string;
-	/** The description of the category */
-	description: string;
-	/** the sub categories of the category */
-	subcategories: string[];
-	constructor(data: Partial<Category>);
-	/**
-	 * Creates a random instance of the Category class with all fields populated.
-	 * @returns {Category} A random Category.
-	 */
-	static randomInstance(): Category;
+  /** id */
+  id: string;
+  /** The name of the category */
+  name: string;
+  /** The description of the category */
+  description: string;
+  /** the sub categories of the category */
+  subcategories: string[];
+  constructor(data: Partial<Category>);
+  /**
+   * Creates a random instance of the Category class with all fields populated.
+   * @returns {Category} A random Category.
+   */
+  static randomInstance(): Category;
 }
 export declare class CreditAccountClass implements CreditAccount {
-	/** id */
-	id: string;
-	/** the user id to which this bank account is tied to */
-	userId: string;
-	/** the account name */
-	name: string;
-	/** the bank account number */
-	number: string;
-	/** the bank account type */
-	type: string;
-	/** the bank account balance */
-	balance: number;
-	/** current funds on the account */
-	currentFunds: number;
-	/** balance limit */
-	balanceLimit: string;
-	/** plaid account id mapped to this bank account */
-	plaidAccountId: string;
-	/** accoint subtype */
-	subtype: string;
-	/** wether the account is overdue */
-	isOverdue: boolean;
-	/** the last payment amount */
-	lastPaymentAmount: number;
-	/** the last payment date */
-	lastPaymentDate: string;
-	/** the last statement issue date */
-	lastStatementIssueDate: string;
-	/** the minimum amount due date */
-	minimumAmountDueDate: number;
-	/** the next payment date */
-	nextPaymentDate: string;
-	/** the aprs */
-	aprs: Apr[];
-	/** the last statement balance */
-	lastStatementBalance: number;
-	/** the minimum payment amount */
-	minimumPaymentAmount: number;
-	/** the next payment due date */
-	nextPaymentDueDate: string;
-	constructor(data: Partial<CreditAccount>);
-	static randomInstance(): CreditAccount;
+  /** id */
+  id: string;
+  /** the user id to which this bank account is tied to */
+  userId: string;
+  /** the account name */
+  name: string;
+  /** the bank account number */
+  number: string;
+  /** the bank account type */
+  type: string;
+  /** the bank account balance */
+  balance: number;
+  /** current funds on the account */
+  currentFunds: number;
+  /** balance limit */
+  balanceLimit: string;
+  /** plaid account id mapped to this bank account */
+  plaidAccountId: string;
+  /** accoint subtype */
+  subtype: string;
+  /** wether the account is overdue */
+  isOverdue: boolean;
+  /** the last payment amount */
+  lastPaymentAmount: number;
+  /** the last payment date */
+  lastPaymentDate: string;
+  /** the last statement issue date */
+  lastStatementIssueDate: string;
+  /** the minimum amount due date */
+  minimumAmountDueDate: number;
+  /** the next payment date */
+  nextPaymentDate: string;
+  /** the aprs */
+  aprs: Apr[];
+  /** the last statement balance */
+  lastStatementBalance: number;
+  /** the minimum payment amount */
+  minimumPaymentAmount: number;
+  /** the next payment due date */
+  nextPaymentDueDate: string;
+  constructor(data: Partial<CreditAccount>);
+  static randomInstance(): CreditAccount;
 }
 export declare class ActionableInsightClass implements ActionableInsight {
-	/**
-	 * The unique identifier for the actionable insight.
-	 * @type {number}
-	 */
-	id: string | undefined;
-	/**
-	 * A detailed actionable insight generated for the user to act upon.
-	 * @type {string}
-	 */
-	detailedAction: string | undefined;
-	/**
-	 * A summarized insight targeting optimization of a certain condition.
-	 * @type {string}
-	 */
-	summarizedAction: string | undefined;
-	/**
-	 * The time at which the insight was generated.
-	 * @type {string | undefined}
-	 */
-	generatedTime: string | undefined;
-	/**
-	 * An array of associated tags with the generated insights.
-	 * @type {string[]}
-	 */
-	tags: Array<string>;
-	/**
-	 * Constructs a new ActionableInsight object.
-	 * @constructor
-	 * @param {Partial<ActionableInsight>} data - Optional data for initializing the actionable insight.
-	 */
-	constructor(data?: Partial<ActionableInsight>);
+  /**
+   * The unique identifier for the actionable insight.
+   * @type {number}
+   */
+  id: string | undefined;
+  /**
+   * A detailed actionable insight generated for the user to act upon.
+   * @type {string}
+   */
+  detailedAction: string | undefined;
+  /**
+   * A summarized insight targeting optimization of a certain condition.
+   * @type {string}
+   */
+  summarizedAction: string | undefined;
+  /**
+   * The time at which the insight was generated.
+   * @type {string | undefined}
+   */
+  generatedTime: string | undefined;
+  /**
+   * An array of associated tags with the generated insights.
+   * @type {string[]}
+   */
+  tags: Array<string>;
+  /**
+   * Constructs a new ActionableInsight object.
+   * @constructor
+   * @param {Partial<ActionableInsight>} data - Optional data for initializing the actionable insight.
+   */
+  constructor(data?: Partial<ActionableInsight>);
 }
 /**
  * Represents a bank account tied to a user.
  */
 export declare class BankAccountClass implements BankAccount {
-	/**
-	 * The unique identifier for the bank account.
-	 * @type {number}
-	 */
-	id: string;
-	/**
-	 * The user ID to which this bank account is tied.
-	 * @type {number}
-	 */
-	userId: string;
-	/**
-	 * The name of the bank account.
-	 * @type {string}
-	 */
-	name: string;
-	/**
-	 * The bank account number.
-	 * @type {string}
-	 */
-	number: string;
-	/**
-	 * The type of bank account.
-	 * @type {BankAccountType}
-	 */
-	type: BankAccountType;
-	/**
-	 * The balance of the bank account.
-	 * @type {number}
-	 */
-	balance: number;
-	/**
-	 * The currency of the bank account.
-	 * @type {string}
-	 */
-	currency: string;
-	/**
-	 * The current funds available in the bank account.
-	 * @type {number}
-	 */
-	currentFunds: number;
-	/**
-	 * The balance limit of the bank account.
-	 * @type {number}
-	 */
-	balanceLimit: string;
-	/**
-	 * The set of virtualized pockets associated with this bank account.
-	 * @type {Pocket[]}
-	 */
-	pockets: Pocket[];
-	/**
-	 * The Plaid account ID mapped to this bank account.
-	 * @type {string}
-	 */
-	plaidAccountId: string;
-	/**
-	 * The subtype of the bank account.
-	 * @type {string}
-	 */
-	subtype: string;
-	/**
-	 * The status of the bank account.
-	 * @type {BankAccountStatus}
-	 */
-	status: BankAccountStatus;
-	/**
-	 * Constructs a new BankAccount object.
-	 * @constructor
-	 * @param {Partial<BankAccount>} data - Optional data for initializing the bank account.
-	 */
-	constructor(data: Partial<BankAccount>);
-	/**
-	 * Gets the number of pockets tied to this bank account.
-	 */
-	getNumberOfPockets(): number;
-	/**
-	 * Gets the number of goals tied to this bank account.
-	 */
-	getNumberOfGoals(): number;
-	getGoals(): SmartGoal[];
-	getMilestones(): Milestone[];
-	/**
-	 * Creates a random instance of the BankAccount class with all fields populated.
-	 * @returns {BankAccount} A random bank account.
-	 */
-	static randomInstance(): BankAccount;
+  /**
+   * The unique identifier for the bank account.
+   * @type {number}
+   */
+  id: string;
+  /**
+   * The user ID to which this bank account is tied.
+   * @type {number}
+   */
+  userId: string;
+  /**
+   * The name of the bank account.
+   * @type {string}
+   */
+  name: string;
+  /**
+   * The bank account number.
+   * @type {string}
+   */
+  number: string;
+  /**
+   * The type of bank account.
+   * @type {BankAccountType}
+   */
+  type: BankAccountType;
+  /**
+   * The balance of the bank account.
+   * @type {number}
+   */
+  balance: number;
+  /**
+   * The currency of the bank account.
+   * @type {string}
+   */
+  currency: string;
+  /**
+   * The current funds available in the bank account.
+   * @type {number}
+   */
+  currentFunds: number;
+  /**
+   * The balance limit of the bank account.
+   * @type {number}
+   */
+  balanceLimit: string;
+  /**
+   * The set of virtualized pockets associated with this bank account.
+   * @type {Pocket[]}
+   */
+  pockets: Pocket[];
+  /**
+   * The Plaid account ID mapped to this bank account.
+   * @type {string}
+   */
+  plaidAccountId: string;
+  /**
+   * The subtype of the bank account.
+   * @type {string}
+   */
+  subtype: string;
+  /**
+   * The status of the bank account.
+   * @type {BankAccountStatus}
+   */
+  status: BankAccountStatus;
+  /**
+   * Constructs a new BankAccount object.
+   * @constructor
+   * @param {Partial<BankAccount>} data - Optional data for initializing the bank account.
+   */
+  constructor(data: Partial<BankAccount>);
+  /**
+   * Gets the number of pockets tied to this bank account.
+   */
+  getNumberOfPockets(): number;
+  /**
+   * Gets the number of goals tied to this bank account.
+   */
+  getNumberOfGoals(): number;
+  getGoals(): SmartGoal[];
+  getMilestones(): Milestone[];
+  /**
+   * Creates a random instance of the BankAccount class with all fields populated.
+   * @returns {BankAccount} A random bank account.
+   */
+  static randomInstance(): BankAccount;
 }
 /**
  * Represents a user's financial profile.
@@ -5090,367 +5181,367 @@ export declare class BankAccountClass implements BankAccount {
  * @property actionableInsights - Array of insights derived from the user's financial data.
  */
 export declare class FinancialProfileClass implements FinancialUserProfile {
-	/** id */
-	userFinancialProfileID: number;
-	/** the user id tied to the profile */
-	userId: string;
-	stripeCustomerId: string;
-	/** the stripe subscriptions the user profile actively maintains */
-	stripeSubscriptions: StripeSubscription | undefined;
-	/** a user profile can have many links (connected institutions) of which finanical accounts are tied to (checking, savings, etc) */
-	link: Link[];
-	actionableInsights: ActionableInsight[];
-	constructor(data?: Partial<FinancialUserProfile>);
+  /** id */
+  userFinancialProfileID: number;
+  /** the user id tied to the profile */
+  userId: string;
+  stripeCustomerId: string;
+  /** the stripe subscriptions the user profile actively maintains */
+  stripeSubscriptions: StripeSubscription | undefined;
+  /** a user profile can have many links (connected institutions) of which finanical accounts are tied to (checking, savings, etc) */
+  link: Link[];
+  actionableInsights: ActionableInsight[];
+  constructor(data?: Partial<FinancialUserProfile>);
 }
 export declare class InvesmentHoldingClass implements InvesmentHolding {
-	/** id */
-	id: string;
-	/** The name of the investment holding */
-	name: string;
-	/** plaid account id */
-	plaidAccountId: string;
-	costBasis: number;
-	institutionPrice: number;
-	institutionPriceAsOf: string;
-	institutionPriceDatetime: string;
-	institutionValue: number;
-	isoCurrencyCode: string;
-	quantity: number;
-	securityId: string;
-	unofficialCurrencyCode: string;
-	constructor(data: Partial<InvesmentHolding>);
-	static randomInstance(): InvesmentHolding;
+  /** id */
+  id: string;
+  /** The name of the investment holding */
+  name: string;
+  /** plaid account id */
+  plaidAccountId: string;
+  costBasis: number;
+  institutionPrice: number;
+  institutionPriceAsOf: string;
+  institutionPriceDatetime: string;
+  institutionValue: number;
+  isoCurrencyCode: string;
+  quantity: number;
+  securityId: string;
+  unofficialCurrencyCode: string;
+  constructor(data: Partial<InvesmentHolding>);
+  static randomInstance(): InvesmentHolding;
 }
 export declare class LinkClass implements Link {
-	/**
-	 * The unique identifier for the link.
-	 * @type {number}
-	 */
-	id: string;
-	/**
-	 * Information about Plaid synchronization.
-	 * @type {PlaidSync | undefined}
-	 */
-	plaidSync: PlaidSync | undefined;
-	/**
-	 * The status of the link.
-	 * @type {LinkStatus}
-	 */
-	linkStatus: LinkStatus;
-	/**
-	 * Information about Plaid linking.
-	 * @type {PlaidLink | undefined}
-	 */
-	plaidLink: PlaidLink | undefined;
-	/**
-	 * Indicates if new accounts are available through Plaid.
-	 * @type {boolean}
-	 */
-	plaidNewAccountsAvailable: boolean;
-	/**
-	 * The expiration date of the link.
-	 * @type {string}
-	 */
-	expirationDate: string;
-	/**
-	 * The name of the financial institution.
-	 * @type {string}
-	 */
-	institutionName: string;
-	/**
-	 * Custom name for the institution.
-	 * @type {string}
-	 */
-	customInstitutionName: string;
-	/**
-	 * Description of the link.
-	 * @type {string}
-	 */
-	description: string;
-	/**
-	 * The timestamp of the last manual sync.
-	 * @type {string}
-	 */
-	lastManualSync: string;
-	/**
-	 * The timestamp of the last successful update.
-	 * @type {string}
-	 */
-	lastSuccessfulUpdate: string;
-	/**
-	 * @type {Token | undefined}
-	 */
-	token: Token | undefined;
-	/**
-	 * @type {BankAccount[]}
-	 */
-	bankAccounts: BankAccount[];
-	/**
-	 * @type {InvestmentAccount[]}
-	 */
-	investmentAccounts: InvestmentAccount[];
-	/**
-	 * Credit accounts tied to the link.
-	 * @type {CreditAccount[]}
-	 */
-	creditAccounts: CreditAccount[];
-	/**
-	 * Mortgage accounts tied to the link.
-	 * @type {MortgageAccount[]}
-	 */
-	mortgageAccounts: MortgageAccount[];
-	/**
-	 * Student loan accounts tied to the link.
-	 * @type {StudentLoanAccount[]}
-	 */
-	studentLoanAccounts: StudentLoanAccount[];
-	/**
-	 * The ID of the institution this link is tied to.
-	 * @type {string}
-	 */
-	plaidInstitutionId: string;
-	/**
-	 * The type of link.
-	 * @type {LinkType}
-	 */
-	linkType: LinkType;
-	/**
-	 * Error code associated with the link.
-	 * @type {string}
-	 */
-	errorCode: string;
-	/**
-	 * The timestamp of the last update.
-	 * @type {string}
-	 */
-	updatedAt: string;
-	/**
-	 * Indicates if new accounts are available.
-	 * @type {boolean}
-	 */
-	newAccountsAvailable: boolean;
-	/**
-	 * Indicates if the link should be updated.
-	 * @type {boolean}
-	 */
-	shouldBeUpdated: boolean;
-	/**
-	 * Constructs a new Link object.
-	 * @constructor
-	 * @param {Partial<Link>} data - Optional data for initializing the link.
-	 */
-	constructor(data: Partial<Link>);
+  /**
+   * The unique identifier for the link.
+   * @type {number}
+   */
+  id: string;
+  /**
+   * Information about Plaid synchronization.
+   * @type {PlaidSync | undefined}
+   */
+  plaidSync: PlaidSync | undefined;
+  /**
+   * The status of the link.
+   * @type {LinkStatus}
+   */
+  linkStatus: LinkStatus;
+  /**
+   * Information about Plaid linking.
+   * @type {PlaidLink | undefined}
+   */
+  plaidLink: PlaidLink | undefined;
+  /**
+   * Indicates if new accounts are available through Plaid.
+   * @type {boolean}
+   */
+  plaidNewAccountsAvailable: boolean;
+  /**
+   * The expiration date of the link.
+   * @type {string}
+   */
+  expirationDate: string;
+  /**
+   * The name of the financial institution.
+   * @type {string}
+   */
+  institutionName: string;
+  /**
+   * Custom name for the institution.
+   * @type {string}
+   */
+  customInstitutionName: string;
+  /**
+   * Description of the link.
+   * @type {string}
+   */
+  description: string;
+  /**
+   * The timestamp of the last manual sync.
+   * @type {string}
+   */
+  lastManualSync: string;
+  /**
+   * The timestamp of the last successful update.
+   * @type {string}
+   */
+  lastSuccessfulUpdate: string;
+  /**
+   * @type {Token | undefined}
+   */
+  token: Token | undefined;
+  /**
+   * @type {BankAccount[]}
+   */
+  bankAccounts: BankAccount[];
+  /**
+   * @type {InvestmentAccount[]}
+   */
+  investmentAccounts: InvestmentAccount[];
+  /**
+   * Credit accounts tied to the link.
+   * @type {CreditAccount[]}
+   */
+  creditAccounts: CreditAccount[];
+  /**
+   * Mortgage accounts tied to the link.
+   * @type {MortgageAccount[]}
+   */
+  mortgageAccounts: MortgageAccount[];
+  /**
+   * Student loan accounts tied to the link.
+   * @type {StudentLoanAccount[]}
+   */
+  studentLoanAccounts: StudentLoanAccount[];
+  /**
+   * The ID of the institution this link is tied to.
+   * @type {string}
+   */
+  plaidInstitutionId: string;
+  /**
+   * The type of link.
+   * @type {LinkType}
+   */
+  linkType: LinkType;
+  /**
+   * Error code associated with the link.
+   * @type {string}
+   */
+  errorCode: string;
+  /**
+   * The timestamp of the last update.
+   * @type {string}
+   */
+  updatedAt: string;
+  /**
+   * Indicates if new accounts are available.
+   * @type {boolean}
+   */
+  newAccountsAvailable: boolean;
+  /**
+   * Indicates if the link should be updated.
+   * @type {boolean}
+   */
+  shouldBeUpdated: boolean;
+  /**
+   * Constructs a new Link object.
+   * @constructor
+   * @param {Partial<Link>} data - Optional data for initializing the link.
+   */
+  constructor(data: Partial<Link>);
 }
 /**
  * Represents linking information related to Plaid.
  */
 export declare class PlaidLinkClass implements PlaidLink {
-	/**
-	 * The unique identifier for the Plaid link.
-	 * @type {string}
-	 */
-	id: string;
-	/**
-	 * An array of products associated with the Plaid link.
-	 * @type {string[]}
-	 */
-	products: string[];
-	/**
-	 * The webhook URL associated with the Plaid link.
-	 * @type {string}
-	 */
-	webhookUrl: string;
-	/**
-	 * The ID of the institution associated with the Plaid link.
-	 * @type {string}
-	 */
-	institutionId: string;
-	/**
-	 * The name of the institution associated with the Plaid link.
-	 * @type {string}
-	 */
-	institutionName: string;
-	/**
-	 * Indicates whether Plaid sync is used with the link.
-	 * @type {boolean}
-	 */
-	usePlaidSync: boolean;
-	/**
-	 * The ID of the item associated with the Plaid link.
-	 * @type {string}
-	 */
-	itemId: string;
-	/**
-	 * Constructs a new PlaidLink object.
-	 * @constructor
-	 * @param {Partial<PlaidLink>} data - Optional data for initializing the PlaidLink.
-	 */
-	constructor(data?: Partial<PlaidLink>);
+  /**
+   * The unique identifier for the Plaid link.
+   * @type {string}
+   */
+  id: string;
+  /**
+   * An array of products associated with the Plaid link.
+   * @type {string[]}
+   */
+  products: string[];
+  /**
+   * The webhook URL associated with the Plaid link.
+   * @type {string}
+   */
+  webhookUrl: string;
+  /**
+   * The ID of the institution associated with the Plaid link.
+   * @type {string}
+   */
+  institutionId: string;
+  /**
+   * The name of the institution associated with the Plaid link.
+   * @type {string}
+   */
+  institutionName: string;
+  /**
+   * Indicates whether Plaid sync is used with the link.
+   * @type {boolean}
+   */
+  usePlaidSync: boolean;
+  /**
+   * The ID of the item associated with the Plaid link.
+   * @type {string}
+   */
+  itemId: string;
+  /**
+   * Constructs a new PlaidLink object.
+   * @constructor
+   * @param {Partial<PlaidLink>} data - Optional data for initializing the PlaidLink.
+   */
+  constructor(data?: Partial<PlaidLink>);
 }
 /**
  * Represents synchronization information related to Plaid.
  */
 export declare class PlaidSyncClass implements PlaidSync {
-	/**
-	 * The unique identifier for the Plaid synchronization.
-	 * @type {number}
-	 */
-	id: string;
-	/**
-	 * The timestamp of the synchronization.
-	 * @type {string}
-	 */
-	timeStamp: string;
-	/**
-	 * The trigger that initiated the synchronization.
-	 * @type {string}
-	 */
-	trigger: string;
-	/**
-	 * The cursor for the next synchronization.
-	 * @type {string}
-	 */
-	nextCursor: string;
-	/**
-	 * The number of added items in the synchronization.
-	 * @type {number}
-	 */
-	added: string;
-	/**
-	 * The string of removed items in the synchronization.
-	 * @type {string}
-	 */
-	removed: string;
-	/**
-	 * The string of modified items in the synchronization.
-	 * @type {string}
-	 */
-	modified: string;
-	/**
-	 * Constructs a new PlaidSync object.
-	 * @constructor
-	 * @param {Partial<PlaidSync>} data - Optional data for initializing the PlaidSync.
-	 */
-	constructor(data?: Partial<PlaidSync>);
+  /**
+   * The unique identifier for the Plaid synchronization.
+   * @type {number}
+   */
+  id: string;
+  /**
+   * The timestamp of the synchronization.
+   * @type {string}
+   */
+  timeStamp: string;
+  /**
+   * The trigger that initiated the synchronization.
+   * @type {string}
+   */
+  trigger: string;
+  /**
+   * The cursor for the next synchronization.
+   * @type {string}
+   */
+  nextCursor: string;
+  /**
+   * The number of added items in the synchronization.
+   * @type {number}
+   */
+  added: string;
+  /**
+   * The string of removed items in the synchronization.
+   * @type {string}
+   */
+  removed: string;
+  /**
+   * The string of modified items in the synchronization.
+   * @type {string}
+   */
+  modified: string;
+  /**
+   * Constructs a new PlaidSync object.
+   * @constructor
+   * @param {Partial<PlaidSync>} data - Optional data for initializing the PlaidSync.
+   */
+  constructor(data?: Partial<PlaidSync>);
 }
 /**
  * Represents a subscription managed through the Stripe payment platform.
  */
 export declare class StripeSubscriptionClass implements StripeSubscription {
-	/**
-	 * The unique identifier for the subscription.
-	 * @type {string}
-	 */
-	id: string;
-	/**
-	 * The ID of the subscription in the Stripe system tied to the customer.
-	 * @type {string}
-	 */
-	stripeSubscriptionId: string;
-	/**
-	 * The status of the Stripe subscription.
-	 * @type {StripeSubscriptionStatus}
-	 */
-	stripeSubscriptionStatus: StripeSubscriptionStatus;
-	/**
-	 * The date until which the Stripe subscription is active.
-	 * @type {string}
-	 */
-	stripeSubscriptionActiveUntil: string;
-	/**
-	 * The latest timestamp from the Stripe webhook related to the subscription.
-	 * @type {string}
-	 */
-	stripeWebhookLatestTimestamp: string;
-	/**
-	 * Indicates whether the subscription is currently in a trial period.
-	 * @type {boolean}
-	 */
-	isTrialing: boolean;
-	/**
-	 * Constructs a new StripeSubscription object.
-	 * @constructor
-	 * @param {Partial<StripeSubscription>} [data] - Optional data for initializing the subscription.
-	 */
-	constructor(data?: Partial<StripeSubscription>);
+  /**
+   * The unique identifier for the subscription.
+   * @type {string}
+   */
+  id: string;
+  /**
+   * The ID of the subscription in the Stripe system tied to the customer.
+   * @type {string}
+   */
+  stripeSubscriptionId: string;
+  /**
+   * The status of the Stripe subscription.
+   * @type {StripeSubscriptionStatus}
+   */
+  stripeSubscriptionStatus: StripeSubscriptionStatus;
+  /**
+   * The date until which the Stripe subscription is active.
+   * @type {string}
+   */
+  stripeSubscriptionActiveUntil: string;
+  /**
+   * The latest timestamp from the Stripe webhook related to the subscription.
+   * @type {string}
+   */
+  stripeWebhookLatestTimestamp: string;
+  /**
+   * Indicates whether the subscription is currently in a trial period.
+   * @type {boolean}
+   */
+  isTrialing: boolean;
+  /**
+   * Constructs a new StripeSubscription object.
+   * @constructor
+   * @param {Partial<StripeSubscription>} [data] - Optional data for initializing the subscription.
+   */
+  constructor(data?: Partial<StripeSubscription>);
 }
 export declare class StudentLoanAccountClass implements StudentLoanAccount {
-	/** id */
-	id: string;
-	plaidAccountId: string;
-	disbursementDates: string[];
-	expectedPayoffDate: string;
-	guarantor: string;
-	interestRatePercentage: number;
-	isOverdue: boolean;
-	lastPaymentAmount: number;
-	lastPaymentDate: string;
-	lastStatementIssueDate: string;
-	loanName: string;
-	loanEndDate: string;
-	minimumPaymentAmount: number;
-	nextPaymentDueDate: string;
-	originationDate: string;
-	originationPrincipalAmount: number;
-	outstandingInterestAmount: number;
-	paymentReferenceNumber: string;
-	sequenceNumber: string;
-	ytdInterestPaid: number;
-	ytdPrincipalPaid: number;
-	loanType: string;
-	pslfStatusEstimatedEligibilityDate: string;
-	pslfStatusPaymentsMade: number;
-	pslfStatusPaymentsRemaining: number;
-	repaymentPlanType: string;
-	repaymentPlanDescription: string;
-	servicerAddressCity: string;
-	servicerAddressPostalCode: string;
-	servicerAddressState: string;
-	servicerAddressStreet: string;
-	servicerAddressRegion: string;
-	servicerAddressCountry: string;
-	/** the user id to which this bank account is tied to */
-	userId: string;
-	/** the account name */
-	name: string;
-	constructor(data: Partial<StudentLoanAccount>);
-	static randomInstance(): StudentLoanAccount;
+  /** id */
+  id: string;
+  plaidAccountId: string;
+  disbursementDates: string[];
+  expectedPayoffDate: string;
+  guarantor: string;
+  interestRatePercentage: number;
+  isOverdue: boolean;
+  lastPaymentAmount: number;
+  lastPaymentDate: string;
+  lastStatementIssueDate: string;
+  loanName: string;
+  loanEndDate: string;
+  minimumPaymentAmount: number;
+  nextPaymentDueDate: string;
+  originationDate: string;
+  originationPrincipalAmount: number;
+  outstandingInterestAmount: number;
+  paymentReferenceNumber: string;
+  sequenceNumber: string;
+  ytdInterestPaid: number;
+  ytdPrincipalPaid: number;
+  loanType: string;
+  pslfStatusEstimatedEligibilityDate: string;
+  pslfStatusPaymentsMade: number;
+  pslfStatusPaymentsRemaining: number;
+  repaymentPlanType: string;
+  repaymentPlanDescription: string;
+  servicerAddressCity: string;
+  servicerAddressPostalCode: string;
+  servicerAddressState: string;
+  servicerAddressStreet: string;
+  servicerAddressRegion: string;
+  servicerAddressCountry: string;
+  /** the user id to which this bank account is tied to */
+  userId: string;
+  /** the account name */
+  name: string;
+  constructor(data: Partial<StudentLoanAccount>);
+  static randomInstance(): StudentLoanAccount;
 }
 /**
  * Token object holding an access token used to make API requests related to a specific Item.
  */
 export declare class TokenClass implements Token {
-	/**
-	 * The unique identifier for the token.
-	 * @type {string}
-	 */
-	id: string;
-	/**
-	 * The ID of the item the token is tied to.
-	 * @type {string}
-	 */
-	itemId: string;
-	/**
-	 * The key ID associated with the token.
-	 * @type {string}
-	 */
-	keyId: string;
-	/**
-	 * The access token.
-	 * @type {string}
-	 */
-	accessToken: string;
-	/**
-	 * The version of the token.
-	 * @type {string}
-	 */
-	version: string;
-	/**
-	 * Constructs a new Token object.
-	 * @constructor
-	 * @param {Partial<Token>} data - Optional data for initializing the token.
-	 */
-	constructor(data?: Partial<TokenClass>);
+  /**
+   * The unique identifier for the token.
+   * @type {string}
+   */
+  id: string;
+  /**
+   * The ID of the item the token is tied to.
+   * @type {string}
+   */
+  itemId: string;
+  /**
+   * The key ID associated with the token.
+   * @type {string}
+   */
+  keyId: string;
+  /**
+   * The access token.
+   * @type {string}
+   */
+  accessToken: string;
+  /**
+   * The version of the token.
+   * @type {string}
+   */
+  version: string;
+  /**
+   * Constructs a new Token object.
+   * @constructor
+   * @param {Partial<Token>} data - Optional data for initializing the token.
+   */
+  constructor(data?: Partial<TokenClass>);
 }
 /**
  * Represents the balance history of an account.
@@ -5483,75 +5574,96 @@ export declare class TokenClass implements Token {
  * @property sign - The sign indicating the balance change direction (e.g., +1 or -1).
  * @property id - The unique identifier for the balance history.
  */
-export declare class AccountBalanceHistoryClass implements AccountBalanceHistory {
-	time: string;
-	accountId: string;
-	isoCurrencyCode: string;
-	balance: number;
-	userId: string;
-	sign: number;
-	id: string;
-	/**
-	 * Constructs a new AccountBalanceHistory instance.
-	 *
-	 * @param data - Initialization data for the balance history.
-	 */
-	constructor(data: Partial<AccountBalanceHistory>);
-	/**
-	 * Creates a random instance of the AccountBalanceHistory class with all fields populated.
-	 * @returns {AccountBalanceHistory} A random AccountBalanceHistory.
-	 */
-	static randomInstance(): AccountBalanceHistory;
+export declare class AccountBalanceHistoryClass
+  implements AccountBalanceHistory
+{
+  time: string;
+  accountId: string;
+  isoCurrencyCode: string;
+  balance: number;
+  userId: string;
+  sign: number;
+  id: string;
+  /**
+   * Constructs a new AccountBalanceHistory instance.
+   *
+   * @param data - Initialization data for the balance history.
+   */
+  constructor(data: Partial<AccountBalanceHistory>);
+  /**
+   * Creates a random instance of the AccountBalanceHistory class with all fields populated.
+   * @returns {AccountBalanceHistory} A random AccountBalanceHistory.
+   */
+  static randomInstance(): AccountBalanceHistory;
 }
 export declare class AnyClass implements Any {
-	/**
-	 * A URL/resource name that uniquely identifies the type of the serialized
-	 * protocol buffer message. This string must contain at least
-	 * one "/" character. The last segment of the URL's path must represent
-	 * the fully qualified name of the type (as in
-	 * `path/google.protobuf.Duration`). The name should be in a canonical form
-	 * (e.g., leading "." is not accepted).
-	 *
-	 * In practice, teams usually precompile into the binary all types that they
-	 * expect it to use in the context of Any. However, for URLs which use the
-	 * scheme `http`, `https`, or no scheme, one can optionally set up a type
-	 * server that maps type URLs to message definitions as follows:
-	 *
-	 * * If no scheme is provided, `https` is assumed.
-	 * * An HTTP GET on the URL must yield a [google.protobuf.Type][]
-	 *   value in binary format, or produce an error.
-	 * * Applications are allowed to cache lookup results based on the
-	 *   URL, or have them precompiled into a binary to avoid any
-	 *   lookup. Therefore, binary compatibility needs to be preserved
-	 *   on changes to types. (Use versioned type names to manage
-	 *   breaking changes.)
-	 *
-	 * Note: this functionality is not currently available in the official
-	 * protobuf release, and it is not used for type URLs beginning with
-	 * type.googleapis.com.
-	 *
-	 * Schemes other than `http`, `https` (or the empty scheme) might be
-	 * used with implementation specific semantics.
-	 */
-	typeUrl: string;
-	/** Must be a valid serialized protocol buffer of the above specified type. */
-	value: Uint8Array;
-	constructor(typeUrl: string, value: Uint8Array);
-	static fromJSON(object: any): AnyClass;
-	toJSON(): unknown;
-	static create<I extends Exact<DeepPartial<AnyClass>, I>>(base?: I): AnyClass;
-	static fromPartial<I extends Exact<DeepPartial<AnyClass>, I>>(object: I): AnyClass;
+  /**
+   * A URL/resource name that uniquely identifies the type of the serialized
+   * protocol buffer message. This string must contain at least
+   * one "/" character. The last segment of the URL's path must represent
+   * the fully qualified name of the type (as in
+   * `path/google.protobuf.Duration`). The name should be in a canonical form
+   * (e.g., leading "." is not accepted).
+   *
+   * In practice, teams usually precompile into the binary all types that they
+   * expect it to use in the context of Any. However, for URLs which use the
+   * scheme `http`, `https`, or no scheme, one can optionally set up a type
+   * server that maps type URLs to message definitions as follows:
+   *
+   * * If no scheme is provided, `https` is assumed.
+   * * An HTTP GET on the URL must yield a [google.protobuf.Type][]
+   *   value in binary format, or produce an error.
+   * * Applications are allowed to cache lookup results based on the
+   *   URL, or have them precompiled into a binary to avoid any
+   *   lookup. Therefore, binary compatibility needs to be preserved
+   *   on changes to types. (Use versioned type names to manage
+   *   breaking changes.)
+   *
+   * Note: this functionality is not currently available in the official
+   * protobuf release, and it is not used for type URLs beginning with
+   * type.googleapis.com.
+   *
+   * Schemes other than `http`, `https` (or the empty scheme) might be
+   * used with implementation specific semantics.
+   */
+  typeUrl: string;
+  /** Must be a valid serialized protocol buffer of the above specified type. */
+  value: Uint8Array;
+  constructor(typeUrl: string, value: Uint8Array);
+  static fromJSON(object: any): AnyClass;
+  toJSON(): unknown;
+  static create<I extends Exact<DeepPartial<AnyClass>, I>>(base?: I): AnyClass;
+  static fromPartial<I extends Exact<DeepPartial<AnyClass>, I>>(
+    object: I,
+  ): AnyClass;
 }
-export type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export type DeepPartial<T> = T extends Builtin ? T : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
-	[K in keyof T]?: DeepPartial<T[K]>;
-} : Partial<T>;
+export type Builtin =
+  | Date
+  | Function
+  | Uint8Array
+  | string
+  | number
+  | boolean
+  | undefined;
+export type DeepPartial<T> = T extends Builtin
+  ? T
+  : T extends Array<infer U>
+  ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U>
+  ? ReadonlyArray<DeepPartial<U>>
+  : T extends {}
+  ? {
+      [K in keyof T]?: DeepPartial<T[K]>;
+    }
+  : Partial<T>;
 export type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin ? P : P & {
-	[K in keyof P]: Exact<P[K], I[K]>;
-} & {
-	[K in Exclude<keyof I, KeysOfUnion<P>>]: never;
-};
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & {
+      [K in keyof P]: Exact<P[K], I[K]>;
+    } & {
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+    };
 /**
  * Represents the financial sub-profile of a category.
  *
@@ -5589,23 +5701,25 @@ export type Exact<P, I extends P> = P extends Builtin ? P : P & {
  * @property spentLastTwoYears - Amount spent in the last two years for this category.
  * @property userId - The user ID associated with these metrics.
  */
-export declare class CategoryMetricsFinancialSubProfileClass implements CategoryMetricsFinancialSubProfile {
-	month: number;
-	personalFinanceCategoryPrimary: string;
-	transactionCount: string;
-	spentLastWeek: number;
-	spentLastTwoWeeks: number;
-	spentLastMonth: number;
-	spentLastSixMonths: number;
-	spentLastYear: number;
-	spentLastTwoYears: number;
-	userId: string;
-	/**
-	 * Constructs a new CategoryMetricsFinancialSubProfile instance.
-	 *
-	 * @param data - Initialization data for the financial sub-profile.
-	 */
-	constructor(data?: Partial<CategoryMetricsFinancialSubProfile>);
+export declare class CategoryMetricsFinancialSubProfileClass
+  implements CategoryMetricsFinancialSubProfile
+{
+  month: number;
+  personalFinanceCategoryPrimary: string;
+  transactionCount: string;
+  spentLastWeek: number;
+  spentLastTwoWeeks: number;
+  spentLastMonth: number;
+  spentLastSixMonths: number;
+  spentLastYear: number;
+  spentLastTwoYears: number;
+  userId: string;
+  /**
+   * Constructs a new CategoryMetricsFinancialSubProfile instance.
+   *
+   * @param data - Initialization data for the financial sub-profile.
+   */
+  constructor(data?: Partial<CategoryMetricsFinancialSubProfile>);
 }
 /**
  * Represents the monthly expenditure of a category.
@@ -5632,17 +5746,19 @@ export declare class CategoryMetricsFinancialSubProfileClass implements Category
  * @property totalSpending - Total amount spent in the specified month for this category.
  * @property userId - The user ID associated with this expenditure.
  */
-export declare class CategoryMonthlyExpenditureClass implements CategoryMonthlyExpenditure {
-	month: number;
-	personalFinanceCategoryPrimary: string;
-	totalSpending: number;
-	userId: string;
-	/**
-	 * Constructs a new CategoryMonthlyExpenditure instance.
-	 *
-	 * @param data - Initialization data for the monthly expenditure.
-	 */
-	constructor(data?: Partial<CategoryMonthlyExpenditure>);
+export declare class CategoryMonthlyExpenditureClass
+  implements CategoryMonthlyExpenditure
+{
+  month: number;
+  personalFinanceCategoryPrimary: string;
+  totalSpending: number;
+  userId: string;
+  /**
+   * Constructs a new CategoryMonthlyExpenditure instance.
+   *
+   * @param data - Initialization data for the monthly expenditure.
+   */
+  constructor(data?: Partial<CategoryMonthlyExpenditure>);
 }
 /**
  * Represents the monthly income of a category.
@@ -5669,17 +5785,19 @@ export declare class CategoryMonthlyExpenditureClass implements CategoryMonthlyE
  * @property totalIncome - Total income received in the specified month for this category.
  * @property userId - The user ID associated with this income.
  */
-export declare class CategoryMonthlyIncomeClass implements CategoryMonthlyIncome {
-	month: number;
-	personalFinanceCategoryPrimary: string;
-	totalIncome: number;
-	userId: string;
-	/**
-	 * Constructs a new CategoryMonthlyIncome instance.
-	 *
-	 * @param data - Initialization data for the monthly income.
-	 */
-	constructor(data: Partial<CategoryMonthlyIncome>);
+export declare class CategoryMonthlyIncomeClass
+  implements CategoryMonthlyIncome
+{
+  month: number;
+  personalFinanceCategoryPrimary: string;
+  totalIncome: number;
+  userId: string;
+  /**
+   * Constructs a new CategoryMonthlyIncome instance.
+   *
+   * @param data - Initialization data for the monthly income.
+   */
+  constructor(data: Partial<CategoryMonthlyIncome>);
 }
 /**
  * Represents the monthly transaction count of a category.
@@ -5706,17 +5824,19 @@ export declare class CategoryMonthlyIncomeClass implements CategoryMonthlyIncome
  * @property transactionCount - Total number of transactions in the specified month for this category.
  * @property userId - The user ID associated with these transactions.
  */
-export declare class CategoryMonthlyTransactionCountClass implements CategoryMonthlyTransactionCount {
-	month: number;
-	personalFinanceCategoryPrimary: string;
-	transactionCount: number;
-	userId: string;
-	/**
-	 * Constructs a new CategoryMonthlyTransactionCount instance.
-	 *
-	 * @param data - Initialization data for the monthly transaction count.
-	 */
-	constructor(data?: Partial<CategoryMonthlyTransactionCount>);
+export declare class CategoryMonthlyTransactionCountClass
+  implements CategoryMonthlyTransactionCount
+{
+  month: number;
+  personalFinanceCategoryPrimary: string;
+  transactionCount: number;
+  userId: string;
+  /**
+   * Constructs a new CategoryMonthlyTransactionCount instance.
+   *
+   * @param data - Initialization data for the monthly transaction count.
+   */
+  constructor(data?: Partial<CategoryMonthlyTransactionCount>);
 }
 /**
  * Represents the debt to income ratio of a user.
@@ -5742,15 +5862,15 @@ export declare class CategoryMonthlyTransactionCountClass implements CategoryMon
  * @property userId - The user ID for whom the ratio is calculated.
  */
 export declare class DebtToIncomeRatioClass implements DebtToIncomeRatio {
-	month: number;
-	ratio: number;
-	userId: string;
-	/**
-	 * Constructs a new DebtToIncomeRatio instance.
-	 *
-	 * @param data - Initialization data for the debt to income ratio.
-	 */
-	constructor(data?: Partial<DebtToIncomeRatio>);
+  month: number;
+  ratio: number;
+  userId: string;
+  /**
+   * Constructs a new DebtToIncomeRatio instance.
+   *
+   * @param data - Initialization data for the debt to income ratio.
+   */
+  constructor(data?: Partial<DebtToIncomeRatio>);
 }
 /**
  * Represents the financial sub-profile metrics related to a user's expenses.
@@ -5783,20 +5903,22 @@ export declare class DebtToIncomeRatioClass implements DebtToIncomeRatio {
  * @property averageMonthlyRecurringSpending - The average monthly fixed expenses of the user.
  * @property userId - The user ID for whom the metrics are calculated.
  */
-export declare class ExpenseMetricsFinancialSubProfileMetricsClass implements ExpenseMetricsFinancialSubProfileMetrics {
-	month: number;
-	spentLastWeek: number;
-	spentLastMonth: number;
-	spentLastSixMonths: number;
-	averageMonthlyDiscretionarySpending: number;
-	averageMonthlyRecurringSpending: number;
-	userId: string;
-	/**
-	 * Constructs a new ExpenseMetricsFinancialSubProfileMetrics instance.
-	 *
-	 * @param data - Initialization data for the financial sub profile metrics.
-	 */
-	constructor(data?: Partial<ExpenseMetricsFinancialSubProfileMetrics>);
+export declare class ExpenseMetricsFinancialSubProfileMetricsClass
+  implements ExpenseMetricsFinancialSubProfileMetrics
+{
+  month: number;
+  spentLastWeek: number;
+  spentLastMonth: number;
+  spentLastSixMonths: number;
+  averageMonthlyDiscretionarySpending: number;
+  averageMonthlyRecurringSpending: number;
+  userId: string;
+  /**
+   * Constructs a new ExpenseMetricsFinancialSubProfileMetrics instance.
+   *
+   * @param data - Initialization data for the financial sub profile metrics.
+   */
+  constructor(data?: Partial<ExpenseMetricsFinancialSubProfileMetrics>);
 }
 /**
  * Represents the expense metrics related to a user's personal finance.
@@ -5825,22 +5947,22 @@ export declare class ExpenseMetricsFinancialSubProfileMetricsClass implements Ex
  * @property userId - The user ID for whom the metrics are calculated.
  */
 export declare class ExpenseMetricsClass implements ExpenseMetrics {
-	month: number;
-	personalFinanceCategoryPrimary: string;
-	transactionCount: string;
-	totalExpenses: number;
-	userId: string;
-	/**
-	 * Constructs a new ExpenseMetrics instance.
-	 *
-	 * @param data - Initialization data for the expense metrics.
-	 */
-	constructor(data?: Partial<ExpenseMetrics>);
-	/**
-	 * Creates a random instance of the expense metrics class with all fields populated.
-	 * @returns {ExpenseMetrics} A random ExpenseMetrics.
-	 */
-	static randomInstance(): ExpenseMetrics;
+  month: number;
+  personalFinanceCategoryPrimary: string;
+  transactionCount: string;
+  totalExpenses: number;
+  userId: string;
+  /**
+   * Constructs a new ExpenseMetrics instance.
+   *
+   * @param data - Initialization data for the expense metrics.
+   */
+  constructor(data?: Partial<ExpenseMetrics>);
+  /**
+   * Creates a random instance of the expense metrics class with all fields populated.
+   * @returns {ExpenseMetrics} A random ExpenseMetrics.
+   */
+  static randomInstance(): ExpenseMetrics;
 }
 /**
  * Represents the comprehensive financial profile of a user.
@@ -5871,13 +5993,13 @@ export declare class ExpenseMetricsClass implements ExpenseMetrics {
  * @property userId - The user ID associated with this financial profile.
  */
 export declare class FinancialProfileMetricsClass implements FinancialProfile {
-	/**
-	 * Constructs a new FinancialProfileMetrics instance.
-	 *
-	 * @param data - Initialization data for the financial profile.
-	 */
-	constructor(data?: Partial<FinancialProfileMetricsClass>);
-	static randomInstance(): FinancialProfile;
+  /**
+   * Constructs a new FinancialProfileMetrics instance.
+   *
+   * @param data - Initialization data for the financial profile.
+   */
+  constructor(data?: Partial<FinancialProfileMetricsClass>);
+  static randomInstance(): FinancialProfile;
 }
 /**
  * Represents the income-expense ratio of a user for a particular month.
@@ -5902,15 +6024,15 @@ export declare class FinancialProfileMetricsClass implements FinancialProfile {
  * @property userId - The user ID associated with this income-expense ratio.
  */
 export declare class IncomeExpenseRatioClass implements IncomeExpenseRatio {
-	month: number;
-	ratio: number;
-	userId: string;
-	/**
-	 * Constructs a new IncomeExpenseRatio instance.
-	 *
-	 * @param data - Initialization data for the income-expense ratio.
-	 */
-	constructor(data?: Partial<IncomeExpenseRatio>);
+  month: number;
+  ratio: number;
+  userId: string;
+  /**
+   * Constructs a new IncomeExpenseRatio instance.
+   *
+   * @param data - Initialization data for the income-expense ratio.
+   */
+  constructor(data?: Partial<IncomeExpenseRatio>);
 }
 /**
  * Represents the income metrics for a user's financial sub-profile.
@@ -5942,20 +6064,22 @@ export declare class IncomeExpenseRatioClass implements IncomeExpenseRatio {
  * @property incomeLastYear - The total income for the last year.
  * @property userId - The user ID associated with these income metrics.
  */
-export declare class IncomeMetricsFinancialSubProfileClass implements IncomeMetricsFinancialSubProfile {
-	month: number;
-	incomeLastTwoWeeks: number;
-	incomeLastMonth: number;
-	incomeLastTwoMonths: number;
-	incomeLastSixMonths: number;
-	incomeLastYear: number;
-	userId: string;
-	/**
-	 * Constructs a new IncomeMetricsFinancialSubProfile instance.
-	 *
-	 * @param data - Initialization data for the income metrics.
-	 */
-	constructor(data?: Partial<IncomeMetricsFinancialSubProfile>);
+export declare class IncomeMetricsFinancialSubProfileClass
+  implements IncomeMetricsFinancialSubProfile
+{
+  month: number;
+  incomeLastTwoWeeks: number;
+  incomeLastMonth: number;
+  incomeLastTwoMonths: number;
+  incomeLastSixMonths: number;
+  incomeLastYear: number;
+  userId: string;
+  /**
+   * Constructs a new IncomeMetricsFinancialSubProfile instance.
+   *
+   * @param data - Initialization data for the income metrics.
+   */
+  constructor(data?: Partial<IncomeMetricsFinancialSubProfile>);
 }
 /**
  * Represents the income metrics for a user.
@@ -5984,22 +6108,22 @@ export declare class IncomeMetricsFinancialSubProfileClass implements IncomeMetr
  * @property userId - The user ID associated with these income metrics.
  */
 export declare class IncomeMetricsClass implements IncomeMetrics {
-	month: number;
-	personalFinanceCategoryPrimary: string;
-	transactionCount: string;
-	totalIncome: number;
-	userId: string;
-	/**
-	 * Constructs a new IncomeMetrics instance.
-	 *
-	 * @param data - Initialization data for the income metrics.
-	 */
-	constructor(data?: Partial<IncomeMetrics>);
-	/**
-	 * Creates a random instance of the income metrics class with all fields populated.
-	 * @returns {IncomeMetrics} A random IncomeMetrics.
-	 */
-	static randomInstance(): IncomeMetrics;
+  month: number;
+  personalFinanceCategoryPrimary: string;
+  transactionCount: string;
+  totalIncome: number;
+  userId: string;
+  /**
+   * Constructs a new IncomeMetrics instance.
+   *
+   * @param data - Initialization data for the income metrics.
+   */
+  constructor(data?: Partial<IncomeMetrics>);
+  /**
+   * Creates a random instance of the income metrics class with all fields populated.
+   * @returns {IncomeMetrics} A random IncomeMetrics.
+   */
+  static randomInstance(): IncomeMetrics;
 }
 /**
  * Represents an investment transaction.
@@ -6043,33 +6167,33 @@ export declare class IncomeMetricsClass implements IncomeMetrics {
  * @property additionalProperties - Any additional properties that might be associated with the transaction.
  */
 export declare class InvestmentTransactionClass {
-	accountId: string;
-	ammount: string;
-	investmentTransactionId: string;
-	securityId: string;
-	currentDate: string;
-	name: string;
-	quantity: number;
-	amount: number;
-	price: number;
-	fees: number;
-	type: string;
-	subtype: string;
-	isoCurrencyCode: string;
-	unofficialCurrencyCode: string;
-	linkId: number;
-	id: string;
-	userId: number;
-	createdAt: string;
-	sign: number;
-	time: Date | undefined;
-	additionalProperties: Any | undefined;
-	/**
-	 * Constructs a new InvestmentTransaction instance.
-	 *
-	 * @param data - Initialization data for the investment transaction.
-	 */
-	constructor(data?: Partial<InvestmentTransactionClass>);
+  accountId: string;
+  ammount: string;
+  investmentTransactionId: string;
+  securityId: string;
+  currentDate: string;
+  name: string;
+  quantity: number;
+  amount: number;
+  price: number;
+  fees: number;
+  type: string;
+  subtype: string;
+  isoCurrencyCode: string;
+  unofficialCurrencyCode: string;
+  linkId: number;
+  id: string;
+  userId: number;
+  createdAt: string;
+  sign: number;
+  time: Date | undefined;
+  additionalProperties: Any | undefined;
+  /**
+   * Constructs a new InvestmentTransaction instance.
+   *
+   * @param data - Initialization data for the investment transaction.
+   */
+  constructor(data?: Partial<InvestmentTransactionClass>);
 }
 /**
  * Represents the financial sub profile of a location.
@@ -6101,23 +6225,25 @@ export declare class InvestmentTransactionClass {
  * @property userId - The user ID associated with this financial profile.
  * @property month - The month for which this financial profile is reported.
  */
-export declare class LocationFinancialSubProfileClass implements LocationFinancialSubProfile {
-	locationCity: string;
-	transactionCount: string;
-	spentLastWeek: number;
-	spentLastTwoWeeks: number;
-	spentLastMonth: number;
-	spentLastSixMonths: number;
-	spentLastYear: number;
-	spentLastTwoYears: number;
-	userId: string;
-	month: number;
-	/**
-	 * Constructs a new LocationFinancialSubProfile instance.
-	 *
-	 * @param data - Initialization data for the location financial sub profile.
-	 */
-	constructor(data?: Partial<LocationFinancialSubProfile>);
+export declare class LocationFinancialSubProfileClass
+  implements LocationFinancialSubProfile
+{
+  locationCity: string;
+  transactionCount: string;
+  spentLastWeek: number;
+  spentLastTwoWeeks: number;
+  spentLastMonth: number;
+  spentLastSixMonths: number;
+  spentLastYear: number;
+  spentLastTwoYears: number;
+  userId: string;
+  month: number;
+  /**
+   * Constructs a new LocationFinancialSubProfile instance.
+   *
+   * @param data - Initialization data for the location financial sub profile.
+   */
+  constructor(data?: Partial<LocationFinancialSubProfile>);
 }
 /**
  * Represents the comprehensive financial context of a user.
@@ -6153,23 +6279,25 @@ export declare class LocationFinancialSubProfileClass implements LocationFinanci
  * @property mortgageLoanAccounts - Array of user's mortgage accounts.
  * @property studentLoanAccounts - Array of user's student loan accounts.
  */
-export declare class MelodyFinancialContextClass implements MelodyFinancialContext {
-	categories: CategoryMetricsFinancialSubProfile[];
-	expenses: ExpenseMetricsFinancialSubProfileMetrics[];
-	income: IncomeMetricsFinancialSubProfile[];
-	locations: LocationFinancialSubProfile[];
-	merchants: MerchantMetricsFinancialSubProfile[];
-	paymentChannels: PaymentChannelMetricsFinancialSubProfile[];
-	bankAccounts: BankAccount[];
-	investmentAccounts: InvestmentAccount[];
-	creditAccounts: CreditAccount[];
-	mortgageLoanAccounts: MortgageAccount[];
-	studentLoanAccounts: StudentLoanAccount[];
-	/**
-	 * Creates an instance of MelodyFinancialContext.
-	 * @param data - Object containing properties for MelodyFinancialContext.
-	 */
-	constructor(data: Partial<MelodyFinancialContext>);
+export declare class MelodyFinancialContextClass
+  implements MelodyFinancialContext
+{
+  categories: CategoryMetricsFinancialSubProfile[];
+  expenses: ExpenseMetricsFinancialSubProfileMetrics[];
+  income: IncomeMetricsFinancialSubProfile[];
+  locations: LocationFinancialSubProfile[];
+  merchants: MerchantMetricsFinancialSubProfile[];
+  paymentChannels: PaymentChannelMetricsFinancialSubProfile[];
+  bankAccounts: BankAccount[];
+  investmentAccounts: InvestmentAccount[];
+  creditAccounts: CreditAccount[];
+  mortgageLoanAccounts: MortgageAccount[];
+  studentLoanAccounts: StudentLoanAccount[];
+  /**
+   * Creates an instance of MelodyFinancialContext.
+   * @param data - Object containing properties for MelodyFinancialContext.
+   */
+  constructor(data: Partial<MelodyFinancialContext>);
 }
 /**
  * Represents the financial sub profile of a merchant.
@@ -6200,22 +6328,24 @@ export declare class MelodyFinancialContextClass implements MelodyFinancialConte
  * @property userId - The user ID associated with this financial profile.
  * @property month - The month for which this financial profile is reported.
  */
-export declare class MerchantMetricsFinancialSubProfileClass implements MerchantMetricsFinancialSubProfile {
-	merchantName: string;
-	spentLastWeek: number;
-	spentLastTwoWeeks: number;
-	spentLastMonth: number;
-	spentLastSixMonths: number;
-	spentLastYear: number;
-	spentLastTwoYears: number;
-	userId: string;
-	month: number;
-	/**
-	 * Constructs a new MerchantMetricsFinancialSubProfile instance.
-	 *
-	 * @param data - Initialization data for the merchant financial sub profile.
-	 */
-	constructor(data?: Partial<MerchantMetricsFinancialSubProfile>);
+export declare class MerchantMetricsFinancialSubProfileClass
+  implements MerchantMetricsFinancialSubProfile
+{
+  merchantName: string;
+  spentLastWeek: number;
+  spentLastTwoWeeks: number;
+  spentLastMonth: number;
+  spentLastSixMonths: number;
+  spentLastYear: number;
+  spentLastTwoYears: number;
+  userId: string;
+  month: number;
+  /**
+   * Constructs a new MerchantMetricsFinancialSubProfile instance.
+   *
+   * @param data - Initialization data for the merchant financial sub profile.
+   */
+  constructor(data?: Partial<MerchantMetricsFinancialSubProfile>);
 }
 /**
  * Represents the monthly expenditure of a merchant.
@@ -6241,17 +6371,19 @@ export declare class MerchantMetricsFinancialSubProfileClass implements Merchant
  * @property totalSpending - The total amount spent with the merchant during the month.
  * @property userId - The user ID associated with this expenditure.
  */
-export declare class MerchantMonthlyExpenditureClass implements MerchantMonthlyExpenditure {
-	month: number;
-	merchantName: string;
-	totalSpending: number;
-	userId: string;
-	/**
-	 * Constructs a new MerchantMonthlyExpenditure instance.
-	 *
-	 * @param data - Initialization data for the merchant monthly expenditure.
-	 */
-	constructor(data?: Partial<MerchantMonthlyExpenditure>);
+export declare class MerchantMonthlyExpenditureClass
+  implements MerchantMonthlyExpenditure
+{
+  month: number;
+  merchantName: string;
+  totalSpending: number;
+  userId: string;
+  /**
+   * Constructs a new MerchantMonthlyExpenditure instance.
+   *
+   * @param data - Initialization data for the merchant monthly expenditure.
+   */
+  constructor(data?: Partial<MerchantMonthlyExpenditure>);
 }
 /**
  * Represents the monthly balance of a user.
@@ -6276,15 +6408,15 @@ export declare class MerchantMonthlyExpenditureClass implements MerchantMonthlyE
  * @property userId - The user ID associated with this balance.
  */
 export declare class MonthlyBalanceClass implements MonthlyBalance {
-	month: number;
-	netBalance: number;
-	userId: string;
-	/**
-	 * Constructs a new MonthlyBalance instance.
-	 *
-	 * @param data - Initialization data for the monthly balance.
-	 */
-	constructor(data?: Partial<MonthlyBalance>);
+  month: number;
+  netBalance: number;
+  userId: string;
+  /**
+   * Constructs a new MonthlyBalance instance.
+   *
+   * @param data - Initialization data for the monthly balance.
+   */
+  constructor(data?: Partial<MonthlyBalance>);
 }
 /**
  * Represents the monthly expenditure of a user.
@@ -6309,15 +6441,15 @@ export declare class MonthlyBalanceClass implements MonthlyBalance {
  * @property userId - The user ID associated with this expenditure record.
  */
 export declare class MonthlyExpenditureClass implements MonthlyExpenditure {
-	month: number;
-	totalSpending: number;
-	userId: string;
-	/**
-	 * Constructs a new MonthlyExpenditure instance.
-	 *
-	 * @param data - Initialization data for the monthly expenditure.
-	 */
-	constructor(data?: Partial<MonthlyExpenditure>);
+  month: number;
+  totalSpending: number;
+  userId: string;
+  /**
+   * Constructs a new MonthlyExpenditure instance.
+   *
+   * @param data - Initialization data for the monthly expenditure.
+   */
+  constructor(data?: Partial<MonthlyExpenditure>);
 }
 /**
  * Represents the monthly income of a user.
@@ -6342,15 +6474,15 @@ export declare class MonthlyExpenditureClass implements MonthlyExpenditure {
  * @property userId - The user ID associated with this income record.
  */
 export declare class MonthlyIncomeClass implements MonthlyIncome {
-	month: number;
-	totalIncome: number;
-	userId: string;
-	/**
-	 * Constructs a new MonthlyIncome instance.
-	 *
-	 * @param data - Initialization data for the monthly income.
-	 */
-	constructor(data?: Partial<MonthlyIncome>);
+  month: number;
+  totalIncome: number;
+  userId: string;
+  /**
+   * Constructs a new MonthlyIncome instance.
+   *
+   * @param data - Initialization data for the monthly income.
+   */
+  constructor(data?: Partial<MonthlyIncome>);
 }
 /**
  * Represents the monthly savings of a user.
@@ -6375,15 +6507,15 @@ export declare class MonthlyIncomeClass implements MonthlyIncome {
  * @property userId - The user ID associated with this savings record.
  */
 export declare class MonthlySavingsClass implements MonthlySavings {
-	month: number;
-	netSavings: number;
-	userId: string;
-	/**
-	 * Constructs a new MonthlySavings instance.
-	 *
-	 * @param data - Initialization data for the monthly savings.
-	 */
-	constructor(data?: Partial<MonthlySavings>);
+  month: number;
+  netSavings: number;
+  userId: string;
+  /**
+   * Constructs a new MonthlySavings instance.
+   *
+   * @param data - Initialization data for the monthly savings.
+   */
+  constructor(data?: Partial<MonthlySavings>);
 }
 /**
  * Represents the monthly total quantity of a security by user.
@@ -6409,17 +6541,19 @@ export declare class MonthlySavingsClass implements MonthlySavings {
  * @property totalQuantity - The total quantity of the security held by the user for the month.
  * @property userId - The user ID associated with this record.
  */
-export declare class MonthlyTotalQuantityBySecurityAndUserClass implements MonthlyTotalQuantityBySecurityAndUser {
-	month: number;
-	securityId: string;
-	totalQuantity: number;
-	userId: string;
-	/**
-	 * Constructs a new MonthlyTotalQuantityBySecurityAndUser instance.
-	 *
-	 * @param data - Initialization data for the monthly total quantity by security and user.
-	 */
-	constructor(data?: Partial<MonthlyTotalQuantityBySecurityAndUser>);
+export declare class MonthlyTotalQuantityBySecurityAndUserClass
+  implements MonthlyTotalQuantityBySecurityAndUser
+{
+  month: number;
+  securityId: string;
+  totalQuantity: number;
+  userId: string;
+  /**
+   * Constructs a new MonthlyTotalQuantityBySecurityAndUser instance.
+   *
+   * @param data - Initialization data for the monthly total quantity by security and user.
+   */
+  constructor(data?: Partial<MonthlyTotalQuantityBySecurityAndUser>);
 }
 /**
  * Represents the monthly transaction count of a user.
@@ -6443,16 +6577,18 @@ export declare class MonthlyTotalQuantityBySecurityAndUserClass implements Month
  * @property transactionCount - The total number of transactions made by the user for the month.
  * @property userId - The user ID associated with this record.
  */
-export declare class MonthlyTransactionCountClass implements MonthlyTransactionCount {
-	month: number;
-	transactionCount: string;
-	userId: string;
-	/**
-	 * Constructs a new MonthlyTransactionCount instance.
-	 *
-	 * @param data - Initialization data for the monthly transaction count.
-	 */
-	constructor(data?: Partial<MonthlyTransactionCount>);
+export declare class MonthlyTransactionCountClass
+  implements MonthlyTransactionCount
+{
+  month: number;
+  transactionCount: string;
+  userId: string;
+  /**
+   * Constructs a new MonthlyTransactionCount instance.
+   *
+   * @param data - Initialization data for the monthly transaction count.
+   */
+  constructor(data?: Partial<MonthlyTransactionCount>);
 }
 /**
  * Represents the financial sub profile of a payment channel.
@@ -6490,23 +6626,25 @@ export declare class MonthlyTransactionCountClass implements MonthlyTransactionC
  * @property month - The month for which the data is reported.
  * @property transactionCount - Number of transactions made through this channel in the specified month.
  */
-export declare class PaymentChannelMetricsFinancialSubProfileClass implements PaymentChannelMetricsFinancialSubProfile {
-	paymentChannel: string;
-	spentLastWeek: number;
-	spentLastTwoWeeks: number;
-	spentLastMonth: number;
-	spentLastSixMonths: number;
-	spentLastYear: number;
-	spentLastTwoYears: number;
-	userId: string;
-	month: number;
-	transactionCount: string;
-	/**
-	 * Constructs a new PaymentChannelMetricsFinancialSubProfile instance.
-	 *
-	 * @param data - Initialization data for the financial sub profile of the payment channel.
-	 */
-	constructor(data?: Partial<PaymentChannelMetricsFinancialSubProfile>);
+export declare class PaymentChannelMetricsFinancialSubProfileClass
+  implements PaymentChannelMetricsFinancialSubProfile
+{
+  paymentChannel: string;
+  spentLastWeek: number;
+  spentLastTwoWeeks: number;
+  spentLastMonth: number;
+  spentLastSixMonths: number;
+  spentLastYear: number;
+  spentLastTwoYears: number;
+  userId: string;
+  month: number;
+  transactionCount: string;
+  /**
+   * Constructs a new PaymentChannelMetricsFinancialSubProfile instance.
+   *
+   * @param data - Initialization data for the financial sub profile of the payment channel.
+   */
+  constructor(data?: Partial<PaymentChannelMetricsFinancialSubProfile>);
 }
 /**
  * Represents the monthly expenditure of a payment channel.
@@ -6532,17 +6670,19 @@ export declare class PaymentChannelMetricsFinancialSubProfileClass implements Pa
  * @property totalSpending - Total amount spent by the user through this channel for the specified month.
  * @property userId - The user ID associated with this record.
  */
-export declare class PaymentChannelMonthlyExpenditureClass implements PaymentChannelMonthlyExpenditure {
-	month: number;
-	paymentChannel: string;
-	totalSpending: number;
-	userId: string;
-	/**
-	 * Constructs a new PaymentChannelMonthlyExpenditure instance.
-	 *
-	 * @param data - Initialization data for the monthly expenditure of the payment channel.
-	 */
-	constructor(data?: Partial<PaymentChannelMonthlyExpenditureClass>);
+export declare class PaymentChannelMonthlyExpenditureClass
+  implements PaymentChannelMonthlyExpenditure
+{
+  month: number;
+  paymentChannel: string;
+  totalSpending: number;
+  userId: string;
+  /**
+   * Constructs a new PaymentChannelMonthlyExpenditure instance.
+   *
+   * @param data - Initialization data for the monthly expenditure of the payment channel.
+   */
+  constructor(data?: Partial<PaymentChannelMonthlyExpenditureClass>);
 }
 /**
  * Represents a recurring financial transaction for a user.
@@ -6594,70 +6734,72 @@ export declare class PaymentChannelMonthlyExpenditureClass implements PaymentCha
  * @property time - The exact timestamp of the transaction.
  * @property additionalProperties - Any extra data or properties associated with the transaction.
  */
-export declare class ReOccuringTransactionClass implements ReOccuringTransaction {
-	/** The unique identifier of the account associated with the transaction. */
-	accountId: string;
-	/** The unique identifier of the transaction stream. */
-	streamId: string;
-	/** The unique identifier of the category associated with the transaction. */
-	categoryId: string;
-	/** A description of the transaction. */
-	description: string;
-	/** The name of the merchant. */
-	merchantName: string;
-	/** The primary personal finance category of the transaction. */
-	personalFinanceCategoryPrimary: string;
-	/** The detailed personal finance category of the transaction. */
-	personalFinanceCategoryDetailed: string;
-	/** The date of the first occurrence of the transaction. */
-	firstDate: string;
-	/** The date of the last occurrence of the transaction. */
-	lastDate: string;
-	/** The frequency of the recurring transaction. */
-	frequency: ReOccuringTransactionsFrequency;
-	/** A comma-separated list of transaction IDs. */
-	transactionIds: string;
-	/** The average amount of the transaction. */
-	averageAmount: string;
-	/** The ISO currency code of the average amount. */
-	averageAmountIsoCurrencyCode: string;
-	/** The amount of the last occurrence of the transaction. */
-	lastAmount: string;
-	/** The ISO currency code of the last amount. */
-	lastAmountIsoCurrencyCode: string;
-	/** Indicates whether the transaction is active. */
-	isActive: boolean;
-	/** The status of the recurring transaction. */
-	status: ReOccuringTransactionsStatus;
-	/** The last time the transaction was updated. */
-	updatedTime: string;
-	/** The unique identifier of the user associated with the transaction. */
-	userId: string;
-	/** The unique identifier of the linked transaction. */
-	linkId: string;
-	/** The unique identifier of the transaction. */
-	id: string;
-	/** The flow of the recurring transaction. */
-	flow: ReCurringFlow;
-	/** A numerical sign associated with the transaction. */
-	sign: number;
-	/** The date and time of the transaction. */
-	time: string | undefined;
-	/** Additional properties associated with the transaction. */
-	additionalProperties: Any | undefined;
-	/**
-	 * Creates an instance of ReOccuringTransaction.
-	 * @param data - Object containing properties for ReOccuringTransaction.
-	 * @example
-	 * const transactionData = {
-	 *   accountId: 'account123',
-	 *   description: 'Monthly subscription',
-	 *   // Add other properties here
-	 * };
-	 * const recurringTransaction = new ReOccuringTransaction(transactionData);
-	 */
-	constructor(data: Partial<ReOccuringTransactionClass>);
-	static randomInstance(): ReOccuringTransactionClass;
+export declare class ReOccuringTransactionClass
+  implements ReOccuringTransaction
+{
+  /** The unique identifier of the account associated with the transaction. */
+  accountId: string;
+  /** The unique identifier of the transaction stream. */
+  streamId: string;
+  /** The unique identifier of the category associated with the transaction. */
+  categoryId: string;
+  /** A description of the transaction. */
+  description: string;
+  /** The name of the merchant. */
+  merchantName: string;
+  /** The primary personal finance category of the transaction. */
+  personalFinanceCategoryPrimary: string;
+  /** The detailed personal finance category of the transaction. */
+  personalFinanceCategoryDetailed: string;
+  /** The date of the first occurrence of the transaction. */
+  firstDate: string;
+  /** The date of the last occurrence of the transaction. */
+  lastDate: string;
+  /** The frequency of the recurring transaction. */
+  frequency: ReOccuringTransactionsFrequency;
+  /** A comma-separated list of transaction IDs. */
+  transactionIds: string;
+  /** The average amount of the transaction. */
+  averageAmount: string;
+  /** The ISO currency code of the average amount. */
+  averageAmountIsoCurrencyCode: string;
+  /** The amount of the last occurrence of the transaction. */
+  lastAmount: string;
+  /** The ISO currency code of the last amount. */
+  lastAmountIsoCurrencyCode: string;
+  /** Indicates whether the transaction is active. */
+  isActive: boolean;
+  /** The status of the recurring transaction. */
+  status: ReOccuringTransactionsStatus;
+  /** The last time the transaction was updated. */
+  updatedTime: string;
+  /** The unique identifier of the user associated with the transaction. */
+  userId: string;
+  /** The unique identifier of the linked transaction. */
+  linkId: string;
+  /** The unique identifier of the transaction. */
+  id: string;
+  /** The flow of the recurring transaction. */
+  flow: ReCurringFlow;
+  /** A numerical sign associated with the transaction. */
+  sign: number;
+  /** The date and time of the transaction. */
+  time: string | undefined;
+  /** Additional properties associated with the transaction. */
+  additionalProperties: Any | undefined;
+  /**
+   * Creates an instance of ReOccuringTransaction.
+   * @param data - Object containing properties for ReOccuringTransaction.
+   * @example
+   * const transactionData = {
+   *   accountId: 'account123',
+   *   description: 'Monthly subscription',
+   *   // Add other properties here
+   * };
+   * const recurringTransaction = new ReOccuringTransaction(transactionData);
+   */
+  constructor(data: Partial<ReOccuringTransactionClass>);
+  static randomInstance(): ReOccuringTransactionClass;
 }
 /**
  * Represents the total investment in a particular security.
@@ -6684,16 +6826,18 @@ export declare class ReOccuringTransactionClass implements ReOccuringTransaction
  * @property totalInvestment - The total monetary amount invested in the security.
  * @property userId - The identifier of the user who made the investment.
  */
-export declare class TotalInvestmentBySecurityClass implements TotalInvestmentBySecurity {
-	securityId: string;
-	totalInvestment: number;
-	userId: string;
-	/**
-	 * Creates an instance of TotalInvestmentBySecurity.
-	 *
-	 * @param data - Object containing properties for TotalInvestmentBySecurity.
-	 */
-	constructor(data: Partial<TotalInvestmentBySecurityClass>);
+export declare class TotalInvestmentBySecurityClass
+  implements TotalInvestmentBySecurity
+{
+  securityId: string;
+  totalInvestment: number;
+  userId: string;
+  /**
+   * Creates an instance of TotalInvestmentBySecurity.
+   *
+   * @param data - Object containing properties for TotalInvestmentBySecurity.
+   */
+  constructor(data: Partial<TotalInvestmentBySecurityClass>);
 }
 /**
  * Represents the aggregated transactions of a user by month.
@@ -6730,20 +6874,22 @@ export declare class TotalInvestmentBySecurityClass implements TotalInvestmentBy
  * @property totalAmount - The total amount spent in the specified month.
  * @property userId - Identifier of the user associated with these transactions.
  */
-export declare class TransactionAggregatesByMonthClass implements TransactionAggregatesByMonth {
-	month: number;
-	personalFinanceCategoryPrimary: string;
-	locationCity: string;
-	paymentChannel: string;
-	merchantName: string;
-	transactionCount: string;
-	totalAmount: number;
-	userId: string;
-	/**
-	 * Creates an instance of TransactionAggregatesByMonth.
-	 * @param data - Object containing properties for TransactionAggregatesByMonth.
-	 */
-	constructor(data: Partial<TransactionAggregatesByMonthClass>);
+export declare class TransactionAggregatesByMonthClass
+  implements TransactionAggregatesByMonth
+{
+  month: number;
+  personalFinanceCategoryPrimary: string;
+  locationCity: string;
+  paymentChannel: string;
+  merchantName: string;
+  transactionCount: string;
+  totalAmount: number;
+  userId: string;
+  /**
+   * Creates an instance of TransactionAggregatesByMonth.
+   * @param data - Object containing properties for TransactionAggregatesByMonth.
+   */
+  constructor(data: Partial<TransactionAggregatesByMonthClass>);
 }
 /**
  * Represents a financial transaction.
@@ -6813,56 +6959,56 @@ export declare class TransactionAggregatesByMonthClass implements TransactionAgg
  * @property categories - List of categories associated with the transaction.
  */
 export declare class TransactionClass implements Transaction {
-	accountId: string;
-	amount: number;
-	isoCurrencyCode: string;
-	unofficialCurrencyCode: string;
-	categoryId: string;
-	checkNumber: string;
-	currentDate: string;
-	currentDatetime: string;
-	authorizedDate: string;
-	authorizedDatetime: string;
-	name: string;
-	merchantName: string;
-	paymentChannel: string;
-	pending: boolean;
-	pendingTransactionId: string;
-	accountOwner: string;
-	transactionId: string;
-	transactionCode: string;
-	id: string;
-	userId: string;
-	linkId: string;
-	sign: number;
-	personalFinanceCategoryPrimary: string;
-	personalFinanceCategoryDetailed: string;
-	locationAddress: string;
-	locationCity: string;
-	locationRegion: string;
-	locationPostalCode: string;
-	locationCountry: string;
-	locationLat: number;
-	locationLon: number;
-	locationStoreNumber: string;
-	paymentMetaByOrderOf: string;
-	paymentMetaPayee: string;
-	paymentMetaPayer: string;
-	paymentMetaPaymentMethod: string;
-	paymentMetaPaymentProcessor: string;
-	paymentMetaPpdId: string;
-	paymentMetaReason: string;
-	paymentMetaReferenceNumber: string;
-	time: string;
-	additionalProperties: Any | undefined;
-	categories: string[];
-	/**
-	 * Creates an instance of Transaction.
-	 *
-	 * @param data - Object with details for Transaction.
-	 */
-	constructor(data: Partial<TransactionClass>);
-	static randomInstance(): TransactionClass;
+  accountId: string;
+  amount: number;
+  isoCurrencyCode: string;
+  unofficialCurrencyCode: string;
+  categoryId: string;
+  checkNumber: string;
+  currentDate: string;
+  currentDatetime: string;
+  authorizedDate: string;
+  authorizedDatetime: string;
+  name: string;
+  merchantName: string;
+  paymentChannel: string;
+  pending: boolean;
+  pendingTransactionId: string;
+  accountOwner: string;
+  transactionId: string;
+  transactionCode: string;
+  id: string;
+  userId: string;
+  linkId: string;
+  sign: number;
+  personalFinanceCategoryPrimary: string;
+  personalFinanceCategoryDetailed: string;
+  locationAddress: string;
+  locationCity: string;
+  locationRegion: string;
+  locationPostalCode: string;
+  locationCountry: string;
+  locationLat: number;
+  locationLon: number;
+  locationStoreNumber: string;
+  paymentMetaByOrderOf: string;
+  paymentMetaPayee: string;
+  paymentMetaPayer: string;
+  paymentMetaPaymentMethod: string;
+  paymentMetaPaymentProcessor: string;
+  paymentMetaPpdId: string;
+  paymentMetaReason: string;
+  paymentMetaReferenceNumber: string;
+  time: string;
+  additionalProperties: Any | undefined;
+  categories: string[];
+  /**
+   * Creates an instance of Transaction.
+   *
+   * @param data - Object with details for Transaction.
+   */
+  constructor(data: Partial<TransactionClass>);
+  static randomInstance(): TransactionClass;
 }
 /**
  * Represents the financial health metrics of a user.
@@ -6899,144 +7045,146 @@ export declare class TransactionClass implements Transaction {
  *                                e.g., the past month or year.
  */
 export declare class UserFinancialHealthMetricsTableClass {
-	time: Date | undefined;
-	userId: number;
-	monthlyIncome: number;
-	monthlyExpenses: number;
-	transactionDiversity: number;
-	debtToIncomeRatio: number;
-	overdraftFrequency: number;
-	/**
-	 * Creates an instance of UserFinancialHealthMetricsTable.
-	 * @param data - Object containing properties for UserFinancialHealthMetricsTable.
-	 */
-	constructor(data: Partial<UserFinancialHealthMetricsTableClass>);
+  time: Date | undefined;
+  userId: number;
+  monthlyIncome: number;
+  monthlyExpenses: number;
+  transactionDiversity: number;
+  debtToIncomeRatio: number;
+  overdraftFrequency: number;
+  /**
+   * Creates an instance of UserFinancialHealthMetricsTable.
+   * @param data - Object containing properties for UserFinancialHealthMetricsTable.
+   */
+  constructor(data: Partial<UserFinancialHealthMetricsTableClass>);
 }
 export declare class AccountInformationClass implements AccountInformation {
-	businessName?: string;
-	businessRegistrationNumber?: string;
-	businessType?: BusinessType;
-	contactInfo?: ContactInformation;
-	/**
-	 * address id
-	 * @format uint64
-	 */
-	id?: string;
-	constructor(data: Partial<AccountInformation>);
-	static randomInstance(): AccountInformation;
+  businessName?: string;
+  businessRegistrationNumber?: string;
+  businessType?: BusinessType;
+  contactInfo?: ContactInformation;
+  /**
+   * address id
+   * @format uint64
+   */
+  id?: string;
+  constructor(data: Partial<AccountInformation>);
+  static randomInstance(): AccountInformation;
 }
 export declare class AIPoweredInsightsClass implements AIPoweredInsights {
-	/**
-	 * List of areas of interest for insights
-	 * List of areas for insights
-	 */
-	areasOfInterest?: Array<string>;
-	/** True if user agrees to share data for insights */
-	dataSharing?: boolean;
-	/**
-	 * address id
-	 * @format uint64
-	 */
-	id?: string;
-	insightFrequency?: Frequency;
-	constructor(data: Partial<AIPoweredInsights>);
-	static randomInstance(): AIPoweredInsights;
+  /**
+   * List of areas of interest for insights
+   * List of areas for insights
+   */
+  areasOfInterest?: Array<string>;
+  /** True if user agrees to share data for insights */
+  dataSharing?: boolean;
+  /**
+   * address id
+   * @format uint64
+   */
+  id?: string;
+  insightFrequency?: Frequency;
+  constructor(data: Partial<AIPoweredInsights>);
+  static randomInstance(): AIPoweredInsights;
 }
-export declare class BusinessAccountSettingsClass implements BusinessAccountSettings {
-	accountInformation?: AccountInformation;
-	aiPoweredInsights?: AIPoweredInsights;
-	financialPreferences?: FinancialPreferences;
-	/**
-	 * address id
-	 * @format uint64
-	 */
-	id?: string;
-	integrationSettings?: IntegrationSettings;
-	notificationSettings?: NotificationSettings;
-	constructor(data: Partial<BusinessAccountSettings>);
-	static randomInstance(): BusinessAccountSettings;
+export declare class BusinessAccountSettingsClass
+  implements BusinessAccountSettings
+{
+  accountInformation?: AccountInformation;
+  aiPoweredInsights?: AIPoweredInsights;
+  financialPreferences?: FinancialPreferences;
+  /**
+   * address id
+   * @format uint64
+   */
+  id?: string;
+  integrationSettings?: IntegrationSettings;
+  notificationSettings?: NotificationSettings;
+  constructor(data: Partial<BusinessAccountSettings>);
+  static randomInstance(): BusinessAccountSettings;
 }
 export declare class BusinessAccountClass implements BusinessAccount {
-	accountType?: ProfileType;
-	address?: Address;
-	authnAccountId?: string;
-	bio?: string;
-	businessAccountSettings?: BusinessAccountSettings;
-	companyDescription?: string;
-	companyEstablishedDate?: string;
-	companyIndustryType?: string;
-	companyName?: string;
-	companyWebsiteUrl?: string;
-	createdAt?: string;
-	email?: string;
-	headline?: string;
-	id?: string;
-	isActive?: boolean;
-	isEmailVerified?: boolean;
-	isPrivate?: boolean;
-	phoneNumber?: string;
-	tags?: Array<Tags>;
-	username?: string;
-	verifiedAt?: string;
-	constructor(data: Partial<BusinessAccount>);
-	static randomInstance(): BusinessAccount;
+  accountType?: ProfileType;
+  address?: Address;
+  authnAccountId?: string;
+  bio?: string;
+  businessAccountSettings?: BusinessAccountSettings;
+  companyDescription?: string;
+  companyEstablishedDate?: string;
+  companyIndustryType?: string;
+  companyName?: string;
+  companyWebsiteUrl?: string;
+  createdAt?: string;
+  email?: string;
+  headline?: string;
+  id?: string;
+  isActive?: boolean;
+  isEmailVerified?: boolean;
+  isPrivate?: boolean;
+  phoneNumber?: string;
+  tags?: Array<Tags>;
+  username?: string;
+  verifiedAt?: string;
+  constructor(data: Partial<BusinessAccount>);
+  static randomInstance(): BusinessAccount;
 }
 export declare class ContactInformationClass implements ContactInformation {
-	address?: string;
-	email?: string;
-	/**
-	 * address id
-	 * @format uint64
-	 */
-	id?: string;
-	phoneNumber?: string;
-	constructor(data: Partial<ContactInformation>);
-	static randomInstance(): ContactInformation;
+  address?: string;
+  email?: string;
+  /**
+   * address id
+   * @format uint64
+   */
+  id?: string;
+  phoneNumber?: string;
+  constructor(data: Partial<ContactInformation>);
+  static randomInstance(): ContactInformation;
 }
 export declare class FinancialPreferencesClass implements FinancialPreferences {
-	currencyPreference?: string;
-	financialYearStart?: string;
-	/**
-	 * address id
-	 * @format uint64
-	 */
-	id?: string;
-	taxSettings?: TaxSettings;
-	constructor(data: Partial<FinancialPreferences>);
-	static randomInstance(): FinancialPreferences;
+  currencyPreference?: string;
+  financialYearStart?: string;
+  /**
+   * address id
+   * @format uint64
+   */
+  id?: string;
+  taxSettings?: TaxSettings;
+  constructor(data: Partial<FinancialPreferences>);
+  static randomInstance(): FinancialPreferences;
 }
 export declare class IntegrationSettingsClass implements IntegrationSettings {
-	/** wether to enable linking bank account for account */
-	bankAccountLinking?: boolean;
-	/**
-	 * address id
-	 * @format uint64
-	 */
-	id?: string;
-	/**
-	 * list of supported third party apps of interest
-	 * List of connected third-party apps
-	 */
-	thirdPartyApps?: Array<string>;
-	constructor(data: Partial<IntegrationSettings>);
-	static randomInstance(): IntegrationSettings;
+  /** wether to enable linking bank account for account */
+  bankAccountLinking?: boolean;
+  /**
+   * address id
+   * @format uint64
+   */
+  id?: string;
+  /**
+   * list of supported third party apps of interest
+   * List of connected third-party apps
+   */
+  thirdPartyApps?: Array<string>;
+  constructor(data: Partial<IntegrationSettings>);
+  static randomInstance(): IntegrationSettings;
 }
 export declare class NotificationSettingsClass implements NotificationSettings {
-	/** True if user wants to be alerted for anomalies */
-	alerts?: boolean;
-	/**
-	 * address id
-	 * @format uint64
-	 */
-	id?: string;
-	/**
-	 * - TYPE_EMAIL: email based notification
-	 *  - TYPE_SMS: sms based notification
-	 *  - TYPE_IN_APP: app based notification
-	 */
-	notificationType?: NotificationSettingsType;
-	constructor(data: Partial<NotificationSettings>);
-	static randomInstance(): NotificationSettings;
+  /** True if user wants to be alerted for anomalies */
+  alerts?: boolean;
+  /**
+   * address id
+   * @format uint64
+   */
+  id?: string;
+  /**
+   * - TYPE_EMAIL: email based notification
+   *  - TYPE_SMS: sms based notification
+   *  - TYPE_IN_APP: app based notification
+   */
+  notificationType?: NotificationSettingsType;
+  constructor(data: Partial<NotificationSettings>);
+  static randomInstance(): NotificationSettings;
 }
 /**
  * Represents a tax setting, including an ID, tax code, and tax percentage.
@@ -7050,20 +7198,20 @@ export declare class NotificationSettingsClass implements NotificationSettings {
  * @returns {TaxSettingsClass}
  */
 export declare class TaxSettingsClass implements TaxSettings {
-	id?: string;
-	taxCode?: string;
-	taxPercentage?: number;
-	constructor(data: Partial<TaxSettings>);
-	static randomInstance(): TaxSettings;
+  id?: string;
+  taxCode?: string;
+  taxPercentage?: number;
+  constructor(data: Partial<TaxSettings>);
+  static randomInstance(): TaxSettings;
 }
 export interface Bookmark {
-	/**
-	 * the id of the blocked record
-	 * @format uint64
-	 */
-	id?: string;
-	postIds?: Array<string>;
-	publications?: Array<Publication>;
+  /**
+   * the id of the blocked record
+   * @format uint64
+   */
+  id?: string;
+  postIds?: Array<string>;
+  publications?: Array<Publication>;
 }
 /**
  * A Publication is a collections of stories based around a common theme. Anyone can create them
@@ -7080,20 +7228,20 @@ export interface Bookmark {
  * - A collection of individual stories by a single author that are parts of a larger whole
  */
 export interface Publication {
-	admin?: UserProfile;
-	/** @format uint64 */
-	adminSimfinyPlatformUserId: string;
-	createdAt?: string;
-	description?: string;
-	editors?: Array<UserProfile>;
-	/** @format uint64 */
-	id?: string;
-	/** stories are post that can be submitted only by the publication editors */
-	postIds?: Array<string>;
-	publicationName: string;
-	subjects: Array<string>;
-	tags: Array<string>;
-	type: PublicationType;
+  admin?: UserProfile;
+  /** @format uint64 */
+  adminSimfinyPlatformUserId: string;
+  createdAt?: string;
+  description?: string;
+  editors?: Array<UserProfile>;
+  /** @format uint64 */
+  id?: string;
+  /** stories are post that can be submitted only by the publication editors */
+  postIds?: Array<string>;
+  publicationName: string;
+  subjects: Array<string>;
+  tags: Array<string>;
+  type: PublicationType;
 }
 /**
  * - PUBLICATION_TYPE_MAGAZINE: a publication with a fixed publication staff that posts stories around a specific topic
@@ -7102,84 +7250,89 @@ export interface Publication {
  *  - PUBLICATION_TYPE_SUBJECTS: A collection of individual stories by a set of authors that are part of a whole
  * @default "PUBLICATION_TYPE_UNSPECIFIED"
  */
-export type PublicationType = "PUBLICATION_TYPE_UNSPECIFIED" | "PUBLICATION_TYPE_MAGAZINE" | "PUBLICATION_TYPE_PLATFORM" | "PUBLICATION_TYPE_BLOG" | "PUBLICATION_TYPE_SUBJECTS";
+export type PublicationType =
+  | 'PUBLICATION_TYPE_UNSPECIFIED'
+  | 'PUBLICATION_TYPE_MAGAZINE'
+  | 'PUBLICATION_TYPE_PLATFORM'
+  | 'PUBLICATION_TYPE_BLOG'
+  | 'PUBLICATION_TYPE_SUBJECTS';
 /** UserProfile: The profile object tied to a given user */
 export interface UserProfile {
-	/**
-	 * The id of the algolia record referencing this user
-	 * @example "asndlkhaskhdhasgdahsf-feed-id"
-	 */
-	algoliaId: string;
-	/** all the bookmarked pieces of content on the platform */
-	bookmarks: Bookmark;
-	/**
-	 * Followers outlines the number of followers this user profile has
-	 * @format int64
-	 */
-	followers: string;
-	/**
-	 * Number of people account is following
-	 * @format int64
-	 */
-	following: string;
-	/**
-	 * User profile ID
-	 * @format uint64
-	 */
-	id?: string;
-	/**
-	 * Profile name is the name tied to the user profile
-	 * user name must be at least 5 characters long
-	 * @example "test-user"
-	 */
-	name: string;
-	/**
-	 * Newsfeed timeline ID Displays all followed and group activities the user
-	 * follows
-	 * @example "asndlkhaskhdhasgdahsf-feed-id"
-	 */
-	newsFeedTimelineId: string;
-	/**
-	 * Notification timeline Id. Notification for anything a user/group is
-	 * following
-	 * @example "asndlkhaskhdhasgdahsf-feed-id"
-	 */
-	notificationFeedTimelineId: string;
-	/**
-	 * Personal timeline ID Has activities for a user that can be followed
-	 * @example "asndlkhaskhdhasgdahsf-feed-id"
-	 */
-	personalFeedTimelineId: string;
-	/**
-	 * Private defines wether only approved followers can see what this profile
-	 * posts
-	 */
-	private: boolean;
-	/**
-	 * ProfileImageUrl witholds the url of a given profile image
-	 * @example "asndlkhaskhdhasgdahsf.jpg"
-	 */
-	profileImageUrl: string;
-	/** Tags are interests */
-	tags: Array<UserTags>;
+  /**
+   * The id of the algolia record referencing this user
+   * @example "asndlkhaskhdhasgdahsf-feed-id"
+   */
+  algoliaId: string;
+  /** all the bookmarked pieces of content on the platform */
+  bookmarks: Bookmark;
+  /**
+   * Followers outlines the number of followers this user profile has
+   * @format int64
+   */
+  followers: string;
+  /**
+   * Number of people account is following
+   * @format int64
+   */
+  following: string;
+  /**
+   * User profile ID
+   * @format uint64
+   */
+  id?: string;
+  /**
+   * Profile name is the name tied to the user profile
+   * user name must be at least 5 characters long
+   * @example "test-user"
+   */
+  name: string;
+  /**
+   * Newsfeed timeline ID Displays all followed and group activities the user
+   * follows
+   * @example "asndlkhaskhdhasgdahsf-feed-id"
+   */
+  newsFeedTimelineId: string;
+  /**
+   * Notification timeline Id. Notification for anything a user/group is
+   * following
+   * @example "asndlkhaskhdhasgdahsf-feed-id"
+   */
+  notificationFeedTimelineId: string;
+  /**
+   * Personal timeline ID Has activities for a user that can be followed
+   * @example "asndlkhaskhdhasgdahsf-feed-id"
+   */
+  personalFeedTimelineId: string;
+  /**
+   * Private defines wether only approved followers can see what this profile
+   * posts
+   */
+  private: boolean;
+  /**
+   * ProfileImageUrl witholds the url of a given profile image
+   * @example "asndlkhaskhdhasgdahsf.jpg"
+   */
+  profileImageUrl: string;
+  /** Tags are interests */
+  tags: Array<UserTags>;
 }
 /** Tags: tags that can be associated to a record */
 export interface UserTags {
-	/**
-	 * the description of the tag ... tag must be at least 5 characters long
-	 * @example "test-description sakjlDKJGSAHGHFDHSGJHFGAHDFJKGSHAJDLgAKSGDHAS CSVDJKSADASKJHDASFDGJKJLHSAHGFJDSAHD kjskhdgfhgdhfgkhsdfdsdfdssdfsdf"
-	 */
-	description: string;
-	/**
-	 * the id of the tag record
-	 * @format uint64
-	 */
-	id?: string;
-	/**
-	 * the name of the tag ... tag must be at least 5 characters long
-	 * @example "test-tagname"
-	 */
-	tagName: string;
+  /**
+   * the description of the tag ... tag must be at least 5 characters long
+   * @example "test-description sakjlDKJGSAHGHFDHSGJHFGAHDFJKGSHAJDLgAKSGDHAS CSVDJKSADASKJHDASFDGJKJLHSAHGFJDSAHD kjskhdgfhgdhfgkhsdfdsdfdssdfsdf"
+   */
+  description: string;
+  /**
+   * the id of the tag record
+   * @format uint64
+   */
+  id?: string;
+  /**
+   * the name of the tag ... tag must be at least 5 characters long
+   * @example "test-tagname"
+   */
+  tagName: string;
 }
 /**
  * Represents a user's social profile on the platform.
@@ -7226,43 +7379,43 @@ export interface UserTags {
  * @author ["yoan yomba"]
  */
 export declare class SocialUserProfileClass implements UserProfile {
-	/** User profile ID */
-	id: string;
-	/** Tags are interests */
-	tags: UserTags[];
-	/**
-	 * Profile name is the name tied to the user profile
-	 * user name must be at least 5 characters long
-	 */
-	name: string;
-	/**
-	 * Private defines wether only approved followers can see what this profile
-	 * posts
-	 */
-	private: boolean;
-	/** Followers outlines the number of followers this user profile has */
-	followers: string;
-	/** Number of people account is following */
-	following: string;
-	/**
-	 * Notification timeline Id. Notification for anything a user/group is
-	 * following
-	 */
-	notificationFeedTimelineId: string;
-	/** Personal timeline ID Has activities for a user that can be followed */
-	personalFeedTimelineId: string;
-	/**
-	 * Newsfeed timeline ID Displays all followed and group activities the user
-	 * follows
-	 */
-	newsFeedTimelineId: string;
-	/** ProfileImageUrl witholds the url of a given profile image */
-	profileImageUrl: string;
-	/** all the bookmarked pieces of content on the platform */
-	bookmarks: Bookmark;
-	/** The id of the algolia record referencing this user */
-	algoliaId: string;
-	constructor(data: Partial<UserProfile>);
+  /** User profile ID */
+  id: string;
+  /** Tags are interests */
+  tags: UserTags[];
+  /**
+   * Profile name is the name tied to the user profile
+   * user name must be at least 5 characters long
+   */
+  name: string;
+  /**
+   * Private defines wether only approved followers can see what this profile
+   * posts
+   */
+  private: boolean;
+  /** Followers outlines the number of followers this user profile has */
+  followers: string;
+  /** Number of people account is following */
+  following: string;
+  /**
+   * Notification timeline Id. Notification for anything a user/group is
+   * following
+   */
+  notificationFeedTimelineId: string;
+  /** Personal timeline ID Has activities for a user that can be followed */
+  personalFeedTimelineId: string;
+  /**
+   * Newsfeed timeline ID Displays all followed and group activities the user
+   * follows
+   */
+  newsFeedTimelineId: string;
+  /** ProfileImageUrl witholds the url of a given profile image */
+  profileImageUrl: string;
+  /** all the bookmarked pieces of content on the platform */
+  bookmarks: Bookmark;
+  /** The id of the algolia record referencing this user */
+  algoliaId: string;
+  constructor(data: Partial<UserProfile>);
 }
 /**
  * A Publication is a collections of stories based around a common theme. Anyone can create them
@@ -7320,18 +7473,18 @@ export declare class SocialUserProfileClass implements UserProfile {
  * @author [Your Name or the Original Author's Name if you know it]
  */
 export declare class PublicationClass implements Publication {
-	id: string;
-	postIds: string[];
-	admin: SocialUserProfileClass | undefined;
-	adminSimfinyPlatformUserId: string;
-	tags: string[];
-	editors: SocialUserProfileClass[];
-	subjects: string[];
-	description: string;
-	createdAt: string | undefined;
-	type: PublicationType;
-	publicationName: string;
-	constructor(data: Partial<Publication>);
+  id: string;
+  postIds: string[];
+  admin: SocialUserProfileClass | undefined;
+  adminSimfinyPlatformUserId: string;
+  tags: string[];
+  editors: SocialUserProfileClass[];
+  subjects: string[];
+  description: string;
+  createdAt: string | undefined;
+  type: PublicationType;
+  publicationName: string;
+  constructor(data: Partial<Publication>);
 }
 /**
  * Represents a social account in the platform.
@@ -7368,109 +7521,109 @@ export declare class PublicationClass implements Publication {
  * @author [yoan yomba]
  */
 export declare class SocialAccount {
-	/**
-	 * The number of followers this profile has.
-	 *
-	 * @type {string}
-	 */
-	followers: string;
-	/**
-	 * The number of users this profile is following.
-	 *
-	 * @type {string}
-	 */
-	following: string;
-	/**
-	 * the id of the profile
-	 *
-	 * @type {string}
-	 */
-	id: string;
-	/**
-	 * this is the username of the profile
-	 *
-	 * @type {string}
-	 */
-	name: string;
-	/**
-	 * The set of tags associated to this profile
-	 *
-	 * @type {Tag[]}
-	 */
-	tags: Tags[];
-	/**
-	 * Deliniates wether the profile is a private or public one
-	 *
-	 * @type {boolean}
-	 */
-	private: boolean;
-	/**
-	 * The profile image url.
-	 *
-	 * @type {string}
-	 */
-	profileImageUrl: string;
-	/**
-	 * User profile id.
-	 * This is the id of the user that owns the profile.
-	 * NOTE: this is the same as the id field referenced above.
-	 * However we are keeping this field for backwards compatibility.
-	 *
-	 * @type {string}
-	 */
-	userProfileid: string;
-	bookmarks: Bookmark | undefined;
-	/**
-	 * Creates an instance of Profile.
-	 *
-	 * @constructor
-	 * @param {?Partial<Profile>} [data]
-	 */
-	constructor(data?: Partial<SocialAccount>);
-	/**
-	 * Checks if the profile is private.
-	 * @returns {boolean} True if the profile is private, false otherwise.
-	 */
-	isPrivate(): boolean;
-	/**
-	 * Deciphers wether or not to show the profile's content
-	 * @returns {boolean} True if the profile is not private, false otherwise.
-	 */
-	shouldShowContent(): boolean;
-	/**
-	 * Gets the profile image url.
-	 *
-	 * @returns {string} The profile image url.
-	 */
-	getProfileImageUrl(): string;
-	/**
-	 * Gets the tags of the profile.
-	 *
-	 * @returns {(Tag[] | string[])} The tags of the profile.
-	 */
-	getTags(): Tags[] | string[];
-	/**
-	 * Gets the number of tags the profile has.
-	 *
-	 * @returns {number} The number of tags the profile has.
-	 */
-	getTagCount(): number;
-	/**
-	 * Gets the tag names of the profile.
-	 * @returns {string[]} The tag names of the profile.
-	 */
-	getTagNames(): string[];
-	/**
-	 * Gets the number of followers this profile has.
-	 *
-	 * @returns {string} The number of followers this profile has.
-	 */
-	getFollowerCount(): number;
-	/**
-	 * Get the number of users following this profile.
-	 * @returns {string} The number of users following this profile.
-	 */
-	getfollowingCount(): number;
+  /**
+   * The number of followers this profile has.
+   *
+   * @type {string}
+   */
+  followers: string;
+  /**
+   * The number of users this profile is following.
+   *
+   * @type {string}
+   */
+  following: string;
+  /**
+   * the id of the profile
+   *
+   * @type {string}
+   */
+  id: string;
+  /**
+   * this is the username of the profile
+   *
+   * @type {string}
+   */
+  name: string;
+  /**
+   * The set of tags associated to this profile
+   *
+   * @type {Tag[]}
+   */
+  tags: Tags[];
+  /**
+   * Deliniates wether the profile is a private or public one
+   *
+   * @type {boolean}
+   */
+  private: boolean;
+  /**
+   * The profile image url.
+   *
+   * @type {string}
+   */
+  profileImageUrl: string;
+  /**
+   * User profile id.
+   * This is the id of the user that owns the profile.
+   * NOTE: this is the same as the id field referenced above.
+   * However we are keeping this field for backwards compatibility.
+   *
+   * @type {string}
+   */
+  userProfileid: string;
+  bookmarks: Bookmark | undefined;
+  /**
+   * Creates an instance of Profile.
+   *
+   * @constructor
+   * @param {?Partial<Profile>} [data]
+   */
+  constructor(data?: Partial<SocialAccount>);
+  /**
+   * Checks if the profile is private.
+   * @returns {boolean} True if the profile is private, false otherwise.
+   */
+  isPrivate(): boolean;
+  /**
+   * Deciphers wether or not to show the profile's content
+   * @returns {boolean} True if the profile is not private, false otherwise.
+   */
+  shouldShowContent(): boolean;
+  /**
+   * Gets the profile image url.
+   *
+   * @returns {string} The profile image url.
+   */
+  getProfileImageUrl(): string;
+  /**
+   * Gets the tags of the profile.
+   *
+   * @returns {(Tag[] | string[])} The tags of the profile.
+   */
+  getTags(): Tags[] | string[];
+  /**
+   * Gets the number of tags the profile has.
+   *
+   * @returns {number} The number of tags the profile has.
+   */
+  getTagCount(): number;
+  /**
+   * Gets the tag names of the profile.
+   * @returns {string[]} The tag names of the profile.
+   */
+  getTagNames(): string[];
+  /**
+   * Gets the number of followers this profile has.
+   *
+   * @returns {string} The number of followers this profile has.
+   */
+  getFollowerCount(): number;
+  /**
+   * Get the number of users following this profile.
+   * @returns {string} The number of users following this profile.
+   */
+  getfollowingCount(): number;
 }
 /**
  * Represents a user's account in simfiny's backend.
@@ -7517,165 +7670,167 @@ export declare class SocialAccount {
  * @author Yoan Yomba
  */
 export interface UserAccountContractWithAccountID {
-	userAccountID?: string;
+  userAccountID?: string;
 }
-export declare class UserAccountClass implements UserAccount, UserAccountContractWithAccountID {
-	/** Enum indicating the type of profile (e.g., individual, corporate). */
-	accountType?: ProfileType;
-	/** Physical address associated with the user. */
-	address?: Address;
-	/**
-	 * ID for the authentication service linked to this account.
-	 * @format uint64
-	 */
-	authnAccountId?: string;
-	/** Brief description about the user, up to 200 characters. */
-	bio?: string;
-	/**
-	 * Timestamp for when the account was created.
-	 * @format date-time
-	 */
-	createdAt?: string;
-	/**
-	 * Email associated with the user account.
-	 * @example "sample@example.com"
-	 */
-	email?: string;
-	/** User's first name. */
-	firstname?: string;
-	/** Short headline for the user's profile. */
-	headline?: string;
-	/**
-	 * Unique identifier for the account.
-	 * @format uint64
-	 */
-	id?: string;
-	/** Indicates if the account is currently active. */
-	isActive?: boolean;
-	/** Indicates if the user's email has been verified. */
-	isEmailVerified?: boolean;
-	/** Indicates if the account is set to private. */
-	isPrivate?: boolean;
-	/** User's last name. */
-	lastname?: string;
-	/** Phone number associated with the account. */
-	phoneNumber?: string;
-	/** Tags associated with the user account, between 1 and 10. */
-	tags?: Array<Tags>;
-	/** Settings specific to the user account. */
-	userSettings?: UserSettings;
-	/**
-	 * Username associated with the account, minimum of 10 characters.
-	 * @example "testuser9696"
-	 */
-	username?: string;
-	/**
-	 * Timestamp for when the email was verified.
-	 * @format date-time
-	 */
-	verifiedAt?: string;
-	userAccountID?: string;
-	userAuthnAccountID?: string;
-	/**
-	 * A constructor function that takes in a data object and assigns the data to the UserAccount class.
-	 * @param [data] - The data that you want to assign to the object.
-	 */
-	constructor(data?: Partial<UserAccountClass>);
-	/**
-	 * Returns the username of the account
-	 *
-	 * @return {*}  {string}
-	 * @memberof UserAccount
-	 */
-	getUserName(): string;
-	/**
-	 * Returns the tags associated with a given account
-	 *
-	 * @return {*}  {Tag[]}
-	 * @memberof UserAccount
-	 */
-	getTags(): Tags[];
-	/**
-	 * Returns the number of tags associated with a given account
-	 *
-	 * @return {*}  {number}
-	 * @memberof UserAccount
-	 */
-	getTagCount(): number;
-	/**
-	 * Deciphers wether the account has a verified email or not
-	 *
-	 * @return {*}  {boolean}
-	 * @memberof UserAccount
-	 */
-	isAccountVerified(): boolean | undefined;
-	/**
-	 * Deciphers wether the account's content should be shown or not
-	 *
-	 * @return {*}  {boolean}
-	 * @memberof UserAccount
-	 */
-	shouldShowContent(): boolean | undefined;
-	/**
-	 * Obtains the bio of the account
-	 *
-	 * @return {*}  {string}
-	 * @memberof UserAccount
-	 */
-	getBio(): string | undefined;
-	/**
-	 * Obtains the headline of the account
-	 *
-	 * @return {*}  {string}
-	 * @memberof UserAccount
-	 */
-	getHeadline(): string | undefined;
-	/**
-	 * @description Returns the ID of the account
-	 * @author Yoan Yomba
-	 * @returns {*}  {string}
-	 * @memberof UserAccount
-	 */
-	getID(): string | undefined;
-	static randomInstance(): UserAccount;
+export declare class UserAccountClass
+  implements UserAccount, UserAccountContractWithAccountID
+{
+  /** Enum indicating the type of profile (e.g., individual, corporate). */
+  accountType?: ProfileType;
+  /** Physical address associated with the user. */
+  address?: Address;
+  /**
+   * ID for the authentication service linked to this account.
+   * @format uint64
+   */
+  authnAccountId?: string;
+  /** Brief description about the user, up to 200 characters. */
+  bio?: string;
+  /**
+   * Timestamp for when the account was created.
+   * @format date-time
+   */
+  createdAt?: string;
+  /**
+   * Email associated with the user account.
+   * @example "sample@example.com"
+   */
+  email?: string;
+  /** User's first name. */
+  firstname?: string;
+  /** Short headline for the user's profile. */
+  headline?: string;
+  /**
+   * Unique identifier for the account.
+   * @format uint64
+   */
+  id?: string;
+  /** Indicates if the account is currently active. */
+  isActive?: boolean;
+  /** Indicates if the user's email has been verified. */
+  isEmailVerified?: boolean;
+  /** Indicates if the account is set to private. */
+  isPrivate?: boolean;
+  /** User's last name. */
+  lastname?: string;
+  /** Phone number associated with the account. */
+  phoneNumber?: string;
+  /** Tags associated with the user account, between 1 and 10. */
+  tags?: Array<Tags>;
+  /** Settings specific to the user account. */
+  userSettings?: UserSettings;
+  /**
+   * Username associated with the account, minimum of 10 characters.
+   * @example "testuser9696"
+   */
+  username?: string;
+  /**
+   * Timestamp for when the email was verified.
+   * @format date-time
+   */
+  verifiedAt?: string;
+  userAccountID?: string;
+  userAuthnAccountID?: string;
+  /**
+   * A constructor function that takes in a data object and assigns the data to the UserAccount class.
+   * @param [data] - The data that you want to assign to the object.
+   */
+  constructor(data?: Partial<UserAccountClass>);
+  /**
+   * Returns the username of the account
+   *
+   * @return {*}  {string}
+   * @memberof UserAccount
+   */
+  getUserName(): string;
+  /**
+   * Returns the tags associated with a given account
+   *
+   * @return {*}  {Tag[]}
+   * @memberof UserAccount
+   */
+  getTags(): Tags[];
+  /**
+   * Returns the number of tags associated with a given account
+   *
+   * @return {*}  {number}
+   * @memberof UserAccount
+   */
+  getTagCount(): number;
+  /**
+   * Deciphers wether the account has a verified email or not
+   *
+   * @return {*}  {boolean}
+   * @memberof UserAccount
+   */
+  isAccountVerified(): boolean | undefined;
+  /**
+   * Deciphers wether the account's content should be shown or not
+   *
+   * @return {*}  {boolean}
+   * @memberof UserAccount
+   */
+  shouldShowContent(): boolean | undefined;
+  /**
+   * Obtains the bio of the account
+   *
+   * @return {*}  {string}
+   * @memberof UserAccount
+   */
+  getBio(): string | undefined;
+  /**
+   * Obtains the headline of the account
+   *
+   * @return {*}  {string}
+   * @memberof UserAccount
+   */
+  getHeadline(): string | undefined;
+  /**
+   * @description Returns the ID of the account
+   * @author Yoan Yomba
+   * @returns {*}  {string}
+   * @memberof UserAccount
+   */
+  getID(): string | undefined;
+  static randomInstance(): UserAccount;
 }
 export declare class UserSettingsClass implements UserSettings {
-	/** Display and interaction preferences. */
-	appTheme?: Theme;
-	/** Dashboard customization, e.g., specific widgets or reports. */
-	dashboardWidgets?: Array<DashboardWidget>;
-	/** Preferred date-time format. */
-	datetimeFormat?: string;
-	/** Currency preference. */
-	defaultCurrency?: string;
-	/** Notification preferences. */
-	emailNotifications?: boolean;
-	/** Option to share transaction history with friends/family. */
-	enableGoalJournal?: boolean;
-	/**
-	 * address id
-	 * @format uint64
-	 */
-	id?: string;
-	/** Investment preferences. */
-	investmentRiskTolerance?: RiskTolerance;
-	/** Language preference. */
-	preferredLanguage?: string;
-	/**
-	 * Privacy settings.
-	 *
-	 * Whether the user's profile is public.
-	 */
-	publicProfile?: boolean;
-	pushNotifications?: boolean;
-	smsNotifications?: boolean;
-	/** Two-factor authentication status. */
-	twoFactorAuthenticationEnabled?: boolean;
-	constructor(data: Partial<UserSettings>);
-	static randomInstance(): UserSettings;
+  /** Display and interaction preferences. */
+  appTheme?: Theme;
+  /** Dashboard customization, e.g., specific widgets or reports. */
+  dashboardWidgets?: Array<DashboardWidget>;
+  /** Preferred date-time format. */
+  datetimeFormat?: string;
+  /** Currency preference. */
+  defaultCurrency?: string;
+  /** Notification preferences. */
+  emailNotifications?: boolean;
+  /** Option to share transaction history with friends/family. */
+  enableGoalJournal?: boolean;
+  /**
+   * address id
+   * @format uint64
+   */
+  id?: string;
+  /** Investment preferences. */
+  investmentRiskTolerance?: RiskTolerance;
+  /** Language preference. */
+  preferredLanguage?: string;
+  /**
+   * Privacy settings.
+   *
+   * Whether the user's profile is public.
+   */
+  publicProfile?: boolean;
+  pushNotifications?: boolean;
+  smsNotifications?: boolean;
+  /** Two-factor authentication status. */
+  twoFactorAuthenticationEnabled?: boolean;
+  constructor(data: Partial<UserSettings>);
+  static randomInstance(): UserSettings;
 }
 export interface IRequest {
-	isValid(): boolean;
+  isValid(): boolean;
 }
 /**
  * @description The request to authenticate a user
@@ -7684,14 +7839,14 @@ export interface IRequest {
  * @class AuthenticateRequest
  */
 export declare class AuthenticateRequestClass implements IRequest {
-	Username: string;
-	Password: string;
-	constructor(data?: Partial<AuthenticateRequestClass>);
-	isValid(): boolean;
+  Username: string;
+  Password: string;
+  constructor(data?: Partial<AuthenticateRequestClass>);
+  isValid(): boolean;
 }
 export type FinancialProfileResponse = {
-	profile: FinancialUserProfile;
-	financialContext: MelodyFinancialContext;
+  profile: FinancialUserProfile;
+  financialContext: MelodyFinancialContext;
 };
 /**
  * @description The response when a user is authenticated
@@ -7701,123 +7856,123 @@ export type FinancialProfileResponse = {
  * @extends {ErrorResponse}
  */
 export declare class AuthenticationResponseClass extends ErrorResponse {
-	code: number;
-	err: string;
-	token: string;
-	user_account: UserAccountClass;
-	user_profile: UserProfile;
-	user_financial_profile: FinancialProfileResponse;
-	constructor(data?: Partial<AuthenticationResponseClass>);
+  code: number;
+  err: string;
+  token: string;
+  user_account: UserAccountClass;
+  user_profile: UserProfile;
+  user_financial_profile: FinancialProfileResponse;
+  constructor(data?: Partial<AuthenticationResponseClass>);
 }
 export declare class CheckEmailExistsRequestClass {
-	/** The email of the user of interest */
-	email: string;
-	constructor(data?: Partial<CheckEmailExistsRequestClass>);
+  /** The email of the user of interest */
+  email: string;
+  constructor(data?: Partial<CheckEmailExistsRequestClass>);
 }
 export declare class CheckEmailExistsResponseClass extends ErrorResponse {
-	exists: boolean;
-	constructor(data?: Partial<CheckEmailExistsResponseClass>);
-	private create;
-	private fromPartial;
+  exists: boolean;
+  constructor(data?: Partial<CheckEmailExistsResponseClass>);
+  private create;
+  private fromPartial;
 }
 export declare class CheckUsernameExistsRequestClass implements IRequest {
-	/** The username of the user of interest */
-	username: string;
-	constructor(data?: Partial<CheckUsernameExistsRequestClass>);
-	isValid(): boolean;
+  /** The username of the user of interest */
+  username: string;
+  constructor(data?: Partial<CheckUsernameExistsRequestClass>);
+  isValid(): boolean;
 }
 export declare class CheckUsernameExistsResponseClass extends ErrorResponse {
-	exists: boolean;
-	constructor(data?: Partial<CheckUsernameExistsResponseClass>);
-	private create;
-	private fromPartial;
+  exists: boolean;
+  constructor(data?: Partial<CheckUsernameExistsResponseClass>);
+  private create;
+  private fromPartial;
 }
 export declare class UserRegistrationAccountDetails {
-	/** Enum indicating the type of profile (e.g., individual, corporate). */
-	accountType: ProfileType;
-	/** account id */
-	id: number;
-	/**
-	 * account email
-	 * Validations:
-	 * - must be an email and required
-	 */
-	email: string;
-	/**
-	 * simple description specific to account should be less than 200 characters
-	 * Validations:
-	 * - can be empty
-	 */
-	bio: string;
-	/**
-	 * profile headline
-	 * Validations:
-	 * - can be empty
-	 */
-	headline: string;
-	/**
-	 * account phone number
-	 * Validations:
-	 * - mcan be empty
-	 */
-	phoneNumber: string;
-	/**
-	 * sample tags easily associable to account
-	 * account first name
-	 * Validations:
-	 * - must be at provide between 1 and 10 tags
-	 */
-	tags: Tags[];
-	/** authentication service account id */
-	authnAccountId: number;
-	/** infers wether the account is active */
-	isActive: boolean;
-	/**
-	 * account first name
-	 * Validations:
-	 * - can be empty
-	 */
-	firstname: string;
-	/**
-	 * account last name
-	 * Validations:
-	 * - can be empty
-	 */
-	lastname: string;
-	/**
-	 * account user name
-	 * Validations:
-	 * - must be at least 10 character
-	 */
-	username: string;
-	/** account is private */
-	isPrivate: boolean;
-	/**
-	 * isEmailVerified is a field denoting wether or not the user account has
-	 * indeed verified their email address
-	 */
-	isEmailVerified: boolean;
-	createdAt: Date | undefined;
-	verifiedAt: Date | undefined;
-	constructor(data?: Partial<UserRegistrationAccountDetails>);
-	toJSON(): {
-		id: number;
-		email: string;
-		bio: string;
-		headline: string;
-		phoneNumber: string;
-		tags: Tags[];
-		authnAccountId: number;
-		isActive: boolean;
-		firstname: string;
-		lastname: string;
-		username: string;
-		isPrivate: boolean;
-		isEmailVerified: boolean;
-		createdAt: string | undefined;
-		verifiedAt: string | undefined;
-		accountType: ProfileType;
-	};
+  /** Enum indicating the type of profile (e.g., individual, corporate). */
+  accountType: ProfileType;
+  /** account id */
+  id: number;
+  /**
+   * account email
+   * Validations:
+   * - must be an email and required
+   */
+  email: string;
+  /**
+   * simple description specific to account should be less than 200 characters
+   * Validations:
+   * - can be empty
+   */
+  bio: string;
+  /**
+   * profile headline
+   * Validations:
+   * - can be empty
+   */
+  headline: string;
+  /**
+   * account phone number
+   * Validations:
+   * - mcan be empty
+   */
+  phoneNumber: string;
+  /**
+   * sample tags easily associable to account
+   * account first name
+   * Validations:
+   * - must be at provide between 1 and 10 tags
+   */
+  tags: Tags[];
+  /** authentication service account id */
+  authnAccountId: number;
+  /** infers wether the account is active */
+  isActive: boolean;
+  /**
+   * account first name
+   * Validations:
+   * - can be empty
+   */
+  firstname: string;
+  /**
+   * account last name
+   * Validations:
+   * - can be empty
+   */
+  lastname: string;
+  /**
+   * account user name
+   * Validations:
+   * - must be at least 10 character
+   */
+  username: string;
+  /** account is private */
+  isPrivate: boolean;
+  /**
+   * isEmailVerified is a field denoting wether or not the user account has
+   * indeed verified their email address
+   */
+  isEmailVerified: boolean;
+  createdAt: Date | undefined;
+  verifiedAt: Date | undefined;
+  constructor(data?: Partial<UserRegistrationAccountDetails>);
+  toJSON(): {
+    id: number;
+    email: string;
+    bio: string;
+    headline: string;
+    phoneNumber: string;
+    tags: Tags[];
+    authnAccountId: number;
+    isActive: boolean;
+    firstname: string;
+    lastname: string;
+    username: string;
+    isPrivate: boolean;
+    isEmailVerified: boolean;
+    createdAt: string | undefined;
+    verifiedAt: string | undefined;
+    accountType: ProfileType;
+  };
 }
 /**
  * @description The request to create a user account
@@ -7826,902 +7981,914 @@ export declare class UserRegistrationAccountDetails {
  * @class CreateAccountRequest
  */
 export declare class CreateAccountRequestClass implements IRequest {
-	account: UserRegistrationAccountDetails;
-	communityIdsToFollow: number[];
-	profileImage: string;
-	password: string;
-	constructor(data?: Partial<CreateAccountRequestClass>);
-	toJSON(): {
-		account: {
-			id: number;
-			email: string;
-			bio: string;
-			headline: string;
-			phoneNumber: string;
-			tags: Tags[];
-			authnAccountId: number;
-			isActive: boolean;
-			firstname: string;
-			lastname: string;
-			username: string;
-			isPrivate: boolean;
-			isEmailVerified: boolean;
-			createdAt: string | undefined;
-			verifiedAt: string | undefined;
-			accountType: ProfileType;
-		};
-		communityIdsToFollow: number[];
-		profileImage: string;
-		password: string;
-	};
-	isValid(): boolean;
+  account: UserRegistrationAccountDetails;
+  communityIdsToFollow: number[];
+  profileImage: string;
+  password: string;
+  constructor(data?: Partial<CreateAccountRequestClass>);
+  toJSON(): {
+    account: {
+      id: number;
+      email: string;
+      bio: string;
+      headline: string;
+      phoneNumber: string;
+      tags: Tags[];
+      authnAccountId: number;
+      isActive: boolean;
+      firstname: string;
+      lastname: string;
+      username: string;
+      isPrivate: boolean;
+      isEmailVerified: boolean;
+      createdAt: string | undefined;
+      verifiedAt: string | undefined;
+      accountType: ProfileType;
+    };
+    communityIdsToFollow: number[];
+    profileImage: string;
+    password: string;
+  };
+  isValid(): boolean;
 }
 export declare class GetAccountBalanceHistoryResponseClass extends ErrorResponse {
-	accountBalanceHistory: AccountBalanceHistory[];
-	constructor(data: Partial<GetAccountBalanceHistoryResponseClass>);
+  accountBalanceHistory: AccountBalanceHistory[];
+  constructor(data: Partial<GetAccountBalanceHistoryResponseClass>);
 }
 /**
  * Represents the request for getting account balance history.
  */
 export declare class GetAccountBalanceHistoryRequestClass {
-	/**
-	 * The account ID associated with the request.
-	 */
-	plaidAccountId: string;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetAccountBalanceHistoryRequest.
-	 * @param partialRequest Partial request object to initialize the GetAccountBalanceHistoryRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetAccountBalanceHistoryRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetAccountBalanceHistoryRequestClass>);
+  /**
+   * The account ID associated with the request.
+   */
+  plaidAccountId: string;
+  /**
+   * The page number of the requested data.
+   */
+  pageNumber: number;
+  /**
+   * Number of items to return per page.
+   */
+  pageSize: number;
+  /**
+   * Creates a new instance of GetAccountBalanceHistoryRequest.
+   * @param partialRequest Partial request object to initialize the GetAccountBalanceHistoryRequest.
+   * @remarks You can use this constructor to create a partial instance of GetAccountBalanceHistoryRequest.
+   *          You can later populate the additional properties manually if needed.
+   */
+  constructor(partialRequest: Partial<GetAccountBalanceHistoryRequestClass>);
 }
 /**
  * Represents the request for getting category monthly transaction count.
  */
 export declare class GetCategoryMonthlyTransactionCountRequestClass {
-	/**
-	 * The user ID associated with the request (has to be present and defined).
-	 */
-	userId: number;
-	/**
-	 * The month for which category monthly transaction count is requested (optional).
-	 */
-	month: number;
-	/**
-	 * The primary personal finance category for filtering the records (optional).
-	 */
-	personalFinanceCategoryPrimary: string;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetCategoryMonthlyTransactionCountRequest.
-	 * @param partialRequest Partial request object to initialize the GetCategoryMonthlyTransactionCountRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetCategoryMonthlyTransactionCountRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetCategoryMonthlyTransactionCountRequestClass>);
+  /**
+   * The user ID associated with the request (has to be present and defined).
+   */
+  userId: number;
+  /**
+   * The month for which category monthly transaction count is requested (optional).
+   */
+  month: number;
+  /**
+   * The primary personal finance category for filtering the records (optional).
+   */
+  personalFinanceCategoryPrimary: string;
+  /**
+   * The page number of the requested data.
+   */
+  pageNumber: number;
+  /**
+   * Number of items to return per page.
+   */
+  pageSize: number;
+  /**
+   * Creates a new instance of GetCategoryMonthlyTransactionCountRequest.
+   * @param partialRequest Partial request object to initialize the GetCategoryMonthlyTransactionCountRequest.
+   * @remarks You can use this constructor to create a partial instance of GetCategoryMonthlyTransactionCountRequest.
+   *          You can later populate the additional properties manually if needed.
+   */
+  constructor(
+    partialRequest: Partial<GetCategoryMonthlyTransactionCountRequestClass>,
+  );
 }
 export declare class GetCategoryMonthlyTransactionCountResponseClass extends ErrorResponse {
-	categoryMonthlyTransactionCount: CategoryMonthlyTransactionCount[];
-	nextPageNumber: number;
-	constructor(data?: Partial<GetCategoryMonthlyTransactionCountResponseClass>);
+  categoryMonthlyTransactionCount: CategoryMonthlyTransactionCount[];
+  nextPageNumber: number;
+  constructor(data?: Partial<GetCategoryMonthlyTransactionCountResponseClass>);
 }
 /**
  * Represents the request for getting debt to income ratio.
  */
 export declare class GetDebtToIncomeRatioRequestClass {
-	/**
-	 * The user ID associated with the request.
-	 */
-	userId: number;
-	/**
-	 * The month for which debt to income ratio is requested (optional).
-	 */
-	month?: number;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetDebtToIncomeRatioRequest.
-	 * @param partialRequest Partial request object to initialize the GetDebtToIncomeRatioRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetDebtToIncomeRatioRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetDebtToIncomeRatioRequestClass>);
+  /**
+   * The user ID associated with the request.
+   */
+  userId: number;
+  /**
+   * The month for which debt to income ratio is requested (optional).
+   */
+  month?: number;
+  /**
+   * The page number of the requested data.
+   */
+  pageNumber: number;
+  /**
+   * Number of items to return per page.
+   */
+  pageSize: number;
+  /**
+   * Creates a new instance of GetDebtToIncomeRatioRequest.
+   * @param partialRequest Partial request object to initialize the GetDebtToIncomeRatioRequest.
+   * @remarks You can use this constructor to create a partial instance of GetDebtToIncomeRatioRequest.
+   *          You can later populate the additional properties manually if needed.
+   */
+  constructor(partialRequest: Partial<GetDebtToIncomeRatioRequestClass>);
 }
 /**
  * Represents the response for getting debt to income ratio.
  */
 export declare class GetDebtToIncomeRatioResponseClass extends ErrorResponse {
-	/**
-	 * List of debt to income ratios.
-	 */
-	debtToIncomeRatios: DebtToIncomeRatio[];
-	/**
-	 * The page number of the next set of data.
-	 */
-	nextPageNumber: number;
-	/**
-	 * Creates a new instance of GetDebtToIncomeRatioResponse.
-	 * @param debtToIncomeRatios List of debt to income ratios.
-	 * @param nextPageNumber The page number of the next set of data.
-	 */
-	constructor(data?: Partial<GetDebtToIncomeRatioResponseClass>);
+  /**
+   * List of debt to income ratios.
+   */
+  debtToIncomeRatios: DebtToIncomeRatio[];
+  /**
+   * The page number of the next set of data.
+   */
+  nextPageNumber: number;
+  /**
+   * Creates a new instance of GetDebtToIncomeRatioResponse.
+   * @param debtToIncomeRatios List of debt to income ratios.
+   * @param nextPageNumber The page number of the next set of data.
+   */
+  constructor(data?: Partial<GetDebtToIncomeRatioResponseClass>);
 }
 /**
  * Represents the request for getting expense metrics.
  */
 export declare class GetExpenseMetricsRequestClass {
-	/**
-	 * The user ID associated with the request.
-	 */
-	userId: number;
-	/**
-	 * The month for which expense metrics are requested (optional).
-	 */
-	month?: number;
-	/**
-	 * The primary personal finance category for filtering the records (optional).
-	 */
-	personalFinanceCategoryPrimary?: string;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetExpenseMetricsRequest.
-	 * @param partialRequest Partial request object to initialize the GetExpenseMetricsRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetExpenseMetricsRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetExpenseMetricsRequestClass>);
+  /**
+   * The user ID associated with the request.
+   */
+  userId: number;
+  /**
+   * The month for which expense metrics are requested (optional).
+   */
+  month?: number;
+  /**
+   * The primary personal finance category for filtering the records (optional).
+   */
+  personalFinanceCategoryPrimary?: string;
+  /**
+   * The page number of the requested data.
+   */
+  pageNumber: number;
+  /**
+   * Number of items to return per page.
+   */
+  pageSize: number;
+  /**
+   * Creates a new instance of GetExpenseMetricsRequest.
+   * @param partialRequest Partial request object to initialize the GetExpenseMetricsRequest.
+   * @remarks You can use this constructor to create a partial instance of GetExpenseMetricsRequest.
+   *          You can later populate the additional properties manually if needed.
+   */
+  constructor(partialRequest: Partial<GetExpenseMetricsRequestClass>);
 }
 /**
  * Represents the response for getting expense metrics.
  */
 export declare class GetExpenseMetricsResponseClass extends ErrorResponse {
-	/**
-	 * List of expense metrics.
-	 */
-	expenseMetrics: ExpenseMetrics[];
-	/**
-	 * The page number of the next set of data.
-	 */
-	nextPageNumber: number;
-	/**
-	 * Creates a new instance of GetExpenseMetricsResponse.
-	 * @param expenseMetrics List of expense metrics.
-	 * @param nextPageNumber The page number of the next set of data.
-	 */
-	constructor(data?: Partial<GetExpenseMetricsResponseClass>);
+  /**
+   * List of expense metrics.
+   */
+  expenseMetrics: ExpenseMetrics[];
+  /**
+   * The page number of the next set of data.
+   */
+  nextPageNumber: number;
+  /**
+   * Creates a new instance of GetExpenseMetricsResponse.
+   * @param expenseMetrics List of expense metrics.
+   * @param nextPageNumber The page number of the next set of data.
+   */
+  constructor(data?: Partial<GetExpenseMetricsResponseClass>);
 }
 /**
  * Represents the response for getting melody financial context.
  */
 export declare class GetMelodyFinancialContextResponseClass extends ErrorResponse {
-	/**
-	 * Melody financial context information.
-	 */
-	melodyFinancialContext: MelodyFinancialContext | undefined;
-	/**
-	 * Creates a new instance of GetMelodyFinancialContextResponse.
-	 * @param melodyFinancialContext Melody financial context information.
-	 */
-	constructor(data?: Partial<GetMelodyFinancialContextResponseClass>);
+  /**
+   * Melody financial context information.
+   */
+  melodyFinancialContext: MelodyFinancialContext | undefined;
+  /**
+   * Creates a new instance of GetMelodyFinancialContextResponse.
+   * @param melodyFinancialContext Melody financial context information.
+   */
+  constructor(data?: Partial<GetMelodyFinancialContextResponseClass>);
 }
 /**
  * Represents the request for getting Melody financial context.
  */
 export declare class GetMelodyFinancialContextRequestClass {
-	/**
-	 * The user ID associated with the request.
-	 */
-	userId: number;
-	/**
-	 * Creates a new instance of GetMelodyFinancialContextRequest.
-	 * @param userId The user ID associated with the request.
-	 */
-	constructor(userId: number);
+  /**
+   * The user ID associated with the request.
+   */
+  userId: number;
+  /**
+   * Creates a new instance of GetMelodyFinancialContextRequest.
+   * @param userId The user ID associated with the request.
+   */
+  constructor(userId: number);
 }
 /**
  * Represents the request for getting financial profile.
  */
 export declare class GetFinancialProfileRequestClass {
-	/**
-	 * The user ID associated with the request.
-	 */
-	userId: number;
-	/**
-	 * The month for which financial profile is requested (optional).
-	 */
-	month?: number;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetFinancialProfileRequest.
-	 * @param partialRequest Partial request object to initialize the GetFinancialProfileRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetFinancialProfileRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetFinancialProfileRequestClass>);
+  /**
+   * The user ID associated with the request.
+   */
+  userId: number;
+  /**
+   * The month for which financial profile is requested (optional).
+   */
+  month?: number;
+  /**
+   * The page number of the requested data.
+   */
+  pageNumber: number;
+  /**
+   * Number of items to return per page.
+   */
+  pageSize: number;
+  /**
+   * Creates a new instance of GetFinancialProfileRequest.
+   * @param partialRequest Partial request object to initialize the GetFinancialProfileRequest.
+   * @remarks You can use this constructor to create a partial instance of GetFinancialProfileRequest.
+   *          You can later populate the additional properties manually if needed.
+   */
+  constructor(partialRequest: Partial<GetFinancialProfileRequestClass>);
 }
 /**
  * Represents the response for getting financial profile.
  */
 export declare class GetFinancialProfileResponseClass extends ErrorResponse {
-	/**
-	 * List of financial profiles.
-	 */
-	financialProfiles: FinancialProfile[];
-	/**
-	 * The page number of the next set of data.
-	 */
-	nextPageNumber: number;
-	/**
-	 * Creates a new instance of GetFinancialProfileResponse.
-	 * @param financialProfiles List of financial profiles.
-	 * @param nextPageNumber The page number of the next set of data.
-	 */
-	constructor(data?: Partial<GetFinancialProfileResponseClass>);
+  /**
+   * List of financial profiles.
+   */
+  financialProfiles: FinancialProfile[];
+  /**
+   * The page number of the next set of data.
+   */
+  nextPageNumber: number;
+  /**
+   * Creates a new instance of GetFinancialProfileResponse.
+   * @param financialProfiles List of financial profiles.
+   * @param nextPageNumber The page number of the next set of data.
+   */
+  constructor(data?: Partial<GetFinancialProfileResponseClass>);
 }
 /**
  * Represents the request for getting income expense ratio.
  */
 export declare class GetIncomeExpenseRatioRequestClass {
-	/**
-	 * The user ID associated with the request.
-	 */
-	userId: number;
-	/**
-	 * The month for which income expense ratio is requested (optional).
-	 */
-	month?: number;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetIncomeExpenseRatioRequest.
-	 * @param partialRequest Partial request object to initialize the GetIncomeExpenseRatioRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetIncomeExpenseRatioRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetIncomeExpenseRatioRequestClass>);
+  /**
+   * The user ID associated with the request.
+   */
+  userId: number;
+  /**
+   * The month for which income expense ratio is requested (optional).
+   */
+  month?: number;
+  /**
+   * The page number of the requested data.
+   */
+  pageNumber: number;
+  /**
+   * Number of items to return per page.
+   */
+  pageSize: number;
+  /**
+   * Creates a new instance of GetIncomeExpenseRatioRequest.
+   * @param partialRequest Partial request object to initialize the GetIncomeExpenseRatioRequest.
+   * @remarks You can use this constructor to create a partial instance of GetIncomeExpenseRatioRequest.
+   *          You can later populate the additional properties manually if needed.
+   */
+  constructor(partialRequest: Partial<GetIncomeExpenseRatioRequestClass>);
 }
 /**
  * Represents the response for getting income expense ratio.
  */
 export declare class GetIncomeExpenseRatioResponseClass extends ErrorResponse {
-	/**
-	 * List of income expense ratios.
-	 */
-	incomeExpenseRatios: IncomeExpenseRatio[];
-	/**
-	 * The page number of the next set of data.
-	 */
-	nextPageNumber: number;
-	/**
-	 * Creates a new instance of GetIncomeExpenseRatioResponse.
-	 * @param incomeExpenseRatios List of income expense ratios.
-	 * @param nextPageNumber The page number of the next set of data.
-	 */
-	constructor(data?: Partial<GetIncomeExpenseRatioResponseClass>);
+  /**
+   * List of income expense ratios.
+   */
+  incomeExpenseRatios: IncomeExpenseRatio[];
+  /**
+   * The page number of the next set of data.
+   */
+  nextPageNumber: number;
+  /**
+   * Creates a new instance of GetIncomeExpenseRatioResponse.
+   * @param incomeExpenseRatios List of income expense ratios.
+   * @param nextPageNumber The page number of the next set of data.
+   */
+  constructor(data?: Partial<GetIncomeExpenseRatioResponseClass>);
 }
 /**
  * Represents the request for getting income metrics.
  */
 export declare class GetIncomeMetricsRequestClass {
-	/**
-	 * The user ID associated with the request.
-	 */
-	userId: number;
-	/**
-	 * The month for which income metrics are requested (optional).
-	 */
-	month?: number;
-	/**
-	 * The primary personal finance category for filtering the records (optional).
-	 */
-	personalFinanceCategoryPrimary?: string;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetIncomeMetricsRequest.
-	 * @param partialRequest Partial request object to initialize the GetIncomeMetricsRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetIncomeMetricsRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetIncomeMetricsRequestClass>);
+  /**
+   * The user ID associated with the request.
+   */
+  userId: number;
+  /**
+   * The month for which income metrics are requested (optional).
+   */
+  month?: number;
+  /**
+   * The primary personal finance category for filtering the records (optional).
+   */
+  personalFinanceCategoryPrimary?: string;
+  /**
+   * The page number of the requested data.
+   */
+  pageNumber: number;
+  /**
+   * Number of items to return per page.
+   */
+  pageSize: number;
+  /**
+   * Creates a new instance of GetIncomeMetricsRequest.
+   * @param partialRequest Partial request object to initialize the GetIncomeMetricsRequest.
+   * @remarks You can use this constructor to create a partial instance of GetIncomeMetricsRequest.
+   *          You can later populate the additional properties manually if needed.
+   */
+  constructor(partialRequest: Partial<GetIncomeMetricsRequestClass>);
 }
 /**
  * Represents the response for getting income metrics.
  */
 export declare class GetIncomeMetricsResponseClass extends ErrorResponse {
-	/**
-	 * List of income metrics.
-	 */
-	incomeMetrics: IncomeMetrics[];
-	/**
-	 * The page number of the next set of data.
-	 */
-	nextPageNumber: number;
-	/**
-	 * Creates a new instance of GetIncomeMetricsResponse.
-	 * @param incomeMetrics List of income metrics.
-	 * @param nextPageNumber The page number of the next set of data.
-	 */
-	constructor(data?: Partial<GetIncomeMetricsResponseClass>);
+  /**
+   * List of income metrics.
+   */
+  incomeMetrics: IncomeMetrics[];
+  /**
+   * The page number of the next set of data.
+   */
+  nextPageNumber: number;
+  /**
+   * Creates a new instance of GetIncomeMetricsResponse.
+   * @param incomeMetrics List of income metrics.
+   * @param nextPageNumber The page number of the next set of data.
+   */
+  constructor(data?: Partial<GetIncomeMetricsResponseClass>);
 }
 /**
  * Represents the request for getting merchant monthly expenditure.
  */
 export declare class GetMerchantMonthlyExpenditureRequestClass {
-	/**
-	 * The user ID associated with the request.
-	 */
-	userId: number;
-	/**
-	 * The month for which merchant monthly expenditure is requested (optional).
-	 */
-	month?: number;
-	/**
-	 * The merchant name for filtering the records (optional).
-	 */
-	merchantName?: string;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetMerchantMonthlyExpenditureRequest.
-	 * @param partialRequest Partial request object to initialize the GetMerchantMonthlyExpenditureRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetMerchantMonthlyExpenditureRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetMerchantMonthlyExpenditureRequestClass>);
+  /**
+   * The user ID associated with the request.
+   */
+  userId: number;
+  /**
+   * The month for which merchant monthly expenditure is requested (optional).
+   */
+  month?: number;
+  /**
+   * The merchant name for filtering the records (optional).
+   */
+  merchantName?: string;
+  /**
+   * The page number of the requested data.
+   */
+  pageNumber: number;
+  /**
+   * Number of items to return per page.
+   */
+  pageSize: number;
+  /**
+   * Creates a new instance of GetMerchantMonthlyExpenditureRequest.
+   * @param partialRequest Partial request object to initialize the GetMerchantMonthlyExpenditureRequest.
+   * @remarks You can use this constructor to create a partial instance of GetMerchantMonthlyExpenditureRequest.
+   *          You can later populate the additional properties manually if needed.
+   */
+  constructor(
+    partialRequest: Partial<GetMerchantMonthlyExpenditureRequestClass>,
+  );
 }
 /**
  * Represents the response for getting merchant monthly expenditure.
  */
 export declare class GetMerchantMonthlyExpenditureResponseClass extends ErrorResponse {
-	/**
-	 * List of merchant monthly expenditures.
-	 */
-	merchantMonthlyExpenditures: MerchantMonthlyExpenditure[];
-	/**
-	 * The page number of the next set of data.
-	 */
-	nextPageNumber: number;
-	/**
-	 * Creates a new instance of GetMerchantMonthlyExpenditureResponse.
-	 * @param merchantMonthlyExpenditures List of merchant monthly expenditures.
-	 * @param nextPageNumber The page number of the next set of data.
-	 */
-	constructor(data?: Partial<GetMerchantMonthlyExpenditureResponseClass>);
+  /**
+   * List of merchant monthly expenditures.
+   */
+  merchantMonthlyExpenditures: MerchantMonthlyExpenditure[];
+  /**
+   * The page number of the next set of data.
+   */
+  nextPageNumber: number;
+  /**
+   * Creates a new instance of GetMerchantMonthlyExpenditureResponse.
+   * @param merchantMonthlyExpenditures List of merchant monthly expenditures.
+   * @param nextPageNumber The page number of the next set of data.
+   */
+  constructor(data?: Partial<GetMerchantMonthlyExpenditureResponseClass>);
 }
 /**
  * Represents the request for getting monthly balance.
  */
 export declare class GetMonthlyBalanceRequestClass {
-	/**
-	 * The user ID associated with the request.
-	 */
-	userId: number;
-	/**
-	 * The month for which monthly balance is requested (optional).
-	 */
-	month?: number;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetMonthlyBalanceRequest.
-	 * @param partialRequest Partial request object to initialize the GetMonthlyBalanceRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetMonthlyBalanceRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetMonthlyBalanceRequestClass>);
+  /**
+   * The user ID associated with the request.
+   */
+  userId: number;
+  /**
+   * The month for which monthly balance is requested (optional).
+   */
+  month?: number;
+  /**
+   * The page number of the requested data.
+   */
+  pageNumber: number;
+  /**
+   * Number of items to return per page.
+   */
+  pageSize: number;
+  /**
+   * Creates a new instance of GetMonthlyBalanceRequest.
+   * @param partialRequest Partial request object to initialize the GetMonthlyBalanceRequest.
+   * @remarks You can use this constructor to create a partial instance of GetMonthlyBalanceRequest.
+   *          You can later populate the additional properties manually if needed.
+   */
+  constructor(partialRequest: Partial<GetMonthlyBalanceRequestClass>);
 }
 /**
  * Represents the response for getting monthly balance.
  */
 export declare class GetMonthlyBalanceResponseClass extends ErrorResponse {
-	/**
-	 * List of monthly balances.
-	 */
-	monthlyBalances: MonthlyBalance[];
-	/**
-	 * The page number of the next set of data.
-	 */
-	nextPageNumber: number;
-	/**
-	 * Creates a new instance of GetMonthlyBalanceResponse.
-	 * @param monthlyBalances List of monthly balances.
-	 * @param nextPageNumber The page number of the next set of data.
-	 */
-	constructor(data?: Partial<GetMonthlyBalanceResponseClass>);
+  /**
+   * List of monthly balances.
+   */
+  monthlyBalances: MonthlyBalance[];
+  /**
+   * The page number of the next set of data.
+   */
+  nextPageNumber: number;
+  /**
+   * Creates a new instance of GetMonthlyBalanceResponse.
+   * @param monthlyBalances List of monthly balances.
+   * @param nextPageNumber The page number of the next set of data.
+   */
+  constructor(data?: Partial<GetMonthlyBalanceResponseClass>);
 }
 /**
  * Represents the request for getting monthly expenditure.
  */
 export declare class GetMonthlyExpenditureRequestClass {
-	/**
-	 * The user ID associated with the request.
-	 */
-	userId: number;
-	/**
-	 * The month for which monthly expenditure is requested.
-	 */
-	month: number;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetMonthlyExpenditureRequest.
-	 * @param partialRequest Partial request object to initialize the GetMonthlyExpenditureRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetMonthlyExpenditureRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetMonthlyExpenditureRequestClass>);
+  /**
+   * The user ID associated with the request.
+   */
+  userId: number;
+  /**
+   * The month for which monthly expenditure is requested.
+   */
+  month: number;
+  /**
+   * The page number of the requested data.
+   */
+  pageNumber: number;
+  /**
+   * Number of items to return per page.
+   */
+  pageSize: number;
+  /**
+   * Creates a new instance of GetMonthlyExpenditureRequest.
+   * @param partialRequest Partial request object to initialize the GetMonthlyExpenditureRequest.
+   * @remarks You can use this constructor to create a partial instance of GetMonthlyExpenditureRequest.
+   *          You can later populate the additional properties manually if needed.
+   */
+  constructor(partialRequest: Partial<GetMonthlyExpenditureRequestClass>);
 }
 /**
  * Represents the response for getting monthly expenditure.
  */
 export declare class GetMonthlyExpenditureResponseClass extends ErrorResponse {
-	/**
-	 * List of monthly expenditures.
-	 */
-	monthlyExpenditures: MonthlyExpenditure[];
-	/**
-	 * The page number of the next set of data.
-	 */
-	nextPageNumber: number;
-	/**
-	 * Creates a new instance of GetMonthlyExpenditureResponse.
-	 * @param monthlyExpenditures List of monthly expenditures.
-	 * @param nextPageNumber The page number of the next set of data.
-	 */
-	constructor(data?: Partial<GetMonthlyExpenditureResponseClass>);
+  /**
+   * List of monthly expenditures.
+   */
+  monthlyExpenditures: MonthlyExpenditure[];
+  /**
+   * The page number of the next set of data.
+   */
+  nextPageNumber: number;
+  /**
+   * Creates a new instance of GetMonthlyExpenditureResponse.
+   * @param monthlyExpenditures List of monthly expenditures.
+   * @param nextPageNumber The page number of the next set of data.
+   */
+  constructor(data?: Partial<GetMonthlyExpenditureResponseClass>);
 }
 /**
  * Represents the request for getting monthly income.
  */
 export declare class GetMonthlyIncomeRequestClass {
-	/**
-	 * The user ID associated with the request.
-	 */
-	userId: number;
-	/**
-	 * The month for which monthly income is requested.
-	 */
-	month: number;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetMonthlyIncomeRequest.
-	 * @param partialRequest Partial request object to initialize the GetMonthlyIncomeRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetMonthlyIncomeRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetMonthlyIncomeRequestClass>);
+  /**
+   * The user ID associated with the request.
+   */
+  userId: number;
+  /**
+   * The month for which monthly income is requested.
+   */
+  month: number;
+  /**
+   * The page number of the requested data.
+   */
+  pageNumber: number;
+  /**
+   * Number of items to return per page.
+   */
+  pageSize: number;
+  /**
+   * Creates a new instance of GetMonthlyIncomeRequest.
+   * @param partialRequest Partial request object to initialize the GetMonthlyIncomeRequest.
+   * @remarks You can use this constructor to create a partial instance of GetMonthlyIncomeRequest.
+   *          You can later populate the additional properties manually if needed.
+   */
+  constructor(partialRequest: Partial<GetMonthlyIncomeRequestClass>);
 }
 /**
  * Represents the response for getting monthly income.
  */
 export declare class GetMonthlyIncomeResponseClass extends ErrorResponse {
-	/**
-	 * List of monthly incomes.
-	 */
-	monthlyIncomes: MonthlyIncome[];
-	/**
-	 * The page number of the next set of data.
-	 */
-	nextPageNumber: number;
-	/**
-	 * Creates a new instance of GetMonthlyIncomeResponse.
-	 * @param monthlyIncomes List of monthly incomes.
-	 * @param nextPageNumber The page number of the next set of data.
-	 */
-	constructor(data?: Partial<GetMonthlyIncomeResponseClass>);
+  /**
+   * List of monthly incomes.
+   */
+  monthlyIncomes: MonthlyIncome[];
+  /**
+   * The page number of the next set of data.
+   */
+  nextPageNumber: number;
+  /**
+   * Creates a new instance of GetMonthlyIncomeResponse.
+   * @param monthlyIncomes List of monthly incomes.
+   * @param nextPageNumber The page number of the next set of data.
+   */
+  constructor(data?: Partial<GetMonthlyIncomeResponseClass>);
 }
 /**
  * Represents the request for getting monthly savings.
  */
 export declare class GetMonthlySavingsRequestClass {
-	/**
-	 * The user ID associated with the request.
-	 */
-	userId: number;
-	/**
-	 * The month for which monthly savings is requested.
-	 */
-	month: number;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetMonthlySavingsRequest.
-	 * @param partialRequest Partial request object to initialize the GetMonthlySavingsRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetMonthlySavingsRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetMonthlySavingsRequestClass>);
+  /**
+   * The user ID associated with the request.
+   */
+  userId: number;
+  /**
+   * The month for which monthly savings is requested.
+   */
+  month: number;
+  /**
+   * The page number of the requested data.
+   */
+  pageNumber: number;
+  /**
+   * Number of items to return per page.
+   */
+  pageSize: number;
+  /**
+   * Creates a new instance of GetMonthlySavingsRequest.
+   * @param partialRequest Partial request object to initialize the GetMonthlySavingsRequest.
+   * @remarks You can use this constructor to create a partial instance of GetMonthlySavingsRequest.
+   *          You can later populate the additional properties manually if needed.
+   */
+  constructor(partialRequest: Partial<GetMonthlySavingsRequestClass>);
 }
 /**
  * Represents the response for getting monthly savings.
  */
 export declare class GetMonthlySavingsResponseClass extends ErrorResponse {
-	/**
-	 * List of monthly savings.
-	 */
-	monthlySavings: MonthlySavings[];
-	/**
-	 * The page number of the next set of data.
-	 */
-	nextPageNumber: number;
-	/**
-	 * Creates a new instance of GetMonthlySavingsResponse.
-	 * @param monthlySavings List of monthly savings.
-	 * @param nextPageNumber The page number of the next set of data.
-	 */
-	constructor(data?: Partial<GetMonthlySavingsResponseClass>);
+  /**
+   * List of monthly savings.
+   */
+  monthlySavings: MonthlySavings[];
+  /**
+   * The page number of the next set of data.
+   */
+  nextPageNumber: number;
+  /**
+   * Creates a new instance of GetMonthlySavingsResponse.
+   * @param monthlySavings List of monthly savings.
+   * @param nextPageNumber The page number of the next set of data.
+   */
+  constructor(data?: Partial<GetMonthlySavingsResponseClass>);
 }
 /**
  * Represents the request for getting monthly total quantity by security and user.
  */
 export declare class GetMonthlyTotalQuantityBySecurityAndUserRequestClass {
-	/**
-	 * The user ID associated with the request.
-	 */
-	userId: number;
-	/**
-	 * The month for which monthly total quantity is requested.
-	 */
-	month: number;
-	/**
-	 * The security ID for filtering the records.
-	 */
-	securityId: string;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetMonthlyTotalQuantityBySecurityAndUserRequest.
-	 * @param partialRequest Partial request object to initialize the GetMonthlyTotalQuantityBySecurityAndUserRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetMonthlyTotalQuantityBySecurityAndUserRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetMonthlyTotalQuantityBySecurityAndUserRequestClass>);
+  /**
+   * The user ID associated with the request.
+   */
+  userId: number;
+  /**
+   * The month for which monthly total quantity is requested.
+   */
+  month: number;
+  /**
+   * The security ID for filtering the records.
+   */
+  securityId: string;
+  /**
+   * The page number of the requested data.
+   */
+  pageNumber: number;
+  /**
+   * Number of items to return per page.
+   */
+  pageSize: number;
+  /**
+   * Creates a new instance of GetMonthlyTotalQuantityBySecurityAndUserRequest.
+   * @param partialRequest Partial request object to initialize the GetMonthlyTotalQuantityBySecurityAndUserRequest.
+   * @remarks You can use this constructor to create a partial instance of GetMonthlyTotalQuantityBySecurityAndUserRequest.
+   *          You can later populate the additional properties manually if needed.
+   */
+  constructor(
+    partialRequest: Partial<GetMonthlyTotalQuantityBySecurityAndUserRequestClass>,
+  );
 }
 /**
  * Represents the response for getting monthly total quantity by security and user.
  */
 export declare class GetMonthlyTotalQuantityBySecurityAndUserResponseClass extends ErrorResponse {
-	/**
-	 * List of monthly total quantity by security and user.
-	 */
-	monthlyTotalQuantityBySecurityAndUser: MonthlyTotalQuantityBySecurityAndUser[];
-	/**
-	 * The page number of the next set of data.
-	 */
-	nextPageNumber: number;
-	/**
-	 * Creates a new instance of GetMonthlyTotalQuantityBySecurityAndUserResponse.
-	 * @param monthlyTotalQuantityBySecurityAndUser List of monthly total quantity by security and user.
-	 * @param nextPageNumber The page number of the next set of data.
-	 */
-	constructor(data?: Partial<GetMonthlyTotalQuantityBySecurityAndUserResponseClass>);
+  /**
+   * List of monthly total quantity by security and user.
+   */
+  monthlyTotalQuantityBySecurityAndUser: MonthlyTotalQuantityBySecurityAndUser[];
+  /**
+   * The page number of the next set of data.
+   */
+  nextPageNumber: number;
+  /**
+   * Creates a new instance of GetMonthlyTotalQuantityBySecurityAndUserResponse.
+   * @param monthlyTotalQuantityBySecurityAndUser List of monthly total quantity by security and user.
+   * @param nextPageNumber The page number of the next set of data.
+   */
+  constructor(
+    data?: Partial<GetMonthlyTotalQuantityBySecurityAndUserResponseClass>,
+  );
 }
 /**
  * Represents the request for getting monthly transaction count.
  */
 export declare class GetMonthlyTransactionCountRequestClass {
-	/**
-	 * The user ID associated with the request.
-	 */
-	userId: number;
-	/**
-	 * The month for which monthly transaction count is requested.
-	 */
-	month: number;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetMonthlyTransactionCountRequest.
-	 * @param partialRequest Partial request object to initialize the GetMonthlyTransactionCountRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetMonthlyTransactionCountRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetMonthlyTransactionCountRequestClass>);
+  /**
+   * The user ID associated with the request.
+   */
+  userId: number;
+  /**
+   * The month for which monthly transaction count is requested.
+   */
+  month: number;
+  /**
+   * The page number of the requested data.
+   */
+  pageNumber: number;
+  /**
+   * Number of items to return per page.
+   */
+  pageSize: number;
+  /**
+   * Creates a new instance of GetMonthlyTransactionCountRequest.
+   * @param partialRequest Partial request object to initialize the GetMonthlyTransactionCountRequest.
+   * @remarks You can use this constructor to create a partial instance of GetMonthlyTransactionCountRequest.
+   *          You can later populate the additional properties manually if needed.
+   */
+  constructor(partialRequest: Partial<GetMonthlyTransactionCountRequestClass>);
 }
 /**
  * Represents the response for getting monthly transaction count.
  */
 export declare class GetMonthlyTransactionCountResponseClass extends ErrorResponse {
-	/**
-	 * List of monthly transaction counts.
-	 */
-	monthlyTransactionCounts: MonthlyTransactionCount[];
-	/**
-	 * The page number of the next set of data.
-	 */
-	nextPageNumber: number;
-	/**
-	 * Creates a new instance of GetMonthlyTransactionCountResponse.
-	 * @param monthlyTransactionCounts List of monthly transaction counts.
-	 * @param nextPageNumber The page number of the next set of data.
-	 */
-	constructor(data?: Partial<GetMonthlyTransactionCountResponseClass>);
+  /**
+   * List of monthly transaction counts.
+   */
+  monthlyTransactionCounts: MonthlyTransactionCount[];
+  /**
+   * The page number of the next set of data.
+   */
+  nextPageNumber: number;
+  /**
+   * Creates a new instance of GetMonthlyTransactionCountResponse.
+   * @param monthlyTransactionCounts List of monthly transaction counts.
+   * @param nextPageNumber The page number of the next set of data.
+   */
+  constructor(data?: Partial<GetMonthlyTransactionCountResponseClass>);
 }
 /**
  * Represents the request for getting payment channel monthly expenditure.
  */
 export declare class GetPaymentChannelMonthlyExpenditureRequestClass {
-	/**
-	 * The user ID associated with the request.
-	 */
-	userId: number;
-	/**
-	 * The month for which payment channel monthly expenditure is requested.
-	 */
-	month: number;
-	/**
-	 * The payment channel for filtering the records.
-	 */
-	paymentChannel: string;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetPaymentChannelMonthlyExpenditureRequest.
-	 * @param partialRequest Partial request object to initialize the GetPaymentChannelMonthlyExpenditureRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetPaymentChannelMonthlyExpenditureRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetPaymentChannelMonthlyExpenditureRequestClass>);
+  /**
+   * The user ID associated with the request.
+   */
+  userId: number;
+  /**
+   * The month for which payment channel monthly expenditure is requested.
+   */
+  month: number;
+  /**
+   * The payment channel for filtering the records.
+   */
+  paymentChannel: string;
+  /**
+   * The page number of the requested data.
+   */
+  pageNumber: number;
+  /**
+   * Number of items to return per page.
+   */
+  pageSize: number;
+  /**
+   * Creates a new instance of GetPaymentChannelMonthlyExpenditureRequest.
+   * @param partialRequest Partial request object to initialize the GetPaymentChannelMonthlyExpenditureRequest.
+   * @remarks You can use this constructor to create a partial instance of GetPaymentChannelMonthlyExpenditureRequest.
+   *          You can later populate the additional properties manually if needed.
+   */
+  constructor(
+    partialRequest: Partial<GetPaymentChannelMonthlyExpenditureRequestClass>,
+  );
 }
 /**
  * Represents the response for getting payment channel monthly expenditure.
  */
 export declare class GetPaymentChannelMonthlyExpenditureResponseClass extends ErrorResponse {
-	/**
-	 * List of payment channel monthly expenditures.
-	 */
-	paymentChannelMonthlyExpenditure: PaymentChannelMonthlyExpenditure[];
-	/**
-	 * The page number of the next set of data.
-	 */
-	nextPageNumber: number;
-	/**
-	 * Creates a new instance of GetPaymentChannelMonthlyExpenditureResponse.
-	 * @param paymentChannelMonthlyExpenditure List of payment channel monthly expenditures.
-	 * @param nextPageNumber The page number of the next set of data.
-	 */
-	constructor(data?: Partial<GetPaymentChannelMonthlyExpenditureResponseClass>);
+  /**
+   * List of payment channel monthly expenditures.
+   */
+  paymentChannelMonthlyExpenditure: PaymentChannelMonthlyExpenditure[];
+  /**
+   * The page number of the next set of data.
+   */
+  nextPageNumber: number;
+  /**
+   * Creates a new instance of GetPaymentChannelMonthlyExpenditureResponse.
+   * @param paymentChannelMonthlyExpenditure List of payment channel monthly expenditures.
+   * @param nextPageNumber The page number of the next set of data.
+   */
+  constructor(data?: Partial<GetPaymentChannelMonthlyExpenditureResponseClass>);
 }
 export declare class GetReCurringTransactionsRequestClass {
-	/**
-	 * The user id
-	 * Validations:
-	 * - user_id must be greater than 0
-	 */
-	userId: number;
-	constructor(data?: Partial<GetReCurringTransactionsRequestClass>);
+  /**
+   * The user id
+   * Validations:
+   * - user_id must be greater than 0
+   */
+  userId: number;
+  constructor(data?: Partial<GetReCurringTransactionsRequestClass>);
 }
 export declare class GetReCurringTransactionsResponseClass extends ErrorResponse {
-	reCcuringTransactions: ReOccuringTransaction[];
-	constructor(data: Partial<GetReCurringTransactionsResponseClass>);
+  reCcuringTransactions: ReOccuringTransaction[];
+  constructor(data: Partial<GetReCurringTransactionsResponseClass>);
 }
 /**
  * Represents the request for getting total investment by security.
  */
 export declare class GetTotalInvestmentBySecurityRequestClass {
-	/**
-	 * The user ID associated with the request.
-	 */
-	userId: number;
-	/**
-	 * The security ID for filtering the records.
-	 */
-	securityId: string;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetTotalInvestmentBySecurityRequest.
-	 * @param partialRequest Partial request object to initialize the GetTotalInvestmentBySecurityRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetTotalInvestmentBySecurityRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetTotalInvestmentBySecurityRequestClass>);
+  /**
+   * The user ID associated with the request.
+   */
+  userId: number;
+  /**
+   * The security ID for filtering the records.
+   */
+  securityId: string;
+  /**
+   * The page number of the requested data.
+   */
+  pageNumber: number;
+  /**
+   * Number of items to return per page.
+   */
+  pageSize: number;
+  /**
+   * Creates a new instance of GetTotalInvestmentBySecurityRequest.
+   * @param partialRequest Partial request object to initialize the GetTotalInvestmentBySecurityRequest.
+   * @remarks You can use this constructor to create a partial instance of GetTotalInvestmentBySecurityRequest.
+   *          You can later populate the additional properties manually if needed.
+   */
+  constructor(
+    partialRequest: Partial<GetTotalInvestmentBySecurityRequestClass>,
+  );
 }
 /**
  * Represents the response for getting total investment by security.
  */
 export declare class GetTotalInvestmentBySecurityResponseClass extends ErrorResponse {
-	/**
-	 * List of total investment by security.
-	 */
-	totalInvestmentBySecurity: TotalInvestmentBySecurity[];
-	/**
-	 * The page number of the next set of data.
-	 */
-	nextPageNumber: number;
-	/**
-	 * Creates a new instance of GetTotalInvestmentBySecurityResponse.
-	 * @param totalInvestmentBySecurity List of total investment by security.
-	 * @param nextPageNumber The page number of the next set of data.
-	 */
-	constructor(data?: Partial<GetTotalInvestmentBySecurityResponseClass>);
+  /**
+   * List of total investment by security.
+   */
+  totalInvestmentBySecurity: TotalInvestmentBySecurity[];
+  /**
+   * The page number of the next set of data.
+   */
+  nextPageNumber: number;
+  /**
+   * Creates a new instance of GetTotalInvestmentBySecurityResponse.
+   * @param totalInvestmentBySecurity List of total investment by security.
+   * @param nextPageNumber The page number of the next set of data.
+   */
+  constructor(data?: Partial<GetTotalInvestmentBySecurityResponseClass>);
 }
 export declare class GetTransactionAggregatesResponseClass extends ErrorResponse {
-	transactionAggregates: TransactionAggregatesByMonth[];
-	nextPageNumber: number;
-	constructor(data?: Partial<GetTransactionAggregatesResponseClass>);
+  transactionAggregates: TransactionAggregatesByMonth[];
+  nextPageNumber: number;
+  constructor(data?: Partial<GetTransactionAggregatesResponseClass>);
 }
 export declare class GetTransactionAggregatesRequestClass {
-	/**
-	 * The user ID associated with the request.
-	 */
-	userId: number;
-	/**
-	 * The month for which transaction aggregates are requested (in the format YYYYMM).
-	 */
-	month: number;
-	/**
-	 * The primary personal finance category for filtering the transactions.
-	 */
-	personalFinanceCategoryPrimary: string;
-	/**
-	 * The city location for filtering the transactions.
-	 */
-	locationCity: string;
-	/**
-	 * The payment channel for filtering the transactions.
-	 */
-	paymentChannel: string;
-	/**
-	 * The merchant name for filtering the transactions.
-	 */
-	merchantName: string;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetTransactionAggregatesRequest.
-	 * @param partialRequest Partial request object to initialize the GetTransactionAggregatesRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetTransactionAggregatesRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetTransactionAggregatesRequestClass>);
+  /**
+   * The user ID associated with the request.
+   */
+  userId: number;
+  /**
+   * The month for which transaction aggregates are requested (in the format YYYYMM).
+   */
+  month: number;
+  /**
+   * The primary personal finance category for filtering the transactions.
+   */
+  personalFinanceCategoryPrimary: string;
+  /**
+   * The city location for filtering the transactions.
+   */
+  locationCity: string;
+  /**
+   * The payment channel for filtering the transactions.
+   */
+  paymentChannel: string;
+  /**
+   * The merchant name for filtering the transactions.
+   */
+  merchantName: string;
+  /**
+   * The page number of the requested data.
+   */
+  pageNumber: number;
+  /**
+   * Number of items to return per page.
+   */
+  pageSize: number;
+  /**
+   * Creates a new instance of GetTransactionAggregatesRequest.
+   * @param partialRequest Partial request object to initialize the GetTransactionAggregatesRequest.
+   * @remarks You can use this constructor to create a partial instance of GetTransactionAggregatesRequest.
+   *          You can later populate the additional properties manually if needed.
+   */
+  constructor(partialRequest: Partial<GetTransactionAggregatesRequestClass>);
 }
 /**
  * Represents the response for getting transactions for a bank account.
  */
 export declare class GetTransactionsForBankAccountResponseClass extends ErrorResponse {
-	/**
-	 * An array of transactions for the bank account.
-	 */
-	transactions: Transaction[];
-	/**
-	 * The page number of the next set of transactions.
-	 */
-	nextPageNumber: number;
-	/**
-	 * Creates a new instance of GetTransactionsForBankAccountResponse.
-	 * @param transactions An array of transactions for the bank account.
-	 * @param nextPageNumber The page number of the next set of transactions.
-	 */
-	constructor(data: GetTransactionsForBankAccountResponseClass);
+  /**
+   * An array of transactions for the bank account.
+   */
+  transactions: Transaction[];
+  /**
+   * The page number of the next set of transactions.
+   */
+  nextPageNumber: number;
+  /**
+   * Creates a new instance of GetTransactionsForBankAccountResponse.
+   * @param transactions An array of transactions for the bank account.
+   * @param nextPageNumber The page number of the next set of transactions.
+   */
+  constructor(data: GetTransactionsForBankAccountResponseClass);
 }
 /**
  * Class representing a request to get transactions for a bank account.
  */
 export declare class GetTransactionsForBankAccountRequestClass {
-	/** The user id */
-	userId: number;
-	/** Plaid account id */
-	plaidAccountId: string;
-	/** Page number for paginated results */
-	pageNumber: number;
-	/** Page size for paginated results */
-	pageSize: number;
-	/**
-	 * Create a request to get transactions for a bank account.
-	 * @param {Partial<GetTransactionsForBankAccountRequest>} data - Object containing any properties of a request.
-	 */
-	constructor(data: Partial<GetTransactionsForBankAccountRequestClass>);
+  /** The user id */
+  userId: number;
+  /** Plaid account id */
+  plaidAccountId: string;
+  /** Page number for paginated results */
+  pageNumber: number;
+  /** Page size for paginated results */
+  pageSize: number;
+  /**
+   * Create a request to get transactions for a bank account.
+   * @param {Partial<GetTransactionsForBankAccountRequest>} data - Object containing any properties of a request.
+   */
+  constructor(data: Partial<GetTransactionsForBankAccountRequestClass>);
 }
 /**
  * GetTransactionsRequest class
@@ -8729,319 +8896,335 @@ export declare class GetTransactionsForBankAccountRequestClass {
  * Represents a request for getting transactions.
  */
 export declare class GetTransactionsRequestClass {
-	/**
-	 * The user ID.
-	 * Validations:
-	 * - Must be greater than 0.
-	 */
-	userId: number;
-	/**
-	 * The page number.
-	 */
-	pageNumber: number;
-	/**
-	 * The number of transactions per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates an instance of GetTransactionsRequest.
-	 *
-	 * @param data - The data to initialize the request.
-	 */
-	constructor(data: Partial<GetTransactionsRequestClass>);
+  /**
+   * The user ID.
+   * Validations:
+   * - Must be greater than 0.
+   */
+  userId: number;
+  /**
+   * The page number.
+   */
+  pageNumber: number;
+  /**
+   * The number of transactions per page.
+   */
+  pageSize: number;
+  /**
+   * Creates an instance of GetTransactionsRequest.
+   *
+   * @param data - The data to initialize the request.
+   */
+  constructor(data: Partial<GetTransactionsRequestClass>);
 }
 export declare class GetTransactionsResponseClass extends ErrorResponse {
-	nextPageNumber: number | undefined;
-	transactions: Transaction[] | undefined;
-	constructor(data: Partial<GetTransactionsResponseClass>);
+  nextPageNumber: number | undefined;
+  transactions: Transaction[] | undefined;
+  constructor(data: Partial<GetTransactionsResponseClass>);
 }
 export declare class GetUpdatedUserAccountResponseClass extends ErrorResponse {
-	account: UserAccount | undefined;
-	constructor(data: Partial<GetUpdatedUserAccountResponseClass>);
+  account: UserAccount | undefined;
+  constructor(data: Partial<GetUpdatedUserAccountResponseClass>);
 }
 /**
  * Represents the response for getting user account balance history.
  */
 export declare class GetUserAccountBalanceHistoryResponseClass extends ErrorResponse {
-	/**
-	 * List of account balance history records.
-	 */
-	accountBalanceHistory: AccountBalanceHistory[];
-	constructor(data: Partial<GetUserAccountBalanceHistoryResponseClass>);
+  /**
+   * List of account balance history records.
+   */
+  accountBalanceHistory: AccountBalanceHistory[];
+  constructor(data: Partial<GetUserAccountBalanceHistoryResponseClass>);
 }
 /**
  * Represents the request for getting user account balance history.
  */
 export declare class GetUserAccountBalanceHistoryRequestClass {
-	/**
-	 * The user ID associated with the request.
-	 */
-	userId: number;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetUserAccountBalanceHistoryRequest.
-	 * @param partialRequest Partial request object to initialize the GetUserAccountBalanceHistoryRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetUserAccountBalanceHistoryRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetUserAccountBalanceHistoryRequestClass>);
+  /**
+   * The user ID associated with the request.
+   */
+  userId: number;
+  /**
+   * The page number of the requested data.
+   */
+  pageNumber: number;
+  /**
+   * Number of items to return per page.
+   */
+  pageSize: number;
+  /**
+   * Creates a new instance of GetUserAccountBalanceHistoryRequest.
+   * @param partialRequest Partial request object to initialize the GetUserAccountBalanceHistoryRequest.
+   * @remarks You can use this constructor to create a partial instance of GetUserAccountBalanceHistoryRequest.
+   *          You can later populate the additional properties manually if needed.
+   */
+  constructor(
+    partialRequest: Partial<GetUserAccountBalanceHistoryRequestClass>,
+  );
 }
 /**
  * Represents the request for getting user category monthly expenditure.
  */
 export declare class GetUserCategoryMonthlyExpenditureRequestClass {
-	/**
-	 * The user ID associated with the request.
-	 */
-	userId: number;
-	/**
-	 * The primary personal finance category for filtering the records.
-	 */
-	personalFinanceCategoryPrimary: string;
-	/**
-	 * The month for which category monthly expenditure is requested (in the format YYYYMM).
-	 */
-	month: number;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetUserCategoryMonthlyExpenditureRequest.
-	 * @param partialRequest Partial request object to initialize the GetUserCategoryMonthlyExpenditureRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetUserCategoryMonthlyExpenditureRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetUserCategoryMonthlyExpenditureRequestClass>);
+  /**
+   * The user ID associated with the request.
+   */
+  userId: number;
+  /**
+   * The primary personal finance category for filtering the records.
+   */
+  personalFinanceCategoryPrimary: string;
+  /**
+   * The month for which category monthly expenditure is requested (in the format YYYYMM).
+   */
+  month: number;
+  /**
+   * The page number of the requested data.
+   */
+  pageNumber: number;
+  /**
+   * Number of items to return per page.
+   */
+  pageSize: number;
+  /**
+   * Creates a new instance of GetUserCategoryMonthlyExpenditureRequest.
+   * @param partialRequest Partial request object to initialize the GetUserCategoryMonthlyExpenditureRequest.
+   * @remarks You can use this constructor to create a partial instance of GetUserCategoryMonthlyExpenditureRequest.
+   *          You can later populate the additional properties manually if needed.
+   */
+  constructor(
+    partialRequest: Partial<GetUserCategoryMonthlyExpenditureRequestClass>,
+  );
 }
 export declare class GetUserCategoryMonthlyExpenditureResponseClass extends ErrorResponse {
-	categoryMonthlyExpenditure: CategoryMonthlyExpenditure[];
-	nextPageNumber: number;
-	constructor(data?: Partial<GetUserCategoryMonthlyExpenditureResponseClass>);
+  categoryMonthlyExpenditure: CategoryMonthlyExpenditure[];
+  nextPageNumber: number;
+  constructor(data?: Partial<GetUserCategoryMonthlyExpenditureResponseClass>);
 }
 /**
  * Represents the request for getting user category monthly income.
  */
 export declare class GetUserCategoryMonthlyIncomeRequestClass {
-	/**
-	 * The user ID associated with the request.
-	 */
-	userId: number;
-	/**
-	 * The primary personal finance category for filtering the records.
-	 */
-	personalFinanceCategoryPrimary: string;
-	/**
-	 * The month for which category monthly income is requested (in the format YYYYMM).
-	 */
-	month: number;
-	/**
-	 * The page number of the requested data.
-	 */
-	pageNumber: number;
-	/**
-	 * Number of items to return per page.
-	 */
-	pageSize: number;
-	/**
-	 * Creates a new instance of GetUserCategoryMonthlyIncomeRequest.
-	 * @param partialRequest Partial request object to initialize the GetUserCategoryMonthlyIncomeRequest.
-	 * @remarks You can use this constructor to create a partial instance of GetUserCategoryMonthlyIncomeRequest.
-	 *          You can later populate the additional properties manually if needed.
-	 */
-	constructor(partialRequest: Partial<GetUserCategoryMonthlyIncomeRequestClass>);
+  /**
+   * The user ID associated with the request.
+   */
+  userId: number;
+  /**
+   * The primary personal finance category for filtering the records.
+   */
+  personalFinanceCategoryPrimary: string;
+  /**
+   * The month for which category monthly income is requested (in the format YYYYMM).
+   */
+  month: number;
+  /**
+   * The page number of the requested data.
+   */
+  pageNumber: number;
+  /**
+   * Number of items to return per page.
+   */
+  pageSize: number;
+  /**
+   * Creates a new instance of GetUserCategoryMonthlyIncomeRequest.
+   * @param partialRequest Partial request object to initialize the GetUserCategoryMonthlyIncomeRequest.
+   * @remarks You can use this constructor to create a partial instance of GetUserCategoryMonthlyIncomeRequest.
+   *          You can later populate the additional properties manually if needed.
+   */
+  constructor(
+    partialRequest: Partial<GetUserCategoryMonthlyIncomeRequestClass>,
+  );
 }
 export declare class GetUserCategoryMonthlyIncomeResponseClass extends ErrorResponse {
-	categoryMonthlyIncome: CategoryMonthlyIncome[];
-	nextPageNumber: number;
-	constructor(data?: Partial<GetUserCategoryMonthlyIncomeResponseClass>);
+  categoryMonthlyIncome: CategoryMonthlyIncome[];
+  nextPageNumber: number;
+  constructor(data?: Partial<GetUserCategoryMonthlyIncomeResponseClass>);
 }
 export interface RequestPasswordResetRequestClass {
-	email: string;
+  email: string;
 }
 export declare class RequestPasswordResetResponseClass extends ErrorResponse {
-	success: boolean;
-	constructor(data: Partial<RequestPasswordResetResponseClass>);
+  success: boolean;
+  constructor(data: Partial<RequestPasswordResetResponseClass>);
 }
 export declare class PlaidExchangeTokenRequestClass {
-	/**
-	 * The user id
-	 * Validations:
-	 * - user_id must be greater than 0
-	 */
-	userId: number;
-	/**
-	 * The public token
-	 * Validations:
-	 * - cannot be nil hence required
-	 */
-	publicToken: string;
-	/** The institution id */
-	institutionId: string;
-	/** The institution name */
-	institutionName: string;
-	constructor(data?: Partial<PlaidExchangeTokenRequestClass>);
+  /**
+   * The user id
+   * Validations:
+   * - user_id must be greater than 0
+   */
+  userId: number;
+  /**
+   * The public token
+   * Validations:
+   * - cannot be nil hence required
+   */
+  publicToken: string;
+  /** The institution id */
+  institutionId: string;
+  /** The institution name */
+  institutionName: string;
+  constructor(data?: Partial<PlaidExchangeTokenRequestClass>);
 }
 export declare class PlaidExchangeTokenResponseClass extends ErrorResponse {
-	/** wether the operation was successful */
-	success: boolean;
-	constructor(data?: Partial<PlaidExchangeTokenResponseClass>);
+  /** wether the operation was successful */
+  success: boolean;
+  constructor(data?: Partial<PlaidExchangeTokenResponseClass>);
 }
 export declare class PlaidInitiateTokenExchangeRequestClass {
-	/**
-	 * A unique ID representing the end user. Typically this will be a user ID number from your application.
-	 * Personally identifiable information, such as an email address or phone number,
-	 * should not be used in the `client_user_id`. It is currently used as a means of searching logs
-	 * for the given user in the Plaid Dashboard.
-	 * Validations:
-	 * - user_id must be greater than 0
-	 */
-	userId: number;
-	/**
-	 * The user's full legal name. This is an optional field used in
-	 * the [returning user experience](https://plaid.com/docs/link/returning-user) to associate Items to the user.
-	 */
-	fullName: string;
-	/**
-	 * The user's email address. This field is optional, but required to enable the
-	 * [pre-authenticated returning user flow](https://plaid.com/docs/link/returning-user/#enabling-the-returning-user-experience).
-	 */
-	email: string;
-	/**
-	 * The user's phone number in [E.164](https://en.wikipedia.org/wiki/E.164) format.
-	 * This field is optional, but required to enable the [returning user experience](https://plaid.com/docs/link/returning-user).
-	 */
-	phoneNumber: string;
-	constructor(data: Partial<PlaidInitiateTokenExchangeRequestClass>);
+  /**
+   * A unique ID representing the end user. Typically this will be a user ID number from your application.
+   * Personally identifiable information, such as an email address or phone number,
+   * should not be used in the `client_user_id`. It is currently used as a means of searching logs
+   * for the given user in the Plaid Dashboard.
+   * Validations:
+   * - user_id must be greater than 0
+   */
+  userId: number;
+  /**
+   * The user's full legal name. This is an optional field used in
+   * the [returning user experience](https://plaid.com/docs/link/returning-user) to associate Items to the user.
+   */
+  fullName: string;
+  /**
+   * The user's email address. This field is optional, but required to enable the
+   * [pre-authenticated returning user flow](https://plaid.com/docs/link/returning-user/#enabling-the-returning-user-experience).
+   */
+  email: string;
+  /**
+   * The user's phone number in [E.164](https://en.wikipedia.org/wiki/E.164) format.
+   * This field is optional, but required to enable the [returning user experience](https://plaid.com/docs/link/returning-user).
+   */
+  phoneNumber: string;
+  constructor(data: Partial<PlaidInitiateTokenExchangeRequestClass>);
 }
 export declare class PlaidInitiateTokenExchangeResponseClass {
-	linkToken: string;
-	expiration: string;
-	plaidRequestId: string;
-	constructor(data: Partial<PlaidInitiateTokenExchangeResponseClass>);
+  linkToken: string;
+  expiration: string;
+  plaidRequestId: string;
+  constructor(data: Partial<PlaidInitiateTokenExchangeResponseClass>);
 }
-export declare class PlaidLinkRequestClass implements PlaidInitiateTokenExchangeRequest {
-	/**
-	 * A unique ID representing the end user. Typically this will be a user ID number from your application.
-	 * Personally identifiable information, such as an email address or phone number,
-	 * should not be used in the `client_user_id`. It is currently used as a means of searching logs
-	 * for the given user in the Plaid Dashboard.
-	 * Validations:
-	 * - user_id must be greater than 0
-	 */
-	userId: string;
-	/**
-	 * The user's full legal name. This is an optional field used in
-	 * the [returning user experience](https://plaid.com/docs/link/returning-user) to associate Items to the user.
-	 */
-	fullName: string;
-	/**
-	 * The user's email address. This field is optional, but required to enable the
-	 * [pre-authenticated returning user flow](https://plaid.com/docs/link/returning-user/#enabling-the-returning-user-experience).
-	 */
-	email: string;
-	/**
-	 * The user's phone number in [E.164](https://en.wikipedia.org/wiki/E.164) format.
-	 * This field is optional, but required to enable the [returning user experience](https://plaid.com/docs/link/returning-user).
-	 */
-	phoneNumber: string;
-	profileType: FinancialUserProfileType;
-	constructor(data?: Partial<PlaidLinkRequestClass>);
+export declare class PlaidLinkRequestClass
+  implements PlaidInitiateTokenExchangeRequest
+{
+  /**
+   * A unique ID representing the end user. Typically this will be a user ID number from your application.
+   * Personally identifiable information, such as an email address or phone number,
+   * should not be used in the `client_user_id`. It is currently used as a means of searching logs
+   * for the given user in the Plaid Dashboard.
+   * Validations:
+   * - user_id must be greater than 0
+   */
+  userId: string;
+  /**
+   * The user's full legal name. This is an optional field used in
+   * the [returning user experience](https://plaid.com/docs/link/returning-user) to associate Items to the user.
+   */
+  fullName: string;
+  /**
+   * The user's email address. This field is optional, but required to enable the
+   * [pre-authenticated returning user flow](https://plaid.com/docs/link/returning-user/#enabling-the-returning-user-experience).
+   */
+  email: string;
+  /**
+   * The user's phone number in [E.164](https://en.wikipedia.org/wiki/E.164) format.
+   * This field is optional, but required to enable the [returning user experience](https://plaid.com/docs/link/returning-user).
+   */
+  phoneNumber: string;
+  profileType: FinancialUserProfileType;
+  constructor(data?: Partial<PlaidLinkRequestClass>);
 }
-export declare class PlaidLinkResponseClass extends ErrorResponse implements PlaidInitiateTokenExchangeResponse {
-	linkToken: string;
-	expiration: string;
-	plaidRequestId: string;
-	constructor(data?: Partial<PlaidLinkResponseClass>);
+export declare class PlaidLinkResponseClass
+  extends ErrorResponse
+  implements PlaidInitiateTokenExchangeResponse
+{
+  linkToken: string;
+  expiration: string;
+  plaidRequestId: string;
+  constructor(data?: Partial<PlaidLinkResponseClass>);
 }
-export declare class PlaidInitiateTokenUpdateRequestClass implements PlaidInitiateTokenUpdateRequest {
-	/**
-	 * The link id we want to update for
-	 * Validations:
-	 * - cannot be nil hence required
-	 * @format uint64
-	 */
-	linkId: string;
-	profileType: FinancialUserProfileType;
-	/**
-	 * The user id
-	 * Validations:
-	 * - user_id must be greater than 0
-	 * @format uint64
-	 */
-	userId: string;
-	constructor(data?: Partial<PlaidInitiateTokenUpdateRequestClass>);
+export declare class PlaidInitiateTokenUpdateRequestClass
+  implements PlaidInitiateTokenUpdateRequest
+{
+  /**
+   * The link id we want to update for
+   * Validations:
+   * - cannot be nil hence required
+   * @format uint64
+   */
+  linkId: string;
+  profileType: FinancialUserProfileType;
+  /**
+   * The user id
+   * Validations:
+   * - user_id must be greater than 0
+   * @format uint64
+   */
+  userId: string;
+  constructor(data?: Partial<PlaidInitiateTokenUpdateRequestClass>);
 }
-export declare class PlaidInitiateTokenUpdateResponseClass extends ErrorResponse implements PlaidInitiateTokenUpdateResponse {
-	linkToken: string;
-	expiration: string;
-	constructor(data: Partial<PlaidInitiateTokenUpdateResponseClass>);
+export declare class PlaidInitiateTokenUpdateResponseClass
+  extends ErrorResponse
+  implements PlaidInitiateTokenUpdateResponse
+{
+  linkToken: string;
+  expiration: string;
+  constructor(data: Partial<PlaidInitiateTokenUpdateResponseClass>);
 }
 /**
  * Represents a request to reset a password.
  */
 export interface ResetPasswordRequestClass {
-	/**
-	 * The new password that the user wants to set.
-	 */
-	password: string;
-	/**
-	 * A token that verifies the legitimacy of the reset password request.
-	 */
-	token: string;
+  /**
+   * The new password that the user wants to set.
+   */
+  password: string;
+  /**
+   * A token that verifies the legitimacy of the reset password request.
+   */
+  token: string;
 }
 /**
  * Represents a response containing a token.
  */
 export declare class ResetPasswordResponseClass {
-	/**
-	 * The token returned by the server, typically used for authentication purposes.
-	 */
-	token: string;
-	/**
-	 * A code indicating the status or result of the operation.
-	 */
-	code: number;
-	/**
-	 * An error message, if any occurred during the operation.
-	 */
-	err: string;
-	/**
-	 * Creates a new instance of `TokenResponse`.
-	 *
-	 * @param data - An object containing any subset of the `TokenResponse` properties.
-	 */
-	constructor(data: Partial<ResetPasswordResponseClass>);
+  /**
+   * The token returned by the server, typically used for authentication purposes.
+   */
+  token: string;
+  /**
+   * A code indicating the status or result of the operation.
+   */
+  code: number;
+  /**
+   * An error message, if any occurred during the operation.
+   */
+  err: string;
+  /**
+   * Creates a new instance of `TokenResponse`.
+   *
+   * @param data - An object containing any subset of the `TokenResponse` properties.
+   */
+  constructor(data: Partial<ResetPasswordResponseClass>);
 }
 /**
  * UpdateUserRequest: Represents the request object invoked against the user
  * service to update a given user account
  */
 export declare class UpdateUserAccountRequestClass implements IRequest {
-	/**
-	 * UserAccount to update
-	 * Validation:
-	 * - cannot nil hence required
-	 */
-	account: UserAccount | undefined;
-	constructor(data?: Partial<UpdateUserAccountRequestClass>);
-	isValid(): boolean;
+  /**
+   * UserAccount to update
+   * Validation:
+   * - cannot nil hence required
+   */
+  account: UserAccount | undefined;
+  constructor(data?: Partial<UpdateUserAccountRequestClass>);
+  isValid(): boolean;
 }
 export declare class UpdateUserAccountResponseClass extends ErrorResponse {
-	accountUpdated: boolean;
-	account: UserAccount | undefined;
-	constructor(data?: Partial<UpdateUserAccountResponseClass>);
+  accountUpdated: boolean;
+  account: UserAccount | undefined;
+  constructor(data?: Partial<UpdateUserAccountResponseClass>);
 }
 /**
  * Represents a request to create a user account or a business account.
@@ -9075,59 +9258,66 @@ export declare class UpdateUserAccountResponseClass extends ErrorResponse {
  * console.log(request.isValid()); // Outputs: true
  * console.log(request.randomInstance()); // Outputs: CreateAccountV2RequestClass
  */
-export declare class CreateAccountV2RequestClass implements IRequest, CreateUserV2Request {
-	businessAccount?: BusinessAccount;
-	communityIdsToFollow?: Array<string>;
-	password: string;
-	profileImage: string;
-	userAccount?: UserAccount;
-	constructor(request: Partial<CreateUserV2Request>);
-	isValid(): boolean;
-	static randomInstance(): CreateUserV2Request;
+export declare class CreateAccountV2RequestClass
+  implements IRequest, CreateUserV2Request
+{
+  businessAccount?: BusinessAccount;
+  communityIdsToFollow?: Array<string>;
+  password: string;
+  profileImage: string;
+  userAccount?: UserAccount;
+  constructor(request: Partial<CreateUserV2Request>);
+  isValid(): boolean;
+  static randomInstance(): CreateUserV2Request;
 }
-export declare class CreateUserV2ResponseClass extends ErrorResponse implements CreateUserV2Response {
-	/** @format uint64 */
-	userId?: string;
-	constructor(data?: Partial<CreateUserV2Response>);
-	static randomInstance(): CreateUserV2Response;
+export declare class CreateUserV2ResponseClass
+  extends ErrorResponse
+  implements CreateUserV2Response
+{
+  /** @format uint64 */
+  userId?: string;
+  constructor(data?: Partial<CreateUserV2Response>);
+  static randomInstance(): CreateUserV2Response;
 }
 /**
  * Represents individual data points for the chart.
  */
 export interface ChartData {
-	/** The name for this data point (typically represents a unit on the X-axis, like month or day). */
-	name: string;
-	/** Value for the 'uv' metric. */
-	uv: number;
-	/** Optional value for the 'pv' metric. */
-	pv?: number;
+  /** The name for this data point (typically represents a unit on the X-axis, like month or day). */
+  name: string;
+  /** Value for the 'uv' metric. */
+  uv: number;
+  /** Optional value for the 'pv' metric. */
+  pv?: number;
 }
 /**
  * Props for the CustomAreaChart component.
  */
 export interface CustomAreaChartProps {
-	/** Array of data points to plot on the chart. */
-	data: ChartData[];
-	/** Optional CSS class to be applied to the chart's outermost container. */
-	className?: string;
-	label: string;
-	enableGrid?: boolean;
+  /** Array of data points to plot on the chart. */
+  data: ChartData[];
+  /** Optional CSS class to be applied to the chart's outermost container. */
+  className?: string;
+  label: string;
+  enableGrid?: boolean;
 }
 /** @type {React.Context<T extends BankAccount>} */
 export declare const BankAccountContext: React.Context<BankAccount | undefined>;
 export declare const FinancialProfileContext: React.Context<FinancialProfile>;
-export declare const AccountBalanceHistoryContext: React.Context<AccountBalanceHistory[]>;
+export declare const AccountBalanceHistoryContext: React.Context<
+  AccountBalanceHistory[]
+>;
 export type BankAccountCardProps<T extends BankAccount> = {
-	bankAccount: T;
-	financialProfile: FinancialProfile;
-	className?: string;
-	contextQuestions?: string[];
-	enableDemoMode?: boolean;
-	children?: ReactNode;
-	historicalAccountBalance?: AccountBalanceHistory[];
+  bankAccount: T;
+  financialProfile: FinancialProfile;
+  className?: string;
+  contextQuestions?: string[];
+  enableDemoMode?: boolean;
+  children?: ReactNode;
+  historicalAccountBalance?: AccountBalanceHistory[];
 };
 export type BankAccountCardState<T extends BankAccount> = {
-	bankAccount: T;
+  bankAccount: T;
 };
 /**
  * @class BankAccountCard
@@ -9138,35 +9328,38 @@ export type BankAccountCardState<T extends BankAccount> = {
  * with TSDoc annotations. It has various features like context usage,
  * dynamic styles, generic props, and more.
  */
-export declare class BankAccountCard<T extends BankAccount> extends Component<BankAccountCardProps<T>, BankAccountCardState<T>> {
-	private myRef;
-	static defaultProps: {
-		bankAccount: BankAccountClass;
-		financialProfile: FinancialProfileClass;
-		contextQuestions: string[];
-		enableDemoMode: boolean;
-		children: null;
-	};
-	constructor(props: BankAccountCardProps<T>);
-	/**
-	 * Lifecycle method that runs after the component has been mounted.
-	 */
-	componentDidMount(): void;
-	/**
-	 * Renders the component.
-	 * @returns {ReactNode}
-	 */
-	render(): ReactNode;
+export declare class BankAccountCard<T extends BankAccount> extends Component<
+  BankAccountCardProps<T>,
+  BankAccountCardState<T>
+> {
+  private myRef;
+  static defaultProps: {
+    bankAccount: BankAccountClass;
+    financialProfile: FinancialProfileClass;
+    contextQuestions: string[];
+    enableDemoMode: boolean;
+    children: null;
+  };
+  constructor(props: BankAccountCardProps<T>);
+  /**
+   * Lifecycle method that runs after the component has been mounted.
+   */
+  componentDidMount(): void;
+  /**
+   * Renders the component.
+   * @returns {ReactNode}
+   */
+  render(): ReactNode;
 }
 export type BankAccountHoverLabelProps<T extends BankAccount> = {
-	bankAccount: T;
-	className?: string;
-	enableDemoMode?: boolean;
-	children?: ReactNode;
-	historicalAccountBalance?: AccountBalanceHistory[];
+  bankAccount: T;
+  className?: string;
+  enableDemoMode?: boolean;
+  children?: ReactNode;
+  historicalAccountBalance?: AccountBalanceHistory[];
 };
 export type BankAccountHoverLabelState<T extends BankAccount> = {
-	bankAccount: T;
+  bankAccount: T;
 };
 /**
  * The `BankAccountHoverLabel` is a specialized React class component
@@ -9194,86 +9387,93 @@ export type BankAccountHoverLabelState<T extends BankAccount> = {
  * @class
  * @extends {Component<BankAccountHoverLabelProps<T>, BankAccountHoverLabelState<T>>}
  */
-export declare class BankAccountHoverLabel<T extends BankAccount> extends Component<BankAccountHoverLabelProps<T>, BankAccountHoverLabelState<T>> {
-	/**
-	 * A reference to the DOM element of the component.
-	 * Useful for direct DOM manipulations.
-	 */
-	private myRef;
-	/**
-	 * Default properties for the BankAccountHoverLabel component.
-	 */
-	static defaultProps: {
-		contextQuestions: string[];
-		enableDemoMode: boolean;
-		children: null;
-	};
-	/**
-	 * Constructs a new `BankAccountHoverLabel` component.
-	 *
-	 * @param props - The properties passed to the component.
-	 */
-	constructor(props: BankAccountHoverLabelProps<T>);
-	/**
-	 * Lifecycle method that triggers immediately after the component is added to the DOM.
-	 * This method focuses the current component if it has a valid reference.
-	 */
-	componentDidMount(): void;
-	/**
-	 * Renders the `BankAccountHoverLabel` component.
-	 *
-	 * @returns {ReactNode} The React Node representing the component's UI.
-	 */
-	render(): ReactNode;
+export declare class BankAccountHoverLabel<
+  T extends BankAccount,
+> extends Component<
+  BankAccountHoverLabelProps<T>,
+  BankAccountHoverLabelState<T>
+> {
+  /**
+   * A reference to the DOM element of the component.
+   * Useful for direct DOM manipulations.
+   */
+  private myRef;
+  /**
+   * Default properties for the BankAccountHoverLabel component.
+   */
+  static defaultProps: {
+    contextQuestions: string[];
+    enableDemoMode: boolean;
+    children: null;
+  };
+  /**
+   * Constructs a new `BankAccountHoverLabel` component.
+   *
+   * @param props - The properties passed to the component.
+   */
+  constructor(props: BankAccountHoverLabelProps<T>);
+  /**
+   * Lifecycle method that triggers immediately after the component is added to the DOM.
+   * This method focuses the current component if it has a valid reference.
+   */
+  componentDidMount(): void;
+  /**
+   * Renders the `BankAccountHoverLabel` component.
+   *
+   * @returns {ReactNode} The React Node representing the component's UI.
+   */
+  render(): ReactNode;
 }
 export interface BarGraphProps {
-	data: {
-		name: string;
-		total: number;
-	}[];
-	label: string;
-	className?: string;
+  data: {
+    name: string;
+    total: number;
+  }[];
+  label: string;
+  className?: string;
 }
 export declare const BarGraph: React.FC<BarGraphProps>;
 export type CommandPalleteQuickAction = {
-	name: string;
-	shortcut: string;
-	icon: React.ForwardRefExoticComponent<Omit<React.SVGProps<SVGSVGElement>, "ref"> & {
-		title?: string | undefined;
-		titleId?: string | undefined;
-	} & React.RefAttributes<SVGSVGElement>>;
-	callback: () => void;
+  name: string;
+  shortcut: string;
+  icon: React.ForwardRefExoticComponent<
+    Omit<React.SVGProps<SVGSVGElement>, 'ref'> & {
+      title?: string | undefined;
+      titleId?: string | undefined;
+    } & React.RefAttributes<SVGSVGElement>
+  >;
+  callback: () => void;
 };
 export declare const CommandPalleteWithIcons: React.FC<{
-	transactions: Transaction[];
-	quickActions: CommandPalleteQuickAction[];
+  transactions: Transaction[];
+  quickActions: CommandPalleteQuickAction[];
 }>;
 export declare const CommandPalletterWithPreview: React.FC<{
-	transactions: Transaction[];
+  transactions: Transaction[];
 }>;
 export type AccountMetadata = {
-	name: string;
-	accountPlaidId: string;
+  name: string;
+  accountPlaidId: string;
 };
 export declare const CommandPalleteWithFooter: React.FC<{
-	transactions: Transaction[];
-	accounts: AccountMetadata[];
+  transactions: Transaction[];
+  accounts: AccountMetadata[];
 }>;
 export declare const SimpleTransactionCommandPallete: React.FC<{
-	transactions: Transaction[];
+  transactions: Transaction[];
 }>;
 /**
  * Props definition for the `Container` component.
  */
-export interface ContainerProps extends React.ComponentPropsWithoutRef<"div"> {
-	/**
-	 * Sets the max width of the container. This prop allows for more flexible widths.
-	 * Defaults to `max-w-7xl`.
-	 *
-	 * @example
-	 * maxWidth="max-w-5xl"
-	 */
-	maxWidth?: string;
+export interface ContainerProps extends React.ComponentPropsWithoutRef<'div'> {
+  /**
+   * Sets the max width of the container. This prop allows for more flexible widths.
+   * Defaults to `max-w-7xl`.
+   *
+   * @example
+   * maxWidth="max-w-5xl"
+   */
+  maxWidth?: string;
 }
 /**
  * A responsive container component that centers its content and provides consistent padding.
@@ -9291,17 +9491,21 @@ export interface ContainerProps extends React.ComponentPropsWithoutRef<"div"> {
  * @param props The properties of the `Container` component.
  * @returns A React element with content wrapped inside the container.
  */
-export declare function Container({ className, maxWidth, ...props }: ContainerProps): import("react/jsx-runtime").JSX.Element;
+export declare function Container({
+  className,
+  maxWidth,
+  ...props
+}: ContainerProps): import('react/jsx-runtime').JSX.Element;
 export type CreditAccountHoverLabelProps<T extends CreditAccount> = {
-	creditAccount: T;
-	institutionName: string;
-	className?: string;
-	enableDemoMode?: boolean;
-	children?: ReactNode;
-	historicalAccountBalance?: AccountBalanceHistory[];
+  creditAccount: T;
+  institutionName: string;
+  className?: string;
+  enableDemoMode?: boolean;
+  children?: ReactNode;
+  historicalAccountBalance?: AccountBalanceHistory[];
 };
 export type CreditAccountHoverLabelState<T extends CreditAccount> = {
-	creditAccount: T;
+  creditAccount: T;
 };
 /**
  * The `CreditAccountHoverLabel` is a specialized React class component
@@ -9329,153 +9533,162 @@ export type CreditAccountHoverLabelState<T extends CreditAccount> = {
  * @class
  * @extends {Component<CreditAccountHoverLabelProps<T>, CreditAccountHoverLabelState<T>>}
  */
-export declare class CreditAccountHoverLabel<T extends CreditAccount> extends Component<CreditAccountHoverLabelProps<T>, CreditAccountHoverLabelState<T>> {
-	/**
-	 * A reference to the DOM element of the component.
-	 * Useful for direct DOM manipulations.
-	 */
-	private myRef;
-	/**
-	 * Default properties for the CreditAccountHoverLabel component.
-	 */
-	static defaultProps: {
-		contextQuestions: string[];
-		enableDemoMode: boolean;
-		children: null;
-		institutionName: string;
-	};
-	/**
-	 * Constructs a new `CreditAccountHoverLabel` component.
-	 *
-	 * @param props - The properties passed to the component.
-	 */
-	constructor(props: CreditAccountHoverLabelProps<T>);
-	/**
-	 * Lifecycle method that triggers immediately after the component is added to the DOM.
-	 * This method focuses the current component if it has a valid reference.
-	 */
-	componentDidMount(): void;
-	/**
-	 * Renders the `CreditAccountHoverLabel` component.
-	 *
-	 * @returns {ReactNode} The React Node representing the component's UI.
-	 */
-	render(): ReactNode;
+export declare class CreditAccountHoverLabel<
+  T extends CreditAccount,
+> extends Component<
+  CreditAccountHoverLabelProps<T>,
+  CreditAccountHoverLabelState<T>
+> {
+  /**
+   * A reference to the DOM element of the component.
+   * Useful for direct DOM manipulations.
+   */
+  private myRef;
+  /**
+   * Default properties for the CreditAccountHoverLabel component.
+   */
+  static defaultProps: {
+    contextQuestions: string[];
+    enableDemoMode: boolean;
+    children: null;
+    institutionName: string;
+  };
+  /**
+   * Constructs a new `CreditAccountHoverLabel` component.
+   *
+   * @param props - The properties passed to the component.
+   */
+  constructor(props: CreditAccountHoverLabelProps<T>);
+  /**
+   * Lifecycle method that triggers immediately after the component is added to the DOM.
+   * This method focuses the current component if it has a valid reference.
+   */
+  componentDidMount(): void;
+  /**
+   * Renders the `CreditAccountHoverLabel` component.
+   *
+   * @returns {ReactNode} The React Node representing the component's UI.
+   */
+  render(): ReactNode;
 }
 export interface CallToActionSplitProps {
-	backgroundColor?: "white" | "indigo-100";
-	button1Title?: string;
-	button1Handler?: () => void;
-	button2Title?: string;
-	button2Handlder?: () => void;
-	title?: string;
+  backgroundColor?: 'white' | 'indigo-100';
+  button1Title?: string;
+  button1Handler?: () => void;
+  button2Title?: string;
+  button2Handlder?: () => void;
+  title?: string;
 }
 export declare const CallToActionSplit: React.FC<CallToActionSplitProps>;
 export interface SimpleCallToActionProps {
-	title: string;
-	description?: string;
-	backgroundColor?: "white" | "gray-900" | "indigo-700";
-	showGradient?: boolean;
-	centered?: boolean;
-	button1Title?: string;
-	button1Handler?: () => void;
-	button2Title?: string;
-	button2Handlder?: () => void;
+  title: string;
+  description?: string;
+  backgroundColor?: 'white' | 'gray-900' | 'indigo-700';
+  showGradient?: boolean;
+  centered?: boolean;
+  button1Title?: string;
+  button1Handler?: () => void;
+  button2Title?: string;
+  button2Handlder?: () => void;
 }
 export declare const SimpleCallToAction: React.FC<SimpleCallToActionProps>;
 export type FlyoutMenuOption = {
-	name: string;
-	href: string;
-	icon?: React.ForwardRefExoticComponent<Omit<React.SVGProps<SVGSVGElement>, "ref"> & {
-		title?: string | undefined;
-		titleId?: string | undefined;
-	} & React.RefAttributes<SVGSVGElement>>;
-	description?: string;
+  name: string;
+  href: string;
+  icon?: React.ForwardRefExoticComponent<
+    Omit<React.SVGProps<SVGSVGElement>, 'ref'> & {
+      title?: string | undefined;
+      titleId?: string | undefined;
+    } & React.RefAttributes<SVGSVGElement>
+  >;
+  description?: string;
 };
 export declare const FlyoutMenuSimple: React.FC<{
-	title: string;
-	options: FlyoutMenuOption[];
+  title: string;
+  options: FlyoutMenuOption[];
 }>;
 export declare const FlyoutMenuFullWidth: React.FC<{
-	title: string;
-	options: FlyoutMenuOption[];
-	footerOptions: FlyoutMenuOption[];
+  title: string;
+  options: FlyoutMenuOption[];
+  footerOptions: FlyoutMenuOption[];
 }>;
 export type Options = {
-	name: string;
-	description: string;
-	href: string;
-	icon: React.ElementType;
+  name: string;
+  description: string;
+  href: string;
+  icon: React.ElementType;
 };
 export type FooterOption = {
-	name: string;
-	href: string;
-	icon: React.ElementType;
+  name: string;
+  href: string;
+  icon: React.ElementType;
 };
 export declare const FlyoutMenuWithStackedFooterIcons: React.FC<{
-	options: Options[];
-	footerOptions: FooterOption[];
-	title: string;
+  options: Options[];
+  footerOptions: FooterOption[];
+  title: string;
 }>;
 export type FlyoutMenuFooterOption = {
-	title: string;
-	tagline: string;
-	subtext: string;
+  title: string;
+  tagline: string;
+  subtext: string;
 };
 export declare const FlyoutMenuTwoColumn: React.FC<{
-	title: string;
-	options: FlyoutMenuOption[];
-	footerOption?: FlyoutMenuFooterOption;
+  title: string;
+  options: FlyoutMenuOption[];
+  footerOption?: FlyoutMenuFooterOption;
 }>;
 export type NavigationItem = {
-	name: string;
-	description?: string;
-	href: string;
-	icon: React.ForwardRefExoticComponent<Omit<React.SVGProps<SVGSVGElement>, "ref"> & {
-		title?: string | undefined;
-		titleId?: string | undefined;
-	} & React.RefAttributes<SVGSVGElement>>;
-	current: boolean | undefined;
+  name: string;
+  description?: string;
+  href: string;
+  icon: React.ForwardRefExoticComponent<
+    Omit<React.SVGProps<SVGSVGElement>, 'ref'> & {
+      title?: string | undefined;
+      titleId?: string | undefined;
+    } & React.RefAttributes<SVGSVGElement>
+  >;
+  current: boolean | undefined;
 };
 export interface HeaderWithStackedFlyoutMenuProps {
-	products: NavigationItem[];
-	callsToAction: NavigationItem[];
-	logoSrc: string;
-	headerTitle?: string;
-	dropdownTitle?: string;
-	headerOptions?: NavigationItem[];
-	headerActionButtonTitle?: string;
-	headerActionButtonHandler?: () => void;
+  products: NavigationItem[];
+  callsToAction: NavigationItem[];
+  logoSrc: string;
+  headerTitle?: string;
+  dropdownTitle?: string;
+  headerOptions?: NavigationItem[];
+  headerActionButtonTitle?: string;
+  headerActionButtonHandler?: () => void;
 }
 export interface HeaderWithFullWidthFlyoutMenuProps {
-	products: NavigationItem[];
-	callsToAction: NavigationItem[];
-	logoSrc: string;
-	headerTitle?: string;
-	dropdownTitle?: string;
-	headerOptions?: NavigationItem[];
-	headerActionButtonTitle?: string;
-	headerActionButtonHandler?: () => void;
+  products: NavigationItem[];
+  callsToAction: NavigationItem[];
+  logoSrc: string;
+  headerTitle?: string;
+  dropdownTitle?: string;
+  headerOptions?: NavigationItem[];
+  headerActionButtonTitle?: string;
+  headerActionButtonHandler?: () => void;
 }
 export declare const HeaderWithFullWidthFlyoutMenu: React.FC<HeaderWithFullWidthFlyoutMenuProps>;
 export interface HeaderSectionSimpleProps {
-	theme: "light" | "dark";
-	title: string;
-	description: string;
-	className?: string;
+  theme: 'light' | 'dark';
+  title: string;
+  description: string;
+  className?: string;
 }
 export declare const HeaderSectionSimple: React.FC<HeaderSectionSimpleProps>;
 export interface HeaderSectionWithBackgroundProps {
-	/**
-	 * The alignment of the content.
-	 */
-	alignment?: "left" | "center";
-	/**
-	 * The main title of the support center section.
-	 */
-	backgroundImage?: string;
-	title: string;
-	description: string;
+  /**
+   * The alignment of the content.
+   */
+  alignment?: 'left' | 'center';
+  /**
+   * The main title of the support center section.
+   */
+  backgroundImage?: string;
+  title: string;
+  description: string;
 }
 export declare const HeaderSectionWithBackground: React.FC<HeaderSectionWithBackgroundProps>;
 /**
@@ -9486,10 +9699,12 @@ export declare const HeaderSectionWithBackground: React.FC<HeaderSectionWithBack
  * @property {T[]} historicalAccountBalance - Array of account balance history to be charted.
  * @property {string} [className] - Optional CSS class to style the component.
  */
-export type HistoricalAccountBalanceChartProps<T extends AccountBalanceHistory> = {
-	historicalAccountBalance: T[];
-	className?: string;
-	disableLabel?: boolean;
+export type HistoricalAccountBalanceChartProps<
+  T extends AccountBalanceHistory,
+> = {
+  historicalAccountBalance: T[];
+  className?: string;
+  disableLabel?: boolean;
 };
 /**
  * State for the `HistoricalAccountBalanceChart` component.
@@ -9497,7 +9712,7 @@ export type HistoricalAccountBalanceChartProps<T extends AccountBalanceHistory> 
  * @property {number} counter - A sample state property, likely used for internal component operations.
  */
 export type HistoricalAccountBalanceChartState = {
-	counter: number;
+  counter: number;
 };
 /**
  * The `HistoricalAccountBalanceChart` class component visualizes the history of account balances over time.
@@ -9532,44 +9747,49 @@ export type HistoricalAccountBalanceChartState = {
  * <HistoricalAccountBalanceChart className="border rounded-md" historicalAccountBalance={sampleHistory} />
  * ```
  */
-export declare class HistoricalAccountBalanceChart<T extends AccountBalanceHistory> extends Component<HistoricalAccountBalanceChartProps<T>, HistoricalAccountBalanceChartState> {
-	private myRef;
-	static defaultProps: {
-		className: string;
-		disableLabel: boolean;
-	};
-	constructor(props: HistoricalAccountBalanceChartProps<T>);
-	/** Lifecycle method when the component is about to mount. */
-	componentWillMount(): void;
-	/**
-	 * Lifecycle method that runs after the component has been mounted.
-	 */
-	componentDidMount(): void;
-	private averageBalance;
-	private totalAccumulation;
-	private maxBalance;
-	private minBalance;
-	/**
-	 * Computes the moving average of account balances.
-	 * @param data The data containing the account balance histories.
-	 * @param windowSize The window size for the moving average.
-	 * @returns An array of moving averages for the given window size.
-	 */
-	private movingAverage;
-	/**
-	 * Renders the component.
-	 * @returns {ReactNode}
-	 */
-	render(): ReactNode;
+export declare class HistoricalAccountBalanceChart<
+  T extends AccountBalanceHistory,
+> extends Component<
+  HistoricalAccountBalanceChartProps<T>,
+  HistoricalAccountBalanceChartState
+> {
+  private myRef;
+  static defaultProps: {
+    className: string;
+    disableLabel: boolean;
+  };
+  constructor(props: HistoricalAccountBalanceChartProps<T>);
+  /** Lifecycle method when the component is about to mount. */
+  componentWillMount(): void;
+  /**
+   * Lifecycle method that runs after the component has been mounted.
+   */
+  componentDidMount(): void;
+  private averageBalance;
+  private totalAccumulation;
+  private maxBalance;
+  private minBalance;
+  /**
+   * Computes the moving average of account balances.
+   * @param data The data containing the account balance histories.
+   * @param windowSize The window size for the moving average.
+   * @returns An array of moving averages for the given window size.
+   */
+  private movingAverage;
+  /**
+   * Renders the component.
+   * @returns {ReactNode}
+   */
+  render(): ReactNode;
 }
 export type InvestmentAccountCardProps = {
-	investmentAccount: InvestmentAccount;
-	historicalAccountBalance?: AccountBalanceHistory[];
-	enableDemoMode?: boolean;
-	className?: string;
+  investmentAccount: InvestmentAccount;
+  historicalAccountBalance?: AccountBalanceHistory[];
+  enableDemoMode?: boolean;
+  className?: string;
 };
 export type InvestmentAccountCardState = {
-	investmentAccount: InvestmentAccount;
+  investmentAccount: InvestmentAccount;
 };
 /**
  * @class InvestmentAccountCard
@@ -9580,34 +9800,37 @@ export type InvestmentAccountCardState = {
  * with TSDoc annotations. It has various features like context usage,
  * dynamic styles, generic props, and more.
  */
-export declare class InvestmentAccountCard extends Component<InvestmentAccountCardProps, InvestmentAccountCardState> {
-	private myRef;
-	static defaultProps: {
-		InvestmentAccount: InvestmentAccountClass;
-		historicalAccountBalance: never[];
-	};
-	constructor(props: InvestmentAccountCardProps);
-	/** Lifecycle method when the component is about to mount. */
-	componentWillMount(): void;
-	/**
-	 * Lifecycle method that runs after the component has been mounted.
-	 */
-	componentDidMount(): void;
-	/**
-	 * Renders the component.
-	 * @returns {ReactNode}
-	 */
-	render(): ReactNode;
+export declare class InvestmentAccountCard extends Component<
+  InvestmentAccountCardProps,
+  InvestmentAccountCardState
+> {
+  private myRef;
+  static defaultProps: {
+    InvestmentAccount: InvestmentAccountClass;
+    historicalAccountBalance: never[];
+  };
+  constructor(props: InvestmentAccountCardProps);
+  /** Lifecycle method when the component is about to mount. */
+  componentWillMount(): void;
+  /**
+   * Lifecycle method that runs after the component has been mounted.
+   */
+  componentDidMount(): void;
+  /**
+   * Renders the component.
+   * @returns {ReactNode}
+   */
+  render(): ReactNode;
 }
 export type InvestmentAccountHoverLabelProps<T extends InvestmentAccount> = {
-	investmentAccount: T;
-	className?: string;
-	enableDemoMode?: boolean;
-	children?: ReactNode;
-	historicalAccountBalance?: AccountBalanceHistory[];
+  investmentAccount: T;
+  className?: string;
+  enableDemoMode?: boolean;
+  children?: ReactNode;
+  historicalAccountBalance?: AccountBalanceHistory[];
 };
 export type InvestmentAccountHoverLabelState<T extends InvestmentAccount> = {
-	investmentAccount: T;
+  investmentAccount: T;
 };
 /**
  * The `InvestmentAccountHoverLabel` is a specialized React class component
@@ -9636,47 +9859,52 @@ import { InvestmentAccount } from '../../types/financial/investment-account';
  * @class
  * @extends {Component<InvestmentAccountHoverLabelProps<T>, InvestmentAccountHoverLabelState<T>>}
  */
-export declare class InvestmentAccountHoverLabel<T extends InvestmentAccount> extends Component<InvestmentAccountHoverLabelProps<T>, InvestmentAccountHoverLabelState<T>> {
-	/**
-	 * A reference to the DOM element of the component.
-	 * Useful for direct DOM manipulations.
-	 */
-	private myRef;
-	/**
-	 * Default properties for the InvestmentAccountHoverLabel component.
-	 */
-	static defaultProps: {
-		bankAccount: BankAccountClass;
-		contextQuestions: string[];
-		enableDemoMode: boolean;
-		children: null;
-	};
-	/**
-	 * Constructs a new `InvestmentAccountHoverLabel` component.
-	 *
-	 * @param props - The properties passed to the component.
-	 */
-	constructor(props: InvestmentAccountHoverLabelProps<T>);
-	/**
-	 * Lifecycle method that triggers immediately after the component is added to the DOM.
-	 * This method focuses the current component if it has a valid reference.
-	 */
-	componentDidMount(): void;
-	/**
-	 * Renders the `InvestmentAccountHoverLabel` component.
-	 *
-	 * @returns {ReactNode} The React Node representing the component's UI.
-	 */
-	render(): ReactNode;
+export declare class InvestmentAccountHoverLabel<
+  T extends InvestmentAccount,
+> extends Component<
+  InvestmentAccountHoverLabelProps<T>,
+  InvestmentAccountHoverLabelState<T>
+> {
+  /**
+   * A reference to the DOM element of the component.
+   * Useful for direct DOM manipulations.
+   */
+  private myRef;
+  /**
+   * Default properties for the InvestmentAccountHoverLabel component.
+   */
+  static defaultProps: {
+    bankAccount: BankAccountClass;
+    contextQuestions: string[];
+    enableDemoMode: boolean;
+    children: null;
+  };
+  /**
+   * Constructs a new `InvestmentAccountHoverLabel` component.
+   *
+   * @param props - The properties passed to the component.
+   */
+  constructor(props: InvestmentAccountHoverLabelProps<T>);
+  /**
+   * Lifecycle method that triggers immediately after the component is added to the DOM.
+   * This method focuses the current component if it has a valid reference.
+   */
+  componentDidMount(): void;
+  /**
+   * Renders the `InvestmentAccountHoverLabel` component.
+   *
+   * @returns {ReactNode} The React Node representing the component's UI.
+   */
+  render(): ReactNode;
 }
 export type InvestmentHoldingCardProps = {
-	holdings: InvesmentHolding[];
-	accountName: string;
-	className?: string;
-	historicalAccountBalance?: AccountBalanceHistory[];
+  holdings: InvesmentHolding[];
+  accountName: string;
+  className?: string;
+  historicalAccountBalance?: AccountBalanceHistory[];
 };
 export type InvestmentHoldingCardState = {
-	holdings: InvesmentHolding[];
+  holdings: InvesmentHolding[];
 };
 /**
  * @class InvestmentHoldingCard
@@ -9687,36 +9915,39 @@ export type InvestmentHoldingCardState = {
  * with TSDoc annotations. It has various features like context usage,
  * dynamic styles, generic props, and more.
  */
-export declare class InvestmentHoldingCard extends Component<InvestmentHoldingCardProps, InvestmentHoldingCardState> {
-	private myRef;
-	static defaultProps: {
-		accountName: string;
-	};
-	constructor(props: InvestmentHoldingCardProps);
-	/** Lifecycle method when the component is about to mount. */
-	componentWillMount(): void;
-	/**
-	 * Lifecycle method that runs after the component has been mounted.
-	 */
-	componentDidMount(): void;
-	private computeTotalCostBasis;
-	private computeAverageCostBasis;
-	private computeTotalInstitutionValue;
-	private computeTotalProfitLoss;
-	private findLargestHolding;
-	private findSmallestHolding;
-	/**
-	 * Renders the component.
-	 * @returns {ReactNode}
-	 */
-	render(): ReactNode;
+export declare class InvestmentHoldingCard extends Component<
+  InvestmentHoldingCardProps,
+  InvestmentHoldingCardState
+> {
+  private myRef;
+  static defaultProps: {
+    accountName: string;
+  };
+  constructor(props: InvestmentHoldingCardProps);
+  /** Lifecycle method when the component is about to mount. */
+  componentWillMount(): void;
+  /**
+   * Lifecycle method that runs after the component has been mounted.
+   */
+  componentDidMount(): void;
+  private computeTotalCostBasis;
+  private computeAverageCostBasis;
+  private computeTotalInstitutionValue;
+  private computeTotalProfitLoss;
+  private findLargestHolding;
+  private findSmallestHolding;
+  /**
+   * Renders the component.
+   * @returns {ReactNode}
+   */
+  render(): ReactNode;
 }
 export type InvestmentSecurityCardProps = {
-	security: InvestmentSecurity;
-	className?: string;
+  security: InvestmentSecurity;
+  className?: string;
 };
 export type InvestmentSecurityCardState = {
-	security: InvestmentSecurity;
+  security: InvestmentSecurity;
 };
 /**
  * @class InvestmentSecurityCard
@@ -9727,53 +9958,56 @@ export type InvestmentSecurityCardState = {
  * with TSDoc annotations. It has various features like context usage,
  * dynamic styles, generic props, and more.
  */
-export declare class InvestmentSecurityCard extends Component<InvestmentSecurityCardProps, InvestmentSecurityCardState> {
-	private myRef;
-	static defaultProps: {
-		security: InvestmentSecurityClass;
-	};
-	constructor(props: InvestmentSecurityCardProps);
-	/** Lifecycle method when the component is about to mount. */
-	componentWillMount(): void;
-	/**
-	 * Lifecycle method that runs after the component has been mounted.
-	 */
-	componentDidMount(): void;
-	/**
-	 * Renders the component.
-	 * @returns {ReactNode}
-	 */
-	render(): ReactNode;
+export declare class InvestmentSecurityCard extends Component<
+  InvestmentSecurityCardProps,
+  InvestmentSecurityCardState
+> {
+  private myRef;
+  static defaultProps: {
+    security: InvestmentSecurityClass;
+  };
+  constructor(props: InvestmentSecurityCardProps);
+  /** Lifecycle method when the component is about to mount. */
+  componentWillMount(): void;
+  /**
+   * Lifecycle method that runs after the component has been mounted.
+   */
+  componentDidMount(): void;
+  /**
+   * Renders the component.
+   * @returns {ReactNode}
+   */
+  render(): ReactNode;
 }
 /**
  * Represents individual data points for the chart.
  */
 export interface ChartData {
-	/** The name for this data point (typically represents a unit on the X-axis, like month or day). */
-	name: string;
-	/** Value for the 'uv' metric. */
-	uv: number;
-	/** Optional value for the 'pv' metric. */
-	pv?: number;
+  /** The name for this data point (typically represents a unit on the X-axis, like month or day). */
+  name: string;
+  /** Value for the 'uv' metric. */
+  uv: number;
+  /** Optional value for the 'pv' metric. */
+  pv?: number;
 }
 /**
  * Props for the CustomLineChart component.
  */
 export interface CustomLineChartProps {
-	/** Array of data points to plot on the chart. */
-	data: ChartData[];
-	/** Optional CSS class to be applied to the chart's outermost container. */
-	className?: string;
-	label: string;
-	enableGrid?: boolean;
+  /** Array of data points to plot on the chart. */
+  data: ChartData[];
+  /** Optional CSS class to be applied to the chart's outermost container. */
+  className?: string;
+  label: string;
+  enableGrid?: boolean;
 }
 export type MortgageAccountCardProps<T> = {
-	data: T;
-	greeting?: string;
-	className?: string;
+  data: T;
+  greeting?: string;
+  className?: string;
 };
 export type MortgageAccountCardState = {
-	counter: number;
+  counter: number;
 };
 /**
  * @class MortgageAccountCard
@@ -9784,36 +10018,39 @@ export type MortgageAccountCardState = {
  * with TSDoc annotations. It has various features like context usage,
  * dynamic styles, generic props, and more.
  */
-export declare class MortgageAccountCard<T> extends Component<MortgageAccountCardProps<T>, MortgageAccountCardState> {
-	private myRef;
-	static defaultProps: {
-		greeting: string;
-	};
-	constructor(props: MortgageAccountCardProps<T>);
-	/** Lifecycle method when the component is about to mount. */
-	componentWillMount(): void;
-	/**
-	 * Lifecycle method that runs after the component has been mounted.
-	 */
-	componentDidMount(): void;
-	/**
-	 * Increments the counter state property.
-	 * @private
-	 */
-	private incrementCounter;
-	/**
-	 * Renders the component.
-	 * @returns {ReactNode}
-	 */
-	render(): ReactNode;
+export declare class MortgageAccountCard<T> extends Component<
+  MortgageAccountCardProps<T>,
+  MortgageAccountCardState
+> {
+  private myRef;
+  static defaultProps: {
+    greeting: string;
+  };
+  constructor(props: MortgageAccountCardProps<T>);
+  /** Lifecycle method when the component is about to mount. */
+  componentWillMount(): void;
+  /**
+   * Lifecycle method that runs after the component has been mounted.
+   */
+  componentDidMount(): void;
+  /**
+   * Increments the counter state property.
+   * @private
+   */
+  private incrementCounter;
+  /**
+   * Renders the component.
+   * @returns {ReactNode}
+   */
+  render(): ReactNode;
 }
 export interface NotificationComponentProps {
-	imageURL?: string;
-	title?: string;
-	message: string;
-	actions: ReactNode;
-	iconType?: "inbox" | "check" | "none";
-	initialShow?: boolean;
+  imageURL?: string;
+  title?: string;
+  message: string;
+  actions: ReactNode;
+  iconType?: 'inbox' | 'check' | 'none';
+  initialShow?: boolean;
 }
 /**
  * `CustomPieChart` Props Interface
@@ -9822,27 +10059,27 @@ export interface NotificationComponentProps {
  * @property {Array<Object> | undefined} [data02] - The data for the second pie chart. Optional.
  */
 export interface ICustomPieChartProps {
-	data01: {
-		name: string;
-		value: number;
-	}[];
-	data02?: {
-		name: string;
-		value: number;
-	}[];
-	label: string;
-	className?: string;
+  data01: {
+    name: string;
+    value: number;
+  }[];
+  data02?: {
+    name: string;
+    value: number;
+  }[];
+  label: string;
+  className?: string;
 }
 export type RecurringTransactionCardProps = {
-	recurringTransaction: ReOccuringTransaction;
-	className?: string;
-	nextTransactionDate?: string;
-	enableDetailedDisplay?: boolean;
-	participantTransactions?: Transaction[];
-	account?: BankAccount | CreditAccount;
+  recurringTransaction: ReOccuringTransaction;
+  className?: string;
+  nextTransactionDate?: string;
+  enableDetailedDisplay?: boolean;
+  participantTransactions?: Transaction[];
+  account?: BankAccount | CreditAccount;
 };
 export type RecurringTransactionCardState = {
-	transaction: ReOccuringTransaction;
+  transaction: ReOccuringTransaction;
 };
 /**
  * @class RecurringTransactionCard
@@ -9853,25 +10090,28 @@ export type RecurringTransactionCardState = {
  * with TSDoc annotations. It has various features like context usage,
  * dynamic styles, generic props, and more.
  */
-export declare class RecurringTransactionCard extends Component<RecurringTransactionCardProps, RecurringTransactionCardState> {
-	private myRef;
-	static defaultProps: {
-		nextTransactionDate: string;
-		enableDetailedDisplay: boolean;
-		className: string;
-		participantTransactions: never[];
-	};
-	constructor(props: RecurringTransactionCardProps);
-	/**
-	 * Lifecycle method that runs after the component has been mounted.
-	 */
-	componentDidMount(): void;
-	private isTransactionFrequencyInvalid;
-	/**
-	 * Renders the component.
-	 * @returns {ReactNode}
-	 */
-	render(): ReactNode;
+export declare class RecurringTransactionCard extends Component<
+  RecurringTransactionCardProps,
+  RecurringTransactionCardState
+> {
+  private myRef;
+  static defaultProps: {
+    nextTransactionDate: string;
+    enableDetailedDisplay: boolean;
+    className: string;
+    participantTransactions: never[];
+  };
+  constructor(props: RecurringTransactionCardProps);
+  /**
+   * Lifecycle method that runs after the component has been mounted.
+   */
+  componentDidMount(): void;
+  private isTransactionFrequencyInvalid;
+  /**
+   * Renders the component.
+   * @returns {ReactNode}
+   */
+  render(): ReactNode;
 }
 /**
  * `CustomScatterChart` Props Interface
@@ -9880,51 +10120,53 @@ export declare class RecurringTransactionCard extends Component<RecurringTransac
  * @property {Array<Object> | undefined} [data02] - The data for the "B school" scatter plot. Optional.
  */
 export interface ICustomScatterChartProps {
-	data01: {
-		x: number;
-		y: number;
-		z: number;
-	}[];
-	data01Title: string;
-	data02?: {
-		x: number;
-		y: number;
-		z: number;
-	}[];
-	data02Title?: string;
-	className?: string;
-	label: string;
-	xAxisName: string;
-	yAxisName: string;
-	zAxisName: string;
-	xAxisUnit: string;
-	yAxisUnit: string;
-	zAxisUnit: string;
+  data01: {
+    x: number;
+    y: number;
+    z: number;
+  }[];
+  data01Title: string;
+  data02?: {
+    x: number;
+    y: number;
+    z: number;
+  }[];
+  data02Title?: string;
+  className?: string;
+  label: string;
+  xAxisName: string;
+  yAxisName: string;
+  zAxisName: string;
+  xAxisUnit: string;
+  yAxisUnit: string;
+  zAxisUnit: string;
 }
 export interface BusinessNavigationItem {
-	name: string;
-	href: string;
-	icon: React.ForwardRefExoticComponent<Omit<React.SVGProps<SVGSVGElement>, "ref"> & {
-		title?: string | undefined;
-		titleId?: string | undefined;
-	} & React.RefAttributes<SVGSVGElement>>;
-	current: boolean;
+  name: string;
+  href: string;
+  icon: React.ForwardRefExoticComponent<
+    Omit<React.SVGProps<SVGSVGElement>, 'ref'> & {
+      title?: string | undefined;
+      titleId?: string | undefined;
+    } & React.RefAttributes<SVGSVGElement>
+  >;
+  current: boolean;
 }
 export interface Team {
-	id: number;
-	name: string;
-	href: string;
-	initial: string;
-	current: boolean;
+  id: number;
+  name: string;
+  href: string;
+  initial: string;
+  current: boolean;
 }
 export interface UserBusinessNavigationItem {
-	name: string;
-	href: string;
+  name: string;
+  href: string;
 }
 export interface DashboardSidebarProps {
-	navigation?: BusinessNavigationItem[];
-	teams?: Team[];
-	userNavigation?: UserBusinessNavigationItem[];
+  navigation?: BusinessNavigationItem[];
+  teams?: Team[];
+  userNavigation?: UserBusinessNavigationItem[];
 }
 /**
  * Dashboard component that displays navigation, user details, and other dashboard related content.
@@ -9935,28 +10177,33 @@ export interface DashboardSidebarProps {
  * @returns A Dashboard component.
  */
 export declare const DashboardSidebar: React.FC<DashboardSidebarProps>;
-export type SubscriptionsSidebarOption = "INFLOW" | "OUTFLOW" | "UPCOMING" | "DRILLDOWN" | "OVERVIEW";
-export type InvestmentSidebarOption = "OVERVIEW" | "CRYPTO" | "STOCKS";
+export type SubscriptionsSidebarOption =
+  | 'INFLOW'
+  | 'OUTFLOW'
+  | 'UPCOMING'
+  | 'DRILLDOWN'
+  | 'OVERVIEW';
+export type InvestmentSidebarOption = 'OVERVIEW' | 'CRYPTO' | 'STOCKS';
 export interface IProps {
-	className?: React.ReactNode;
-	selectedOption: InvestmentSidebarOption;
-	setSelectedOption: (option: InvestmentSidebarOption) => void;
+  className?: React.ReactNode;
+  selectedOption: InvestmentSidebarOption;
+  setSelectedOption: (option: InvestmentSidebarOption) => void;
 }
 export declare const InvestmentViewSidebar: React.FC<IProps>;
 export interface SubscriptionSidebarProps {
-	className?: React.ReactNode;
-	setSelectedOption: (option: SubscriptionsSidebarOption) => void;
+  className?: React.ReactNode;
+  setSelectedOption: (option: SubscriptionsSidebarOption) => void;
 }
 export declare const SubscriptionSidebar: React.FC<SubscriptionSidebarProps>;
 export interface SimpleStatsCardProps {
-	/** The title of the card */
-	title: string;
-	/** The main metric to be displayed */
-	metric: string | number;
-	/** Optional subtext or label for the metric */
-	subtext?: string;
-	/** Optional CSS class to be applied on the card */
-	className?: string;
+  /** The title of the card */
+  title: string;
+  /** The main metric to be displayed */
+  metric: string | number;
+  /** Optional subtext or label for the metric */
+  subtext?: string;
+  /** Optional CSS class to be applied on the card */
+  className?: string;
 }
 /**
  * The `SimpleStatsCard` component provides a minimalistic and clean way to display a key metric.
@@ -9978,51 +10225,51 @@ export interface SimpleStatsCardProps {
  */
 export declare const SimpleStatsCard: React.FC<SimpleStatsCardProps>;
 export type Stat = {
-	id: number;
-	name: string;
-	value: string;
+  id: number;
+  name: string;
+  value: string;
 };
 export interface StatsSectionProps {
-	theme?: "light" | "dark";
-	stats?: Stat[];
+  theme?: 'light' | 'dark';
+  stats?: Stat[];
 }
 export declare const StatsSection: React.FC<StatsSectionProps>;
 export interface StatsSectionStackedGridProps {
-	theme?: "light" | "dark";
-	stats?: Stat[];
-	title?: string;
-	description?: string;
+  theme?: 'light' | 'dark';
+  stats?: Stat[];
+  title?: string;
+  description?: string;
 }
 export declare const StatsSectionStackedGrid: React.FC<StatsSectionStackedGridProps>;
 export type StatBlock = {
-	title: string;
-	value: string;
-	description: string;
-	bgColor: string;
-	textColor: string;
-	secondaryTextColor: string;
+  title: string;
+  value: string;
+  description: string;
+  bgColor: string;
+  textColor: string;
+  secondaryTextColor: string;
 };
 export interface StatsSectionHighlightProps {
-	mainTitle: string;
-	mainDescription: string;
-	stats: StatBlock[];
+  mainTitle: string;
+  mainDescription: string;
+  stats: StatBlock[];
 }
 export type TimelineItem = {
-	name: string;
-	description: string;
-	date: string;
-	dateTime: string;
+  name: string;
+  description: string;
+  date: string;
+  dateTime: string;
 };
 export interface StatsSectionWithTimelineProps {
-	timeline: TimelineItem[];
+  timeline: TimelineItem[];
 }
 export type StudentLoanAccountCardProps = {
-	studentLoanAccount: StudentLoanAccount;
-	className?: string;
-	children?: ReactNode;
+  studentLoanAccount: StudentLoanAccount;
+  className?: string;
+  children?: ReactNode;
 };
 export type StudentLoanAccountCardState = {
-	studentLoanAccount: StudentLoanAccount;
+  studentLoanAccount: StudentLoanAccount;
 };
 /**
  * @class StudentLoanAccountCard
@@ -10033,35 +10280,38 @@ export type StudentLoanAccountCardState = {
  * with TSDoc annotations. It has various features like context usage,
  * dynamic styles, generic props, and more.
  */
-export declare class StudentLoanAccountCard extends Component<StudentLoanAccountCardProps, StudentLoanAccountCardState> {
-	private myRef;
-	static defaultProps: {
-		studentLoanAccount: StudentLoanAccountClass;
-		children: null;
-		className: string;
-	};
-	constructor(props: StudentLoanAccountCardProps);
-	/** Lifecycle method when the component is about to mount. */
-	componentWillMount(): void;
-	/**
-	 * Lifecycle method that runs after the component has been mounted.
-	 */
-	componentDidMount(): void;
-	/**
-	 * Renders the component.
-	 * @returns {ReactNode}
-	 */
-	render(): ReactNode;
+export declare class StudentLoanAccountCard extends Component<
+  StudentLoanAccountCardProps,
+  StudentLoanAccountCardState
+> {
+  private myRef;
+  static defaultProps: {
+    studentLoanAccount: StudentLoanAccountClass;
+    children: null;
+    className: string;
+  };
+  constructor(props: StudentLoanAccountCardProps);
+  /** Lifecycle method when the component is about to mount. */
+  componentWillMount(): void;
+  /**
+   * Lifecycle method that runs after the component has been mounted.
+   */
+  componentDidMount(): void;
+  /**
+   * Renders the component.
+   * @returns {ReactNode}
+   */
+  render(): ReactNode;
 }
 export type StudentLoanAccountHoverLabelProps<T extends StudentLoanAccount> = {
-	studentLoanAccount: T;
-	className?: string;
-	enableDemoMode?: boolean;
-	children?: ReactNode;
-	historicalAccountBalance?: AccountBalanceHistory[];
+  studentLoanAccount: T;
+  className?: string;
+  enableDemoMode?: boolean;
+  children?: ReactNode;
+  historicalAccountBalance?: AccountBalanceHistory[];
 };
 export type StudentLoanAccountHoverLabelState<T extends StudentLoanAccount> = {
-	studentLoanAccount: T;
+  studentLoanAccount: T;
 };
 /**
  * The `StudentLoanAccountHoverLabel` is a specialized React class component
@@ -10090,45 +10340,50 @@ import { StudentLoanAccount } from '../../types/financial/investment-account';
  * @class
  * @extends {Component<StudentLoanAccountHoverLabelProps<T>, StudentLoanAccountHoverLabelState<T>>}
  */
-export declare class StudentLoanAccountHoverLabel<T extends StudentLoanAccount> extends Component<StudentLoanAccountHoverLabelProps<T>, StudentLoanAccountHoverLabelState<T>> {
-	/**
-	 * A reference to the DOM element of the component.
-	 * Useful for direct DOM manipulations.
-	 */
-	private myRef;
-	/**
-	 * Default properties for the StudentLoanAccountHoverLabel component.
-	 */
-	static defaultProps: {
-		bankAccount: BankAccountClass;
-		contextQuestions: string[];
-		enableDemoMode: boolean;
-		children: null;
-	};
-	/**
-	 * Constructs a new `StudentLoanAccountHoverLabel` component.
-	 *
-	 * @param props - The properties passed to the component.
-	 */
-	constructor(props: StudentLoanAccountHoverLabelProps<T>);
-	/**
-	 * Lifecycle method that triggers immediately after the component is added to the DOM.
-	 * This method focuses the current component if it has a valid reference.
-	 */
-	componentDidMount(): void;
-	/**
-	 * Renders the `StudentLoanAccountHoverLabel` component.
-	 *
-	 * @returns {ReactNode} The React Node representing the component's UI.
-	 */
-	render(): ReactNode;
+export declare class StudentLoanAccountHoverLabel<
+  T extends StudentLoanAccount,
+> extends Component<
+  StudentLoanAccountHoverLabelProps<T>,
+  StudentLoanAccountHoverLabelState<T>
+> {
+  /**
+   * A reference to the DOM element of the component.
+   * Useful for direct DOM manipulations.
+   */
+  private myRef;
+  /**
+   * Default properties for the StudentLoanAccountHoverLabel component.
+   */
+  static defaultProps: {
+    bankAccount: BankAccountClass;
+    contextQuestions: string[];
+    enableDemoMode: boolean;
+    children: null;
+  };
+  /**
+   * Constructs a new `StudentLoanAccountHoverLabel` component.
+   *
+   * @param props - The properties passed to the component.
+   */
+  constructor(props: StudentLoanAccountHoverLabelProps<T>);
+  /**
+   * Lifecycle method that triggers immediately after the component is added to the DOM.
+   * This method focuses the current component if it has a valid reference.
+   */
+  componentDidMount(): void;
+  /**
+   * Renders the `StudentLoanAccountHoverLabel` component.
+   *
+   * @returns {ReactNode} The React Node representing the component's UI.
+   */
+  render(): ReactNode;
 }
 export type TransactionAnalyticsByMonthProps = {
-	transactions: Transaction[];
-	className?: string;
+  transactions: Transaction[];
+  className?: string;
 };
 export type TransactionAnalyticsByMonthState = {
-	transactions: Transaction[];
+  transactions: Transaction[];
 };
 /**
  * @class TransactionAnalyticsByMonth
@@ -10139,42 +10394,45 @@ export type TransactionAnalyticsByMonthState = {
  * with TSDoc annotations. It has various features like context usage,
  * dynamic styles, generic props, and more.
  */
-export declare class TransactionAnalyticsByMonth extends Component<TransactionAnalyticsByMonthProps, TransactionAnalyticsByMonthState> {
-	private myRef;
-	static defaultProps: {
-		className: string;
-	};
-	constructor(props: TransactionAnalyticsByMonthProps);
-	/**
-	 * Lifecycle method that runs after the component has been mounted.
-	 */
-	componentDidMount(): void;
-	/**
-	 * Categorizes the provided transactions.
-	 * @param transactions List of transactions to categorize.
-	 * @returns A categorized array.
-	 */
-	private categorizeTransactions;
-	/**
-	 * Groups transactions by month.
-	 * @param transactions List of transactions to group.
-	 * @returns An array of month groups with categorized transactions.
-	 */
-	private groupByMonth;
-	private extractCategories;
-	/**
-	 * Renders the component.
-	 * @returns {ReactNode}
-	 */
-	render(): ReactNode;
+export declare class TransactionAnalyticsByMonth extends Component<
+  TransactionAnalyticsByMonthProps,
+  TransactionAnalyticsByMonthState
+> {
+  private myRef;
+  static defaultProps: {
+    className: string;
+  };
+  constructor(props: TransactionAnalyticsByMonthProps);
+  /**
+   * Lifecycle method that runs after the component has been mounted.
+   */
+  componentDidMount(): void;
+  /**
+   * Categorizes the provided transactions.
+   * @param transactions List of transactions to categorize.
+   * @returns A categorized array.
+   */
+  private categorizeTransactions;
+  /**
+   * Groups transactions by month.
+   * @param transactions List of transactions to group.
+   * @returns An array of month groups with categorized transactions.
+   */
+  private groupByMonth;
+  private extractCategories;
+  /**
+   * Renders the component.
+   * @returns {ReactNode}
+   */
+  render(): ReactNode;
 }
 export type TransactionDataTableProps = {
-	transactions: Transaction[];
-	className?: string;
-	account?: BankAccount | CreditAccount;
+  transactions: Transaction[];
+  className?: string;
+  account?: BankAccount | CreditAccount;
 };
 export type TransactionDataTableState = {
-	transactions: Transaction[];
+  transactions: Transaction[];
 };
 /**
  * @class TransactionDataTable
@@ -10185,41 +10443,47 @@ export type TransactionDataTableState = {
  * with TSDoc annotations. It has various features like context usage,
  * dynamic styles, generic props, and more.
  */
-export declare class TransactionDataTable extends Component<TransactionDataTableProps, TransactionDataTableState> {
-	private myRef;
-	static defaultProps: {
-		className: string;
-	};
-	constructor(props: TransactionDataTableProps);
-	/**
-	 * Lifecycle method that runs after the component has been mounted.
-	 */
-	componentDidMount(): void;
-	/**
-	 * Renders the component.
-	 * @returns {ReactNode}
-	 */
-	render(): ReactNode;
+export declare class TransactionDataTable extends Component<
+  TransactionDataTableProps,
+  TransactionDataTableState
+> {
+  private myRef;
+  static defaultProps: {
+    className: string;
+  };
+  constructor(props: TransactionDataTableProps);
+  /**
+   * Lifecycle method that runs after the component has been mounted.
+   */
+  componentDidMount(): void;
+  /**
+   * Renders the component.
+   * @returns {ReactNode}
+   */
+  render(): ReactNode;
 }
 export declare const columns: ColumnDef<Transaction>[];
-export type CombinedAccounts = BankAccountClass & CreditAccountClass & StudentLoanAccountClass & InvestmentAccountClass;
+export type CombinedAccounts = BankAccountClass &
+  CreditAccountClass &
+  StudentLoanAccountClass &
+  InvestmentAccountClass;
 export type AccountsViewProps<T extends CombinedAccounts> = {
-	/** Primary data to be displayed or processed by the component. */
-	account: T;
-	/** Optional CSS classes for styling the component. */
-	className?: string;
-	transactions?: Transaction[];
-	enableDemoMode?: boolean;
-	historicalAccountBalance: AccountBalanceHistory[];
-	children?: ReactNode;
-	contextQuestions?: string[];
-	userName: string;
-	addGoalCallback: () => void;
-	addMilestoneCallback: () => void;
+  /** Primary data to be displayed or processed by the component. */
+  account: T;
+  /** Optional CSS classes for styling the component. */
+  className?: string;
+  transactions?: Transaction[];
+  enableDemoMode?: boolean;
+  historicalAccountBalance: AccountBalanceHistory[];
+  children?: ReactNode;
+  contextQuestions?: string[];
+  userName: string;
+  addGoalCallback: () => void;
+  addMilestoneCallback: () => void;
 };
 export type AccountsViewState<T extends CombinedAccounts> = {
-	/** account of interest */
-	account: T;
+  /** account of interest */
+  account: T;
 };
 /**
  * @class AccountsView
@@ -10229,35 +10493,38 @@ export type AccountsViewState<T extends CombinedAccounts> = {
  * This is a templated advanced React class component written in TypeScript.
  * It demonstrates context usage, dynamic styles, generic props, and more.
  */
-export declare class AccountsView<T extends CombinedAccounts> extends Component<AccountsViewProps<T>, AccountsViewState<T>> {
-	/** Reference to the main div element of the component. */
-	private myRef;
-	static defaultProps: {
-		children: null;
-		contextQuestions: string[];
-	};
-	constructor(props: AccountsViewProps<T>);
-	/**
-	 * Lifecycle method that runs after the component has been mounted.
-	 */
-	componentDidMount(): void;
-	/**
-	 * Renders the component.
-	 * @returns {ReactNode}
-	 */
-	render(): ReactNode;
+export declare class AccountsView<T extends CombinedAccounts> extends Component<
+  AccountsViewProps<T>,
+  AccountsViewState<T>
+> {
+  /** Reference to the main div element of the component. */
+  private myRef;
+  static defaultProps: {
+    children: null;
+    contextQuestions: string[];
+  };
+  constructor(props: AccountsViewProps<T>);
+  /**
+   * Lifecycle method that runs after the component has been mounted.
+   */
+  componentDidMount(): void;
+  /**
+   * Renders the component.
+   * @returns {ReactNode}
+   */
+  render(): ReactNode;
 }
 export type CategorizationViewProps<T> = {
-	/** Primary data to be displayed or processed by the component. */
-	data: T;
-	/** Optional greeting text. Defaults to 'Hello'. */
-	greeting?: string;
-	/** Optional CSS classes for styling the component. */
-	className?: string;
+  /** Primary data to be displayed or processed by the component. */
+  data: T;
+  /** Optional greeting text. Defaults to 'Hello'. */
+  greeting?: string;
+  /** Optional CSS classes for styling the component. */
+  className?: string;
 };
 export type CategorizationViewState = {
-	/** Counter to keep track of the number of button clicks. */
-	counter: number;
+  /** Counter to keep track of the number of button clicks. */
+  counter: number;
 };
 /**
  * @class CategorizationView
@@ -10267,39 +10534,42 @@ export type CategorizationViewState = {
  * This is a templated advanced React class component written in TypeScript.
  * It demonstrates context usage, dynamic styles, generic props, and more.
  */
-export declare class CategorizationView<T> extends Component<CategorizationViewProps<T>, CategorizationViewState> {
-	/** Reference to the main div element of the component. */
-	private myRef;
-	static defaultProps: {
-		greeting: string;
-	};
-	constructor(props: CategorizationViewProps<T>);
-	/**
-	 * Lifecycle method that runs after the component has been mounted.
-	 */
-	componentDidMount(): void;
-	/**
-	 * Increments the counter state property.
-	 * @private
-	 */
-	private incrementCounter;
-	/**
-	 * Renders the component.
-	 * @returns {ReactNode}
-	 */
-	render(): ReactNode;
+export declare class CategorizationView<T> extends Component<
+  CategorizationViewProps<T>,
+  CategorizationViewState
+> {
+  /** Reference to the main div element of the component. */
+  private myRef;
+  static defaultProps: {
+    greeting: string;
+  };
+  constructor(props: CategorizationViewProps<T>);
+  /**
+   * Lifecycle method that runs after the component has been mounted.
+   */
+  componentDidMount(): void;
+  /**
+   * Increments the counter state property.
+   * @private
+   */
+  private incrementCounter;
+  /**
+   * Renders the component.
+   * @returns {ReactNode}
+   */
+  render(): ReactNode;
 }
 export type ActionableInsightsViewProps<T extends PersonalActionableInsight> = {
-	/** Primary data to be displayed or processed by the component. */
-	insights: T[];
-	/** Optional CSS classes for styling the component. */
-	className?: string;
-	historicalFinancialProfile: FinancialProfile[];
+  /** Primary data to be displayed or processed by the component. */
+  insights: T[];
+  /** Optional CSS classes for styling the component. */
+  className?: string;
+  historicalFinancialProfile: FinancialProfile[];
 };
 export type ActionableInsightsViewState<T extends PersonalActionableInsight> = {
-	/** Counter to keep track of the number of button clicks. */
-	insights: T[];
-	historicalFinancialProfile: FinancialProfile[];
+  /** Counter to keep track of the number of button clicks. */
+  insights: T[];
+  historicalFinancialProfile: FinancialProfile[];
 };
 /**
  * @class ActionableInsightsView
@@ -10309,37 +10579,42 @@ export type ActionableInsightsViewState<T extends PersonalActionableInsight> = {
  * This is a templated advanced React class component written in TypeScript.
  * It demonstrates context usage, dynamic styles, generic props, and more.
  */
-export declare class ActionableInsightsView<T extends PersonalActionableInsight> extends Component<ActionableInsightsViewProps<T>, ActionableInsightsViewState<T>> {
-	/** Reference to the main div element of the component. */
-	private myRef;
-	static defaultProps: {
-		greeting: string;
-	};
-	constructor(props: ActionableInsightsViewProps<T>);
-	/**
-	 * Lifecycle method that runs after the component has been mounted.
-	 */
-	componentDidMount(): void;
-	/**
-	 * Renders the component.
-	 * @returns {ReactNode}
-	 */
-	render(): ReactNode;
+export declare class ActionableInsightsView<
+  T extends PersonalActionableInsight,
+> extends Component<
+  ActionableInsightsViewProps<T>,
+  ActionableInsightsViewState<T>
+> {
+  /** Reference to the main div element of the component. */
+  private myRef;
+  static defaultProps: {
+    greeting: string;
+  };
+  constructor(props: ActionableInsightsViewProps<T>);
+  /**
+   * Lifecycle method that runs after the component has been mounted.
+   */
+  componentDidMount(): void;
+  /**
+   * Renders the component.
+   * @returns {ReactNode}
+   */
+  render(): ReactNode;
 }
 export declare const FinancialProfileThroughTimeChart: React.FC<{
-	data: FinancialProfile[];
+  data: FinancialProfile[];
 }>;
 export type CopilotViewProps<T> = {
-	/** Primary data to be displayed or processed by the component. */
-	data: T;
-	/** Optional greeting text. Defaults to 'Hello'. */
-	greeting?: string;
-	/** Optional CSS classes for styling the component. */
-	className?: string;
+  /** Primary data to be displayed or processed by the component. */
+  data: T;
+  /** Optional greeting text. Defaults to 'Hello'. */
+  greeting?: string;
+  /** Optional CSS classes for styling the component. */
+  className?: string;
 };
 export type CopilotViewState = {
-	/** Counter to keep track of the number of button clicks. */
-	counter: number;
+  /** Counter to keep track of the number of button clicks. */
+  counter: number;
 };
 /**
  * @class CopilotView
@@ -10349,44 +10624,50 @@ export type CopilotViewState = {
  * This is a templated advanced React class component written in TypeScript.
  * It demonstrates context usage, dynamic styles, generic props, and more.
  */
-export declare class CopilotView<T> extends Component<CopilotViewProps<T>, CopilotViewState> {
-	/** Reference to the main div element of the component. */
-	private myRef;
-	static defaultProps: {
-		greeting: string;
-	};
-	constructor(props: CopilotViewProps<T>);
-	/**
-	 * Lifecycle method that runs after the component has been mounted.
-	 */
-	componentDidMount(): void;
-	/**
-	 * Increments the counter state property.
-	 * @private
-	 */
-	private incrementCounter;
-	/**
-	 * Renders the component.
-	 * @returns {ReactNode}
-	 */
-	render(): ReactNode;
+export declare class CopilotView<T> extends Component<
+  CopilotViewProps<T>,
+  CopilotViewState
+> {
+  /** Reference to the main div element of the component. */
+  private myRef;
+  static defaultProps: {
+    greeting: string;
+  };
+  constructor(props: CopilotViewProps<T>);
+  /**
+   * Lifecycle method that runs after the component has been mounted.
+   */
+  componentDidMount(): void;
+  /**
+   * Increments the counter state property.
+   * @private
+   */
+  private incrementCounter;
+  /**
+   * Renders the component.
+   * @returns {ReactNode}
+   */
+  render(): ReactNode;
 }
-export type CompoundMetricType = ExpenseMetricsClass[] | IncomeMetricsClass[] | undefined;
-export type SelectedDateRangeOfEvaluation = "30 Days" | "2 Weeks" | "1 Week";
+export type CompoundMetricType =
+  | ExpenseMetricsClass[]
+  | IncomeMetricsClass[]
+  | undefined;
+export type SelectedDateRangeOfEvaluation = '30 Days' | '2 Weeks' | '1 Week';
 export type ExpenseIncomeViewProps<T extends CompoundMetricType> = {
-	/** Primary data to be displayed or processed by the component. */
-	data: T;
-	/** Optional CSS classes for styling the component. */
-	className?: string;
-	enableDebugMode?: boolean;
-	historicalAccountBalance: AccountBalanceHistory[];
-	transactions: Transaction[];
+  /** Primary data to be displayed or processed by the component. */
+  data: T;
+  /** Optional CSS classes for styling the component. */
+  className?: string;
+  enableDebugMode?: boolean;
+  historicalAccountBalance: AccountBalanceHistory[];
+  transactions: Transaction[];
 };
 export type ExpenseIncomeViewState<T extends CompoundMetricType> = {
-	/** Counter to keep track of the number of button clicks. */
-	data: T;
-	historicalAccountBalance: AccountBalanceHistory[];
-	selectedDateRangeOfEvaluation: SelectedDateRangeOfEvaluation;
+  /** Counter to keep track of the number of button clicks. */
+  data: T;
+  historicalAccountBalance: AccountBalanceHistory[];
+  selectedDateRangeOfEvaluation: SelectedDateRangeOfEvaluation;
 };
 /**
  * @class ExpenseIncomeView
@@ -10396,64 +10677,70 @@ export type ExpenseIncomeViewState<T extends CompoundMetricType> = {
  * This is a templated advanced React class component written in TypeScript.
  * It demonstrates context usage, dynamic styles, generic props, and more.
  */
-export declare class ExpenseIncomeView<T extends CompoundMetricType> extends Component<ExpenseIncomeViewProps<T>, ExpenseIncomeViewState<T>> {
-	/** Reference to the main div element of the component. */
-	private myRef;
-	static defaultProps: {};
-	constructor(props: ExpenseIncomeViewProps<T>);
-	/**
-	 * Lifecycle method that runs after the component has been mounted.
-	 */
-	componentDidMount(): void;
-	convertToChartData(data: AccountBalanceHistory): {
-		name: string;
-		total: number;
-	};
-	getNumberOfTransactionsPerCategory(): {
-		name: string;
-		value: number;
-	}[];
-	aggregateTransactionsByMonthAndConvertToChartData(): {
-		name: string;
-		total: number;
-	}[];
-	setSelectedDateRangeOfEvaluation(selectedDateRangeOfEvaluation: SelectedDateRangeOfEvaluation): void;
-	monthNumberToString(monthNumber: number): string;
-	getMetricsForMonth(month: number): (ExpenseMetricsClass | IncomeMetricsClass)[];
-	getTopCategories(): {
-		name: string;
-		transactionCount: number;
-	}[];
-	getHistoricalAccountBalance(): AccountBalanceHistory[];
-	/**
-	 * Renders the component.
-	 * @returns {ReactNode}
-	 */
-	render(): ReactNode;
+export declare class ExpenseIncomeView<
+  T extends CompoundMetricType,
+> extends Component<ExpenseIncomeViewProps<T>, ExpenseIncomeViewState<T>> {
+  /** Reference to the main div element of the component. */
+  private myRef;
+  static defaultProps: {};
+  constructor(props: ExpenseIncomeViewProps<T>);
+  /**
+   * Lifecycle method that runs after the component has been mounted.
+   */
+  componentDidMount(): void;
+  convertToChartData(data: AccountBalanceHistory): {
+    name: string;
+    total: number;
+  };
+  getNumberOfTransactionsPerCategory(): {
+    name: string;
+    value: number;
+  }[];
+  aggregateTransactionsByMonthAndConvertToChartData(): {
+    name: string;
+    total: number;
+  }[];
+  setSelectedDateRangeOfEvaluation(
+    selectedDateRangeOfEvaluation: SelectedDateRangeOfEvaluation,
+  ): void;
+  monthNumberToString(monthNumber: number): string;
+  getMetricsForMonth(
+    month: number,
+  ): (ExpenseMetricsClass | IncomeMetricsClass)[];
+  getTopCategories(): {
+    name: string;
+    transactionCount: number;
+  }[];
+  getHistoricalAccountBalance(): AccountBalanceHistory[];
+  /**
+   * Renders the component.
+   * @returns {ReactNode}
+   */
+  render(): ReactNode;
 }
 export type TimelineEvent = {
-	id: string;
-	icon: ReactElement;
-	content: string;
-	href: string;
-	target: string;
-	datetime: string;
-	date: string;
+  id: string;
+  icon: ReactElement;
+  content: string;
+  href: string;
+  target: string;
+  datetime: string;
+  date: string;
 };
 export type GoalsViewProps<T extends SmartGoal> = {
-	/** Primary data to be displayed or processed by the component. */
-	goal: T;
-	/** Optional CSS classes for styling the component. */
-	className?: string;
-	enableDemoMode?: boolean;
-	transactions?: Transaction[];
-	timeline?: TimelineEvent[];
-	addBudgetCallback: () => void;
-	addMilestoneCallback: () => void;
+  /** Primary data to be displayed or processed by the component. */
+  goal: T;
+  /** Optional CSS classes for styling the component. */
+  className?: string;
+  enableDemoMode?: boolean;
+  transactions?: Transaction[];
+  timeline?: TimelineEvent[];
+  addBudgetCallback: () => void;
+  addMilestoneCallback: () => void;
 };
 export type GoalsViewState<T extends SmartGoal> = {
-	/** Counter to keep track of the number of button clicks. */
-	goal: T;
+  /** Counter to keep track of the number of button clicks. */
+  goal: T;
 };
 /**
  * @class GoalsView
@@ -10463,42 +10750,45 @@ export type GoalsViewState<T extends SmartGoal> = {
  * This is a templated advanced React class component written in TypeScript.
  * It demonstrates context usage, dynamic styles, generic props, and more.
  */
-export declare class GoalsView<T extends SmartGoal> extends Component<GoalsViewProps<T>, GoalsViewState<T>> {
-	/** Reference to the main div element of the component. */
-	private myRef;
-	static defaultProps: {};
-	constructor(props: GoalsViewProps<T>);
-	/**
-	 * Lifecycle method that runs after the component has been mounted.
-	 */
-	componentDidMount(): void;
-	getMilestones(): Milestone[] | undefined;
-	getBudgets(): (Budget | undefined)[];
-	/**
-	 * Computes the percentage of two numbers represented as strings, potentially prefixed with `$`.
-	 *
-	 * @param numeratorStr - The numerator as a string.
-	 * @param denominatorStr - The denominator as a string.
-	 * @returns The percentage (numerator/denominator * 100) or NaN if inputs are not valid numbers.
-	 */
-	computePercentage(numeratorStr: string, denominatorStr: string): number;
-	/**
-	 * Renders the component.
-	 * @returns {ReactNode}
-	 */
-	render(): ReactNode;
+export declare class GoalsView<T extends SmartGoal> extends Component<
+  GoalsViewProps<T>,
+  GoalsViewState<T>
+> {
+  /** Reference to the main div element of the component. */
+  private myRef;
+  static defaultProps: {};
+  constructor(props: GoalsViewProps<T>);
+  /**
+   * Lifecycle method that runs after the component has been mounted.
+   */
+  componentDidMount(): void;
+  getMilestones(): Milestone[] | undefined;
+  getBudgets(): (Budget | undefined)[];
+  /**
+   * Computes the percentage of two numbers represented as strings, potentially prefixed with `$`.
+   *
+   * @param numeratorStr - The numerator as a string.
+   * @param denominatorStr - The denominator as a string.
+   * @returns The percentage (numerator/denominator * 100) or NaN if inputs are not valid numbers.
+   */
+  computePercentage(numeratorStr: string, denominatorStr: string): number;
+  /**
+   * Renders the component.
+   * @returns {ReactNode}
+   */
+  render(): ReactNode;
 }
 export type TransactionsViewProps<T> = {
-	/** Primary data to be displayed or processed by the component. */
-	data: T;
-	/** Optional greeting text. Defaults to 'Hello'. */
-	greeting?: string;
-	/** Optional CSS classes for styling the component. */
-	className?: string;
+  /** Primary data to be displayed or processed by the component. */
+  data: T;
+  /** Optional greeting text. Defaults to 'Hello'. */
+  greeting?: string;
+  /** Optional CSS classes for styling the component. */
+  className?: string;
 };
 export type TransactionsViewState = {
-	/** Counter to keep track of the number of button clicks. */
-	counter: number;
+  /** Counter to keep track of the number of button clicks. */
+  counter: number;
 };
 /**
  * @class TransactionsView
@@ -10508,40 +10798,43 @@ export type TransactionsViewState = {
  * This is a templated advanced React class component written in TypeScript.
  * It demonstrates context usage, dynamic styles, generic props, and more.
  */
-export declare class TransactionsView<T> extends Component<TransactionsViewProps<T>, TransactionsViewState> {
-	/** Reference to the main div element of the component. */
-	private myRef;
-	static defaultProps: {
-		greeting: string;
-	};
-	constructor(props: TransactionsViewProps<T>);
-	/**
-	 * Lifecycle method that runs after the component has been mounted.
-	 */
-	componentDidMount(): void;
-	/**
-	 * Increments the counter state property.
-	 * @private
-	 */
-	private incrementCounter;
-	/**
-	 * Renders the component.
-	 * @returns {ReactNode}
-	 */
-	render(): ReactNode;
+export declare class TransactionsView<T> extends Component<
+  TransactionsViewProps<T>,
+  TransactionsViewState
+> {
+  /** Reference to the main div element of the component. */
+  private myRef;
+  static defaultProps: {
+    greeting: string;
+  };
+  constructor(props: TransactionsViewProps<T>);
+  /**
+   * Lifecycle method that runs after the component has been mounted.
+   */
+  componentDidMount(): void;
+  /**
+   * Increments the counter state property.
+   * @private
+   */
+  private incrementCounter;
+  /**
+   * Renders the component.
+   * @returns {ReactNode}
+   */
+  render(): ReactNode;
 }
 export type CreditAccountCardProps<CreditAccount> = {
-	creditAccount: CreditAccount;
-	financialProfile: FinancialProfile;
-	institutionName: string;
-	className?: string;
-	contextQuestions?: string[];
-	enableDemoMode?: boolean;
-	children?: ReactNode;
-	historicalAccountBalance?: AccountBalanceHistory[];
+  creditAccount: CreditAccount;
+  financialProfile: FinancialProfile;
+  institutionName: string;
+  className?: string;
+  contextQuestions?: string[];
+  enableDemoMode?: boolean;
+  children?: ReactNode;
+  historicalAccountBalance?: AccountBalanceHistory[];
 };
 export type CreditAccountCardState<T extends CreditAccount> = {
-	creditAccount: T;
+  creditAccount: T;
 };
 /**
  * @class CreditAccountCard
@@ -10552,200 +10845,208 @@ export type CreditAccountCardState<T extends CreditAccount> = {
  * with TSDoc annotations. It has various features like context usage,
  * dynamic styles, generic props, and more.
  */
-export declare class CreditAccountCard<T extends CreditAccount> extends Component<CreditAccountCardProps<T>, CreditAccountCardState<T>> {
-	private myRef;
-	static defaultProps: {
-		creditAccount: CreditAccountClass;
-		financialProfile: FinancialProfileClass;
-		contextQuestions: string[];
-		enableDemoMode: boolean;
-		children: null;
-	};
-	constructor(props: CreditAccountCardProps<T>);
-	/**
-	 * Lifecycle method that runs after the component has been mounted.
-	 */
-	componentDidMount(): void;
-	/**
-	 * Renders the component.
-	 * @returns {ReactNode}
-	 */
-	render(): ReactNode;
+export declare class CreditAccountCard<
+  T extends CreditAccount,
+> extends Component<CreditAccountCardProps<T>, CreditAccountCardState<T>> {
+  private myRef;
+  static defaultProps: {
+    creditAccount: CreditAccountClass;
+    financialProfile: FinancialProfileClass;
+    contextQuestions: string[];
+    enableDemoMode: boolean;
+    children: null;
+  };
+  constructor(props: CreditAccountCardProps<T>);
+  /**
+   * Lifecycle method that runs after the component has been mounted.
+   */
+  componentDidMount(): void;
+  /**
+   * Renders the component.
+   * @returns {ReactNode}
+   */
+  render(): ReactNode;
 }
 export declare const CreditAccountMiniCard: React.FC<{
-	creditAccount: CreditAccount;
-	institutionName: string;
-	className?: string;
+  creditAccount: CreditAccount;
+  institutionName: string;
+  className?: string;
 }>;
 /**
  * @interface User Represents user details
  */
 export interface User {
-	name: string;
-	email: string;
-	imageUrl: string;
+  name: string;
+  email: string;
+  imageUrl: string;
 }
 /**
  * @interface StackedLayoutNavigationItem Represents a navigation item
  */
 export interface StackedLayoutNavigationItem {
-	name: string;
-	href: string;
-	current?: boolean;
-	icon?: React.ForwardRefExoticComponent<Omit<React.SVGProps<SVGSVGElement>, "ref"> & {
-		title?: string | undefined;
-		titleId?: string | undefined;
-	} & React.RefAttributes<SVGSVGElement>>;
-	callback?: () => void;
+  name: string;
+  href: string;
+  current?: boolean;
+  icon?: React.ForwardRefExoticComponent<
+    Omit<React.SVGProps<SVGSVGElement>, 'ref'> & {
+      title?: string | undefined;
+      titleId?: string | undefined;
+    } & React.RefAttributes<SVGSVGElement>
+  >;
+  callback?: () => void;
 }
 /**
  * @interface StackedLayoutNavWithPageHeaderProps Represents the props for the StackedLayoutNavWithPageHeader component
  */
 export interface StackedLayoutNavWithPageHeaderProps {
-	user: User;
-	navigation: StackedLayoutNavigationItem[];
-	userNavigation: StackedLayoutNavigationItem[];
-	title: string;
+  user: User;
+  navigation: StackedLayoutNavigationItem[];
+  userNavigation: StackedLayoutNavigationItem[];
+  title: string;
 }
 export interface MultiColumnNarrowSidebarProps {
-	navigation: StackedLayoutNavigationItem[];
-	userNavigation: StackedLayoutNavigationItem[];
-	enableHeader: boolean;
+  navigation: StackedLayoutNavigationItem[];
+  userNavigation: StackedLayoutNavigationItem[];
+  enableHeader: boolean;
 }
 export declare const MultiColumnNarrowSidebar: React.FC<MultiColumnNarrowSidebarProps>;
 export interface MultiColumnThreeWidthProps {
-	navigation: StackedLayoutNavigationItem[];
-	subNavigation: StackedLayoutNavigationItem[];
+  navigation: StackedLayoutNavigationItem[];
+  subNavigation: StackedLayoutNavigationItem[];
 }
 export declare const MultiColumnThreeWidth: React.FC<MultiColumnThreeWidthProps>;
 export interface PanelLayoutProps {
-	/** Define the background color of the card */
-	bgColor?: "white" | "gray-50";
-	/** Use rounded corners */
-	useRounded?: boolean;
-	/** Use shadow on the card */
-	useShadow?: boolean;
-	/** Divide sections of the card with a gray line */
-	useDivider?: boolean;
-	/** Less vertical padding for card headers on desktop */
-	headerPadding?: boolean;
-	/** Less vertical padding for card footers at all sizes */
-	footerPadding?: boolean;
-	/** Children elements */
-	children?: ReactNode;
+  /** Define the background color of the card */
+  bgColor?: 'white' | 'gray-50';
+  /** Use rounded corners */
+  useRounded?: boolean;
+  /** Use shadow on the card */
+  useShadow?: boolean;
+  /** Divide sections of the card with a gray line */
+  useDivider?: boolean;
+  /** Less vertical padding for card headers on desktop */
+  headerPadding?: boolean;
+  /** Less vertical padding for card footers at all sizes */
+  footerPadding?: boolean;
+  /** Children elements */
+  children?: ReactNode;
 }
 export interface SidebarBasicProps {
-	navigationItems: NavigationItem[];
-	userName: string;
-	userProfileImage: string;
-	className?: string;
-	disableImage?: boolean;
+  navigationItems: NavigationItem[];
+  userName: string;
+  userProfileImage: string;
+  className?: string;
+  disableImage?: boolean;
 }
 export declare const SidebarBasic: React.FC<SidebarBasicProps>;
 export interface SidebarSimpleProps {
-	navigation: StackedLayoutNavigationItem[];
-	subNavigation: StackedLayoutNavigationItem[];
-	userNavigation: StackedLayoutNavigationItem[];
-	children: React.ReactNode;
+  navigation: StackedLayoutNavigationItem[];
+  subNavigation: StackedLayoutNavigationItem[];
+  userNavigation: StackedLayoutNavigationItem[];
+  children: React.ReactNode;
 }
 export declare const SidebarSimple: React.FC<SidebarSimpleProps>;
 export interface SidebarWithConstrainedAreaProps {
-	navigation: StackedLayoutNavigationItem[];
-	subNavigation: StackedLayoutNavigationItem[];
-	userNavigation: StackedLayoutNavigationItem[];
-	children: React.ReactNode;
+  navigation: StackedLayoutNavigationItem[];
+  subNavigation: StackedLayoutNavigationItem[];
+  userNavigation: StackedLayoutNavigationItem[];
+  children: React.ReactNode;
 }
 export declare const SidebarWithConstrainedArea: React.FC<SidebarWithConstrainedAreaProps>;
 export interface SidebarWithHeaderProps {
-	navigation: StackedLayoutNavigationItem[];
-	subNavigation: StackedLayoutNavigationItem[];
-	userNavigation: StackedLayoutNavigationItem[];
-	children: React.ReactNode;
+  navigation: StackedLayoutNavigationItem[];
+  subNavigation: StackedLayoutNavigationItem[];
+  userNavigation: StackedLayoutNavigationItem[];
+  children: React.ReactNode;
 }
 export declare const SidebarWithHeader: React.FC<SidebarWithHeaderProps>;
 export interface ContainerLayoutProps {
-	/** Use max width of 7xl or container */
-	useMaxWidth7xl?: boolean;
-	/** Use a container class */
-	useContainer?: boolean;
-	/** Use an inner div with max width of 3xl */
-	useInnerMaxWidth3xl?: boolean;
-	/** Padding along the x-axis */
-	paddingX?: string;
-	/** Children elements */
-	children?: ReactNode;
+  /** Use max width of 7xl or container */
+  useMaxWidth7xl?: boolean;
+  /** Use a container class */
+  useContainer?: boolean;
+  /** Use an inner div with max width of 3xl */
+  useInnerMaxWidth3xl?: boolean;
+  /** Padding along the x-axis */
+  paddingX?: string;
+  /** Children elements */
+  children?: ReactNode;
 }
 /**
  * @interface User Represents user details
  */
 export interface User {
-	name: string;
-	email: string;
-	imageUrl: string;
+  name: string;
+  email: string;
+  imageUrl: string;
 }
 /**
  * @interface StackedNavigationItem Represents a navigation item
  */
 export interface StackedNavigationItem {
-	name: string;
-	href: string;
-	current?: boolean;
+  name: string;
+  href: string;
+  current?: boolean;
 }
 /**
  * @interface StackedLayoutNavBottomBorderProps Represents the props for the StackedLayoutNavBottomBorder component
  */
 export interface StackedLayoutNavBottomBorderProps {
-	user: User;
-	navigation: StackedNavigationItem[];
-	userNavigation: StackedNavigationItem[];
-	title: string;
+  user: User;
+  navigation: StackedNavigationItem[];
+  userNavigation: StackedNavigationItem[];
+  title: string;
 }
 /**
  * @interface StackedLayoutOverlapProps Represents the props for the StackedLayoutOverlap component
  */
 export interface StackedLayoutOverlapProps {
-	user: User;
-	navigation: StackedLayoutNavigationItem[];
-	userNavigation: StackedLayoutNavigationItem[];
-	title: string;
-	children: React.ReactNode;
+  user: User;
+  navigation: StackedLayoutNavigationItem[];
+  userNavigation: StackedLayoutNavigationItem[];
+  title: string;
+  children: React.ReactNode;
 }
 /**
  * @interface StackedLayoutOverlapTwoRowsProps Represents the props for the StackedLayoutOverlapTwoRows component
  */
 export interface StackedLayoutOverlapTwoRowsProps {
-	user: User;
-	navigation: StackedLayoutNavigationItem[];
-	userNavigation: StackedLayoutNavigationItem[];
-	title: string;
-	children: React.ReactNode;
+  user: User;
+  navigation: StackedLayoutNavigationItem[];
+  userNavigation: StackedLayoutNavigationItem[];
+  title: string;
+  children: React.ReactNode;
 }
 /**
  * Represents a role in a conversation with OpenAI's ChatGPT model.
  */
-export type ChatGPTAgent = "user" | "system" | "assistant";
-export type OpenAIModel = " gpt-4-turbo" | "gpt-4" | "gpt-3.5" | "gpt-3.5-turbo";
+export type ChatGPTAgent = 'user' | 'system' | 'assistant';
+export type OpenAIModel =
+  | ' gpt-4-turbo'
+  | 'gpt-4'
+  | 'gpt-3.5'
+  | 'gpt-3.5-turbo';
 export type SolomonProps = {
-	children: React.ReactNode;
-	className?: string;
-	context: any | undefined;
-	sampleQuestions: string[];
-	enableGlobalContext?: boolean;
-	userId: string;
-	userName: string;
-	userAccount: UserAccount;
-	financialContext: MelodyFinancialContext;
-	instrumentationCallback?: () => void;
-	apiToken: string;
-	model: OpenAIModel;
-	componentType: ComponentType;
-	temperature: number;
-	top_p: number;
-	frequency_penalty: number;
-	presence_penalty: number;
-	max_tokens: number;
+  children: React.ReactNode;
+  className?: string;
+  context: any | undefined;
+  sampleQuestions: string[];
+  enableGlobalContext?: boolean;
+  userId: string;
+  userName: string;
+  userAccount: UserAccount;
+  financialContext: MelodyFinancialContext;
+  instrumentationCallback?: () => void;
+  apiToken: string;
+  model: OpenAIModel;
+  componentType: ComponentType;
+  temperature: number;
+  top_p: number;
+  frequency_penalty: number;
+  presence_penalty: number;
+  max_tokens: number;
 };
-export type ComponentType = "SHEET" | "DIALOG";
+export type ComponentType = 'SHEET' | 'DIALOG';
 /**
  * This is the main layout for the Analytic AI card.
  *
@@ -10763,320 +11064,424 @@ export type ComponentType = "SHEET" | "DIALOG";
 export declare const AskSolomonAILayout: React.FC<SolomonProps>;
 export declare const AskSolomon: React.FC<SolomonProps>;
 export interface ChatGPTMessage {
-	role: ChatGPTAgent;
-	content: string;
+  role: ChatGPTAgent;
+  content: string;
 }
-export declare const LoadingChatLine: () => import("react/jsx-runtime").JSX.Element;
-export declare function ChatLine({ role, content }: ChatGPTMessage): import("react/jsx-runtime").JSX.Element | null;
+export declare const LoadingChatLine: () => import('react/jsx-runtime').JSX.Element;
+export declare function ChatLine({
+  role,
+  content,
+}: ChatGPTMessage): import('react/jsx-runtime').JSX.Element | null;
 export type InputMessageProps = {
-	input: string;
-	setInput: (input: string) => void;
-	sendMessage: (input: string) => void;
+  input: string;
+  setInput: (input: string) => void;
+  sendMessage: (input: string) => void;
 };
 export declare const InputMessage: React.FC<InputMessageProps>;
 export declare const initialMessages: ChatGPTMessage[];
 export type ContextTypes = {
-	contextName: string;
-	context: any;
+  contextName: string;
+  context: any;
 };
-export type AIAgentContext = "COMPLIANCE" | "FINANCIAL" | "RISK";
+export type AIAgentContext = 'COMPLIANCE' | 'FINANCIAL' | 'RISK';
 export type ChatProps = {
-	baseContext: ContextTypes;
-	sampleQuestions: string[];
-	secondaryContext?: ContextTypes[];
-	className?: string;
-	instrumentationCallback?: () => void;
-	apiToken: string;
-	model: OpenAIModel;
-	userName: string;
-	userAccount: UserAccount | BusinessAccount;
-	temperature: number;
-	top_p: number;
-	frequency_penalty: number;
-	presence_penalty: number;
-	max_tokens: number;
-	agentContext?: AIAgentContext;
+  baseContext: ContextTypes;
+  sampleQuestions: string[];
+  secondaryContext?: ContextTypes[];
+  className?: string;
+  instrumentationCallback?: () => void;
+  apiToken: string;
+  model: OpenAIModel;
+  userName: string;
+  userAccount: UserAccount | BusinessAccount;
+  temperature: number;
+  top_p: number;
+  frequency_penalty: number;
+  presence_penalty: number;
+  max_tokens: number;
+  agentContext?: AIAgentContext;
 };
 export declare const initialAnalyticMessage: ChatGPTMessage[];
-export declare const Chat: ({ baseContext, sampleQuestions, secondaryContext, className, instrumentationCallback, apiToken, model, userName, userAccount, temperature, top_p, frequency_penalty, presence_penalty, max_tokens, agentContext, }: ChatProps) => import("react/jsx-runtime").JSX.Element;
+export declare const Chat: ({
+  baseContext,
+  sampleQuestions,
+  secondaryContext,
+  className,
+  instrumentationCallback,
+  apiToken,
+  model,
+  userName,
+  userAccount,
+  temperature,
+  top_p,
+  frequency_penalty,
+  presence_penalty,
+  max_tokens,
+  agentContext,
+}: ChatProps) => import('react/jsx-runtime').JSX.Element;
 export declare const EmbeddedContextPickerComponent: React.FC<{
-	className?: string;
-	messages: ChatGPTMessage[];
-	selectedContext: ContextTypes;
-	setContextCallback: (context: ContextTypes) => void;
-	baseContext: ContextTypes;
-	contextFamily: ContextTypes[];
+  className?: string;
+  messages: ChatGPTMessage[];
+  selectedContext: ContextTypes;
+  setContextCallback: (context: ContextTypes) => void;
+  baseContext: ContextTypes;
+  contextFamily: ContextTypes[];
 }>;
-export interface SmartTextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
-	context: any;
-	globalFinancialContext: MelodyFinancialContext;
-	sampleQuestions: string[];
-	enableGlobalContext?: boolean;
-	userId: string;
-	userName: string;
-	userAccount: UserAccount;
-	financialContext: MelodyFinancialContext;
-	instrumentationCallback?: () => void;
-	apiToken: string;
-	model: OpenAIModel;
-	temperature: number;
-	top_p: number;
-	frequency_penalty: number;
-	presence_penalty: number;
-	max_tokens: number;
+export interface SmartTextareaProps
+  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+  context: any;
+  globalFinancialContext: MelodyFinancialContext;
+  sampleQuestions: string[];
+  enableGlobalContext?: boolean;
+  userId: string;
+  userName: string;
+  userAccount: UserAccount;
+  financialContext: MelodyFinancialContext;
+  instrumentationCallback?: () => void;
+  apiToken: string;
+  model: OpenAIModel;
+  temperature: number;
+  top_p: number;
+  frequency_penalty: number;
+  presence_penalty: number;
+  max_tokens: number;
 }
-export declare const SmartTextarea: React.ForwardRefExoticComponent<SmartTextareaProps & React.RefAttributes<HTMLTextAreaElement>>;
+export declare const SmartTextarea: React.ForwardRefExoticComponent<
+  SmartTextareaProps & React.RefAttributes<HTMLTextAreaElement>
+>;
 export interface ComplianceViewProps {
-	navigation: StackedLayoutNavigationItem[];
-	subNavigation: StackedLayoutNavigationItem[];
-	account: BusinessAccount;
-	apiToken: string;
-	model: OpenAIModel;
-	temperature: number;
-	top_p: number;
-	frequency_penalty: number;
-	presence_penalty: number;
-	max_tokens: number;
-	globalContext: MelodyFinancialContext;
-	enableHeader: boolean;
+  navigation: StackedLayoutNavigationItem[];
+  subNavigation: StackedLayoutNavigationItem[];
+  account: BusinessAccount;
+  apiToken: string;
+  model: OpenAIModel;
+  temperature: number;
+  top_p: number;
+  frequency_penalty: number;
+  presence_penalty: number;
+  max_tokens: number;
+  globalContext: MelodyFinancialContext;
+  enableHeader: boolean;
 }
 export declare const ComplianceView: React.FC<ComplianceViewProps>;
-declare const smartGoalSchema: z.ZodObject<{
-	currentAmount: z.ZodOptional<z.ZodString>;
-	description: z.ZodString;
-	duration: z.ZodOptional<z.ZodString>;
-	endDate: z.ZodString;
-	forecasts: z.ZodOptional<z.ZodArray<z.ZodObject<{
-		forecastedAmount: z.ZodOptional<z.ZodString>;
-		forecastedCompletionDate: z.ZodOptional<z.ZodString>;
-		id: z.ZodOptional<z.ZodString>;
-		varianceAmount: z.ZodOptional<z.ZodString>;
-	}, "strip", z.ZodTypeAny, {
-		forecastedAmount?: string | undefined;
-		forecastedCompletionDate?: string | undefined;
-		id?: string | undefined;
-		varianceAmount?: string | undefined;
-	}, {
-		forecastedAmount?: string | undefined;
-		forecastedCompletionDate?: string | undefined;
-		id?: string | undefined;
-		varianceAmount?: string | undefined;
-	}>, "many">>;
-	goalType: z.ZodEnum<[
-		"GOAL_TYPE_SAVINGS",
-		"GOAL_TYPE_INVESTMENT",
-		"GOAL_TYPE_DEBT",
-		"GOAL_TYPE_EXPENSE"
-	]>;
-	id: z.ZodOptional<z.ZodString>;
-	isCompleted: z.ZodOptional<z.ZodBoolean>;
-	milestones: z.ZodOptional<z.ZodArray<z.ZodObject<{
-		budget: z.ZodOptional<z.ZodObject<{
-			category: z.ZodOptional<z.ZodObject<{
-				id: z.ZodOptional<z.ZodString>;
-				name: z.ZodString;
-				description: z.ZodString;
-				subcategories: z.ZodArray<z.ZodString, "many">;
-			}, "strip", z.ZodTypeAny, {
-				name: string;
-				description: string;
-				subcategories: string[];
-				id?: string | undefined;
-			}, {
-				name: string;
-				description: string;
-				subcategories: string[];
-				id?: string | undefined;
-			}>>;
-			description: z.ZodString;
-			endDate: z.ZodString;
-			id: z.ZodOptional<z.ZodString>;
-			name: z.ZodString;
-			startDate: z.ZodString;
-		}, "strip", z.ZodTypeAny, {
-			name: string;
-			description: string;
-			endDate: string;
-			startDate: string;
-			category?: {
-				name: string;
-				description: string;
-				subcategories: string[];
-				id?: string | undefined;
-			} | undefined;
-			id?: string | undefined;
-		}, {
-			name: string;
-			description: string;
-			endDate: string;
-			startDate: string;
-			category?: {
-				name: string;
-				description: string;
-				subcategories: string[];
-				id?: string | undefined;
-			} | undefined;
-			id?: string | undefined;
-		}>>;
-		description: z.ZodString;
-		id: z.ZodOptional<z.ZodString>;
-		isCompleted: z.ZodOptional<z.ZodBoolean>;
-		name: z.ZodString;
-		targetAmount: z.ZodString;
-		targetDate: z.ZodString;
-	}, "strip", z.ZodTypeAny, {
-		name: string;
-		description: string;
-		targetAmount: string;
-		targetDate: string;
-		budget?: {
-			name: string;
-			description: string;
-			endDate: string;
-			startDate: string;
-			category?: {
-				name: string;
-				description: string;
-				subcategories: string[];
-				id?: string | undefined;
-			} | undefined;
-			id?: string | undefined;
-		} | undefined;
-		id?: string | undefined;
-		isCompleted?: boolean | undefined;
-	}, {
-		name: string;
-		description: string;
-		targetAmount: string;
-		targetDate: string;
-		budget?: {
-			name: string;
-			description: string;
-			endDate: string;
-			startDate: string;
-			category?: {
-				name: string;
-				description: string;
-				subcategories: string[];
-				id?: string | undefined;
-			} | undefined;
-			id?: string | undefined;
-		} | undefined;
-		id?: string | undefined;
-		isCompleted?: boolean | undefined;
-	}>, "many">>;
-	name: z.ZodString;
-	startDate: z.ZodString;
-	targetAmount: z.ZodString;
-	userId: z.ZodOptional<z.ZodString>;
-}, "strip", z.ZodTypeAny, {
-	name: string;
-	description: string;
-	endDate: string;
-	startDate: string;
-	targetAmount: string;
-	goalType: "GOAL_TYPE_SAVINGS" | "GOAL_TYPE_INVESTMENT" | "GOAL_TYPE_DEBT" | "GOAL_TYPE_EXPENSE";
-	currentAmount?: string | undefined;
-	duration?: string | undefined;
-	forecasts?: {
-		forecastedAmount?: string | undefined;
-		forecastedCompletionDate?: string | undefined;
-		id?: string | undefined;
-		varianceAmount?: string | undefined;
-	}[] | undefined;
-	id?: string | undefined;
-	isCompleted?: boolean | undefined;
-	milestones?: {
-		name: string;
-		description: string;
-		targetAmount: string;
-		targetDate: string;
-		budget?: {
-			name: string;
-			description: string;
-			endDate: string;
-			startDate: string;
-			category?: {
-				name: string;
-				description: string;
-				subcategories: string[];
-				id?: string | undefined;
-			} | undefined;
-			id?: string | undefined;
-		} | undefined;
-		id?: string | undefined;
-		isCompleted?: boolean | undefined;
-	}[] | undefined;
-	userId?: string | undefined;
-}, {
-	name: string;
-	description: string;
-	endDate: string;
-	startDate: string;
-	targetAmount: string;
-	goalType: "GOAL_TYPE_SAVINGS" | "GOAL_TYPE_INVESTMENT" | "GOAL_TYPE_DEBT" | "GOAL_TYPE_EXPENSE";
-	currentAmount?: string | undefined;
-	duration?: string | undefined;
-	forecasts?: {
-		forecastedAmount?: string | undefined;
-		forecastedCompletionDate?: string | undefined;
-		id?: string | undefined;
-		varianceAmount?: string | undefined;
-	}[] | undefined;
-	id?: string | undefined;
-	isCompleted?: boolean | undefined;
-	milestones?: {
-		name: string;
-		description: string;
-		targetAmount: string;
-		targetDate: string;
-		budget?: {
-			name: string;
-			description: string;
-			endDate: string;
-			startDate: string;
-			category?: {
-				name: string;
-				description: string;
-				subcategories: string[];
-				id?: string | undefined;
-			} | undefined;
-			id?: string | undefined;
-		} | undefined;
-		id?: string | undefined;
-		isCompleted?: boolean | undefined;
-	}[] | undefined;
-	userId?: string | undefined;
-}>;
+declare const smartGoalSchema: z.ZodObject<
+  {
+    currentAmount: z.ZodOptional<z.ZodString>;
+    description: z.ZodString;
+    duration: z.ZodOptional<z.ZodString>;
+    endDate: z.ZodString;
+    forecasts: z.ZodOptional<
+      z.ZodArray<
+        z.ZodObject<
+          {
+            forecastedAmount: z.ZodOptional<z.ZodString>;
+            forecastedCompletionDate: z.ZodOptional<z.ZodString>;
+            id: z.ZodOptional<z.ZodString>;
+            varianceAmount: z.ZodOptional<z.ZodString>;
+          },
+          'strip',
+          z.ZodTypeAny,
+          {
+            forecastedAmount?: string | undefined;
+            forecastedCompletionDate?: string | undefined;
+            id?: string | undefined;
+            varianceAmount?: string | undefined;
+          },
+          {
+            forecastedAmount?: string | undefined;
+            forecastedCompletionDate?: string | undefined;
+            id?: string | undefined;
+            varianceAmount?: string | undefined;
+          }
+        >,
+        'many'
+      >
+    >;
+    goalType: z.ZodEnum<
+      [
+        'GOAL_TYPE_SAVINGS',
+        'GOAL_TYPE_INVESTMENT',
+        'GOAL_TYPE_DEBT',
+        'GOAL_TYPE_EXPENSE',
+      ]
+    >;
+    id: z.ZodOptional<z.ZodString>;
+    isCompleted: z.ZodOptional<z.ZodBoolean>;
+    milestones: z.ZodOptional<
+      z.ZodArray<
+        z.ZodObject<
+          {
+            budget: z.ZodOptional<
+              z.ZodObject<
+                {
+                  category: z.ZodOptional<
+                    z.ZodObject<
+                      {
+                        id: z.ZodOptional<z.ZodString>;
+                        name: z.ZodString;
+                        description: z.ZodString;
+                        subcategories: z.ZodArray<z.ZodString, 'many'>;
+                      },
+                      'strip',
+                      z.ZodTypeAny,
+                      {
+                        name: string;
+                        description: string;
+                        subcategories: string[];
+                        id?: string | undefined;
+                      },
+                      {
+                        name: string;
+                        description: string;
+                        subcategories: string[];
+                        id?: string | undefined;
+                      }
+                    >
+                  >;
+                  description: z.ZodString;
+                  endDate: z.ZodString;
+                  id: z.ZodOptional<z.ZodString>;
+                  name: z.ZodString;
+                  startDate: z.ZodString;
+                },
+                'strip',
+                z.ZodTypeAny,
+                {
+                  name: string;
+                  description: string;
+                  endDate: string;
+                  startDate: string;
+                  category?:
+                    | {
+                        name: string;
+                        description: string;
+                        subcategories: string[];
+                        id?: string | undefined;
+                      }
+                    | undefined;
+                  id?: string | undefined;
+                },
+                {
+                  name: string;
+                  description: string;
+                  endDate: string;
+                  startDate: string;
+                  category?:
+                    | {
+                        name: string;
+                        description: string;
+                        subcategories: string[];
+                        id?: string | undefined;
+                      }
+                    | undefined;
+                  id?: string | undefined;
+                }
+              >
+            >;
+            description: z.ZodString;
+            id: z.ZodOptional<z.ZodString>;
+            isCompleted: z.ZodOptional<z.ZodBoolean>;
+            name: z.ZodString;
+            targetAmount: z.ZodString;
+            targetDate: z.ZodString;
+          },
+          'strip',
+          z.ZodTypeAny,
+          {
+            name: string;
+            description: string;
+            targetAmount: string;
+            targetDate: string;
+            budget?:
+              | {
+                  name: string;
+                  description: string;
+                  endDate: string;
+                  startDate: string;
+                  category?:
+                    | {
+                        name: string;
+                        description: string;
+                        subcategories: string[];
+                        id?: string | undefined;
+                      }
+                    | undefined;
+                  id?: string | undefined;
+                }
+              | undefined;
+            id?: string | undefined;
+            isCompleted?: boolean | undefined;
+          },
+          {
+            name: string;
+            description: string;
+            targetAmount: string;
+            targetDate: string;
+            budget?:
+              | {
+                  name: string;
+                  description: string;
+                  endDate: string;
+                  startDate: string;
+                  category?:
+                    | {
+                        name: string;
+                        description: string;
+                        subcategories: string[];
+                        id?: string | undefined;
+                      }
+                    | undefined;
+                  id?: string | undefined;
+                }
+              | undefined;
+            id?: string | undefined;
+            isCompleted?: boolean | undefined;
+          }
+        >,
+        'many'
+      >
+    >;
+    name: z.ZodString;
+    startDate: z.ZodString;
+    targetAmount: z.ZodString;
+    userId: z.ZodOptional<z.ZodString>;
+  },
+  'strip',
+  z.ZodTypeAny,
+  {
+    name: string;
+    description: string;
+    endDate: string;
+    startDate: string;
+    targetAmount: string;
+    goalType:
+      | 'GOAL_TYPE_SAVINGS'
+      | 'GOAL_TYPE_INVESTMENT'
+      | 'GOAL_TYPE_DEBT'
+      | 'GOAL_TYPE_EXPENSE';
+    currentAmount?: string | undefined;
+    duration?: string | undefined;
+    forecasts?:
+      | {
+          forecastedAmount?: string | undefined;
+          forecastedCompletionDate?: string | undefined;
+          id?: string | undefined;
+          varianceAmount?: string | undefined;
+        }[]
+      | undefined;
+    id?: string | undefined;
+    isCompleted?: boolean | undefined;
+    milestones?:
+      | {
+          name: string;
+          description: string;
+          targetAmount: string;
+          targetDate: string;
+          budget?:
+            | {
+                name: string;
+                description: string;
+                endDate: string;
+                startDate: string;
+                category?:
+                  | {
+                      name: string;
+                      description: string;
+                      subcategories: string[];
+                      id?: string | undefined;
+                    }
+                  | undefined;
+                id?: string | undefined;
+              }
+            | undefined;
+          id?: string | undefined;
+          isCompleted?: boolean | undefined;
+        }[]
+      | undefined;
+    userId?: string | undefined;
+  },
+  {
+    name: string;
+    description: string;
+    endDate: string;
+    startDate: string;
+    targetAmount: string;
+    goalType:
+      | 'GOAL_TYPE_SAVINGS'
+      | 'GOAL_TYPE_INVESTMENT'
+      | 'GOAL_TYPE_DEBT'
+      | 'GOAL_TYPE_EXPENSE';
+    currentAmount?: string | undefined;
+    duration?: string | undefined;
+    forecasts?:
+      | {
+          forecastedAmount?: string | undefined;
+          forecastedCompletionDate?: string | undefined;
+          id?: string | undefined;
+          varianceAmount?: string | undefined;
+        }[]
+      | undefined;
+    id?: string | undefined;
+    isCompleted?: boolean | undefined;
+    milestones?:
+      | {
+          name: string;
+          description: string;
+          targetAmount: string;
+          targetDate: string;
+          budget?:
+            | {
+                name: string;
+                description: string;
+                endDate: string;
+                startDate: string;
+                category?:
+                  | {
+                      name: string;
+                      description: string;
+                      subcategories: string[];
+                      id?: string | undefined;
+                    }
+                  | undefined;
+                id?: string | undefined;
+              }
+            | undefined;
+          id?: string | undefined;
+          isCompleted?: boolean | undefined;
+        }[]
+      | undefined;
+    userId?: string | undefined;
+  }
+>;
 export type SmartGoalZodSchema = z.infer<typeof smartGoalSchema>;
 export type FormReturnProps = UseFormReturn<SmartGoalZodSchema, any, undefined>;
 export declare const BankAccountSelector: React.FC<{
-	accounts: BankAccount[];
-	selectedAccount?: BankAccount;
-	setSelectedAccount: (account: BankAccount) => void;
+  accounts: BankAccount[];
+  selectedAccount?: BankAccount;
+  setSelectedAccount: (account: BankAccount) => void;
 }>;
 export declare const MultiStepSmartGoalForm: React.FC<{
-	className?: string;
-	callback: (smartGoal: SmartGoal) => void;
-	bankAccounts: BankAccount[];
-	userName: string;
-	userProfileImage: string;
-	globalFinancialContext: MelodyFinancialContext;
-	userAccount: UserAccountClass;
-	instrumentationCallback?: () => void;
-	userId: string;
-	apiToken: string;
-	model: OpenAIModel;
-	temperature: number;
-	top_p: number;
-	frequency_penalty: number;
-	presence_penalty: number;
-	max_tokens: number;
+  className?: string;
+  callback: (smartGoal: SmartGoal) => void;
+  bankAccounts: BankAccount[];
+  userName: string;
+  userProfileImage: string;
+  globalFinancialContext: MelodyFinancialContext;
+  userAccount: UserAccountClass;
+  instrumentationCallback?: () => void;
+  userId: string;
+  apiToken: string;
+  model: OpenAIModel;
+  temperature: number;
+  top_p: number;
+  frequency_penalty: number;
+  presence_penalty: number;
+  max_tokens: number;
 }>;
 export declare const MultiStepCreateBusinessAccountForm: React.FC<{
-	className?: string;
-	callback: (data: CreateAccountV2RequestClass) => void;
-	instrumentationCallback?: () => void;
+  className?: string;
+  callback: (data: CreateAccountV2RequestClass) => void;
+  instrumentationCallback?: () => void;
 }>;
 
 export {};

@@ -9,13 +9,17 @@ export const BusinessAccountOnBoardingStep2Form: React.FC<
 > = ({ setStep, className, variant, register, getValue, errors }) => {
   const isValid = () => {
     if (
-      (isEmptyObject(errors) &&
-        (getValue('phoneNumber') === '' ||
-          getValue('companyName') === '' ||
-          getValue('companyDescription') === '' ||
-          getValue('companyWebsite') === '' ||
-          getValue('companyEstablished') === '')) ||
-      !isEmptyObject(errors)
+      (isEmptyObject(errors) && getValue('phoneNumber') === '') ||
+      getValue('companyDescription') === '' ||
+      getValue('companyWebsite') === '' ||
+      getValue('companyEstablished') === '' ||
+      getValue('industry') === '' ||
+      errors.phoneNumber !== undefined ||
+      errors.companyName !== undefined ||
+      errors.companyDescription !== undefined ||
+      errors.companyWebsite !== undefined ||
+      errors.companyEstablished !== undefined ||
+      errors.industry !== undefined
     ) {
       return false;
     }
