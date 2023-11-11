@@ -1,3 +1,10 @@
+# [1.117.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.116.0...v1.117.0) (2023-11-11)
+
+
+### Features
+
+* update request class ([0a22130](https://github.com/SolomonAIEngineering/service-level-api/commit/0a22130c0642082f4bcca378add14ac18492f147))
+
 # [1.116.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.115.0...v1.116.0) (2023-11-11)
 
 ### Features
