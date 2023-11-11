@@ -1,3 +1,10 @@
+# [1.116.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.115.0...v1.116.0) (2023-11-11)
+
+
+### Features
+
+* update initiate token update ([439603a](https://github.com/SolomonAIEngineering/service-level-api/commit/439603a121a4ee4313ddbbdcddea22ab251efde0))
+
 # [1.115.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.114.0...v1.115.0) (2023-11-10)
 
 
