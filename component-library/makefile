@@ -3,3 +3,7 @@ new-component:
 
 storybook:
 	npm run storybook
+
+precommit:
+	npm run precommit
+	npm run build
