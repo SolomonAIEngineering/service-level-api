@@ -1,18 +1,28 @@
+import {
+  FinancialUserProfileType,
+  PlaidInitiateTokenUpdateRequest,
+  PlaidInitiateTokenUpdateResponse,
+} from 'src/data-contracts/financial-service/data-contracts';
 import { ErrorResponse } from '../error';
 
-export class PlaidInitiateTokenUpdateRequestClass {
-  /**
-   * The user id
-   * Validations:
-   * - user_id must be greater than 0
-   */
-  userId: number = 0;
+export class PlaidInitiateTokenUpdateRequestClass
+  implements PlaidInitiateTokenUpdateRequest
+{
   /**
    * The link id we want to update for
    * Validations:
    * - cannot be nil hence required
+   * @format uint64
    */
-  linkId: number = 0;
+  linkId: string = '';
+  profileType: FinancialUserProfileType = 'FINANCIAL_USER_PROFILE_TYPE_USER';
+  /**
+   * The user id
+   * Validations:
+   * - user_id must be greater than 0
+   * @format uint64
+   */
+  userId: string = '';
 
   constructor(data?: Partial<PlaidInitiateTokenUpdateRequestClass>) {
     if (data) {
@@ -23,7 +33,10 @@ export class PlaidInitiateTokenUpdateRequestClass {
   }
 }
 
-export class PlaidInitiateTokenUpdateResponseClass extends ErrorResponse {
+export class PlaidInitiateTokenUpdateResponseClass
+  extends ErrorResponse
+  implements PlaidInitiateTokenUpdateResponse
+{
   linkToken: string = '';
   expiration: string = '';
 

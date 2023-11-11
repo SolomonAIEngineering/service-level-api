@@ -1,6 +1,11 @@
+import {
+  FinancialUserProfileType,
+  PlaidInitiateTokenExchangeRequest,
+  PlaidInitiateTokenExchangeResponse,
+} from 'src/data-contracts/financial-service/data-contracts';
 import { ErrorResponse } from '../error';
 
-export class PlaidLinkRequestClass {
+export class PlaidLinkRequestClass implements PlaidInitiateTokenExchangeRequest {
   /**
    * A unique ID representing the end user. Typically this will be a user ID number from your application.
    * Personally identifiable information, such as an email address or phone number,
@@ -9,7 +14,7 @@ export class PlaidLinkRequestClass {
    * Validations:
    * - user_id must be greater than 0
    */
-  userId: number = 0;
+  userId: string = '';
   /**
    * The user's full legal name. This is an optional field used in
    * the [returning user experience](https://plaid.com/docs/link/returning-user) to associate Items to the user.
@@ -26,6 +31,8 @@ export class PlaidLinkRequestClass {
    */
   phoneNumber: string = '';
 
+  profileType: FinancialUserProfileType = 'FINANCIAL_USER_PROFILE_TYPE_USER';
+
   constructor(data?: Partial<PlaidLinkRequestClass>) {
     if (data) {
       Object.assign(this, {
@@ -35,7 +42,10 @@ export class PlaidLinkRequestClass {
   }
 }
 
-export class PlaidLinkResponseClass extends ErrorResponse {
+export class PlaidLinkResponseClass
+  extends ErrorResponse
+  implements PlaidInitiateTokenExchangeResponse
+{
   linkToken = '';
   expiration = '';
   plaidRequestId = '';
