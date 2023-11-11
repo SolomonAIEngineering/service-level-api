@@ -10796,9 +10796,10 @@ export type ChatProps = {
 	presence_penalty: number;
 	max_tokens: number;
 	agentContext?: AIAgentContext;
+	isBusinessAccount?: boolean;
 };
 export declare const initialAnalyticMessage: ChatGPTMessage[];
-export declare const Chat: ({ baseContext, sampleQuestions, secondaryContext, className, instrumentationCallback, apiToken, model, userName, userAccount, temperature, top_p, frequency_penalty, presence_penalty, max_tokens, agentContext, }: ChatProps) => import("react/jsx-runtime").JSX.Element;
+export declare const Chat: ({ baseContext, sampleQuestions, secondaryContext, className, instrumentationCallback, apiToken, model, userName, userAccount, temperature, top_p, frequency_penalty, presence_penalty, max_tokens, agentContext, isBusinessAccount, }: ChatProps) => import("react/jsx-runtime").JSX.Element;
 export declare const EmbeddedContextPickerComponent: React.FC<{
 	className?: string;
 	messages: ChatGPTMessage[];
