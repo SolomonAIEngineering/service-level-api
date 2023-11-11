@@ -57,6 +57,7 @@ export type ChatProps = {
   presence_penalty: number;
   max_tokens: number;
   agentContext?: AIAgentContext;
+  isBusinessAccount?: boolean;
 };
 
 export const initialAnalyticMessage: ChatGPTMessage[] = [
@@ -86,6 +87,7 @@ const Chat = ({
   presence_penalty,
   max_tokens,
   agentContext,
+  isBusinessAccount,
 }: ChatProps) => {
   const [messages, setMessages] = useState<ChatGPTMessage[]>(initialMessages);
   const [input, setInput] = useState('');
@@ -112,18 +114,31 @@ const Chat = ({
           questionContext = promptGenerator.getComplianceAdvice(
             message,
             userKey,
+            undefined,
+            isBusinessAccount,
           );
           break;
         case 'RISK':
-          questionContext = promptGenerator.getRiskAssessment(message, userKey);
+          questionContext = promptGenerator.getRiskAssessment(
+            message,
+            userKey,
+            undefined,
+            isBusinessAccount,
+          );
           break;
         case 'FINANCIAL':
-          questionContext =
-            promptGenerator.getFinancialContextBasedPrompt(message);
+          questionContext = promptGenerator.getFinancialContextBasedPrompt(
+            message,
+            undefined,
+            isBusinessAccount,
+          );
           break;
         default:
-          questionContext =
-            promptGenerator.getFinancialContextBasedPrompt(message);
+          questionContext = promptGenerator.getFinancialContextBasedPrompt(
+            message,
+            undefined,
+            isBusinessAccount,
+          );
           break;
       }
     } else {

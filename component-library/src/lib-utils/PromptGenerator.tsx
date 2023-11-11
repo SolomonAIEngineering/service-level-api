@@ -122,9 +122,15 @@ class PromptContext implements IContextPrompt {
       const questionPrefix = `Given the New York compliance regulations 
             ${this._globalContext}, and these additional 
             details ${complianceContext}`;
-      return `${questionPrefix}, as a compliance officer specializing in small business regulations with 
+      if (isSmallBusiness) {
+        return `${questionPrefix}, as a compliance officer specializing in small business regulations with 
              a focus on New York state laws, provide personalized compliance guidance for ${userKey}: 
              ${question}`;
+      } else {
+        return `${questionPrefix}, as a compliance officer specializing in helping solo-entrepreneurs with regulations with
+              a focus on New York state laws, provide personalized compliance guidance for ${userKey}: 
+              ${question}`;
+      }
     }
 
     // For small businesses, the isSmallBusiness flag is always true, but it's kept for consistency and future scalability
@@ -169,8 +175,13 @@ class PromptContext implements IContextPrompt {
       const riskContext: string = JSON.stringify(additionalContext).trim();
       const questionPrefix = `Considering the specific risks associated with small businesses in New York 
             and the following additional details ${riskContext},`;
-      return `${questionPrefix} as a risk officer with expertise in the New York small business sector, provide a detailed 
+      if (isSmallBusiness) {
+        return `${questionPrefix} as a risk officer with expertise in the New York small business sector, provide a detailed 
              risk assessment for ${userKey}: ${question}`;
+      } else {
+        return `${questionPrefix} as a risk officer with expertise in the New York small business sector, provide a detailed 
+             risk assessment for ${userKey}: ${question}`;
+      }
     }
 
     // Since this method is specifically for small businesses, the isSmallBusiness flag is set to true by default
@@ -210,23 +221,46 @@ class PromptContext implements IContextPrompt {
     question: string,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     additionalContext?: any,
+    isSmallBusiness: boolean = true,
   ): string {
     if (additionalContext) {
       const questionContext: string = JSON.stringify(additionalContext).trim();
-      return `Given this global context 
-              ${this._globalContext}, and this additional 
+      if (isSmallBusiness) {
+        return `Given the global context 
+               ${JSON.stringify(this._globalContext)}, and this additional 
               details ${questionContext} act as a financial planning team advising this small business, and answer
-            this question in a personal fashion for ${this._userAccount.username}: ${question}`;
+            this question in a personal fashion for ${
+              this._userAccount.username
+            }: ${question}`;
+      } else {
+        return `Given the global context 
+               ${JSON.stringify(this._globalContext)}, and this additional 
+              details ${questionContext} act as a financial advisor advising this solo entrepreneur, and answer
+            this question in a personal fashion for ${
+              this._userAccount.username
+            }: ${question}`;
+      }
     }
 
-    return `
+    if (isSmallBusiness) {
+      return `
             Given this financial context
             ${JSON.stringify(
               this._globalContext,
             )}, act as a financial planning team advising this small buisness. Answer the following question : ${question} in a personal fashion for ${
-      this._userAccount.username
-    }. Be specefic and give actionable solutions. Refer to the business' financial context. Be sure to show citations. 
+        this._userAccount.username
+      }. Be specific and give actionable solutions. Refer to the business' financial context. Be sure to show citations. 
             `;
+    } else {
+      return `
+            Given this financial context
+            ${JSON.stringify(
+              this._globalContext,
+            )}, act as a financial advisor team advising this solo entrepreneur. Answer the following question : ${question} in a personal fashion for ${
+        this._userAccount.username
+      }. Be specific and give actionable solutions. Refer to the entrepreneur' financial context. Be sure to show citations. 
+            `;
+    }
   }
 }
 
