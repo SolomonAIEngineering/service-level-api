@@ -1,3 +1,10 @@
+# [1.119.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.118.0...v1.119.0) (2023-11-12)
+
+
+### Features
+
+* update package.json ([#45](https://github.com/SolomonAIEngineering/service-level-api/issues/45)) ([bbe3cd0](https://github.com/SolomonAIEngineering/service-level-api/commit/bbe3cd087768af5489aca1508eb214a70659d6e6))
+
 # [1.118.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.117.0...v1.118.0) (2023-11-11)
 
 
