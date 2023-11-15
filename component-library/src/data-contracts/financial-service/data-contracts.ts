@@ -375,6 +375,8 @@ export interface BankAccount {
    * when a user connects a bank account
    */
   pockets?: Array<Pocket>;
+  /** the set of subscriptions tied to this account */
+  recurringTransactions?: Array<PlaidAccountRecurringTransaction>;
   /** the bank account status */
   status?: BankAccountStatus;
   /** account subtype */
@@ -1031,6 +1033,8 @@ export interface CreditAccount {
   number?: string;
   /** plaid account id mapped to this bank account */
   plaidAccountId?: string;
+  /** the set of subscriptions tied to this account */
+  recurringTransactions?: Array<PlaidAccountRecurringTransaction>;
   /** the bank account status */
   status?: BankAccountStatus;
   /** accoint subtype */
@@ -2083,6 +2087,7 @@ export interface InvestmentAccount {
   status?: BankAccountStatus;
   /** accoint subtype */
   subtype?: string;
+  /** the set of transactions tied to this account */
   transactions?: Array<PlaidAccountInvestmentTransaction>;
   /** the bank account type */
   type?: string;
@@ -3131,6 +3136,132 @@ export interface PlaidAccountInvestmentTransaction {
   unofficialCurrencyCode?: string;
   /**
    * The user ID associated with this investment transaction.
+   * @gotag: ch:"user_id"
+   * @format uint64
+   */
+  userId?: string;
+}
+
+/** Message representing recurring transactions associated with a Plaid account. */
+export interface PlaidAccountRecurringTransaction {
+  /**
+   * The unique identifier for the associated bank account.
+   * @gotag: ch:"account_id"
+   */
+  accountId?: string;
+  /** Additional properties related to this recurring transaction. */
+  additionalProperties?: Any;
+  /**
+   * The average amount of the recurring transaction.
+   * @gotag: ch:"average_amount"
+   */
+  averageAmount?: string;
+  /**
+   * The ISO currency code for the average transaction amount.
+   * @gotag: ch:"average_amount_iso_currency_code"
+   */
+  averageAmountIsoCurrencyCode?: string;
+  /**
+   * The category ID associated with the recurring transaction.
+   * @gotag: ch:"category_id"
+   */
+  categoryId?: string;
+  /**
+   * A description or note for the recurring transaction.
+   * @gotag: ch:"description"
+   */
+  description?: string;
+  /**
+   * The date of the first occurrence of the recurring transaction.
+   * @gotag: ch:"first_date"
+   */
+  firstDate?: string;
+  /**
+   * The flow associated with this recurring transaction.
+   * @gotag: ch:"flow"
+   */
+  flow?: string;
+  /**
+   * The frequency at which the recurring transaction occurs (e.g., monthly).
+   * @gotag: ch:"frequency"
+   */
+  frequency?: string;
+  /**
+   * The unique identifier for this recurring transaction.
+   * @gotag: ch:"id"
+   * @format uint64
+   */
+  id?: string;
+  /**
+   * Indicates whether the recurring transaction is currently active.
+   * @gotag: ch:"is_active"
+   */
+  isActive?: boolean;
+  /**
+   * The amount of the most recent occurrence of the recurring transaction.
+   * @gotag: ch:"last_amount"
+   */
+  lastAmount?: string;
+  /**
+   * The ISO currency code for the most recent transaction amount.
+   * @gotag: ch:"last_amount_iso_currency_code"
+   */
+  lastAmountIsoCurrencyCode?: string;
+  /**
+   * The date of the last occurrence of the recurring transaction.
+   * @gotag: ch:"last_date"
+   */
+  lastDate?: string;
+  /**
+   * The link ID associated with this recurring transaction.
+   * @gotag: ch:"link_id"
+   * @format uint64
+   */
+  linkId?: string;
+  /**
+   * The name of the merchant associated with the recurring transaction.
+   * @gotag: ch:"merchant_name"
+   */
+  merchantName?: string;
+  /** Notes associated with this recurring transaction. */
+  notes?: Array<TransactionNote>;
+  /**
+   * The detailed personal finance category of the recurring transaction.
+   * @gotag: ch:"personal_finance_category_detailed"
+   */
+  personalFinanceCategoryDetailed?: string;
+  /**
+   * The primary personal finance category of the recurring transaction.
+   * @gotag: ch:"personal_finance_category_primary"
+   */
+  personalFinanceCategoryPrimary?: string;
+  /**
+   * The status of the recurring transaction (e.g., "Active" or "Inactive").
+   * @gotag: ch:"status"
+   */
+  status?: string;
+  /**
+   * The identifier for the recurring transaction stream.
+   * @gotag: ch:"stream_id"
+   */
+  streamId?: string;
+  /**
+   * The timestamp associated with this recurring transaction.
+   * @format date-time
+   */
+  time?: string;
+  /**
+   * A comma-separated list of transaction IDs associated with this recurring transaction.
+   * @gotag: ch:"transaction_ids,array"
+   */
+  transactionIds?: string;
+  /**
+   * The timestamp when this recurring transaction was last updated.
+   * @gotag: ch:"updated_time"
+   */
+  updatedTime?: string;
+  /**
+   * The user ID associated with this recurring transaction.
    * @gotag: ch:"user_id"
    * @format uint64
    */

@@ -71,7 +71,6 @@ func (internal *AccountBalanceHistory) ConvertToInternal() (*AccountBalanceHisto
 }
 
 func (internal *AccountBalanceHistoryInternal) ConvertTo() (*AccountBalanceHistory, error) {
-
 	tx := &AccountBalanceHistory{
 		AccountId:       internal.AccountId,
 		Balance:         internal.Balance,

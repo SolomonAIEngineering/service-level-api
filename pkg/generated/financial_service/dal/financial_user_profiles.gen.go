@@ -94,6 +94,12 @@ func newFinancialUserProfileORM(db *gorm.DB, opts ...gen.DOOption) financialUser
 					}
 				}
 			}
+			RecurringTransactions struct {
+				field.RelationField
+				Notes struct {
+					field.RelationField
+				}
+			}
 			Transactions struct {
 				field.RelationField
 				Notes struct {
@@ -179,6 +185,19 @@ func newFinancialUserProfileORM(db *gorm.DB, opts ...gen.DOOption) financialUser
 					},
 				},
 			},
+			RecurringTransactions: struct {
+				field.RelationField
+				Notes struct {
+					field.RelationField
+				}
+			}{
+				RelationField: field.NewRelation("Link.BankAccounts.RecurringTransactions", "financial_servicev1.PlaidAccountRecurringTransactionORM"),
+				Notes: struct {
+					field.RelationField
+				}{
+					RelationField: field.NewRelation("Link.BankAccounts.RecurringTransactions.Notes", "financial_servicev1.TransactionNoteORM"),
+				},
+			},
 			Transactions: struct {
 				field.RelationField
 				Notes struct {
@@ -198,6 +217,9 @@ func newFinancialUserProfileORM(db *gorm.DB, opts ...gen.DOOption) financialUser
 			Aprs struct {
 				field.RelationField
 			}
+			RecurringTransactions struct {
+				field.RelationField
+			}
 			Transactions struct {
 				field.RelationField
 			}
@@ -207,6 +229,11 @@ func newFinancialUserProfileORM(db *gorm.DB, opts ...gen.DOOption) financialUser
 				field.RelationField
 			}{
 				RelationField: field.NewRelation("Link.CreditAccounts.Aprs", "financial_servicev1.AprORM"),
+			},
+			RecurringTransactions: struct {
+				field.RelationField
+			}{
+				RelationField: field.NewRelation("Link.CreditAccounts.RecurringTransactions", "financial_servicev1.PlaidAccountRecurringTransactionORM"),
 			},
 			Transactions: struct {
 				field.RelationField
@@ -1070,6 +1097,12 @@ type financialUserProfileORMHasManyLink struct {
 				}
 			}
 		}
+		RecurringTransactions struct {
+			field.RelationField
+			Notes struct {
+				field.RelationField
+			}
+		}
 		Transactions struct {
 			field.RelationField
 			Notes struct {
@@ -1080,6 +1113,9 @@ type financialUserProfileORMHasManyLink struct {
 	CreditAccounts struct {
 		field.RelationField
 		Aprs struct {
+			field.RelationField
+		}
+		RecurringTransactions struct {
 			field.RelationField
 		}
 		Transactions struct {

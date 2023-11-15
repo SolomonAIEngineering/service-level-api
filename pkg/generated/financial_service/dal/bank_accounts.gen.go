@@ -101,6 +101,17 @@ func newBankAccountORM(db *gorm.DB, opts ...gen.DOOption) bankAccountORM {
 		},
 	}
 
+	_bankAccountORM.RecurringTransactions = bankAccountORMHasManyRecurringTransactions{
+		db: db.Session(&gorm.Session{}),
+
+		RelationField: field.NewRelation("RecurringTransactions", "financial_servicev1.PlaidAccountRecurringTransactionORM"),
+		Notes: struct {
+			field.RelationField
+		}{
+			RelationField: field.NewRelation("RecurringTransactions.Notes", "financial_servicev1.TransactionNoteORM"),
+		},
+	}
+
 	_bankAccountORM.Transactions = bankAccountORMHasManyTransactions{
 		db: db.Session(&gorm.Session{}),
 
@@ -135,6 +146,8 @@ type bankAccountORM struct {
 	Type           field.String
 	UserId         field.Uint64
 	Pockets        bankAccountORMHasManyPockets
+
+	RecurringTransactions bankAccountORMHasManyRecurringTransactions
 
 	Transactions bankAccountORMHasManyTransactions
 
@@ -182,7 +195,7 @@ func (b *bankAccountORM) GetFieldByName(fieldName string) (field.OrderExpr, bool
 }
 
 func (b *bankAccountORM) fillFieldMap() {
-	b.fieldMap = make(map[string]field.Expr, 15)
+	b.fieldMap = make(map[string]field.Expr, 16)
 	b.fieldMap["balance"] = b.Balance
 	b.fieldMap["balance_limit"] = b.BalanceLimit
 	b.fieldMap["currency"] = b.Currency
@@ -296,6 +309,81 @@ func (a bankAccountORMHasManyPocketsTx) Clear() error {
 }
 
 func (a bankAccountORMHasManyPocketsTx) Count() int64 {
+	return a.tx.Count()
+}
+
+type bankAccountORMHasManyRecurringTransactions struct {
+	db *gorm.DB
+
+	field.RelationField
+
+	Notes struct {
+		field.RelationField
+	}
+}
+
+func (a bankAccountORMHasManyRecurringTransactions) Where(conds ...field.Expr) *bankAccountORMHasManyRecurringTransactions {
+	if len(conds) == 0 {
+		return &a
+	}
+
+	exprs := make([]clause.Expression, 0, len(conds))
+	for _, cond := range conds {
+		exprs = append(exprs, cond.BeCond().(clause.Expression))
+	}
+	a.db = a.db.Clauses(clause.Where{Exprs: exprs})
+	return &a
+}
+
+func (a bankAccountORMHasManyRecurringTransactions) WithContext(ctx context.Context) *bankAccountORMHasManyRecurringTransactions {
+	a.db = a.db.WithContext(ctx)
+	return &a
+}
+
+func (a bankAccountORMHasManyRecurringTransactions) Session(session *gorm.Session) *bankAccountORMHasManyRecurringTransactions {
+	a.db = a.db.Session(session)
+	return &a
+}
+
+func (a bankAccountORMHasManyRecurringTransactions) Model(m *financial_servicev1.BankAccountORM) *bankAccountORMHasManyRecurringTransactionsTx {
+	return &bankAccountORMHasManyRecurringTransactionsTx{a.db.Model(m).Association(a.Name())}
+}
+
+type bankAccountORMHasManyRecurringTransactionsTx struct{ tx *gorm.Association }
+
+func (a bankAccountORMHasManyRecurringTransactionsTx) Find() (result []*financial_servicev1.PlaidAccountRecurringTransactionORM, err error) {
+	return result, a.tx.Find(&result)
+}
+
+func (a bankAccountORMHasManyRecurringTransactionsTx) Append(values ...*financial_servicev1.PlaidAccountRecurringTransactionORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Append(targetValues...)
+}
+
+func (a bankAccountORMHasManyRecurringTransactionsTx) Replace(values ...*financial_servicev1.PlaidAccountRecurringTransactionORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Replace(targetValues...)
+}
+
+func (a bankAccountORMHasManyRecurringTransactionsTx) Delete(values ...*financial_servicev1.PlaidAccountRecurringTransactionORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Delete(targetValues...)
+}
+
+func (a bankAccountORMHasManyRecurringTransactionsTx) Clear() error {
+	return a.tx.Clear()
+}
+
+func (a bankAccountORMHasManyRecurringTransactionsTx) Count() int64 {
 	return a.tx.Count()
 }
 

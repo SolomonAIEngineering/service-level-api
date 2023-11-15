@@ -54,6 +54,6 @@ lint:
 	golangci-lint run ./...
 
 test: 
-	set -o pipefail && go test -v ./... -json | tparse -all
+	set -o pipefail && go test -v ./... 
 
 precommit: fmt lint test

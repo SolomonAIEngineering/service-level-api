@@ -5612,6 +5612,14 @@
             "$ref": "#/definitions/PlaidAccountTransaction"
           },
           "title": "the set of transactions tied to this account"
+        },
+        "recurringTransactions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/PlaidAccountRecurringTransaction"
+          },
+          "title": "the set of subscriptions tied to this account"
         }
       },
       "required": [
@@ -6505,6 +6513,14 @@
             "$ref": "#/definitions/PlaidAccountTransaction"
           },
           "title": "the set of transactions tied to this account"
+        },
+        "recurringTransactions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/PlaidAccountRecurringTransaction"
+          },
+          "title": "the set of subscriptions tied to this account"
         }
       }
     },
@@ -8080,7 +8096,8 @@
           "items": {
             "type": "object",
             "$ref": "#/definitions/PlaidAccountInvestmentTransaction"
-          }
+          },
+          "title": "the set of transactions tied to this account"
         }
       }
     },
@@ -9658,6 +9675,120 @@
         }
       },
       "description": "Message representing investment transactions associated with a Plaid account."
+    },
+    "PlaidAccountRecurringTransaction": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "string",
+          "title": "The unique identifier for the associated bank account.\n@gotag: ch:\"account_id\""
+        },
+        "streamId": {
+          "type": "string",
+          "title": "The identifier for the recurring transaction stream.\n@gotag: ch:\"stream_id\""
+        },
+        "categoryId": {
+          "type": "string",
+          "title": "The category ID associated with the recurring transaction.\n@gotag: ch:\"category_id\""
+        },
+        "description": {
+          "type": "string",
+          "title": "A description or note for the recurring transaction.\n@gotag: ch:\"description\""
+        },
+        "merchantName": {
+          "type": "string",
+          "title": "The name of the merchant associated with the recurring transaction.\n@gotag: ch:\"merchant_name\""
+        },
+        "personalFinanceCategoryPrimary": {
+          "type": "string",
+          "title": "The primary personal finance category of the recurring transaction.\n@gotag: ch:\"personal_finance_category_primary\""
+        },
+        "personalFinanceCategoryDetailed": {
+          "type": "string",
+          "title": "The detailed personal finance category of the recurring transaction.\n@gotag: ch:\"personal_finance_category_detailed\""
+        },
+        "firstDate": {
+          "type": "string",
+          "title": "The date of the first occurrence of the recurring transaction.\n@gotag: ch:\"first_date\""
+        },
+        "lastDate": {
+          "type": "string",
+          "title": "The date of the last occurrence of the recurring transaction.\n@gotag: ch:\"last_date\""
+        },
+        "frequency": {
+          "type": "string",
+          "title": "The frequency at which the recurring transaction occurs (e.g., monthly).\n@gotag: ch:\"frequency\""
+        },
+        "transactionIds": {
+          "type": "string",
+          "title": "A comma-separated list of transaction IDs associated with this recurring transaction.\n@gotag: ch:\"transaction_ids,array\""
+        },
+        "averageAmount": {
+          "type": "string",
+          "title": "The average amount of the recurring transaction.\n@gotag: ch:\"average_amount\""
+        },
+        "averageAmountIsoCurrencyCode": {
+          "type": "string",
+          "title": "The ISO currency code for the average transaction amount.\n@gotag: ch:\"average_amount_iso_currency_code\""
+        },
+        "lastAmount": {
+          "type": "string",
+          "title": "The amount of the most recent occurrence of the recurring transaction.\n@gotag: ch:\"last_amount\""
+        },
+        "lastAmountIsoCurrencyCode": {
+          "type": "string",
+          "title": "The ISO currency code for the most recent transaction amount.\n@gotag: ch:\"last_amount_iso_currency_code\""
+        },
+        "isActive": {
+          "type": "boolean",
+          "title": "Indicates whether the recurring transaction is currently active.\n@gotag: ch:\"is_active\""
+        },
+        "status": {
+          "type": "string",
+          "title": "The status of the recurring transaction (e.g., \"Active\" or \"Inactive\").\n@gotag: ch:\"status\""
+        },
+        "updatedTime": {
+          "type": "string",
+          "title": "The timestamp when this recurring transaction was last updated.\n@gotag: ch:\"updated_time\""
+        },
+        "userId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "The user ID associated with this recurring transaction.\n@gotag: ch:\"user_id\""
+        },
+        "linkId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "The link ID associated with this recurring transaction.\n@gotag: ch:\"link_id\""
+        },
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "The unique identifier for this recurring transaction.\n@gotag: ch:\"id\""
+        },
+        "flow": {
+          "type": "string",
+          "title": "The flow associated with this recurring transaction.\n@gotag: ch:\"flow\""
+        },
+        "time": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp associated with this recurring transaction."
+        },
+        "additionalProperties": {
+          "$ref": "#/definitions/Any",
+          "description": "Additional properties related to this recurring transaction."
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/TransactionNote"
+          },
+          "description": "Notes associated with this recurring transaction."
+        }
+      },
+      "description": "Message representing recurring transactions associated with a Plaid account."
     },
     "PlaidAccountTransaction": {
       "type": "object",

@@ -8,6 +8,7 @@ import (
 	"context"
 	"strings"
 
+	financial_servicev1 "github.com/SolomonAIEngineering/service-level-api/pkg/generated/financial_service/v1"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 	"gorm.io/gorm/schema"
@@ -17,8 +18,6 @@ import (
 	"gorm.io/gen/helper"
 
 	"gorm.io/plugin/dbresolver"
-
-	financial_servicev1 "github.com/SolomonAIEngineering/service-level-api/pkg/generated/financial_service/v1"
 )
 
 func newPlaidAccountRecurringTransactionORM(db *gorm.DB, opts ...gen.DOOption) plaidAccountRecurringTransactionORM {
@@ -32,7 +31,9 @@ func newPlaidAccountRecurringTransactionORM(db *gorm.DB, opts ...gen.DOOption) p
 	_plaidAccountRecurringTransactionORM.AccountId = field.NewString(tableName, "account_id")
 	_plaidAccountRecurringTransactionORM.AverageAmount = field.NewString(tableName, "average_amount")
 	_plaidAccountRecurringTransactionORM.AverageAmountIsoCurrencyCode = field.NewString(tableName, "average_amount_iso_currency_code")
+	_plaidAccountRecurringTransactionORM.BankAccountId = field.NewUint64(tableName, "bank_account_id")
 	_plaidAccountRecurringTransactionORM.CategoryId = field.NewString(tableName, "category_id")
+	_plaidAccountRecurringTransactionORM.CreditAccountId = field.NewUint64(tableName, "credit_account_id")
 	_plaidAccountRecurringTransactionORM.Description = field.NewString(tableName, "description")
 	_plaidAccountRecurringTransactionORM.FirstDate = field.NewString(tableName, "first_date")
 	_plaidAccountRecurringTransactionORM.Flow = field.NewString(tableName, "flow")
@@ -70,7 +71,9 @@ type plaidAccountRecurringTransactionORM struct {
 	AccountId                       field.String
 	AverageAmount                   field.String
 	AverageAmountIsoCurrencyCode    field.String
+	BankAccountId                   field.Uint64
 	CategoryId                      field.String
+	CreditAccountId                 field.Uint64
 	Description                     field.String
 	FirstDate                       field.String
 	Flow                            field.String
@@ -110,7 +113,9 @@ func (p *plaidAccountRecurringTransactionORM) updateTableName(table string) *pla
 	p.AccountId = field.NewString(table, "account_id")
 	p.AverageAmount = field.NewString(table, "average_amount")
 	p.AverageAmountIsoCurrencyCode = field.NewString(table, "average_amount_iso_currency_code")
+	p.BankAccountId = field.NewUint64(table, "bank_account_id")
 	p.CategoryId = field.NewString(table, "category_id")
+	p.CreditAccountId = field.NewUint64(table, "credit_account_id")
 	p.Description = field.NewString(table, "description")
 	p.FirstDate = field.NewString(table, "first_date")
 	p.Flow = field.NewString(table, "flow")
@@ -146,11 +151,13 @@ func (p *plaidAccountRecurringTransactionORM) GetFieldByName(fieldName string) (
 }
 
 func (p *plaidAccountRecurringTransactionORM) fillFieldMap() {
-	p.fieldMap = make(map[string]field.Expr, 24)
+	p.fieldMap = make(map[string]field.Expr, 26)
 	p.fieldMap["account_id"] = p.AccountId
 	p.fieldMap["average_amount"] = p.AverageAmount
 	p.fieldMap["average_amount_iso_currency_code"] = p.AverageAmountIsoCurrencyCode
+	p.fieldMap["bank_account_id"] = p.BankAccountId
 	p.fieldMap["category_id"] = p.CategoryId
+	p.fieldMap["credit_account_id"] = p.CreditAccountId
 	p.fieldMap["description"] = p.Description
 	p.fieldMap["first_date"] = p.FirstDate
 	p.fieldMap["flow"] = p.Flow
