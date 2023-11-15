@@ -6528,7 +6528,7 @@ class NTe {
      * Validations:
      * - user_id must be greater than 0
      */
-    E(this, "userId", 0);
+    E(this, "userId", "");
     /**
      * The public token
      * Validations:
@@ -6539,6 +6539,8 @@ class NTe {
     E(this, "institutionId", "");
     /** The institution name */
     E(this, "institutionName", "");
+    /** The profile type of the financial user */
+    E(this, "profileType", "FINANCIAL_USER_PROFILE_TYPE_USER");
     t && Object.assign(this, {
       ...t
     });
@@ -6564,7 +6566,7 @@ class CTe {
      * Validations:
      * - user_id must be greater than 0
      */
-    E(this, "userId", 0);
+    E(this, "userId", "");
     /**
      * The user's full legal name. This is an optional field used in
      * the [returning user experience](https://plaid.com/docs/link/returning-user) to associate Items to the user.
@@ -6580,6 +6582,10 @@ class CTe {
      * This field is optional, but required to enable the [returning user experience](https://plaid.com/docs/link/returning-user).
      */
     E(this, "phoneNumber", "");
+    /**
+     * The financial profile type of the financial user
+     */
+    E(this, "profileType", "FINANCIAL_USER_PROFILE_TYPE_USER");
     t && Object.assign(this, {
       ...t
     });

@@ -997,10 +997,14 @@ export interface BankAccount {
 	 * when a user connects a bank account
 	 */
 	pockets?: Array<Pocket>;
+	/** the set of subscriptions tied to this account */
+	recurringTransactions?: Array<PlaidAccountRecurringTransaction>;
 	/** the bank account status */
 	status?: BankAccountStatus;
 	/** account subtype */
 	subtype?: string;
+	/** the set of transactions tied to this account */
+	transactions?: Array<PlaidAccountTransaction>;
 	/** the bank account type */
 	type: BankAccountType;
 	/**
@@ -1613,10 +1617,14 @@ export interface CreditAccount {
 	number?: string;
 	/** plaid account id mapped to this bank account */
 	plaidAccountId?: string;
+	/** the set of subscriptions tied to this account */
+	recurringTransactions?: Array<PlaidAccountRecurringTransaction>;
 	/** the bank account status */
 	status?: BankAccountStatus;
 	/** accoint subtype */
 	subtype?: string;
+	/** the set of transactions tied to this account */
+	transactions?: Array<PlaidAccountTransaction>;
 	/** the bank account type */
 	type?: string;
 	/**
@@ -2527,6 +2535,8 @@ export interface InvestmentAccount {
 	status?: BankAccountStatus;
 	/** accoint subtype */
 	subtype?: string;
+	/** the set of transactions tied to this account */
+	transactions?: Array<PlaidAccountInvestmentTransaction>;
 	/** the bank account type */
 	type?: string;
 	/**
@@ -3331,15 +3341,16 @@ export interface PersonalActionableInsight {
 }
 /** @default "PERSONAL_ACTIONABLE_INSIGHT_NAME_UNSPECIFIED" */
 export type PersonalActionableInsightName = "PERSONAL_ACTIONABLE_INSIGHT_NAME_UNSPECIFIED" | "PERSONAL_ACTIONABLE_INSIGHT_NAME_EXPENSE" | "PERSONAL_ACTIONABLE_INSIGHT_NAME_EMERGENCY_FUND" | "PERSONAL_ACTIONABLE_INSIGHT_NAME_DEBT_PRIORITIZATION" | "PERSONAL_ACTIONABLE_INSIGHT_NAME_NON_ESSENTIAL_EXPENSES" | "PERSONAL_ACTIONABLE_INSIGHT_NAME_NON_SUBSCRIPTIONS" | "PERSONAL_ACTIONABLE_INSIGHT_NAME_DISCRETIONARY_SPENDING";
-export interface PlaidAccountTransaction {
+/** Message representing investment transactions associated with a Plaid account. */
+export interface PlaidAccountInvestmentTransaction {
 	/**
-	 * Basic transaction details
+	 * The unique identifier for the associated investment account.
 	 * @gotag: ch:"account_id"
 	 */
 	accountId?: string;
-	/** @gotag: ch:"account_owner" */
-	accountOwner?: string;
 	/**
+	 * Additional properties related to this investment transaction.
+	 * @gotag: ch:"additional_properties"
 	 * `Any` contains an arbitrary serialized protocol buffer message along with a
 	 * URL that describes the type of the serialized message.
 	 *
@@ -3425,89 +3436,426 @@ export interface PlaidAccountTransaction {
 	 */
 	additionalProperties?: Any;
 	/**
+	 * The amount of the investment transaction.
+	 * @gotag: ch:"amount"
+	 */
+	ammount?: string;
+	/**
+	 * The monetary amount of the investment transaction.
 	 * @gotag: ch:"amount"
 	 * @format double
 	 */
 	amount?: number;
-	/** @gotag: ch:"authorized_date" */
-	authorizedDate?: string;
-	/** @gotag: ch:"authorized_datetime" */
-	authorizedDatetime?: string;
-	categories?: Array<string>;
 	/**
-	 * Transaction categories
+	 * The date and time when this investment transaction was created.
+	 * @gotag: ch:"created_at"
+	 */
+	createdAt?: string;
+	/**
+	 * The date of the investment transaction.
+	 * @gotag: ch:"date"
+	 */
+	currentDate?: string;
+	/**
+	 * The fees associated with the investment transaction.
+	 * @gotag: ch:"fees"
+	 * @format double
+	 */
+	fees?: number;
+	/**
+	 * The unique identifier for this investment transaction.
+	 * @gotag: ch:"id"
+	 * @format uint64
+	 */
+	id?: string;
+	/**
+	 * The unique identifier for the investment transaction.
+	 * @gotag: ch:"investment_transaction_id"
+	 */
+	investmentTransactionId?: string;
+	/**
+	 * The ISO currency code for the investment transaction.
+	 * @gotag: ch:"iso_currency_code"
+	 */
+	isoCurrencyCode?: string;
+	/**
+	 * The link ID associated with this investment transaction.
+	 * @gotag: ch:"link_id"
+	 * @format uint64
+	 */
+	linkId?: string;
+	/**
+	 * The name or description of the investment transaction.
+	 * @gotag: ch:"name"
+	 */
+	name?: string;
+	/**
+	 * Notes associated with this investment transaction.
+	 * @gotag: ch:"notes"
+	 */
+	notes?: Array<TransactionNote>;
+	/**
+	 * The price per unit of the security for the investment transaction.
+	 * @gotag: ch:"price"
+	 * @format double
+	 */
+	price?: number;
+	/**
+	 * The quantity of the investment transaction (e.g., number of shares).
+	 * @gotag: ch:"quantity"
+	 * @format double
+	 */
+	quantity?: number;
+	/**
+	 * The security or asset identifier associated with the investment transaction.
+	 * @gotag: ch:"security_id"
+	 */
+	securityId?: string;
+	/**
+	 * The subtype of the investment transaction (e.g., stock, bond).
+	 * @gotag: ch:"subtype"
+	 */
+	subtype?: string;
+	/**
+	 * The timestamp associated with this investment transaction.
+	 * @gotag: ch:"time"
+	 * @format date-time
+	 */
+	time?: string;
+	/**
+	 * The type of the investment transaction (e.g., buy, sell, dividend).
+	 * @gotag: ch:"type"
+	 */
+	type?: string;
+	/**
+	 * The unofficial currency code of the investment transaction.
+	 * @gotag: ch:"unofficial_currency_code"
+	 */
+	unofficialCurrencyCode?: string;
+	/**
+	 * The user ID associated with this investment transaction.
+	 * @gotag: ch:"user_id"
+	 * @format uint64
+	 */
+	userId?: string;
+}
+/** Message representing recurring transactions associated with a Plaid account. */
+export interface PlaidAccountRecurringTransaction {
+	/**
+	 * The unique identifier for the associated bank account.
+	 * @gotag: ch:"account_id"
+	 */
+	accountId?: string;
+	/** Additional properties related to this recurring transaction. */
+	additionalProperties?: Any;
+	/**
+	 * The average amount of the recurring transaction.
+	 * @gotag: ch:"average_amount"
+	 */
+	averageAmount?: string;
+	/**
+	 * The ISO currency code for the average transaction amount.
+	 * @gotag: ch:"average_amount_iso_currency_code"
+	 */
+	averageAmountIsoCurrencyCode?: string;
+	/**
+	 * The category ID associated with the recurring transaction.
 	 * @gotag: ch:"category_id"
 	 */
 	categoryId?: string;
 	/**
-	 * Payment details
+	 * A description or note for the recurring transaction.
+	 * @gotag: ch:"description"
+	 */
+	description?: string;
+	/**
+	 * The date of the first occurrence of the recurring transaction.
+	 * @gotag: ch:"first_date"
+	 */
+	firstDate?: string;
+	/**
+	 * The flow associated with this recurring transaction.
+	 * @gotag: ch:"flow"
+	 */
+	flow?: string;
+	/**
+	 * The frequency at which the recurring transaction occurs (e.g., monthly).
+	 * @gotag: ch:"frequency"
+	 */
+	frequency?: string;
+	/**
+	 * The unique identifier for this recurring transaction.
+	 * @gotag: ch:"id"
+	 * @format uint64
+	 */
+	id?: string;
+	/**
+	 * Indicates whether the recurring transaction is currently active.
+	 * @gotag: ch:"is_active"
+	 */
+	isActive?: boolean;
+	/**
+	 * The amount of the most recent occurrence of the recurring transaction.
+	 * @gotag: ch:"last_amount"
+	 */
+	lastAmount?: string;
+	/**
+	 * The ISO currency code for the most recent transaction amount.
+	 * @gotag: ch:"last_amount_iso_currency_code"
+	 */
+	lastAmountIsoCurrencyCode?: string;
+	/**
+	 * The date of the last occurrence of the recurring transaction.
+	 * @gotag: ch:"last_date"
+	 */
+	lastDate?: string;
+	/**
+	 * The link ID associated with this recurring transaction.
+	 * @gotag: ch:"link_id"
+	 * @format uint64
+	 */
+	linkId?: string;
+	/**
+	 * The name of the merchant associated with the recurring transaction.
+	 * @gotag: ch:"merchant_name"
+	 */
+	merchantName?: string;
+	/** Notes associated with this recurring transaction. */
+	notes?: Array<TransactionNote>;
+	/**
+	 * The detailed personal finance category of the recurring transaction.
+	 * @gotag: ch:"personal_finance_category_detailed"
+	 */
+	personalFinanceCategoryDetailed?: string;
+	/**
+	 * The primary personal finance category of the recurring transaction.
+	 * @gotag: ch:"personal_finance_category_primary"
+	 */
+	personalFinanceCategoryPrimary?: string;
+	/**
+	 * The status of the recurring transaction (e.g., "Active" or "Inactive").
+	 * @gotag: ch:"status"
+	 */
+	status?: string;
+	/**
+	 * The identifier for the recurring transaction stream.
+	 * @gotag: ch:"stream_id"
+	 */
+	streamId?: string;
+	/**
+	 * The timestamp associated with this recurring transaction.
+	 * @format date-time
+	 */
+	time?: string;
+	/**
+	 * A comma-separated list of transaction IDs associated with this recurring transaction.
+	 * @gotag: ch:"transaction_ids,array"
+	 */
+	transactionIds?: string;
+	/**
+	 * The timestamp when this recurring transaction was last updated.
+	 * @gotag: ch:"updated_time"
+	 */
+	updatedTime?: string;
+	/**
+	 * The user ID associated with this recurring transaction.
+	 * @gotag: ch:"user_id"
+	 * @format uint64
+	 */
+	userId?: string;
+}
+/** Message representing Plaid account transactions. */
+export interface PlaidAccountTransaction {
+	/**
+	 * The bank account ID associated with the transaction.
+	 *
+	 * @gotag: ch:"account_id"
+	 */
+	accountId?: string;
+	/**
+	 * The account owner associated with the transaction.
+	 *
+	 * @gotag: ch:"account_owner"
+	 */
+	accountOwner?: string;
+	/** Additional properties that can be of any type. */
+	additionalProperties?: Any;
+	/**
+	 * The amount of the transaction.
+	 *
+	 * @gotag: ch:"amount"
+	 * @format double
+	 */
+	amount?: number;
+	/**
+	 * The time at which the transaction was authorized.
+	 *
+	 * @gotag: ch:"authorized_date"
+	 */
+	authorizedDate?: string;
+	/**
+	 * The date-time when the transaction was authorized.
+	 *
+	 * @gotag: ch:"authorized_datetime"
+	 */
+	authorizedDatetime?: string;
+	/** The set of categories that the transaction belongs to. */
+	categories?: Array<string>;
+	/**
+	 * The category ID of the transaction.
+	 *
+	 * @gotag: ch:"category_id"
+	 */
+	categoryId?: string;
+	/**
+	 * The check number associated with the transaction.
+	 *
 	 * @gotag: ch:"check_number"
 	 */
 	checkNumber?: string;
 	/**
-	 * Date details
+	 * The date of the transaction.
+	 *
 	 * @gotag: ch:"date"
 	 */
 	currentDate?: string;
-	/** @gotag: ch:"datetime" */
-	currentDatetime?: string;
 	/**
-	 * System generated fields
+	 * The current datetime of the transaction.
+	 *
+	 * @gotag: ch:"datetime"
+	 */
+	currentDatetime?: string;
+	/** Indicates whether this transaction should be hidden. */
+	hideTransaction?: boolean;
+	/**
+	 * The unique ID for this transaction.
 	 * @format uint64
 	 */
 	id?: string;
-	/** @gotag: ch:"iso_currency_code" */
-	isoCurrencyCode?: string;
-	/** @format uint64 */
-	linkId?: string;
-	/** Location details */
-	locationAddress?: string;
-	locationCity?: string;
-	locationCountry?: string;
-	/** @format double */
-	locationLat?: number;
-	/** @format double */
-	locationLon?: number;
-	locationPostalCode?: string;
-	locationRegion?: string;
-	locationStoreNumber?: string;
-	/** @gotag: ch:"merchant_name" */
-	merchantName?: string;
 	/**
-	 * Merchant details
-	 * @gotag: ch:"name"
+	 * The currency code of the transaction.
+	 *
+	 * @gotag: ch:"iso_currency_code"
 	 */
-	name?: string;
-	/** @gotag: ch:"payment_channel" */
-	paymentChannel?: string;
-	paymentMetaByOrderOf?: string;
-	paymentMetaPayee?: string;
-	paymentMetaPayer?: string;
-	paymentMetaPaymentMethod?: string;
-	paymentMetaPaymentProcessor?: string;
-	paymentMetaPpdId?: string;
-	paymentMetaReason?: string;
-	paymentMetaReferenceNumber?: string;
-	/** @gotag: ch:"pending" */
-	pending?: boolean;
-	/** @gotag: ch:"pending_transaction_id" */
-	pendingTransactionId?: string;
-	/** @gotag: ch:"personal_finance_category_detailed" */
-	personalFinanceCategoryDetailed?: string;
-	/** @gotag: ch:"personal_finance_category_primary" */
-	personalFinanceCategoryPrimary?: string;
+	isoCurrencyCode?: string;
 	/**
-	 * Additional properties
+	 * The link ID associated with this transaction.
+	 * @format uint64
+	 */
+	linkId?: string;
+	/** The street address of the transaction location (if available). */
+	locationAddress?: string;
+	/** The city of the transaction location (if available). */
+	locationCity?: string;
+	/** The country of the transaction location (if available). */
+	locationCountry?: string;
+	/**
+	 * The latitude of the transaction location (if available).
+	 * @format double
+	 */
+	locationLat?: number;
+	/**
+	 * The longitude of the transaction location (if available).
+	 * @format double
+	 */
+	locationLon?: number;
+	/** The postal code of the transaction location (if available). */
+	locationPostalCode?: string;
+	/** The region or state of the transaction location (if available). */
+	locationRegion?: string;
+	/** The store number associated with the transaction location (if available). */
+	locationStoreNumber?: string;
+	/**
+	 * The merchant name of the transaction.
+	 *
+	 * @gotag: ch:"merchant_name"
+	 */
+	merchantName?: string;
+	/** Indicates whether this transaction needs review. */
+	needsReview?: boolean;
+	/** Notes associated with this transaction. */
+	notes?: Array<TransactionNote>;
+	/**
+	 * The payment channel for the transaction.
+	 *
+	 * @gotag: ch:"payment_channel"
+	 */
+	paymentChannel?: string;
+	/** Information about the entity to whom the payment is made (if available). */
+	paymentMetaByOrderOf?: string;
+	/** Information about the payee (if available). */
+	paymentMetaPayee?: string;
+	/** Information about the payer (if available). */
+	paymentMetaPayer?: string;
+	/** The payment method used for the transaction (if available). */
+	paymentMetaPaymentMethod?: string;
+	/** The payment processor involved in the transaction (if available). */
+	paymentMetaPaymentProcessor?: string;
+	/** The Prearranged Payment and Deposit (PPD) ID (if available). */
+	paymentMetaPpdId?: string;
+	/** The reason for the payment (if available). */
+	paymentMetaReason?: string;
+	/** The reference number associated with the payment (if available). */
+	paymentMetaReferenceNumber?: string;
+	/**
+	 * Indicates whether the transaction is pending.
+	 *
+	 * @gotag: ch:"pending"
+	 */
+	pending?: boolean;
+	/**
+	 * The ID of the pending transaction, if applicable.
+	 *
+	 * @gotag: ch:"pending_transaction_id"
+	 */
+	pendingTransactionId?: string;
+	/**
+	 * The detailed personal finance category of the transaction.
+	 *
+	 * @gotag: ch:"personal_finance_category_detailed"
+	 */
+	personalFinanceCategoryDetailed?: string;
+	/**
+	 * The primary personal finance category of the transaction.
+	 *
+	 * @gotag: ch:"personal_finance_category_primary"
+	 */
+	personalFinanceCategoryPrimary?: string;
+	/** Tags associated with this transaction. */
+	tags?: Array<string>;
+	/**
+	 * The timestamp associated with the transaction.
 	 * @format date-time
 	 */
 	time?: string;
-	/** @gotag: ch:"transaction_code" */
+	/**
+	 * The transaction code.
+	 *
+	 * @gotag: ch:"transaction_code"
+	 */
 	transactionCode?: string;
-	/** @gotag: ch:"transaction_id" */
+	/**
+	 * The transaction ID of interest.
+	 *
+	 * @gotag: ch:"transaction_id"
+	 */
 	transactionId?: string;
-	/** @gotag: ch:"unofficial_currency_code" */
+	/**
+	 * The name of the transaction.
+	 *
+	 * @gotag: ch:"name"
+	 */
+	transactionName?: string;
+	/**
+	 * The unofficial currency code of the transaction.
+	 *
+	 * @gotag: ch:"unofficial_currency_code"
+	 */
 	unofficialCurrencyCode?: string;
-	/** @format uint64 */
+	/**
+	 * The user ID associated with this transaction.
+	 * @format uint64
+	 */
 	userId?: string;
 }
 export interface PlaidExchangeTokenRequest {
@@ -4474,6 +4822,32 @@ export interface TransactionLineItem {
 	trackingCategories?: Array<string>;
 	trackingCategory?: string;
 	unitPrice?: string;
+}
+export interface TransactionNote {
+	/**
+	 * Time Note Was Created At: A timestamp indicating when this note was created.
+	 * @format date-time
+	 */
+	createdAt?: string;
+	/**
+	 * Id: An unsigned 64-bit integer representing the unique ID of the transaction note.
+	 * @format uint64
+	 */
+	id?: string;
+	/** Note: A string field for storing the note text. */
+	note?: string;
+	/** Transaction Id: A string representing the transaction ID associated with this note. */
+	transactionId?: string;
+	/**
+	 * Time Note Was Updated: A timestamp indicating when this note was last updated.
+	 * @format date-time
+	 */
+	updatedAt?: string;
+	/**
+	 * User Id That Created The Note: An unsigned 64-bit integer representing the user ID associated with this note.
+	 * @format uint64
+	 */
+	userId?: string;
 }
 export type UpdateBankAccountData = any;
 export interface UpdateBankAccountRequest {
@@ -8874,13 +9248,13 @@ export declare class RequestPasswordResetResponseClass extends ErrorResponse {
 	success: boolean;
 	constructor(data: Partial<RequestPasswordResetResponseClass>);
 }
-export declare class PlaidExchangeTokenRequestClass {
+export declare class PlaidExchangeTokenRequestClass implements PlaidExchangeTokenRequest {
 	/**
 	 * The user id
 	 * Validations:
 	 * - user_id must be greater than 0
 	 */
-	userId: number;
+	userId: string;
 	/**
 	 * The public token
 	 * Validations:
@@ -8891,6 +9265,8 @@ export declare class PlaidExchangeTokenRequestClass {
 	institutionId: string;
 	/** The institution name */
 	institutionName: string;
+	/** The profile type of the financial user */
+	profileType: FinancialUserProfileType;
 	constructor(data?: Partial<PlaidExchangeTokenRequestClass>);
 }
 export declare class PlaidExchangeTokenResponseClass extends ErrorResponse {
@@ -8898,7 +9274,7 @@ export declare class PlaidExchangeTokenResponseClass extends ErrorResponse {
 	success: boolean;
 	constructor(data?: Partial<PlaidExchangeTokenResponseClass>);
 }
-export declare class PlaidInitiateTokenExchangeRequestClass {
+export declare class PlaidInitiateTokenExchangeRequestClass implements PlaidInitiateTokenExchangeRequest {
 	/**
 	 * A unique ID representing the end user. Typically this will be a user ID number from your application.
 	 * Personally identifiable information, such as an email address or phone number,
@@ -8907,7 +9283,7 @@ export declare class PlaidInitiateTokenExchangeRequestClass {
 	 * Validations:
 	 * - user_id must be greater than 0
 	 */
-	userId: number;
+	userId: string;
 	/**
 	 * The user's full legal name. This is an optional field used in
 	 * the [returning user experience](https://plaid.com/docs/link/returning-user) to associate Items to the user.
@@ -8923,9 +9299,13 @@ export declare class PlaidInitiateTokenExchangeRequestClass {
 	 * This field is optional, but required to enable the [returning user experience](https://plaid.com/docs/link/returning-user).
 	 */
 	phoneNumber: string;
+	/**
+	 * The financial profile type of the financial user
+	 */
+	profileType: FinancialUserProfileType;
 	constructor(data: Partial<PlaidInitiateTokenExchangeRequestClass>);
 }
-export declare class PlaidInitiateTokenExchangeResponseClass {
+export declare class PlaidInitiateTokenExchangeResponseClass implements PlaidInitiateTokenExchangeResponse {
 	linkToken: string;
 	expiration: string;
 	plaidRequestId: string;

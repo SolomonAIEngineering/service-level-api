@@ -7,17 +7,15 @@
 
 # [1.119.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.118.0...v1.119.0) (2023-11-12)
 
-
 ### Features
 
-* update package.json ([#45](https://github.com/SolomonAIEngineering/service-level-api/issues/45)) ([bbe3cd0](https://github.com/SolomonAIEngineering/service-level-api/commit/bbe3cd087768af5489aca1508eb214a70659d6e6))
+- update package.json ([#45](https://github.com/SolomonAIEngineering/service-level-api/issues/45)) ([bbe3cd0](https://github.com/SolomonAIEngineering/service-level-api/commit/bbe3cd087768af5489aca1508eb214a70659d6e6))
 
 # [1.118.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.117.0...v1.118.0) (2023-11-11)
 
-
 ### Features
 
-* update package.json ([#44](https://github.com/SolomonAIEngineering/service-level-api/issues/44)) ([aaa4d3f](https://github.com/SolomonAIEngineering/service-level-api/commit/aaa4d3f28526028b94d04b9c1b7172f04636abf5))
+- update package.json ([#44](https://github.com/SolomonAIEngineering/service-level-api/issues/44)) ([aaa4d3f](https://github.com/SolomonAIEngineering/service-level-api/commit/aaa4d3f28526028b94d04b9c1b7172f04636abf5))
 
 # [1.117.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.116.0...v1.117.0) (2023-11-11)
 
