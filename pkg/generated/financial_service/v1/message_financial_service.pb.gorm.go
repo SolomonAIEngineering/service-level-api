@@ -1217,6 +1217,7 @@ type CreditAccountORM struct {
 	PlaidAccountId         string
 	Status                 string
 	Subtype                string
+	Transactions           []*PlaidAccountTransactionORM `gorm:"foreignkey:CreditAccountId;association_foreignkey:Id;preload:true"`
 	Type                   string
 	UserId                 uint64
 }
@@ -1267,6 +1268,17 @@ func (m *CreditAccount) ToORM(ctx context.Context) (CreditAccountORM, error) {
 	to.MinimumPaymentAmount = m.MinimumPaymentAmount
 	to.NextPaymentDueDate = m.NextPaymentDueDate
 	to.Status = BankAccountStatus_name[int32(m.Status)]
+	for _, v := range m.Transactions {
+		if v != nil {
+			if tempTransactions, cErr := v.ToORM(ctx); cErr == nil {
+				to.Transactions = append(to.Transactions, &tempTransactions)
+			} else {
+				return to, cErr
+			}
+		} else {
+			to.Transactions = append(to.Transactions, nil)
+		}
+	}
 	if posthook, ok := interface{}(m).(CreditAccountWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -1314,6 +1326,17 @@ func (m *CreditAccountORM) ToPB(ctx context.Context) (CreditAccount, error) {
 	to.MinimumPaymentAmount = m.MinimumPaymentAmount
 	to.NextPaymentDueDate = m.NextPaymentDueDate
 	to.Status = BankAccountStatus(BankAccountStatus_value[m.Status])
+	for _, v := range m.Transactions {
+		if v != nil {
+			if tempTransactions, cErr := v.ToPB(ctx); cErr == nil {
+				to.Transactions = append(to.Transactions, &tempTransactions)
+			} else {
+				return to, cErr
+			}
+		} else {
+			to.Transactions = append(to.Transactions, nil)
+		}
+	}
 	if posthook, ok := interface{}(m).(CreditAccountWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -1519,6 +1542,7 @@ type InvestmentAccountORM struct {
 	Securities     []*InvestmentSecurityORM `gorm:"foreignkey:InvestmentAccountId;association_foreignkey:Id;preload:true"`
 	Status         string
 	Subtype        string
+	Transactions   []*PlaidAccountInvestmentTransactionORM `gorm:"foreignkey:InvestmentAccountId;association_foreignkey:Id;preload:true"`
 	Type           string
 	UserId         uint64
 }
@@ -1571,6 +1595,17 @@ func (m *InvestmentAccount) ToORM(ctx context.Context) (InvestmentAccountORM, er
 		}
 	}
 	to.Status = BankAccountStatus_name[int32(m.Status)]
+	for _, v := range m.Transactions {
+		if v != nil {
+			if tempTransactions, cErr := v.ToORM(ctx); cErr == nil {
+				to.Transactions = append(to.Transactions, &tempTransactions)
+			} else {
+				return to, cErr
+			}
+		} else {
+			to.Transactions = append(to.Transactions, nil)
+		}
+	}
 	if posthook, ok := interface{}(m).(InvestmentAccountWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -1620,6 +1655,17 @@ func (m *InvestmentAccountORM) ToPB(ctx context.Context) (InvestmentAccount, err
 		}
 	}
 	to.Status = BankAccountStatus(BankAccountStatus_value[m.Status])
+	for _, v := range m.Transactions {
+		if v != nil {
+			if tempTransactions, cErr := v.ToPB(ctx); cErr == nil {
+				to.Transactions = append(to.Transactions, &tempTransactions)
+			} else {
+				return to, cErr
+			}
+		} else {
+			to.Transactions = append(to.Transactions, nil)
+		}
+	}
 	if posthook, ok := interface{}(m).(InvestmentAccountWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -1662,6 +1708,7 @@ type BankAccountORM struct {
 	Pockets        []*PocketORM `gorm:"foreignkey:BankAccountId;association_foreignkey:Id;preload:true"`
 	Status         string
 	Subtype        string
+	Transactions   []*PlaidAccountTransactionORM `gorm:"foreignkey:BankAccountId;association_foreignkey:Id;preload:true"`
 	Type           string
 	UserId         uint64
 }
@@ -1704,6 +1751,17 @@ func (m *BankAccount) ToORM(ctx context.Context) (BankAccountORM, error) {
 	to.PlaidAccountId = m.PlaidAccountId
 	to.Subtype = m.Subtype
 	to.Status = BankAccountStatus_name[int32(m.Status)]
+	for _, v := range m.Transactions {
+		if v != nil {
+			if tempTransactions, cErr := v.ToORM(ctx); cErr == nil {
+				to.Transactions = append(to.Transactions, &tempTransactions)
+			} else {
+				return to, cErr
+			}
+		} else {
+			to.Transactions = append(to.Transactions, nil)
+		}
+	}
 	if posthook, ok := interface{}(m).(BankAccountWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -1743,6 +1801,17 @@ func (m *BankAccountORM) ToPB(ctx context.Context) (BankAccount, error) {
 	to.PlaidAccountId = m.PlaidAccountId
 	to.Subtype = m.Subtype
 	to.Status = BankAccountStatus(BankAccountStatus_value[m.Status])
+	for _, v := range m.Transactions {
+		if v != nil {
+			if tempTransactions, cErr := v.ToPB(ctx); cErr == nil {
+				to.Transactions = append(to.Transactions, &tempTransactions)
+			} else {
+				return to, cErr
+			}
+		} else {
+			to.Transactions = append(to.Transactions, nil)
+		}
+	}
 	if posthook, ok := interface{}(m).(BankAccountWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -7398,10 +7467,12 @@ type PlaidAccountInvestmentTransactionORM struct {
 	CurrentDate             string
 	Fees                    float64
 	Id                      uint64
+	InvestmentAccountId     *uint64
 	InvestmentTransactionId string
 	IsoCurrencyCode         string
 	LinkId                  uint64
 	Name                    string
+	Notes                   []*TransactionNoteORM `gorm:"foreignkey:PlaidAccountInvestmentTransactionId;association_foreignkey:Id"`
 	Price                   float64
 	Quantity                float64
 	SecurityId              string
@@ -7449,6 +7520,17 @@ func (m *PlaidAccountInvestmentTransaction) ToORM(ctx context.Context) (PlaidAcc
 		t := m.Time.AsTime()
 		to.Time = &t
 	}
+	for _, v := range m.Notes {
+		if v != nil {
+			if tempNotes, cErr := v.ToORM(ctx); cErr == nil {
+				to.Notes = append(to.Notes, &tempNotes)
+			} else {
+				return to, cErr
+			}
+		} else {
+			to.Notes = append(to.Notes, nil)
+		}
+	}
 	if posthook, ok := interface{}(m).(PlaidAccountInvestmentTransactionWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -7485,6 +7567,17 @@ func (m *PlaidAccountInvestmentTransactionORM) ToPB(ctx context.Context) (PlaidA
 	to.CreatedAt = m.CreatedAt
 	if m.Time != nil {
 		to.Time = timestamppb.New(*m.Time)
+	}
+	for _, v := range m.Notes {
+		if v != nil {
+			if tempNotes, cErr := v.ToPB(ctx); cErr == nil {
+				to.Notes = append(to.Notes, &tempNotes)
+			} else {
+				return to, cErr
+			}
+		} else {
+			to.Notes = append(to.Notes, nil)
+		}
 	}
 	if posthook, ok := interface{}(m).(PlaidAccountInvestmentTransactionWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
@@ -7531,6 +7624,7 @@ type PlaidAccountRecurringTransactionORM struct {
 	LastDate                        string
 	LinkId                          uint64
 	MerchantName                    string
+	Notes                           []*TransactionNoteORM `gorm:"foreignkey:PlaidAccountRecurringTransactionId;association_foreignkey:Id"`
 	PersonalFinanceCategoryDetailed string
 	PersonalFinanceCategoryPrimary  string
 	Status                          string
@@ -7582,6 +7676,17 @@ func (m *PlaidAccountRecurringTransaction) ToORM(ctx context.Context) (PlaidAcco
 		t := m.Time.AsTime()
 		to.Time = &t
 	}
+	for _, v := range m.Notes {
+		if v != nil {
+			if tempNotes, cErr := v.ToORM(ctx); cErr == nil {
+				to.Notes = append(to.Notes, &tempNotes)
+			} else {
+				return to, cErr
+			}
+		} else {
+			to.Notes = append(to.Notes, nil)
+		}
+	}
 	if posthook, ok := interface{}(m).(PlaidAccountRecurringTransactionWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -7623,6 +7728,17 @@ func (m *PlaidAccountRecurringTransactionORM) ToPB(ctx context.Context) (PlaidAc
 	if m.Time != nil {
 		to.Time = timestamppb.New(*m.Time)
 	}
+	for _, v := range m.Notes {
+		if v != nil {
+			if tempNotes, cErr := v.ToPB(ctx); cErr == nil {
+				to.Notes = append(to.Notes, &tempNotes)
+			} else {
+				return to, cErr
+			}
+		} else {
+			to.Notes = append(to.Notes, nil)
+		}
+	}
 	if posthook, ok := interface{}(m).(PlaidAccountRecurringTransactionWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -7658,11 +7774,14 @@ type PlaidAccountTransactionORM struct {
 	Amount                          float64
 	AuthorizedDate                  string
 	AuthorizedDatetime              string
+	BankAccountId                   *uint64
 	Categories                      pq.StringArray `gorm:"type:text[]"`
 	CategoryId                      string
 	CheckNumber                     string
+	CreditAccountId                 *uint64
 	CurrentDate                     string
 	CurrentDatetime                 string
+	HideTransaction                 bool
 	Id                              uint64
 	IsoCurrencyCode                 string
 	LinkId                          uint64
@@ -7675,7 +7794,8 @@ type PlaidAccountTransactionORM struct {
 	LocationRegion                  string
 	LocationStoreNumber             string
 	MerchantName                    string
-	Name                            string
+	NeedsReview                     bool
+	Notes                           []*TransactionNoteORM `gorm:"foreignkey:PlaidAccountTransactionId;association_foreignkey:Id"`
 	PaymentChannel                  string
 	PaymentMetaByOrderOf            string
 	PaymentMetaPayee                string
@@ -7689,9 +7809,11 @@ type PlaidAccountTransactionORM struct {
 	PendingTransactionId            string
 	PersonalFinanceCategoryDetailed string
 	PersonalFinanceCategoryPrimary  string
+	Tags                            pq.StringArray `gorm:"type:text[]"`
 	Time                            *time.Time
 	TransactionCode                 string
 	TransactionId                   string
+	TransactionName                 string
 	UnofficialCurrencyCode          string
 	UserId                          uint64
 }
@@ -7728,7 +7850,7 @@ func (m *PlaidAccountTransaction) ToORM(ctx context.Context) (PlaidAccountTransa
 	}
 	to.PersonalFinanceCategoryPrimary = m.PersonalFinanceCategoryPrimary
 	to.PersonalFinanceCategoryDetailed = m.PersonalFinanceCategoryDetailed
-	to.Name = m.Name
+	to.TransactionName = m.TransactionName
 	to.MerchantName = m.MerchantName
 	to.CheckNumber = m.CheckNumber
 	to.PaymentChannel = m.PaymentChannel
@@ -7758,6 +7880,23 @@ func (m *PlaidAccountTransaction) ToORM(ctx context.Context) (PlaidAccountTransa
 	to.Id = m.Id
 	to.UserId = m.UserId
 	to.LinkId = m.LinkId
+	to.NeedsReview = m.NeedsReview
+	to.HideTransaction = m.HideTransaction
+	if m.Tags != nil {
+		to.Tags = make(pq.StringArray, len(m.Tags))
+		copy(to.Tags, m.Tags)
+	}
+	for _, v := range m.Notes {
+		if v != nil {
+			if tempNotes, cErr := v.ToORM(ctx); cErr == nil {
+				to.Notes = append(to.Notes, &tempNotes)
+			} else {
+				return to, cErr
+			}
+		} else {
+			to.Notes = append(to.Notes, nil)
+		}
+	}
 	if posthook, ok := interface{}(m).(PlaidAccountTransactionWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -7791,7 +7930,7 @@ func (m *PlaidAccountTransactionORM) ToPB(ctx context.Context) (PlaidAccountTran
 	}
 	to.PersonalFinanceCategoryPrimary = m.PersonalFinanceCategoryPrimary
 	to.PersonalFinanceCategoryDetailed = m.PersonalFinanceCategoryDetailed
-	to.Name = m.Name
+	to.TransactionName = m.TransactionName
 	to.MerchantName = m.MerchantName
 	to.CheckNumber = m.CheckNumber
 	to.PaymentChannel = m.PaymentChannel
@@ -7820,6 +7959,23 @@ func (m *PlaidAccountTransactionORM) ToPB(ctx context.Context) (PlaidAccountTran
 	to.Id = m.Id
 	to.UserId = m.UserId
 	to.LinkId = m.LinkId
+	to.NeedsReview = m.NeedsReview
+	to.HideTransaction = m.HideTransaction
+	if m.Tags != nil {
+		to.Tags = make(pq.StringArray, len(m.Tags))
+		copy(to.Tags, m.Tags)
+	}
+	for _, v := range m.Notes {
+		if v != nil {
+			if tempNotes, cErr := v.ToPB(ctx); cErr == nil {
+				to.Notes = append(to.Notes, &tempNotes)
+			} else {
+				return to, cErr
+			}
+		} else {
+			to.Notes = append(to.Notes, nil)
+		}
+	}
 	if posthook, ok := interface{}(m).(PlaidAccountTransactionWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -7847,6 +8003,100 @@ type PlaidAccountTransactionWithBeforeToPB interface {
 // PlaidAccountTransactionAfterToPB called after default ToPB code
 type PlaidAccountTransactionWithAfterToPB interface {
 	AfterToPB(context.Context, *PlaidAccountTransaction) error
+}
+
+type TransactionNoteORM struct {
+	CreatedAt                           *time.Time
+	Id                                  uint64
+	Note                                string
+	PlaidAccountInvestmentTransactionId *uint64
+	PlaidAccountRecurringTransactionId  *uint64
+	PlaidAccountTransactionId           *uint64
+	TransactionId                       string
+	UpdatedAt                           *time.Time
+	UserId                              uint64
+}
+
+// TableName overrides the default tablename generated by GORM
+func (TransactionNoteORM) TableName() string {
+	return "transaction_notes"
+}
+
+// ToORM runs the BeforeToORM hook if present, converts the fields of this
+// object to ORM format, runs the AfterToORM hook, then returns the ORM object
+func (m *TransactionNote) ToORM(ctx context.Context) (TransactionNoteORM, error) {
+	to := TransactionNoteORM{}
+	var err error
+	if prehook, ok := interface{}(m).(TransactionNoteWithBeforeToORM); ok {
+		if err = prehook.BeforeToORM(ctx, &to); err != nil {
+			return to, err
+		}
+	}
+	to.Id = m.Id
+	to.TransactionId = m.TransactionId
+	to.Note = m.Note
+	if m.CreatedAt != nil {
+		t := m.CreatedAt.AsTime()
+		to.CreatedAt = &t
+	}
+	if m.UpdatedAt != nil {
+		t := m.UpdatedAt.AsTime()
+		to.UpdatedAt = &t
+	}
+	to.UserId = m.UserId
+	if posthook, ok := interface{}(m).(TransactionNoteWithAfterToORM); ok {
+		err = posthook.AfterToORM(ctx, &to)
+	}
+	return to, err
+}
+
+// ToPB runs the BeforeToPB hook if present, converts the fields of this
+// object to PB format, runs the AfterToPB hook, then returns the PB object
+func (m *TransactionNoteORM) ToPB(ctx context.Context) (TransactionNote, error) {
+	to := TransactionNote{}
+	var err error
+	if prehook, ok := interface{}(m).(TransactionNoteWithBeforeToPB); ok {
+		if err = prehook.BeforeToPB(ctx, &to); err != nil {
+			return to, err
+		}
+	}
+	to.Id = m.Id
+	to.TransactionId = m.TransactionId
+	to.Note = m.Note
+	if m.CreatedAt != nil {
+		to.CreatedAt = timestamppb.New(*m.CreatedAt)
+	}
+	if m.UpdatedAt != nil {
+		to.UpdatedAt = timestamppb.New(*m.UpdatedAt)
+	}
+	to.UserId = m.UserId
+	if posthook, ok := interface{}(m).(TransactionNoteWithAfterToPB); ok {
+		err = posthook.AfterToPB(ctx, &to)
+	}
+	return to, err
+}
+
+// The following are interfaces you can implement for special behavior during ORM/PB conversions
+// of type TransactionNote the arg will be the target, the caller the one being converted from
+
+// TransactionNoteBeforeToORM called before default ToORM code
+type TransactionNoteWithBeforeToORM interface {
+	BeforeToORM(context.Context, *TransactionNoteORM) error
+}
+
+// TransactionNoteAfterToORM called after default ToORM code
+type TransactionNoteWithAfterToORM interface {
+	AfterToORM(context.Context, *TransactionNoteORM) error
+}
+
+// TransactionNoteBeforeToPB called before default ToPB code
+type TransactionNoteWithBeforeToPB interface {
+	BeforeToPB(context.Context, *TransactionNote) error
+}
+
+// TransactionNoteAfterToPB called after default ToPB code
+type TransactionNoteWithAfterToPB interface {
+	AfterToPB(context.Context, *TransactionNote) error
 }
 
 // DefaultCreateStripeSubscription executes a basic gorm create call
@@ -11778,6 +12028,15 @@ func DefaultStrictUpdateCreditAccount(ctx context.Context, in *CreditAccount, db
 	if err = db.Where(filterAprs).Delete(AprORM{}).Error; err != nil {
 		return nil, err
 	}
+	filterTransactions := PlaidAccountTransactionORM{}
+	if ormObj.Id == 0 {
+		return nil, errors.EmptyIdError
+	}
+	filterTransactions.CreditAccountId = new(uint64)
+	*filterTransactions.CreditAccountId = ormObj.Id
+	if err = db.Where(filterTransactions).Delete(PlaidAccountTransactionORM{}).Error; err != nil {
+		return nil, err
+	}
 	if hook, ok := interface{}(&ormObj).(CreditAccountORMWithBeforeStrictUpdateSave); ok {
 		if db, err = hook.BeforeStrictUpdateSave(ctx, db); err != nil {
 			return nil, err
@@ -11973,6 +12232,10 @@ func DefaultApplyFieldMaskCreditAccount(ctx context.Context, patchee *CreditAcco
 		}
 		if f == prefix+"Status" {
 			patchee.Status = patcher.Status
+			continue
+		}
+		if f == prefix+"Transactions" {
+			patchee.Transactions = patcher.Transactions
 			continue
 		}
 	}
@@ -12692,6 +12955,15 @@ func DefaultStrictUpdateInvestmentAccount(ctx context.Context, in *InvestmentAcc
 	if err = db.Where(filterSecurities).Delete(InvestmentSecurityORM{}).Error; err != nil {
 		return nil, err
 	}
+	filterTransactions := PlaidAccountInvestmentTransactionORM{}
+	if ormObj.Id == 0 {
+		return nil, errors.EmptyIdError
+	}
+	filterTransactions.InvestmentAccountId = new(uint64)
+	*filterTransactions.InvestmentAccountId = ormObj.Id
+	if err = db.Where(filterTransactions).Delete(PlaidAccountInvestmentTransactionORM{}).Error; err != nil {
+		return nil, err
+	}
 	if hook, ok := interface{}(&ormObj).(InvestmentAccountORMWithBeforeStrictUpdateSave); ok {
 		if db, err = hook.BeforeStrictUpdateSave(ctx, db); err != nil {
 			return nil, err
@@ -12855,6 +13127,10 @@ func DefaultApplyFieldMaskInvestmentAccount(ctx context.Context, patchee *Invest
 		}
 		if f == prefix+"Status" {
 			patchee.Status = patcher.Status
+			continue
+		}
+		if f == prefix+"Transactions" {
+			patchee.Transactions = patcher.Transactions
 			continue
 		}
 	}
@@ -13093,6 +13369,15 @@ func DefaultStrictUpdateBankAccount(ctx context.Context, in *BankAccount, db *go
 	if err = db.Where(filterPockets).Delete(PocketORM{}).Error; err != nil {
 		return nil, err
 	}
+	filterTransactions := PlaidAccountTransactionORM{}
+	if ormObj.Id == 0 {
+		return nil, errors.EmptyIdError
+	}
+	filterTransactions.BankAccountId = new(uint64)
+	*filterTransactions.BankAccountId = ormObj.Id
+	if err = db.Where(filterTransactions).Delete(PlaidAccountTransactionORM{}).Error; err != nil {
+		return nil, err
+	}
 	if hook, ok := interface{}(&ormObj).(BankAccountORMWithBeforeStrictUpdateSave); ok {
 		if db, err = hook.BeforeStrictUpdateSave(ctx, db); err != nil {
 			return nil, err
@@ -13256,6 +13541,10 @@ func DefaultApplyFieldMaskBankAccount(ctx context.Context, patchee *BankAccount,
 		}
 		if f == prefix+"Status" {
 			patchee.Status = patcher.Status
+			continue
+		}
+		if f == prefix+"Transactions" {
+			patchee.Transactions = patcher.Transactions
 			continue
 		}
 	}
@@ -31896,6 +32185,15 @@ func DefaultStrictUpdatePlaidAccountInvestmentTransaction(ctx context.Context, i
 			return nil, err
 		}
 	}
+	filterNotes := TransactionNoteORM{}
+	if ormObj.Id == 0 {
+		return nil, errors.EmptyIdError
+	}
+	filterNotes.PlaidAccountInvestmentTransactionId = new(uint64)
+	*filterNotes.PlaidAccountInvestmentTransactionId = ormObj.Id
+	if err = db.Where(filterNotes).Delete(TransactionNoteORM{}).Error; err != nil {
+		return nil, err
+	}
 	if hook, ok := interface{}(&ormObj).(PlaidAccountInvestmentTransactionORMWithBeforeStrictUpdateSave); ok {
 		if db, err = hook.BeforeStrictUpdateSave(ctx, db); err != nil {
 			return nil, err
@@ -32129,6 +32427,10 @@ func DefaultApplyFieldMaskPlaidAccountInvestmentTransaction(ctx context.Context,
 			patchee.AdditionalProperties = patcher.AdditionalProperties
 			continue
 		}
+		if f == prefix+"Notes" {
+			patchee.Notes = patcher.Notes
+			continue
+		}
 	}
 	if err != nil {
 		return nil, err
@@ -32355,6 +32657,15 @@ func DefaultStrictUpdatePlaidAccountRecurringTransaction(ctx context.Context, in
 		if db, err = hook.BeforeStrictUpdateCleanup(ctx, db); err != nil {
 			return nil, err
 		}
+	}
+	filterNotes := TransactionNoteORM{}
+	if ormObj.Id == 0 {
+		return nil, errors.EmptyIdError
+	}
+	filterNotes.PlaidAccountRecurringTransactionId = new(uint64)
+	*filterNotes.PlaidAccountRecurringTransactionId = ormObj.Id
+	if err = db.Where(filterNotes).Delete(TransactionNoteORM{}).Error; err != nil {
+		return nil, err
 	}
 	if hook, ok := interface{}(&ormObj).(PlaidAccountRecurringTransactionORMWithBeforeStrictUpdateSave); ok {
 		if db, err = hook.BeforeStrictUpdateSave(ctx, db); err != nil {
@@ -32605,6 +32916,10 @@ func DefaultApplyFieldMaskPlaidAccountRecurringTransaction(ctx context.Context, 
 			patchee.AdditionalProperties = patcher.AdditionalProperties
 			continue
 		}
+		if f == prefix+"Notes" {
+			patchee.Notes = patcher.Notes
+			continue
+		}
 	}
 	if err != nil {
 		return nil, err
@@ -32832,6 +33147,15 @@ func DefaultStrictUpdatePlaidAccountTransaction(ctx context.Context, in *PlaidAc
 			return nil, err
 		}
 	}
+	filterNotes := TransactionNoteORM{}
+	if ormObj.Id == 0 {
+		return nil, errors.EmptyIdError
+	}
+	filterNotes.PlaidAccountTransactionId = new(uint64)
+	*filterNotes.PlaidAccountTransactionId = ormObj.Id
+	if err = db.Where(filterNotes).Delete(TransactionNoteORM{}).Error; err != nil {
+		return nil, err
+	}
 	if hook, ok := interface{}(&ormObj).(PlaidAccountTransactionORMWithBeforeStrictUpdateSave); ok {
 		if db, err = hook.BeforeStrictUpdateSave(ctx, db); err != nil {
 			return nil, err
@@ -33003,8 +33327,8 @@ func DefaultApplyFieldMaskPlaidAccountTransaction(ctx context.Context, patchee *
 			patchee.PersonalFinanceCategoryDetailed = patcher.PersonalFinanceCategoryDetailed
 			continue
 		}
-		if f == prefix+"Name" {
-			patchee.Name = patcher.Name
+		if f == prefix+"TransactionName" {
+			patchee.TransactionName = patcher.TransactionName
 			continue
 		}
 		if f == prefix+"MerchantName" {
@@ -33153,6 +33477,22 @@ func DefaultApplyFieldMaskPlaidAccountTransaction(ctx context.Context, patchee *
 			patchee.LinkId = patcher.LinkId
 			continue
 		}
+		if f == prefix+"NeedsReview" {
+			patchee.NeedsReview = patcher.NeedsReview
+			continue
+		}
+		if f == prefix+"HideTransaction" {
+			patchee.HideTransaction = patcher.HideTransaction
+			continue
+		}
+		if f == prefix+"Tags" {
+			patchee.Tags = patcher.Tags
+			continue
+		}
+		if f == prefix+"Notes" {
+			patchee.Notes = patcher.Notes
+			continue
+		}
 	}
 	if err != nil {
 		return nil, err
@@ -33211,4 +33551,408 @@ type PlaidAccountTransactionORMWithBeforeListFind interface {
 }
 type PlaidAccountTransactionORMWithAfterListFind interface {
 	AfterListFind(context.Context, *gorm.DB, *[]PlaidAccountTransactionORM) error
+}
+
+// DefaultCreateTransactionNote executes a basic gorm create call
+func DefaultCreateTransactionNote(ctx context.Context, in *TransactionNote, db *gorm.DB) (*TransactionNote, error) {
+	if in == nil {
+		return nil, errors.NilArgumentError
+	}
+	ormObj, err := in.ToORM(ctx)
+	if err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormObj).(TransactionNoteORMWithBeforeCreate_); ok {
+		if db, err = hook.BeforeCreate_(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	if err = db.Create(&ormObj).Error; err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormObj).(TransactionNoteORMWithAfterCreate_); ok {
+		if err = hook.AfterCreate_(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	pbResponse, err := ormObj.ToPB(ctx)
+	return &pbResponse, err
+}
+
+type TransactionNoteORMWithBeforeCreate_ interface {
+	BeforeCreate_(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type TransactionNoteORMWithAfterCreate_ interface {
+	AfterCreate_(context.Context, *gorm.DB) error
+}
+
+func DefaultReadTransactionNote(ctx context.Context, in *TransactionNote, db *gorm.DB) (*TransactionNote, error) {
+	if in == nil {
+		return nil, errors.NilArgumentError
+	}
+	ormObj, err := in.ToORM(ctx)
+	if err != nil {
+		return nil, err
+	}
+	if ormObj.Id == 0 {
+		return nil, errors.EmptyIdError
+	}
+	if hook, ok := interface{}(&ormObj).(TransactionNoteORMWithBeforeReadApplyQuery); ok {
+		if db, err = hook.BeforeReadApplyQuery(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	if db, err = gorm1.ApplyFieldSelection(ctx, db, nil, &TransactionNoteORM{}); err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormObj).(TransactionNoteORMWithBeforeReadFind); ok {
+		if db, err = hook.BeforeReadFind(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	ormResponse := TransactionNoteORM{}
+	if err = db.Where(&ormObj).First(&ormResponse).Error; err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormResponse).(TransactionNoteORMWithAfterReadFind); ok {
+		if err = hook.AfterReadFind(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	pbResponse, err := ormResponse.ToPB(ctx)
+	return &pbResponse, err
+}
+
+type TransactionNoteORMWithBeforeReadApplyQuery interface {
+	BeforeReadApplyQuery(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type TransactionNoteORMWithBeforeReadFind interface {
+	BeforeReadFind(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type TransactionNoteORMWithAfterReadFind interface {
+	AfterReadFind(context.Context, *gorm.DB) error
+}
+
+func DefaultDeleteTransactionNote(ctx context.Context, in *TransactionNote, db *gorm.DB) error {
+	if in == nil {
+		return errors.NilArgumentError
+	}
+	ormObj, err := in.ToORM(ctx)
+	if err != nil {
+		return err
+	}
+	if ormObj.Id == 0 {
+		return errors.EmptyIdError
+	}
+	if hook, ok := interface{}(&ormObj).(TransactionNoteORMWithBeforeDelete_); ok {
+		if db, err = hook.BeforeDelete_(ctx, db); err != nil {
+			return err
+		}
+	}
+	err = db.Where(&ormObj).Delete(&TransactionNoteORM{}).Error
+	if err != nil {
+		return err
+	}
+	if hook, ok := interface{}(&ormObj).(TransactionNoteORMWithAfterDelete_); ok {
+		err = hook.AfterDelete_(ctx, db)
+	}
+	return err
+}
+
+type TransactionNoteORMWithBeforeDelete_ interface {
+	BeforeDelete_(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type TransactionNoteORMWithAfterDelete_ interface {
+	AfterDelete_(context.Context, *gorm.DB) error
+}
+
+func DefaultDeleteTransactionNoteSet(ctx context.Context, in []*TransactionNote, db *gorm.DB) error {
+	if in == nil {
+		return errors.NilArgumentError
+	}
+	var err error
+	keys := []uint64{}
+	for _, obj := range in {
+		ormObj, err := obj.ToORM(ctx)
+		if err != nil {
+			return err
+		}
+		if ormObj.Id == 0 {
+			return errors.EmptyIdError
+		}
+		keys = append(keys, ormObj.Id)
+	}
+	if hook, ok := (interface{}(&TransactionNoteORM{})).(TransactionNoteORMWithBeforeDeleteSet); ok {
+		if db, err = hook.BeforeDeleteSet(ctx, in, db); err != nil {
+			return err
+		}
+	}
+	err = db.Where("id in (?)", keys).Delete(&TransactionNoteORM{}).Error
+	if err != nil {
+		return err
+	}
+	if hook, ok := (interface{}(&TransactionNoteORM{})).(TransactionNoteORMWithAfterDeleteSet); ok {
+		err = hook.AfterDeleteSet(ctx, in, db)
+	}
+	return err
+}
+
+type TransactionNoteORMWithBeforeDeleteSet interface {
+	BeforeDeleteSet(context.Context, []*TransactionNote, *gorm.DB) (*gorm.DB, error)
+}
+type TransactionNoteORMWithAfterDeleteSet interface {
+	AfterDeleteSet(context.Context, []*TransactionNote, *gorm.DB) error
+}
+
+// DefaultStrictUpdateTransactionNote clears / replaces / appends first level 1:many children and then executes a gorm update call
+func DefaultStrictUpdateTransactionNote(ctx context.Context, in *TransactionNote, db *gorm.DB) (*TransactionNote, error) {
+	if in == nil {
+		return nil, fmt.Errorf("Nil argument to DefaultStrictUpdateTransactionNote")
+	}
+	ormObj, err := in.ToORM(ctx)
+	if err != nil {
+		return nil, err
+	}
+	lockedRow := &TransactionNoteORM{}
+	db.Model(&ormObj).Set("gorm:query_option", "FOR UPDATE").Where("id=?", ormObj.Id).First(lockedRow)
+	if hook, ok := interface{}(&ormObj).(TransactionNoteORMWithBeforeStrictUpdateCleanup); ok {
+		if db, err = hook.BeforeStrictUpdateCleanup(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	if hook, ok := interface{}(&ormObj).(TransactionNoteORMWithBeforeStrictUpdateSave); ok {
+		if db, err = hook.BeforeStrictUpdateSave(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	if err = db.Save(&ormObj).Error; err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormObj).(TransactionNoteORMWithAfterStrictUpdateSave); ok {
+		if err = hook.AfterStrictUpdateSave(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	pbResponse, err := ormObj.ToPB(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return &pbResponse, err
+}
+
+type TransactionNoteORMWithBeforeStrictUpdateCleanup interface {
+	BeforeStrictUpdateCleanup(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type TransactionNoteORMWithBeforeStrictUpdateSave interface {
+	BeforeStrictUpdateSave(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type TransactionNoteORMWithAfterStrictUpdateSave interface {
+	AfterStrictUpdateSave(context.Context, *gorm.DB) error
+}
+
+// DefaultPatchTransactionNote executes a basic gorm update call with patch behavior
+func DefaultPatchTransactionNote(ctx context.Context, in *TransactionNote, updateMask *field_mask.FieldMask, db *gorm.DB) (*TransactionNote, error) {
+	if in == nil {
+		return nil, errors.NilArgumentError
+	}
+	var pbObj TransactionNote
+	var err error
+	if hook, ok := interface{}(&pbObj).(TransactionNoteWithBeforePatchRead); ok {
+		if db, err = hook.BeforePatchRead(ctx, in, updateMask, db); err != nil {
+			return nil, err
+		}
+	}
+	pbReadRes, err := DefaultReadTransactionNote(ctx, &TransactionNote{Id: in.GetId()}, db)
+	if err != nil {
+		return nil, err
+	}
+	pbObj = *pbReadRes
+	if hook, ok := interface{}(&pbObj).(TransactionNoteWithBeforePatchApplyFieldMask); ok {
+		if db, err = hook.BeforePatchApplyFieldMask(ctx, in, updateMask, db); err != nil {
+			return nil, err
+		}
+	}
+	if _, err := DefaultApplyFieldMaskTransactionNote(ctx, &pbObj, in, updateMask, "", db); err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&pbObj).(TransactionNoteWithBeforePatchSave); ok {
+		if db, err = hook.BeforePatchSave(ctx, in, updateMask, db); err != nil {
+			return nil, err
+		}
+	}
+	pbResponse, err := DefaultStrictUpdateTransactionNote(ctx, &pbObj, db)
+	if err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(pbResponse).(TransactionNoteWithAfterPatchSave); ok {
+		if err = hook.AfterPatchSave(ctx, in, updateMask, db); err != nil {
+			return nil, err
+		}
+	}
+	return pbResponse, nil
+}
+
+type TransactionNoteWithBeforePatchRead interface {
+	BeforePatchRead(context.Context, *TransactionNote, *field_mask.FieldMask, *gorm.DB) (*gorm.DB, error)
+}
+type TransactionNoteWithBeforePatchApplyFieldMask interface {
+	BeforePatchApplyFieldMask(context.Context, *TransactionNote, *field_mask.FieldMask, *gorm.DB) (*gorm.DB, error)
+}
+type TransactionNoteWithBeforePatchSave interface {
+	BeforePatchSave(context.Context, *TransactionNote, *field_mask.FieldMask, *gorm.DB) (*gorm.DB, error)
+}
+type TransactionNoteWithAfterPatchSave interface {
+	AfterPatchSave(context.Context, *TransactionNote, *field_mask.FieldMask, *gorm.DB) error
+}
+
+// DefaultPatchSetTransactionNote executes a bulk gorm update call with patch behavior
+func DefaultPatchSetTransactionNote(ctx context.Context, objects []*TransactionNote, updateMasks []*field_mask.FieldMask, db *gorm.DB) ([]*TransactionNote, error) {
+	if len(objects) != len(updateMasks) {
+		return nil, fmt.Errorf(errors.BadRepeatedFieldMaskTpl, len(updateMasks), len(objects))
+	}
+
+	results := make([]*TransactionNote, 0, len(objects))
+	for i, patcher := range objects {
+		pbResponse, err := DefaultPatchTransactionNote(ctx, patcher, updateMasks[i], db)
+		if err != nil {
+			return nil, err
+		}
+
+		results = append(results, pbResponse)
+	}
+
+	return results, nil
+}
+
+// DefaultApplyFieldMaskTransactionNote patches an pbObject with patcher according to a field mask.
+func DefaultApplyFieldMaskTransactionNote(ctx context.Context, patchee *TransactionNote, patcher *TransactionNote, updateMask *field_mask.FieldMask, prefix string, db *gorm.DB) (*TransactionNote, error) {
+	if patcher == nil {
+		return nil, nil
+	} else if patchee == nil {
+		return nil, errors.NilArgumentError
+	}
+	var err error
+	var updatedCreatedAt bool
+	var updatedUpdatedAt bool
+	for i, f := range updateMask.Paths {
+		if f == prefix+"Id" {
+			patchee.Id = patcher.Id
+			continue
+		}
+		if f == prefix+"TransactionId" {
+			patchee.TransactionId = patcher.TransactionId
+			continue
+		}
+		if f == prefix+"Note" {
+			patchee.Note = patcher.Note
+			continue
+		}
+		if !updatedCreatedAt && strings.HasPrefix(f, prefix+"CreatedAt.") {
+			if patcher.CreatedAt == nil {
+				patchee.CreatedAt = nil
+				continue
+			}
+			if patchee.CreatedAt == nil {
+				patchee.CreatedAt = &timestamppb.Timestamp{}
+			}
+			childMask := &field_mask.FieldMask{}
+			for j := i; j < len(updateMask.Paths); j++ {
+				if trimPath := strings.TrimPrefix(updateMask.Paths[j], prefix+"CreatedAt."); trimPath != updateMask.Paths[j] {
+					childMask.Paths = append(childMask.Paths, trimPath)
+				}
+			}
+			if err := gorm1.MergeWithMask(patcher.CreatedAt, patchee.CreatedAt, childMask); err != nil {
+				return nil, nil
+			}
+		}
+		if f == prefix+"CreatedAt" {
+			updatedCreatedAt = true
+			patchee.CreatedAt = patcher.CreatedAt
+			continue
+		}
+		if !updatedUpdatedAt && strings.HasPrefix(f, prefix+"UpdatedAt.") {
+			if patcher.UpdatedAt == nil {
+				patchee.UpdatedAt = nil
+				continue
+			}
+			if patchee.UpdatedAt == nil {
+				patchee.UpdatedAt = &timestamppb.Timestamp{}
+			}
+			childMask := &field_mask.FieldMask{}
+			for j := i; j < len(updateMask.Paths); j++ {
+				if trimPath := strings.TrimPrefix(updateMask.Paths[j], prefix+"UpdatedAt."); trimPath != updateMask.Paths[j] {
+					childMask.Paths = append(childMask.Paths, trimPath)
+				}
+			}
+			if err := gorm1.MergeWithMask(patcher.UpdatedAt, patchee.UpdatedAt, childMask); err != nil {
+				return nil, nil
+			}
+		}
+		if f == prefix+"UpdatedAt" {
+			updatedUpdatedAt = true
+			patchee.UpdatedAt = patcher.UpdatedAt
+			continue
+		}
+		if f == prefix+"UserId" {
+			patchee.UserId = patcher.UserId
+			continue
+		}
+	}
+	if err != nil {
+		return nil, err
+	}
+	return patchee, nil
+}
+
+// DefaultListTransactionNote executes a gorm list call
+func DefaultListTransactionNote(ctx context.Context, db *gorm.DB) ([]*TransactionNote, error) {
+	in := TransactionNote{}
+	ormObj, err := in.ToORM(ctx)
+	if err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormObj).(TransactionNoteORMWithBeforeListApplyQuery); ok {
+		if db, err = hook.BeforeListApplyQuery(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	db, err = gorm1.ApplyCollectionOperators(ctx, db, &TransactionNoteORM{}, &TransactionNote{}, nil, nil, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormObj).(TransactionNoteORMWithBeforeListFind); ok {
+		if db, err = hook.BeforeListFind(ctx, db); err != nil {
+			return nil, err
+		}
+	}
+	db = db.Where(&ormObj)
+	db = db.Order("id")
+	ormResponse := []TransactionNoteORM{}
+	if err := db.Find(&ormResponse).Error; err != nil {
+		return nil, err
+	}
+	if hook, ok := interface{}(&ormObj).(TransactionNoteORMWithAfterListFind); ok {
+		if err = hook.AfterListFind(ctx, db, &ormResponse); err != nil {
+			return nil, err
+		}
+	}
+	pbResponse := []*TransactionNote{}
+	for _, responseEntry := range ormResponse {
+		temp, err := responseEntry.ToPB(ctx)
+		if err != nil {
+			return nil, err
+		}
+		pbResponse = append(pbResponse, &temp)
+	}
+	return pbResponse, nil
+}
+
+type TransactionNoteORMWithBeforeListApplyQuery interface {
+	BeforeListApplyQuery(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type TransactionNoteORMWithBeforeListFind interface {
+	BeforeListFind(context.Context, *gorm.DB) (*gorm.DB, error)
+}
+type TransactionNoteORMWithAfterListFind interface {
+	AfterListFind(context.Context, *gorm.DB, *[]TransactionNoteORM) error
 }

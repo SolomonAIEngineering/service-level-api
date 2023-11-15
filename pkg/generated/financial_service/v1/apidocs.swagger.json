@@ -5604,6 +5604,14 @@
         "status": {
           "$ref": "#/definitions/BankAccountStatus",
           "title": "the bank account status"
+        },
+        "transactions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/PlaidAccountTransaction"
+          },
+          "title": "the set of transactions tied to this account"
         }
       },
       "required": [
@@ -6489,6 +6497,14 @@
         "status": {
           "$ref": "#/definitions/BankAccountStatus",
           "title": "the bank account status"
+        },
+        "transactions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/PlaidAccountTransaction"
+          },
+          "title": "the set of transactions tied to this account"
         }
       }
     },
@@ -8058,6 +8074,13 @@
         "status": {
           "$ref": "#/definitions/BankAccountStatus",
           "title": "the bank account status"
+        },
+        "transactions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/PlaidAccountInvestmentTransaction"
+          }
         }
       }
     },
@@ -9534,174 +9557,314 @@
       ],
       "default": "PERSONAL_ACTIONABLE_INSIGHT_NAME_UNSPECIFIED"
     },
+    "PlaidAccountInvestmentTransaction": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "string",
+          "title": "The unique identifier for the associated investment account.\n@gotag: ch:\"account_id\""
+        },
+        "ammount": {
+          "type": "string",
+          "title": "The amount of the investment transaction.\n@gotag: ch:\"amount\""
+        },
+        "investmentTransactionId": {
+          "type": "string",
+          "title": "The unique identifier for the investment transaction.\n@gotag: ch:\"investment_transaction_id\""
+        },
+        "securityId": {
+          "type": "string",
+          "title": "The security or asset identifier associated with the investment transaction.\n@gotag: ch:\"security_id\""
+        },
+        "currentDate": {
+          "type": "string",
+          "title": "The date of the investment transaction.\n@gotag: ch:\"date\""
+        },
+        "name": {
+          "type": "string",
+          "title": "The name or description of the investment transaction.\n@gotag: ch:\"name\""
+        },
+        "quantity": {
+          "type": "number",
+          "format": "double",
+          "title": "The quantity of the investment transaction (e.g., number of shares).\n@gotag: ch:\"quantity\""
+        },
+        "amount": {
+          "type": "number",
+          "format": "double",
+          "title": "The monetary amount of the investment transaction.\n@gotag: ch:\"amount\""
+        },
+        "price": {
+          "type": "number",
+          "format": "double",
+          "title": "The price per unit of the security for the investment transaction.\n@gotag: ch:\"price\""
+        },
+        "fees": {
+          "type": "number",
+          "format": "double",
+          "title": "The fees associated with the investment transaction.\n@gotag: ch:\"fees\""
+        },
+        "type": {
+          "type": "string",
+          "title": "The type of the investment transaction (e.g., buy, sell, dividend).\n@gotag: ch:\"type\""
+        },
+        "subtype": {
+          "type": "string",
+          "title": "The subtype of the investment transaction (e.g., stock, bond).\n@gotag: ch:\"subtype\""
+        },
+        "isoCurrencyCode": {
+          "type": "string",
+          "title": "The ISO currency code for the investment transaction.\n@gotag: ch:\"iso_currency_code\""
+        },
+        "unofficialCurrencyCode": {
+          "type": "string",
+          "title": "The unofficial currency code of the investment transaction.\n@gotag: ch:\"unofficial_currency_code\""
+        },
+        "linkId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "The link ID associated with this investment transaction.\n@gotag: ch:\"link_id\""
+        },
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "The unique identifier for this investment transaction.\n@gotag: ch:\"id\""
+        },
+        "userId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "The user ID associated with this investment transaction.\n@gotag: ch:\"user_id\""
+        },
+        "createdAt": {
+          "type": "string",
+          "title": "The date and time when this investment transaction was created.\n@gotag: ch:\"created_at\""
+        },
+        "time": {
+          "type": "string",
+          "format": "date-time",
+          "title": "The timestamp associated with this investment transaction.\n@gotag: ch:\"time\""
+        },
+        "additionalProperties": {
+          "$ref": "#/definitions/Any",
+          "title": "Additional properties related to this investment transaction.\n@gotag: ch:\"additional_properties\""
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/TransactionNote"
+          },
+          "title": "Notes associated with this investment transaction.\n@gotag: ch:\"notes\""
+        }
+      },
+      "description": "Message representing investment transactions associated with a Plaid account."
+    },
     "PlaidAccountTransaction": {
       "type": "object",
       "properties": {
         "accountId": {
           "type": "string",
-          "description": "@gotag: ch:\"account_id\"",
-          "title": "Basic transaction details"
+          "description": "The bank account ID associated with the transaction.\n\n@gotag: ch:\"account_id\""
         },
         "amount": {
           "type": "number",
           "format": "double",
-          "title": "@gotag: ch:\"amount\""
+          "description": "The amount of the transaction.\n\n@gotag: ch:\"amount\""
         },
         "isoCurrencyCode": {
           "type": "string",
-          "title": "@gotag: ch:\"iso_currency_code\""
+          "description": "The currency code of the transaction.\n\n@gotag: ch:\"iso_currency_code\""
         },
         "unofficialCurrencyCode": {
           "type": "string",
-          "title": "@gotag: ch:\"unofficial_currency_code\""
+          "description": "The unofficial currency code of the transaction.\n\n@gotag: ch:\"unofficial_currency_code\""
         },
         "transactionId": {
           "type": "string",
-          "title": "@gotag: ch:\"transaction_id\""
+          "description": "The transaction ID of interest.\n\n@gotag: ch:\"transaction_id\""
         },
         "transactionCode": {
           "type": "string",
-          "title": "@gotag: ch:\"transaction_code\""
+          "description": "The transaction code.\n\n@gotag: ch:\"transaction_code\""
         },
         "currentDate": {
           "type": "string",
-          "description": "@gotag: ch:\"date\"",
-          "title": "Date details"
+          "description": "The date of the transaction.\n\n@gotag: ch:\"date\""
         },
         "currentDatetime": {
           "type": "string",
-          "title": "@gotag: ch:\"datetime\""
+          "description": "The current datetime of the transaction.\n\n@gotag: ch:\"datetime\""
         },
         "authorizedDate": {
           "type": "string",
-          "title": "@gotag: ch:\"authorized_date\""
+          "description": "The time at which the transaction was authorized.\n\n@gotag: ch:\"authorized_date\""
         },
         "authorizedDatetime": {
           "type": "string",
-          "title": "@gotag: ch:\"authorized_datetime\""
+          "description": "The date-time when the transaction was authorized.\n\n@gotag: ch:\"authorized_datetime\""
         },
         "categoryId": {
           "type": "string",
-          "description": "@gotag: ch:\"category_id\"",
-          "title": "Transaction categories"
+          "description": "The category ID of the transaction.\n\n@gotag: ch:\"category_id\""
         },
         "categories": {
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "description": "The set of categories that the transaction belongs to."
         },
         "personalFinanceCategoryPrimary": {
           "type": "string",
-          "title": "@gotag: ch:\"personal_finance_category_primary\""
+          "description": "The primary personal finance category of the transaction.\n\n@gotag: ch:\"personal_finance_category_primary\""
         },
         "personalFinanceCategoryDetailed": {
           "type": "string",
-          "title": "@gotag: ch:\"personal_finance_category_detailed\""
+          "description": "The detailed personal finance category of the transaction.\n\n@gotag: ch:\"personal_finance_category_detailed\""
         },
-        "name": {
+        "transactionName": {
           "type": "string",
-          "description": "@gotag: ch:\"name\"",
-          "title": "Merchant details"
+          "description": "The name of the transaction.\n\n@gotag: ch:\"name\""
         },
         "merchantName": {
           "type": "string",
-          "title": "@gotag: ch:\"merchant_name\""
+          "description": "The merchant name of the transaction.\n\n@gotag: ch:\"merchant_name\""
         },
         "checkNumber": {
           "type": "string",
-          "description": "@gotag: ch:\"check_number\"",
-          "title": "Payment details"
+          "description": "The check number associated with the transaction.\n\n@gotag: ch:\"check_number\""
         },
         "paymentChannel": {
           "type": "string",
-          "title": "@gotag: ch:\"payment_channel\""
+          "description": "The payment channel for the transaction.\n\n@gotag: ch:\"payment_channel\""
         },
         "pending": {
           "type": "boolean",
-          "title": "@gotag: ch:\"pending\""
+          "description": "Indicates whether the transaction is pending.\n\n@gotag: ch:\"pending\""
         },
         "pendingTransactionId": {
           "type": "string",
-          "title": "@gotag: ch:\"pending_transaction_id\""
+          "description": "The ID of the pending transaction, if applicable.\n\n@gotag: ch:\"pending_transaction_id\""
         },
         "accountOwner": {
           "type": "string",
-          "title": "@gotag: ch:\"account_owner\""
+          "description": "The account owner associated with the transaction.\n\n@gotag: ch:\"account_owner\""
         },
         "paymentMetaByOrderOf": {
-          "type": "string"
+          "type": "string",
+          "description": "Information about the entity to whom the payment is made (if available)."
         },
         "paymentMetaPayee": {
-          "type": "string"
+          "type": "string",
+          "description": "Information about the payee (if available)."
         },
         "paymentMetaPayer": {
-          "type": "string"
+          "type": "string",
+          "description": "Information about the payer (if available)."
         },
         "paymentMetaPaymentMethod": {
-          "type": "string"
+          "type": "string",
+          "description": "The payment method used for the transaction (if available)."
         },
         "paymentMetaPaymentProcessor": {
-          "type": "string"
+          "type": "string",
+          "description": "The payment processor involved in the transaction (if available)."
         },
         "paymentMetaPpdId": {
-          "type": "string"
+          "type": "string",
+          "description": "The Prearranged Payment and Deposit (PPD) ID (if available)."
         },
         "paymentMetaReason": {
-          "type": "string"
+          "type": "string",
+          "description": "The reason for the payment (if available)."
         },
         "paymentMetaReferenceNumber": {
-          "type": "string"
+          "type": "string",
+          "description": "The reference number associated with the payment (if available)."
         },
         "locationAddress": {
           "type": "string",
-          "title": "Location details"
+          "description": "The street address of the transaction location (if available)."
         },
         "locationCity": {
-          "type": "string"
+          "type": "string",
+          "description": "The city of the transaction location (if available)."
         },
         "locationRegion": {
-          "type": "string"
+          "type": "string",
+          "description": "The region or state of the transaction location (if available)."
         },
         "locationPostalCode": {
-          "type": "string"
+          "type": "string",
+          "description": "The postal code of the transaction location (if available)."
         },
         "locationCountry": {
-          "type": "string"
+          "type": "string",
+          "description": "The country of the transaction location (if available)."
         },
         "locationLat": {
           "type": "number",
-          "format": "double"
+          "format": "double",
+          "description": "The latitude of the transaction location (if available)."
         },
         "locationLon": {
           "type": "number",
-          "format": "double"
+          "format": "double",
+          "description": "The longitude of the transaction location (if available)."
         },
         "locationStoreNumber": {
-          "type": "string"
+          "type": "string",
+          "description": "The store number associated with the transaction location (if available)."
         },
         "time": {
           "type": "string",
           "format": "date-time",
-          "title": "Additional properties"
+          "description": "The timestamp associated with the transaction."
         },
         "additionalProperties": {
-          "$ref": "#/definitions/Any"
+          "$ref": "#/definitions/Any",
+          "description": "Additional properties that can be of any type."
         },
         "id": {
           "type": "string",
           "format": "uint64",
-          "title": "System generated fields"
+          "description": "The unique ID for this transaction."
         },
         "userId": {
           "type": "string",
-          "format": "uint64"
+          "format": "uint64",
+          "description": "The user ID associated with this transaction."
         },
         "linkId": {
           "type": "string",
-          "format": "uint64"
+          "format": "uint64",
+          "description": "The link ID associated with this transaction."
+        },
+        "needsReview": {
+          "type": "boolean",
+          "description": "Indicates whether this transaction needs review."
+        },
+        "hideTransaction": {
+          "type": "boolean",
+          "description": "Indicates whether this transaction should be hidden."
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Tags associated with this transaction."
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/TransactionNote"
+          },
+          "description": "Notes associated with this transaction."
         }
-      }
+      },
+      "description": "Message representing Plaid account transactions."
     },
     "PlaidExchangeTokenRequest": {
       "type": "object",
@@ -11179,6 +11342,39 @@
         "modifiedAt": {
           "type": "string",
           "format": "date-time"
+        }
+      }
+    },
+    "TransactionNote": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "description": "Id: An unsigned 64-bit integer representing the unique ID of the transaction note."
+        },
+        "transactionId": {
+          "type": "string",
+          "description": "Transaction Id: A string representing the transaction ID associated with this note."
+        },
+        "note": {
+          "type": "string",
+          "description": "Note: A string field for storing the note text."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Time Note Was Created At: A timestamp indicating when this note was created."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Time Note Was Updated: A timestamp indicating when this note was last updated."
+        },
+        "userId": {
+          "type": "string",
+          "format": "uint64",
+          "description": "User Id That Created The Note: An unsigned 64-bit integer representing the user ID associated with this note."
         }
       }
     },

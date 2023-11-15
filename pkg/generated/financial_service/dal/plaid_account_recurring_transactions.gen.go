@@ -52,6 +52,11 @@ func newPlaidAccountRecurringTransactionORM(db *gorm.DB, opts ...gen.DOOption) p
 	_plaidAccountRecurringTransactionORM.TransactionIds = field.NewString(tableName, "transaction_ids")
 	_plaidAccountRecurringTransactionORM.UpdatedTime = field.NewString(tableName, "updated_time")
 	_plaidAccountRecurringTransactionORM.UserId = field.NewUint64(tableName, "user_id")
+	_plaidAccountRecurringTransactionORM.Notes = plaidAccountRecurringTransactionORMHasManyNotes{
+		db: db.Session(&gorm.Session{}),
+
+		RelationField: field.NewRelation("Notes", "financial_servicev1.TransactionNoteORM"),
+	}
 
 	_plaidAccountRecurringTransactionORM.fillFieldMap()
 
@@ -85,6 +90,7 @@ type plaidAccountRecurringTransactionORM struct {
 	TransactionIds                  field.String
 	UpdatedTime                     field.String
 	UserId                          field.Uint64
+	Notes                           plaidAccountRecurringTransactionORMHasManyNotes
 
 	fieldMap map[string]field.Expr
 }
@@ -140,7 +146,7 @@ func (p *plaidAccountRecurringTransactionORM) GetFieldByName(fieldName string) (
 }
 
 func (p *plaidAccountRecurringTransactionORM) fillFieldMap() {
-	p.fieldMap = make(map[string]field.Expr, 23)
+	p.fieldMap = make(map[string]field.Expr, 24)
 	p.fieldMap["account_id"] = p.AccountId
 	p.fieldMap["average_amount"] = p.AverageAmount
 	p.fieldMap["average_amount_iso_currency_code"] = p.AverageAmountIsoCurrencyCode
@@ -164,6 +170,7 @@ func (p *plaidAccountRecurringTransactionORM) fillFieldMap() {
 	p.fieldMap["transaction_ids"] = p.TransactionIds
 	p.fieldMap["updated_time"] = p.UpdatedTime
 	p.fieldMap["user_id"] = p.UserId
+
 }
 
 func (p plaidAccountRecurringTransactionORM) clone(db *gorm.DB) plaidAccountRecurringTransactionORM {
@@ -174,6 +181,77 @@ func (p plaidAccountRecurringTransactionORM) clone(db *gorm.DB) plaidAccountRecu
 func (p plaidAccountRecurringTransactionORM) replaceDB(db *gorm.DB) plaidAccountRecurringTransactionORM {
 	p.plaidAccountRecurringTransactionORMDo.ReplaceDB(db)
 	return p
+}
+
+type plaidAccountRecurringTransactionORMHasManyNotes struct {
+	db *gorm.DB
+
+	field.RelationField
+}
+
+func (a plaidAccountRecurringTransactionORMHasManyNotes) Where(conds ...field.Expr) *plaidAccountRecurringTransactionORMHasManyNotes {
+	if len(conds) == 0 {
+		return &a
+	}
+
+	exprs := make([]clause.Expression, 0, len(conds))
+	for _, cond := range conds {
+		exprs = append(exprs, cond.BeCond().(clause.Expression))
+	}
+	a.db = a.db.Clauses(clause.Where{Exprs: exprs})
+	return &a
+}
+
+func (a plaidAccountRecurringTransactionORMHasManyNotes) WithContext(ctx context.Context) *plaidAccountRecurringTransactionORMHasManyNotes {
+	a.db = a.db.WithContext(ctx)
+	return &a
+}
+
+func (a plaidAccountRecurringTransactionORMHasManyNotes) Session(session *gorm.Session) *plaidAccountRecurringTransactionORMHasManyNotes {
+	a.db = a.db.Session(session)
+	return &a
+}
+
+func (a plaidAccountRecurringTransactionORMHasManyNotes) Model(m *financial_servicev1.PlaidAccountRecurringTransactionORM) *plaidAccountRecurringTransactionORMHasManyNotesTx {
+	return &plaidAccountRecurringTransactionORMHasManyNotesTx{a.db.Model(m).Association(a.Name())}
+}
+
+type plaidAccountRecurringTransactionORMHasManyNotesTx struct{ tx *gorm.Association }
+
+func (a plaidAccountRecurringTransactionORMHasManyNotesTx) Find() (result []*financial_servicev1.TransactionNoteORM, err error) {
+	return result, a.tx.Find(&result)
+}
+
+func (a plaidAccountRecurringTransactionORMHasManyNotesTx) Append(values ...*financial_servicev1.TransactionNoteORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Append(targetValues...)
+}
+
+func (a plaidAccountRecurringTransactionORMHasManyNotesTx) Replace(values ...*financial_servicev1.TransactionNoteORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Replace(targetValues...)
+}
+
+func (a plaidAccountRecurringTransactionORMHasManyNotesTx) Delete(values ...*financial_servicev1.TransactionNoteORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Delete(targetValues...)
+}
+
+func (a plaidAccountRecurringTransactionORMHasManyNotesTx) Clear() error {
+	return a.tx.Clear()
+}
+
+func (a plaidAccountRecurringTransactionORMHasManyNotesTx) Count() int64 {
+	return a.tx.Count()
 }
 
 type plaidAccountRecurringTransactionORMDo struct{ gen.DO }

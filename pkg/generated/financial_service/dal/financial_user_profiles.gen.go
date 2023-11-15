@@ -94,6 +94,12 @@ func newFinancialUserProfileORM(db *gorm.DB, opts ...gen.DOOption) financialUser
 					}
 				}
 			}
+			Transactions struct {
+				field.RelationField
+				Notes struct {
+					field.RelationField
+				}
+			}
 		}{
 			RelationField: field.NewRelation("Link.BankAccounts", "financial_servicev1.BankAccountORM"),
 			Pockets: struct {
@@ -173,10 +179,26 @@ func newFinancialUserProfileORM(db *gorm.DB, opts ...gen.DOOption) financialUser
 					},
 				},
 			},
+			Transactions: struct {
+				field.RelationField
+				Notes struct {
+					field.RelationField
+				}
+			}{
+				RelationField: field.NewRelation("Link.BankAccounts.Transactions", "financial_servicev1.PlaidAccountTransactionORM"),
+				Notes: struct {
+					field.RelationField
+				}{
+					RelationField: field.NewRelation("Link.BankAccounts.Transactions.Notes", "financial_servicev1.TransactionNoteORM"),
+				},
+			},
 		},
 		CreditAccounts: struct {
 			field.RelationField
 			Aprs struct {
+				field.RelationField
+			}
+			Transactions struct {
 				field.RelationField
 			}
 		}{
@@ -186,6 +208,11 @@ func newFinancialUserProfileORM(db *gorm.DB, opts ...gen.DOOption) financialUser
 			}{
 				RelationField: field.NewRelation("Link.CreditAccounts.Aprs", "financial_servicev1.AprORM"),
 			},
+			Transactions: struct {
+				field.RelationField
+			}{
+				RelationField: field.NewRelation("Link.CreditAccounts.Transactions", "financial_servicev1.PlaidAccountTransactionORM"),
+			},
 		},
 		InvestmentAccounts: struct {
 			field.RelationField
@@ -194,6 +221,12 @@ func newFinancialUserProfileORM(db *gorm.DB, opts ...gen.DOOption) financialUser
 			}
 			Securities struct {
 				field.RelationField
+			}
+			Transactions struct {
+				field.RelationField
+				Notes struct {
+					field.RelationField
+				}
 			}
 		}{
 			RelationField: field.NewRelation("Link.InvestmentAccounts", "financial_servicev1.InvestmentAccountORM"),
@@ -206,6 +239,19 @@ func newFinancialUserProfileORM(db *gorm.DB, opts ...gen.DOOption) financialUser
 				field.RelationField
 			}{
 				RelationField: field.NewRelation("Link.InvestmentAccounts.Securities", "financial_servicev1.InvestmentSecurityORM"),
+			},
+			Transactions: struct {
+				field.RelationField
+				Notes struct {
+					field.RelationField
+				}
+			}{
+				RelationField: field.NewRelation("Link.InvestmentAccounts.Transactions", "financial_servicev1.PlaidAccountInvestmentTransactionORM"),
+				Notes: struct {
+					field.RelationField
+				}{
+					RelationField: field.NewRelation("Link.InvestmentAccounts.Transactions.Notes", "financial_servicev1.TransactionNoteORM"),
+				},
 			},
 		},
 		MortgageAccounts: struct {
@@ -1024,10 +1070,19 @@ type financialUserProfileORMHasManyLink struct {
 				}
 			}
 		}
+		Transactions struct {
+			field.RelationField
+			Notes struct {
+				field.RelationField
+			}
+		}
 	}
 	CreditAccounts struct {
 		field.RelationField
 		Aprs struct {
+			field.RelationField
+		}
+		Transactions struct {
 			field.RelationField
 		}
 	}
@@ -1038,6 +1093,12 @@ type financialUserProfileORMHasManyLink struct {
 		}
 		Securities struct {
 			field.RelationField
+		}
+		Transactions struct {
+			field.RelationField
+			Notes struct {
+				field.RelationField
+			}
 		}
 	}
 	MortgageAccounts struct {

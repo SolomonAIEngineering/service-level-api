@@ -8,6 +8,7 @@ import (
 	"context"
 	"strings"
 
+	financial_servicev1 "github.com/SolomonAIEngineering/service-level-api/pkg/generated/financial_service/v1"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 	"gorm.io/gorm/schema"
@@ -17,8 +18,6 @@ import (
 	"gorm.io/gen/helper"
 
 	"gorm.io/plugin/dbresolver"
-
-	financial_servicev1 "github.com/SolomonAIEngineering/service-level-api/pkg/generated/financial_service/v1"
 )
 
 func newPlaidAccountTransactionORM(db *gorm.DB, opts ...gen.DOOption) plaidAccountTransactionORM {
@@ -34,11 +33,14 @@ func newPlaidAccountTransactionORM(db *gorm.DB, opts ...gen.DOOption) plaidAccou
 	_plaidAccountTransactionORM.Amount = field.NewFloat64(tableName, "amount")
 	_plaidAccountTransactionORM.AuthorizedDate = field.NewString(tableName, "authorized_date")
 	_plaidAccountTransactionORM.AuthorizedDatetime = field.NewString(tableName, "authorized_datetime")
+	_plaidAccountTransactionORM.BankAccountId = field.NewUint64(tableName, "bank_account_id")
 	_plaidAccountTransactionORM.Categories = field.NewField(tableName, "categories")
 	_plaidAccountTransactionORM.CategoryId = field.NewString(tableName, "category_id")
 	_plaidAccountTransactionORM.CheckNumber = field.NewString(tableName, "check_number")
+	_plaidAccountTransactionORM.CreditAccountId = field.NewUint64(tableName, "credit_account_id")
 	_plaidAccountTransactionORM.CurrentDate = field.NewString(tableName, "current_date")
 	_plaidAccountTransactionORM.CurrentDatetime = field.NewString(tableName, "current_datetime")
+	_plaidAccountTransactionORM.HideTransaction = field.NewBool(tableName, "hide_transaction")
 	_plaidAccountTransactionORM.Id = field.NewUint64(tableName, "id")
 	_plaidAccountTransactionORM.IsoCurrencyCode = field.NewString(tableName, "iso_currency_code")
 	_plaidAccountTransactionORM.LinkId = field.NewUint64(tableName, "link_id")
@@ -51,7 +53,7 @@ func newPlaidAccountTransactionORM(db *gorm.DB, opts ...gen.DOOption) plaidAccou
 	_plaidAccountTransactionORM.LocationRegion = field.NewString(tableName, "location_region")
 	_plaidAccountTransactionORM.LocationStoreNumber = field.NewString(tableName, "location_store_number")
 	_plaidAccountTransactionORM.MerchantName = field.NewString(tableName, "merchant_name")
-	_plaidAccountTransactionORM.Name = field.NewString(tableName, "name")
+	_plaidAccountTransactionORM.NeedsReview = field.NewBool(tableName, "needs_review")
 	_plaidAccountTransactionORM.PaymentChannel = field.NewString(tableName, "payment_channel")
 	_plaidAccountTransactionORM.PaymentMetaByOrderOf = field.NewString(tableName, "payment_meta_by_order_of")
 	_plaidAccountTransactionORM.PaymentMetaPayee = field.NewString(tableName, "payment_meta_payee")
@@ -65,11 +67,18 @@ func newPlaidAccountTransactionORM(db *gorm.DB, opts ...gen.DOOption) plaidAccou
 	_plaidAccountTransactionORM.PendingTransactionId = field.NewString(tableName, "pending_transaction_id")
 	_plaidAccountTransactionORM.PersonalFinanceCategoryDetailed = field.NewString(tableName, "personal_finance_category_detailed")
 	_plaidAccountTransactionORM.PersonalFinanceCategoryPrimary = field.NewString(tableName, "personal_finance_category_primary")
+	_plaidAccountTransactionORM.Tags = field.NewField(tableName, "tags")
 	_plaidAccountTransactionORM.Time = field.NewTime(tableName, "time")
 	_plaidAccountTransactionORM.TransactionCode = field.NewString(tableName, "transaction_code")
 	_plaidAccountTransactionORM.TransactionId = field.NewString(tableName, "transaction_id")
+	_plaidAccountTransactionORM.TransactionName = field.NewString(tableName, "transaction_name")
 	_plaidAccountTransactionORM.UnofficialCurrencyCode = field.NewString(tableName, "unofficial_currency_code")
 	_plaidAccountTransactionORM.UserId = field.NewUint64(tableName, "user_id")
+	_plaidAccountTransactionORM.Notes = plaidAccountTransactionORMHasManyNotes{
+		db: db.Session(&gorm.Session{}),
+
+		RelationField: field.NewRelation("Notes", "financial_servicev1.TransactionNoteORM"),
+	}
 
 	_plaidAccountTransactionORM.fillFieldMap()
 
@@ -85,11 +94,14 @@ type plaidAccountTransactionORM struct {
 	Amount                          field.Float64
 	AuthorizedDate                  field.String
 	AuthorizedDatetime              field.String
+	BankAccountId                   field.Uint64
 	Categories                      field.Field
 	CategoryId                      field.String
 	CheckNumber                     field.String
+	CreditAccountId                 field.Uint64
 	CurrentDate                     field.String
 	CurrentDatetime                 field.String
+	HideTransaction                 field.Bool
 	Id                              field.Uint64
 	IsoCurrencyCode                 field.String
 	LinkId                          field.Uint64
@@ -102,7 +114,7 @@ type plaidAccountTransactionORM struct {
 	LocationRegion                  field.String
 	LocationStoreNumber             field.String
 	MerchantName                    field.String
-	Name                            field.String
+	NeedsReview                     field.Bool
 	PaymentChannel                  field.String
 	PaymentMetaByOrderOf            field.String
 	PaymentMetaPayee                field.String
@@ -116,11 +128,14 @@ type plaidAccountTransactionORM struct {
 	PendingTransactionId            field.String
 	PersonalFinanceCategoryDetailed field.String
 	PersonalFinanceCategoryPrimary  field.String
+	Tags                            field.Field
 	Time                            field.Time
 	TransactionCode                 field.String
 	TransactionId                   field.String
+	TransactionName                 field.String
 	UnofficialCurrencyCode          field.String
 	UserId                          field.Uint64
+	Notes                           plaidAccountTransactionORMHasManyNotes
 
 	fieldMap map[string]field.Expr
 }
@@ -142,11 +157,14 @@ func (p *plaidAccountTransactionORM) updateTableName(table string) *plaidAccount
 	p.Amount = field.NewFloat64(table, "amount")
 	p.AuthorizedDate = field.NewString(table, "authorized_date")
 	p.AuthorizedDatetime = field.NewString(table, "authorized_datetime")
+	p.BankAccountId = field.NewUint64(table, "bank_account_id")
 	p.Categories = field.NewField(table, "categories")
 	p.CategoryId = field.NewString(table, "category_id")
 	p.CheckNumber = field.NewString(table, "check_number")
+	p.CreditAccountId = field.NewUint64(table, "credit_account_id")
 	p.CurrentDate = field.NewString(table, "current_date")
 	p.CurrentDatetime = field.NewString(table, "current_datetime")
+	p.HideTransaction = field.NewBool(table, "hide_transaction")
 	p.Id = field.NewUint64(table, "id")
 	p.IsoCurrencyCode = field.NewString(table, "iso_currency_code")
 	p.LinkId = field.NewUint64(table, "link_id")
@@ -159,7 +177,7 @@ func (p *plaidAccountTransactionORM) updateTableName(table string) *plaidAccount
 	p.LocationRegion = field.NewString(table, "location_region")
 	p.LocationStoreNumber = field.NewString(table, "location_store_number")
 	p.MerchantName = field.NewString(table, "merchant_name")
-	p.Name = field.NewString(table, "name")
+	p.NeedsReview = field.NewBool(table, "needs_review")
 	p.PaymentChannel = field.NewString(table, "payment_channel")
 	p.PaymentMetaByOrderOf = field.NewString(table, "payment_meta_by_order_of")
 	p.PaymentMetaPayee = field.NewString(table, "payment_meta_payee")
@@ -173,9 +191,11 @@ func (p *plaidAccountTransactionORM) updateTableName(table string) *plaidAccount
 	p.PendingTransactionId = field.NewString(table, "pending_transaction_id")
 	p.PersonalFinanceCategoryDetailed = field.NewString(table, "personal_finance_category_detailed")
 	p.PersonalFinanceCategoryPrimary = field.NewString(table, "personal_finance_category_primary")
+	p.Tags = field.NewField(table, "tags")
 	p.Time = field.NewTime(table, "time")
 	p.TransactionCode = field.NewString(table, "transaction_code")
 	p.TransactionId = field.NewString(table, "transaction_id")
+	p.TransactionName = field.NewString(table, "transaction_name")
 	p.UnofficialCurrencyCode = field.NewString(table, "unofficial_currency_code")
 	p.UserId = field.NewUint64(table, "user_id")
 
@@ -194,17 +214,20 @@ func (p *plaidAccountTransactionORM) GetFieldByName(fieldName string) (field.Ord
 }
 
 func (p *plaidAccountTransactionORM) fillFieldMap() {
-	p.fieldMap = make(map[string]field.Expr, 41)
+	p.fieldMap = make(map[string]field.Expr, 47)
 	p.fieldMap["account_id"] = p.AccountId
 	p.fieldMap["account_owner"] = p.AccountOwner
 	p.fieldMap["amount"] = p.Amount
 	p.fieldMap["authorized_date"] = p.AuthorizedDate
 	p.fieldMap["authorized_datetime"] = p.AuthorizedDatetime
+	p.fieldMap["bank_account_id"] = p.BankAccountId
 	p.fieldMap["categories"] = p.Categories
 	p.fieldMap["category_id"] = p.CategoryId
 	p.fieldMap["check_number"] = p.CheckNumber
+	p.fieldMap["credit_account_id"] = p.CreditAccountId
 	p.fieldMap["current_date"] = p.CurrentDate
 	p.fieldMap["current_datetime"] = p.CurrentDatetime
+	p.fieldMap["hide_transaction"] = p.HideTransaction
 	p.fieldMap["id"] = p.Id
 	p.fieldMap["iso_currency_code"] = p.IsoCurrencyCode
 	p.fieldMap["link_id"] = p.LinkId
@@ -217,7 +240,7 @@ func (p *plaidAccountTransactionORM) fillFieldMap() {
 	p.fieldMap["location_region"] = p.LocationRegion
 	p.fieldMap["location_store_number"] = p.LocationStoreNumber
 	p.fieldMap["merchant_name"] = p.MerchantName
-	p.fieldMap["name"] = p.Name
+	p.fieldMap["needs_review"] = p.NeedsReview
 	p.fieldMap["payment_channel"] = p.PaymentChannel
 	p.fieldMap["payment_meta_by_order_of"] = p.PaymentMetaByOrderOf
 	p.fieldMap["payment_meta_payee"] = p.PaymentMetaPayee
@@ -231,11 +254,14 @@ func (p *plaidAccountTransactionORM) fillFieldMap() {
 	p.fieldMap["pending_transaction_id"] = p.PendingTransactionId
 	p.fieldMap["personal_finance_category_detailed"] = p.PersonalFinanceCategoryDetailed
 	p.fieldMap["personal_finance_category_primary"] = p.PersonalFinanceCategoryPrimary
+	p.fieldMap["tags"] = p.Tags
 	p.fieldMap["time"] = p.Time
 	p.fieldMap["transaction_code"] = p.TransactionCode
 	p.fieldMap["transaction_id"] = p.TransactionId
+	p.fieldMap["transaction_name"] = p.TransactionName
 	p.fieldMap["unofficial_currency_code"] = p.UnofficialCurrencyCode
 	p.fieldMap["user_id"] = p.UserId
+
 }
 
 func (p plaidAccountTransactionORM) clone(db *gorm.DB) plaidAccountTransactionORM {
@@ -246,6 +272,77 @@ func (p plaidAccountTransactionORM) clone(db *gorm.DB) plaidAccountTransactionOR
 func (p plaidAccountTransactionORM) replaceDB(db *gorm.DB) plaidAccountTransactionORM {
 	p.plaidAccountTransactionORMDo.ReplaceDB(db)
 	return p
+}
+
+type plaidAccountTransactionORMHasManyNotes struct {
+	db *gorm.DB
+
+	field.RelationField
+}
+
+func (a plaidAccountTransactionORMHasManyNotes) Where(conds ...field.Expr) *plaidAccountTransactionORMHasManyNotes {
+	if len(conds) == 0 {
+		return &a
+	}
+
+	exprs := make([]clause.Expression, 0, len(conds))
+	for _, cond := range conds {
+		exprs = append(exprs, cond.BeCond().(clause.Expression))
+	}
+	a.db = a.db.Clauses(clause.Where{Exprs: exprs})
+	return &a
+}
+
+func (a plaidAccountTransactionORMHasManyNotes) WithContext(ctx context.Context) *plaidAccountTransactionORMHasManyNotes {
+	a.db = a.db.WithContext(ctx)
+	return &a
+}
+
+func (a plaidAccountTransactionORMHasManyNotes) Session(session *gorm.Session) *plaidAccountTransactionORMHasManyNotes {
+	a.db = a.db.Session(session)
+	return &a
+}
+
+func (a plaidAccountTransactionORMHasManyNotes) Model(m *financial_servicev1.PlaidAccountTransactionORM) *plaidAccountTransactionORMHasManyNotesTx {
+	return &plaidAccountTransactionORMHasManyNotesTx{a.db.Model(m).Association(a.Name())}
+}
+
+type plaidAccountTransactionORMHasManyNotesTx struct{ tx *gorm.Association }
+
+func (a plaidAccountTransactionORMHasManyNotesTx) Find() (result []*financial_servicev1.TransactionNoteORM, err error) {
+	return result, a.tx.Find(&result)
+}
+
+func (a plaidAccountTransactionORMHasManyNotesTx) Append(values ...*financial_servicev1.TransactionNoteORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Append(targetValues...)
+}
+
+func (a plaidAccountTransactionORMHasManyNotesTx) Replace(values ...*financial_servicev1.TransactionNoteORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Replace(targetValues...)
+}
+
+func (a plaidAccountTransactionORMHasManyNotesTx) Delete(values ...*financial_servicev1.TransactionNoteORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Delete(targetValues...)
+}
+
+func (a plaidAccountTransactionORMHasManyNotesTx) Clear() error {
+	return a.tx.Clear()
+}
+
+func (a plaidAccountTransactionORMHasManyNotesTx) Count() int64 {
+	return a.tx.Count()
 }
 
 type plaidAccountTransactionORMDo struct{ gen.DO }
