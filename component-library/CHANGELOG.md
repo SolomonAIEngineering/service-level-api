@@ -1,3 +1,10 @@
+# [1.121.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.120.0...v1.121.0) (2023-11-15)
+
+
+### Features
+
+* update build dist ([8df47c5](https://github.com/SolomonAIEngineering/service-level-api/commit/8df47c5dcb10598b8030298acdc3ba5114566a24))
+
 # [1.120.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.119.0...v1.120.0) (2023-11-15)
 
 
