@@ -13,7 +13,7 @@ require (
 	github.com/uptrace/go-clickhouse v0.3.1
 	google.golang.org/genproto v0.0.0-20230920204549-e6e6cdab5c13
 	google.golang.org/genproto/googleapis/api v0.0.0-20230920204549-e6e6cdab5c13
-	google.golang.org/grpc v1.58.2
+	google.golang.org/grpc v1.58.3
 	google.golang.org/protobuf v1.31.0
 	gorm.io/driver/sqlite v1.4.3
 	gorm.io/gen v0.3.23
