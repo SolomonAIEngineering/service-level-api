@@ -1,12 +1,16 @@
+import {
+  FinancialUserProfileType,
+  PlaidExchangeTokenRequest,
+} from 'src/data-contracts/financial-service/data-contracts';
 import { ErrorResponse } from '../error';
 
-export class PlaidExchangeTokenRequestClass {
+export class PlaidExchangeTokenRequestClass implements PlaidExchangeTokenRequest {
   /**
    * The user id
    * Validations:
    * - user_id must be greater than 0
    */
-  userId: number = 0;
+  userId: string = '';
   /**
    * The public token
    * Validations:
@@ -17,6 +21,8 @@ export class PlaidExchangeTokenRequestClass {
   institutionId: string = '';
   /** The institution name */
   institutionName: string = '';
+  /** The profile type of the financial user */
+  profileType: FinancialUserProfileType = 'FINANCIAL_USER_PROFILE_TYPE_USER';
 
   constructor(data?: Partial<PlaidExchangeTokenRequestClass>) {
     if (data) {
