@@ -1,3 +1,10 @@
+# [1.120.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.119.0...v1.120.0) (2023-11-15)
+
+
+### Features
+
+* update password reset ([8883527](https://github.com/SolomonAIEngineering/service-level-api/commit/8883527f329617eae549550da2405fbcf9bc648c))
+
 # [1.119.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.118.0...v1.119.0) (2023-11-12)
 
 
