@@ -390,6 +390,10 @@ message CreditAccount {
   string next_payment_due_date = 23;
    // the bank account status
   BankAccountStatus status = 24;
+  // the set of transactions tied to this account
+  repeated PlaidAccountTransaction transactions = 25 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+  // the set of subscriptions tied to this account
+  repeated PlaidAccountRecurringTransaction recurring_transactions = 26 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
 }
 
 message MortgageAccount {
@@ -464,6 +468,8 @@ message InvestmentAccount {
   repeated InvestmentSecurity securities = 8 [ (gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
    // the bank account status
   BankAccountStatus status = 14;
+  // the set of transactions tied to this account
+  repeated PlaidAccountInvestmentTransaction transactions = 16 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
 }
 
 message BankAccount {
@@ -530,6 +536,12 @@ message BankAccount {
 
   // the bank account status
   BankAccountStatus status = 15;
+
+  // the set of transactions tied to this account
+  repeated PlaidAccountTransaction transactions = 16 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+
+  // the set of subscriptions tied to this account
+  repeated PlaidAccountRecurringTransaction recurring_transactions = 17 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
 }
 
 // Pocket is an abstraction of a over a bank account. A user can has at most 4 pockets per connected account
@@ -1991,7 +2003,7 @@ message VendorCredit {
 **/
 message VendorCreditLine {
     option (gorm.opts) = {ormable: true};
-    
+  
     string remote_id = 1;
     double net_amount = 2;  // Using double for more precision.
     string tracking_category = 3;
@@ -2004,180 +2016,419 @@ message VendorCreditLine {
     uint64 id = 10;
 }
 
+// Message representing investment transactions associated with a Plaid account.
 message PlaidAccountInvestmentTransaction {
-  option (gorm.opts) = {ormable: true};
+    // Option indicating that this message is ORM-able using GORM.
+    option (gorm.opts) = {ormable: true};
+
+    // The unique identifier for the associated investment account.
     // @gotag: ch:"account_id"
     string account_id = 1;
+
+    // The amount of the investment transaction.
     // @gotag: ch:"amount"
     string ammount = 2;
+
+    // The unique identifier for the investment transaction.
     // @gotag: ch:"investment_transaction_id"
     string investment_transaction_id = 3;
+
+    // The security or asset identifier associated with the investment transaction.
     // @gotag: ch:"security_id"
     string security_id = 4;
+
+    // The date of the investment transaction.
     // @gotag: ch:"date"
     string current_date = 5;
+
+    // The name or description of the investment transaction.
     // @gotag: ch:"name"
     string name = 6;
+
+    // The quantity of the investment transaction (e.g., number of shares).
     // @gotag: ch:"quantity"
     double quantity = 7;
+
+    // The monetary amount of the investment transaction.
     // @gotag: ch:"amount"
     double amount = 8;
+
+    // The price per unit of the security for the investment transaction.
     // @gotag: ch:"price"
     double price = 9;
+
+    // The fees associated with the investment transaction.
     // @gotag: ch:"fees"
     double fees = 10;
+
+    // The type of the investment transaction (e.g., buy, sell, dividend).
     // @gotag: ch:"type"
     string type = 11;
+
+    // The subtype of the investment transaction (e.g., stock, bond).
     // @gotag: ch:"subtype"
     string subtype = 12;
+
+    // The ISO currency code for the investment transaction.
     // @gotag: ch:"iso_currency_code"
     string iso_currency_code = 13;
+
+    // The unofficial currency code of the investment transaction.
     // @gotag: ch:"unofficial_currency_code"
     string unofficial_currency_code = 14;
-     // @gotag: ch:"link_id"
+
+    // The link ID associated with this investment transaction.
+    // @gotag: ch:"link_id"
     uint64 link_id = 15 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
         (validate.rules).uint64.gt = 0
     ];
+
+    // The unique identifier for this investment transaction.
     // @gotag: ch:"id"
     uint64 id = 16 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
     ];
-        // @gotag: ch:"user_id"
+
+    // The user ID associated with this investment transaction.
+    // @gotag: ch:"user_id"
     uint64 user_id = 17 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
         (validate.rules).uint64.gt = 0
     ];
 
+    // The date and time when this investment transaction was created.
+    // @gotag: ch:"created_at"
     string created_at = 18;
+
+    // The timestamp associated with this investment transaction.
+    // @gotag: ch:"time"
     google.protobuf.Timestamp time = 20;
+
+    // Additional properties related to this investment transaction.
+    // @gotag: ch:"additional_properties"
     google.protobuf.Any additional_properties = 21;
+
+    // Notes associated with this investment transaction.
+    // @gotag: ch:"notes"
+    repeated TransactionNote notes = 27 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+    ];
 }
 
+// Message representing recurring transactions associated with a Plaid account.
 message PlaidAccountRecurringTransaction {
+    // Option indicating that this message is ORM-able using GORM.
     option (gorm.opts) = {ormable: true};
+
+    // The unique identifier for the associated bank account.
     // @gotag: ch:"account_id"
     string account_id = 1;
+
+    // The identifier for the recurring transaction stream.
     // @gotag: ch:"stream_id"
     string stream_id = 2;
+
+    // The category ID associated with the recurring transaction.
     // @gotag: ch:"category_id"
     string category_id = 4;
+
+    // A description or note for the recurring transaction.
     // @gotag: ch:"description"
     string description = 5;
+
+    // The name of the merchant associated with the recurring transaction.
     // @gotag: ch:"merchant_name"
     string merchant_name = 6;
+
+    // The primary personal finance category of the recurring transaction.
     // @gotag: ch:"personal_finance_category_primary"
     string personal_finance_category_primary = 7;
+
+    // The detailed personal finance category of the recurring transaction.
     // @gotag: ch:"personal_finance_category_detailed"
     string personal_finance_category_detailed = 8;
+
+    // The date of the first occurrence of the recurring transaction.
     // @gotag: ch:"first_date"
     string first_date = 9;
+
+    // The date of the last occurrence of the recurring transaction.
     // @gotag: ch:"last_date"
     string last_date = 10;
+
+    // The frequency at which the recurring transaction occurs (e.g., monthly).
     // @gotag: ch:"frequency"
     string frequency = 11;
+
+    // A comma-separated list of transaction IDs associated with this recurring transaction.
     // @gotag: ch:"transaction_ids,array"
     string transaction_ids = 12;
+
+    // The average amount of the recurring transaction.
     // @gotag: ch:"average_amount"
     string average_amount = 13;
+
+    // The ISO currency code for the average transaction amount.
     // @gotag: ch:"average_amount_iso_currency_code"
     string average_amount_iso_currency_code = 14;
+
+    // The amount of the most recent occurrence of the recurring transaction.
     // @gotag: ch:"last_amount"
     string last_amount = 15;
+
+    // The ISO currency code for the most recent transaction amount.
     // @gotag: ch:"last_amount_iso_currency_code"
     string last_amount_iso_currency_code = 16;
+
+    // Indicates whether the recurring transaction is currently active.
     // @gotag: ch:"is_active"
     bool is_active = 17;
+
+    // The status of the recurring transaction (e.g., "Active" or "Inactive").
     // @gotag: ch:"status"
     string status = 18;
+
+    // The timestamp when this recurring transaction was last updated.
     // @gotag: ch:"updated_time"
     string updated_time = 19;
+
+    // The user ID associated with this recurring transaction.
     // @gotag: ch:"user_id"
     uint64 user_id = 20 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
         (validate.rules).uint64.gt = 0
     ];
+
+    // The link ID associated with this recurring transaction.
     // @gotag: ch:"link_id"
     uint64 link_id = 21 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
         (validate.rules).uint64.gt = 0
     ];
+
+    // The unique identifier for this recurring transaction.
     // @gotag: ch:"id"
     uint64 id = 22 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
     ];
+
+    // The flow associated with this recurring transaction.
     // @gotag: ch:"flow"
     string flow = 23;
+
+    // The timestamp associated with this recurring transaction.
     google.protobuf.Timestamp time = 25;
+
+    // Additional properties related to this recurring transaction.
     google.protobuf.Any additional_properties = 26;
+
+    // Notes associated with this recurring transaction.
+    repeated TransactionNote notes = 27 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+    ];
 }
 
+// Message representing Plaid account transactions.
 message PlaidAccountTransaction {
     option (gorm.opts) = {ormable: true};
 
     // Basic transaction details
+    
+    // The bank account ID associated with the transaction.
     string account_id = 1; // @gotag: ch:"account_id"
-    double amount = 2;     // @gotag: ch:"amount"
-    string iso_currency_code = 3;     // @gotag: ch:"iso_currency_code"
+    
+    // The amount of the transaction.
+    double amount = 2; // @gotag: ch:"amount"
+    
+    // The currency code of the transaction.
+    string iso_currency_code = 3; // @gotag: ch:"iso_currency_code"
+    
+    // The unofficial currency code of the transaction.
     string unofficial_currency_code = 4; // @gotag: ch:"unofficial_currency_code"
-    string transaction_id = 20;      // @gotag: ch:"transaction_id"
-    string transaction_code = 21;    // @gotag: ch:"transaction_code"
+    
+    // The transaction ID of interest.
+    string transaction_id = 20; // @gotag: ch:"transaction_id"
+    
+    // The transaction code.
+    string transaction_code = 21; // @gotag: ch:"transaction_code"
     
     // Date details
-    string current_date = 8;         // @gotag: ch:"date"
-    string current_datetime = 9;     // @gotag: ch:"datetime"
-    string authorized_date = 10;     // @gotag: ch:"authorized_date"
+    
+    // The date of the transaction.
+    string current_date = 8; // @gotag: ch:"date"
+    
+    // The current datetime of the transaction.
+    string current_datetime = 9; // @gotag: ch:"datetime"
+    
+    // The time at which the transaction was authorized.
+    string authorized_date = 10; // @gotag: ch:"authorized_date"
+    
+    // The date-time when the transaction was authorized.
     string authorized_datetime = 11; // @gotag: ch:"authorized_datetime"
     
     // Transaction categories
-    string category_id = 6;          // @gotag: ch:"category_id"
-    repeated string categories = 46; 
-    string personal_finance_category_primary = 26;   // @gotag: ch:"personal_finance_category_primary"
-    string personal_finance_category_detailed = 27;  // @gotag: ch:"personal_finance_category_detailed"
+    
+    // The category ID of the transaction.
+    string category_id = 6; // @gotag: ch:"category_id"
+    
+    // The set of categories that the transaction belongs to.
+    repeated string categories = 46;
+    
+    // The primary personal finance category of the transaction.
+    string personal_finance_category_primary = 26; // @gotag: ch:"personal_finance_category_primary"
+    
+    // The detailed personal finance category of the transaction.
+    string personal_finance_category_detailed = 27; // @gotag: ch:"personal_finance_category_detailed"
     
     // Merchant details
-    string name = 13;        // @gotag: ch:"name"
-    string merchant_name = 14;   // @gotag: ch:"merchant_name"
+    
+    // The name of the transaction.
+    string transaction_name = 13; // @gotag: ch:"name"
+    
+    // The merchant name of the transaction.
+    string merchant_name = 14; // @gotag: ch:"merchant_name"
     
     // Payment details
-    string check_number = 7;     // @gotag: ch:"check_number"
+    
+    // The check number associated with the transaction.
+    string check_number = 7; // @gotag: ch:"check_number"
+    
+    // The payment channel for the transaction.
     string payment_channel = 16; // @gotag: ch:"payment_channel"
-    bool pending = 17;           // @gotag: ch:"pending"
-    string pending_transaction_id = 18;   // @gotag: ch:"pending_transaction_id"
-    string account_owner = 19;       // @gotag: ch:"account_owner"
+    
+    // Indicates whether the transaction is pending.
+    bool pending = 17; // @gotag: ch:"pending"
+    
+    // The ID of the pending transaction, if applicable.
+    string pending_transaction_id = 18; // @gotag: ch:"pending_transaction_id"
+    
+    // The account owner associated with the transaction.
+    string account_owner = 19; // @gotag: ch:"account_owner"
+    
+    // Payment meta details
+    
+    // Information about the entity to whom the payment is made (if available).
     string payment_meta_by_order_of = 36;
+    
+    // Information about the payee (if available).
     string payment_meta_payee = 37;
+    
+    // Information about the payer (if available).
     string payment_meta_payer = 38;
+    
+    // The payment method used for the transaction (if available).
     string payment_meta_payment_method = 39;
+    
+    // The payment processor involved in the transaction (if available).
     string payment_meta_payment_processor = 40;
+    
+    // The Prearranged Payment and Deposit (PPD) ID (if available).
     string payment_meta_ppd_id = 41;
+    
+    // The reason for the payment (if available).
     string payment_meta_reason = 42;
+    
+    // The reference number associated with the payment (if available).
     string payment_meta_reference_number = 43;
     
     // Location details
+    
+    // The street address of the transaction location (if available).
     string location_address = 28;
+    
+    // The city of the transaction location (if available).
     string location_city = 29;
+    
+    // The region or state of the transaction location (if available).
     string location_region = 30;
+    
+    // The postal code of the transaction location (if available).
     string location_postal_code = 31;
+    
+    // The country of the transaction location (if available).
     string location_country = 32;
+    
+    // The latitude of the transaction location (if available).
     double location_lat = 33;
+    
+    // The longitude of the transaction location (if available).
     double location_lon = 34;
+    
+    // The store number associated with the transaction location (if available).
     string location_store_number = 35;
     
     // Additional properties
+    
+    // The timestamp associated with the transaction.
     google.protobuf.Timestamp time = 44;
+    
+    // Additional properties that can be of any type.
     google.protobuf.Any additional_properties = 45;
     
     // System generated fields
+    
+    // The unique ID for this transaction.
     uint64 id = 22 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
     ];
+    
+    // The user ID associated with this transaction.
     uint64 user_id = 23 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
         (validate.rules).uint64.gt = 0
     ];
+    
+    // The link ID associated with this transaction.
     uint64 link_id = 24 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
         (validate.rules).uint64.gt = 0
     ];
+
+    // Indicates whether this transaction needs review.
+    bool needs_review = 25 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+    ];
+
+    // Indicates whether this transaction should be hidden.
+    bool hide_transaction = 47 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+    ];
+
+    // Tags associated with this transaction.
+    repeated string tags = 48 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+    ];
+
+    // Notes associated with this transaction.
+    repeated TransactionNote notes = 49 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+    ];
+}
+
+
+message TransactionNote {
+    // Option to indicate that this message is ORM-able using GORM.
+    option (gorm.opts) = {ormable: true};
+
+    // Id: An unsigned 64-bit integer representing the unique ID of the transaction note.
+    uint64 id = 1 [
+        // Additional options for generating OpenAPI documentation.
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+    ];
+
+    // Transaction Id: A string representing the transaction ID associated with this note.
+    string transaction_id = 2;
+
+    // Note: A string field for storing the note text.
+    string note = 3;
+
+    // Time Note Was Created At: A timestamp indicating when this note was created.
+    google.protobuf.Timestamp created_at = 4;
+
+    // Time Note Was Updated: A timestamp indicating when this note was last updated.
+    google.protobuf.Timestamp updated_at = 5;
+
+    // User Id That Created The Note: An unsigned 64-bit integer representing the user ID associated with this note.
+    uint64 user_id = 6;
 }

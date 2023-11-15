@@ -143,6 +143,32 @@ func newLinkORM(db *gorm.DB, opts ...gen.DOOption) linkORM {
 				},
 			},
 		},
+		RecurringTransactions: struct {
+			field.RelationField
+			Notes struct {
+				field.RelationField
+			}
+		}{
+			RelationField: field.NewRelation("BankAccounts.RecurringTransactions", "financial_servicev1.PlaidAccountRecurringTransactionORM"),
+			Notes: struct {
+				field.RelationField
+			}{
+				RelationField: field.NewRelation("BankAccounts.RecurringTransactions.Notes", "financial_servicev1.TransactionNoteORM"),
+			},
+		},
+		Transactions: struct {
+			field.RelationField
+			Notes struct {
+				field.RelationField
+			}
+		}{
+			RelationField: field.NewRelation("BankAccounts.Transactions", "financial_servicev1.PlaidAccountTransactionORM"),
+			Notes: struct {
+				field.RelationField
+			}{
+				RelationField: field.NewRelation("BankAccounts.Transactions.Notes", "financial_servicev1.TransactionNoteORM"),
+			},
+		},
 	}
 
 	_linkORM.CreditAccounts = linkORMHasManyCreditAccounts{
@@ -153,6 +179,16 @@ func newLinkORM(db *gorm.DB, opts ...gen.DOOption) linkORM {
 			field.RelationField
 		}{
 			RelationField: field.NewRelation("CreditAccounts.Aprs", "financial_servicev1.AprORM"),
+		},
+		RecurringTransactions: struct {
+			field.RelationField
+		}{
+			RelationField: field.NewRelation("CreditAccounts.RecurringTransactions", "financial_servicev1.PlaidAccountRecurringTransactionORM"),
+		},
+		Transactions: struct {
+			field.RelationField
+		}{
+			RelationField: field.NewRelation("CreditAccounts.Transactions", "financial_servicev1.PlaidAccountTransactionORM"),
 		},
 	}
 
@@ -169,6 +205,19 @@ func newLinkORM(db *gorm.DB, opts ...gen.DOOption) linkORM {
 			field.RelationField
 		}{
 			RelationField: field.NewRelation("InvestmentAccounts.Securities", "financial_servicev1.InvestmentSecurityORM"),
+		},
+		Transactions: struct {
+			field.RelationField
+			Notes struct {
+				field.RelationField
+			}
+		}{
+			RelationField: field.NewRelation("InvestmentAccounts.Transactions", "financial_servicev1.PlaidAccountInvestmentTransactionORM"),
+			Notes: struct {
+				field.RelationField
+			}{
+				RelationField: field.NewRelation("InvestmentAccounts.Transactions.Notes", "financial_servicev1.TransactionNoteORM"),
+			},
 		},
 	}
 
@@ -541,6 +590,18 @@ type linkORMHasManyBankAccounts struct {
 			}
 		}
 	}
+	RecurringTransactions struct {
+		field.RelationField
+		Notes struct {
+			field.RelationField
+		}
+	}
+	Transactions struct {
+		field.RelationField
+		Notes struct {
+			field.RelationField
+		}
+	}
 }
 
 func (a linkORMHasManyBankAccounts) Where(conds ...field.Expr) *linkORMHasManyBankAccounts {
@@ -614,6 +675,12 @@ type linkORMHasManyCreditAccounts struct {
 	field.RelationField
 
 	Aprs struct {
+		field.RelationField
+	}
+	RecurringTransactions struct {
+		field.RelationField
+	}
+	Transactions struct {
 		field.RelationField
 	}
 }
@@ -693,6 +760,12 @@ type linkORMHasManyInvestmentAccounts struct {
 	}
 	Securities struct {
 		field.RelationField
+	}
+	Transactions struct {
+		field.RelationField
+		Notes struct {
+			field.RelationField
+		}
 	}
 }
 

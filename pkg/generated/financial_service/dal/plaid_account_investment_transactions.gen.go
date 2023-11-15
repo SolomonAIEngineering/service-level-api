@@ -8,6 +8,7 @@ import (
 	"context"
 	"strings"
 
+	financial_servicev1 "github.com/SolomonAIEngineering/service-level-api/pkg/generated/financial_service/v1"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 	"gorm.io/gorm/schema"
@@ -17,8 +18,6 @@ import (
 	"gorm.io/gen/helper"
 
 	"gorm.io/plugin/dbresolver"
-
-	financial_servicev1 "github.com/SolomonAIEngineering/service-level-api/pkg/generated/financial_service/v1"
 )
 
 func newPlaidAccountInvestmentTransactionORM(db *gorm.DB, opts ...gen.DOOption) plaidAccountInvestmentTransactionORM {
@@ -36,6 +35,7 @@ func newPlaidAccountInvestmentTransactionORM(db *gorm.DB, opts ...gen.DOOption) 
 	_plaidAccountInvestmentTransactionORM.CurrentDate = field.NewString(tableName, "current_date")
 	_plaidAccountInvestmentTransactionORM.Fees = field.NewFloat64(tableName, "fees")
 	_plaidAccountInvestmentTransactionORM.Id = field.NewUint64(tableName, "id")
+	_plaidAccountInvestmentTransactionORM.InvestmentAccountId = field.NewUint64(tableName, "investment_account_id")
 	_plaidAccountInvestmentTransactionORM.InvestmentTransactionId = field.NewString(tableName, "investment_transaction_id")
 	_plaidAccountInvestmentTransactionORM.IsoCurrencyCode = field.NewString(tableName, "iso_currency_code")
 	_plaidAccountInvestmentTransactionORM.LinkId = field.NewUint64(tableName, "link_id")
@@ -48,6 +48,11 @@ func newPlaidAccountInvestmentTransactionORM(db *gorm.DB, opts ...gen.DOOption) 
 	_plaidAccountInvestmentTransactionORM.Type = field.NewString(tableName, "type")
 	_plaidAccountInvestmentTransactionORM.UnofficialCurrencyCode = field.NewString(tableName, "unofficial_currency_code")
 	_plaidAccountInvestmentTransactionORM.UserId = field.NewUint64(tableName, "user_id")
+	_plaidAccountInvestmentTransactionORM.Notes = plaidAccountInvestmentTransactionORMHasManyNotes{
+		db: db.Session(&gorm.Session{}),
+
+		RelationField: field.NewRelation("Notes", "financial_servicev1.TransactionNoteORM"),
+	}
 
 	_plaidAccountInvestmentTransactionORM.fillFieldMap()
 
@@ -65,6 +70,7 @@ type plaidAccountInvestmentTransactionORM struct {
 	CurrentDate             field.String
 	Fees                    field.Float64
 	Id                      field.Uint64
+	InvestmentAccountId     field.Uint64
 	InvestmentTransactionId field.String
 	IsoCurrencyCode         field.String
 	LinkId                  field.Uint64
@@ -77,6 +83,7 @@ type plaidAccountInvestmentTransactionORM struct {
 	Type                    field.String
 	UnofficialCurrencyCode  field.String
 	UserId                  field.Uint64
+	Notes                   plaidAccountInvestmentTransactionORMHasManyNotes
 
 	fieldMap map[string]field.Expr
 }
@@ -100,6 +107,7 @@ func (p *plaidAccountInvestmentTransactionORM) updateTableName(table string) *pl
 	p.CurrentDate = field.NewString(table, "current_date")
 	p.Fees = field.NewFloat64(table, "fees")
 	p.Id = field.NewUint64(table, "id")
+	p.InvestmentAccountId = field.NewUint64(table, "investment_account_id")
 	p.InvestmentTransactionId = field.NewString(table, "investment_transaction_id")
 	p.IsoCurrencyCode = field.NewString(table, "iso_currency_code")
 	p.LinkId = field.NewUint64(table, "link_id")
@@ -128,7 +136,7 @@ func (p *plaidAccountInvestmentTransactionORM) GetFieldByName(fieldName string) 
 }
 
 func (p *plaidAccountInvestmentTransactionORM) fillFieldMap() {
-	p.fieldMap = make(map[string]field.Expr, 19)
+	p.fieldMap = make(map[string]field.Expr, 21)
 	p.fieldMap["account_id"] = p.AccountId
 	p.fieldMap["ammount"] = p.Ammount
 	p.fieldMap["amount"] = p.Amount
@@ -136,6 +144,7 @@ func (p *plaidAccountInvestmentTransactionORM) fillFieldMap() {
 	p.fieldMap["current_date"] = p.CurrentDate
 	p.fieldMap["fees"] = p.Fees
 	p.fieldMap["id"] = p.Id
+	p.fieldMap["investment_account_id"] = p.InvestmentAccountId
 	p.fieldMap["investment_transaction_id"] = p.InvestmentTransactionId
 	p.fieldMap["iso_currency_code"] = p.IsoCurrencyCode
 	p.fieldMap["link_id"] = p.LinkId
@@ -148,6 +157,7 @@ func (p *plaidAccountInvestmentTransactionORM) fillFieldMap() {
 	p.fieldMap["type"] = p.Type
 	p.fieldMap["unofficial_currency_code"] = p.UnofficialCurrencyCode
 	p.fieldMap["user_id"] = p.UserId
+
 }
 
 func (p plaidAccountInvestmentTransactionORM) clone(db *gorm.DB) plaidAccountInvestmentTransactionORM {
@@ -158,6 +168,77 @@ func (p plaidAccountInvestmentTransactionORM) clone(db *gorm.DB) plaidAccountInv
 func (p plaidAccountInvestmentTransactionORM) replaceDB(db *gorm.DB) plaidAccountInvestmentTransactionORM {
 	p.plaidAccountInvestmentTransactionORMDo.ReplaceDB(db)
 	return p
+}
+
+type plaidAccountInvestmentTransactionORMHasManyNotes struct {
+	db *gorm.DB
+
+	field.RelationField
+}
+
+func (a plaidAccountInvestmentTransactionORMHasManyNotes) Where(conds ...field.Expr) *plaidAccountInvestmentTransactionORMHasManyNotes {
+	if len(conds) == 0 {
+		return &a
+	}
+
+	exprs := make([]clause.Expression, 0, len(conds))
+	for _, cond := range conds {
+		exprs = append(exprs, cond.BeCond().(clause.Expression))
+	}
+	a.db = a.db.Clauses(clause.Where{Exprs: exprs})
+	return &a
+}
+
+func (a plaidAccountInvestmentTransactionORMHasManyNotes) WithContext(ctx context.Context) *plaidAccountInvestmentTransactionORMHasManyNotes {
+	a.db = a.db.WithContext(ctx)
+	return &a
+}
+
+func (a plaidAccountInvestmentTransactionORMHasManyNotes) Session(session *gorm.Session) *plaidAccountInvestmentTransactionORMHasManyNotes {
+	a.db = a.db.Session(session)
+	return &a
+}
+
+func (a plaidAccountInvestmentTransactionORMHasManyNotes) Model(m *financial_servicev1.PlaidAccountInvestmentTransactionORM) *plaidAccountInvestmentTransactionORMHasManyNotesTx {
+	return &plaidAccountInvestmentTransactionORMHasManyNotesTx{a.db.Model(m).Association(a.Name())}
+}
+
+type plaidAccountInvestmentTransactionORMHasManyNotesTx struct{ tx *gorm.Association }
+
+func (a plaidAccountInvestmentTransactionORMHasManyNotesTx) Find() (result []*financial_servicev1.TransactionNoteORM, err error) {
+	return result, a.tx.Find(&result)
+}
+
+func (a plaidAccountInvestmentTransactionORMHasManyNotesTx) Append(values ...*financial_servicev1.TransactionNoteORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Append(targetValues...)
+}
+
+func (a plaidAccountInvestmentTransactionORMHasManyNotesTx) Replace(values ...*financial_servicev1.TransactionNoteORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Replace(targetValues...)
+}
+
+func (a plaidAccountInvestmentTransactionORMHasManyNotesTx) Delete(values ...*financial_servicev1.TransactionNoteORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Delete(targetValues...)
+}
+
+func (a plaidAccountInvestmentTransactionORMHasManyNotesTx) Clear() error {
+	return a.tx.Clear()
+}
+
+func (a plaidAccountInvestmentTransactionORMHasManyNotesTx) Count() int64 {
+	return a.tx.Count()
 }
 
 type plaidAccountInvestmentTransactionORMDo struct{ gen.DO }
