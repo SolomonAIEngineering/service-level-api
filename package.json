@@ -17,7 +17,7 @@
     "husky": "^8.0.0"
   },
   "dependencies": {
-    "@solomon-ai/component-library": "^1.119.0",
+    "@solomon-ai/component-library": "^1.122.0",
     "eventsource-parser": "^1.1.1",
     "primereact": "^10.0.9"
   }
