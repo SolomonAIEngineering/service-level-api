@@ -74,6 +74,7 @@ var (
 	TrackingCategoryORM                  *trackingCategoryORM
 	TransactionDetailsORM                *transactionDetailsORM
 	TransactionLineItemORM               *transactionLineItemORM
+	TransactionSplitORM                  *transactionSplitORM
 	VendorCreditLineORM                  *vendorCreditLineORM
 	VendorCreditORM                      *vendorCreditORM
 )
@@ -137,6 +138,7 @@ func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
 	TrackingCategoryORM = &Q.TrackingCategoryORM
 	TransactionDetailsORM = &Q.TransactionDetailsORM
 	TransactionLineItemORM = &Q.TransactionLineItemORM
+	TransactionSplitORM = &Q.TransactionSplitORM
 	VendorCreditLineORM = &Q.VendorCreditLineORM
 	VendorCreditORM = &Q.VendorCreditORM
 }
@@ -201,6 +203,7 @@ func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 		TrackingCategoryORM:                  newTrackingCategoryORM(db, opts...),
 		TransactionDetailsORM:                newTransactionDetailsORM(db, opts...),
 		TransactionLineItemORM:               newTransactionLineItemORM(db, opts...),
+		TransactionSplitORM:                  newTransactionSplitORM(db, opts...),
 		VendorCreditLineORM:                  newVendorCreditLineORM(db, opts...),
 		VendorCreditORM:                      newVendorCreditORM(db, opts...),
 	}
@@ -266,6 +269,7 @@ type Query struct {
 	TrackingCategoryORM                  trackingCategoryORM
 	TransactionDetailsORM                transactionDetailsORM
 	TransactionLineItemORM               transactionLineItemORM
+	TransactionSplitORM                  transactionSplitORM
 	VendorCreditLineORM                  vendorCreditLineORM
 	VendorCreditORM                      vendorCreditORM
 }
@@ -332,6 +336,7 @@ func (q *Query) clone(db *gorm.DB) *Query {
 		TrackingCategoryORM:                  q.TrackingCategoryORM.clone(db),
 		TransactionDetailsORM:                q.TransactionDetailsORM.clone(db),
 		TransactionLineItemORM:               q.TransactionLineItemORM.clone(db),
+		TransactionSplitORM:                  q.TransactionSplitORM.clone(db),
 		VendorCreditLineORM:                  q.VendorCreditLineORM.clone(db),
 		VendorCreditORM:                      q.VendorCreditORM.clone(db),
 	}
@@ -405,6 +410,7 @@ func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 		TrackingCategoryORM:                  q.TrackingCategoryORM.replaceDB(db),
 		TransactionDetailsORM:                q.TransactionDetailsORM.replaceDB(db),
 		TransactionLineItemORM:               q.TransactionLineItemORM.replaceDB(db),
+		TransactionSplitORM:                  q.TransactionSplitORM.replaceDB(db),
 		VendorCreditLineORM:                  q.VendorCreditLineORM.replaceDB(db),
 		VendorCreditORM:                      q.VendorCreditORM.replaceDB(db),
 	}
@@ -468,6 +474,7 @@ type queryCtx struct {
 	TrackingCategoryORM                  ITrackingCategoryORMDo
 	TransactionDetailsORM                ITransactionDetailsORMDo
 	TransactionLineItemORM               ITransactionLineItemORMDo
+	TransactionSplitORM                  ITransactionSplitORMDo
 	VendorCreditLineORM                  IVendorCreditLineORMDo
 	VendorCreditORM                      IVendorCreditORMDo
 }
@@ -531,6 +538,7 @@ func (q *Query) WithContext(ctx context.Context) *queryCtx {
 		TrackingCategoryORM:                  q.TrackingCategoryORM.WithContext(ctx),
 		TransactionDetailsORM:                q.TransactionDetailsORM.WithContext(ctx),
 		TransactionLineItemORM:               q.TransactionLineItemORM.WithContext(ctx),
+		TransactionSplitORM:                  q.TransactionSplitORM.WithContext(ctx),
 		VendorCreditLineORM:                  q.VendorCreditLineORM.WithContext(ctx),
 		VendorCreditORM:                      q.VendorCreditORM.WithContext(ctx),
 	}

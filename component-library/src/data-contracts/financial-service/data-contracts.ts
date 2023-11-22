@@ -3425,6 +3425,8 @@ export interface PlaidAccountTransaction {
    * @gotag: ch:"personal_finance_category_primary"
    */
   personalFinanceCategoryPrimary?: string;
+  /** The number of splits associated with this transaction. */
+  splits?: Array<TransactionSplit>;
   /** Tags associated with this transaction. */
   tags?: Array<string>;
   /**
@@ -4496,6 +4498,55 @@ export interface TransactionLineItem {
   trackingCategories?: Array<string>;
   trackingCategory?: string;
   unitPrice?: string;
+}
+
+/** PlaidAccountTransactionSplit represents a split of a PlaidAccountTransaction. */
+export interface TransactionSplit {
+  /**
+   * The amount of money involved in the transaction.
+   * @format double
+   */
+  amount?: number;
+  /**
+   * The time at which the transaction was authorized.
+   * @format date-time
+   */
+  authorizedDate?: string;
+  /**
+   * The date-time when the transaction was authorized.
+   * @format date-time
+   */
+  authorizedDatetime?: string;
+  /** The set of categories that the transaction belongs to. */
+  categories?: Array<string>;
+  /** The description of the transaction. */
+  description?: string;
+  /**
+   * The unique ID for this transaction.
+   * @format uint64
+   */
+  id?: string;
+  /**
+   * The link ID associated with this transaction.
+   * @format uint64
+   */
+  linkId?: string;
+  /** The detailed personal finance category of the transaction. */
+  personalFinanceCategoryDetailed?: string;
+  /** The primary personal finance category of the transaction. */
+  personalFinanceCategoryPrimary?: string;
+  /** Tags associated with this transaction. */
+  tags?: Array<string>;
+  /**
+   * The time of split of the transaction
+   * @format date-time
+   */
+  timeOfSplit?: string;
+  /**
+   * The user ID associated with this transaction.
+   * @format uint64
+   */
+  userId?: string;
 }
 
 export type UpdateBankAccountData = any;

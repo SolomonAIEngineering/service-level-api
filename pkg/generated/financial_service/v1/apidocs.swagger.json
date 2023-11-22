@@ -9993,6 +9993,14 @@
             "$ref": "#/definitions/SmartNote"
           },
           "description": "Notes associated with this transaction."
+        },
+        "splits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/TransactionSplit"
+          },
+          "description": "The number of splits associated with this transaction."
         }
       },
       "description": "Message representing Plaid account transactions."
@@ -11475,6 +11483,73 @@
           "format": "date-time"
         }
       }
+    },
+    "TransactionSplit": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "description": "The unique ID for this transaction."
+        },
+        "userId": {
+          "type": "string",
+          "format": "uint64",
+          "description": "The user ID associated with this transaction."
+        },
+        "linkId": {
+          "type": "string",
+          "format": "uint64",
+          "description": "The link ID associated with this transaction."
+        },
+        "description": {
+          "type": "string",
+          "description": "The description of the transaction."
+        },
+        "amount": {
+          "type": "number",
+          "format": "double",
+          "description": "The amount of money involved in the transaction."
+        },
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The set of categories that the transaction belongs to."
+        },
+        "personalFinanceCategoryPrimary": {
+          "type": "string",
+          "description": "The primary personal finance category of the transaction."
+        },
+        "personalFinanceCategoryDetailed": {
+          "type": "string",
+          "description": "The detailed personal finance category of the transaction."
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Tags associated with this transaction."
+        },
+        "authorizedDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The time at which the transaction was authorized."
+        },
+        "authorizedDatetime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date-time when the transaction was authorized."
+        },
+        "timeOfSplit": {
+          "type": "string",
+          "format": "date-time",
+          "title": "The time of split of the transaction"
+        }
+      },
+      "description": "PlaidAccountTransactionSplit represents a split of a PlaidAccountTransaction."
     },
     "UpdateBankAccountRequest": {
       "type": "object",

@@ -121,6 +121,11 @@ func newBankAccountORM(db *gorm.DB, opts ...gen.DOOption) bankAccountORM {
 		}{
 			RelationField: field.NewRelation("Transactions.Notes", "financial_servicev1.SmartNoteORM"),
 		},
+		Splits: struct {
+			field.RelationField
+		}{
+			RelationField: field.NewRelation("Transactions.Splits", "financial_servicev1.TransactionSplitORM"),
+		},
 	}
 
 	_bankAccountORM.fillFieldMap()
@@ -393,6 +398,9 @@ type bankAccountORMHasManyTransactions struct {
 	field.RelationField
 
 	Notes struct {
+		field.RelationField
+	}
+	Splits struct {
 		field.RelationField
 	}
 }

@@ -134,6 +134,7 @@ func Test_WithContext(t *testing.T) {
 		qCtx.TrackingCategoryORM.UnderlyingDB().Statement.Context,
 		qCtx.TransactionDetailsORM.UnderlyingDB().Statement.Context,
 		qCtx.TransactionLineItemORM.UnderlyingDB().Statement.Context,
+		qCtx.TransactionSplitORM.UnderlyingDB().Statement.Context,
 		qCtx.VendorCreditLineORM.UnderlyingDB().Statement.Context,
 		qCtx.VendorCreditORM.UnderlyingDB().Statement.Context,
 	} {

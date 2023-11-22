@@ -11700,6 +11700,40 @@ func (m *PlaidAccountTransaction) validate(all bool) error {
 
 	}
 
+	for idx, item := range m.GetSplits() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, PlaidAccountTransactionValidationError{
+						field:  fmt.Sprintf("Splits[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, PlaidAccountTransactionValidationError{
+						field:  fmt.Sprintf("Splits[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return PlaidAccountTransactionValidationError{
+					field:  fmt.Sprintf("Splits[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
 	if len(errors) > 0 {
 		return PlaidAccountTransactionMultiError(errors)
 	}
@@ -11779,3 +11813,222 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = PlaidAccountTransactionValidationError{}
+
+// Validate checks the field values on TransactionSplit with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *TransactionSplit) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on TransactionSplit with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// TransactionSplitMultiError, or nil if none found.
+func (m *TransactionSplit) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *TransactionSplit) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	if m.GetUserId() <= 0 {
+		err := TransactionSplitValidationError{
+			field:  "UserId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetLinkId() <= 0 {
+		err := TransactionSplitValidationError{
+			field:  "LinkId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for Description
+
+	// no validation rules for Amount
+
+	// no validation rules for PersonalFinanceCategoryPrimary
+
+	// no validation rules for PersonalFinanceCategoryDetailed
+
+	if all {
+		switch v := interface{}(m.GetAuthorizedDate()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, TransactionSplitValidationError{
+					field:  "AuthorizedDate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, TransactionSplitValidationError{
+					field:  "AuthorizedDate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetAuthorizedDate()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return TransactionSplitValidationError{
+				field:  "AuthorizedDate",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetAuthorizedDatetime()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, TransactionSplitValidationError{
+					field:  "AuthorizedDatetime",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, TransactionSplitValidationError{
+					field:  "AuthorizedDatetime",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetAuthorizedDatetime()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return TransactionSplitValidationError{
+				field:  "AuthorizedDatetime",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetTimeOfSplit()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, TransactionSplitValidationError{
+					field:  "TimeOfSplit",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, TransactionSplitValidationError{
+					field:  "TimeOfSplit",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTimeOfSplit()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return TransactionSplitValidationError{
+				field:  "TimeOfSplit",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return TransactionSplitMultiError(errors)
+	}
+
+	return nil
+}
+
+// TransactionSplitMultiError is an error wrapping multiple validation errors
+// returned by TransactionSplit.ValidateAll() if the designated constraints
+// aren't met.
+type TransactionSplitMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m TransactionSplitMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m TransactionSplitMultiError) AllErrors() []error { return m }
+
+// TransactionSplitValidationError is the validation error returned by
+// TransactionSplit.Validate if the designated constraints aren't met.
+type TransactionSplitValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e TransactionSplitValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e TransactionSplitValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e TransactionSplitValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e TransactionSplitValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e TransactionSplitValidationError) ErrorName() string { return "TransactionSplitValidationError" }
+
+// Error satisfies the builtin error interface
+func (e TransactionSplitValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sTransactionSplit.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = TransactionSplitValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = TransactionSplitValidationError{}

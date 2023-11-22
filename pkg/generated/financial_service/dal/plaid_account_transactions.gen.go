@@ -80,6 +80,12 @@ func newPlaidAccountTransactionORM(db *gorm.DB, opts ...gen.DOOption) plaidAccou
 		RelationField: field.NewRelation("Notes", "financial_servicev1.SmartNoteORM"),
 	}
 
+	_plaidAccountTransactionORM.Splits = plaidAccountTransactionORMHasManySplits{
+		db: db.Session(&gorm.Session{}),
+
+		RelationField: field.NewRelation("Splits", "financial_servicev1.TransactionSplitORM"),
+	}
+
 	_plaidAccountTransactionORM.fillFieldMap()
 
 	return _plaidAccountTransactionORM
@@ -136,6 +142,8 @@ type plaidAccountTransactionORM struct {
 	UnofficialCurrencyCode          field.String
 	UserId                          field.Uint64
 	Notes                           plaidAccountTransactionORMHasManyNotes
+
+	Splits plaidAccountTransactionORMHasManySplits
 
 	fieldMap map[string]field.Expr
 }
@@ -214,7 +222,7 @@ func (p *plaidAccountTransactionORM) GetFieldByName(fieldName string) (field.Ord
 }
 
 func (p *plaidAccountTransactionORM) fillFieldMap() {
-	p.fieldMap = make(map[string]field.Expr, 47)
+	p.fieldMap = make(map[string]field.Expr, 48)
 	p.fieldMap["account_id"] = p.AccountId
 	p.fieldMap["account_owner"] = p.AccountOwner
 	p.fieldMap["amount"] = p.Amount
@@ -342,6 +350,77 @@ func (a plaidAccountTransactionORMHasManyNotesTx) Clear() error {
 }
 
 func (a plaidAccountTransactionORMHasManyNotesTx) Count() int64 {
+	return a.tx.Count()
+}
+
+type plaidAccountTransactionORMHasManySplits struct {
+	db *gorm.DB
+
+	field.RelationField
+}
+
+func (a plaidAccountTransactionORMHasManySplits) Where(conds ...field.Expr) *plaidAccountTransactionORMHasManySplits {
+	if len(conds) == 0 {
+		return &a
+	}
+
+	exprs := make([]clause.Expression, 0, len(conds))
+	for _, cond := range conds {
+		exprs = append(exprs, cond.BeCond().(clause.Expression))
+	}
+	a.db = a.db.Clauses(clause.Where{Exprs: exprs})
+	return &a
+}
+
+func (a plaidAccountTransactionORMHasManySplits) WithContext(ctx context.Context) *plaidAccountTransactionORMHasManySplits {
+	a.db = a.db.WithContext(ctx)
+	return &a
+}
+
+func (a plaidAccountTransactionORMHasManySplits) Session(session *gorm.Session) *plaidAccountTransactionORMHasManySplits {
+	a.db = a.db.Session(session)
+	return &a
+}
+
+func (a plaidAccountTransactionORMHasManySplits) Model(m *financial_servicev1.PlaidAccountTransactionORM) *plaidAccountTransactionORMHasManySplitsTx {
+	return &plaidAccountTransactionORMHasManySplitsTx{a.db.Model(m).Association(a.Name())}
+}
+
+type plaidAccountTransactionORMHasManySplitsTx struct{ tx *gorm.Association }
+
+func (a plaidAccountTransactionORMHasManySplitsTx) Find() (result []*financial_servicev1.TransactionSplitORM, err error) {
+	return result, a.tx.Find(&result)
+}
+
+func (a plaidAccountTransactionORMHasManySplitsTx) Append(values ...*financial_servicev1.TransactionSplitORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Append(targetValues...)
+}
+
+func (a plaidAccountTransactionORMHasManySplitsTx) Replace(values ...*financial_servicev1.TransactionSplitORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Replace(targetValues...)
+}
+
+func (a plaidAccountTransactionORMHasManySplitsTx) Delete(values ...*financial_servicev1.TransactionSplitORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Delete(targetValues...)
+}
+
+func (a plaidAccountTransactionORMHasManySplitsTx) Clear() error {
+	return a.tx.Clear()
+}
+
+func (a plaidAccountTransactionORMHasManySplitsTx) Count() int64 {
 	return a.tx.Count()
 }
 

@@ -161,12 +161,20 @@ func newLinkORM(db *gorm.DB, opts ...gen.DOOption) linkORM {
 			Notes struct {
 				field.RelationField
 			}
+			Splits struct {
+				field.RelationField
+			}
 		}{
 			RelationField: field.NewRelation("BankAccounts.Transactions", "financial_servicev1.PlaidAccountTransactionORM"),
 			Notes: struct {
 				field.RelationField
 			}{
 				RelationField: field.NewRelation("BankAccounts.Transactions.Notes", "financial_servicev1.SmartNoteORM"),
+			},
+			Splits: struct {
+				field.RelationField
+			}{
+				RelationField: field.NewRelation("BankAccounts.Transactions.Splits", "financial_servicev1.TransactionSplitORM"),
 			},
 		},
 	}
@@ -599,6 +607,9 @@ type linkORMHasManyBankAccounts struct {
 	Transactions struct {
 		field.RelationField
 		Notes struct {
+			field.RelationField
+		}
+		Splits struct {
 			field.RelationField
 		}
 	}

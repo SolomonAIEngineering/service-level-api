@@ -2404,4 +2404,60 @@ message PlaidAccountTransaction {
     repeated SmartNote notes = 49 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
     ];
+
+    // The number of splits associated with this transaction.
+    repeated TransactionSplit splits = 50 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+    ];
+}
+
+// PlaidAccountTransactionSplit represents a split of a PlaidAccountTransaction.
+message TransactionSplit {
+  option (gorm.opts) = {ormable: true};
+    
+  // The unique ID for this transaction.
+  uint64 id = 22 [
+      (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+  ];
+
+  // The user ID associated with this transaction.
+  uint64 user_id = 3 [
+      (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+      (validate.rules).uint64.gt = 0
+  ];
+
+  // The link ID associated with this transaction.
+  uint64 link_id = 4 [
+      (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+      (validate.rules).uint64.gt = 0
+  ];
+
+  // The description of the transaction.
+  string description = 5;
+
+  // The amount of money involved in the transaction.
+  double amount = 6;
+
+  // The set of categories that the transaction belongs to.
+  repeated string categories = 7;
+  
+  // The primary personal finance category of the transaction.
+  string personal_finance_category_primary = 8;
+  
+  // The detailed personal finance category of the transaction.
+  string personal_finance_category_detailed = 9;
+
+  // Tags associated with this transaction.
+  repeated string tags = 10 [
+      (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+  ];
+
+  // The time at which the transaction was authorized.
+  google.protobuf.Timestamp authorized_date = 11;
+  
+  // The date-time when the transaction was authorized.
+  google.protobuf.Timestamp authorized_datetime = 12;
+
+  // The time of split of the transaction
+  google.protobuf.Timestamp time_of_split = 13;
 }
