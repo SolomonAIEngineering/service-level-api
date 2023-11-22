@@ -1,3 +1,10 @@
+# [1.125.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.124.0...v1.125.0) (2023-11-22)
+
+
+### Features
+
+* define interface by which transactions will be implemented upon ([8a8f7ed](https://github.com/SolomonAIEngineering/service-level-api/commit/8a8f7ed157d72dafb123ad5e799de7b8c62519b4))
+
 # [1.124.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.123.0...v1.124.0) (2023-11-22)
 
 
