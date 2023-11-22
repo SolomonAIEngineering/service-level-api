@@ -2452,7 +2452,7 @@ message TransactionSplit {
       (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
   ];
 
-  // The time at which the transaction was authorized.
+  // The time at which the transaction was authorized (time field)
   google.protobuf.Timestamp authorized_date = 11;
   
   // The date-time when the transaction was authorized.

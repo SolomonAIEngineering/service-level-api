@@ -10044,7 +10044,7 @@ type TransactionSplit struct {
 	PersonalFinanceCategoryDetailed string `protobuf:"bytes,9,opt,name=personal_finance_category_detailed,json=personalFinanceCategoryDetailed,proto3" json:"personal_finance_category_detailed,omitempty"`
 	// Tags associated with this transaction.
 	Tags []string `protobuf:"bytes,10,rep,name=tags,proto3" json:"tags,omitempty"`
-	// The time at which the transaction was authorized.
+	// The time at which the transaction was authorized (time field)
 	AuthorizedDate *timestamppb.Timestamp `protobuf:"bytes,11,opt,name=authorized_date,json=authorizedDate,proto3" json:"authorized_date,omitempty"`
 	// The date-time when the transaction was authorized.
 	AuthorizedDatetime *timestamppb.Timestamp `protobuf:"bytes,12,opt,name=authorized_datetime,json=authorizedDatetime,proto3" json:"authorized_datetime,omitempty"`

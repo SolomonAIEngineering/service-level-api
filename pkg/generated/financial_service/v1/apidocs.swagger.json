@@ -11544,7 +11544,7 @@
         "authorizedDate": {
           "type": "string",
           "format": "date-time",
-          "description": "The time at which the transaction was authorized."
+          "title": "The time at which the transaction was authorized (time field)"
         },
         "authorizedDatetime": {
           "type": "string",

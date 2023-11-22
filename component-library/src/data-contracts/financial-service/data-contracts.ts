@@ -4516,7 +4516,7 @@ export interface TransactionSplit {
    */
   amount?: number;
   /**
-   * The time at which the transaction was authorized.
+   * The time at which the transaction was authorized (time field)
    * @format date-time
    */
   authorizedDate?: string;
