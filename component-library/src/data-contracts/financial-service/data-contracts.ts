@@ -3051,6 +3051,7 @@ export interface PlaidAccountInvestmentTransaction {
   /**
    * The date and time when this investment transaction was created.
    * @gotag: ch:"created_at"
+   * @format date-time
    */
   createdAt?: string;
   /**
@@ -3174,6 +3175,7 @@ export interface PlaidAccountRecurringTransaction {
   /**
    * The date of the first occurrence of the recurring transaction.
    * @gotag: ch:"first_date"
+   * @format date-time
    */
   firstDate?: string;
   /**
@@ -3210,6 +3212,7 @@ export interface PlaidAccountRecurringTransaction {
   /**
    * The date of the last occurrence of the recurring transaction.
    * @gotag: ch:"last_date"
+   * @format date-time
    */
   lastDate?: string;
   /**
@@ -3258,6 +3261,7 @@ export interface PlaidAccountRecurringTransaction {
   /**
    * The timestamp when this recurring transaction was last updated.
    * @gotag: ch:"updated_time"
+   * @format date-time
    */
   updatedTime?: string;
   /**
@@ -3295,12 +3299,14 @@ export interface PlaidAccountTransaction {
    * The time at which the transaction was authorized.
    *
    * @gotag: ch:"authorized_date"
+   * @format date-time
    */
   authorizedDate?: string;
   /**
    * The date-time when the transaction was authorized.
    *
    * @gotag: ch:"authorized_datetime"
+   * @format date-time
    */
   authorizedDatetime?: string;
   /** The set of categories that the transaction belongs to. */
@@ -3321,12 +3327,14 @@ export interface PlaidAccountTransaction {
    * The date of the transaction.
    *
    * @gotag: ch:"date"
+   * @format date-time
    */
   currentDate?: string;
   /**
    * The current datetime of the transaction.
    *
    * @gotag: ch:"datetime"
+   * @format date-time
    */
   currentDatetime?: string;
   /** Indicates whether this transaction should be hidden. */

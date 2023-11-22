@@ -9654,6 +9654,7 @@
         },
         "createdAt": {
           "type": "string",
+          "format": "date-time",
           "title": "The date and time when this investment transaction was created.\n@gotag: ch:\"created_at\""
         },
         "time": {
@@ -9709,10 +9710,12 @@
         },
         "firstDate": {
           "type": "string",
+          "format": "date-time",
           "title": "The date of the first occurrence of the recurring transaction.\n@gotag: ch:\"first_date\""
         },
         "lastDate": {
           "type": "string",
+          "format": "date-time",
           "title": "The date of the last occurrence of the recurring transaction.\n@gotag: ch:\"last_date\""
         },
         "frequency": {
@@ -9749,6 +9752,7 @@
         },
         "updatedTime": {
           "type": "string",
+          "format": "date-time",
           "title": "The timestamp when this recurring transaction was last updated.\n@gotag: ch:\"updated_time\""
         },
         "userId": {
@@ -9820,18 +9824,22 @@
         },
         "currentDate": {
           "type": "string",
+          "format": "date-time",
           "description": "The date of the transaction.\n\n@gotag: ch:\"date\""
         },
         "currentDatetime": {
           "type": "string",
+          "format": "date-time",
           "description": "The current datetime of the transaction.\n\n@gotag: ch:\"datetime\""
         },
         "authorizedDate": {
           "type": "string",
+          "format": "date-time",
           "description": "The time at which the transaction was authorized.\n\n@gotag: ch:\"authorized_date\""
         },
         "authorizedDatetime": {
           "type": "string",
+          "format": "date-time",
           "description": "The date-time when the transaction was authorized.\n\n@gotag: ch:\"authorized_datetime\""
         },
         "categoryId": {

@@ -2099,7 +2099,7 @@ message PlaidAccountInvestmentTransaction {
 
     // The date and time when this investment transaction was created.
     // @gotag: ch:"created_at"
-    string created_at = 18;
+    google.protobuf.Timestamp created_at = 18;
 
     // The timestamp associated with this investment transaction.
     // @gotag: ch:"time"
@@ -2151,11 +2151,11 @@ message PlaidAccountRecurringTransaction {
 
     // The date of the first occurrence of the recurring transaction.
     // @gotag: ch:"first_date"
-    string first_date = 9;
+    google.protobuf.Timestamp first_date = 9;
 
     // The date of the last occurrence of the recurring transaction.
     // @gotag: ch:"last_date"
-    string last_date = 10;
+    google.protobuf.Timestamp last_date = 10;
 
     // The frequency at which the recurring transaction occurs (e.g., monthly).
     // @gotag: ch:"frequency"
@@ -2191,7 +2191,7 @@ message PlaidAccountRecurringTransaction {
 
     // The timestamp when this recurring transaction was last updated.
     // @gotag: ch:"updated_time"
-    string updated_time = 19;
+    google.protobuf.Timestamp updated_time = 19;
 
     // The user ID associated with this recurring transaction.
     // @gotag: ch:"user_id"
@@ -2256,16 +2256,16 @@ message PlaidAccountTransaction {
     // Date details
     
     // The date of the transaction.
-    string current_date = 8; // @gotag: ch:"date"
+    google.protobuf.Timestamp current_date = 8; // @gotag: ch:"date"
     
     // The current datetime of the transaction.
-    string current_datetime = 9; // @gotag: ch:"datetime"
+    google.protobuf.Timestamp current_datetime = 9; // @gotag: ch:"datetime"
     
     // The time at which the transaction was authorized.
-    string authorized_date = 10; // @gotag: ch:"authorized_date"
+    google.protobuf.Timestamp authorized_date = 10; // @gotag: ch:"authorized_date"
     
     // The date-time when the transaction was authorized.
-    string authorized_datetime = 11; // @gotag: ch:"authorized_datetime"
+    google.protobuf.Timestamp authorized_datetime = 11; // @gotag: ch:"authorized_datetime"
     
     // Transaction categories
     

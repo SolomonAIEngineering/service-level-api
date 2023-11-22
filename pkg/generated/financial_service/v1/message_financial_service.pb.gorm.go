@@ -7512,7 +7512,7 @@ type PlaidAccountInvestmentTransactionORM struct {
 	AccountId               string
 	Ammount                 string
 	Amount                  float64
-	CreatedAt               string
+	CreatedAt               *time.Time
 	CurrentDate             string
 	Fees                    float64
 	Id                      uint64
@@ -7564,7 +7564,10 @@ func (m *PlaidAccountInvestmentTransaction) ToORM(ctx context.Context) (PlaidAcc
 	to.LinkId = m.LinkId
 	to.Id = m.Id
 	to.UserId = m.UserId
-	to.CreatedAt = m.CreatedAt
+	if m.CreatedAt != nil {
+		t := m.CreatedAt.AsTime()
+		to.CreatedAt = &t
+	}
 	if m.Time != nil {
 		t := m.Time.AsTime()
 		to.Time = &t
@@ -7613,7 +7616,9 @@ func (m *PlaidAccountInvestmentTransactionORM) ToPB(ctx context.Context) (PlaidA
 	to.LinkId = m.LinkId
 	to.Id = m.Id
 	to.UserId = m.UserId
-	to.CreatedAt = m.CreatedAt
+	if m.CreatedAt != nil {
+		to.CreatedAt = timestamppb.New(*m.CreatedAt)
+	}
 	if m.Time != nil {
 		to.Time = timestamppb.New(*m.Time)
 	}
@@ -7665,14 +7670,14 @@ type PlaidAccountRecurringTransactionORM struct {
 	CategoryId                      string
 	CreditAccountId                 *uint64
 	Description                     string
-	FirstDate                       string
+	FirstDate                       *time.Time
 	Flow                            string
 	Frequency                       string
 	Id                              uint64
 	IsActive                        bool
 	LastAmount                      string
 	LastAmountIsoCurrencyCode       string
-	LastDate                        string
+	LastDate                        *time.Time
 	LinkId                          uint64
 	MerchantName                    string
 	Notes                           []*SmartNoteORM `gorm:"foreignkey:PlaidAccountRecurringTransactionId;association_foreignkey:Id"`
@@ -7682,7 +7687,7 @@ type PlaidAccountRecurringTransactionORM struct {
 	StreamId                        string
 	Time                            *time.Time
 	TransactionIds                  string
-	UpdatedTime                     string
+	UpdatedTime                     *time.Time
 	UserId                          uint64
 }
 
@@ -7708,8 +7713,14 @@ func (m *PlaidAccountRecurringTransaction) ToORM(ctx context.Context) (PlaidAcco
 	to.MerchantName = m.MerchantName
 	to.PersonalFinanceCategoryPrimary = m.PersonalFinanceCategoryPrimary
 	to.PersonalFinanceCategoryDetailed = m.PersonalFinanceCategoryDetailed
-	to.FirstDate = m.FirstDate
-	to.LastDate = m.LastDate
+	if m.FirstDate != nil {
+		t := m.FirstDate.AsTime()
+		to.FirstDate = &t
+	}
+	if m.LastDate != nil {
+		t := m.LastDate.AsTime()
+		to.LastDate = &t
+	}
 	to.Frequency = m.Frequency
 	to.TransactionIds = m.TransactionIds
 	to.AverageAmount = m.AverageAmount
@@ -7718,7 +7729,10 @@ func (m *PlaidAccountRecurringTransaction) ToORM(ctx context.Context) (PlaidAcco
 	to.LastAmountIsoCurrencyCode = m.LastAmountIsoCurrencyCode
 	to.IsActive = m.IsActive
 	to.Status = m.Status
-	to.UpdatedTime = m.UpdatedTime
+	if m.UpdatedTime != nil {
+		t := m.UpdatedTime.AsTime()
+		to.UpdatedTime = &t
+	}
 	to.UserId = m.UserId
 	to.LinkId = m.LinkId
 	to.Id = m.Id
@@ -7761,8 +7775,12 @@ func (m *PlaidAccountRecurringTransactionORM) ToPB(ctx context.Context) (PlaidAc
 	to.MerchantName = m.MerchantName
 	to.PersonalFinanceCategoryPrimary = m.PersonalFinanceCategoryPrimary
 	to.PersonalFinanceCategoryDetailed = m.PersonalFinanceCategoryDetailed
-	to.FirstDate = m.FirstDate
-	to.LastDate = m.LastDate
+	if m.FirstDate != nil {
+		to.FirstDate = timestamppb.New(*m.FirstDate)
+	}
+	if m.LastDate != nil {
+		to.LastDate = timestamppb.New(*m.LastDate)
+	}
 	to.Frequency = m.Frequency
 	to.TransactionIds = m.TransactionIds
 	to.AverageAmount = m.AverageAmount
@@ -7771,7 +7789,9 @@ func (m *PlaidAccountRecurringTransactionORM) ToPB(ctx context.Context) (PlaidAc
 	to.LastAmountIsoCurrencyCode = m.LastAmountIsoCurrencyCode
 	to.IsActive = m.IsActive
 	to.Status = m.Status
-	to.UpdatedTime = m.UpdatedTime
+	if m.UpdatedTime != nil {
+		to.UpdatedTime = timestamppb.New(*m.UpdatedTime)
+	}
 	to.UserId = m.UserId
 	to.LinkId = m.LinkId
 	to.Id = m.Id
@@ -7823,15 +7843,15 @@ type PlaidAccountTransactionORM struct {
 	AccountId                       string
 	AccountOwner                    string
 	Amount                          float64
-	AuthorizedDate                  string
-	AuthorizedDatetime              string
+	AuthorizedDate                  *time.Time
+	AuthorizedDatetime              *time.Time
 	BankAccountId                   *uint64
 	Categories                      pq.StringArray `gorm:"type:text[]"`
 	CategoryId                      string
 	CheckNumber                     string
 	CreditAccountId                 *uint64
-	CurrentDate                     string
-	CurrentDatetime                 string
+	CurrentDate                     *time.Time
+	CurrentDatetime                 *time.Time
 	HideTransaction                 bool
 	Id                              uint64
 	IsoCurrencyCode                 string
@@ -7891,10 +7911,22 @@ func (m *PlaidAccountTransaction) ToORM(ctx context.Context) (PlaidAccountTransa
 	to.UnofficialCurrencyCode = m.UnofficialCurrencyCode
 	to.TransactionId = m.TransactionId
 	to.TransactionCode = m.TransactionCode
-	to.CurrentDate = m.CurrentDate
-	to.CurrentDatetime = m.CurrentDatetime
-	to.AuthorizedDate = m.AuthorizedDate
-	to.AuthorizedDatetime = m.AuthorizedDatetime
+	if m.CurrentDate != nil {
+		t := m.CurrentDate.AsTime()
+		to.CurrentDate = &t
+	}
+	if m.CurrentDatetime != nil {
+		t := m.CurrentDatetime.AsTime()
+		to.CurrentDatetime = &t
+	}
+	if m.AuthorizedDate != nil {
+		t := m.AuthorizedDate.AsTime()
+		to.AuthorizedDate = &t
+	}
+	if m.AuthorizedDatetime != nil {
+		t := m.AuthorizedDatetime.AsTime()
+		to.AuthorizedDatetime = &t
+	}
 	to.CategoryId = m.CategoryId
 	if m.Categories != nil {
 		to.Categories = make(pq.StringArray, len(m.Categories))
@@ -7982,10 +8014,18 @@ func (m *PlaidAccountTransactionORM) ToPB(ctx context.Context) (PlaidAccountTran
 	to.UnofficialCurrencyCode = m.UnofficialCurrencyCode
 	to.TransactionId = m.TransactionId
 	to.TransactionCode = m.TransactionCode
-	to.CurrentDate = m.CurrentDate
-	to.CurrentDatetime = m.CurrentDatetime
-	to.AuthorizedDate = m.AuthorizedDate
-	to.AuthorizedDatetime = m.AuthorizedDatetime
+	if m.CurrentDate != nil {
+		to.CurrentDate = timestamppb.New(*m.CurrentDate)
+	}
+	if m.CurrentDatetime != nil {
+		to.CurrentDatetime = timestamppb.New(*m.CurrentDatetime)
+	}
+	if m.AuthorizedDate != nil {
+		to.AuthorizedDate = timestamppb.New(*m.AuthorizedDate)
+	}
+	if m.AuthorizedDatetime != nil {
+		to.AuthorizedDatetime = timestamppb.New(*m.AuthorizedDatetime)
+	}
 	to.CategoryId = m.CategoryId
 	if m.Categories != nil {
 		to.Categories = make(pq.StringArray, len(m.Categories))
@@ -32439,6 +32479,7 @@ func DefaultApplyFieldMaskPlaidAccountInvestmentTransaction(ctx context.Context,
 		return nil, errors.NilArgumentError
 	}
 	var err error
+	var updatedCreatedAt bool
 	var updatedTime bool
 	var updatedAdditionalProperties bool
 	for i, f := range updateMask.Paths {
@@ -32510,7 +32551,26 @@ func DefaultApplyFieldMaskPlaidAccountInvestmentTransaction(ctx context.Context,
 			patchee.UserId = patcher.UserId
 			continue
 		}
+		if !updatedCreatedAt && strings.HasPrefix(f, prefix+"CreatedAt.") {
+			if patcher.CreatedAt == nil {
+				patchee.CreatedAt = nil
+				continue
+			}
+			if patchee.CreatedAt == nil {
+				patchee.CreatedAt = &timestamppb.Timestamp{}
+			}
+			childMask := &field_mask.FieldMask{}
+			for j := i; j < len(updateMask.Paths); j++ {
+				if trimPath := strings.TrimPrefix(updateMask.Paths[j], prefix+"CreatedAt."); trimPath != updateMask.Paths[j] {
+					childMask.Paths = append(childMask.Paths, trimPath)
+				}
+			}
+			if err := gorm1.MergeWithMask(patcher.CreatedAt, patchee.CreatedAt, childMask); err != nil {
+				return nil, nil
+			}
+		}
 		if f == prefix+"CreatedAt" {
+			updatedCreatedAt = true
 			patchee.CreatedAt = patcher.CreatedAt
 			continue
 		}
@@ -32912,6 +32972,9 @@ func DefaultApplyFieldMaskPlaidAccountRecurringTransaction(ctx context.Context, 
 		return nil, errors.NilArgumentError
 	}
 	var err error
+	var updatedFirstDate bool
+	var updatedLastDate bool
+	var updatedUpdatedTime bool
 	var updatedTime bool
 	var updatedAdditionalProperties bool
 	for i, f := range updateMask.Paths {
@@ -32943,11 +33006,49 @@ func DefaultApplyFieldMaskPlaidAccountRecurringTransaction(ctx context.Context, 
 			patchee.PersonalFinanceCategoryDetailed = patcher.PersonalFinanceCategoryDetailed
 			continue
 		}
+		if !updatedFirstDate && strings.HasPrefix(f, prefix+"FirstDate.") {
+			if patcher.FirstDate == nil {
+				patchee.FirstDate = nil
+				continue
+			}
+			if patchee.FirstDate == nil {
+				patchee.FirstDate = &timestamppb.Timestamp{}
+			}
+			childMask := &field_mask.FieldMask{}
+			for j := i; j < len(updateMask.Paths); j++ {
+				if trimPath := strings.TrimPrefix(updateMask.Paths[j], prefix+"FirstDate."); trimPath != updateMask.Paths[j] {
+					childMask.Paths = append(childMask.Paths, trimPath)
+				}
+			}
+			if err := gorm1.MergeWithMask(patcher.FirstDate, patchee.FirstDate, childMask); err != nil {
+				return nil, nil
+			}
+		}
 		if f == prefix+"FirstDate" {
+			updatedFirstDate = true
 			patchee.FirstDate = patcher.FirstDate
 			continue
 		}
+		if !updatedLastDate && strings.HasPrefix(f, prefix+"LastDate.") {
+			if patcher.LastDate == nil {
+				patchee.LastDate = nil
+				continue
+			}
+			if patchee.LastDate == nil {
+				patchee.LastDate = &timestamppb.Timestamp{}
+			}
+			childMask := &field_mask.FieldMask{}
+			for j := i; j < len(updateMask.Paths); j++ {
+				if trimPath := strings.TrimPrefix(updateMask.Paths[j], prefix+"LastDate."); trimPath != updateMask.Paths[j] {
+					childMask.Paths = append(childMask.Paths, trimPath)
+				}
+			}
+			if err := gorm1.MergeWithMask(patcher.LastDate, patchee.LastDate, childMask); err != nil {
+				return nil, nil
+			}
+		}
 		if f == prefix+"LastDate" {
+			updatedLastDate = true
 			patchee.LastDate = patcher.LastDate
 			continue
 		}
@@ -32983,7 +33084,26 @@ func DefaultApplyFieldMaskPlaidAccountRecurringTransaction(ctx context.Context, 
 			patchee.Status = patcher.Status
 			continue
 		}
+		if !updatedUpdatedTime && strings.HasPrefix(f, prefix+"UpdatedTime.") {
+			if patcher.UpdatedTime == nil {
+				patchee.UpdatedTime = nil
+				continue
+			}
+			if patchee.UpdatedTime == nil {
+				patchee.UpdatedTime = &timestamppb.Timestamp{}
+			}
+			childMask := &field_mask.FieldMask{}
+			for j := i; j < len(updateMask.Paths); j++ {
+				if trimPath := strings.TrimPrefix(updateMask.Paths[j], prefix+"UpdatedTime."); trimPath != updateMask.Paths[j] {
+					childMask.Paths = append(childMask.Paths, trimPath)
+				}
+			}
+			if err := gorm1.MergeWithMask(patcher.UpdatedTime, patchee.UpdatedTime, childMask); err != nil {
+				return nil, nil
+			}
+		}
 		if f == prefix+"UpdatedTime" {
+			updatedUpdatedTime = true
 			patchee.UpdatedTime = patcher.UpdatedTime
 			continue
 		}
@@ -33410,6 +33530,10 @@ func DefaultApplyFieldMaskPlaidAccountTransaction(ctx context.Context, patchee *
 		return nil, errors.NilArgumentError
 	}
 	var err error
+	var updatedCurrentDate bool
+	var updatedCurrentDatetime bool
+	var updatedAuthorizedDate bool
+	var updatedAuthorizedDatetime bool
 	var updatedTime bool
 	var updatedAdditionalProperties bool
 	for i, f := range updateMask.Paths {
@@ -33437,19 +33561,95 @@ func DefaultApplyFieldMaskPlaidAccountTransaction(ctx context.Context, patchee *
 			patchee.TransactionCode = patcher.TransactionCode
 			continue
 		}
+		if !updatedCurrentDate && strings.HasPrefix(f, prefix+"CurrentDate.") {
+			if patcher.CurrentDate == nil {
+				patchee.CurrentDate = nil
+				continue
+			}
+			if patchee.CurrentDate == nil {
+				patchee.CurrentDate = &timestamppb.Timestamp{}
+			}
+			childMask := &field_mask.FieldMask{}
+			for j := i; j < len(updateMask.Paths); j++ {
+				if trimPath := strings.TrimPrefix(updateMask.Paths[j], prefix+"CurrentDate."); trimPath != updateMask.Paths[j] {
+					childMask.Paths = append(childMask.Paths, trimPath)
+				}
+			}
+			if err := gorm1.MergeWithMask(patcher.CurrentDate, patchee.CurrentDate, childMask); err != nil {
+				return nil, nil
+			}
+		}
 		if f == prefix+"CurrentDate" {
+			updatedCurrentDate = true
 			patchee.CurrentDate = patcher.CurrentDate
 			continue
 		}
+		if !updatedCurrentDatetime && strings.HasPrefix(f, prefix+"CurrentDatetime.") {
+			if patcher.CurrentDatetime == nil {
+				patchee.CurrentDatetime = nil
+				continue
+			}
+			if patchee.CurrentDatetime == nil {
+				patchee.CurrentDatetime = &timestamppb.Timestamp{}
+			}
+			childMask := &field_mask.FieldMask{}
+			for j := i; j < len(updateMask.Paths); j++ {
+				if trimPath := strings.TrimPrefix(updateMask.Paths[j], prefix+"CurrentDatetime."); trimPath != updateMask.Paths[j] {
+					childMask.Paths = append(childMask.Paths, trimPath)
+				}
+			}
+			if err := gorm1.MergeWithMask(patcher.CurrentDatetime, patchee.CurrentDatetime, childMask); err != nil {
+				return nil, nil
+			}
+		}
 		if f == prefix+"CurrentDatetime" {
+			updatedCurrentDatetime = true
 			patchee.CurrentDatetime = patcher.CurrentDatetime
 			continue
 		}
+		if !updatedAuthorizedDate && strings.HasPrefix(f, prefix+"AuthorizedDate.") {
+			if patcher.AuthorizedDate == nil {
+				patchee.AuthorizedDate = nil
+				continue
+			}
+			if patchee.AuthorizedDate == nil {
+				patchee.AuthorizedDate = &timestamppb.Timestamp{}
+			}
+			childMask := &field_mask.FieldMask{}
+			for j := i; j < len(updateMask.Paths); j++ {
+				if trimPath := strings.TrimPrefix(updateMask.Paths[j], prefix+"AuthorizedDate."); trimPath != updateMask.Paths[j] {
+					childMask.Paths = append(childMask.Paths, trimPath)
+				}
+			}
+			if err := gorm1.MergeWithMask(patcher.AuthorizedDate, patchee.AuthorizedDate, childMask); err != nil {
+				return nil, nil
+			}
+		}
 		if f == prefix+"AuthorizedDate" {
+			updatedAuthorizedDate = true
 			patchee.AuthorizedDate = patcher.AuthorizedDate
 			continue
 		}
+		if !updatedAuthorizedDatetime && strings.HasPrefix(f, prefix+"AuthorizedDatetime.") {
+			if patcher.AuthorizedDatetime == nil {
+				patchee.AuthorizedDatetime = nil
+				continue
+			}
+			if patchee.AuthorizedDatetime == nil {
+				patchee.AuthorizedDatetime = &timestamppb.Timestamp{}
+			}
+			childMask := &field_mask.FieldMask{}
+			for j := i; j < len(updateMask.Paths); j++ {
+				if trimPath := strings.TrimPrefix(updateMask.Paths[j], prefix+"AuthorizedDatetime."); trimPath != updateMask.Paths[j] {
+					childMask.Paths = append(childMask.Paths, trimPath)
+				}
+			}
+			if err := gorm1.MergeWithMask(patcher.AuthorizedDatetime, patchee.AuthorizedDatetime, childMask); err != nil {
+				return nil, nil
+			}
+		}
 		if f == prefix+"AuthorizedDatetime" {
+			updatedAuthorizedDatetime = true
 			patchee.AuthorizedDatetime = patcher.AuthorizedDatetime
 			continue
 		}

@@ -31,15 +31,15 @@ func newPlaidAccountTransactionORM(db *gorm.DB, opts ...gen.DOOption) plaidAccou
 	_plaidAccountTransactionORM.AccountId = field.NewString(tableName, "account_id")
 	_plaidAccountTransactionORM.AccountOwner = field.NewString(tableName, "account_owner")
 	_plaidAccountTransactionORM.Amount = field.NewFloat64(tableName, "amount")
-	_plaidAccountTransactionORM.AuthorizedDate = field.NewString(tableName, "authorized_date")
-	_plaidAccountTransactionORM.AuthorizedDatetime = field.NewString(tableName, "authorized_datetime")
+	_plaidAccountTransactionORM.AuthorizedDate = field.NewTime(tableName, "authorized_date")
+	_plaidAccountTransactionORM.AuthorizedDatetime = field.NewTime(tableName, "authorized_datetime")
 	_plaidAccountTransactionORM.BankAccountId = field.NewUint64(tableName, "bank_account_id")
 	_plaidAccountTransactionORM.Categories = field.NewField(tableName, "categories")
 	_plaidAccountTransactionORM.CategoryId = field.NewString(tableName, "category_id")
 	_plaidAccountTransactionORM.CheckNumber = field.NewString(tableName, "check_number")
 	_plaidAccountTransactionORM.CreditAccountId = field.NewUint64(tableName, "credit_account_id")
-	_plaidAccountTransactionORM.CurrentDate = field.NewString(tableName, "current_date")
-	_plaidAccountTransactionORM.CurrentDatetime = field.NewString(tableName, "current_datetime")
+	_plaidAccountTransactionORM.CurrentDate = field.NewTime(tableName, "current_date")
+	_plaidAccountTransactionORM.CurrentDatetime = field.NewTime(tableName, "current_datetime")
 	_plaidAccountTransactionORM.HideTransaction = field.NewBool(tableName, "hide_transaction")
 	_plaidAccountTransactionORM.Id = field.NewUint64(tableName, "id")
 	_plaidAccountTransactionORM.IsoCurrencyCode = field.NewString(tableName, "iso_currency_code")
@@ -98,15 +98,15 @@ type plaidAccountTransactionORM struct {
 	AccountId                       field.String
 	AccountOwner                    field.String
 	Amount                          field.Float64
-	AuthorizedDate                  field.String
-	AuthorizedDatetime              field.String
+	AuthorizedDate                  field.Time
+	AuthorizedDatetime              field.Time
 	BankAccountId                   field.Uint64
 	Categories                      field.Field
 	CategoryId                      field.String
 	CheckNumber                     field.String
 	CreditAccountId                 field.Uint64
-	CurrentDate                     field.String
-	CurrentDatetime                 field.String
+	CurrentDate                     field.Time
+	CurrentDatetime                 field.Time
 	HideTransaction                 field.Bool
 	Id                              field.Uint64
 	IsoCurrencyCode                 field.String
@@ -163,15 +163,15 @@ func (p *plaidAccountTransactionORM) updateTableName(table string) *plaidAccount
 	p.AccountId = field.NewString(table, "account_id")
 	p.AccountOwner = field.NewString(table, "account_owner")
 	p.Amount = field.NewFloat64(table, "amount")
-	p.AuthorizedDate = field.NewString(table, "authorized_date")
-	p.AuthorizedDatetime = field.NewString(table, "authorized_datetime")
+	p.AuthorizedDate = field.NewTime(table, "authorized_date")
+	p.AuthorizedDatetime = field.NewTime(table, "authorized_datetime")
 	p.BankAccountId = field.NewUint64(table, "bank_account_id")
 	p.Categories = field.NewField(table, "categories")
 	p.CategoryId = field.NewString(table, "category_id")
 	p.CheckNumber = field.NewString(table, "check_number")
 	p.CreditAccountId = field.NewUint64(table, "credit_account_id")
-	p.CurrentDate = field.NewString(table, "current_date")
-	p.CurrentDatetime = field.NewString(table, "current_datetime")
+	p.CurrentDate = field.NewTime(table, "current_date")
+	p.CurrentDatetime = field.NewTime(table, "current_datetime")
 	p.HideTransaction = field.NewBool(table, "hide_transaction")
 	p.Id = field.NewUint64(table, "id")
 	p.IsoCurrencyCode = field.NewString(table, "iso_currency_code")

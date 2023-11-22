@@ -11051,7 +11051,34 @@ func (m *PlaidAccountInvestmentTransaction) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for CreatedAt
+	if all {
+		switch v := interface{}(m.GetCreatedAt()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PlaidAccountInvestmentTransactionValidationError{
+					field:  "CreatedAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PlaidAccountInvestmentTransactionValidationError{
+					field:  "CreatedAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCreatedAt()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PlaidAccountInvestmentTransactionValidationError{
+				field:  "CreatedAt",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if all {
 		switch v := interface{}(m.GetTime()).(type) {
@@ -11264,9 +11291,63 @@ func (m *PlaidAccountRecurringTransaction) validate(all bool) error {
 
 	// no validation rules for PersonalFinanceCategoryDetailed
 
-	// no validation rules for FirstDate
+	if all {
+		switch v := interface{}(m.GetFirstDate()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PlaidAccountRecurringTransactionValidationError{
+					field:  "FirstDate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PlaidAccountRecurringTransactionValidationError{
+					field:  "FirstDate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetFirstDate()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PlaidAccountRecurringTransactionValidationError{
+				field:  "FirstDate",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
-	// no validation rules for LastDate
+	if all {
+		switch v := interface{}(m.GetLastDate()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PlaidAccountRecurringTransactionValidationError{
+					field:  "LastDate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PlaidAccountRecurringTransactionValidationError{
+					field:  "LastDate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetLastDate()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PlaidAccountRecurringTransactionValidationError{
+				field:  "LastDate",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	// no validation rules for Frequency
 
@@ -11284,7 +11365,34 @@ func (m *PlaidAccountRecurringTransaction) validate(all bool) error {
 
 	// no validation rules for Status
 
-	// no validation rules for UpdatedTime
+	if all {
+		switch v := interface{}(m.GetUpdatedTime()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PlaidAccountRecurringTransactionValidationError{
+					field:  "UpdatedTime",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PlaidAccountRecurringTransactionValidationError{
+					field:  "UpdatedTime",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetUpdatedTime()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PlaidAccountRecurringTransactionValidationError{
+				field:  "UpdatedTime",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if m.GetUserId() <= 0 {
 		err := PlaidAccountRecurringTransactionValidationError{
@@ -11520,13 +11628,121 @@ func (m *PlaidAccountTransaction) validate(all bool) error {
 
 	// no validation rules for TransactionCode
 
-	// no validation rules for CurrentDate
+	if all {
+		switch v := interface{}(m.GetCurrentDate()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PlaidAccountTransactionValidationError{
+					field:  "CurrentDate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PlaidAccountTransactionValidationError{
+					field:  "CurrentDate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCurrentDate()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PlaidAccountTransactionValidationError{
+				field:  "CurrentDate",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
-	// no validation rules for CurrentDatetime
+	if all {
+		switch v := interface{}(m.GetCurrentDatetime()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PlaidAccountTransactionValidationError{
+					field:  "CurrentDatetime",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PlaidAccountTransactionValidationError{
+					field:  "CurrentDatetime",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCurrentDatetime()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PlaidAccountTransactionValidationError{
+				field:  "CurrentDatetime",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
-	// no validation rules for AuthorizedDate
+	if all {
+		switch v := interface{}(m.GetAuthorizedDate()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PlaidAccountTransactionValidationError{
+					field:  "AuthorizedDate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PlaidAccountTransactionValidationError{
+					field:  "AuthorizedDate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetAuthorizedDate()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PlaidAccountTransactionValidationError{
+				field:  "AuthorizedDate",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
-	// no validation rules for AuthorizedDatetime
+	if all {
+		switch v := interface{}(m.GetAuthorizedDatetime()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PlaidAccountTransactionValidationError{
+					field:  "AuthorizedDatetime",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PlaidAccountTransactionValidationError{
+					field:  "AuthorizedDatetime",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetAuthorizedDatetime()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PlaidAccountTransactionValidationError{
+				field:  "AuthorizedDatetime",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	// no validation rules for CategoryId
 

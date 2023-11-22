@@ -31,7 +31,7 @@ func newPlaidAccountInvestmentTransactionORM(db *gorm.DB, opts ...gen.DOOption) 
 	_plaidAccountInvestmentTransactionORM.AccountId = field.NewString(tableName, "account_id")
 	_plaidAccountInvestmentTransactionORM.Ammount = field.NewString(tableName, "ammount")
 	_plaidAccountInvestmentTransactionORM.Amount = field.NewFloat64(tableName, "amount")
-	_plaidAccountInvestmentTransactionORM.CreatedAt = field.NewString(tableName, "created_at")
+	_plaidAccountInvestmentTransactionORM.CreatedAt = field.NewTime(tableName, "created_at")
 	_plaidAccountInvestmentTransactionORM.CurrentDate = field.NewString(tableName, "current_date")
 	_plaidAccountInvestmentTransactionORM.Fees = field.NewFloat64(tableName, "fees")
 	_plaidAccountInvestmentTransactionORM.Id = field.NewUint64(tableName, "id")
@@ -66,7 +66,7 @@ type plaidAccountInvestmentTransactionORM struct {
 	AccountId               field.String
 	Ammount                 field.String
 	Amount                  field.Float64
-	CreatedAt               field.String
+	CreatedAt               field.Time
 	CurrentDate             field.String
 	Fees                    field.Float64
 	Id                      field.Uint64
@@ -103,7 +103,7 @@ func (p *plaidAccountInvestmentTransactionORM) updateTableName(table string) *pl
 	p.AccountId = field.NewString(table, "account_id")
 	p.Ammount = field.NewString(table, "ammount")
 	p.Amount = field.NewFloat64(table, "amount")
-	p.CreatedAt = field.NewString(table, "created_at")
+	p.CreatedAt = field.NewTime(table, "created_at")
 	p.CurrentDate = field.NewString(table, "current_date")
 	p.Fees = field.NewFloat64(table, "fees")
 	p.Id = field.NewUint64(table, "id")

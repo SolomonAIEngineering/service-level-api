@@ -35,14 +35,14 @@ func newPlaidAccountRecurringTransactionORM(db *gorm.DB, opts ...gen.DOOption) p
 	_plaidAccountRecurringTransactionORM.CategoryId = field.NewString(tableName, "category_id")
 	_plaidAccountRecurringTransactionORM.CreditAccountId = field.NewUint64(tableName, "credit_account_id")
 	_plaidAccountRecurringTransactionORM.Description = field.NewString(tableName, "description")
-	_plaidAccountRecurringTransactionORM.FirstDate = field.NewString(tableName, "first_date")
+	_plaidAccountRecurringTransactionORM.FirstDate = field.NewTime(tableName, "first_date")
 	_plaidAccountRecurringTransactionORM.Flow = field.NewString(tableName, "flow")
 	_plaidAccountRecurringTransactionORM.Frequency = field.NewString(tableName, "frequency")
 	_plaidAccountRecurringTransactionORM.Id = field.NewUint64(tableName, "id")
 	_plaidAccountRecurringTransactionORM.IsActive = field.NewBool(tableName, "is_active")
 	_plaidAccountRecurringTransactionORM.LastAmount = field.NewString(tableName, "last_amount")
 	_plaidAccountRecurringTransactionORM.LastAmountIsoCurrencyCode = field.NewString(tableName, "last_amount_iso_currency_code")
-	_plaidAccountRecurringTransactionORM.LastDate = field.NewString(tableName, "last_date")
+	_plaidAccountRecurringTransactionORM.LastDate = field.NewTime(tableName, "last_date")
 	_plaidAccountRecurringTransactionORM.LinkId = field.NewUint64(tableName, "link_id")
 	_plaidAccountRecurringTransactionORM.MerchantName = field.NewString(tableName, "merchant_name")
 	_plaidAccountRecurringTransactionORM.PersonalFinanceCategoryDetailed = field.NewString(tableName, "personal_finance_category_detailed")
@@ -51,7 +51,7 @@ func newPlaidAccountRecurringTransactionORM(db *gorm.DB, opts ...gen.DOOption) p
 	_plaidAccountRecurringTransactionORM.StreamId = field.NewString(tableName, "stream_id")
 	_plaidAccountRecurringTransactionORM.Time = field.NewTime(tableName, "time")
 	_plaidAccountRecurringTransactionORM.TransactionIds = field.NewString(tableName, "transaction_ids")
-	_plaidAccountRecurringTransactionORM.UpdatedTime = field.NewString(tableName, "updated_time")
+	_plaidAccountRecurringTransactionORM.UpdatedTime = field.NewTime(tableName, "updated_time")
 	_plaidAccountRecurringTransactionORM.UserId = field.NewUint64(tableName, "user_id")
 	_plaidAccountRecurringTransactionORM.Notes = plaidAccountRecurringTransactionORMHasManyNotes{
 		db: db.Session(&gorm.Session{}),
@@ -75,14 +75,14 @@ type plaidAccountRecurringTransactionORM struct {
 	CategoryId                      field.String
 	CreditAccountId                 field.Uint64
 	Description                     field.String
-	FirstDate                       field.String
+	FirstDate                       field.Time
 	Flow                            field.String
 	Frequency                       field.String
 	Id                              field.Uint64
 	IsActive                        field.Bool
 	LastAmount                      field.String
 	LastAmountIsoCurrencyCode       field.String
-	LastDate                        field.String
+	LastDate                        field.Time
 	LinkId                          field.Uint64
 	MerchantName                    field.String
 	PersonalFinanceCategoryDetailed field.String
@@ -91,7 +91,7 @@ type plaidAccountRecurringTransactionORM struct {
 	StreamId                        field.String
 	Time                            field.Time
 	TransactionIds                  field.String
-	UpdatedTime                     field.String
+	UpdatedTime                     field.Time
 	UserId                          field.Uint64
 	Notes                           plaidAccountRecurringTransactionORMHasManyNotes
 
@@ -117,14 +117,14 @@ func (p *plaidAccountRecurringTransactionORM) updateTableName(table string) *pla
 	p.CategoryId = field.NewString(table, "category_id")
 	p.CreditAccountId = field.NewUint64(table, "credit_account_id")
 	p.Description = field.NewString(table, "description")
-	p.FirstDate = field.NewString(table, "first_date")
+	p.FirstDate = field.NewTime(table, "first_date")
 	p.Flow = field.NewString(table, "flow")
 	p.Frequency = field.NewString(table, "frequency")
 	p.Id = field.NewUint64(table, "id")
 	p.IsActive = field.NewBool(table, "is_active")
 	p.LastAmount = field.NewString(table, "last_amount")
 	p.LastAmountIsoCurrencyCode = field.NewString(table, "last_amount_iso_currency_code")
-	p.LastDate = field.NewString(table, "last_date")
+	p.LastDate = field.NewTime(table, "last_date")
 	p.LinkId = field.NewUint64(table, "link_id")
 	p.MerchantName = field.NewString(table, "merchant_name")
 	p.PersonalFinanceCategoryDetailed = field.NewString(table, "personal_finance_category_detailed")
@@ -133,7 +133,7 @@ func (p *plaidAccountRecurringTransactionORM) updateTableName(table string) *pla
 	p.StreamId = field.NewString(table, "stream_id")
 	p.Time = field.NewTime(table, "time")
 	p.TransactionIds = field.NewString(table, "transaction_ids")
-	p.UpdatedTime = field.NewString(table, "updated_time")
+	p.UpdatedTime = field.NewTime(table, "updated_time")
 	p.UserId = field.NewUint64(table, "user_id")
 
 	p.fillFieldMap()
