@@ -1,3 +1,10 @@
+# [1.124.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.123.0...v1.124.0) (2023-11-22)
+
+
+### Features
+
+* add transaction splitting ([0a2cd16](https://github.com/SolomonAIEngineering/service-level-api/commit/0a2cd1659365697b2618be553ac0977298da625e))
+
 # [1.123.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.122.0...v1.123.0) (2023-11-22)
 
 
