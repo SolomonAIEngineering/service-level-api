@@ -1,3 +1,10 @@
+# [1.123.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.122.0...v1.123.0) (2023-11-22)
+
+
+### Features
+
+* update newrelic link ([a74b1cb](https://github.com/SolomonAIEngineering/service-level-api/commit/a74b1cbcd25960bfbcc4a4b4c19ed8f3e8310c42))
+
 # [1.122.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.121.0...v1.122.0) (2023-11-15)
 
 
