@@ -59,7 +59,7 @@ func newInvestmentAccountORM(db *gorm.DB, opts ...gen.DOOption) investmentAccoun
 		Notes: struct {
 			field.RelationField
 		}{
-			RelationField: field.NewRelation("Transactions.Notes", "financial_servicev1.TransactionNoteORM"),
+			RelationField: field.NewRelation("Transactions.Notes", "financial_servicev1.SmartNoteORM"),
 		},
 	}
 

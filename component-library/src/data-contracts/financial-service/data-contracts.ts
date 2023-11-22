@@ -252,7 +252,7 @@ export interface Any {
    * Schemes other than `http`, `https` (or the empty scheme) might be
    * used with implementation specific semantics.
    */
-  '@type'?: string;
+  "@type"?: string;
   [key: string]: any;
 }
 
@@ -394,15 +394,12 @@ export interface BankAccount {
 
 /** @default "BANK_ACCOUNT_STATUS_UNSPECIFIED" */
 export type BankAccountStatus =
-  | 'BANK_ACCOUNT_STATUS_UNSPECIFIED'
-  | 'BANK_ACCOUNT_STATUS_ACTIVE'
-  | 'BANK_ACCOUNT_STATUS_INACTIVE';
+  | "BANK_ACCOUNT_STATUS_UNSPECIFIED"
+  | "BANK_ACCOUNT_STATUS_ACTIVE"
+  | "BANK_ACCOUNT_STATUS_INACTIVE";
 
 /** @default "BANK_ACCOUNT_TYPE_UNSPECIFIED" */
-export type BankAccountType =
-  | 'BANK_ACCOUNT_TYPE_UNSPECIFIED'
-  | 'BANK_ACCOUNT_TYPE_PLAID'
-  | 'BANK_ACCOUNT_TYPE_MANUAL';
+export type BankAccountType = "BANK_ACCOUNT_TYPE_UNSPECIFIED" | "BANK_ACCOUNT_TYPE_PLAID" | "BANK_ACCOUNT_TYPE_MANUAL";
 
 /**
  * The Budgets table stores information about each budget created by the user,
@@ -1438,9 +1435,9 @@ export interface FinancialUserProfile {
 
 /** @default "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED" */
 export type FinancialUserProfileType =
-  | 'FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED'
-  | 'FINANCIAL_USER_PROFILE_TYPE_USER'
-  | 'FINANCIAL_USER_PROFILE_TYPE_BUSINESS';
+  | "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED"
+  | "FINANCIAL_USER_PROFILE_TYPE_USER"
+  | "FINANCIAL_USER_PROFILE_TYPE_BUSINESS";
 
 /**
  * The Forecast table stores information about each forecast generated for a particular goal,
@@ -1886,11 +1883,11 @@ export interface GetUserProfileResponse {
 
 /** @default "GOAL_TYPE_UNSPECIFIED" */
 export type GoalType =
-  | 'GOAL_TYPE_UNSPECIFIED'
-  | 'GOAL_TYPE_SAVINGS'
-  | 'GOAL_TYPE_INVESTMENT'
-  | 'GOAL_TYPE_DEBT'
-  | 'GOAL_TYPE_EXPENSE';
+  | "GOAL_TYPE_UNSPECIFIED"
+  | "GOAL_TYPE_SAVINGS"
+  | "GOAL_TYPE_INVESTMENT"
+  | "GOAL_TYPE_DEBT"
+  | "GOAL_TYPE_EXPENSE";
 
 export type HealthCheckData = any;
 
@@ -2439,20 +2436,17 @@ export interface Link {
 
 /** @default "LINK_STATUS_UNSPECIFIED" */
 export type LinkStatus =
-  | 'LINK_STATUS_UNSPECIFIED'
-  | 'LINK_STATUS_SETUP'
-  | 'LINK_STATUS_PENDING'
-  | 'LINK_STATUS_ERROR'
-  | 'LINK_STATUS_SUCCESS'
-  | 'LINK_STATUS_PENDING_EXPIRATION'
-  | 'LINK_STATUS_REVOKED'
-  | 'LINK_STATUS_ITEM_LOGIN_REQUIRED';
+  | "LINK_STATUS_UNSPECIFIED"
+  | "LINK_STATUS_SETUP"
+  | "LINK_STATUS_PENDING"
+  | "LINK_STATUS_ERROR"
+  | "LINK_STATUS_SUCCESS"
+  | "LINK_STATUS_PENDING_EXPIRATION"
+  | "LINK_STATUS_REVOKED"
+  | "LINK_STATUS_ITEM_LOGIN_REQUIRED";
 
 /** @default "LINK_TYPE_UNSPECIFIED" */
-export type LinkType =
-  | 'LINK_TYPE_UNSPECIFIED'
-  | 'LINK_TYPE_PLAID'
-  | 'LINK_TYPE_MANUAL';
+export type LinkType = "LINK_TYPE_UNSPECIFIED" | "LINK_TYPE_PLAID" | "LINK_TYPE_MANUAL";
 
 export interface LinkedAccountingAccount {
   /** Represent a company's attachments. a business can have many attachments */
@@ -2941,13 +2935,13 @@ export interface PersonalActionableInsight {
 
 /** @default "PERSONAL_ACTIONABLE_INSIGHT_NAME_UNSPECIFIED" */
 export type PersonalActionableInsightName =
-  | 'PERSONAL_ACTIONABLE_INSIGHT_NAME_UNSPECIFIED'
-  | 'PERSONAL_ACTIONABLE_INSIGHT_NAME_EXPENSE'
-  | 'PERSONAL_ACTIONABLE_INSIGHT_NAME_EMERGENCY_FUND'
-  | 'PERSONAL_ACTIONABLE_INSIGHT_NAME_DEBT_PRIORITIZATION'
-  | 'PERSONAL_ACTIONABLE_INSIGHT_NAME_NON_ESSENTIAL_EXPENSES'
-  | 'PERSONAL_ACTIONABLE_INSIGHT_NAME_NON_SUBSCRIPTIONS'
-  | 'PERSONAL_ACTIONABLE_INSIGHT_NAME_DISCRETIONARY_SPENDING';
+  | "PERSONAL_ACTIONABLE_INSIGHT_NAME_UNSPECIFIED"
+  | "PERSONAL_ACTIONABLE_INSIGHT_NAME_EXPENSE"
+  | "PERSONAL_ACTIONABLE_INSIGHT_NAME_EMERGENCY_FUND"
+  | "PERSONAL_ACTIONABLE_INSIGHT_NAME_DEBT_PRIORITIZATION"
+  | "PERSONAL_ACTIONABLE_INSIGHT_NAME_NON_ESSENTIAL_EXPENSES"
+  | "PERSONAL_ACTIONABLE_INSIGHT_NAME_NON_SUBSCRIPTIONS"
+  | "PERSONAL_ACTIONABLE_INSIGHT_NAME_DISCRETIONARY_SPENDING";
 
 /** Message representing investment transactions associated with a Plaid account. */
 export interface PlaidAccountInvestmentTransaction {
@@ -3101,7 +3095,7 @@ export interface PlaidAccountInvestmentTransaction {
    * Notes associated with this investment transaction.
    * @gotag: ch:"notes"
    */
-  notes?: Array<TransactionNote>;
+  notes?: Array<SmartNote>;
   /**
    * The price per unit of the security for the investment transaction.
    * @gotag: ch:"price"
@@ -3230,7 +3224,7 @@ export interface PlaidAccountRecurringTransaction {
    */
   merchantName?: string;
   /** Notes associated with this recurring transaction. */
-  notes?: Array<TransactionNote>;
+  notes?: Array<SmartNote>;
   /**
    * The detailed personal finance category of the recurring transaction.
    * @gotag: ch:"personal_finance_category_detailed"
@@ -3384,7 +3378,7 @@ export interface PlaidAccountTransaction {
   /** Indicates whether this transaction needs review. */
   needsReview?: boolean;
   /** Notes associated with this transaction. */
-  notes?: Array<TransactionNote>;
+  notes?: Array<SmartNote>;
   /**
    * The payment channel for the transaction.
    *
@@ -3606,14 +3600,14 @@ export interface Pocket {
 
 /** @default "POCKET_TYPE_UNSPECIFIED" */
 export type PocketType =
-  | 'POCKET_TYPE_UNSPECIFIED'
-  | 'POCKET_TYPE_DISCRETIONARY_SPENDING'
-  | 'POCKET_TYPE_FUN_MONEY'
-  | 'POCKET_TYPE_DEBT_REDUCTION'
-  | 'POCKET_TYPE_EMERGENCY_FUND'
-  | 'POCKET_TYPE_INVESTMENT'
-  | 'POCKET_TYPE_SHORT_TERM_SAVINGS'
-  | 'POCKET_TYPE_LONG_TERM_SAVINGS';
+  | "POCKET_TYPE_UNSPECIFIED"
+  | "POCKET_TYPE_DISCRETIONARY_SPENDING"
+  | "POCKET_TYPE_FUN_MONEY"
+  | "POCKET_TYPE_DEBT_REDUCTION"
+  | "POCKET_TYPE_EMERGENCY_FUND"
+  | "POCKET_TYPE_INVESTMENT"
+  | "POCKET_TYPE_SHORT_TERM_SAVINGS"
+  | "POCKET_TYPE_LONG_TERM_SAVINGS";
 
 export type ProcessStripeWebhookData = any;
 
@@ -3745,10 +3739,7 @@ export interface PurchaseOrderLineItem {
 }
 
 /** @default "RE_CURRING_FLOW_UNSPECIFIED" */
-export type ReCurringFlow =
-  | 'RE_CURRING_FLOW_UNSPECIFIED'
-  | 'RE_CURRING_FLOW_INFLOW'
-  | 'RE_CURRING_FLOW_OUTFLOW';
+export type ReCurringFlow = "RE_CURRING_FLOW_UNSPECIFIED" | "RE_CURRING_FLOW_INFLOW" | "RE_CURRING_FLOW_OUTFLOW";
 
 export interface ReOccuringTransaction {
   /** @gotag: ch:"account_id" */
@@ -3904,12 +3895,12 @@ export interface ReOccuringTransaction {
 
 /** @default "RE_OCCURING_TRANSACTIONS_FREQUENCY_UNSPECIFIED" */
 export type ReOccuringTransactionsFrequency =
-  | 'RE_OCCURING_TRANSACTIONS_FREQUENCY_UNSPECIFIED'
-  | 'RE_OCCURING_TRANSACTIONS_FREQUENCY_WEEKLY'
-  | 'RE_OCCURING_TRANSACTIONS_FREQUENCY_BIWEEKLY'
-  | 'RE_OCCURING_TRANSACTIONS_FREQUENCY_SEMI_MONTHLY'
-  | 'RE_OCCURING_TRANSACTIONS_FREQUENCY_MONTHLY'
-  | 'RE_OCCURING_TRANSACTIONS_FREQUENCY_ANNUALLY';
+  | "RE_OCCURING_TRANSACTIONS_FREQUENCY_UNSPECIFIED"
+  | "RE_OCCURING_TRANSACTIONS_FREQUENCY_WEEKLY"
+  | "RE_OCCURING_TRANSACTIONS_FREQUENCY_BIWEEKLY"
+  | "RE_OCCURING_TRANSACTIONS_FREQUENCY_SEMI_MONTHLY"
+  | "RE_OCCURING_TRANSACTIONS_FREQUENCY_MONTHLY"
+  | "RE_OCCURING_TRANSACTIONS_FREQUENCY_ANNUALLY";
 
 /**
  *  - RE_OCCURING_TRANSACTIONS_STATUS_MATURE: A MATURE recurring stream should have at least 3 transactions and happen
@@ -3921,10 +3912,10 @@ export type ReOccuringTransactionsFrequency =
  * @default "RE_OCCURING_TRANSACTIONS_STATUS_UNSPECIFIED"
  */
 export type ReOccuringTransactionsStatus =
-  | 'RE_OCCURING_TRANSACTIONS_STATUS_UNSPECIFIED'
-  | 'RE_OCCURING_TRANSACTIONS_STATUS_MATURE'
-  | 'RE_OCCURING_TRANSACTIONS_STATUS_EARLY_DETECTION'
-  | 'RE_OCCURING_TRANSACTIONS_STATUS_TOMBSTONED';
+  | "RE_OCCURING_TRANSACTIONS_STATUS_UNSPECIFIED"
+  | "RE_OCCURING_TRANSACTIONS_STATUS_MATURE"
+  | "RE_OCCURING_TRANSACTIONS_STATUS_EARLY_DETECTION"
+  | "RE_OCCURING_TRANSACTIONS_STATUS_TOMBSTONED";
 
 export type ReadynessCheckData = any;
 
@@ -4140,17 +4131,17 @@ export interface StripeSubscription {
 
 /** @default "STRIPE_SUBSCRIPTION_STATUS_UNSPECIFIED" */
 export type StripeSubscriptionStatus =
-  | 'STRIPE_SUBSCRIPTION_STATUS_UNSPECIFIED'
-  | 'STRIPE_SUBSCRIPTION_STATUS_TRIALING'
-  | 'STRIPE_SUBSCRIPTION_STATUS_ACTIVE'
-  | 'STRIPE_SUBSCRIPTION_STATUS_PAST_DUE'
-  | 'STRIPE_SUBSCRIPTION_STATUS_CANCELED'
-  | 'STRIPE_SUBSCRIPTION_STATUS_UNPAID'
-  | 'STRIPE_SUBSCRIPTION_STATUS_COMPLETE'
-  | 'STRIPE_SUBSCRIPTION_STATUS_INCOMPLETE'
-  | 'STRIPE_SUBSCRIPTION_STATUS_INCOMPLETE_EXPIRED'
-  | 'STRIPE_SUBSCRIPTION_STATUS_CREATED'
-  | 'STRIPE_SUBSCRIPTION_STATUS_PAUSED';
+  | "STRIPE_SUBSCRIPTION_STATUS_UNSPECIFIED"
+  | "STRIPE_SUBSCRIPTION_STATUS_TRIALING"
+  | "STRIPE_SUBSCRIPTION_STATUS_ACTIVE"
+  | "STRIPE_SUBSCRIPTION_STATUS_PAST_DUE"
+  | "STRIPE_SUBSCRIPTION_STATUS_CANCELED"
+  | "STRIPE_SUBSCRIPTION_STATUS_UNPAID"
+  | "STRIPE_SUBSCRIPTION_STATUS_COMPLETE"
+  | "STRIPE_SUBSCRIPTION_STATUS_INCOMPLETE"
+  | "STRIPE_SUBSCRIPTION_STATUS_INCOMPLETE_EXPIRED"
+  | "STRIPE_SUBSCRIPTION_STATUS_CREATED"
+  | "STRIPE_SUBSCRIPTION_STATUS_PAUSED";
 
 export interface StripeWebhookRequest {
   body?: string;
@@ -4505,33 +4496,6 @@ export interface TransactionLineItem {
   trackingCategories?: Array<string>;
   trackingCategory?: string;
   unitPrice?: string;
-}
-
-export interface TransactionNote {
-  /**
-   * Time Note Was Created At: A timestamp indicating when this note was created.
-   * @format date-time
-   */
-  createdAt?: string;
-  /**
-   * Id: An unsigned 64-bit integer representing the unique ID of the transaction note.
-   * @format uint64
-   */
-  id?: string;
-  /** Note: A string field for storing the note text. */
-  note?: string;
-  /** Transaction Id: A string representing the transaction ID associated with this note. */
-  transactionId?: string;
-  /**
-   * Time Note Was Updated: A timestamp indicating when this note was last updated.
-   * @format date-time
-   */
-  updatedAt?: string;
-  /**
-   * User Id That Created The Note: An unsigned 64-bit integer representing the user ID associated with this note.
-   * @format uint64
-   */
-  userId?: string;
 }
 
 export type UpdateBankAccountData = any;

@@ -56,7 +56,7 @@ func newPlaidAccountRecurringTransactionORM(db *gorm.DB, opts ...gen.DOOption) p
 	_plaidAccountRecurringTransactionORM.Notes = plaidAccountRecurringTransactionORMHasManyNotes{
 		db: db.Session(&gorm.Session{}),
 
-		RelationField: field.NewRelation("Notes", "financial_servicev1.TransactionNoteORM"),
+		RelationField: field.NewRelation("Notes", "financial_servicev1.SmartNoteORM"),
 	}
 
 	_plaidAccountRecurringTransactionORM.fillFieldMap()
@@ -225,11 +225,11 @@ func (a plaidAccountRecurringTransactionORMHasManyNotes) Model(m *financial_serv
 
 type plaidAccountRecurringTransactionORMHasManyNotesTx struct{ tx *gorm.Association }
 
-func (a plaidAccountRecurringTransactionORMHasManyNotesTx) Find() (result []*financial_servicev1.TransactionNoteORM, err error) {
+func (a plaidAccountRecurringTransactionORMHasManyNotesTx) Find() (result []*financial_servicev1.SmartNoteORM, err error) {
 	return result, a.tx.Find(&result)
 }
 
-func (a plaidAccountRecurringTransactionORMHasManyNotesTx) Append(values ...*financial_servicev1.TransactionNoteORM) (err error) {
+func (a plaidAccountRecurringTransactionORMHasManyNotesTx) Append(values ...*financial_servicev1.SmartNoteORM) (err error) {
 	targetValues := make([]interface{}, len(values))
 	for i, v := range values {
 		targetValues[i] = v
@@ -237,7 +237,7 @@ func (a plaidAccountRecurringTransactionORMHasManyNotesTx) Append(values ...*fin
 	return a.tx.Append(targetValues...)
 }
 
-func (a plaidAccountRecurringTransactionORMHasManyNotesTx) Replace(values ...*financial_servicev1.TransactionNoteORM) (err error) {
+func (a plaidAccountRecurringTransactionORMHasManyNotesTx) Replace(values ...*financial_servicev1.SmartNoteORM) (err error) {
 	targetValues := make([]interface{}, len(values))
 	for i, v := range values {
 		targetValues[i] = v
@@ -245,7 +245,7 @@ func (a plaidAccountRecurringTransactionORMHasManyNotesTx) Replace(values ...*fi
 	return a.tx.Replace(targetValues...)
 }
 
-func (a plaidAccountRecurringTransactionORMHasManyNotesTx) Delete(values ...*financial_servicev1.TransactionNoteORM) (err error) {
+func (a plaidAccountRecurringTransactionORMHasManyNotesTx) Delete(values ...*financial_servicev1.SmartNoteORM) (err error) {
 	targetValues := make([]interface{}, len(values))
 	for i, v := range values {
 		targetValues[i] = v

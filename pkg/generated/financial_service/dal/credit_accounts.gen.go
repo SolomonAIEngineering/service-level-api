@@ -62,7 +62,7 @@ func newCreditAccountORM(db *gorm.DB, opts ...gen.DOOption) creditAccountORM {
 		Notes: struct {
 			field.RelationField
 		}{
-			RelationField: field.NewRelation("RecurringTransactions.Notes", "financial_servicev1.TransactionNoteORM"),
+			RelationField: field.NewRelation("RecurringTransactions.Notes", "financial_servicev1.SmartNoteORM"),
 		},
 	}
 
@@ -73,7 +73,7 @@ func newCreditAccountORM(db *gorm.DB, opts ...gen.DOOption) creditAccountORM {
 		Notes: struct {
 			field.RelationField
 		}{
-			RelationField: field.NewRelation("Transactions.Notes", "financial_servicev1.TransactionNoteORM"),
+			RelationField: field.NewRelation("Transactions.Notes", "financial_servicev1.SmartNoteORM"),
 		},
 	}
 

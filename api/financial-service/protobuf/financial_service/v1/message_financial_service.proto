@@ -2111,7 +2111,7 @@ message PlaidAccountInvestmentTransaction {
 
     // Notes associated with this investment transaction.
     // @gotag: ch:"notes"
-    repeated TransactionNote notes = 27 [
+    repeated SmartNote notes = 27 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
     ];
 }
@@ -2224,7 +2224,7 @@ message PlaidAccountRecurringTransaction {
     google.protobuf.Any additional_properties = 26;
 
     // Notes associated with this recurring transaction.
-    repeated TransactionNote notes = 27 [
+    repeated SmartNote notes = 27 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
     ];
 }
@@ -2401,34 +2401,7 @@ message PlaidAccountTransaction {
     ];
 
     // Notes associated with this transaction.
-    repeated TransactionNote notes = 49 [
+    repeated SmartNote notes = 49 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
     ];
-}
-
-
-message TransactionNote {
-    // Option to indicate that this message is ORM-able using GORM.
-    option (gorm.opts) = {ormable: true};
-
-    // Id: An unsigned 64-bit integer representing the unique ID of the transaction note.
-    uint64 id = 1 [
-        // Additional options for generating OpenAPI documentation.
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
-    ];
-
-    // Transaction Id: A string representing the transaction ID associated with this note.
-    string transaction_id = 2;
-
-    // Note: A string field for storing the note text.
-    string note = 3;
-
-    // Time Note Was Created At: A timestamp indicating when this note was created.
-    google.protobuf.Timestamp created_at = 4;
-
-    // Time Note Was Updated: A timestamp indicating when this note was last updated.
-    google.protobuf.Timestamp updated_at = 5;
-
-    // User Id That Created The Note: An unsigned 64-bit integer representing the user ID associated with this note.
-    uint64 user_id = 6;
 }

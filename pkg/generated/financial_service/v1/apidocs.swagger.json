@@ -9669,7 +9669,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/TransactionNote"
+            "$ref": "#/definitions/SmartNote"
           },
           "title": "Notes associated with this investment transaction.\n@gotag: ch:\"notes\""
         }
@@ -9783,7 +9783,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/TransactionNote"
+            "$ref": "#/definitions/SmartNote"
           },
           "description": "Notes associated with this recurring transaction."
         }
@@ -9990,7 +9990,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/TransactionNote"
+            "$ref": "#/definitions/SmartNote"
           },
           "description": "Notes associated with this transaction."
         }
@@ -11473,39 +11473,6 @@
         "modifiedAt": {
           "type": "string",
           "format": "date-time"
-        }
-      }
-    },
-    "TransactionNote": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "format": "uint64",
-          "description": "Id: An unsigned 64-bit integer representing the unique ID of the transaction note."
-        },
-        "transactionId": {
-          "type": "string",
-          "description": "Transaction Id: A string representing the transaction ID associated with this note."
-        },
-        "note": {
-          "type": "string",
-          "description": "Note: A string field for storing the note text."
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time",
-          "description": "Time Note Was Created At: A timestamp indicating when this note was created."
-        },
-        "updatedAt": {
-          "type": "string",
-          "format": "date-time",
-          "description": "Time Note Was Updated: A timestamp indicating when this note was last updated."
-        },
-        "userId": {
-          "type": "string",
-          "format": "uint64",
-          "description": "User Id That Created The Note: An unsigned 64-bit integer representing the user ID associated with this note."
         }
       }
     },

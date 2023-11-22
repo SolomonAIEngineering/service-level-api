@@ -31,6 +31,9 @@ func newSmartNoteORM(db *gorm.DB, opts ...gen.DOOption) smartNoteORM {
 	_smartNoteORM.Content = field.NewString(tableName, "content")
 	_smartNoteORM.CreatedAt = field.NewTime(tableName, "created_at")
 	_smartNoteORM.Id = field.NewUint64(tableName, "id")
+	_smartNoteORM.PlaidAccountInvestmentTransactionId = field.NewUint64(tableName, "plaid_account_investment_transaction_id")
+	_smartNoteORM.PlaidAccountRecurringTransactionId = field.NewUint64(tableName, "plaid_account_recurring_transaction_id")
+	_smartNoteORM.PlaidAccountTransactionId = field.NewUint64(tableName, "plaid_account_transaction_id")
 	_smartNoteORM.SmartGoalId = field.NewUint64(tableName, "smart_goal_id")
 	_smartNoteORM.UpdatedAt = field.NewTime(tableName, "updated_at")
 	_smartNoteORM.UserId = field.NewUint64(tableName, "user_id")
@@ -43,13 +46,16 @@ func newSmartNoteORM(db *gorm.DB, opts ...gen.DOOption) smartNoteORM {
 type smartNoteORM struct {
 	smartNoteORMDo
 
-	ALL         field.Asterisk
-	Content     field.String
-	CreatedAt   field.Time
-	Id          field.Uint64
-	SmartGoalId field.Uint64
-	UpdatedAt   field.Time
-	UserId      field.Uint64
+	ALL                                 field.Asterisk
+	Content                             field.String
+	CreatedAt                           field.Time
+	Id                                  field.Uint64
+	PlaidAccountInvestmentTransactionId field.Uint64
+	PlaidAccountRecurringTransactionId  field.Uint64
+	PlaidAccountTransactionId           field.Uint64
+	SmartGoalId                         field.Uint64
+	UpdatedAt                           field.Time
+	UserId                              field.Uint64
 
 	fieldMap map[string]field.Expr
 }
@@ -69,6 +75,9 @@ func (s *smartNoteORM) updateTableName(table string) *smartNoteORM {
 	s.Content = field.NewString(table, "content")
 	s.CreatedAt = field.NewTime(table, "created_at")
 	s.Id = field.NewUint64(table, "id")
+	s.PlaidAccountInvestmentTransactionId = field.NewUint64(table, "plaid_account_investment_transaction_id")
+	s.PlaidAccountRecurringTransactionId = field.NewUint64(table, "plaid_account_recurring_transaction_id")
+	s.PlaidAccountTransactionId = field.NewUint64(table, "plaid_account_transaction_id")
 	s.SmartGoalId = field.NewUint64(table, "smart_goal_id")
 	s.UpdatedAt = field.NewTime(table, "updated_at")
 	s.UserId = field.NewUint64(table, "user_id")
@@ -88,10 +97,13 @@ func (s *smartNoteORM) GetFieldByName(fieldName string) (field.OrderExpr, bool) 
 }
 
 func (s *smartNoteORM) fillFieldMap() {
-	s.fieldMap = make(map[string]field.Expr, 6)
+	s.fieldMap = make(map[string]field.Expr, 9)
 	s.fieldMap["content"] = s.Content
 	s.fieldMap["created_at"] = s.CreatedAt
 	s.fieldMap["id"] = s.Id
+	s.fieldMap["plaid_account_investment_transaction_id"] = s.PlaidAccountInvestmentTransactionId
+	s.fieldMap["plaid_account_recurring_transaction_id"] = s.PlaidAccountRecurringTransactionId
+	s.fieldMap["plaid_account_transaction_id"] = s.PlaidAccountTransactionId
 	s.fieldMap["smart_goal_id"] = s.SmartGoalId
 	s.fieldMap["updated_at"] = s.UpdatedAt
 	s.fieldMap["user_id"] = s.UserId

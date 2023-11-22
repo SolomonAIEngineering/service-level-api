@@ -195,7 +195,7 @@ func newFinancialUserProfileORM(db *gorm.DB, opts ...gen.DOOption) financialUser
 				Notes: struct {
 					field.RelationField
 				}{
-					RelationField: field.NewRelation("Link.BankAccounts.RecurringTransactions.Notes", "financial_servicev1.TransactionNoteORM"),
+					RelationField: field.NewRelation("Link.BankAccounts.RecurringTransactions.Notes", "financial_servicev1.SmartNoteORM"),
 				},
 			},
 			Transactions: struct {
@@ -208,7 +208,7 @@ func newFinancialUserProfileORM(db *gorm.DB, opts ...gen.DOOption) financialUser
 				Notes: struct {
 					field.RelationField
 				}{
-					RelationField: field.NewRelation("Link.BankAccounts.Transactions.Notes", "financial_servicev1.TransactionNoteORM"),
+					RelationField: field.NewRelation("Link.BankAccounts.Transactions.Notes", "financial_servicev1.SmartNoteORM"),
 				},
 			},
 		},
@@ -277,7 +277,7 @@ func newFinancialUserProfileORM(db *gorm.DB, opts ...gen.DOOption) financialUser
 				Notes: struct {
 					field.RelationField
 				}{
-					RelationField: field.NewRelation("Link.InvestmentAccounts.Transactions.Notes", "financial_servicev1.TransactionNoteORM"),
+					RelationField: field.NewRelation("Link.InvestmentAccounts.Transactions.Notes", "financial_servicev1.SmartNoteORM"),
 				},
 			},
 		},
