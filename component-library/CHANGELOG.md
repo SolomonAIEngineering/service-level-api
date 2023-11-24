@@ -1,3 +1,10 @@
+# [1.126.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.125.0...v1.126.0) (2023-11-24)
+
+
+### Features
+
+* add new endpoints ([#55](https://github.com/SolomonAIEngineering/service-level-api/issues/55)) ([a1c40a6](https://github.com/SolomonAIEngineering/service-level-api/commit/a1c40a6317207cb6253213cbfc3addcfc37fa191))
+
 # [1.125.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.124.0...v1.125.0) (2023-11-22)
 
 
