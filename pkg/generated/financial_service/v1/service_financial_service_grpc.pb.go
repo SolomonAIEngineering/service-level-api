@@ -97,347 +97,152 @@ const (
 	FinancialService_DeleteNoteFromSmartGoal_FullMethodName                     = "/financial_service.v1.FinancialService/DeleteNoteFromSmartGoal"
 	FinancialService_GetNotesFromSmartGoal_FullMethodName                       = "/financial_service.v1.FinancialService/GetNotesFromSmartGoal"
 	FinancialService_GetNoteFromSmartGoal_FullMethodName                        = "/financial_service.v1.FinancialService/GetNoteFromSmartGoal"
+	FinancialService_ListTransactions_FullMethodName                            = "/financial_service.v1.FinancialService/ListTransactions"
+	FinancialService_GetTransaction_FullMethodName                              = "/financial_service.v1.FinancialService/GetTransaction"
+	FinancialService_UpdateTransaction_FullMethodName                           = "/financial_service.v1.FinancialService/UpdateTransaction"
+	FinancialService_BulkUpdateTransaction_FullMethodName                       = "/financial_service.v1.FinancialService/BulkUpdateTransaction"
+	FinancialService_DeleteTransaction_FullMethodName                           = "/financial_service.v1.FinancialService/DeleteTransaction"
+	FinancialService_AddNoteToTransaction_FullMethodName                        = "/financial_service.v1.FinancialService/AddNoteToTransaction"
+	FinancialService_UpdateNoteToTransaction_FullMethodName                     = "/financial_service.v1.FinancialService/UpdateNoteToTransaction"
+	FinancialService_DeleteNoteFromTransaction_FullMethodName                   = "/financial_service.v1.FinancialService/DeleteNoteFromTransaction"
+	FinancialService_ListTransactionNotes_FullMethodName                        = "/financial_service.v1.FinancialService/ListTransactionNotes"
+	FinancialService_GetNoteFromTransaction_FullMethodName                      = "/financial_service.v1.FinancialService/GetNoteFromTransaction"
+	FinancialService_SplitTransaction_FullMethodName                            = "/financial_service.v1.FinancialService/SplitTransaction"
+	FinancialService_UnSplitTransactions_FullMethodName                         = "/financial_service.v1.FinancialService/UnSplitTransactions"
+	FinancialService_GetSplitTransaction_FullMethodName                         = "/financial_service.v1.FinancialService/GetSplitTransaction"
+	FinancialService_SearchTransactions_FullMethodName                          = "/financial_service.v1.FinancialService/SearchTransactions"
 )
 
 // FinancialServiceClient is the client API for FinancialService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type FinancialServiceClient interface {
-	// Link utilizes a series of token exchanges to securely authenticate your users' integrations.
-	// 1. Get a link_token to initialize a Link session for your end user.
-	// 2. Make Link appear in your frontend.
-	// 3. Swap for an account_token, which authenticates future requests to the Unified API.
-	//
 	// MergeGetPublicLinkToken enables the client to get a link_token to initialize a Link session for your end user.
 	MergeGetPublicLinkToken(ctx context.Context, in *MergeGetPublicLinkTokenRequest, opts ...grpc.CallOption) (*MergeGetPublicLinkTokenResponse, error)
+	// MergeExchangePublicLinkTokenForAccountToken enables the client to exchange a public link token for an access token
 	MergeExchangePublicLinkTokenForAccountToken(ctx context.Context, in *MergeExchangePublicLinkTokenForAccountTokenRequest, opts ...grpc.CallOption) (*MergeExchangePublicLinkTokenForAccountTokenResponse, error)
+	// PlaidInitiateTokenExchange enables the client to get a link_token to initialize a Link session for your end user.
 	PlaidInitiateTokenExchange(ctx context.Context, in *PlaidInitiateTokenExchangeRequest, opts ...grpc.CallOption) (*PlaidInitiateTokenExchangeResponse, error)
+	// PlaidInitiateTokenUpdate enables the cleint to initiate a plaid token update operation
 	PlaidInitiateTokenUpdate(ctx context.Context, in *PlaidInitiateTokenUpdateRequest, opts ...grpc.CallOption) (*PlaidInitiateTokenUpdateResponse, error)
+	// PlaidExchangeToken enables the client to exchange a plaid link token for an access token
 	PlaidExchangeToken(ctx context.Context, in *PlaidExchangeTokenRequest, opts ...grpc.CallOption) (*PlaidExchangeTokenResponse, error)
+	// CreateUserProfile performs an a creation operation of a user profile based on the provided parameters
+	// This operation is implemented as a distributed transactions as this operation can span multiple services
 	CreateUserProfile(ctx context.Context, in *CreateUserProfileRequest, opts ...grpc.CallOption) (*CreateUserProfileResponse, error)
+	// GetUserProfile Queries and obtains a user profile based on the provided parameters
 	GetUserProfile(ctx context.Context, in *GetUserProfileRequest, opts ...grpc.CallOption) (*GetUserProfileResponse, error)
+	// DeleteUserProfile performs a delete operation on a user profile based on the provided parameters
 	DeleteUserProfile(ctx context.Context, in *DeleteUserProfileRequest, opts ...grpc.CallOption) (*DeleteUserProfileResponse, error)
+	// UpdateUserProfile  performs an updates operation on a user profile based on the provided parameters
 	UpdateUserProfile(ctx context.Context, in *UpdateUserProfileRequest, opts ...grpc.CallOption) (*UpdateUserProfileResponse, error)
+	// CreateBankAccount creates a bank account for a given user profile
 	CreateBankAccount(ctx context.Context, in *CreateBankAccountRequest, opts ...grpc.CallOption) (*CreateBankAccountResponse, error)
+	// GetBankAccount gets a bank account for a given user
 	GetBankAccount(ctx context.Context, in *GetBankAccountRequest, opts ...grpc.CallOption) (*GetBankAccountResponse, error)
+	// UpdateBankAccount updates the bank account for a given user profile
 	UpdateBankAccount(ctx context.Context, in *UpdateBankAccountRequest, opts ...grpc.CallOption) (*UpdateBankAccountResponse, error)
+	// DeleteBankAccount deletes a bank account for a given user profile
 	DeleteBankAccount(ctx context.Context, in *DeleteBankAccountRequest, opts ...grpc.CallOption) (*DeleteBankAccountResponse, error)
+	// GetPocket get a pocket tied to a given users account
 	GetPocket(ctx context.Context, in *GetPocketRequest, opts ...grpc.CallOption) (*GetPocketResponse, error)
+	// GetSmartGoalsByPocketId gets a smart goal tied to a pocket
 	GetSmartGoalsByPocketId(ctx context.Context, in *GetSmartGoalsByPocketIdRequest, opts ...grpc.CallOption) (*GetSmartGoalsByPocketIdResponse, error)
+	// CreateSmartGoal creates a smart goal
 	CreateSmartGoal(ctx context.Context, in *CreateSmartGoalRequest, opts ...grpc.CallOption) (*CreateSmartGoalResponse, error)
+	// UpdateSmartGoal updates a smart goal
 	UpdateSmartGoal(ctx context.Context, in *UpdateSmartGoalRequest, opts ...grpc.CallOption) (*UpdateSmartGoalResponse, error)
+	// deletes a smart goal
 	DeleteSmartGoal(ctx context.Context, in *DeleteSmartGoalRequest, opts ...grpc.CallOption) (*DeleteSmartGoalResponse, error)
+	// creates a milestone
 	CreateMilestone(ctx context.Context, in *CreateMilestoneRequest, opts ...grpc.CallOption) (*CreateMilestoneResponse, error)
+	// deletes a milestone
 	DeleteMilestone(ctx context.Context, in *DeleteMilestoneRequest, opts ...grpc.CallOption) (*DeleteMilestoneResponse, error)
+	// updates a milestone
 	UpdateMilestone(ctx context.Context, in *UpdateMilestoneRequest, opts ...grpc.CallOption) (*UpdateMilestoneResponse, error)
+	// gets a milestone
 	GetMilestone(ctx context.Context, in *GetMilestoneRequest, opts ...grpc.CallOption) (*GetMilestoneResponse, error)
+	// gets milestones tied to a smart goal
 	GetMilestonesBySmartGoalId(ctx context.Context, in *GetMilestonesBySmartGoalIdRequest, opts ...grpc.CallOption) (*GetMilestonesBySmartGoalIdResponse, error)
+	// gets a forecast
 	GetForecast(ctx context.Context, in *GetForecastRequest, opts ...grpc.CallOption) (*GetForecastResponse, error)
+	// creates a budget
 	CreateBudget(ctx context.Context, in *CreateBudgetRequest, opts ...grpc.CallOption) (*CreateBudgetResponse, error)
+	// updates a budget
 	UpdateBudget(ctx context.Context, in *UpdateBudgetRequest, opts ...grpc.CallOption) (*UpdateBudgetResponse, error)
+	// deletes a budget
 	DeleteBudget(ctx context.Context, in *DeleteBudgetRequest, opts ...grpc.CallOption) (*DeleteBudgetResponse, error)
+	// gets a given budget for a given user
 	GetBudget(ctx context.Context, in *GetBudgetRequest, opts ...grpc.CallOption) (*GetBudgetResponse, error)
+	// Gets all budgets
 	GetAllBudgets(ctx context.Context, in *GetAllBudgetsRequest, opts ...grpc.CallOption) (*GetAllBudgetsResponse, error)
 	HealthCheck(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error)
 	ReadynessCheck(ctx context.Context, in *ReadynessCheckRequest, opts ...grpc.CallOption) (*ReadynessCheckResponse, error)
+	// Gets an investment account
 	GetInvestmentAcccount(ctx context.Context, in *GetInvestmentAcccountRequest, opts ...grpc.CallOption) (*GetInvestmentAcccountResponse, error)
+	// Gets a mortgage account
 	GetMortgageAccount(ctx context.Context, in *GetMortgageAccountRequest, opts ...grpc.CallOption) (*GetMortgageAccountResponse, error)
+	// Get a liability account
 	GetLiabilityAccount(ctx context.Context, in *GetLiabilityAccountRequest, opts ...grpc.CallOption) (*GetLiabilityAccountResponse, error)
+	// Gets student loan account
 	GetStudentLoanAccount(ctx context.Context, in *GetStudentLoanAccountRequest, opts ...grpc.CallOption) (*GetStudentLoanAccountResponse, error)
+	// Creates a manual link
 	CreateManualLink(ctx context.Context, in *CreateManualLinkRequest, opts ...grpc.CallOption) (*CreateManualLinkResponse, error)
+	// Get a specific linked account
 	GetLink(ctx context.Context, in *GetLinkRequest, opts ...grpc.CallOption) (*GetLinkResponse, error)
+	// Gets all the links for a given user
 	GetLinks(ctx context.Context, in *GetLinksRequest, opts ...grpc.CallOption) (*GetLinksResponse, error)
+	// Deletes a linked account
 	DeleteLink(ctx context.Context, in *DeleteLinkRequest, opts ...grpc.CallOption) (*DeleteLinkResponse, error)
-	// Description: This endpoint enables end users to get recurring transactions
-	// Parameters:
-	// - user_id - user id of the user whose recurring transaction we seek to fetch
-	// API Version: 1.
-	// API: /api/v1/transactions/recurring-transactions/{user_id}
+	// This endpoint enables end users to get recurring transactions
 	GetReCurringTransactions(ctx context.Context, in *GetReCurringTransactionsRequest, opts ...grpc.CallOption) (*GetReCurringTransactionsResponse, error)
-	// Description: This endpoint enables end users to get transactions in a paginated manner
-	// Parameters:
-	// - user_id - user id of the user whose recurring transaction we seek to fetch
-	// - page_number - page number of the transaction we want to fetch (page number)
-	// - page_size - page size of the transaction we want to fetch (number of transactions)
-	// API Version: 1.
-	// API: /api/v1/transactions/{user_id}/pageNumber/{page_number}/pageSize/{page_size}
+	// This endpoint enables end users to get transactions in a paginated manner
 	GetTransactions(ctx context.Context, in *GetTransactionsRequest, opts ...grpc.CallOption) (*GetTransactionsResponse, error)
-	// Description: This endpoint enables us to process plaid webhooks
-	// Body:
-	// - {
-	// "webhookType": "string",
-	// "webhookCode": "string",
-	// "itemId": "string",
-	// "initialUpdateComplete": true,
-	// "historicalUpdateComplete": "string",
-	// "environment": "string",
-	// "newTransactions": [
-	// "string"
-	// ],
-	// "removedTransactions": [
-	// "string"
-	// ],
-	// "error": {
-	// "additionalProp1": {
-	// "@type": "string",
-	// "additionalProp1": "string",
-	// "additionalProp2": "string",
-	// "additionalProp3": "string"
-	// },
-	// "additionalProp2": {
-	// "@type": "string",
-	// "additionalProp1": "string",
-	// "additionalProp2": "string",
-	// "additionalProp3": "string"
-	// },
-	// "additionalProp3": {
-	// "@type": "string",
-	// "additionalProp1": "string",
-	// "additionalProp2": "string",
-	// "additionalProp3": "string"
-	// }
-	// },
-	// "accountIds": [
-	// "string"
-	// ],
-	// "consentExpirationTime": "string",
-	// "accountIdsWithNewLiabilities": [
-	// "string"
-	// ],
-	// "accountIdsWithUpdatedLiabilities": [
-	// "string"
-	// ],
-	// "newHoldings": "string",
-	// "updatedHoldings": "string"
-	// }
-	// API Version: 1.
-	// API: /api/v1/plaid/webhook
+	// this endpoint enables us to process plaid webhooks
 	ProcessWebhook(ctx context.Context, in *ProcessWebhookRequest, opts ...grpc.CallOption) (*ProcessWebhookResponse, error)
-	// Description: This endpoint enables us to process stripe webhooks
-	// Body:
-	// - {
-	// "body": "string",
-	// "signature": "string"
-	// }
-	// API Version: 1.
-	// API: /api/v1/stripe/webhook
+	// This endpoint enables us to process stripe webhooks
 	StripeWebhook(ctx context.Context, in *StripeWebhookRequest, opts ...grpc.CallOption) (*StripeWebhookResponse, error)
-	// Description: This endpoint enables end users to get transactions in a paginated manner
-	// Body:
-	// - {
-	// userId*	string($uint64)
-	// priceId*	string
-	// }
-	// API Version: 1.
-	// API: /api/v1/stripe/subscription
+	// This endpoint enables end users to get transactions in a paginated manner
 	CreateSubscription(ctx context.Context, in *CreateSubscriptionRequest, opts ...grpc.CallOption) (*CreateSubscriptionResponse, error)
-	// Description: This endpoint enables end users to get transaction aggregated by month
-	// Parameters:
-	// - user_id - user id of the user whose recurring transaction we seek to fetch
-	// Optional Parameters:
-	// - month - month of the transaction
-	// - personalFinanceCategoryPrimary - personal financial category
-	// - locationCity - location of the transaction
-	// - paymentChannel - payment channel
-	// - merchantName - merchant name
-	// - pageNumber - page number
-	// - pageSize - page size
-	// API Version: 1.
-	// API: /api/v1/analytics/transaction-aggregates/{user_id}?pageNumber={page_number}&pageSize={page_size}&merchantName={merchant_name}&paymentChannel={payment_channel}&locationCity={location_city}&personalFinanceCategoryPrimary={personal_finance_category_primary}&month={month}
+	// Transaction Aggregates By Various parameters
 	GetTransactionAggregates(ctx context.Context, in *GetTransactionAggregatesRequest, opts ...grpc.CallOption) (*GetTransactionAggregatesResponse, error)
-	// Description: This endpoint enables end users to get the historical account balances for all accounts the user has
-	// Parameters:
-	// - user_id - user id of the user whose recurring transaction we seek to fetch
-	// - page_number - page number of the request
-	// - page_size - page size of the request
-	// API Version: 1.
-	// API: /api/v1/analytics/balance-history/user/{user_id}/pagenumber/{page_number}/pagesize/{page_size}
+	// This endpoint enables end users to get the historical account balances for all accounts the user has
 	GetUserAccountBalanceHistory(ctx context.Context, in *GetUserAccountBalanceHistoryRequest, opts ...grpc.CallOption) (*GetUserAccountBalanceHistoryResponse, error)
-	// Description: This endpoint enables end users to get the historical account balances for a given account the user has
-	// Parameters:
-	// - plaid_account_id - plaid account id of the account
-	// - page_number - page number of the request
-	// - page_size - page size of the request
-	// API Version: 1.
-	// API: /api/v1/analytics/balance-history/account/{plaid_account_id}/pagenumber/{page_number}/pagesize/{page_size}
+	// This endpoint enables end users to get the historical account balances for a given account the user has
 	GetAccountBalanceHistory(ctx context.Context, in *GetAccountBalanceHistoryRequest, opts ...grpc.CallOption) (*GetAccountBalanceHistoryResponse, error)
-	// Description: This endpoint enables end users to get their categorized monthly expenditures
-	// Parameters:
-	// - user_id - user id of the user
-	// Optional Parameters:
-	// - personalFinanceCategoryPrimary - category of the personal finance
-	// - month - month
-	// - pageNumber - page number of the request
-	// - pageSize - page size of the request
-	// API Version: 1.
-	// API: /api/v1/analytics/category-monthly-expenditure/user/{user_id}?personalFinanceCategoryPrimary={personal_finance_category_}&month={month}&pageNumber={page_number}&pageSize={page_size}
+	// enables end users to get their categorized monthly expenditures
 	GetUserCategoryMonthlyExpenditure(ctx context.Context, in *GetUserCategoryMonthlyExpenditureRequest, opts ...grpc.CallOption) (*GetUserCategoryMonthlyExpenditureResponse, error)
-	// Description: Get CategoryMonthlyIncome by Category and User - This would return all CategoryMonthlyIncome records for a specific user for a specific personal finance category
-	// Parameters:
-	// - user_id - user id of the user
-	// Optional Parameters:
-	// - personalFinanceCategoryPrimary - category of the personal finance
-	// - month - month
-	// - pageNumber - page number of the request
-	// - pageSize - page size of the request
-	// API Version: 1.
-	// API: /api/v1/analytics/category-monthly-income/user/{user_id}?personalFinanceCategoryPrimary={personal_finance_category_}&month={month}&pageNumber={page_number}&pageSize={page_size}
+	// returns all CategoryMonthlyIncome records for a specific user for a specific personal finance category
 	GetUserCategoryMonthlyIncome(ctx context.Context, in *GetUserCategoryMonthlyIncomeRequest, opts ...grpc.CallOption) (*GetUserCategoryMonthlyIncomeResponse, error)
-	// Description: Get CategoryMonthlyTransactionCount by User - This would return all CategoryMonthlyTransactionCount records for a specific user
-	// Parameters:
-	// - user_id - user id of the user
-	// Optional Parameters:
-	// - personalFinanceCategoryPrimary - category of the personal finance
-	// - month - month
-	// - pageNumber - page number of the request
-	// - pageSize - page size of the request
-	// API Version: 1.
-	// API: /api/v1/analytics//category-monthly-transaction-count/user/{user_id}?personalFinanceCategoryPrimary={personal_finance_category_}&month={month}&pageNumber={page_number}&pageSize={page_size}
+	// returns all CategoryMonthlyTransactionCount records for a specific user
 	GetCategoryMonthlyTransactionCount(ctx context.Context, in *GetCategoryMonthlyTransactionCountRequest, opts ...grpc.CallOption) (*GetCategoryMonthlyTransactionCountResponse, error)
-	// Description: Get debt to income ratio
-	// Parameters:
-	// - user_id - user id of the user
-	// Optional Parameters:
-	// - month - month
-	// - pageNumber - page number of the request
-	// - pageSize - page size of the request
-	// API Version: 1.
-	// API: /api/v1/analytics/debt-to-income-ratio/user/{user_id}?month={month}&pageNumber={page_number}&pageSize={page_size}
+	// Get debt to income ratio
 	GetDebtToIncomeRatio(ctx context.Context, in *GetDebtToIncomeRatioRequest, opts ...grpc.CallOption) (*GetDebtToIncomeRatioResponse, error)
-	// Description: Get expense metrics
-	// Parameters:
-	// - user_id - user id of the user
-	// Optional Parameters:
-	// - personalFinanceCategoryPrimary - category of the personal finance
-	// - month - month
-	// - pageNumber - page number of the request
-	// - pageSize - page size of the request
-	// API Version: 1.
-	// API: /api/v1/analytics/expenses/user/{user_id}?personalFinanceCategoryPrimary={personal_finance_category_}&month={month}&pageNumber={page_number}&pageSize={page_size}
+	// Get expense metrics
 	GetExpenseMetrics(ctx context.Context, in *GetExpenseMetricsRequest, opts ...grpc.CallOption) (*GetExpenseMetricsResponse, error)
-	// Description: Get financial profile
-	// Parameters:
-	// - user_id - user id of the user
-	// Optional Parameters:
-	// - month - month
-	// - pageNumber - page number of the request
-	// - pageSize - page size of the request
-	// API Version: 1.
-	// API: /api/v1/analytics/finance-profile/user/{user_id}?month={month}&pageNumber={page_number}&pageSize={page_size}
+	// Get financial profile
 	GetFinancialProfile(ctx context.Context, in *GetFinancialProfileRequest, opts ...grpc.CallOption) (*GetFinancialProfileResponse, error)
-	// Description: Get income expense ratio
-	// Parameters:
-	// - user_id - user id of the user
-	// Optional Parameters:
-	// - month - month
-	// - pageNumber - page number of the request
-	// - pageSize - page size of the request
-	// API Version: 1.
-	// API: /api/v1/analytics/income-expense-ratio/user/{user_id}?month={month}&pageNumber={page_number}&pageSize={page_size}
+	// Get income expense ratio
 	GetIncomeExpenseRatio(ctx context.Context, in *GetIncomeExpenseRatioRequest, opts ...grpc.CallOption) (*GetIncomeExpenseRatioResponse, error)
-	// Description: Get income metrics
-	// Parameters:
-	// - user_id - user id of the user
-	// Optional Parameters:
-	// - month - month
-	// - personalFinanceCategoryPrimary - category of the personal finance
-	// - pageNumber - page number of the request
-	// - pageSize - page size of the request
-	// API Version: 1.
-	// API: /api/v1/analytics/income/user/{user_id}?personalFinanceCategoryPrimary={personalFinanceCategoryPrimary}&month={month}&pageNumber={page_number}&pageSize={page_size}
+	// Get income metrics
 	GetIncomeMetrics(ctx context.Context, in *GetIncomeMetricsRequest, opts ...grpc.CallOption) (*GetIncomeMetricsResponse, error)
-	// Description: Get merchant monthly expenditures
-	// Parameters:
-	// - user_id - user id of the user
-	// Optional Parameters:
-	// - month - month
-	// - merchantName - merchant_name
-	// - pageNumber - page number of the request
-	// - pageSize - page size of the request
-	// API Version: 1.
-	// API: /api/v1/analytics/merchant-monthly-expenditure/user/{user_id}?merchantName={merchant_name}&month={month}&pageNumber={page_number}&pageSize={page_size}
+	// Get merchant monthly expenditures
 	GetMerchantMonthlyExpenditure(ctx context.Context, in *GetMerchantMonthlyExpenditureRequest, opts ...grpc.CallOption) (*GetMerchantMonthlyExpenditureResponse, error)
-	// Description: Get monthly balance
-	// Parameters:
-	// - user_id - user id of the user
-	// Optional Parameters:
-	// - month - month
-	// - pageNumber - page number of the request
-	// - pageSize - page size of the request
-	// API Version: 1.
-	// API: /api/v1/analytics/monthly-balance/user/{user_id}?month={month}&pageNumber={page_number}&pageSize={page_size}
+	// Get monthly balance
 	GetMonthlyBalance(ctx context.Context, in *GetMonthlyBalanceRequest, opts ...grpc.CallOption) (*GetMonthlyBalanceResponse, error)
-	// Description: Get monthly expenditures
-	// Parameters:
-	// - user_id - user id of the user
-	// Optional Parameters:
-	// - month - month
-	// - pageNumber - page number of the request
-	// - pageSize - page size of the request
-	// API Version: 1.
-	// API: /api/v1/analytics/monthly-expenditure/user/{user_id}?month={month}&pageNumber={page_number}&pageSize={page_size}
+	// Get monthly expenditures
 	GetMonthlyExpenditure(ctx context.Context, in *GetMonthlyExpenditureRequest, opts ...grpc.CallOption) (*GetMonthlyExpenditureResponse, error)
-	// Description: Get monthly Income
-	// Parameters:
-	// - user_id - user id of the user
-	// Optional Parameters:
-	// - month - month
-	// - pageNumber - page number of the request
-	// - pageSize - page size of the request
-	// API Version: 1.
-	// API: /api/v1/analytics/monthly-income/user/{user_id}?month={month}&pageNumber={page_number}&pageSize={page_size}
+	// Get monthly Income
 	GetMonthlyIncome(ctx context.Context, in *GetMonthlyIncomeRequest, opts ...grpc.CallOption) (*GetMonthlyIncomeResponse, error)
-	// Description: Get monthly savings
-	// Parameters:
-	// - user_id - user id of the user
-	// Optional Parameters:
-	// - month - month
-	// - pageNumber - page number of the request
-	// - pageSize - page size of the request
-	// API Version: 1.
-	// API: /api/v1/analytics/monthly-savings/user/user/{user_id}?month={month}&pageNumber={page_number}&pageSize={page_size}
+	// Get monthly savings
 	GetMonthlySavings(ctx context.Context, in *GetMonthlySavingsRequest, opts ...grpc.CallOption) (*GetMonthlySavingsResponse, error)
-	// Description: Get monthly total quantity by security and user
-	// Parameters:
-	// - user_id - user id of the user
-	// Optional Parameters:
-	// - month - month
-	// - pageNumber - page number of the request
-	// - security_id - security id of the security
-	// - pageSize - page size of the request
-	// API Version: 1.
-	// API: /api/v1/analytics/monthly-total-quantity-by-security-and-user/user/user/{user_id}?securityId={security_id}&month={month}&pageNumber={page_number}&pageSize={page_size}
+	// Get monthly total quantity by security and user
 	GetMonthlyTotalQuantityBySecurityAndUser(ctx context.Context, in *GetMonthlyTotalQuantityBySecurityAndUserRequest, opts ...grpc.CallOption) (*GetMonthlyTotalQuantityBySecurityAndUserResponse, error)
-	// Description: Get monthly transaction
-	// Parameters:
-	// - user_id - user id of the user
-	// Optional Parameters:
-	// - month - month
-	// - pageNumber - page number of the request
-	// - pageSize - page size of the request
-	// API Version: 1.
-	// API: /api/v1/analytics/monthly-transaction-count/user/user/{user_id}?month={month}&pageNumber={page_number}&pageSize={page_size}
+	// Get monthly transaction
 	GetMonthlyTransactionCount(ctx context.Context, in *GetMonthlyTransactionCountRequest, opts ...grpc.CallOption) (*GetMonthlyTransactionCountResponse, error)
-	// Description: Get monthly channel expenditure
-	// Parameters:
-	// - user_id - user id of the user
-	// Optional Parameters:
-	// - month - month
-	// - paymentChannel - payment channel
-	// - pageNumber - page number of the request
-	// - pageSize - page size of the request
-	// API Version: 1.
-	// API: /api/v1/analytics/payment-channel-expenditure/user/user/{user_id}?paymentChannel={payment_channel}&month={month}&pageNumber={page_number}&pageSize={page_size}
+	// Get monthly channel expenditure
 	GetPaymentChannelMonthlyExpenditure(ctx context.Context, in *GetPaymentChannelMonthlyExpenditureRequest, opts ...grpc.CallOption) (*GetPaymentChannelMonthlyExpenditureResponse, error)
-	// Description: Get total investment security
-	// Parameters:
-	// - user_id - user id of the user
-	// Optional Parameters:
-	// - securityId - payment channel
-	// - pageNumber - page number of the request
-	// - pageSize - page size of the request
-	// API Version: 1.
-	// API:/api/v1/analytics/total-investment/user/{user_id}?securityId={securityId}&pageNumber={page_number}&pageSize={page_size}
+	// Get total investment security
 	GetTotalInvestmentBySecurity(ctx context.Context, in *GetTotalInvestmentBySecurityRequest, opts ...grpc.CallOption) (*GetTotalInvestmentBySecurityResponse, error)
 	// Get financial context
 	GetMelodyFinancialContext(ctx context.Context, in *GetMelodyFinancialContextRequest, opts ...grpc.CallOption) (*GetMelodyFinancialContextResponse, error)
@@ -467,6 +272,34 @@ type FinancialServiceClient interface {
 	GetNotesFromSmartGoal(ctx context.Context, in *GetNotesFromSmartGoalRequest, opts ...grpc.CallOption) (*GetNotesFromSmartGoalResponse, error)
 	// get a note from a smart goal
 	GetNoteFromSmartGoal(ctx context.Context, in *GetNoteFromSmartGoalRequest, opts ...grpc.CallOption) (*GetNoteFromSmartGoalResponse, error)
+	// ListTransactions lists a set of transactions against an account of interest
+	ListTransactions(ctx context.Context, in *ListTransactionsRequest, opts ...grpc.CallOption) (*ListTransactionsResponse, error)
+	// GetTransaction lists a set of transactions against an account of interest
+	GetTransaction(ctx context.Context, in *GetTransactionRequest, opts ...grpc.CallOption) (*GetTransactionResponse, error)
+	// updates a transaction
+	UpdateTransaction(ctx context.Context, in *UpdateTransactionRequest, opts ...grpc.CallOption) (*UpdateTransactionResponse, error)
+	// performs a bulk update of transactions
+	BulkUpdateTransaction(ctx context.Context, in *BulkUpdateTransactionRequest, opts ...grpc.CallOption) (*BulkUpdateTransactionResponse, error)
+	// deletes a transaction by id
+	DeleteTransaction(ctx context.Context, in *DeleteTransactionRequest, opts ...grpc.CallOption) (*DeleteTransactionResponse, error)
+	// adds a note to a transaction
+	AddNoteToTransaction(ctx context.Context, in *AddNoteToTransactionRequest, opts ...grpc.CallOption) (*AddNoteToTransactionResponse, error)
+	// updates a note on a transaction
+	UpdateNoteToTransaction(ctx context.Context, in *UpdateNoteToTransactionRequest, opts ...grpc.CallOption) (*UpdateNoteToTransactionResponse, error)
+	// deletes a note from a transaction
+	DeleteNoteFromTransaction(ctx context.Context, in *DeleteNoteFromTransactionRequest, opts ...grpc.CallOption) (*DeleteNoteFromTransactionResponse, error)
+	// list transaction notes
+	ListTransactionNotes(ctx context.Context, in *ListTransactionNotesRequest, opts ...grpc.CallOption) (*ListTransactionNotesResponse, error)
+	// gets a note from a transaction
+	GetNoteFromTransaction(ctx context.Context, in *GetNoteFromTransactionRequest, opts ...grpc.CallOption) (*GetNoteFromTransactionResponse, error)
+	// splits a transaction
+	SplitTransaction(ctx context.Context, in *SplitTransactionRequest, opts ...grpc.CallOption) (*SplitTransactionResponse, error)
+	// unsplits a transaction
+	UnSplitTransactions(ctx context.Context, in *UnSplitTransactionsRequest, opts ...grpc.CallOption) (*UnSplitTransactionsResponse, error)
+	// get all the split transactions for a given transaction
+	GetSplitTransaction(ctx context.Context, in *GetSplitTransactionRequest, opts ...grpc.CallOption) (*GetSplitTransactionResponse, error)
+	// searchs for a set of transactions that fit a given filter
+	SearchTransactions(ctx context.Context, in *SearchTransactionsRequest, opts ...grpc.CallOption) (*SearchTransactionsResponse, error)
 }
 
 type financialServiceClient struct {
@@ -1179,345 +1012,262 @@ func (c *financialServiceClient) GetNoteFromSmartGoal(ctx context.Context, in *G
 	return out, nil
 }
 
+func (c *financialServiceClient) ListTransactions(ctx context.Context, in *ListTransactionsRequest, opts ...grpc.CallOption) (*ListTransactionsResponse, error) {
+	out := new(ListTransactionsResponse)
+	err := c.cc.Invoke(ctx, FinancialService_ListTransactions_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *financialServiceClient) GetTransaction(ctx context.Context, in *GetTransactionRequest, opts ...grpc.CallOption) (*GetTransactionResponse, error) {
+	out := new(GetTransactionResponse)
+	err := c.cc.Invoke(ctx, FinancialService_GetTransaction_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *financialServiceClient) UpdateTransaction(ctx context.Context, in *UpdateTransactionRequest, opts ...grpc.CallOption) (*UpdateTransactionResponse, error) {
+	out := new(UpdateTransactionResponse)
+	err := c.cc.Invoke(ctx, FinancialService_UpdateTransaction_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *financialServiceClient) BulkUpdateTransaction(ctx context.Context, in *BulkUpdateTransactionRequest, opts ...grpc.CallOption) (*BulkUpdateTransactionResponse, error) {
+	out := new(BulkUpdateTransactionResponse)
+	err := c.cc.Invoke(ctx, FinancialService_BulkUpdateTransaction_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *financialServiceClient) DeleteTransaction(ctx context.Context, in *DeleteTransactionRequest, opts ...grpc.CallOption) (*DeleteTransactionResponse, error) {
+	out := new(DeleteTransactionResponse)
+	err := c.cc.Invoke(ctx, FinancialService_DeleteTransaction_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *financialServiceClient) AddNoteToTransaction(ctx context.Context, in *AddNoteToTransactionRequest, opts ...grpc.CallOption) (*AddNoteToTransactionResponse, error) {
+	out := new(AddNoteToTransactionResponse)
+	err := c.cc.Invoke(ctx, FinancialService_AddNoteToTransaction_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *financialServiceClient) UpdateNoteToTransaction(ctx context.Context, in *UpdateNoteToTransactionRequest, opts ...grpc.CallOption) (*UpdateNoteToTransactionResponse, error) {
+	out := new(UpdateNoteToTransactionResponse)
+	err := c.cc.Invoke(ctx, FinancialService_UpdateNoteToTransaction_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *financialServiceClient) DeleteNoteFromTransaction(ctx context.Context, in *DeleteNoteFromTransactionRequest, opts ...grpc.CallOption) (*DeleteNoteFromTransactionResponse, error) {
+	out := new(DeleteNoteFromTransactionResponse)
+	err := c.cc.Invoke(ctx, FinancialService_DeleteNoteFromTransaction_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *financialServiceClient) ListTransactionNotes(ctx context.Context, in *ListTransactionNotesRequest, opts ...grpc.CallOption) (*ListTransactionNotesResponse, error) {
+	out := new(ListTransactionNotesResponse)
+	err := c.cc.Invoke(ctx, FinancialService_ListTransactionNotes_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *financialServiceClient) GetNoteFromTransaction(ctx context.Context, in *GetNoteFromTransactionRequest, opts ...grpc.CallOption) (*GetNoteFromTransactionResponse, error) {
+	out := new(GetNoteFromTransactionResponse)
+	err := c.cc.Invoke(ctx, FinancialService_GetNoteFromTransaction_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *financialServiceClient) SplitTransaction(ctx context.Context, in *SplitTransactionRequest, opts ...grpc.CallOption) (*SplitTransactionResponse, error) {
+	out := new(SplitTransactionResponse)
+	err := c.cc.Invoke(ctx, FinancialService_SplitTransaction_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *financialServiceClient) UnSplitTransactions(ctx context.Context, in *UnSplitTransactionsRequest, opts ...grpc.CallOption) (*UnSplitTransactionsResponse, error) {
+	out := new(UnSplitTransactionsResponse)
+	err := c.cc.Invoke(ctx, FinancialService_UnSplitTransactions_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *financialServiceClient) GetSplitTransaction(ctx context.Context, in *GetSplitTransactionRequest, opts ...grpc.CallOption) (*GetSplitTransactionResponse, error) {
+	out := new(GetSplitTransactionResponse)
+	err := c.cc.Invoke(ctx, FinancialService_GetSplitTransaction_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *financialServiceClient) SearchTransactions(ctx context.Context, in *SearchTransactionsRequest, opts ...grpc.CallOption) (*SearchTransactionsResponse, error) {
+	out := new(SearchTransactionsResponse)
+	err := c.cc.Invoke(ctx, FinancialService_SearchTransactions_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // FinancialServiceServer is the server API for FinancialService service.
 // All implementations must embed UnimplementedFinancialServiceServer
 // for forward compatibility
 type FinancialServiceServer interface {
-	// Link utilizes a series of token exchanges to securely authenticate your users' integrations.
-	// 1. Get a link_token to initialize a Link session for your end user.
-	// 2. Make Link appear in your frontend.
-	// 3. Swap for an account_token, which authenticates future requests to the Unified API.
-	//
 	// MergeGetPublicLinkToken enables the client to get a link_token to initialize a Link session for your end user.
 	MergeGetPublicLinkToken(context.Context, *MergeGetPublicLinkTokenRequest) (*MergeGetPublicLinkTokenResponse, error)
+	// MergeExchangePublicLinkTokenForAccountToken enables the client to exchange a public link token for an access token
 	MergeExchangePublicLinkTokenForAccountToken(context.Context, *MergeExchangePublicLinkTokenForAccountTokenRequest) (*MergeExchangePublicLinkTokenForAccountTokenResponse, error)
+	// PlaidInitiateTokenExchange enables the client to get a link_token to initialize a Link session for your end user.
 	PlaidInitiateTokenExchange(context.Context, *PlaidInitiateTokenExchangeRequest) (*PlaidInitiateTokenExchangeResponse, error)
+	// PlaidInitiateTokenUpdate enables the cleint to initiate a plaid token update operation
 	PlaidInitiateTokenUpdate(context.Context, *PlaidInitiateTokenUpdateRequest) (*PlaidInitiateTokenUpdateResponse, error)
+	// PlaidExchangeToken enables the client to exchange a plaid link token for an access token
 	PlaidExchangeToken(context.Context, *PlaidExchangeTokenRequest) (*PlaidExchangeTokenResponse, error)
+	// CreateUserProfile performs an a creation operation of a user profile based on the provided parameters
+	// This operation is implemented as a distributed transactions as this operation can span multiple services
 	CreateUserProfile(context.Context, *CreateUserProfileRequest) (*CreateUserProfileResponse, error)
+	// GetUserProfile Queries and obtains a user profile based on the provided parameters
 	GetUserProfile(context.Context, *GetUserProfileRequest) (*GetUserProfileResponse, error)
+	// DeleteUserProfile performs a delete operation on a user profile based on the provided parameters
 	DeleteUserProfile(context.Context, *DeleteUserProfileRequest) (*DeleteUserProfileResponse, error)
+	// UpdateUserProfile  performs an updates operation on a user profile based on the provided parameters
 	UpdateUserProfile(context.Context, *UpdateUserProfileRequest) (*UpdateUserProfileResponse, error)
+	// CreateBankAccount creates a bank account for a given user profile
 	CreateBankAccount(context.Context, *CreateBankAccountRequest) (*CreateBankAccountResponse, error)
+	// GetBankAccount gets a bank account for a given user
 	GetBankAccount(context.Context, *GetBankAccountRequest) (*GetBankAccountResponse, error)
+	// UpdateBankAccount updates the bank account for a given user profile
 	UpdateBankAccount(context.Context, *UpdateBankAccountRequest) (*UpdateBankAccountResponse, error)
+	// DeleteBankAccount deletes a bank account for a given user profile
 	DeleteBankAccount(context.Context, *DeleteBankAccountRequest) (*DeleteBankAccountResponse, error)
+	// GetPocket get a pocket tied to a given users account
 	GetPocket(context.Context, *GetPocketRequest) (*GetPocketResponse, error)
+	// GetSmartGoalsByPocketId gets a smart goal tied to a pocket
 	GetSmartGoalsByPocketId(context.Context, *GetSmartGoalsByPocketIdRequest) (*GetSmartGoalsByPocketIdResponse, error)
+	// CreateSmartGoal creates a smart goal
 	CreateSmartGoal(context.Context, *CreateSmartGoalRequest) (*CreateSmartGoalResponse, error)
+	// UpdateSmartGoal updates a smart goal
 	UpdateSmartGoal(context.Context, *UpdateSmartGoalRequest) (*UpdateSmartGoalResponse, error)
+	// deletes a smart goal
 	DeleteSmartGoal(context.Context, *DeleteSmartGoalRequest) (*DeleteSmartGoalResponse, error)
+	// creates a milestone
 	CreateMilestone(context.Context, *CreateMilestoneRequest) (*CreateMilestoneResponse, error)
+	// deletes a milestone
 	DeleteMilestone(context.Context, *DeleteMilestoneRequest) (*DeleteMilestoneResponse, error)
+	// updates a milestone
 	UpdateMilestone(context.Context, *UpdateMilestoneRequest) (*UpdateMilestoneResponse, error)
+	// gets a milestone
 	GetMilestone(context.Context, *GetMilestoneRequest) (*GetMilestoneResponse, error)
+	// gets milestones tied to a smart goal
 	GetMilestonesBySmartGoalId(context.Context, *GetMilestonesBySmartGoalIdRequest) (*GetMilestonesBySmartGoalIdResponse, error)
+	// gets a forecast
 	GetForecast(context.Context, *GetForecastRequest) (*GetForecastResponse, error)
+	// creates a budget
 	CreateBudget(context.Context, *CreateBudgetRequest) (*CreateBudgetResponse, error)
+	// updates a budget
 	UpdateBudget(context.Context, *UpdateBudgetRequest) (*UpdateBudgetResponse, error)
+	// deletes a budget
 	DeleteBudget(context.Context, *DeleteBudgetRequest) (*DeleteBudgetResponse, error)
+	// gets a given budget for a given user
 	GetBudget(context.Context, *GetBudgetRequest) (*GetBudgetResponse, error)
+	// Gets all budgets
 	GetAllBudgets(context.Context, *GetAllBudgetsRequest) (*GetAllBudgetsResponse, error)
 	HealthCheck(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error)
 	ReadynessCheck(context.Context, *ReadynessCheckRequest) (*ReadynessCheckResponse, error)
+	// Gets an investment account
 	GetInvestmentAcccount(context.Context, *GetInvestmentAcccountRequest) (*GetInvestmentAcccountResponse, error)
+	// Gets a mortgage account
 	GetMortgageAccount(context.Context, *GetMortgageAccountRequest) (*GetMortgageAccountResponse, error)
+	// Get a liability account
 	GetLiabilityAccount(context.Context, *GetLiabilityAccountRequest) (*GetLiabilityAccountResponse, error)
+	// Gets student loan account
 	GetStudentLoanAccount(context.Context, *GetStudentLoanAccountRequest) (*GetStudentLoanAccountResponse, error)
+	// Creates a manual link
 	CreateManualLink(context.Context, *CreateManualLinkRequest) (*CreateManualLinkResponse, error)
+	// Get a specific linked account
 	GetLink(context.Context, *GetLinkRequest) (*GetLinkResponse, error)
+	// Gets all the links for a given user
 	GetLinks(context.Context, *GetLinksRequest) (*GetLinksResponse, error)
+	// Deletes a linked account
 	DeleteLink(context.Context, *DeleteLinkRequest) (*DeleteLinkResponse, error)
-	// Description: This endpoint enables end users to get recurring transactions
-	// Parameters:
-	// - user_id - user id of the user whose recurring transaction we seek to fetch
-	// API Version: 1.
-	// API: /api/v1/transactions/recurring-transactions/{user_id}
+	// This endpoint enables end users to get recurring transactions
 	GetReCurringTransactions(context.Context, *GetReCurringTransactionsRequest) (*GetReCurringTransactionsResponse, error)
-	// Description: This endpoint enables end users to get transactions in a paginated manner
-	// Parameters:
-	// - user_id - user id of the user whose recurring transaction we seek to fetch
-	// - page_number - page number of the transaction we want to fetch (page number)
-	// - page_size - page size of the transaction we want to fetch (number of transactions)
-	// API Version: 1.
-	// API: /api/v1/transactions/{user_id}/pageNumber/{page_number}/pageSize/{page_size}
+	// This endpoint enables end users to get transactions in a paginated manner
 	GetTransactions(context.Context, *GetTransactionsRequest) (*GetTransactionsResponse, error)
-	// Description: This endpoint enables us to process plaid webhooks
-	// Body:
-	// - {
-	// "webhookType": "string",
-	// "webhookCode": "string",
-	// "itemId": "string",
-	// "initialUpdateComplete": true,
-	// "historicalUpdateComplete": "string",
-	// "environment": "string",
-	// "newTransactions": [
-	// "string"
-	// ],
-	// "removedTransactions": [
-	// "string"
-	// ],
-	// "error": {
-	// "additionalProp1": {
-	// "@type": "string",
-	// "additionalProp1": "string",
-	// "additionalProp2": "string",
-	// "additionalProp3": "string"
-	// },
-	// "additionalProp2": {
-	// "@type": "string",
-	// "additionalProp1": "string",
-	// "additionalProp2": "string",
-	// "additionalProp3": "string"
-	// },
-	// "additionalProp3": {
-	// "@type": "string",
-	// "additionalProp1": "string",
-	// "additionalProp2": "string",
-	// "additionalProp3": "string"
-	// }
-	// },
-	// "accountIds": [
-	// "string"
-	// ],
-	// "consentExpirationTime": "string",
-	// "accountIdsWithNewLiabilities": [
-	// "string"
-	// ],
-	// "accountIdsWithUpdatedLiabilities": [
-	// "string"
-	// ],
-	// "newHoldings": "string",
-	// "updatedHoldings": "string"
-	// }
-	// API Version: 1.
-	// API: /api/v1/plaid/webhook
+	// this endpoint enables us to process plaid webhooks
 	ProcessWebhook(context.Context, *ProcessWebhookRequest) (*ProcessWebhookResponse, error)
-	// Description: This endpoint enables us to process stripe webhooks
-	// Body:
-	// - {
-	// "body": "string",
-	// "signature": "string"
-	// }
-	// API Version: 1.
-	// API: /api/v1/stripe/webhook
+	// This endpoint enables us to process stripe webhooks
 	StripeWebhook(context.Context, *StripeWebhookRequest) (*StripeWebhookResponse, error)
-	// Description: This endpoint enables end users to get transactions in a paginated manner
-	// Body:
-	// - {
-	// userId*	string($uint64)
-	// priceId*	string
-	// }
-	// API Version: 1.
-	// API: /api/v1/stripe/subscription
+	// This endpoint enables end users to get transactions in a paginated manner
 	CreateSubscription(context.Context, *CreateSubscriptionRequest) (*CreateSubscriptionResponse, error)
-	// Description: This endpoint enables end users to get transaction aggregated by month
-	// Parameters:
-	// - user_id - user id of the user whose recurring transaction we seek to fetch
-	// Optional Parameters:
-	// - month - month of the transaction
-	// - personalFinanceCategoryPrimary - personal financial category
-	// - locationCity - location of the transaction
-	// - paymentChannel - payment channel
-	// - merchantName - merchant name
-	// - pageNumber - page number
-	// - pageSize - page size
-	// API Version: 1.
-	// API: /api/v1/analytics/transaction-aggregates/{user_id}?pageNumber={page_number}&pageSize={page_size}&merchantName={merchant_name}&paymentChannel={payment_channel}&locationCity={location_city}&personalFinanceCategoryPrimary={personal_finance_category_primary}&month={month}
+	// Transaction Aggregates By Various parameters
 	GetTransactionAggregates(context.Context, *GetTransactionAggregatesRequest) (*GetTransactionAggregatesResponse, error)
-	// Description: This endpoint enables end users to get the historical account balances for all accounts the user has
-	// Parameters:
-	// - user_id - user id of the user whose recurring transaction we seek to fetch
-	// - page_number - page number of the request
-	// - page_size - page size of the request
-	// API Version: 1.
-	// API: /api/v1/analytics/balance-history/user/{user_id}/pagenumber/{page_number}/pagesize/{page_size}
+	// This endpoint enables end users to get the historical account balances for all accounts the user has
 	GetUserAccountBalanceHistory(context.Context, *GetUserAccountBalanceHistoryRequest) (*GetUserAccountBalanceHistoryResponse, error)
-	// Description: This endpoint enables end users to get the historical account balances for a given account the user has
-	// Parameters:
-	// - plaid_account_id - plaid account id of the account
-	// - page_number - page number of the request
-	// - page_size - page size of the request
-	// API Version: 1.
-	// API: /api/v1/analytics/balance-history/account/{plaid_account_id}/pagenumber/{page_number}/pagesize/{page_size}
+	// This endpoint enables end users to get the historical account balances for a given account the user has
 	GetAccountBalanceHistory(context.Context, *GetAccountBalanceHistoryRequest) (*GetAccountBalanceHistoryResponse, error)
-	// Description: This endpoint enables end users to get their categorized monthly expenditures
-	// Parameters:
-	// - user_id - user id of the user
-	// Optional Parameters:
-	// - personalFinanceCategoryPrimary - category of the personal finance
-	// - month - month
-	// - pageNumber - page number of the request
-	// - pageSize - page size of the request
-	// API Version: 1.
-	// API: /api/v1/analytics/category-monthly-expenditure/user/{user_id}?personalFinanceCategoryPrimary={personal_finance_category_}&month={month}&pageNumber={page_number}&pageSize={page_size}
+	// enables end users to get their categorized monthly expenditures
 	GetUserCategoryMonthlyExpenditure(context.Context, *GetUserCategoryMonthlyExpenditureRequest) (*GetUserCategoryMonthlyExpenditureResponse, error)
-	// Description: Get CategoryMonthlyIncome by Category and User - This would return all CategoryMonthlyIncome records for a specific user for a specific personal finance category
-	// Parameters:
-	// - user_id - user id of the user
-	// Optional Parameters:
-	// - personalFinanceCategoryPrimary - category of the personal finance
-	// - month - month
-	// - pageNumber - page number of the request
-	// - pageSize - page size of the request
-	// API Version: 1.
-	// API: /api/v1/analytics/category-monthly-income/user/{user_id}?personalFinanceCategoryPrimary={personal_finance_category_}&month={month}&pageNumber={page_number}&pageSize={page_size}
+	// returns all CategoryMonthlyIncome records for a specific user for a specific personal finance category
 	GetUserCategoryMonthlyIncome(context.Context, *GetUserCategoryMonthlyIncomeRequest) (*GetUserCategoryMonthlyIncomeResponse, error)
-	// Description: Get CategoryMonthlyTransactionCount by User - This would return all CategoryMonthlyTransactionCount records for a specific user
-	// Parameters:
-	// - user_id - user id of the user
-	// Optional Parameters:
-	// - personalFinanceCategoryPrimary - category of the personal finance
-	// - month - month
-	// - pageNumber - page number of the request
-	// - pageSize - page size of the request
-	// API Version: 1.
-	// API: /api/v1/analytics//category-monthly-transaction-count/user/{user_id}?personalFinanceCategoryPrimary={personal_finance_category_}&month={month}&pageNumber={page_number}&pageSize={page_size}
+	// returns all CategoryMonthlyTransactionCount records for a specific user
 	GetCategoryMonthlyTransactionCount(context.Context, *GetCategoryMonthlyTransactionCountRequest) (*GetCategoryMonthlyTransactionCountResponse, error)
-	// Description: Get debt to income ratio
-	// Parameters:
-	// - user_id - user id of the user
-	// Optional Parameters:
-	// - month - month
-	// - pageNumber - page number of the request
-	// - pageSize - page size of the request
-	// API Version: 1.
-	// API: /api/v1/analytics/debt-to-income-ratio/user/{user_id}?month={month}&pageNumber={page_number}&pageSize={page_size}
+	// Get debt to income ratio
 	GetDebtToIncomeRatio(context.Context, *GetDebtToIncomeRatioRequest) (*GetDebtToIncomeRatioResponse, error)
-	// Description: Get expense metrics
-	// Parameters:
-	// - user_id - user id of the user
-	// Optional Parameters:
-	// - personalFinanceCategoryPrimary - category of the personal finance
-	// - month - month
-	// - pageNumber - page number of the request
-	// - pageSize - page size of the request
-	// API Version: 1.
-	// API: /api/v1/analytics/expenses/user/{user_id}?personalFinanceCategoryPrimary={personal_finance_category_}&month={month}&pageNumber={page_number}&pageSize={page_size}
+	// Get expense metrics
 	GetExpenseMetrics(context.Context, *GetExpenseMetricsRequest) (*GetExpenseMetricsResponse, error)
-	// Description: Get financial profile
-	// Parameters:
-	// - user_id - user id of the user
-	// Optional Parameters:
-	// - month - month
-	// - pageNumber - page number of the request
-	// - pageSize - page size of the request
-	// API Version: 1.
-	// API: /api/v1/analytics/finance-profile/user/{user_id}?month={month}&pageNumber={page_number}&pageSize={page_size}
+	// Get financial profile
 	GetFinancialProfile(context.Context, *GetFinancialProfileRequest) (*GetFinancialProfileResponse, error)
-	// Description: Get income expense ratio
-	// Parameters:
-	// - user_id - user id of the user
-	// Optional Parameters:
-	// - month - month
-	// - pageNumber - page number of the request
-	// - pageSize - page size of the request
-	// API Version: 1.
-	// API: /api/v1/analytics/income-expense-ratio/user/{user_id}?month={month}&pageNumber={page_number}&pageSize={page_size}
+	// Get income expense ratio
 	GetIncomeExpenseRatio(context.Context, *GetIncomeExpenseRatioRequest) (*GetIncomeExpenseRatioResponse, error)
-	// Description: Get income metrics
-	// Parameters:
-	// - user_id - user id of the user
-	// Optional Parameters:
-	// - month - month
-	// - personalFinanceCategoryPrimary - category of the personal finance
-	// - pageNumber - page number of the request
-	// - pageSize - page size of the request
-	// API Version: 1.
-	// API: /api/v1/analytics/income/user/{user_id}?personalFinanceCategoryPrimary={personalFinanceCategoryPrimary}&month={month}&pageNumber={page_number}&pageSize={page_size}
+	// Get income metrics
 	GetIncomeMetrics(context.Context, *GetIncomeMetricsRequest) (*GetIncomeMetricsResponse, error)
-	// Description: Get merchant monthly expenditures
-	// Parameters:
-	// - user_id - user id of the user
-	// Optional Parameters:
-	// - month - month
-	// - merchantName - merchant_name
-	// - pageNumber - page number of the request
-	// - pageSize - page size of the request
-	// API Version: 1.
-	// API: /api/v1/analytics/merchant-monthly-expenditure/user/{user_id}?merchantName={merchant_name}&month={month}&pageNumber={page_number}&pageSize={page_size}
+	// Get merchant monthly expenditures
 	GetMerchantMonthlyExpenditure(context.Context, *GetMerchantMonthlyExpenditureRequest) (*GetMerchantMonthlyExpenditureResponse, error)
-	// Description: Get monthly balance
-	// Parameters:
-	// - user_id - user id of the user
-	// Optional Parameters:
-	// - month - month
-	// - pageNumber - page number of the request
-	// - pageSize - page size of the request
-	// API Version: 1.
-	// API: /api/v1/analytics/monthly-balance/user/{user_id}?month={month}&pageNumber={page_number}&pageSize={page_size}
+	// Get monthly balance
 	GetMonthlyBalance(context.Context, *GetMonthlyBalanceRequest) (*GetMonthlyBalanceResponse, error)
-	// Description: Get monthly expenditures
-	// Parameters:
-	// - user_id - user id of the user
-	// Optional Parameters:
-	// - month - month
-	// - pageNumber - page number of the request
-	// - pageSize - page size of the request
-	// API Version: 1.
-	// API: /api/v1/analytics/monthly-expenditure/user/{user_id}?month={month}&pageNumber={page_number}&pageSize={page_size}
+	// Get monthly expenditures
 	GetMonthlyExpenditure(context.Context, *GetMonthlyExpenditureRequest) (*GetMonthlyExpenditureResponse, error)
-	// Description: Get monthly Income
-	// Parameters:
-	// - user_id - user id of the user
-	// Optional Parameters:
-	// - month - month
-	// - pageNumber - page number of the request
-	// - pageSize - page size of the request
-	// API Version: 1.
-	// API: /api/v1/analytics/monthly-income/user/{user_id}?month={month}&pageNumber={page_number}&pageSize={page_size}
+	// Get monthly Income
 	GetMonthlyIncome(context.Context, *GetMonthlyIncomeRequest) (*GetMonthlyIncomeResponse, error)
-	// Description: Get monthly savings
-	// Parameters:
-	// - user_id - user id of the user
-	// Optional Parameters:
-	// - month - month
-	// - pageNumber - page number of the request
-	// - pageSize - page size of the request
-	// API Version: 1.
-	// API: /api/v1/analytics/monthly-savings/user/user/{user_id}?month={month}&pageNumber={page_number}&pageSize={page_size}
+	// Get monthly savings
 	GetMonthlySavings(context.Context, *GetMonthlySavingsRequest) (*GetMonthlySavingsResponse, error)
-	// Description: Get monthly total quantity by security and user
-	// Parameters:
-	// - user_id - user id of the user
-	// Optional Parameters:
-	// - month - month
-	// - pageNumber - page number of the request
-	// - security_id - security id of the security
-	// - pageSize - page size of the request
-	// API Version: 1.
-	// API: /api/v1/analytics/monthly-total-quantity-by-security-and-user/user/user/{user_id}?securityId={security_id}&month={month}&pageNumber={page_number}&pageSize={page_size}
+	// Get monthly total quantity by security and user
 	GetMonthlyTotalQuantityBySecurityAndUser(context.Context, *GetMonthlyTotalQuantityBySecurityAndUserRequest) (*GetMonthlyTotalQuantityBySecurityAndUserResponse, error)
-	// Description: Get monthly transaction
-	// Parameters:
-	// - user_id - user id of the user
-	// Optional Parameters:
-	// - month - month
-	// - pageNumber - page number of the request
-	// - pageSize - page size of the request
-	// API Version: 1.
-	// API: /api/v1/analytics/monthly-transaction-count/user/user/{user_id}?month={month}&pageNumber={page_number}&pageSize={page_size}
+	// Get monthly transaction
 	GetMonthlyTransactionCount(context.Context, *GetMonthlyTransactionCountRequest) (*GetMonthlyTransactionCountResponse, error)
-	// Description: Get monthly channel expenditure
-	// Parameters:
-	// - user_id - user id of the user
-	// Optional Parameters:
-	// - month - month
-	// - paymentChannel - payment channel
-	// - pageNumber - page number of the request
-	// - pageSize - page size of the request
-	// API Version: 1.
-	// API: /api/v1/analytics/payment-channel-expenditure/user/user/{user_id}?paymentChannel={payment_channel}&month={month}&pageNumber={page_number}&pageSize={page_size}
+	// Get monthly channel expenditure
 	GetPaymentChannelMonthlyExpenditure(context.Context, *GetPaymentChannelMonthlyExpenditureRequest) (*GetPaymentChannelMonthlyExpenditureResponse, error)
-	// Description: Get total investment security
-	// Parameters:
-	// - user_id - user id of the user
-	// Optional Parameters:
-	// - securityId - payment channel
-	// - pageNumber - page number of the request
-	// - pageSize - page size of the request
-	// API Version: 1.
-	// API:/api/v1/analytics/total-investment/user/{user_id}?securityId={securityId}&pageNumber={page_number}&pageSize={page_size}
+	// Get total investment security
 	GetTotalInvestmentBySecurity(context.Context, *GetTotalInvestmentBySecurityRequest) (*GetTotalInvestmentBySecurityResponse, error)
 	// Get financial context
 	GetMelodyFinancialContext(context.Context, *GetMelodyFinancialContextRequest) (*GetMelodyFinancialContextResponse, error)
@@ -1547,6 +1297,34 @@ type FinancialServiceServer interface {
 	GetNotesFromSmartGoal(context.Context, *GetNotesFromSmartGoalRequest) (*GetNotesFromSmartGoalResponse, error)
 	// get a note from a smart goal
 	GetNoteFromSmartGoal(context.Context, *GetNoteFromSmartGoalRequest) (*GetNoteFromSmartGoalResponse, error)
+	// ListTransactions lists a set of transactions against an account of interest
+	ListTransactions(context.Context, *ListTransactionsRequest) (*ListTransactionsResponse, error)
+	// GetTransaction lists a set of transactions against an account of interest
+	GetTransaction(context.Context, *GetTransactionRequest) (*GetTransactionResponse, error)
+	// updates a transaction
+	UpdateTransaction(context.Context, *UpdateTransactionRequest) (*UpdateTransactionResponse, error)
+	// performs a bulk update of transactions
+	BulkUpdateTransaction(context.Context, *BulkUpdateTransactionRequest) (*BulkUpdateTransactionResponse, error)
+	// deletes a transaction by id
+	DeleteTransaction(context.Context, *DeleteTransactionRequest) (*DeleteTransactionResponse, error)
+	// adds a note to a transaction
+	AddNoteToTransaction(context.Context, *AddNoteToTransactionRequest) (*AddNoteToTransactionResponse, error)
+	// updates a note on a transaction
+	UpdateNoteToTransaction(context.Context, *UpdateNoteToTransactionRequest) (*UpdateNoteToTransactionResponse, error)
+	// deletes a note from a transaction
+	DeleteNoteFromTransaction(context.Context, *DeleteNoteFromTransactionRequest) (*DeleteNoteFromTransactionResponse, error)
+	// list transaction notes
+	ListTransactionNotes(context.Context, *ListTransactionNotesRequest) (*ListTransactionNotesResponse, error)
+	// gets a note from a transaction
+	GetNoteFromTransaction(context.Context, *GetNoteFromTransactionRequest) (*GetNoteFromTransactionResponse, error)
+	// splits a transaction
+	SplitTransaction(context.Context, *SplitTransactionRequest) (*SplitTransactionResponse, error)
+	// unsplits a transaction
+	UnSplitTransactions(context.Context, *UnSplitTransactionsRequest) (*UnSplitTransactionsResponse, error)
+	// get all the split transactions for a given transaction
+	GetSplitTransaction(context.Context, *GetSplitTransactionRequest) (*GetSplitTransactionResponse, error)
+	// searchs for a set of transactions that fit a given filter
+	SearchTransactions(context.Context, *SearchTransactionsRequest) (*SearchTransactionsResponse, error)
 	mustEmbedUnimplementedFinancialServiceServer()
 }
 
@@ -1787,6 +1565,48 @@ func (UnimplementedFinancialServiceServer) GetNotesFromSmartGoal(context.Context
 }
 func (UnimplementedFinancialServiceServer) GetNoteFromSmartGoal(context.Context, *GetNoteFromSmartGoalRequest) (*GetNoteFromSmartGoalResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetNoteFromSmartGoal not implemented")
+}
+func (UnimplementedFinancialServiceServer) ListTransactions(context.Context, *ListTransactionsRequest) (*ListTransactionsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListTransactions not implemented")
+}
+func (UnimplementedFinancialServiceServer) GetTransaction(context.Context, *GetTransactionRequest) (*GetTransactionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTransaction not implemented")
+}
+func (UnimplementedFinancialServiceServer) UpdateTransaction(context.Context, *UpdateTransactionRequest) (*UpdateTransactionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateTransaction not implemented")
+}
+func (UnimplementedFinancialServiceServer) BulkUpdateTransaction(context.Context, *BulkUpdateTransactionRequest) (*BulkUpdateTransactionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BulkUpdateTransaction not implemented")
+}
+func (UnimplementedFinancialServiceServer) DeleteTransaction(context.Context, *DeleteTransactionRequest) (*DeleteTransactionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteTransaction not implemented")
+}
+func (UnimplementedFinancialServiceServer) AddNoteToTransaction(context.Context, *AddNoteToTransactionRequest) (*AddNoteToTransactionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddNoteToTransaction not implemented")
+}
+func (UnimplementedFinancialServiceServer) UpdateNoteToTransaction(context.Context, *UpdateNoteToTransactionRequest) (*UpdateNoteToTransactionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateNoteToTransaction not implemented")
+}
+func (UnimplementedFinancialServiceServer) DeleteNoteFromTransaction(context.Context, *DeleteNoteFromTransactionRequest) (*DeleteNoteFromTransactionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteNoteFromTransaction not implemented")
+}
+func (UnimplementedFinancialServiceServer) ListTransactionNotes(context.Context, *ListTransactionNotesRequest) (*ListTransactionNotesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListTransactionNotes not implemented")
+}
+func (UnimplementedFinancialServiceServer) GetNoteFromTransaction(context.Context, *GetNoteFromTransactionRequest) (*GetNoteFromTransactionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetNoteFromTransaction not implemented")
+}
+func (UnimplementedFinancialServiceServer) SplitTransaction(context.Context, *SplitTransactionRequest) (*SplitTransactionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SplitTransaction not implemented")
+}
+func (UnimplementedFinancialServiceServer) UnSplitTransactions(context.Context, *UnSplitTransactionsRequest) (*UnSplitTransactionsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UnSplitTransactions not implemented")
+}
+func (UnimplementedFinancialServiceServer) GetSplitTransaction(context.Context, *GetSplitTransactionRequest) (*GetSplitTransactionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSplitTransaction not implemented")
+}
+func (UnimplementedFinancialServiceServer) SearchTransactions(context.Context, *SearchTransactionsRequest) (*SearchTransactionsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SearchTransactions not implemented")
 }
 func (UnimplementedFinancialServiceServer) mustEmbedUnimplementedFinancialServiceServer() {}
 
@@ -3205,6 +3025,258 @@ func _FinancialService_GetNoteFromSmartGoal_Handler(srv interface{}, ctx context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _FinancialService_ListTransactions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListTransactionsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FinancialServiceServer).ListTransactions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FinancialService_ListTransactions_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FinancialServiceServer).ListTransactions(ctx, req.(*ListTransactionsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FinancialService_GetTransaction_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTransactionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FinancialServiceServer).GetTransaction(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FinancialService_GetTransaction_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FinancialServiceServer).GetTransaction(ctx, req.(*GetTransactionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FinancialService_UpdateTransaction_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateTransactionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FinancialServiceServer).UpdateTransaction(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FinancialService_UpdateTransaction_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FinancialServiceServer).UpdateTransaction(ctx, req.(*UpdateTransactionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FinancialService_BulkUpdateTransaction_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BulkUpdateTransactionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FinancialServiceServer).BulkUpdateTransaction(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FinancialService_BulkUpdateTransaction_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FinancialServiceServer).BulkUpdateTransaction(ctx, req.(*BulkUpdateTransactionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FinancialService_DeleteTransaction_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteTransactionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FinancialServiceServer).DeleteTransaction(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FinancialService_DeleteTransaction_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FinancialServiceServer).DeleteTransaction(ctx, req.(*DeleteTransactionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FinancialService_AddNoteToTransaction_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddNoteToTransactionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FinancialServiceServer).AddNoteToTransaction(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FinancialService_AddNoteToTransaction_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FinancialServiceServer).AddNoteToTransaction(ctx, req.(*AddNoteToTransactionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FinancialService_UpdateNoteToTransaction_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateNoteToTransactionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FinancialServiceServer).UpdateNoteToTransaction(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FinancialService_UpdateNoteToTransaction_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FinancialServiceServer).UpdateNoteToTransaction(ctx, req.(*UpdateNoteToTransactionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FinancialService_DeleteNoteFromTransaction_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteNoteFromTransactionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FinancialServiceServer).DeleteNoteFromTransaction(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FinancialService_DeleteNoteFromTransaction_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FinancialServiceServer).DeleteNoteFromTransaction(ctx, req.(*DeleteNoteFromTransactionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FinancialService_ListTransactionNotes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListTransactionNotesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FinancialServiceServer).ListTransactionNotes(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FinancialService_ListTransactionNotes_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FinancialServiceServer).ListTransactionNotes(ctx, req.(*ListTransactionNotesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FinancialService_GetNoteFromTransaction_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetNoteFromTransactionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FinancialServiceServer).GetNoteFromTransaction(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FinancialService_GetNoteFromTransaction_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FinancialServiceServer).GetNoteFromTransaction(ctx, req.(*GetNoteFromTransactionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FinancialService_SplitTransaction_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SplitTransactionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FinancialServiceServer).SplitTransaction(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FinancialService_SplitTransaction_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FinancialServiceServer).SplitTransaction(ctx, req.(*SplitTransactionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FinancialService_UnSplitTransactions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UnSplitTransactionsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FinancialServiceServer).UnSplitTransactions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FinancialService_UnSplitTransactions_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FinancialServiceServer).UnSplitTransactions(ctx, req.(*UnSplitTransactionsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FinancialService_GetSplitTransaction_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetSplitTransactionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FinancialServiceServer).GetSplitTransaction(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FinancialService_GetSplitTransaction_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FinancialServiceServer).GetSplitTransaction(ctx, req.(*GetSplitTransactionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FinancialService_SearchTransactions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SearchTransactionsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FinancialServiceServer).SearchTransactions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FinancialService_SearchTransactions_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FinancialServiceServer).SearchTransactions(ctx, req.(*SearchTransactionsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // FinancialService_ServiceDesc is the grpc.ServiceDesc for FinancialService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -3523,6 +3595,62 @@ var FinancialService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetNoteFromSmartGoal",
 			Handler:    _FinancialService_GetNoteFromSmartGoal_Handler,
+		},
+		{
+			MethodName: "ListTransactions",
+			Handler:    _FinancialService_ListTransactions_Handler,
+		},
+		{
+			MethodName: "GetTransaction",
+			Handler:    _FinancialService_GetTransaction_Handler,
+		},
+		{
+			MethodName: "UpdateTransaction",
+			Handler:    _FinancialService_UpdateTransaction_Handler,
+		},
+		{
+			MethodName: "BulkUpdateTransaction",
+			Handler:    _FinancialService_BulkUpdateTransaction_Handler,
+		},
+		{
+			MethodName: "DeleteTransaction",
+			Handler:    _FinancialService_DeleteTransaction_Handler,
+		},
+		{
+			MethodName: "AddNoteToTransaction",
+			Handler:    _FinancialService_AddNoteToTransaction_Handler,
+		},
+		{
+			MethodName: "UpdateNoteToTransaction",
+			Handler:    _FinancialService_UpdateNoteToTransaction_Handler,
+		},
+		{
+			MethodName: "DeleteNoteFromTransaction",
+			Handler:    _FinancialService_DeleteNoteFromTransaction_Handler,
+		},
+		{
+			MethodName: "ListTransactionNotes",
+			Handler:    _FinancialService_ListTransactionNotes_Handler,
+		},
+		{
+			MethodName: "GetNoteFromTransaction",
+			Handler:    _FinancialService_GetNoteFromTransaction_Handler,
+		},
+		{
+			MethodName: "SplitTransaction",
+			Handler:    _FinancialService_SplitTransaction_Handler,
+		},
+		{
+			MethodName: "UnSplitTransactions",
+			Handler:    _FinancialService_UnSplitTransactions_Handler,
+		},
+		{
+			MethodName: "GetSplitTransaction",
+			Handler:    _FinancialService_GetSplitTransaction_Handler,
+		},
+		{
+			MethodName: "SearchTransactions",
+			Handler:    _FinancialService_SearchTransactions_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

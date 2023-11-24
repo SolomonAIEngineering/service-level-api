@@ -3101,6 +3101,7 @@
     },
     "/api/v1/merge/exchange-token": {
       "post": {
+        "summary": "MergeExchangePublicLinkTokenForAccountToken enables the client to exchange a public link token for an access token",
         "operationId": "MergeExchangePublicLinkTokenForAccountToken",
         "responses": {
           "200": {
@@ -3151,8 +3152,7 @@
     },
     "/api/v1/merge/initiate-token-exchange": {
       "post": {
-        "summary": "Link utilizes a series of token exchanges to securely authenticate your users' integrations.\n1. Get a link_token to initialize a Link session for your end user.\n2. Make Link appear in your frontend.\n3. Swap for an account_token, which authenticates future requests to the Unified API.",
-        "description": "MergeGetPublicLinkToken enables the client to get a link_token to initialize a Link session for your end user.",
+        "summary": "MergeGetPublicLinkToken enables the client to get a link_token to initialize a Link session for your end user.",
         "operationId": "MergeGetPublicLinkToken",
         "responses": {
           "200": {
@@ -3924,7 +3924,7 @@
       },
       "put": {
         "summary": "update a user profile",
-        "description": "This endpoint performs an updates operation on a user profile based on the provided parametersThis update operation can span multiple services on specific cases (such as when the client is explicitly attempting to update the email of the user)All update operations are atomic by nature hence we should not expect any form of divergent state",
+        "description": "This endpoint performs an updates operation on a user profile based on the provided parameters",
         "operationId": "UpdateUserProfile",
         "responses": {
           "200": {
@@ -4038,7 +4038,7 @@
       },
       "delete": {
         "summary": "deletes a user profile",
-        "description": "This endpoint performs a delete operation on a user profile based on the provided parametersThis deletion operation spans multiple services (plaid) as user details are stored across a suite of our backend servicesThe operation itself is an atomic one of nature. Either all services successfully delete the recod or we fail the requestDivergent state is not expected to be encountered with this endpoint.",
+        "description": "This endpoint performs a delete operation on a user profile based on the provided parameters",
         "operationId": "DeleteUserProfile",
         "responses": {
           "200": {
@@ -4779,6 +4779,900 @@
         ]
       }
     },
+    "/api/v1/transactions/transaction": {
+      "put": {
+        "summary": "update a transaction",
+        "description": "This endpoint updates a transaction",
+        "operationId": "UpdateTransaction",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.UpdateUserResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateTransactionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "transactions"
+        ]
+      }
+    },
+    "/api/v1/transactions/transaction/bulk": {
+      "put": {
+        "summary": "update a transaction",
+        "description": "This endpoint updates a set of transactions",
+        "operationId": "BulkUpdateTransaction",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.BulkUpdateTransactionResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BulkUpdateTransactionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "transactions"
+        ]
+      }
+    },
+    "/api/v1/transactions/transaction/list": {
+      "get": {
+        "summary": "lists a set of transactions against a given account of interest",
+        "description": "This endpoint gets a list of transactions against a given account of interest",
+        "operationId": "ListTransactions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.ListTransactionsResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "accountType",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "FINANCIAL_ACCOUNT_TYPE_UNSPECIFIED",
+              "FINANCIAL_ACCOUNT_TYPE_BANK",
+              "FINANCIAL_ACCOUNT_TYPE_INVESTMENT",
+              "FINANCIAL_ACCOUNT_TYPE_CREDIT",
+              "FINANCIAL_ACCOUNT_TYPE_MORTGAGE",
+              "FINANCIAL_ACCOUNT_TYPE_STUDENT_LOAN"
+            ],
+            "default": "FINANCIAL_ACCOUNT_TYPE_UNSPECIFIED"
+          },
+          {
+            "name": "profileType",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED",
+              "FINANCIAL_USER_PROFILE_TYPE_USER",
+              "FINANCIAL_USER_PROFILE_TYPE_BUSINESS"
+            ],
+            "default": "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED"
+          }
+        ],
+        "tags": [
+          "transactions"
+        ]
+      }
+    },
+    "/api/v1/transactions/transaction/note": {
+      "put": {
+        "summary": "Updates a note to a transaction",
+        "description": "This endpoint Updates a note to a transaction",
+        "operationId": "UpdateNoteToTransaction",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.UpdateNoteToTransactionResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateNoteToTransactionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "transactions"
+        ]
+      }
+    },
+    "/api/v1/transactions/transaction/search": {
+      "get": {
+        "summary": "searches transactions",
+        "description": "This endpoint searches transactions based on a search query and returns a list of transactions that match the search query",
+        "operationId": "SearchTransactions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.SearchTransactionsResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "description": "The user id\nValidations:\n- user_id must be greater than 0",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "profileType",
+            "description": "the profile type",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED",
+              "FINANCIAL_USER_PROFILE_TYPE_USER",
+              "FINANCIAL_USER_PROFILE_TYPE_BUSINESS"
+            ],
+            "default": "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED"
+          },
+          {
+            "name": "pageNumber",
+            "description": "The page number",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "pageSize",
+            "description": "The page size",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "minAmount",
+            "description": "min amount",
+            "in": "query",
+            "required": false,
+            "type": "number",
+            "format": "double"
+          },
+          {
+            "name": "maxAmount",
+            "description": "max amount",
+            "in": "query",
+            "required": false,
+            "type": "number",
+            "format": "double"
+          },
+          {
+            "name": "category",
+            "description": "category",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "startDate",
+            "description": "start date",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "endDate",
+            "description": "end date",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          }
+        ],
+        "tags": [
+          "transactions"
+        ]
+      }
+    },
+    "/api/v1/transactions/transaction/{transactionId}": {
+      "get": {
+        "summary": "lists a set of transactions against a given account of interest",
+        "description": "This endpoint gets a specific transaction based on the transaction id",
+        "operationId": "GetTransaction",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.GetTransactionResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "transactionId",
+            "description": "the transaction of interest we aim to obtain",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "transactions"
+        ]
+      },
+      "delete": {
+        "summary": "deletes a transaction by id",
+        "description": "This endpoint deletes a specific transaction based on the transaction id",
+        "operationId": "DeleteTransaction",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.DeleteTransactionResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "transactionId",
+            "description": "the transaction of interest we aim to delete",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "transactions"
+        ]
+      }
+    },
+    "/api/v1/transactions/transaction/{transactionId}/note": {
+      "post": {
+        "summary": "adds a note to a transaction",
+        "description": "This endpoint adds a note to a transaction",
+        "operationId": "AddNoteToTransaction",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.AddNoteToTransactionResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "transactionId",
+            "description": "The transaction id\nValidations:\n- transaction_id must be greater than 0",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "note",
+            "description": "The note to add\nValidations:\n- cannot be nil hence required",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SmartNote",
+              "required": [
+                "note"
+              ]
+            }
+          }
+        ],
+        "tags": [
+          "transactions"
+        ]
+      }
+    },
+    "/api/v1/transactions/transaction/{transactionId}/note/list": {
+      "get": {
+        "summary": "lists notes from a transaction",
+        "description": "This endpoint lists notes from a transaction",
+        "operationId": "ListTransactionNotes",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.ListTransactionNotesResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "transactionId",
+            "description": "The transaction id\nValidations:\n- transaction_id must be greater than 0",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "transactions"
+        ]
+      }
+    },
+    "/api/v1/transactions/transaction/{transactionId}/note/{noteId}": {
+      "get": {
+        "summary": "gets a note from a transaction",
+        "description": "This endpoint gets a note from a transaction",
+        "operationId": "GetNoteFromTransaction",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.GetNoteFromTransactionResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "transactionId",
+            "description": "The transaction id\nValidations:\n- transaction_id must be greater than 0",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "noteId",
+            "description": "The note id\nValidations:\n- note_id must be greater than 0",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "transactions"
+        ]
+      },
+      "delete": {
+        "summary": "deletes a note from a transaction",
+        "description": "This endpoint deletes a note from a transaction",
+        "operationId": "DeleteNoteFromTransaction",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.DeleteNoteFromTransactionResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "transactionId",
+            "description": "The transaction id\nValidations:\n- transaction_id must be greater than 0",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "noteId",
+            "description": "The note id\nValidations:\n- note_id must be greater than 0",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "transactions"
+        ]
+      }
+    },
+    "/api/v1/transactions/transaction/{transactionId}/split": {
+      "get": {
+        "summary": "gets a split transaction",
+        "description": "This endpoint gets a split transaction that was split previously into multiple transactions",
+        "operationId": "GetSplitTransaction",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.GetSplitTransactionResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "transactionId",
+            "description": "The transaction id\nValidations:\n- transaction_id must be greater than 0",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "transactions"
+        ]
+      },
+      "post": {
+        "summary": "splits a transaction",
+        "description": "This endpoint splits a transaction into multiple transactions",
+        "operationId": "SplitTransaction",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.SplitTransactionResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "transactionId",
+            "description": "The transaction id\nValidations:\n- transaction_id must be greater than 0",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "splitTransactions": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "$ref": "#/definitions/TransactionSplit"
+                  },
+                  "title": "The split transaction\nValidations:\n- cannot be nil hence required"
+                }
+              },
+              "required": [
+                "splitTransactions"
+              ]
+            }
+          }
+        ],
+        "tags": [
+          "transactions"
+        ]
+      }
+    },
+    "/api/v1/transactions/transaction/{transactionId}/unsplit": {
+      "post": {
+        "summary": "unsplit a transaction",
+        "description": "This endpoint unsplit a transaction that was split previously into multiple transactions",
+        "operationId": "UnsplitTransactions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.UnsplitTransactionsResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "transactionId",
+            "description": "The transaction id\nValidations:\n- transaction_id must be greater than 0",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          }
+        ],
+        "tags": [
+          "transactions"
+        ]
+      }
+    },
     "/api/v1/transactions/user/{userId}/plaid-account-id/{plaidAccountId}/pageNumber/{pageNumber}/pageSize/{pageSize}": {
       "get": {
         "summary": "get transactions tied to a bank account and account id",
@@ -5342,6 +6236,16 @@
         }
       }
     },
+    "AddNoteToTransactionResponse": {
+      "type": "object",
+      "properties": {
+        "transaction": {
+          "$ref": "#/definitions/PlaidAccountTransaction",
+          "title": "The transaction id"
+        }
+      },
+      "title": "AddNoteToTransactionResponse is the responsed obtained after we add a note to a transaction"
+    },
     "Address": {
       "type": "object",
       "properties": {
@@ -5680,6 +6584,37 @@
         }
       },
       "description": "The Budgets table stores information about each budget created by the user,\nincluding the name of the budget, the start and end dates, and the user ID."
+    },
+    "BulkUpdateTransactionRequest": {
+      "type": "object",
+      "properties": {
+        "transactions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/PlaidAccountTransaction"
+          },
+          "title": "The transactions to update\nValidations:\n- cannot be nil hence required"
+        }
+      },
+      "title": "BulkUpdateTransactionRequest is the bulk update transaction request",
+      "required": [
+        "transactions"
+      ]
+    },
+    "BulkUpdateTransactionResponse": {
+      "type": "object",
+      "properties": {
+        "transactions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/PlaidAccountTransaction"
+          },
+          "title": "The transactions that were successfully updated"
+        }
+      },
+      "title": "BulkUpdateTransactionResponse is the bulk update transaction response"
     },
     "BusinessChartOfAccounts": {
       "type": "object",
@@ -6747,6 +7682,15 @@
         }
       }
     },
+    "DeleteNoteFromTransactionResponse": {
+      "type": "object",
+      "properties": {
+        "deleted": {
+          "type": "boolean",
+          "title": "The transaction id"
+        }
+      }
+    },
     "DeletePocketResponse": {
       "type": "object",
       "properties": {
@@ -6764,6 +7708,16 @@
           "title": "The smart goal id"
         }
       }
+    },
+    "DeleteTransactionResponse": {
+      "type": "object",
+      "properties": {
+        "deleted": {
+          "type": "boolean",
+          "title": "the transaction that was successfully deleted"
+        }
+      },
+      "title": "DeleteTransactionResponse is the delete transaction response"
     },
     "DeleteUserProfileResponse": {
       "type": "object",
@@ -6997,6 +7951,18 @@
         }
       },
       "description": "ExpenseMetricsFinancialSubProfileMetrics\nThis message is used to represent the financial sub profile metrics of a user."
+    },
+    "FinancialAccountType": {
+      "type": "string",
+      "enum": [
+        "FINANCIAL_ACCOUNT_TYPE_UNSPECIFIED",
+        "FINANCIAL_ACCOUNT_TYPE_BANK",
+        "FINANCIAL_ACCOUNT_TYPE_INVESTMENT",
+        "FINANCIAL_ACCOUNT_TYPE_CREDIT",
+        "FINANCIAL_ACCOUNT_TYPE_MORTGAGE",
+        "FINANCIAL_ACCOUNT_TYPE_STUDENT_LOAN"
+      ],
+      "default": "FINANCIAL_ACCOUNT_TYPE_UNSPECIFIED"
     },
     "FinancialProfile": {
       "type": "object",
@@ -7485,6 +8451,15 @@
         }
       }
     },
+    "GetNoteFromTransactionResponse": {
+      "type": "object",
+      "properties": {
+        "note": {
+          "$ref": "#/definitions/SmartNote",
+          "title": "The note"
+        }
+      }
+    },
     "GetNotesFromSmartGoalResponse": {
       "type": "object",
       "properties": {
@@ -7549,6 +8524,19 @@
         }
       }
     },
+    "GetSplitTransactionResponse": {
+      "type": "object",
+      "properties": {
+        "splitTransactions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/TransactionSplit"
+          },
+          "title": "The split transactions"
+        }
+      }
+    },
     "GetStudentLoanAccountResponse": {
       "type": "object",
       "properties": {
@@ -7589,6 +8577,16 @@
           "format": "int64"
         }
       }
+    },
+    "GetTransactionResponse": {
+      "type": "object",
+      "properties": {
+        "transaction": {
+          "$ref": "#/definitions/PlaidAccountTransaction",
+          "title": "the transaction queried"
+        }
+      },
+      "title": "GetTransactionResponse is the get transaction response"
     },
     "GetTransactionsBetweenTimeRangesResponse": {
       "type": "object",
@@ -8737,6 +9735,35 @@
           "$ref": "#/definitions/TransactionDetails"
         }
       }
+    },
+    "ListTransactionNotesResponse": {
+      "type": "object",
+      "properties": {
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/SmartNote"
+          },
+          "title": "The notes"
+        }
+      }
+    },
+    "ListTransactionsResponse": {
+      "type": "object",
+      "properties": {
+        "nextPage": {
+          "type": "string"
+        },
+        "transactions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/PlaidAccountTransaction"
+          }
+        }
+      },
+      "title": "ListTransactionsResponse is the list transaction response"
     },
     "LocationFinancialSubProfile": {
       "type": "object",
@@ -10742,6 +11769,23 @@
       },
       "description": "The ReportItem object is used to represent a report item for a Balance Sheet, \nCash Flow Statement or Profit and Loss Report."
     },
+    "SearchTransactionsResponse": {
+      "type": "object",
+      "properties": {
+        "transactions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/PlaidAccountTransaction"
+          },
+          "title": "The transactions"
+        },
+        "nextPageNumber": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
     "SmartGoal": {
       "type": "object",
       "properties": {
@@ -10852,6 +11896,15 @@
         }
       },
       "title": "Note schema"
+    },
+    "SplitTransactionResponse": {
+      "type": "object",
+      "properties": {
+        "transaction": {
+          "$ref": "#/definitions/PlaidAccountTransaction",
+          "title": "The transaction id"
+        }
+      }
     },
     "Status": {
       "type": "object",
@@ -11559,6 +12612,15 @@
       },
       "description": "PlaidAccountTransactionSplit represents a split of a PlaidAccountTransaction."
     },
+    "UnSplitTransactionsResponse": {
+      "type": "object",
+      "properties": {
+        "transaction": {
+          "$ref": "#/definitions/PlaidAccountTransaction",
+          "title": "The transaction id"
+        }
+      }
+    },
     "UpdateBankAccountRequest": {
       "type": "object",
       "properties": {
@@ -11647,6 +12709,29 @@
         }
       }
     },
+    "UpdateNoteToTransactionRequest": {
+      "type": "object",
+      "properties": {
+        "note": {
+          "$ref": "#/definitions/SmartNote",
+          "title": "The note to update\nValidations:\n- cannot be nil hence required"
+        }
+      },
+      "title": "UpdateNoteToTransactionRequest updates a note to a transaction",
+      "required": [
+        "note"
+      ]
+    },
+    "UpdateNoteToTransactionResponse": {
+      "type": "object",
+      "properties": {
+        "transaction": {
+          "$ref": "#/definitions/PlaidAccountTransaction",
+          "title": "The transaction id"
+        }
+      },
+      "title": "UpdateNoteToTransactionResponse is the responsed obtained after we update a note to a transaction"
+    },
     "UpdatePocketRequest": {
       "type": "object",
       "properties": {
@@ -11689,6 +12774,29 @@
           "title": "The smart goal id"
         }
       }
+    },
+    "UpdateTransactionRequest": {
+      "type": "object",
+      "properties": {
+        "transaction": {
+          "$ref": "#/definitions/PlaidAccountTransaction",
+          "title": "The transaction to update\nValidations:\n- cannot be nil hence required"
+        }
+      },
+      "title": "UpdateTransactionRequest is the update transaction request",
+      "required": [
+        "transaction"
+      ]
+    },
+    "UpdateTransactionResponse": {
+      "type": "object",
+      "properties": {
+        "transaction": {
+          "$ref": "#/definitions/PlaidAccountTransaction",
+          "title": "The transaction that was successfully updated"
+        }
+      },
+      "title": "UpdateTransactionResponse is the update transaction response"
     },
     "UpdateUserProfileRequest": {
       "type": "object",

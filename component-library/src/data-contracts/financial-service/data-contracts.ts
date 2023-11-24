@@ -105,6 +105,17 @@ export interface AddNoteToSmartGoalResponse {
   goal?: SmartGoal;
 }
 
+export type AddNoteToTransactionData = any;
+
+/** AddNoteToTransactionResponse is the responsed obtained after we add a note to a transaction */
+export interface AddNoteToTransactionResponse {
+  /**
+   * The transaction id
+   * Message representing Plaid account transactions.
+   */
+  transaction?: PlaidAccountTransaction;
+}
+
 /** The Address object is used to represent a contact's or company's address. */
 export interface Address {
   /** Line 1 of the address's street. */
@@ -431,6 +442,24 @@ export interface Budget {
   name?: string;
   /** the time the goal was created */
   startDate?: string;
+}
+
+export type BulkUpdateTransactionData = any;
+
+/** BulkUpdateTransactionRequest is the bulk update transaction request */
+export interface BulkUpdateTransactionRequest {
+  /**
+   * The transactions to update
+   * Validations:
+   * - cannot be nil hence required
+   */
+  transactions: Array<PlaidAccountTransaction>;
+}
+
+/** BulkUpdateTransactionResponse is the bulk update transaction response */
+export interface BulkUpdateTransactionResponse {
+  /** The transactions that were successfully updated */
+  transactions?: Array<PlaidAccountTransaction>;
 }
 
 /**
@@ -1200,6 +1229,13 @@ export interface DeleteNoteFromSmartGoalResponse {
   deleted?: boolean;
 }
 
+export type DeleteNoteFromTransactionData = any;
+
+export interface DeleteNoteFromTransactionResponse {
+  /** The transaction id */
+  deleted?: boolean;
+}
+
 export type DeletePocketData = any;
 
 export interface DeletePocketResponse {
@@ -1211,6 +1247,14 @@ export type DeleteSmartGoalData = any;
 
 export interface DeleteSmartGoalResponse {
   /** The smart goal id */
+  deleted?: boolean;
+}
+
+export type DeleteTransactionData = any;
+
+/** DeleteTransactionResponse is the delete transaction response */
+export interface DeleteTransactionResponse {
+  /** the transaction that was successfully deleted */
   deleted?: boolean;
 }
 
@@ -1386,6 +1430,15 @@ export interface ExpenseMetricsFinancialSubProfileMetrics {
   /** @format uint64 */
   userId?: string;
 }
+
+/** @default "FINANCIAL_ACCOUNT_TYPE_UNSPECIFIED" */
+export type FinancialAccountType =
+  | "FINANCIAL_ACCOUNT_TYPE_UNSPECIFIED"
+  | "FINANCIAL_ACCOUNT_TYPE_BANK"
+  | "FINANCIAL_ACCOUNT_TYPE_INVESTMENT"
+  | "FINANCIAL_ACCOUNT_TYPE_CREDIT"
+  | "FINANCIAL_ACCOUNT_TYPE_MORTGAGE"
+  | "FINANCIAL_ACCOUNT_TYPE_STUDENT_LOAN";
 
 /**
  * FinancialProfile
@@ -1702,6 +1755,13 @@ export interface GetNoteFromSmartGoalResponse {
   note?: SmartNote;
 }
 
+export type GetNoteFromTransactionData = any;
+
+export interface GetNoteFromTransactionResponse {
+  /** The note */
+  note?: SmartNote;
+}
+
 export type GetNotesFromSmartGoalData = any;
 
 export interface GetNotesFromSmartGoalResponse {
@@ -1738,6 +1798,13 @@ export interface GetSmartGoalsByPocketIdResponse {
   smartGoals?: Array<SmartGoal>;
 }
 
+export type GetSplitTransactionData = any;
+
+export interface GetSplitTransactionResponse {
+  /** The split transactions */
+  splitTransactions?: Array<TransactionSplit>;
+}
+
 export type GetStudentLoanAccountData = any;
 
 export interface GetStudentLoanAccountResponse {
@@ -1757,6 +1824,17 @@ export interface GetTransactionAggregatesResponse {
   /** @format int64 */
   nextPageNumber?: string;
   transactionAggregates?: Array<TransactionAggregatesByMonth>;
+}
+
+export type GetTransactionData = any;
+
+/** GetTransactionResponse is the get transaction response */
+export interface GetTransactionResponse {
+  /**
+   * the transaction queried
+   * Message representing Plaid account transactions.
+   */
+  transaction?: PlaidAccountTransaction;
 }
 
 export type GetTransactions2Data = any;
@@ -2476,6 +2554,21 @@ export interface LinkedAccountingAccount {
    * They include things like Invoices, Payments, Expenses, and Journal Entries.
    */
   transactionsDetails?: TransactionDetails;
+}
+
+export type ListTransactionNotesData = any;
+
+export interface ListTransactionNotesResponse {
+  /** The notes */
+  notes?: Array<SmartNote>;
+}
+
+export type ListTransactionsData = any;
+
+/** ListTransactionsResponse is the list transaction response */
+export interface ListTransactionsResponse {
+  nextPage?: string;
+  transactions?: Array<PlaidAccountTransaction>;
 }
 
 /**
@@ -4003,6 +4096,15 @@ export interface ReportItem {
   value?: string;
 }
 
+export type SearchTransactionsData = any;
+
+export interface SearchTransactionsResponse {
+  /** @format uint64 */
+  nextPageNumber?: string;
+  /** The transactions */
+  transactions?: Array<PlaidAccountTransaction>;
+}
+
 /**
  * SmartGoal: The Goals table stores information about each financial goal, including the name of the goal,
  * its description, the target amount of money the user wants to save or invest, and the expected date of completion.
@@ -4114,6 +4216,25 @@ export interface SmartNote {
    * @format uint64
    */
   userId?: string;
+}
+
+export type SplitTransactionData = any;
+
+export interface SplitTransactionPayload {
+  /**
+   * The split transaction
+   * Validations:
+   * - cannot be nil hence required
+   */
+  splitTransactions: Array<TransactionSplit>;
+}
+
+export interface SplitTransactionResponse {
+  /**
+   * The transaction id
+   * Message representing Plaid account transactions.
+   */
+  transaction?: PlaidAccountTransaction;
 }
 
 export interface Status {
@@ -4557,6 +4678,18 @@ export interface TransactionSplit {
   userId?: string;
 }
 
+export interface UnSplitTransactionsResponse {
+  /**
+   * The transaction id
+   * Message representing Plaid account transactions.
+   */
+  transaction?: PlaidAccountTransaction;
+}
+
+export type UnsplitTransactionsData = any;
+
+export type UnsplitTransactionsPayload = object;
+
 export type UpdateBankAccountData = any;
 
 export interface UpdateBankAccountRequest {
@@ -4625,6 +4758,27 @@ export interface UpdateNoteToSmartGoalResponse {
   note?: SmartNote;
 }
 
+export type UpdateNoteToTransactionData = any;
+
+/** UpdateNoteToTransactionRequest updates a note to a transaction */
+export interface UpdateNoteToTransactionRequest {
+  /**
+   * The note to update
+   * Validations:
+   * - cannot be nil hence required
+   */
+  note: SmartNote;
+}
+
+/** UpdateNoteToTransactionResponse is the responsed obtained after we update a note to a transaction */
+export interface UpdateNoteToTransactionResponse {
+  /**
+   * The transaction id
+   * Message representing Plaid account transactions.
+   */
+  transaction?: PlaidAccountTransaction;
+}
+
 export type UpdatePocketData = any;
 
 export interface UpdatePocketRequest {
@@ -4665,6 +4819,28 @@ export interface UpdateSmartGoalResponse {
    * @format uint64
    */
   smartGoalId?: string;
+}
+
+export type UpdateTransactionData = any;
+
+/** UpdateTransactionRequest is the update transaction request */
+export interface UpdateTransactionRequest {
+  /**
+   * The transaction to update
+   * Validations:
+   * - cannot be nil hence required
+   * Message representing Plaid account transactions.
+   */
+  transaction: PlaidAccountTransaction;
+}
+
+/** UpdateTransactionResponse is the update transaction response */
+export interface UpdateTransactionResponse {
+  /**
+   * The transaction that was successfully updated
+   * Message representing Plaid account transactions.
+   */
+  transaction?: PlaidAccountTransaction;
 }
 
 export type UpdateUserProfileData = any;

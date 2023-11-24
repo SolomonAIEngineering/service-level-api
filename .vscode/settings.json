@@ -1,5 +1,6 @@
 {
     "cSpell.words": [
         "Clickhouse"
-    ]
+    ],
+    "prettier.printWidth": 100
 }
