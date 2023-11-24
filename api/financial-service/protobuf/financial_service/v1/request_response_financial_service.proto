@@ -10,6 +10,7 @@ import "google/api/field_behavior.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 import "google/protobuf/any.proto";
 import "gogoproto/gogo.proto";
+import "google/protobuf/timestamp.proto";
 
 option (gogoproto.gostring_all) = true;
 option (gogoproto.equal_all) = true;
@@ -1250,4 +1251,294 @@ message GetNoteFromSmartGoalRequest {
 message GetNoteFromSmartGoalResponse {
   // The note
   SmartNote note = 1;
+}
+
+// ListTransactionsRequest is the list transaction request
+message ListTransactionsRequest {
+  uint64 account_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  uint64 user_id = 2 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  uint64 page_number = 3;
+  uint64 page_size = 4;  
+  FinancialAccountType account_type = 5;
+  FinancialUserProfileType profile_type = 9 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+// ListTransactionsResponse is the list transaction response
+message ListTransactionsResponse {
+  string next_page = 2;
+  repeated PlaidAccountTransaction transactions = 4;
+}
+
+// GetTransactionRequest is the get transaction request
+message GetTransactionRequest {
+  // the transaction of interest we aim to obtain
+  uint64 transaction_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+// GetTransactionResponse is the get transaction response
+message GetTransactionResponse {
+  // the transaction queried
+  PlaidAccountTransaction transaction = 1;
+}
+
+// UpdateTransactionRequest is the update transaction request
+message UpdateTransactionRequest {
+  // The transaction to update
+  // Validations:
+  // - cannot be nil hence required
+  PlaidAccountTransaction transaction = 1 [
+    (validate.rules).message.required = true,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+// UpdateTransactionResponse is the update transaction response
+message UpdateTransactionResponse {
+  // The transaction that was successfully updated
+  PlaidAccountTransaction transaction = 1;
+}
+
+// BulkUpdateTransactionRequest is the bulk update transaction request
+message BulkUpdateTransactionRequest {
+  // The transactions to update
+  // Validations:
+  // - cannot be nil hence required
+  repeated PlaidAccountTransaction transactions = 1  [
+    (validate.rules).repeated.min_items = 1,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+// BulkUpdateTransactionResponse is the bulk update transaction response
+message BulkUpdateTransactionResponse {
+  // The transactions that were successfully updated
+  repeated PlaidAccountTransaction transactions = 1;
+}
+
+// DeleteTransactionRequest is the delete transaction request
+message DeleteTransactionRequest {
+  // the transaction of interest we aim to delete
+  uint64 transaction_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+// DeleteTransactionResponse is the delete transaction response
+message DeleteTransactionResponse {
+  // the transaction that was successfully deleted
+  bool deleted = 1;
+}
+
+// AddNoteToTransactionRequest adds a note to a transaction
+message AddNoteToTransactionRequest {
+  // The transaction id
+  // Validations:
+  // - transaction_id must be greater than 0
+  uint64 transaction_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The note to add
+  // Validations:
+  // - cannot be nil hence required
+  SmartNote note = 2 [
+    (validate.rules).message.required = true,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+// AddNoteToTransactionResponse is the responsed obtained after we add a note to a transaction
+message AddNoteToTransactionResponse {
+  // The transaction id
+  PlaidAccountTransaction transaction = 1;
+}
+
+// UpdateNoteToTransactionRequest updates a note to a transaction
+message UpdateNoteToTransactionRequest {
+  // The note to update
+  // Validations:
+  // - cannot be nil hence required
+  SmartNote note = 1 [
+    (validate.rules).message.required = true,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+// UpdateNoteToTransactionResponse is the responsed obtained after we update a note to a transaction
+message UpdateNoteToTransactionResponse {
+  // The transaction id
+  PlaidAccountTransaction transaction = 1;
+}
+
+message DeleteNoteFromTransactionRequest {
+  // The transaction id
+  // Validations:
+  // - transaction_id must be greater than 0
+  uint64 transaction_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The note id
+  // Validations:
+  // - note_id must be greater than 0
+  uint64 note_id = 2 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message DeleteNoteFromTransactionResponse {
+  // The transaction id
+  bool deleted = 1;
+}
+
+message ListTransactionNotesRequest {
+  // The transaction id
+  // Validations:
+  // - transaction_id must be greater than 0
+  uint64 transaction_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message ListTransactionNotesResponse {
+  // The notes
+  repeated SmartNote notes = 1;
+}
+
+message GetNoteFromTransactionRequest {
+  // The note id
+  // Validations:
+  // - note_id must be greater than 0
+  uint64 note_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The transaction id
+  // Validations:
+  // - transaction_id must be greater than 0
+  uint64 transaction_id = 2 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message GetNoteFromTransactionResponse {
+  // The note
+  SmartNote note = 1;
+}
+
+message SplitTransactionRequest {
+  // The transaction id
+  // Validations:
+  // - transaction_id must be greater than 0
+  uint64 transaction_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The split transaction
+  // Validations:
+  // - cannot be nil hence required
+  repeated TransactionSplit split_transactions = 2 [
+    (validate.rules).repeated.min_items = 1,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message SplitTransactionResponse {
+  // The transaction id
+  PlaidAccountTransaction transaction = 1;
+}
+
+message UnSplitTransactionsRequest {
+  // The transaction id
+  // Validations:
+  // - transaction_id must be greater than 0
+  uint64 transaction_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message UnSplitTransactionsResponse {
+  // The transaction id
+  PlaidAccountTransaction transaction = 1;
+}
+
+message GetSplitTransactionRequest {
+  // The transaction id
+  // Validations:
+  // - transaction_id must be greater than 0
+  uint64 transaction_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message GetSplitTransactionResponse {
+  // The split transactions
+  repeated TransactionSplit split_transactions = 1;
+}
+
+message SearchTransactionsRequest {
+  // The user id
+  // Validations:
+  // - user_id must be greater than 0
+  uint64 user_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // the profile type
+  FinancialUserProfileType profile_type = 2 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The page number
+  uint64 page_number = 3 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The page size
+  uint64 page_size = 4 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // min amount
+  double min_amount = 5;
+
+  // max amount
+  double max_amount = 6;
+
+  // category
+  string category = 7;
+
+  // start date
+  google.protobuf.Timestamp start_date = 8;
+
+  // end date
+  google.protobuf.Timestamp end_date = 9;
+}
+
+message SearchTransactionsResponse {
+  // The transactions
+  repeated PlaidAccountTransaction transactions = 1;
+  uint64 next_page_number = 2;
 }

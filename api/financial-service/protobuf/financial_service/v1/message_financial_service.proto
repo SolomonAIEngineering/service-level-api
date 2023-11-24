@@ -12,6 +12,15 @@ import "google/protobuf/any.proto";
 
 option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/generated/financial_service/v1";
 
+enum FinancialAccountType {
+  FINANCIAL_ACCOUNT_TYPE_UNSPECIFIED = 0;
+  FINANCIAL_ACCOUNT_TYPE_BANK = 1;
+  FINANCIAL_ACCOUNT_TYPE_INVESTMENT = 2;
+  FINANCIAL_ACCOUNT_TYPE_CREDIT = 3;
+  FINANCIAL_ACCOUNT_TYPE_MORTGAGE = 4;
+  FINANCIAL_ACCOUNT_TYPE_STUDENT_LOAN = 5;
+}
+
 enum BankAccountStatus {
   BANK_ACCOUNT_STATUS_UNSPECIFIED = 0;
   BANK_ACCOUNT_STATUS_ACTIVE = 1;
