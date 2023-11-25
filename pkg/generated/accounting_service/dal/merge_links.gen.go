@@ -40,6 +40,7 @@ func newMergeLinkORM(db *gorm.DB, opts ...gen.DOOption) mergeLinkORM {
 	_mergeLinkORM.IntegrationSlug = field.NewString(tableName, "integration_slug")
 	_mergeLinkORM.IntegrationSquareImage = field.NewString(tableName, "integration_square_image")
 	_mergeLinkORM.IsDuplicate = field.NewBool(tableName, "is_duplicate")
+	_mergeLinkORM.LastModifiedAt = field.NewTime(tableName, "last_modified_at")
 	_mergeLinkORM.MergeLinkedAccountId = field.NewString(tableName, "merge_linked_account_id")
 	_mergeLinkORM.Status = field.NewString(tableName, "status")
 	_mergeLinkORM.WebhookListenerUrl = field.NewString(tableName, "webhook_listener_url")
@@ -418,6 +419,7 @@ type mergeLinkORM struct {
 	IntegrationSlug             field.String
 	IntegrationSquareImage      field.String
 	IsDuplicate                 field.Bool
+	LastModifiedAt              field.Time
 	MergeLinkedAccountId        field.String
 	Status                      field.String
 	WebhookListenerUrl          field.String
@@ -452,6 +454,7 @@ func (m *mergeLinkORM) updateTableName(table string) *mergeLinkORM {
 	m.IntegrationSlug = field.NewString(table, "integration_slug")
 	m.IntegrationSquareImage = field.NewString(table, "integration_square_image")
 	m.IsDuplicate = field.NewBool(table, "is_duplicate")
+	m.LastModifiedAt = field.NewTime(table, "last_modified_at")
 	m.MergeLinkedAccountId = field.NewString(table, "merge_linked_account_id")
 	m.Status = field.NewString(table, "status")
 	m.WebhookListenerUrl = field.NewString(table, "webhook_listener_url")
@@ -471,7 +474,7 @@ func (m *mergeLinkORM) GetFieldByName(fieldName string) (field.OrderExpr, bool) 
 }
 
 func (m *mergeLinkORM) fillFieldMap() {
-	m.fieldMap = make(map[string]field.Expr, 17)
+	m.fieldMap = make(map[string]field.Expr, 18)
 	m.fieldMap["business_accounting_profile_id"] = m.BusinessAccountingProfileId
 	m.fieldMap["category"] = m.Category
 	m.fieldMap["end_user_email_address"] = m.EndUserEmailAddress
@@ -484,6 +487,7 @@ func (m *mergeLinkORM) fillFieldMap() {
 	m.fieldMap["integration_slug"] = m.IntegrationSlug
 	m.fieldMap["integration_square_image"] = m.IntegrationSquareImage
 	m.fieldMap["is_duplicate"] = m.IsDuplicate
+	m.fieldMap["last_modified_at"] = m.LastModifiedAt
 	m.fieldMap["merge_linked_account_id"] = m.MergeLinkedAccountId
 	m.fieldMap["status"] = m.Status
 	m.fieldMap["webhook_listener_url"] = m.WebhookListenerUrl

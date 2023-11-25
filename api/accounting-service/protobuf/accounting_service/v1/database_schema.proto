@@ -173,6 +173,7 @@ message MergeLink {
     **/
     repeated LinkedAccountingAccount account = 15 [(gorm.field).has_one = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
     string merge_linked_account_id = 16;
+    google.protobuf.Timestamp last_modified_at = 17;
   }
 
 message LinkedAccountingAccount {

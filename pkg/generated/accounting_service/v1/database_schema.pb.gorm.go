@@ -430,6 +430,7 @@ type MergeLinkORM struct {
 	IntegrationSlug             string
 	IntegrationSquareImage      string
 	IsDuplicate                 bool
+	LastModifiedAt              *time.Time
 	MergeLinkedAccountId        string
 	Status                      string
 	Token                       *MergeLinkedAccountTokenORM `gorm:"foreignkey:MergeLinkId;association_foreignkey:Id;preload:true"`
@@ -483,6 +484,10 @@ func (m *MergeLink) ToORM(ctx context.Context) (MergeLinkORM, error) {
 		}
 	}
 	to.MergeLinkedAccountId = m.MergeLinkedAccountId
+	if m.LastModifiedAt != nil {
+		t := m.LastModifiedAt.AsTime()
+		to.LastModifiedAt = &t
+	}
 	if posthook, ok := interface{}(m).(MergeLinkWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -531,6 +536,9 @@ func (m *MergeLinkORM) ToPB(ctx context.Context) (MergeLink, error) {
 		}
 	}
 	to.MergeLinkedAccountId = m.MergeLinkedAccountId
+	if m.LastModifiedAt != nil {
+		to.LastModifiedAt = timestamppb.New(*m.LastModifiedAt)
+	}
 	if posthook, ok := interface{}(m).(MergeLinkWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -6875,6 +6883,7 @@ func DefaultApplyFieldMaskMergeLink(ctx context.Context, patchee *MergeLink, pat
 	}
 	var err error
 	var updatedToken bool
+	var updatedLastModifiedAt bool
 	for i, f := range updateMask.Paths {
 		if f == prefix+"Id" {
 			patchee.Id = patcher.Id
@@ -6955,6 +6964,29 @@ func DefaultApplyFieldMaskMergeLink(ctx context.Context, patchee *MergeLink, pat
 		}
 		if f == prefix+"MergeLinkedAccountId" {
 			patchee.MergeLinkedAccountId = patcher.MergeLinkedAccountId
+			continue
+		}
+		if !updatedLastModifiedAt && strings.HasPrefix(f, prefix+"LastModifiedAt.") {
+			if patcher.LastModifiedAt == nil {
+				patchee.LastModifiedAt = nil
+				continue
+			}
+			if patchee.LastModifiedAt == nil {
+				patchee.LastModifiedAt = &timestamppb.Timestamp{}
+			}
+			childMask := &field_mask.FieldMask{}
+			for j := i; j < len(updateMask.Paths); j++ {
+				if trimPath := strings.TrimPrefix(updateMask.Paths[j], prefix+"LastModifiedAt."); trimPath != updateMask.Paths[j] {
+					childMask.Paths = append(childMask.Paths, trimPath)
+				}
+			}
+			if err := gorm1.MergeWithMask(patcher.LastModifiedAt, patchee.LastModifiedAt, childMask); err != nil {
+				return nil, nil
+			}
+		}
+		if f == prefix+"LastModifiedAt" {
+			updatedLastModifiedAt = true
+			patchee.LastModifiedAt = patcher.LastModifiedAt
 			continue
 		}
 	}

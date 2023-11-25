@@ -2342,6 +2342,10 @@
         },
         "mergeLinkedAccountId": {
           "type": "string"
+        },
+        "lastModifiedAt": {
+          "type": "string",
+          "format": "date-time"
         }
       }
     },
