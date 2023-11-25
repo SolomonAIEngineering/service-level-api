@@ -92,18 +92,56 @@ message MergeExchangePublicLinkTokenForAccountTokenRequest {
     (google.api.field_behavior) = REQUIRED
   ];
 
+  // the public link token
   string public_token = 2 [
     (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
 
+  // the end users origin id
   string end_user_origin_id = 3  [
     (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
 
+  // the organization name
   string organization_name = 4  [
     (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
+}
+
+message GetChartOfAccountsRequest {
+  // the user id of interest
+  uint64 user_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message GetChartOfAccountsResponse {
+  repeated BusinessChartOfAccounts chart_of_accounts = 1;
+}
+
+message GetTransactionDetailsRequest {
+    uint64 user_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message GetTransactionDetailsResponse {
+  TransactionDetails transaction_details = 1;
+}
+
+message GetReferenceDetailsRequest {
+      // the user id of interest
+  uint64 user_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message GetReferenceDetailsResponse {
+  ReferenceDetails reference_details = 1;
 }

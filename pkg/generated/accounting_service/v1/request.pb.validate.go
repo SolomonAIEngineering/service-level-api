@@ -1041,3 +1041,743 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = MergeExchangePublicLinkTokenForAccountTokenRequestValidationError{}
+
+// Validate checks the field values on GetChartOfAccountsRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetChartOfAccountsRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetChartOfAccountsRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetChartOfAccountsRequestMultiError, or nil if none found.
+func (m *GetChartOfAccountsRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetChartOfAccountsRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetUserId() <= 0 {
+		err := GetChartOfAccountsRequestValidationError{
+			field:  "UserId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return GetChartOfAccountsRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetChartOfAccountsRequestMultiError is an error wrapping multiple validation
+// errors returned by GetChartOfAccountsRequest.ValidateAll() if the
+// designated constraints aren't met.
+type GetChartOfAccountsRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetChartOfAccountsRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetChartOfAccountsRequestMultiError) AllErrors() []error { return m }
+
+// GetChartOfAccountsRequestValidationError is the validation error returned by
+// GetChartOfAccountsRequest.Validate if the designated constraints aren't met.
+type GetChartOfAccountsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetChartOfAccountsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetChartOfAccountsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetChartOfAccountsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetChartOfAccountsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetChartOfAccountsRequestValidationError) ErrorName() string {
+	return "GetChartOfAccountsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetChartOfAccountsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetChartOfAccountsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetChartOfAccountsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetChartOfAccountsRequestValidationError{}
+
+// Validate checks the field values on GetChartOfAccountsResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetChartOfAccountsResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetChartOfAccountsResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetChartOfAccountsResponseMultiError, or nil if none found.
+func (m *GetChartOfAccountsResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetChartOfAccountsResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetChartOfAccounts() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GetChartOfAccountsResponseValidationError{
+						field:  fmt.Sprintf("ChartOfAccounts[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GetChartOfAccountsResponseValidationError{
+						field:  fmt.Sprintf("ChartOfAccounts[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetChartOfAccountsResponseValidationError{
+					field:  fmt.Sprintf("ChartOfAccounts[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return GetChartOfAccountsResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetChartOfAccountsResponseMultiError is an error wrapping multiple
+// validation errors returned by GetChartOfAccountsResponse.ValidateAll() if
+// the designated constraints aren't met.
+type GetChartOfAccountsResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetChartOfAccountsResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetChartOfAccountsResponseMultiError) AllErrors() []error { return m }
+
+// GetChartOfAccountsResponseValidationError is the validation error returned
+// by GetChartOfAccountsResponse.Validate if the designated constraints aren't met.
+type GetChartOfAccountsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetChartOfAccountsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetChartOfAccountsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetChartOfAccountsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetChartOfAccountsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetChartOfAccountsResponseValidationError) ErrorName() string {
+	return "GetChartOfAccountsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetChartOfAccountsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetChartOfAccountsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetChartOfAccountsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetChartOfAccountsResponseValidationError{}
+
+// Validate checks the field values on GetTransactionDetailsRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetTransactionDetailsRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetTransactionDetailsRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetTransactionDetailsRequestMultiError, or nil if none found.
+func (m *GetTransactionDetailsRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetTransactionDetailsRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetUserId() <= 0 {
+		err := GetTransactionDetailsRequestValidationError{
+			field:  "UserId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return GetTransactionDetailsRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetTransactionDetailsRequestMultiError is an error wrapping multiple
+// validation errors returned by GetTransactionDetailsRequest.ValidateAll() if
+// the designated constraints aren't met.
+type GetTransactionDetailsRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetTransactionDetailsRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetTransactionDetailsRequestMultiError) AllErrors() []error { return m }
+
+// GetTransactionDetailsRequestValidationError is the validation error returned
+// by GetTransactionDetailsRequest.Validate if the designated constraints
+// aren't met.
+type GetTransactionDetailsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetTransactionDetailsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetTransactionDetailsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetTransactionDetailsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetTransactionDetailsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetTransactionDetailsRequestValidationError) ErrorName() string {
+	return "GetTransactionDetailsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetTransactionDetailsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetTransactionDetailsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetTransactionDetailsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetTransactionDetailsRequestValidationError{}
+
+// Validate checks the field values on GetTransactionDetailsResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetTransactionDetailsResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetTransactionDetailsResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// GetTransactionDetailsResponseMultiError, or nil if none found.
+func (m *GetTransactionDetailsResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetTransactionDetailsResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetTransactionDetails()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetTransactionDetailsResponseValidationError{
+					field:  "TransactionDetails",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetTransactionDetailsResponseValidationError{
+					field:  "TransactionDetails",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTransactionDetails()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetTransactionDetailsResponseValidationError{
+				field:  "TransactionDetails",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return GetTransactionDetailsResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetTransactionDetailsResponseMultiError is an error wrapping multiple
+// validation errors returned by GetTransactionDetailsResponse.ValidateAll()
+// if the designated constraints aren't met.
+type GetTransactionDetailsResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetTransactionDetailsResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetTransactionDetailsResponseMultiError) AllErrors() []error { return m }
+
+// GetTransactionDetailsResponseValidationError is the validation error
+// returned by GetTransactionDetailsResponse.Validate if the designated
+// constraints aren't met.
+type GetTransactionDetailsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetTransactionDetailsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetTransactionDetailsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetTransactionDetailsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetTransactionDetailsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetTransactionDetailsResponseValidationError) ErrorName() string {
+	return "GetTransactionDetailsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetTransactionDetailsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetTransactionDetailsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetTransactionDetailsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetTransactionDetailsResponseValidationError{}
+
+// Validate checks the field values on GetReferenceDetailsRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetReferenceDetailsRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetReferenceDetailsRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetReferenceDetailsRequestMultiError, or nil if none found.
+func (m *GetReferenceDetailsRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetReferenceDetailsRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetUserId() <= 0 {
+		err := GetReferenceDetailsRequestValidationError{
+			field:  "UserId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return GetReferenceDetailsRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetReferenceDetailsRequestMultiError is an error wrapping multiple
+// validation errors returned by GetReferenceDetailsRequest.ValidateAll() if
+// the designated constraints aren't met.
+type GetReferenceDetailsRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetReferenceDetailsRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetReferenceDetailsRequestMultiError) AllErrors() []error { return m }
+
+// GetReferenceDetailsRequestValidationError is the validation error returned
+// by GetReferenceDetailsRequest.Validate if the designated constraints aren't met.
+type GetReferenceDetailsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetReferenceDetailsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetReferenceDetailsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetReferenceDetailsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetReferenceDetailsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetReferenceDetailsRequestValidationError) ErrorName() string {
+	return "GetReferenceDetailsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetReferenceDetailsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetReferenceDetailsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetReferenceDetailsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetReferenceDetailsRequestValidationError{}
+
+// Validate checks the field values on GetReferenceDetailsResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetReferenceDetailsResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetReferenceDetailsResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetReferenceDetailsResponseMultiError, or nil if none found.
+func (m *GetReferenceDetailsResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetReferenceDetailsResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetReferenceDetails()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetReferenceDetailsResponseValidationError{
+					field:  "ReferenceDetails",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetReferenceDetailsResponseValidationError{
+					field:  "ReferenceDetails",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetReferenceDetails()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetReferenceDetailsResponseValidationError{
+				field:  "ReferenceDetails",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return GetReferenceDetailsResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetReferenceDetailsResponseMultiError is an error wrapping multiple
+// validation errors returned by GetReferenceDetailsResponse.ValidateAll() if
+// the designated constraints aren't met.
+type GetReferenceDetailsResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetReferenceDetailsResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetReferenceDetailsResponseMultiError) AllErrors() []error { return m }
+
+// GetReferenceDetailsResponseValidationError is the validation error returned
+// by GetReferenceDetailsResponse.Validate if the designated constraints
+// aren't met.
+type GetReferenceDetailsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetReferenceDetailsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetReferenceDetailsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetReferenceDetailsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetReferenceDetailsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetReferenceDetailsResponseValidationError) ErrorName() string {
+	return "GetReferenceDetailsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetReferenceDetailsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetReferenceDetailsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetReferenceDetailsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetReferenceDetailsResponseValidationError{}

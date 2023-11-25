@@ -119,6 +119,7 @@ service AccountingService {
     };
   }
 
+  // updates a business account
   rpc UpdateBusinessAccountingProfile(UpdateBusinessAccountingProfileRequest) returns (UpdateBusinessAccountingProfileResponse) {
     option (google.api.http) = {
       put: "/api/v1/profile"
@@ -188,4 +189,69 @@ service AccountingService {
       }
     };
   }
+
+  rpc GetChartOfAccounts(GetChartOfAccountsRequest) returns (GetChartOfAccountsResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/business-analysis/{user_id}/chart-of-accounts"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "gets a business chart of accounts"
+      tags: ["business-analysis"]
+      operation_id: "GetChartOfAccounts"
+      description: ""
+      responses: {
+        key: "200"
+        value: {
+          description: ""
+          schema: {
+            json_schema: {ref: ".api.v1.GetChartOfAccountsResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc GetTransactionDetails(GetTransactionDetailsRequest) returns (GetTransactionDetailsResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/business-analysis/{user_id}/transaction-details"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "gets a business transactions details"
+      tags: ["business-analysis"]
+      operation_id: "GetTransactionDetails"
+      description: ""
+      responses: {
+        key: "200"
+        value: {
+          description: ""
+          schema: {
+            json_schema: {ref: ".api.v1.GetTransactionDetailsResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc GetReferenceDetails(GetReferenceDetailsRequest) returns (GetReferenceDetailsResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/business-analysis/{user_id}/reference-details"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "gets a business reference details"
+      tags: ["business-analysis"]
+      operation_id: "GetReferenceDetails"
+      description: ""
+      responses: {
+        key: "200"
+        value: {
+          description: ""
+          schema: {
+            json_schema: {ref: ".api.v1.GetReferenceDetailsResponse"}
+          }
+        }
+      }
+    };
+  }
+
+
 }

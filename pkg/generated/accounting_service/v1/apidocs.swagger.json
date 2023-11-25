@@ -30,6 +30,158 @@
     "application/json"
   ],
   "paths": {
+    "/api/v1/business-analysis/{userId}/chart-of-accounts": {
+      "get": {
+        "summary": "gets a business chart of accounts",
+        "operationId": "GetChartOfAccounts",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.GetChartOfAccountsResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "description": "the user id of interest",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "business-analysis"
+        ]
+      }
+    },
+    "/api/v1/business-analysis/{userId}/reference-details": {
+      "get": {
+        "summary": "gets a business reference details",
+        "operationId": "GetReferenceDetails",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.GetReferenceDetailsResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "description": "the user id of interest",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "business-analysis"
+        ]
+      }
+    },
+    "/api/v1/business-analysis/{userId}/transaction-details": {
+      "get": {
+        "summary": "gets a business transactions details",
+        "operationId": "GetTransactionDetails",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.GetTransactionDetailsResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "business-analysis"
+        ]
+      }
+    },
     "/api/v1/health": {
       "get": {
         "summary": "health check",
@@ -1462,6 +1614,34 @@
         }
       }
     },
+    "GetChartOfAccountsResponse": {
+      "type": "object",
+      "properties": {
+        "chartOfAccounts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/BusinessChartOfAccounts"
+          }
+        }
+      }
+    },
+    "GetReferenceDetailsResponse": {
+      "type": "object",
+      "properties": {
+        "referenceDetails": {
+          "$ref": "#/definitions/ReferenceDetails"
+        }
+      }
+    },
+    "GetTransactionDetailsResponse": {
+      "type": "object",
+      "properties": {
+        "transactionDetails": {
+          "$ref": "#/definitions/TransactionDetails"
+        }
+      }
+    },
     "HealthCheckResponse": {
       "type": "object",
       "properties": {
@@ -2005,13 +2185,16 @@
           "title": "The user id\nValidations:\n- user_id must be greater than 0"
         },
         "publicToken": {
-          "type": "string"
+          "type": "string",
+          "title": "the public link token"
         },
         "endUserOriginId": {
-          "type": "string"
+          "type": "string",
+          "title": "the end users origin id"
         },
         "organizationName": {
-          "type": "string"
+          "type": "string",
+          "title": "the organization name"
         }
       },
       "required": [

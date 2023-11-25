@@ -27,6 +27,9 @@ const (
 	AccountingService_UpdateBusinessAccountingProfile_FullMethodName             = "/accounting_service.v1.AccountingService/UpdateBusinessAccountingProfile"
 	AccountingService_MergeGetPublicLinkToken_FullMethodName                     = "/accounting_service.v1.AccountingService/MergeGetPublicLinkToken"
 	AccountingService_MergeExchangePublicLinkTokenForAccountToken_FullMethodName = "/accounting_service.v1.AccountingService/MergeExchangePublicLinkTokenForAccountToken"
+	AccountingService_GetChartOfAccounts_FullMethodName                          = "/accounting_service.v1.AccountingService/GetChartOfAccounts"
+	AccountingService_GetTransactionDetails_FullMethodName                       = "/accounting_service.v1.AccountingService/GetTransactionDetails"
+	AccountingService_GetReferenceDetails_FullMethodName                         = "/accounting_service.v1.AccountingService/GetReferenceDetails"
 )
 
 // AccountingServiceClient is the client API for AccountingService service.
@@ -43,11 +46,15 @@ type AccountingServiceClient interface {
 	GetBusinessAccountingProfile(ctx context.Context, in *GetBusinessAccountingProfileRequest, opts ...grpc.CallOption) (*GetBusinessAccountingProfileResponse, error)
 	// delete business accounting profile
 	DeleteBusinessAccountingProfile(ctx context.Context, in *DeleteBusinessAccountingProfileRequest, opts ...grpc.CallOption) (*DeleteBusinessAccountingProfileResponse, error)
+	// updates a business account
 	UpdateBusinessAccountingProfile(ctx context.Context, in *UpdateBusinessAccountingProfileRequest, opts ...grpc.CallOption) (*UpdateBusinessAccountingProfileResponse, error)
 	// enables the client to get a link_token to initialize a Link session for your end user.
 	MergeGetPublicLinkToken(ctx context.Context, in *MergeGetPublicLinkTokenRequest, opts ...grpc.CallOption) (*MergeGetPublicLinkTokenResponse, error)
 	// enables the client to exchange a public link token for an access token
 	MergeExchangePublicLinkTokenForAccountToken(ctx context.Context, in *MergeExchangePublicLinkTokenForAccountTokenRequest, opts ...grpc.CallOption) (*MergeExchangePublicLinkTokenForAccountTokenResponse, error)
+	GetChartOfAccounts(ctx context.Context, in *GetChartOfAccountsRequest, opts ...grpc.CallOption) (*GetChartOfAccountsResponse, error)
+	GetTransactionDetails(ctx context.Context, in *GetTransactionDetailsRequest, opts ...grpc.CallOption) (*GetTransactionDetailsResponse, error)
+	GetReferenceDetails(ctx context.Context, in *GetReferenceDetailsRequest, opts ...grpc.CallOption) (*GetReferenceDetailsResponse, error)
 }
 
 type accountingServiceClient struct {
@@ -130,6 +137,33 @@ func (c *accountingServiceClient) MergeExchangePublicLinkTokenForAccountToken(ct
 	return out, nil
 }
 
+func (c *accountingServiceClient) GetChartOfAccounts(ctx context.Context, in *GetChartOfAccountsRequest, opts ...grpc.CallOption) (*GetChartOfAccountsResponse, error) {
+	out := new(GetChartOfAccountsResponse)
+	err := c.cc.Invoke(ctx, AccountingService_GetChartOfAccounts_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountingServiceClient) GetTransactionDetails(ctx context.Context, in *GetTransactionDetailsRequest, opts ...grpc.CallOption) (*GetTransactionDetailsResponse, error) {
+	out := new(GetTransactionDetailsResponse)
+	err := c.cc.Invoke(ctx, AccountingService_GetTransactionDetails_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountingServiceClient) GetReferenceDetails(ctx context.Context, in *GetReferenceDetailsRequest, opts ...grpc.CallOption) (*GetReferenceDetailsResponse, error) {
+	out := new(GetReferenceDetailsResponse)
+	err := c.cc.Invoke(ctx, AccountingService_GetReferenceDetails_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AccountingServiceServer is the server API for AccountingService service.
 // All implementations must embed UnimplementedAccountingServiceServer
 // for forward compatibility
@@ -144,11 +178,15 @@ type AccountingServiceServer interface {
 	GetBusinessAccountingProfile(context.Context, *GetBusinessAccountingProfileRequest) (*GetBusinessAccountingProfileResponse, error)
 	// delete business accounting profile
 	DeleteBusinessAccountingProfile(context.Context, *DeleteBusinessAccountingProfileRequest) (*DeleteBusinessAccountingProfileResponse, error)
+	// updates a business account
 	UpdateBusinessAccountingProfile(context.Context, *UpdateBusinessAccountingProfileRequest) (*UpdateBusinessAccountingProfileResponse, error)
 	// enables the client to get a link_token to initialize a Link session for your end user.
 	MergeGetPublicLinkToken(context.Context, *MergeGetPublicLinkTokenRequest) (*MergeGetPublicLinkTokenResponse, error)
 	// enables the client to exchange a public link token for an access token
 	MergeExchangePublicLinkTokenForAccountToken(context.Context, *MergeExchangePublicLinkTokenForAccountTokenRequest) (*MergeExchangePublicLinkTokenForAccountTokenResponse, error)
+	GetChartOfAccounts(context.Context, *GetChartOfAccountsRequest) (*GetChartOfAccountsResponse, error)
+	GetTransactionDetails(context.Context, *GetTransactionDetailsRequest) (*GetTransactionDetailsResponse, error)
+	GetReferenceDetails(context.Context, *GetReferenceDetailsRequest) (*GetReferenceDetailsResponse, error)
 	mustEmbedUnimplementedAccountingServiceServer()
 }
 
@@ -179,6 +217,15 @@ func (UnimplementedAccountingServiceServer) MergeGetPublicLinkToken(context.Cont
 }
 func (UnimplementedAccountingServiceServer) MergeExchangePublicLinkTokenForAccountToken(context.Context, *MergeExchangePublicLinkTokenForAccountTokenRequest) (*MergeExchangePublicLinkTokenForAccountTokenResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method MergeExchangePublicLinkTokenForAccountToken not implemented")
+}
+func (UnimplementedAccountingServiceServer) GetChartOfAccounts(context.Context, *GetChartOfAccountsRequest) (*GetChartOfAccountsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetChartOfAccounts not implemented")
+}
+func (UnimplementedAccountingServiceServer) GetTransactionDetails(context.Context, *GetTransactionDetailsRequest) (*GetTransactionDetailsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTransactionDetails not implemented")
+}
+func (UnimplementedAccountingServiceServer) GetReferenceDetails(context.Context, *GetReferenceDetailsRequest) (*GetReferenceDetailsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetReferenceDetails not implemented")
 }
 func (UnimplementedAccountingServiceServer) mustEmbedUnimplementedAccountingServiceServer() {}
 
@@ -337,6 +384,60 @@ func _AccountingService_MergeExchangePublicLinkTokenForAccountToken_Handler(srv 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AccountingService_GetChartOfAccounts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetChartOfAccountsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountingServiceServer).GetChartOfAccounts(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountingService_GetChartOfAccounts_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountingServiceServer).GetChartOfAccounts(ctx, req.(*GetChartOfAccountsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AccountingService_GetTransactionDetails_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTransactionDetailsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountingServiceServer).GetTransactionDetails(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountingService_GetTransactionDetails_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountingServiceServer).GetTransactionDetails(ctx, req.(*GetTransactionDetailsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AccountingService_GetReferenceDetails_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetReferenceDetailsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountingServiceServer).GetReferenceDetails(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountingService_GetReferenceDetails_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountingServiceServer).GetReferenceDetails(ctx, req.(*GetReferenceDetailsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AccountingService_ServiceDesc is the grpc.ServiceDesc for AccountingService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -375,6 +476,18 @@ var AccountingService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "MergeExchangePublicLinkTokenForAccountToken",
 			Handler:    _AccountingService_MergeExchangePublicLinkTokenForAccountToken_Handler,
+		},
+		{
+			MethodName: "GetChartOfAccounts",
+			Handler:    _AccountingService_GetChartOfAccounts_Handler,
+		},
+		{
+			MethodName: "GetTransactionDetails",
+			Handler:    _AccountingService_GetTransactionDetails_Handler,
+		},
+		{
+			MethodName: "GetReferenceDetails",
+			Handler:    _AccountingService_GetReferenceDetails_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
