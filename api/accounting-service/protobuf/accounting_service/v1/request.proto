@@ -118,7 +118,7 @@ message GetChartOfAccountsRequest {
     (google.api.field_behavior) = REQUIRED
   ];
 
-  uint64 link_id = 2 [
+  uint64 linked_accounting_account_id = 2 [
     (validate.rules).uint64.gt = 0,
     (google.api.field_behavior) = REQUIRED
   ];
@@ -134,7 +134,7 @@ message GetTransactionDetailsRequest {
     (google.api.field_behavior) = REQUIRED
   ];
 
-  uint64 link_id = 2 [
+  uint64 linked_accounting_account_id = 2 [
     (validate.rules).uint64.gt = 0,
     (google.api.field_behavior) = REQUIRED
   ];
@@ -151,7 +151,7 @@ message GetReferenceDetailsRequest {
     (google.api.field_behavior) = REQUIRED
   ];
 
-  uint64 link_id = 2 [
+  uint64 linked_accounting_account_id = 2 [
     (validate.rules).uint64.gt = 0,
     (google.api.field_behavior) = REQUIRED
   ];
