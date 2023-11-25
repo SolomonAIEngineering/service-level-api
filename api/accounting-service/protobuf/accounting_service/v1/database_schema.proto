@@ -102,9 +102,6 @@ message MergeLinkedAccountToken {
   string merge_end_user_origin_id = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
   // The integration slug/identifier. This is returned at the end of the linking flow.
   string merge_integration_slug = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
-
-  // last time you performed a merge fetch
-  google.protobuf.Timestamp last_merge_created_at = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
 }
 
 /*

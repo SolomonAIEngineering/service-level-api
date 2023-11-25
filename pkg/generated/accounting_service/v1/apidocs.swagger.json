@@ -2373,11 +2373,6 @@
         "mergeIntegrationSlug": {
           "type": "string",
           "description": "The integration slug/identifier. This is returned at the end of the linking flow."
-        },
-        "lastMergeCreatedAt": {
-          "type": "string",
-          "format": "date-time",
-          "title": "last time you performed a merge fetch"
         }
       }
     },

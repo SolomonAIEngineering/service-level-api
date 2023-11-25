@@ -248,7 +248,6 @@ type MergeLinkedAccountTokenORM struct {
 	Id                               uint64
 	ItemId                           string
 	KeyId                            string
-	LastMergeCreatedAt               *time.Time
 	MergeEndUserOriginId             string
 	MergeIntegrationSlug             string
 	Version                          string
@@ -276,10 +275,6 @@ func (m *MergeLinkedAccountToken) ToORM(ctx context.Context) (MergeLinkedAccount
 	to.Version = m.Version
 	to.MergeEndUserOriginId = m.MergeEndUserOriginId
 	to.MergeIntegrationSlug = m.MergeIntegrationSlug
-	if m.LastMergeCreatedAt != nil {
-		t := m.LastMergeCreatedAt.AsTime()
-		to.LastMergeCreatedAt = &t
-	}
 	if posthook, ok := interface{}(m).(MergeLinkedAccountTokenWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -303,9 +298,6 @@ func (m *MergeLinkedAccountTokenORM) ToPB(ctx context.Context) (MergeLinkedAccou
 	to.Version = m.Version
 	to.MergeEndUserOriginId = m.MergeEndUserOriginId
 	to.MergeIntegrationSlug = m.MergeIntegrationSlug
-	if m.LastMergeCreatedAt != nil {
-		to.LastMergeCreatedAt = timestamppb.New(*m.LastMergeCreatedAt)
-	}
 	if posthook, ok := interface{}(m).(MergeLinkedAccountTokenWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -6108,8 +6100,7 @@ func DefaultApplyFieldMaskMergeLinkedAccountToken(ctx context.Context, patchee *
 		return nil, errors.NilArgumentError
 	}
 	var err error
-	var updatedLastMergeCreatedAt bool
-	for i, f := range updateMask.Paths {
+	for _, f := range updateMask.Paths {
 		if f == prefix+"Id" {
 			patchee.Id = patcher.Id
 			continue
@@ -6136,29 +6127,6 @@ func DefaultApplyFieldMaskMergeLinkedAccountToken(ctx context.Context, patchee *
 		}
 		if f == prefix+"MergeIntegrationSlug" {
 			patchee.MergeIntegrationSlug = patcher.MergeIntegrationSlug
-			continue
-		}
-		if !updatedLastMergeCreatedAt && strings.HasPrefix(f, prefix+"LastMergeCreatedAt.") {
-			if patcher.LastMergeCreatedAt == nil {
-				patchee.LastMergeCreatedAt = nil
-				continue
-			}
-			if patchee.LastMergeCreatedAt == nil {
-				patchee.LastMergeCreatedAt = &timestamppb.Timestamp{}
-			}
-			childMask := &field_mask.FieldMask{}
-			for j := i; j < len(updateMask.Paths); j++ {
-				if trimPath := strings.TrimPrefix(updateMask.Paths[j], prefix+"LastMergeCreatedAt."); trimPath != updateMask.Paths[j] {
-					childMask.Paths = append(childMask.Paths, trimPath)
-				}
-			}
-			if err := gorm1.MergeWithMask(patcher.LastMergeCreatedAt, patchee.LastMergeCreatedAt, childMask); err != nil {
-				return nil, nil
-			}
-		}
-		if f == prefix+"LastMergeCreatedAt" {
-			updatedLastMergeCreatedAt = true
-			patchee.LastMergeCreatedAt = patcher.LastMergeCreatedAt
 			continue
 		}
 	}
