@@ -8,6 +8,7 @@ import (
 	"context"
 	"strings"
 
+	accounting_servicev1 "github.com/SolomonAIEngineering/service-level-api/pkg/generated/accounting_service/v1"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 	"gorm.io/gorm/schema"
@@ -17,8 +18,6 @@ import (
 	"gorm.io/gen/helper"
 
 	"gorm.io/plugin/dbresolver"
-
-	accounting_servicev1 "github.com/SolomonAIEngineering/service-level-api/pkg/generated/accounting_service/v1"
 )
 
 func newPurchaseOrderLineItemORM(db *gorm.DB, opts ...gen.DOOption) purchaseOrderLineItemORM {

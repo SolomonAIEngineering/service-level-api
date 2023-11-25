@@ -12084,6 +12084,8 @@ func (m *GetTransactionsBetweenTimeRangesRequest) validate(all bool) error {
 
 	// no validation rules for ProfileType
 
+	// no validation rules for FinancialAccountType
+
 	if len(errors) > 0 {
 		return GetTransactionsBetweenTimeRangesRequestMultiError(errors)
 	}
@@ -12363,6 +12365,8 @@ func (m *GetTransactionsForPastWeekRequest) validate(all bool) error {
 
 	// no validation rules for ProfileType
 
+	// no validation rules for FinancialAccountType
+
 	if len(errors) > 0 {
 		return GetTransactionsForPastWeekRequestMultiError(errors)
 	}
@@ -12640,6 +12644,8 @@ func (m *GetTransactionsForPastMonthRequest) validate(all bool) error {
 	// no validation rules for Limit
 
 	// no validation rules for ProfileType
+
+	// no validation rules for FinancialAccountType
 
 	if len(errors) > 0 {
 		return GetTransactionsForPastMonthRequestMultiError(errors)
@@ -14202,9 +14208,9 @@ func (m *ListTransactionsRequest) validate(all bool) error {
 
 	// no validation rules for PageSize
 
-	// no validation rules for AccountType
-
 	// no validation rules for ProfileType
+
+	// no validation rules for FinancialAccountType
 
 	if len(errors) > 0 {
 		return ListTransactionsRequestMultiError(errors)
@@ -17632,6 +17638,8 @@ func (m *SearchTransactionsRequest) validate(all bool) error {
 			}
 		}
 	}
+
+	// no validation rules for FinancialAccountType
 
 	if len(errors) > 0 {
 		return SearchTransactionsRequestMultiError(errors)

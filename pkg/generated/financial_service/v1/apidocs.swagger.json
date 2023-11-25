@@ -4950,7 +4950,19 @@
             "format": "uint64"
           },
           {
-            "name": "accountType",
+            "name": "profileType",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED",
+              "FINANCIAL_USER_PROFILE_TYPE_USER",
+              "FINANCIAL_USER_PROFILE_TYPE_BUSINESS"
+            ],
+            "default": "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED"
+          },
+          {
+            "name": "financialAccountType",
             "in": "query",
             "required": false,
             "type": "string",
@@ -4963,18 +4975,6 @@
               "FINANCIAL_ACCOUNT_TYPE_STUDENT_LOAN"
             ],
             "default": "FINANCIAL_ACCOUNT_TYPE_UNSPECIFIED"
-          },
-          {
-            "name": "profileType",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "enum": [
-              "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED",
-              "FINANCIAL_USER_PROFILE_TYPE_USER",
-              "FINANCIAL_USER_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -5147,6 +5147,21 @@
             "required": false,
             "type": "string",
             "format": "date-time"
+          },
+          {
+            "name": "financialAccountType",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "FINANCIAL_ACCOUNT_TYPE_UNSPECIFIED",
+              "FINANCIAL_ACCOUNT_TYPE_BANK",
+              "FINANCIAL_ACCOUNT_TYPE_INVESTMENT",
+              "FINANCIAL_ACCOUNT_TYPE_CREDIT",
+              "FINANCIAL_ACCOUNT_TYPE_MORTGAGE",
+              "FINANCIAL_ACCOUNT_TYPE_STUDENT_LOAN"
+            ],
+            "default": "FINANCIAL_ACCOUNT_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -5914,6 +5929,21 @@
               "FINANCIAL_USER_PROFILE_TYPE_BUSINESS"
             ],
             "default": "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED"
+          },
+          {
+            "name": "financialAccountType",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "FINANCIAL_ACCOUNT_TYPE_UNSPECIFIED",
+              "FINANCIAL_ACCOUNT_TYPE_BANK",
+              "FINANCIAL_ACCOUNT_TYPE_INVESTMENT",
+              "FINANCIAL_ACCOUNT_TYPE_CREDIT",
+              "FINANCIAL_ACCOUNT_TYPE_MORTGAGE",
+              "FINANCIAL_ACCOUNT_TYPE_STUDENT_LOAN"
+            ],
+            "default": "FINANCIAL_ACCOUNT_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -6017,6 +6047,21 @@
               "FINANCIAL_USER_PROFILE_TYPE_BUSINESS"
             ],
             "default": "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED"
+          },
+          {
+            "name": "financialAccountType",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "FINANCIAL_ACCOUNT_TYPE_UNSPECIFIED",
+              "FINANCIAL_ACCOUNT_TYPE_BANK",
+              "FINANCIAL_ACCOUNT_TYPE_INVESTMENT",
+              "FINANCIAL_ACCOUNT_TYPE_CREDIT",
+              "FINANCIAL_ACCOUNT_TYPE_MORTGAGE",
+              "FINANCIAL_ACCOUNT_TYPE_STUDENT_LOAN"
+            ],
+            "default": "FINANCIAL_ACCOUNT_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -6103,6 +6148,21 @@
               "FINANCIAL_USER_PROFILE_TYPE_BUSINESS"
             ],
             "default": "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED"
+          },
+          {
+            "name": "financialAccountType",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "FINANCIAL_ACCOUNT_TYPE_UNSPECIFIED",
+              "FINANCIAL_ACCOUNT_TYPE_BANK",
+              "FINANCIAL_ACCOUNT_TYPE_INVESTMENT",
+              "FINANCIAL_ACCOUNT_TYPE_CREDIT",
+              "FINANCIAL_ACCOUNT_TYPE_MORTGAGE",
+              "FINANCIAL_ACCOUNT_TYPE_STUDENT_LOAN"
+            ],
+            "default": "FINANCIAL_ACCOUNT_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
