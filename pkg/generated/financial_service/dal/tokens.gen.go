@@ -36,7 +36,6 @@ func newTokenORM(db *gorm.DB, opts ...gen.DOOption) tokenORM {
 	_tokenORM.LinkId = field.NewUint64(tableName, "link_id")
 	_tokenORM.MergeEndUserOriginId = field.NewString(tableName, "merge_end_user_origin_id")
 	_tokenORM.MergeIntegrationSlug = field.NewString(tableName, "merge_integration_slug")
-	_tokenORM.MergeLinkId = field.NewUint64(tableName, "merge_link_id")
 	_tokenORM.Version = field.NewString(tableName, "version")
 
 	_tokenORM.fillFieldMap()
@@ -56,7 +55,6 @@ type tokenORM struct {
 	LinkId               field.Uint64
 	MergeEndUserOriginId field.String
 	MergeIntegrationSlug field.String
-	MergeLinkId          field.Uint64
 	Version              field.String
 
 	fieldMap map[string]field.Expr
@@ -82,7 +80,6 @@ func (t *tokenORM) updateTableName(table string) *tokenORM {
 	t.LinkId = field.NewUint64(table, "link_id")
 	t.MergeEndUserOriginId = field.NewString(table, "merge_end_user_origin_id")
 	t.MergeIntegrationSlug = field.NewString(table, "merge_integration_slug")
-	t.MergeLinkId = field.NewUint64(table, "merge_link_id")
 	t.Version = field.NewString(table, "version")
 
 	t.fillFieldMap()
@@ -100,7 +97,7 @@ func (t *tokenORM) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (t *tokenORM) fillFieldMap() {
-	t.fieldMap = make(map[string]field.Expr, 10)
+	t.fieldMap = make(map[string]field.Expr, 9)
 	t.fieldMap["access_token"] = t.AccessToken
 	t.fieldMap["id"] = t.Id
 	t.fieldMap["item_id"] = t.ItemId
@@ -109,7 +106,6 @@ func (t *tokenORM) fillFieldMap() {
 	t.fieldMap["link_id"] = t.LinkId
 	t.fieldMap["merge_end_user_origin_id"] = t.MergeEndUserOriginId
 	t.fieldMap["merge_integration_slug"] = t.MergeIntegrationSlug
-	t.fieldMap["merge_link_id"] = t.MergeLinkId
 	t.fieldMap["version"] = t.Version
 }
 

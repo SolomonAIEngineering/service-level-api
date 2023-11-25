@@ -8,7 +8,6 @@ import (
 	"context"
 	"strings"
 
-	financial_servicev1 "github.com/SolomonAIEngineering/service-level-api/pkg/generated/financial_service/v1"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 	"gorm.io/gorm/schema"
@@ -18,6 +17,8 @@ import (
 	"gorm.io/gen/helper"
 
 	"gorm.io/plugin/dbresolver"
+
+	financial_servicev1 "github.com/SolomonAIEngineering/service-level-api/pkg/generated/financial_service/v1"
 )
 
 func newAddressORM(db *gorm.DB, opts ...gen.DOOption) addressORM {
@@ -29,12 +30,10 @@ func newAddressORM(db *gorm.DB, opts ...gen.DOOption) addressORM {
 	tableName := _addressORM.addressORMDo.TableName()
 	_addressORM.ALL = field.NewAsterisk(tableName)
 	_addressORM.City = field.NewString(tableName, "city")
-	_addressORM.CompanyInfoId = field.NewUint64(tableName, "company_info_id")
 	_addressORM.Country = field.NewString(tableName, "country")
 	_addressORM.CountrySubdivision = field.NewString(tableName, "country_subdivision")
 	_addressORM.Id = field.NewUint64(tableName, "id")
 	_addressORM.ModifiedAt = field.NewTime(tableName, "modified_at")
-	_addressORM.PurchaseOrderId = field.NewUint64(tableName, "purchase_order_id")
 	_addressORM.State = field.NewString(tableName, "state")
 	_addressORM.Street_1 = field.NewString(tableName, "street_1")
 	_addressORM.Street_2 = field.NewString(tableName, "street_2")
@@ -51,12 +50,10 @@ type addressORM struct {
 
 	ALL                field.Asterisk
 	City               field.String
-	CompanyInfoId      field.Uint64
 	Country            field.String
 	CountrySubdivision field.String
 	Id                 field.Uint64
 	ModifiedAt         field.Time
-	PurchaseOrderId    field.Uint64
 	State              field.String
 	Street_1           field.String
 	Street_2           field.String
@@ -79,12 +76,10 @@ func (a addressORM) As(alias string) *addressORM {
 func (a *addressORM) updateTableName(table string) *addressORM {
 	a.ALL = field.NewAsterisk(table)
 	a.City = field.NewString(table, "city")
-	a.CompanyInfoId = field.NewUint64(table, "company_info_id")
 	a.Country = field.NewString(table, "country")
 	a.CountrySubdivision = field.NewString(table, "country_subdivision")
 	a.Id = field.NewUint64(table, "id")
 	a.ModifiedAt = field.NewTime(table, "modified_at")
-	a.PurchaseOrderId = field.NewUint64(table, "purchase_order_id")
 	a.State = field.NewString(table, "state")
 	a.Street_1 = field.NewString(table, "street_1")
 	a.Street_2 = field.NewString(table, "street_2")
@@ -106,14 +101,12 @@ func (a *addressORM) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (a *addressORM) fillFieldMap() {
-	a.fieldMap = make(map[string]field.Expr, 12)
+	a.fieldMap = make(map[string]field.Expr, 10)
 	a.fieldMap["city"] = a.City
-	a.fieldMap["company_info_id"] = a.CompanyInfoId
 	a.fieldMap["country"] = a.Country
 	a.fieldMap["country_subdivision"] = a.CountrySubdivision
 	a.fieldMap["id"] = a.Id
 	a.fieldMap["modified_at"] = a.ModifiedAt
-	a.fieldMap["purchase_order_id"] = a.PurchaseOrderId
 	a.fieldMap["state"] = a.State
 	a.fieldMap["street_1"] = a.Street_1
 	a.fieldMap["street_2"] = a.Street_2

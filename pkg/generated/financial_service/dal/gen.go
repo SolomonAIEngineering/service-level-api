@@ -17,42 +17,21 @@ import (
 
 var (
 	Q                                    = new(Query)
-	AccountingAttachmentORM              *accountingAttachmentORM
 	ActionableInsightORM                 *actionableInsightORM
 	AddressORM                           *addressORM
 	AprORM                               *aprORM
-	AttachmentsORM                       *attachmentsORM
-	BalanceSheetORM                      *balanceSheetORM
 	BankAccountORM                       *bankAccountORM
 	BudgetORM                            *budgetORM
-	BusinessChartOfAccountsORM           *businessChartOfAccountsORM
-	BusinessTransactionORM               *businessTransactionORM
-	CashFlowStatementsORM                *cashFlowStatementsORM
 	CategoryORM                          *categoryORM
-	CompanyInfoORM                       *companyInfoORM
-	ContactsORM                          *contactsORM
 	CreditAccountORM                     *creditAccountORM
-	CreditNoteLineItemORM                *creditNoteLineItemORM
-	CreditNoteORM                        *creditNoteORM
-	ExpenseLineORM                       *expenseLineORM
-	ExpenseORM                           *expenseORM
 	FinancialUserProfileORM              *financialUserProfileORM
 	ForecastORM                          *forecastORM
-	IncomeStatementORM                   *incomeStatementORM
 	InvesmentHoldingORM                  *invesmentHoldingORM
 	InvestmentAccountORM                 *investmentAccountORM
 	InvestmentSecurityORM                *investmentSecurityORM
-	InvoiceLineItemORM                   *invoiceLineItemORM
-	InvoiceORM                           *invoiceORM
-	ItemORM                              *itemORM
-	JournalEntryORM                      *journalEntryORM
-	JournalLineORM                       *journalLineORM
 	LinkORM                              *linkORM
-	LinkedAccountingAccountORM           *linkedAccountingAccountORM
-	MergeLinkORM                         *mergeLinkORM
 	MilestoneORM                         *milestoneORM
 	MortgageAccountORM                   *mortgageAccountORM
-	PaymentORM                           *paymentORM
 	PersonalActionableInsightORM         *personalActionableInsightORM
 	PlaidAccountInvestmentTransactionORM *plaidAccountInvestmentTransactionORM
 	PlaidAccountRecurringTransactionORM  *plaidAccountRecurringTransactionORM
@@ -60,63 +39,31 @@ var (
 	PlaidLinkORM                         *plaidLinkORM
 	PlaidSyncORM                         *plaidSyncORM
 	PocketORM                            *pocketORM
-	PurchaseOrderLineItemORM             *purchaseOrderLineItemORM
-	PurchaseOrderORM                     *purchaseOrderORM
-	ReferenceDetailsORM                  *referenceDetailsORM
-	ReportDetailsORM                     *reportDetailsORM
-	ReportItemORM                        *reportItemORM
 	SmartGoalORM                         *smartGoalORM
 	SmartNoteORM                         *smartNoteORM
 	StripeSubscriptionORM                *stripeSubscriptionORM
 	StudentLoanAccountORM                *studentLoanAccountORM
-	TaxRateORM                           *taxRateORM
 	TokenORM                             *tokenORM
-	TrackingCategoryORM                  *trackingCategoryORM
-	TransactionDetailsORM                *transactionDetailsORM
-	TransactionLineItemORM               *transactionLineItemORM
 	TransactionSplitORM                  *transactionSplitORM
-	VendorCreditLineORM                  *vendorCreditLineORM
-	VendorCreditORM                      *vendorCreditORM
 )
 
 func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
 	*Q = *Use(db, opts...)
-	AccountingAttachmentORM = &Q.AccountingAttachmentORM
 	ActionableInsightORM = &Q.ActionableInsightORM
 	AddressORM = &Q.AddressORM
 	AprORM = &Q.AprORM
-	AttachmentsORM = &Q.AttachmentsORM
-	BalanceSheetORM = &Q.BalanceSheetORM
 	BankAccountORM = &Q.BankAccountORM
 	BudgetORM = &Q.BudgetORM
-	BusinessChartOfAccountsORM = &Q.BusinessChartOfAccountsORM
-	BusinessTransactionORM = &Q.BusinessTransactionORM
-	CashFlowStatementsORM = &Q.CashFlowStatementsORM
 	CategoryORM = &Q.CategoryORM
-	CompanyInfoORM = &Q.CompanyInfoORM
-	ContactsORM = &Q.ContactsORM
 	CreditAccountORM = &Q.CreditAccountORM
-	CreditNoteLineItemORM = &Q.CreditNoteLineItemORM
-	CreditNoteORM = &Q.CreditNoteORM
-	ExpenseLineORM = &Q.ExpenseLineORM
-	ExpenseORM = &Q.ExpenseORM
 	FinancialUserProfileORM = &Q.FinancialUserProfileORM
 	ForecastORM = &Q.ForecastORM
-	IncomeStatementORM = &Q.IncomeStatementORM
 	InvesmentHoldingORM = &Q.InvesmentHoldingORM
 	InvestmentAccountORM = &Q.InvestmentAccountORM
 	InvestmentSecurityORM = &Q.InvestmentSecurityORM
-	InvoiceLineItemORM = &Q.InvoiceLineItemORM
-	InvoiceORM = &Q.InvoiceORM
-	ItemORM = &Q.ItemORM
-	JournalEntryORM = &Q.JournalEntryORM
-	JournalLineORM = &Q.JournalLineORM
 	LinkORM = &Q.LinkORM
-	LinkedAccountingAccountORM = &Q.LinkedAccountingAccountORM
-	MergeLinkORM = &Q.MergeLinkORM
 	MilestoneORM = &Q.MilestoneORM
 	MortgageAccountORM = &Q.MortgageAccountORM
-	PaymentORM = &Q.PaymentORM
 	PersonalActionableInsightORM = &Q.PersonalActionableInsightORM
 	PlaidAccountInvestmentTransactionORM = &Q.PlaidAccountInvestmentTransactionORM
 	PlaidAccountRecurringTransactionORM = &Q.PlaidAccountRecurringTransactionORM
@@ -124,64 +71,32 @@ func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
 	PlaidLinkORM = &Q.PlaidLinkORM
 	PlaidSyncORM = &Q.PlaidSyncORM
 	PocketORM = &Q.PocketORM
-	PurchaseOrderLineItemORM = &Q.PurchaseOrderLineItemORM
-	PurchaseOrderORM = &Q.PurchaseOrderORM
-	ReferenceDetailsORM = &Q.ReferenceDetailsORM
-	ReportDetailsORM = &Q.ReportDetailsORM
-	ReportItemORM = &Q.ReportItemORM
 	SmartGoalORM = &Q.SmartGoalORM
 	SmartNoteORM = &Q.SmartNoteORM
 	StripeSubscriptionORM = &Q.StripeSubscriptionORM
 	StudentLoanAccountORM = &Q.StudentLoanAccountORM
-	TaxRateORM = &Q.TaxRateORM
 	TokenORM = &Q.TokenORM
-	TrackingCategoryORM = &Q.TrackingCategoryORM
-	TransactionDetailsORM = &Q.TransactionDetailsORM
-	TransactionLineItemORM = &Q.TransactionLineItemORM
 	TransactionSplitORM = &Q.TransactionSplitORM
-	VendorCreditLineORM = &Q.VendorCreditLineORM
-	VendorCreditORM = &Q.VendorCreditORM
 }
 
 func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 	return &Query{
 		db:                                   db,
-		AccountingAttachmentORM:              newAccountingAttachmentORM(db, opts...),
 		ActionableInsightORM:                 newActionableInsightORM(db, opts...),
 		AddressORM:                           newAddressORM(db, opts...),
 		AprORM:                               newAprORM(db, opts...),
-		AttachmentsORM:                       newAttachmentsORM(db, opts...),
-		BalanceSheetORM:                      newBalanceSheetORM(db, opts...),
 		BankAccountORM:                       newBankAccountORM(db, opts...),
 		BudgetORM:                            newBudgetORM(db, opts...),
-		BusinessChartOfAccountsORM:           newBusinessChartOfAccountsORM(db, opts...),
-		BusinessTransactionORM:               newBusinessTransactionORM(db, opts...),
-		CashFlowStatementsORM:                newCashFlowStatementsORM(db, opts...),
 		CategoryORM:                          newCategoryORM(db, opts...),
-		CompanyInfoORM:                       newCompanyInfoORM(db, opts...),
-		ContactsORM:                          newContactsORM(db, opts...),
 		CreditAccountORM:                     newCreditAccountORM(db, opts...),
-		CreditNoteLineItemORM:                newCreditNoteLineItemORM(db, opts...),
-		CreditNoteORM:                        newCreditNoteORM(db, opts...),
-		ExpenseLineORM:                       newExpenseLineORM(db, opts...),
-		ExpenseORM:                           newExpenseORM(db, opts...),
 		FinancialUserProfileORM:              newFinancialUserProfileORM(db, opts...),
 		ForecastORM:                          newForecastORM(db, opts...),
-		IncomeStatementORM:                   newIncomeStatementORM(db, opts...),
 		InvesmentHoldingORM:                  newInvesmentHoldingORM(db, opts...),
 		InvestmentAccountORM:                 newInvestmentAccountORM(db, opts...),
 		InvestmentSecurityORM:                newInvestmentSecurityORM(db, opts...),
-		InvoiceLineItemORM:                   newInvoiceLineItemORM(db, opts...),
-		InvoiceORM:                           newInvoiceORM(db, opts...),
-		ItemORM:                              newItemORM(db, opts...),
-		JournalEntryORM:                      newJournalEntryORM(db, opts...),
-		JournalLineORM:                       newJournalLineORM(db, opts...),
 		LinkORM:                              newLinkORM(db, opts...),
-		LinkedAccountingAccountORM:           newLinkedAccountingAccountORM(db, opts...),
-		MergeLinkORM:                         newMergeLinkORM(db, opts...),
 		MilestoneORM:                         newMilestoneORM(db, opts...),
 		MortgageAccountORM:                   newMortgageAccountORM(db, opts...),
-		PaymentORM:                           newPaymentORM(db, opts...),
 		PersonalActionableInsightORM:         newPersonalActionableInsightORM(db, opts...),
 		PlaidAccountInvestmentTransactionORM: newPlaidAccountInvestmentTransactionORM(db, opts...),
 		PlaidAccountRecurringTransactionORM:  newPlaidAccountRecurringTransactionORM(db, opts...),
@@ -189,65 +104,33 @@ func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 		PlaidLinkORM:                         newPlaidLinkORM(db, opts...),
 		PlaidSyncORM:                         newPlaidSyncORM(db, opts...),
 		PocketORM:                            newPocketORM(db, opts...),
-		PurchaseOrderLineItemORM:             newPurchaseOrderLineItemORM(db, opts...),
-		PurchaseOrderORM:                     newPurchaseOrderORM(db, opts...),
-		ReferenceDetailsORM:                  newReferenceDetailsORM(db, opts...),
-		ReportDetailsORM:                     newReportDetailsORM(db, opts...),
-		ReportItemORM:                        newReportItemORM(db, opts...),
 		SmartGoalORM:                         newSmartGoalORM(db, opts...),
 		SmartNoteORM:                         newSmartNoteORM(db, opts...),
 		StripeSubscriptionORM:                newStripeSubscriptionORM(db, opts...),
 		StudentLoanAccountORM:                newStudentLoanAccountORM(db, opts...),
-		TaxRateORM:                           newTaxRateORM(db, opts...),
 		TokenORM:                             newTokenORM(db, opts...),
-		TrackingCategoryORM:                  newTrackingCategoryORM(db, opts...),
-		TransactionDetailsORM:                newTransactionDetailsORM(db, opts...),
-		TransactionLineItemORM:               newTransactionLineItemORM(db, opts...),
 		TransactionSplitORM:                  newTransactionSplitORM(db, opts...),
-		VendorCreditLineORM:                  newVendorCreditLineORM(db, opts...),
-		VendorCreditORM:                      newVendorCreditORM(db, opts...),
 	}
 }
 
 type Query struct {
 	db *gorm.DB
 
-	AccountingAttachmentORM              accountingAttachmentORM
 	ActionableInsightORM                 actionableInsightORM
 	AddressORM                           addressORM
 	AprORM                               aprORM
-	AttachmentsORM                       attachmentsORM
-	BalanceSheetORM                      balanceSheetORM
 	BankAccountORM                       bankAccountORM
 	BudgetORM                            budgetORM
-	BusinessChartOfAccountsORM           businessChartOfAccountsORM
-	BusinessTransactionORM               businessTransactionORM
-	CashFlowStatementsORM                cashFlowStatementsORM
 	CategoryORM                          categoryORM
-	CompanyInfoORM                       companyInfoORM
-	ContactsORM                          contactsORM
 	CreditAccountORM                     creditAccountORM
-	CreditNoteLineItemORM                creditNoteLineItemORM
-	CreditNoteORM                        creditNoteORM
-	ExpenseLineORM                       expenseLineORM
-	ExpenseORM                           expenseORM
 	FinancialUserProfileORM              financialUserProfileORM
 	ForecastORM                          forecastORM
-	IncomeStatementORM                   incomeStatementORM
 	InvesmentHoldingORM                  invesmentHoldingORM
 	InvestmentAccountORM                 investmentAccountORM
 	InvestmentSecurityORM                investmentSecurityORM
-	InvoiceLineItemORM                   invoiceLineItemORM
-	InvoiceORM                           invoiceORM
-	ItemORM                              itemORM
-	JournalEntryORM                      journalEntryORM
-	JournalLineORM                       journalLineORM
 	LinkORM                              linkORM
-	LinkedAccountingAccountORM           linkedAccountingAccountORM
-	MergeLinkORM                         mergeLinkORM
 	MilestoneORM                         milestoneORM
 	MortgageAccountORM                   mortgageAccountORM
-	PaymentORM                           paymentORM
 	PersonalActionableInsightORM         personalActionableInsightORM
 	PlaidAccountInvestmentTransactionORM plaidAccountInvestmentTransactionORM
 	PlaidAccountRecurringTransactionORM  plaidAccountRecurringTransactionORM
@@ -255,23 +138,12 @@ type Query struct {
 	PlaidLinkORM                         plaidLinkORM
 	PlaidSyncORM                         plaidSyncORM
 	PocketORM                            pocketORM
-	PurchaseOrderLineItemORM             purchaseOrderLineItemORM
-	PurchaseOrderORM                     purchaseOrderORM
-	ReferenceDetailsORM                  referenceDetailsORM
-	ReportDetailsORM                     reportDetailsORM
-	ReportItemORM                        reportItemORM
 	SmartGoalORM                         smartGoalORM
 	SmartNoteORM                         smartNoteORM
 	StripeSubscriptionORM                stripeSubscriptionORM
 	StudentLoanAccountORM                studentLoanAccountORM
-	TaxRateORM                           taxRateORM
 	TokenORM                             tokenORM
-	TrackingCategoryORM                  trackingCategoryORM
-	TransactionDetailsORM                transactionDetailsORM
-	TransactionLineItemORM               transactionLineItemORM
 	TransactionSplitORM                  transactionSplitORM
-	VendorCreditLineORM                  vendorCreditLineORM
-	VendorCreditORM                      vendorCreditORM
 }
 
 func (q *Query) Available() bool { return q.db != nil }
@@ -279,42 +151,21 @@ func (q *Query) Available() bool { return q.db != nil }
 func (q *Query) clone(db *gorm.DB) *Query {
 	return &Query{
 		db:                                   db,
-		AccountingAttachmentORM:              q.AccountingAttachmentORM.clone(db),
 		ActionableInsightORM:                 q.ActionableInsightORM.clone(db),
 		AddressORM:                           q.AddressORM.clone(db),
 		AprORM:                               q.AprORM.clone(db),
-		AttachmentsORM:                       q.AttachmentsORM.clone(db),
-		BalanceSheetORM:                      q.BalanceSheetORM.clone(db),
 		BankAccountORM:                       q.BankAccountORM.clone(db),
 		BudgetORM:                            q.BudgetORM.clone(db),
-		BusinessChartOfAccountsORM:           q.BusinessChartOfAccountsORM.clone(db),
-		BusinessTransactionORM:               q.BusinessTransactionORM.clone(db),
-		CashFlowStatementsORM:                q.CashFlowStatementsORM.clone(db),
 		CategoryORM:                          q.CategoryORM.clone(db),
-		CompanyInfoORM:                       q.CompanyInfoORM.clone(db),
-		ContactsORM:                          q.ContactsORM.clone(db),
 		CreditAccountORM:                     q.CreditAccountORM.clone(db),
-		CreditNoteLineItemORM:                q.CreditNoteLineItemORM.clone(db),
-		CreditNoteORM:                        q.CreditNoteORM.clone(db),
-		ExpenseLineORM:                       q.ExpenseLineORM.clone(db),
-		ExpenseORM:                           q.ExpenseORM.clone(db),
 		FinancialUserProfileORM:              q.FinancialUserProfileORM.clone(db),
 		ForecastORM:                          q.ForecastORM.clone(db),
-		IncomeStatementORM:                   q.IncomeStatementORM.clone(db),
 		InvesmentHoldingORM:                  q.InvesmentHoldingORM.clone(db),
 		InvestmentAccountORM:                 q.InvestmentAccountORM.clone(db),
 		InvestmentSecurityORM:                q.InvestmentSecurityORM.clone(db),
-		InvoiceLineItemORM:                   q.InvoiceLineItemORM.clone(db),
-		InvoiceORM:                           q.InvoiceORM.clone(db),
-		ItemORM:                              q.ItemORM.clone(db),
-		JournalEntryORM:                      q.JournalEntryORM.clone(db),
-		JournalLineORM:                       q.JournalLineORM.clone(db),
 		LinkORM:                              q.LinkORM.clone(db),
-		LinkedAccountingAccountORM:           q.LinkedAccountingAccountORM.clone(db),
-		MergeLinkORM:                         q.MergeLinkORM.clone(db),
 		MilestoneORM:                         q.MilestoneORM.clone(db),
 		MortgageAccountORM:                   q.MortgageAccountORM.clone(db),
-		PaymentORM:                           q.PaymentORM.clone(db),
 		PersonalActionableInsightORM:         q.PersonalActionableInsightORM.clone(db),
 		PlaidAccountInvestmentTransactionORM: q.PlaidAccountInvestmentTransactionORM.clone(db),
 		PlaidAccountRecurringTransactionORM:  q.PlaidAccountRecurringTransactionORM.clone(db),
@@ -322,23 +173,12 @@ func (q *Query) clone(db *gorm.DB) *Query {
 		PlaidLinkORM:                         q.PlaidLinkORM.clone(db),
 		PlaidSyncORM:                         q.PlaidSyncORM.clone(db),
 		PocketORM:                            q.PocketORM.clone(db),
-		PurchaseOrderLineItemORM:             q.PurchaseOrderLineItemORM.clone(db),
-		PurchaseOrderORM:                     q.PurchaseOrderORM.clone(db),
-		ReferenceDetailsORM:                  q.ReferenceDetailsORM.clone(db),
-		ReportDetailsORM:                     q.ReportDetailsORM.clone(db),
-		ReportItemORM:                        q.ReportItemORM.clone(db),
 		SmartGoalORM:                         q.SmartGoalORM.clone(db),
 		SmartNoteORM:                         q.SmartNoteORM.clone(db),
 		StripeSubscriptionORM:                q.StripeSubscriptionORM.clone(db),
 		StudentLoanAccountORM:                q.StudentLoanAccountORM.clone(db),
-		TaxRateORM:                           q.TaxRateORM.clone(db),
 		TokenORM:                             q.TokenORM.clone(db),
-		TrackingCategoryORM:                  q.TrackingCategoryORM.clone(db),
-		TransactionDetailsORM:                q.TransactionDetailsORM.clone(db),
-		TransactionLineItemORM:               q.TransactionLineItemORM.clone(db),
 		TransactionSplitORM:                  q.TransactionSplitORM.clone(db),
-		VendorCreditLineORM:                  q.VendorCreditLineORM.clone(db),
-		VendorCreditORM:                      q.VendorCreditORM.clone(db),
 	}
 }
 
@@ -353,42 +193,21 @@ func (q *Query) WriteDB() *Query {
 func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 	return &Query{
 		db:                                   db,
-		AccountingAttachmentORM:              q.AccountingAttachmentORM.replaceDB(db),
 		ActionableInsightORM:                 q.ActionableInsightORM.replaceDB(db),
 		AddressORM:                           q.AddressORM.replaceDB(db),
 		AprORM:                               q.AprORM.replaceDB(db),
-		AttachmentsORM:                       q.AttachmentsORM.replaceDB(db),
-		BalanceSheetORM:                      q.BalanceSheetORM.replaceDB(db),
 		BankAccountORM:                       q.BankAccountORM.replaceDB(db),
 		BudgetORM:                            q.BudgetORM.replaceDB(db),
-		BusinessChartOfAccountsORM:           q.BusinessChartOfAccountsORM.replaceDB(db),
-		BusinessTransactionORM:               q.BusinessTransactionORM.replaceDB(db),
-		CashFlowStatementsORM:                q.CashFlowStatementsORM.replaceDB(db),
 		CategoryORM:                          q.CategoryORM.replaceDB(db),
-		CompanyInfoORM:                       q.CompanyInfoORM.replaceDB(db),
-		ContactsORM:                          q.ContactsORM.replaceDB(db),
 		CreditAccountORM:                     q.CreditAccountORM.replaceDB(db),
-		CreditNoteLineItemORM:                q.CreditNoteLineItemORM.replaceDB(db),
-		CreditNoteORM:                        q.CreditNoteORM.replaceDB(db),
-		ExpenseLineORM:                       q.ExpenseLineORM.replaceDB(db),
-		ExpenseORM:                           q.ExpenseORM.replaceDB(db),
 		FinancialUserProfileORM:              q.FinancialUserProfileORM.replaceDB(db),
 		ForecastORM:                          q.ForecastORM.replaceDB(db),
-		IncomeStatementORM:                   q.IncomeStatementORM.replaceDB(db),
 		InvesmentHoldingORM:                  q.InvesmentHoldingORM.replaceDB(db),
 		InvestmentAccountORM:                 q.InvestmentAccountORM.replaceDB(db),
 		InvestmentSecurityORM:                q.InvestmentSecurityORM.replaceDB(db),
-		InvoiceLineItemORM:                   q.InvoiceLineItemORM.replaceDB(db),
-		InvoiceORM:                           q.InvoiceORM.replaceDB(db),
-		ItemORM:                              q.ItemORM.replaceDB(db),
-		JournalEntryORM:                      q.JournalEntryORM.replaceDB(db),
-		JournalLineORM:                       q.JournalLineORM.replaceDB(db),
 		LinkORM:                              q.LinkORM.replaceDB(db),
-		LinkedAccountingAccountORM:           q.LinkedAccountingAccountORM.replaceDB(db),
-		MergeLinkORM:                         q.MergeLinkORM.replaceDB(db),
 		MilestoneORM:                         q.MilestoneORM.replaceDB(db),
 		MortgageAccountORM:                   q.MortgageAccountORM.replaceDB(db),
-		PaymentORM:                           q.PaymentORM.replaceDB(db),
 		PersonalActionableInsightORM:         q.PersonalActionableInsightORM.replaceDB(db),
 		PlaidAccountInvestmentTransactionORM: q.PlaidAccountInvestmentTransactionORM.replaceDB(db),
 		PlaidAccountRecurringTransactionORM:  q.PlaidAccountRecurringTransactionORM.replaceDB(db),
@@ -396,63 +215,31 @@ func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 		PlaidLinkORM:                         q.PlaidLinkORM.replaceDB(db),
 		PlaidSyncORM:                         q.PlaidSyncORM.replaceDB(db),
 		PocketORM:                            q.PocketORM.replaceDB(db),
-		PurchaseOrderLineItemORM:             q.PurchaseOrderLineItemORM.replaceDB(db),
-		PurchaseOrderORM:                     q.PurchaseOrderORM.replaceDB(db),
-		ReferenceDetailsORM:                  q.ReferenceDetailsORM.replaceDB(db),
-		ReportDetailsORM:                     q.ReportDetailsORM.replaceDB(db),
-		ReportItemORM:                        q.ReportItemORM.replaceDB(db),
 		SmartGoalORM:                         q.SmartGoalORM.replaceDB(db),
 		SmartNoteORM:                         q.SmartNoteORM.replaceDB(db),
 		StripeSubscriptionORM:                q.StripeSubscriptionORM.replaceDB(db),
 		StudentLoanAccountORM:                q.StudentLoanAccountORM.replaceDB(db),
-		TaxRateORM:                           q.TaxRateORM.replaceDB(db),
 		TokenORM:                             q.TokenORM.replaceDB(db),
-		TrackingCategoryORM:                  q.TrackingCategoryORM.replaceDB(db),
-		TransactionDetailsORM:                q.TransactionDetailsORM.replaceDB(db),
-		TransactionLineItemORM:               q.TransactionLineItemORM.replaceDB(db),
 		TransactionSplitORM:                  q.TransactionSplitORM.replaceDB(db),
-		VendorCreditLineORM:                  q.VendorCreditLineORM.replaceDB(db),
-		VendorCreditORM:                      q.VendorCreditORM.replaceDB(db),
 	}
 }
 
 type queryCtx struct {
-	AccountingAttachmentORM              IAccountingAttachmentORMDo
 	ActionableInsightORM                 IActionableInsightORMDo
 	AddressORM                           IAddressORMDo
 	AprORM                               IAprORMDo
-	AttachmentsORM                       IAttachmentsORMDo
-	BalanceSheetORM                      IBalanceSheetORMDo
 	BankAccountORM                       IBankAccountORMDo
 	BudgetORM                            IBudgetORMDo
-	BusinessChartOfAccountsORM           IBusinessChartOfAccountsORMDo
-	BusinessTransactionORM               IBusinessTransactionORMDo
-	CashFlowStatementsORM                ICashFlowStatementsORMDo
 	CategoryORM                          ICategoryORMDo
-	CompanyInfoORM                       ICompanyInfoORMDo
-	ContactsORM                          IContactsORMDo
 	CreditAccountORM                     ICreditAccountORMDo
-	CreditNoteLineItemORM                ICreditNoteLineItemORMDo
-	CreditNoteORM                        ICreditNoteORMDo
-	ExpenseLineORM                       IExpenseLineORMDo
-	ExpenseORM                           IExpenseORMDo
 	FinancialUserProfileORM              IFinancialUserProfileORMDo
 	ForecastORM                          IForecastORMDo
-	IncomeStatementORM                   IIncomeStatementORMDo
 	InvesmentHoldingORM                  IInvesmentHoldingORMDo
 	InvestmentAccountORM                 IInvestmentAccountORMDo
 	InvestmentSecurityORM                IInvestmentSecurityORMDo
-	InvoiceLineItemORM                   IInvoiceLineItemORMDo
-	InvoiceORM                           IInvoiceORMDo
-	ItemORM                              IItemORMDo
-	JournalEntryORM                      IJournalEntryORMDo
-	JournalLineORM                       IJournalLineORMDo
 	LinkORM                              ILinkORMDo
-	LinkedAccountingAccountORM           ILinkedAccountingAccountORMDo
-	MergeLinkORM                         IMergeLinkORMDo
 	MilestoneORM                         IMilestoneORMDo
 	MortgageAccountORM                   IMortgageAccountORMDo
-	PaymentORM                           IPaymentORMDo
 	PersonalActionableInsightORM         IPersonalActionableInsightORMDo
 	PlaidAccountInvestmentTransactionORM IPlaidAccountInvestmentTransactionORMDo
 	PlaidAccountRecurringTransactionORM  IPlaidAccountRecurringTransactionORMDo
@@ -460,63 +247,31 @@ type queryCtx struct {
 	PlaidLinkORM                         IPlaidLinkORMDo
 	PlaidSyncORM                         IPlaidSyncORMDo
 	PocketORM                            IPocketORMDo
-	PurchaseOrderLineItemORM             IPurchaseOrderLineItemORMDo
-	PurchaseOrderORM                     IPurchaseOrderORMDo
-	ReferenceDetailsORM                  IReferenceDetailsORMDo
-	ReportDetailsORM                     IReportDetailsORMDo
-	ReportItemORM                        IReportItemORMDo
 	SmartGoalORM                         ISmartGoalORMDo
 	SmartNoteORM                         ISmartNoteORMDo
 	StripeSubscriptionORM                IStripeSubscriptionORMDo
 	StudentLoanAccountORM                IStudentLoanAccountORMDo
-	TaxRateORM                           ITaxRateORMDo
 	TokenORM                             ITokenORMDo
-	TrackingCategoryORM                  ITrackingCategoryORMDo
-	TransactionDetailsORM                ITransactionDetailsORMDo
-	TransactionLineItemORM               ITransactionLineItemORMDo
 	TransactionSplitORM                  ITransactionSplitORMDo
-	VendorCreditLineORM                  IVendorCreditLineORMDo
-	VendorCreditORM                      IVendorCreditORMDo
 }
 
 func (q *Query) WithContext(ctx context.Context) *queryCtx {
 	return &queryCtx{
-		AccountingAttachmentORM:              q.AccountingAttachmentORM.WithContext(ctx),
 		ActionableInsightORM:                 q.ActionableInsightORM.WithContext(ctx),
 		AddressORM:                           q.AddressORM.WithContext(ctx),
 		AprORM:                               q.AprORM.WithContext(ctx),
-		AttachmentsORM:                       q.AttachmentsORM.WithContext(ctx),
-		BalanceSheetORM:                      q.BalanceSheetORM.WithContext(ctx),
 		BankAccountORM:                       q.BankAccountORM.WithContext(ctx),
 		BudgetORM:                            q.BudgetORM.WithContext(ctx),
-		BusinessChartOfAccountsORM:           q.BusinessChartOfAccountsORM.WithContext(ctx),
-		BusinessTransactionORM:               q.BusinessTransactionORM.WithContext(ctx),
-		CashFlowStatementsORM:                q.CashFlowStatementsORM.WithContext(ctx),
 		CategoryORM:                          q.CategoryORM.WithContext(ctx),
-		CompanyInfoORM:                       q.CompanyInfoORM.WithContext(ctx),
-		ContactsORM:                          q.ContactsORM.WithContext(ctx),
 		CreditAccountORM:                     q.CreditAccountORM.WithContext(ctx),
-		CreditNoteLineItemORM:                q.CreditNoteLineItemORM.WithContext(ctx),
-		CreditNoteORM:                        q.CreditNoteORM.WithContext(ctx),
-		ExpenseLineORM:                       q.ExpenseLineORM.WithContext(ctx),
-		ExpenseORM:                           q.ExpenseORM.WithContext(ctx),
 		FinancialUserProfileORM:              q.FinancialUserProfileORM.WithContext(ctx),
 		ForecastORM:                          q.ForecastORM.WithContext(ctx),
-		IncomeStatementORM:                   q.IncomeStatementORM.WithContext(ctx),
 		InvesmentHoldingORM:                  q.InvesmentHoldingORM.WithContext(ctx),
 		InvestmentAccountORM:                 q.InvestmentAccountORM.WithContext(ctx),
 		InvestmentSecurityORM:                q.InvestmentSecurityORM.WithContext(ctx),
-		InvoiceLineItemORM:                   q.InvoiceLineItemORM.WithContext(ctx),
-		InvoiceORM:                           q.InvoiceORM.WithContext(ctx),
-		ItemORM:                              q.ItemORM.WithContext(ctx),
-		JournalEntryORM:                      q.JournalEntryORM.WithContext(ctx),
-		JournalLineORM:                       q.JournalLineORM.WithContext(ctx),
 		LinkORM:                              q.LinkORM.WithContext(ctx),
-		LinkedAccountingAccountORM:           q.LinkedAccountingAccountORM.WithContext(ctx),
-		MergeLinkORM:                         q.MergeLinkORM.WithContext(ctx),
 		MilestoneORM:                         q.MilestoneORM.WithContext(ctx),
 		MortgageAccountORM:                   q.MortgageAccountORM.WithContext(ctx),
-		PaymentORM:                           q.PaymentORM.WithContext(ctx),
 		PersonalActionableInsightORM:         q.PersonalActionableInsightORM.WithContext(ctx),
 		PlaidAccountInvestmentTransactionORM: q.PlaidAccountInvestmentTransactionORM.WithContext(ctx),
 		PlaidAccountRecurringTransactionORM:  q.PlaidAccountRecurringTransactionORM.WithContext(ctx),
@@ -524,23 +279,12 @@ func (q *Query) WithContext(ctx context.Context) *queryCtx {
 		PlaidLinkORM:                         q.PlaidLinkORM.WithContext(ctx),
 		PlaidSyncORM:                         q.PlaidSyncORM.WithContext(ctx),
 		PocketORM:                            q.PocketORM.WithContext(ctx),
-		PurchaseOrderLineItemORM:             q.PurchaseOrderLineItemORM.WithContext(ctx),
-		PurchaseOrderORM:                     q.PurchaseOrderORM.WithContext(ctx),
-		ReferenceDetailsORM:                  q.ReferenceDetailsORM.WithContext(ctx),
-		ReportDetailsORM:                     q.ReportDetailsORM.WithContext(ctx),
-		ReportItemORM:                        q.ReportItemORM.WithContext(ctx),
 		SmartGoalORM:                         q.SmartGoalORM.WithContext(ctx),
 		SmartNoteORM:                         q.SmartNoteORM.WithContext(ctx),
 		StripeSubscriptionORM:                q.StripeSubscriptionORM.WithContext(ctx),
 		StudentLoanAccountORM:                q.StudentLoanAccountORM.WithContext(ctx),
-		TaxRateORM:                           q.TaxRateORM.WithContext(ctx),
 		TokenORM:                             q.TokenORM.WithContext(ctx),
-		TrackingCategoryORM:                  q.TrackingCategoryORM.WithContext(ctx),
-		TransactionDetailsORM:                q.TransactionDetailsORM.WithContext(ctx),
-		TransactionLineItemORM:               q.TransactionLineItemORM.WithContext(ctx),
 		TransactionSplitORM:                  q.TransactionSplitORM.WithContext(ctx),
-		VendorCreditLineORM:                  q.VendorCreditLineORM.WithContext(ctx),
-		VendorCreditORM:                      q.VendorCreditORM.WithContext(ctx),
 	}
 }
 
