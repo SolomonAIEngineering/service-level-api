@@ -1,4 +1,0 @@
-version: v1
-name: buf.build/types/dependencies
-deps:
-  - buf.build/googleapis/googleapis
