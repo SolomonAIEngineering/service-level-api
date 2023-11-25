@@ -2,15 +2,11 @@ syntax = "proto3";
 
 package accounting_service.v1;
 
-import "accounting_service/v1/message_accounting_service.proto";
-import "accounting_service/v1/clickhouse_accounting_service.proto";
+import "accounting_service/v1/database_schema.proto";
 option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/generated/accounting_service/v1";
 import "validate/validate.proto";
 import "google/api/field_behavior.proto";
-import "protoc-gen-openapiv2/options/annotations.proto";
-import "google/protobuf/any.proto";
 import "gogoproto/gogo.proto";
-import "google/protobuf/timestamp.proto";
 
 option (gogoproto.gostring_all) = true;
 option (gogoproto.equal_all) = true;
@@ -85,9 +81,6 @@ message MergeGetPublicLinkTokenRequest {
     (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
-  FinancialUserProfileType profile_type = 9 [
-    (google.api.field_behavior) = REQUIRED
-  ]; 
 }
 
 message MergeExchangePublicLinkTokenForAccountTokenRequest {
@@ -111,9 +104,6 @@ message MergeExchangePublicLinkTokenForAccountTokenRequest {
 
   string organization_name = 4  [
     (validate.rules).string.min_len = 1,
-    (google.api.field_behavior) = REQUIRED
-  ];
-  FinancialUserProfileType profile_type = 9 [
     (google.api.field_behavior) = REQUIRED
   ];
 }

@@ -1,0 +1,2848 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Accounting Service",
+    "description": "The accounting service for the solomon-ai backend",
+    "version": "0.1",
+    "contact": {
+      "name": "YoanYomba",
+      "url": "https://solomon-ai.ip",
+      "email": "yoanyomba@solomon-ai.co"
+    },
+    "license": {
+      "name": "Apache-2.0",
+      "url": "https://github.com/openfga/openfga/blob/main/LICENSE"
+    }
+  },
+  "tags": [
+    {
+      "name": "AccountingService"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v1/health": {
+      "get": {
+        "summary": "health check",
+        "description": "This endpoint performs a healc check on the service",
+        "operationId": "HealthCheck",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.HealthCheckResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "tags": [
+          "service health"
+        ]
+      }
+    },
+    "/api/v1/merge/exchange-token": {
+      "post": {
+        "summary": "enables the client to exchange a public link token for an access token",
+        "operationId": "MergeExchangePublicLinkTokenForAccountToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.MergeExchangePublicLinkTokenForAccountTokenResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MergeExchangePublicLinkTokenForAccountTokenRequest"
+            }
+          }
+        ],
+        "tags": [
+          "merge"
+        ]
+      }
+    },
+    "/api/v1/merge/initiate-token-exchange": {
+      "post": {
+        "summary": "enables the client to get a link_token to initialize a Link session for your end user.",
+        "operationId": "MergeGetPublicLinkToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.MergeGetPublicLinkTokenResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MergeGetPublicLinkTokenRequest"
+            }
+          }
+        ],
+        "tags": [
+          "merge"
+        ]
+      }
+    },
+    "/api/v1/profile": {
+      "post": {
+        "summary": "create accounting profile",
+        "description": "This endpoint creates an accounting profile",
+        "operationId": "CreateAccountingProfile",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.CreateBusinessAccountingProfileResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateBusinessAccountingProfileRequest"
+            }
+          }
+        ],
+        "tags": [
+          "profile"
+        ]
+      },
+      "put": {
+        "summary": "Update accounting profile",
+        "description": "This endpoint Updates an accounting profile",
+        "operationId": "UpdateAccountingProfile",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.UpdateBusinessAccountingProfileResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateBusinessAccountingProfileRequest"
+            }
+          }
+        ],
+        "tags": [
+          "profile"
+        ]
+      }
+    },
+    "/api/v1/profile/{userId}": {
+      "get": {
+        "summary": "gets a business account profile",
+        "operationId": "GetBusinessAccountingProfile",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.GetBusinessAccountingProfileResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "profile"
+        ]
+      },
+      "delete": {
+        "summary": "delete business accounting profile",
+        "operationId": "DeleteBusinessAccountingProfile",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.DeleteBusinessAccountingProfileResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "profile"
+        ]
+      }
+    },
+    "/api/v1/ready": {
+      "get": {
+        "summary": "readyness check",
+        "description": "This endpoint performs a readiness check on the service",
+        "operationId": "ReadynessCheck",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.ReadynessCheckResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "tags": [
+          "service readyness"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "Any": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "Attachments": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "mergeAccountId": {
+          "type": "string",
+          "title": "the object's id as stored in merge"
+        },
+        "remoteId": {
+          "type": "string",
+          "description": "The third-party API ID of the matching object."
+        },
+        "fileName": {
+          "type": "string",
+          "description": "The attachment's name."
+        },
+        "fileUrl": {
+          "type": "string",
+          "description": "The attachment's url."
+        },
+        "company": {
+          "type": "string",
+          "description": "The company the accounting attachment belongs to."
+        },
+        "remoteWasDeleted": {
+          "type": "boolean",
+          "description": "Indicates whether or not this object has been deleted by third party webhooks."
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "This is the datetime that this object was last updated by Merge"
+        }
+      },
+      "description": "The AccountingAttachment object is used to represent a company's attachments."
+    },
+    "BalanceSheet": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "remoteId": {
+          "type": "string",
+          "description": "The third-party API ID of the matching object."
+        },
+        "name": {
+          "type": "string",
+          "description": "The balance sheet's name."
+        },
+        "currency": {
+          "type": "string"
+        },
+        "company": {
+          "type": "string",
+          "title": "Company object for the given BalanceSheet object. May not necessarily be the compnay name but the \ncompany reference"
+        },
+        "date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The balance sheet's date. The balance sheet data will\n reflect the company's financial position this point in time.\n\nConsider using google.protobuf.Timestamp"
+        },
+        "netAssets": {
+          "type": "string",
+          "format": "int64",
+          "description": "The balance sheet's net assets."
+        },
+        "assets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ReportItem"
+          },
+          "description": "The balance sheet's total assets."
+        },
+        "liabilities": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ReportItem"
+          },
+          "description": "The balance sheet's total liabilities."
+        },
+        "equity": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ReportItem"
+          },
+          "description": "The balance sheet's total equity."
+        },
+        "remoteGeneratedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The time that balance sheet was generated by the accounting system.\n\nConsider using google.protobuf.Timestamp"
+        },
+        "remoteWasDeleted": {
+          "type": "boolean",
+          "description": "Indicates whether or not this object has been deleted by third party webhooks."
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Consider using google.protobuf.Timestamp",
+          "title": "This is the datetime that this object was last updated by Merge"
+        },
+        "mergeAccountId": {
+          "type": "string",
+          "title": "the id as stored in merge"
+        }
+      },
+      "description": "The BalanceSheet object shows a company’s assets, liabilities, and equity. Assets should be equal\nto liability and equity combined.  This shows the company’s financial health at a specific point in time."
+    },
+    "BusinessAccountingProfile": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "id"
+        },
+        "userId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "the user id tied to the profile"
+        },
+        "companyName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "title": "a user profile can have many links (connected institutions) of which finanical accounts are tied to (checking, savings, etc)"
+        },
+        "mergeLiink": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/MergeLink"
+          }
+        },
+        "actionablePersonalInsights": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/BusinessActionableInsight"
+          }
+        }
+      },
+      "title": "FinancialUserProfile stores high level user profile details\nsuch as the id, user_id tied to the profile, and many more"
+    },
+    "BusinessActionableInsight": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "example": "1234567890",
+          "title": "Unique identifier for the insight"
+        },
+        "insightName": {
+          "$ref": "#/definitions/BusinessActionableInsightName",
+          "title": "Type of the actionable insight"
+        },
+        "description": {
+          "type": "string",
+          "example": "Reduce operating costs by optimizing energy usage.",
+          "title": "Detailed description of the insight"
+        },
+        "takeaway": {
+          "type": "string",
+          "example": "Optimizing energy usage can lead to significant cost savings.",
+          "title": "Key takeaway or summary of the insight"
+        },
+        "action": {
+          "type": "string",
+          "example": "Implement energy-efficient lighting and machinery.",
+          "title": "Suggested action based on the insight"
+        },
+        "expectedBenefit": {
+          "type": "string",
+          "example": "Expected to reduce energy costs by up to 20% annually.",
+          "title": "Expected benefit or outcome of taking the suggested action"
+        },
+        "tags": {
+          "type": "array",
+          "example": [
+            "cost-saving",
+            "energy-efficiency"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "title": "Tags associated with the insight for categorization"
+        },
+        "generatedTime": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Time when the insight was generated"
+        },
+        "metricsToOptimizeFor": {
+          "type": "array",
+          "example": [
+            "operating costs",
+            "energy consumption"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "title": "Specific business metrics that this insight aims to optimize"
+        }
+      }
+    },
+    "BusinessActionableInsightName": {
+      "type": "string",
+      "enum": [
+        "BUSINESS_ACTIONABLE_INSIGHT_NAME_UNSPECIFIED",
+        "BUSINESS_ACTIONABLE_INSIGHT_NAME_OPERATING_EXPENSES",
+        "BUSINESS_ACTIONABLE_INSIGHT_NAME_CASH_FLOW_MANAGEMENT",
+        "BUSINESS_ACTIONABLE_INSIGHT_NAME_REVENUE_GROWTH",
+        "BUSINESS_ACTIONABLE_INSIGHT_NAME_COST_REDUCTION",
+        "BUSINESS_ACTIONABLE_INSIGHT_NAME_INVENTORY_MANAGEMENT",
+        "BUSINESS_ACTIONABLE_INSIGHT_NAME_CAPITAL_ALLOCATION",
+        "BUSINESS_ACTIONABLE_INSIGHT_NAME_INVESTMENT_OPPORTUNITIES",
+        "BUSINESS_ACTIONABLE_INSIGHT_NAME_RISK_ASSESSMENT",
+        "BUSINESS_ACTIONABLE_INSIGHT_NAME_TAX_PLANNING",
+        "BUSINESS_ACTIONABLE_INSIGHT_NAME_DEBT_MANAGEMENT"
+      ],
+      "default": "BUSINESS_ACTIONABLE_INSIGHT_NAME_UNSPECIFIED",
+      "description": " - BUSINESS_ACTIONABLE_INSIGHT_NAME_OPERATING_EXPENSES: Operating Expenses: Insights on managing day-to-day operational costs.\n - BUSINESS_ACTIONABLE_INSIGHT_NAME_CASH_FLOW_MANAGEMENT: Cash Flow Management: Insights into cash inflows and outflows.\n - BUSINESS_ACTIONABLE_INSIGHT_NAME_REVENUE_GROWTH: Revenue Growth: Strategies or opportunities to increase revenue.\n - BUSINESS_ACTIONABLE_INSIGHT_NAME_COST_REDUCTION: Cost Reduction: Identifying areas where expenses can be minimized.\n - BUSINESS_ACTIONABLE_INSIGHT_NAME_INVENTORY_MANAGEMENT: Inventory Management: Insights on optimizing inventory levels and costs.\n - BUSINESS_ACTIONABLE_INSIGHT_NAME_CAPITAL_ALLOCATION: Capital Allocation: Guidance on efficient allocation of financial resources.\n - BUSINESS_ACTIONABLE_INSIGHT_NAME_INVESTMENT_OPPORTUNITIES: Investment Opportunities: Identifying potential profitable investments.\n - BUSINESS_ACTIONABLE_INSIGHT_NAME_RISK_ASSESSMENT: Risk Assessment: Insights into potential risks and mitigation strategies.\n - BUSINESS_ACTIONABLE_INSIGHT_NAME_TAX_PLANNING: Tax Planning: Suggestions for tax optimization.\n - BUSINESS_ACTIONABLE_INSIGHT_NAME_DEBT_MANAGEMENT: Debt Management: Strategies for managing and reducing debt."
+    },
+    "BusinessChartOfAccounts": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "the database record's id"
+        },
+        "mergeAccountId": {
+          "type": "string",
+          "title": "the account id as stored in merge-api. this is a required field"
+        },
+        "remoteId": {
+          "type": "string",
+          "title": "The third-party matching id for the object. For example, this field will be the id \nas seen in quickbooks for a sample remote connection against quickbookks"
+        },
+        "name": {
+          "type": "string",
+          "description": "The account's name."
+        },
+        "description": {
+          "type": "string",
+          "description": "The account's description."
+        },
+        "classification": {
+          "type": "string",
+          "description": "The account's broadest grouping. Possible values include: ASSET, EQUITY, EXPENSE, \nLIABILITY, REVENUE. In cases where there is no clear mapping, the original \nvalue passed through will be returned."
+        },
+        "type": {
+          "type": "string",
+          "description": "The account's type is a narrower and more specific grouping within the account's classification."
+        },
+        "status": {
+          "type": "string",
+          "description": "The account's status. Possible values include: ACTIVE, PENDING, INACTIVE. In cases where there is\n no clear mapping, the original value passed through will be returned."
+        },
+        "currentBalance": {
+          "type": "number",
+          "format": "double",
+          "description": "The account's current balance."
+        },
+        "currency": {
+          "type": "string"
+        },
+        "accountNumber": {
+          "type": "string",
+          "description": "The account's number."
+        },
+        "parentAccountId": {
+          "type": "string",
+          "description": "ID of the parent account."
+        },
+        "company": {
+          "type": "string",
+          "description": "The company the account belongs to."
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "This is the datetime that this object was last updated by Merge"
+        },
+        "remoteWasDeleted": {
+          "type": "boolean",
+          "description": "Indicates whether or not this object has been deleted by third party webhooks."
+        }
+      },
+      "description": "The Account object is what companies use to track transactions. \nThey can be both bank accounts or a general ledger account (also called a chart of accounts).\n\nNote: a company can have a multitude of these accounts",
+      "required": [
+        "mergeAccountId"
+      ]
+    },
+    "BusinessTransaction": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "transactionType": {
+          "type": "string"
+        },
+        "number": {
+          "type": "string"
+        },
+        "transactionDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "account": {
+          "type": "string"
+        },
+        "contact": {
+          "type": "string"
+        },
+        "totalAmount": {
+          "type": "string",
+          "description": "Might be better as double."
+        },
+        "currency": {
+          "type": "string"
+        },
+        "exchangeRate": {
+          "type": "string",
+          "description": "Assuming string, but might be better as float or double."
+        },
+        "company": {
+          "type": "string"
+        },
+        "trackingCategories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "lineItems": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/TransactionLineItem"
+          }
+        },
+        "remoteWasDeleted": {
+          "type": "boolean"
+        },
+        "accountingPeriod": {
+          "type": "string"
+        },
+        "mergeAccountId": {
+          "type": "string"
+        },
+        "remoteId": {
+          "type": "string"
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "description": "The Transaction includes different types of transactions. The Transactions object does not cover expenses, credit notes,\nvendor credit, invoices, purchase orders, and journal entries. See the “transaction_type” field for more information."
+    },
+    "CashFlowStatements": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "remoteId": {
+          "type": "string",
+          "description": "The third-party API ID of the matching object."
+        },
+        "name": {
+          "type": "string",
+          "description": "The cash flow statement's name."
+        },
+        "currency": {
+          "type": "string",
+          "title": "The cash flow statement's currency"
+        },
+        "company": {
+          "type": "string",
+          "description": "The company the cash flow statement belongs to."
+        },
+        "startPeriod": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The cash flow statement's start period.\n\nConsider using google.protobuf.Timestamp"
+        },
+        "endPeriod": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The cash flow statement's end period.\n\nConsider using google.protobuf.Timestamp"
+        },
+        "cashAtBeginningOfPeriod": {
+          "type": "number",
+          "format": "double",
+          "description": "Cash and cash equivalents at the beginning of the cash flow statement's period."
+        },
+        "cashAtEndOfPeriod": {
+          "type": "number",
+          "format": "double",
+          "description": "Cash and cash equivalents at the beginning of the cash flow statement's period."
+        },
+        "operatingActivities": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ReportItem"
+          },
+          "title": "Operating activities"
+        },
+        "investingActivities": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ReportItem"
+          },
+          "title": "Investing activities"
+        },
+        "financingActivities": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ReportItem"
+          },
+          "title": "Financing activities"
+        },
+        "remoteGeneratedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The time that cash flow statement was generated by the accounting system.\n\nConsider using google.protobuf.Timestamp"
+        },
+        "remoteWasDeleted": {
+          "type": "boolean",
+          "description": "Indicates whether or not this object has been deleted by third party webhooks."
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Consider using google.protobuf.Timestamp",
+          "title": "This is the datetime that this object was last updated by Merge"
+        },
+        "mergeRecordId": {
+          "type": "string",
+          "title": "the cashflow statements id as stored in merge"
+        }
+      },
+      "description": "The CashFlowStatement object shows operating activities, investing activities, and financing activities over a\nperiod of time (month, quarter, or year)."
+    },
+    "CompanyAddress": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "the database record's id"
+        },
+        "type": {
+          "type": "string"
+        },
+        "street1": {
+          "type": "string",
+          "description": "Line 1 of the address's street."
+        },
+        "street2": {
+          "type": "string",
+          "description": "Line 2 of the address's street."
+        },
+        "city": {
+          "type": "string",
+          "description": "The address's city."
+        },
+        "state": {
+          "type": "string",
+          "description": "The address's state or region."
+        },
+        "countrySubdivision": {
+          "type": "string",
+          "description": "Typically, this might just be 'state' but used your field name to keep it consistent with the JSON",
+          "title": "country's subdivision"
+        },
+        "country": {
+          "type": "string",
+          "description": "The address's country."
+        },
+        "zipCode": {
+          "type": "string",
+          "description": "The address's zip code."
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Consider using google.protobuf.Timestamp if precise time manipulation is required",
+          "title": "This is the datetime that this object was last updated by Merge"
+        }
+      },
+      "description": "The CompanyAddress object is used to represent a contact's or company's address."
+    },
+    "CompanyInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "the id of the record in our system"
+        },
+        "remoteId": {
+          "type": "string",
+          "description": "The third-party API ID of the matching object."
+        },
+        "name": {
+          "type": "string",
+          "description": "The company's name."
+        },
+        "legalName": {
+          "type": "string",
+          "description": "The company's legal name."
+        },
+        "taxNumber": {
+          "type": "string",
+          "description": "The company's tax number."
+        },
+        "fiscalYearEndMonth": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The company's fiscal year end month."
+        },
+        "fiscalYearEndDay": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The company's fiscal year end day."
+        },
+        "currency": {
+          "type": "string",
+          "description": "The currency set in the company's accounting platform."
+        },
+        "remoteCreatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the third party's company was created.\n\nConsider using google.protobuf.Timestamp"
+        },
+        "urls": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The company's urls."
+        },
+        "addresses": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/CompanyAddress"
+          },
+          "title": "the company's addresses"
+        },
+        "phoneNumbers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "the company's phone numbers"
+        },
+        "remoteWasDeleted": {
+          "type": "boolean",
+          "description": "Indicates whether or not this object has been deleted by third party webhooks."
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "This is the datetime that this object was last updated by Merge"
+        },
+        "mergeAccountId": {
+          "type": "string",
+          "title": "the id of the record as stored in merge"
+        }
+      },
+      "description": "The CompanyInfo object is used to represent a company's information."
+    },
+    "Contacts": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "remoteId": {
+          "type": "string",
+          "description": "The third-party API ID of the matching object."
+        },
+        "name": {
+          "type": "string",
+          "description": "The contact's name."
+        },
+        "isSupplier": {
+          "type": "boolean",
+          "description": "Whether the contact is a supplier."
+        },
+        "isCustomer": {
+          "type": "boolean",
+          "description": "Whether the contact is a customer."
+        },
+        "emailAddress": {
+          "type": "string",
+          "description": "The contact's email address."
+        },
+        "taxNumber": {
+          "type": "string",
+          "description": "The contact's tax number."
+        },
+        "status": {
+          "type": "string",
+          "title": "The contact's status"
+        },
+        "currency": {
+          "type": "string",
+          "description": "The currency the contact's transactions are in."
+        },
+        "remoteUpdatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the third party's contact was updated.\n\nConsider using google.protobuf.Timestamp"
+        },
+        "company": {
+          "type": "string",
+          "description": "The company the contact belongs to."
+        },
+        "addressesIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Address object IDs for the given Contacts object.\n\nThese are IDs, not the Address structure itself"
+        },
+        "phoneNumbers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Phone numbers of the contact"
+        },
+        "remoteWasDeleted": {
+          "type": "boolean",
+          "description": "Indicates whether or not this object has been deleted by third party webhooks."
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Consider using google.protobuf.Timestamp",
+          "title": "This is the datetime that this object was last updated by Merge"
+        },
+        "mergeAccountId": {
+          "type": "string",
+          "title": "The account id as seen in merge"
+        }
+      },
+      "description": "The Contact object refers to either a supplier or a customer."
+    },
+    "CreateBusinessAccountingProfileRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "email": {
+          "type": "string"
+        },
+        "companyName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "userId",
+        "email",
+        "companyName"
+      ]
+    },
+    "CreateBusinessAccountingProfileResponse": {
+      "type": "object",
+      "properties": {
+        "profileId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "the profile identifier"
+        }
+      }
+    },
+    "CreditNote": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "the database record id as stored in our systems"
+        },
+        "remoteId": {
+          "type": "string",
+          "description": "The third-party API ID of the matching object."
+        },
+        "transactionDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The credit note's transaction date.\n\nConsider using google.protobuf.Timestamp"
+        },
+        "status": {
+          "type": "string",
+          "description": "The credit note's status."
+        },
+        "number": {
+          "type": "string",
+          "description": "The credit note's number."
+        },
+        "contact": {
+          "type": "string",
+          "description": "The credit note's contact."
+        },
+        "company": {
+          "type": "string",
+          "description": "The company the credit note belongs to."
+        },
+        "exchangeRate": {
+          "type": "string",
+          "description": "The credit note's exchange rate.\n\nConsider using double or float if this represents a number"
+        },
+        "totalAmount": {
+          "type": "number",
+          "format": "double",
+          "description": "The credit note's total amount."
+        },
+        "remainingCredit": {
+          "type": "number",
+          "format": "double",
+          "description": "The amount of value remaining in the credit note that the customer can use."
+        },
+        "lineItems": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/CreditNoteLineItem"
+          }
+        },
+        "trackingCategories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "These are IDs"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "remoteCreatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Consider using google.protobuf.Timestamp"
+        },
+        "remoteUpdatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Consider using google.protobuf.Timestamp"
+        },
+        "paymentIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "These are IDs",
+          "title": "Array of Payment object IDs"
+        },
+        "remoteWasDeleted": {
+          "type": "boolean"
+        },
+        "accountingPeriod": {
+          "type": "string",
+          "description": "The accounting period that the CreditNote was generated in."
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Consider using google.protobuf.Timestamp"
+        },
+        "mergeAccountId": {
+          "type": "string",
+          "title": "the id as stored in merge"
+        }
+      },
+      "description": "The CreditNote object is an accounts payable transaction used when to represent a gift or refund to a customer. \nA credit note will contain information on the amount of credit owed, the customer, and the account."
+    },
+    "CreditNoteLineItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "string"
+        },
+        "unitPrice": {
+          "type": "string",
+          "title": "Consider using double or float if this represents a number"
+        },
+        "taxRate": {
+          "type": "string",
+          "title": "This seems to be an ID"
+        },
+        "totalLineAmount": {
+          "type": "string",
+          "title": "Consider using double or float"
+        },
+        "trackingCategory": {
+          "type": "string",
+          "title": "This seems to be an ID"
+        },
+        "trackingCategories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "These are IDs"
+        },
+        "account": {
+          "type": "string",
+          "title": "This seems to be an ID"
+        },
+        "company": {
+          "type": "string"
+        },
+        "remoteId": {
+          "type": "string"
+        },
+        "item": {
+          "type": "string"
+        }
+      },
+      "description": "CreditNoteLineItem is used to represent a credit note's line items."
+    },
+    "DeleteBusinessAccountingProfileResponse": {
+      "type": "object",
+      "properties": {
+        "isDeleted": {
+          "type": "boolean",
+          "title": "wether the profile is deleted"
+        }
+      }
+    },
+    "Expense": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "remoteId": {
+          "type": "string",
+          "description": "The third-party API ID of the matching object."
+        },
+        "transactionDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the transaction occurred.\n\nConsider using google.protobuf.Timestamp"
+        },
+        "remoteCreatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the expense was created.\n\nConsider using google.protobuf.Timestamp"
+        },
+        "account": {
+          "type": "string",
+          "description": "The expense's payment account."
+        },
+        "contact": {
+          "type": "string",
+          "description": "The expense's contact."
+        },
+        "totalAmount": {
+          "type": "number",
+          "format": "double",
+          "description": "The expense's total amount."
+        },
+        "subTotal": {
+          "type": "number",
+          "format": "double",
+          "description": "The expense's total amount before tax."
+        },
+        "totalTaxAmount": {
+          "type": "number",
+          "format": "double",
+          "description": "The expense's total tax amount."
+        },
+        "currency": {
+          "type": "string",
+          "title": "The expense's currency"
+        },
+        "exchangeRate": {
+          "type": "string",
+          "description": "The expense's exchange rate.\n\nConsider using double or float if this represents a number"
+        },
+        "company": {
+          "type": "string",
+          "description": "The company the expense belongs to."
+        },
+        "memo": {
+          "type": "string",
+          "description": "The expense's private note."
+        },
+        "lines": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ExpenseLine"
+          },
+          "description": "The ExpenseLine object is used to represent an expense's line items."
+        },
+        "trackingCategories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "These are IDs"
+        },
+        "remoteWasDeleted": {
+          "type": "boolean",
+          "description": "Indicates whether or not this object has been deleted by third party webhooks."
+        },
+        "accountingPeriod": {
+          "type": "string",
+          "description": "The accounting period that the Expense was generated in."
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Consider using google.protobuf.Timestamp",
+          "title": "This is the datetime that this object was last updated by Merge"
+        },
+        "mergeAccountId": {
+          "type": "string"
+        }
+      },
+      "description": "The Expense object is used to represent a purchase made from a business which can be made with a check, credit card, or cash.\nEach expense object is dedicated to a grouping of expenses, with each expense recorded in the lines object."
+    },
+    "ExpenseLine": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "netAmount": {
+          "type": "number",
+          "format": "double",
+          "description": "The line's net amount."
+        },
+        "trackingCategory": {
+          "type": "string",
+          "title": "This seems to be an ID"
+        },
+        "trackingCategories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "These are IDs"
+        },
+        "company": {
+          "type": "string",
+          "description": "The company the line belongs to."
+        },
+        "item": {
+          "type": "string",
+          "description": "The line's item.\n\nThis seems to be an ID"
+        },
+        "account": {
+          "type": "string",
+          "description": "The expense's payment account."
+        },
+        "contact": {
+          "type": "string",
+          "description": "The expense's contact.\n\nOptional based on provided JSON"
+        },
+        "description": {
+          "type": "string",
+          "description": "The description of the item that was purchased by the company."
+        },
+        "exchangeRate": {
+          "type": "string",
+          "description": "The expense line item's exchange rate.\n\nConsider using double or float if this represents a number"
+        },
+        "remoteId": {
+          "type": "string",
+          "description": "The third-party API ID of the matching object."
+        },
+        "currency": {
+          "type": "string",
+          "title": "The expense line item's currency"
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Consider using google.protobuf.Timestamp",
+          "title": "This is the datetime that this object was last updated by Merge"
+        }
+      },
+      "description": "The ExpenseLine object is used to represent an expense's line items."
+    },
+    "GetBusinessAccountingProfileResponse": {
+      "type": "object",
+      "properties": {
+        "profile": {
+          "$ref": "#/definitions/BusinessAccountingProfile",
+          "title": "the profile of interest"
+        }
+      }
+    },
+    "HealthCheckResponse": {
+      "type": "object",
+      "properties": {
+        "healthy": {
+          "type": "boolean",
+          "title": "wether the service is healthy"
+        }
+      }
+    },
+    "IncomeStatement": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "remoteId": {
+          "type": "string",
+          "description": "The third-party API ID of the matching object."
+        },
+        "name": {
+          "type": "string",
+          "description": "The income statement's name."
+        },
+        "currency": {
+          "type": "string",
+          "description": "The income statement's currency."
+        },
+        "company": {
+          "type": "string",
+          "description": "The company the income statement belongs to."
+        },
+        "startPeriod": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The income statement's start period."
+        },
+        "endPeriod": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The income statement's end period."
+        },
+        "income": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ReportItem"
+          },
+          "title": "income"
+        },
+        "costOfSales": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ReportItem"
+          },
+          "title": "cost of sales"
+        },
+        "grossProfit": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The revenue minus the cost of sale."
+        },
+        "operatingExpenses": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ReportItem"
+          },
+          "title": "operating expenses"
+        },
+        "netOperatingIncome": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The revenue minus the operating expenses."
+        },
+        "nonOperatingExpenses": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ReportItem"
+          }
+        },
+        "netIncome": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The gross profit minus the total expenses."
+        },
+        "remoteWasDeleted": {
+          "type": "boolean",
+          "description": "Indicates whether or not this object has been deleted by third party webhooks."
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "This is the datetime that this object was last updated by Merge"
+        }
+      },
+      "description": "The IncomeStatement object is used to represent a company’s income, the cost of sales, operating expenses,\nand other non-operating expenses. The object also includes other important values like gross profit, gross \noperating profit, and net income. This represents a period of time (month, quarter, or year)."
+    },
+    "Invoice": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "type": {
+          "type": "string",
+          "description": "Whether the invoice is an accounts receivable or accounts payable\n If type is accounts_payable, the invoice is a bill. If type is\n accounts_receivable, it is an invoice. Possible values include: ACCOUNTS_RECEIVABLE, ACCOUNTS_PAYABLE."
+        },
+        "contact": {
+          "type": "string",
+          "description": "The invoice's contact."
+        },
+        "number": {
+          "type": "string",
+          "description": "The invoice's number."
+        },
+        "issueDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The invoice's issue date."
+        },
+        "dueDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The invoice's due date."
+        },
+        "paidOnDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The invoice's paid date."
+        },
+        "memo": {
+          "type": "string",
+          "description": "The invoice's private note."
+        },
+        "company": {
+          "type": "string",
+          "description": "The company the invoice belongs to."
+        },
+        "currency": {
+          "type": "string",
+          "title": "The invoice's currency"
+        },
+        "exchangeRate": {
+          "type": "string",
+          "description": "The invoice's exchange rate."
+        },
+        "totalDiscount": {
+          "type": "number",
+          "format": "float",
+          "description": "The total discounts applied to the total cost."
+        },
+        "subTotal": {
+          "type": "number",
+          "format": "float",
+          "description": "The total amount being paid before taxes."
+        },
+        "status": {
+          "type": "string"
+        },
+        "totalTaxAmount": {
+          "type": "number",
+          "format": "float",
+          "description": "The total amount being paid in taxes."
+        },
+        "totalAmount": {
+          "type": "number",
+          "format": "float",
+          "description": "The invoice's total amount."
+        },
+        "balance": {
+          "type": "number",
+          "format": "float",
+          "description": "The invoice's remaining balance."
+        },
+        "remoteUpdatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the third party's invoice entry was updated."
+        },
+        "trackingCategories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "payments": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Array of Payment object IDs."
+        },
+        "lineItems": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/InvoiceLineItem"
+          }
+        },
+        "remoteWasDeleted": {
+          "type": "boolean"
+        },
+        "accountingPeriod": {
+          "type": "string",
+          "description": "The accounting period that the Invoice was generated in."
+        },
+        "purchaseOrders": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "remoteId": {
+          "type": "string",
+          "description": "The third-party API ID of the matching object."
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "mergeAccountId": {
+          "type": "string",
+          "title": "the account id as stored in merge"
+        }
+      },
+      "description": "The Invoice object represents an itemized record of goods and/or services sold to a customer."
+    },
+    "InvoiceLineItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "remoteId": {
+          "type": "string",
+          "description": "The third-party API ID of the matching object."
+        },
+        "description": {
+          "type": "string",
+          "description": "The line item's description."
+        },
+        "unitPrice": {
+          "type": "number",
+          "format": "float",
+          "description": "The line item's unit price."
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The line item's quantity."
+        },
+        "totalAmount": {
+          "type": "number",
+          "format": "float",
+          "description": "The line item's total amount."
+        },
+        "currency": {
+          "type": "string",
+          "title": "The line item's currency"
+        },
+        "exchangeRate": {
+          "type": "string",
+          "description": "The line item's exchange rate."
+        },
+        "item": {
+          "type": "string"
+        },
+        "account": {
+          "type": "string"
+        },
+        "trackingCategory": {
+          "type": "string"
+        },
+        "trackingCategories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "company": {
+          "type": "string",
+          "description": "The company the line item belongs to."
+        },
+        "mergeAccountId": {
+          "type": "string",
+          "title": "the id of the record as stored in merge"
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Consider using google.protobuf.Timestamp",
+          "title": "This is the datetime that this object was last updated by Merge"
+        }
+      },
+      "description": "The Invoice object represents an itemized record of goods and/or services sold to a customer."
+    },
+    "Item": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "remoteId": {
+          "type": "string",
+          "description": "The third-party API ID of the matching object."
+        },
+        "name": {
+          "type": "string",
+          "description": "The item's name."
+        },
+        "status": {
+          "type": "string"
+        },
+        "unitPrice": {
+          "type": "number",
+          "format": "float",
+          "description": "The item's unit price."
+        },
+        "purchasePrice": {
+          "type": "number",
+          "format": "float",
+          "description": "The price at which the item is purchased from a vendor."
+        },
+        "purchaseAccount": {
+          "type": "string",
+          "description": "References the default account used to record a purchase of the item."
+        },
+        "salesAccount": {
+          "type": "string",
+          "description": "References the default account used to record a sale."
+        },
+        "company": {
+          "type": "string",
+          "description": "The company the item belongs to."
+        },
+        "remoteUpdatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the third party's item note was updated."
+        },
+        "remoteWasDeleted": {
+          "type": "boolean",
+          "description": "Indicates whether or not this object has been deleted by third party webhooks."
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "This is the datetime that this object was last updated by Merge"
+        },
+        "mergeAccountId": {
+          "type": "string"
+        }
+      },
+      "description": "The Item object refers to the goods involved in a transaction."
+    },
+    "JournalEntry": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "remoteId": {
+          "type": "string"
+        },
+        "transactionDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The journal entry's transaction date."
+        },
+        "remoteCreatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the third party's journal entry was created."
+        },
+        "remoteUpdatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "paymentIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "memo": {
+          "type": "string",
+          "description": "The journal entry's private note."
+        },
+        "currency": {
+          "type": "string"
+        },
+        "exchangeRate": {
+          "type": "string",
+          "description": "Assuming string due to the example provided, but could be float or double."
+        },
+        "company": {
+          "type": "string"
+        },
+        "lines": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/JournalLine"
+          }
+        },
+        "journalNumber": {
+          "type": "string",
+          "description": "Reference number for identifying journal entries."
+        },
+        "trackingCategories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "remoteWasDeleted": {
+          "type": "boolean"
+        },
+        "postingStatus": {
+          "type": "string"
+        },
+        "accountingPeriod": {
+          "type": "string",
+          "description": "The accounting period that the JournalEntry was generated in."
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "mergeAccountId": {
+          "type": "string",
+          "title": "the id of the record as stored in merge"
+        }
+      },
+      "description": "The JournalEntry object is used to get a record of all manually created entries made in a company’s general ledger.\nThe journal line items for each journal entry should sum to zero."
+    },
+    "JournalLine": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "remoteId": {
+          "type": "string"
+        },
+        "account": {
+          "type": "string"
+        },
+        "netAmount": {
+          "type": "number",
+          "format": "float",
+          "title": "Might want to use double or a more precise type"
+        },
+        "trackingCategory": {
+          "type": "string"
+        },
+        "trackingCategories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "contact": {
+          "type": "string"
+        },
+        "company": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "exchangeRate": {
+          "type": "string",
+          "description": "Assuming string due to the example provided, but could be float or double."
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "description": "The JournalLine object is used to represent a journal entry's line items."
+    },
+    "LinkedAccountingAccount": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "id"
+        },
+        "attachments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/Attachments"
+          },
+          "title": "Represent a company's attachments. a business can have many attachments"
+        },
+        "companyInfo": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/CompanyInfo"
+          },
+          "description": "The CompanyInfo object is used to represent a company's information."
+        },
+        "purchaseOrders": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/PurchaseOrder"
+          },
+          "title": "a business can have many purchase orders"
+        },
+        "reportDetails": {
+          "$ref": "#/definitions/ReportDetails",
+          "title": "a business can have one report object"
+        },
+        "referenceDetails": {
+          "$ref": "#/definitions/ReferenceDetails"
+        },
+        "transactionsDetails": {
+          "$ref": "#/definitions/TransactionDetails"
+        }
+      }
+    },
+    "MergeExchangePublicLinkTokenForAccountTokenRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "The user id\nValidations:\n- user_id must be greater than 0"
+        },
+        "publicToken": {
+          "type": "string"
+        },
+        "endUserOriginId": {
+          "type": "string"
+        },
+        "organizationName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "userId",
+        "publicToken",
+        "endUserOriginId",
+        "organizationName"
+      ]
+    },
+    "MergeExchangePublicLinkTokenForAccountTokenResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "title": "the status of the exchange token"
+        }
+      },
+      "required": [
+        "success"
+      ]
+    },
+    "MergeGetPublicLinkTokenRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "format": "uint64",
+          "description": "The user id\nValidations:\n- user_id must be greater than 0\nThis unique identifier typically represents the ID for your end user in your product's database. T\nhis value must be distinct from other Linked Accounts' unique identifiers."
+        },
+        "organizationName": {
+          "type": "string",
+          "description": "Your end user's organization."
+        },
+        "email": {
+          "type": "string",
+          "description": "Your end user's email address. This is purely for\nidentification purposes - setting this value will not cause any emails to be sent."
+        }
+      },
+      "required": [
+        "userId",
+        "organizationName",
+        "email"
+      ]
+    },
+    "MergeGetPublicLinkTokenResponse": {
+      "type": "object",
+      "properties": {
+        "linkToken": {
+          "type": "string",
+          "title": "the link token"
+        },
+        "integrationName": {
+          "type": "string",
+          "title": "the integration name"
+        },
+        "magicLinkUrl": {
+          "type": "string",
+          "title": "the magic link url"
+        },
+        "endUserOriginId": {
+          "type": "string",
+          "title": "the end user origin id"
+        },
+        "organizationName": {
+          "type": "string",
+          "title": "the organization name"
+        }
+      }
+    },
+    "MergeLink": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "id"
+        },
+        "integration": {
+          "type": "string"
+        },
+        "integrationSlug": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "endUserOriginId": {
+          "type": "string"
+        },
+        "endUserOrganizationName": {
+          "type": "string"
+        },
+        "endUserEmailAddress": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "webhookListenerUrl": {
+          "type": "string"
+        },
+        "isDuplicate": {
+          "type": "boolean"
+        },
+        "token": {
+          "$ref": "#/definitions/MergeLinkedAccountToken"
+        },
+        "integrationName": {
+          "type": "string"
+        },
+        "integrationImage": {
+          "type": "string"
+        },
+        "integrationSquareImage": {
+          "type": "string"
+        },
+        "account": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/LinkedAccountingAccount"
+          },
+          "description": "When you request a link token to initiate a Merge Link session, Merge determines whether to create a new linked account or modify\nan existing linked account based on a combination of the end_user_origin_id and the category. If you want to support multiple\nconnections, you simply need to provide a different end_user_origin_id for each company.\n\nThis approach enables you to link multiple instances of the same integration (like QuickBooks) for the same end user.\nIt also has the added security benefit of not exposing any internal end_user_origin_ids."
+        },
+        "mergeLinkedAccountId": {
+          "type": "string"
+        }
+      }
+    },
+    "MergeLinkedAccountToken": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "id"
+        },
+        "itemId": {
+          "type": "string",
+          "title": "the id of the item the token is tied to"
+        },
+        "keyId": {
+          "type": "string"
+        },
+        "accessToken": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "mergeEndUserOriginId": {
+          "type": "string",
+          "description": "This is what you'll pass to Merge as the end_user_origin_id."
+        },
+        "mergeIntegrationSlug": {
+          "type": "string",
+          "description": "The integration slug/identifier. This is returned at the end of the linking flow."
+        },
+        "lastMergeCreatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "last time you performed a merge fetch"
+        }
+      }
+    },
+    "Payment": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "remoteId": {
+          "type": "string"
+        },
+        "transactionDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "contact": {
+          "type": "string"
+        },
+        "account": {
+          "type": "string",
+          "description": "The supplier’s or customer’s account in which the payment is made."
+        },
+        "currency": {
+          "type": "string"
+        },
+        "exchangeRate": {
+          "type": "string",
+          "description": "Assuming string due to the example provided, but could be float or double."
+        },
+        "company": {
+          "type": "string"
+        },
+        "totalAmount": {
+          "type": "number",
+          "format": "float",
+          "description": "The total amount of money being paid to the supplier, or customer, after taxes.\n\nMight want to use double or a more precise type"
+        },
+        "trackingCategories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "remoteUpdatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "remoteWasDeleted": {
+          "type": "boolean"
+        },
+        "accountingPeriod": {
+          "type": "string",
+          "description": "The accounting period that the Payment was generated in."
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "This is the datetime that this object was last updated by Merge"
+        },
+        "mergeAccountId": {
+          "type": "string",
+          "title": "the id as stored in merge"
+        }
+      },
+      "description": "The Payment object represents general payments made towards a specific transaction."
+    },
+    "PurchaseOrder": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "mergeAccountId": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "issueDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The purchase order's issue date."
+        },
+        "purchaseOrderNumber": {
+          "type": "string",
+          "description": "The human-readable number of the purchase order."
+        },
+        "deliveryDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The purchase order's delivery date."
+        },
+        "deliveryAddress": {
+          "$ref": "#/definitions/CompanyAddress",
+          "description": "The purchase order's delivery address."
+        },
+        "customer": {
+          "type": "string",
+          "description": "The contact making the purchase order."
+        },
+        "vendor": {
+          "type": "string",
+          "description": "The party fulfilling the purchase order."
+        },
+        "memo": {
+          "type": "string",
+          "description": "A memo attached to the purchase order."
+        },
+        "company": {
+          "type": "string",
+          "description": "The company the purchase order belongs to."
+        },
+        "totalAmount": {
+          "type": "number",
+          "format": "float",
+          "description": "The purchase order's total amount.\n\nMight be better as double."
+        },
+        "currency": {
+          "type": "string",
+          "description": "The purchase order's currency."
+        },
+        "exchangeRate": {
+          "type": "string",
+          "description": "Assuming string, but might be better as float or double."
+        },
+        "lineItems": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/PurchaseOrderLineItem"
+          }
+        },
+        "trackingCategories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "remoteCreatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "remoteUpdatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "remoteWasDeleted": {
+          "type": "boolean"
+        },
+        "accountingPeriod": {
+          "type": "string",
+          "description": "The accounting period that the PurchaseOrder was generated in."
+        },
+        "remoteId": {
+          "type": "string"
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "description": "The PurchaseOrder object is a record of request for a product or service between a buyer and seller."
+    },
+    "PurchaseOrderLineItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "remoteId": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "unitPrice": {
+          "type": "string",
+          "description": "Assuming string, but might be better as float or double."
+        },
+        "item": {
+          "type": "string"
+        },
+        "account": {
+          "type": "string"
+        },
+        "trackingCategory": {
+          "type": "string"
+        },
+        "trackingCategories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "taxAmount": {
+          "type": "string"
+        },
+        "totalLineAmount": {
+          "type": "string"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "exchangeRate": {
+          "type": "string",
+          "description": "Assuming string, but might be better as float or double."
+        },
+        "company": {
+          "type": "string"
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "description": "The PurchaseOrderLineItem object is used to represent a purchase order's line item."
+    },
+    "ReadynessCheckResponse": {
+      "type": "object",
+      "properties": {
+        "healthy": {
+          "type": "boolean",
+          "title": "wether the service is ready to receive traffic"
+        }
+      }
+    },
+    "ReferenceDetails": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "id"
+        },
+        "chartOfAccounts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/BusinessChartOfAccounts"
+          },
+          "description": "The Account object is what companies use to track transactions. They can be both bank accounts or a general ledger account (also called a chart of accounts)."
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/Item"
+          },
+          "title": "a business can have many items"
+        },
+        "taxRates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/TaxRate"
+          },
+          "title": "a business can have many tax rates"
+        },
+        "contacts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/Contacts"
+          },
+          "description": "The Contact object refers to either a supplier or a customer."
+        }
+      },
+      "description": "ReferenceDetails: These are the objects that provide additional context or information about the transactions.\nThey include things like Accounts, Contacts, Items, and Tax Rates."
+    },
+    "ReportDetails": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "id"
+        },
+        "balanceSheets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/BalanceSheet"
+          },
+          "title": "The BalanceSheet object shows a company’s assets, liabilities, and equity. Assets should be equal to liability and equity combined. This shows the company’s financial health at a specific point in time.\na business can have many balance sheets"
+        },
+        "cashFlowStatements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/CashFlowStatements"
+          },
+          "title": "The CashFlowStatement object shows operating activities, investing activities, and financing activities over a period of time (month, quarter, or year).\na company can have many cash flow statements"
+        },
+        "incomeStatements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/IncomeStatement"
+          },
+          "title": "a business can have many income statements"
+        }
+      },
+      "description": "ReportDetails: These are the summaries or overviews of the financial data. They include things\nlike Balance Sheets, Income Statements, and Cash Flow Statements."
+    },
+    "ReportItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "remoteId": {
+          "type": "string",
+          "title": "the id as stored in the third-party system"
+        },
+        "name": {
+          "type": "string",
+          "description": "The report item's name."
+        },
+        "value": {
+          "type": "string",
+          "format": "int64",
+          "description": "The report item's value."
+        },
+        "company": {
+          "type": "string",
+          "title": "The company the report item belongs to. may not necessarily be the company name but a reference instead"
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Consider using google.protobuf.Timestamp",
+          "title": "This is the datetime that this object was last updated by Merge"
+        }
+      },
+      "description": "The ReportItem object is used to represent a report item for a Balance Sheet, \nCash Flow Statement or Profit and Loss Report."
+    },
+    "Status": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/Any"
+          }
+        }
+      }
+    },
+    "TaxRate": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "remoteId": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "totalTaxRate": {
+          "type": "number",
+          "format": "double"
+        },
+        "effectiveTaxRate": {
+          "type": "number",
+          "format": "double"
+        },
+        "company": {
+          "type": "string"
+        },
+        "remoteWasDeleted": {
+          "type": "boolean"
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "mergeAccountId": {
+          "type": "string"
+        }
+      },
+      "description": "The TaxRate object is used to represent a tax rate."
+    },
+    "TransactionDetails": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "id"
+        },
+        "invoices": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/Invoice"
+          },
+          "title": "a business can have many invoices"
+        },
+        "payments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/Payment"
+          },
+          "title": "a business can have many payments"
+        },
+        "expenses": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/Expense"
+          },
+          "title": "a business can have many expenses"
+        },
+        "journalEntries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/JournalEntry"
+          },
+          "title": "a business can have many journal entries"
+        },
+        "transactions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/BusinessTransaction"
+          },
+          "title": "a business can have many transactions"
+        },
+        "vendorCredits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/VendorCredit"
+          },
+          "title": "a business can have many vendor credits"
+        },
+        "creditNotes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/CreditNote"
+          },
+          "title": "a business can have many credit notes"
+        }
+      },
+      "description": "TransactionDetails: These are the actual financial transactions that occur within an accounting system.\nThey include things like Invoices, Payments, Expenses, and Journal Entries."
+    },
+    "TransactionLineItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "remoteId": {
+          "type": "string"
+        },
+        "memo": {
+          "type": "string"
+        },
+        "unitPrice": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "string"
+        },
+        "item": {
+          "type": "string"
+        },
+        "account": {
+          "type": "string"
+        },
+        "trackingCategory": {
+          "type": "string"
+        },
+        "trackingCategories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "totalLineAmount": {
+          "type": "string"
+        },
+        "taxRate": {
+          "type": "string"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "exchangeRate": {
+          "type": "string",
+          "description": "Assuming string, but might be better as float or double."
+        },
+        "company": {
+          "type": "string"
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "UpdateBusinessAccountingProfileRequest": {
+      "type": "object",
+      "properties": {
+        "profile": {
+          "$ref": "#/definitions/BusinessAccountingProfile",
+          "title": "business accounting profile to update"
+        }
+      }
+    },
+    "UpdateBusinessAccountingProfileResponse": {
+      "type": "object",
+      "properties": {
+        "profile": {
+          "$ref": "#/definitions/BusinessAccountingProfile"
+        }
+      }
+    },
+    "VendorCredit": {
+      "type": "object",
+      "properties": {
+        "mergeAccountId": {
+          "type": "string",
+          "title": "Unique identifier for the Merge account"
+        },
+        "remoteId": {
+          "type": "string",
+          "title": "Identifier for the VendorCredit in the remote system"
+        },
+        "number": {
+          "type": "string",
+          "title": "Transaction number or reference identifier"
+        },
+        "transactionDate": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Date of the transaction"
+        },
+        "vendor": {
+          "type": "string",
+          "title": "Name or identifier of the vendor"
+        },
+        "totalAmount": {
+          "type": "number",
+          "format": "double",
+          "title": "Total amount of credit owed"
+        },
+        "currency": {
+          "type": "string",
+          "title": "Currency code for the transaction (e.g., USD, EUR)"
+        },
+        "exchangeRate": {
+          "type": "string",
+          "title": "Exchange rate used for currency conversion, represented as a string for precision"
+        },
+        "company": {
+          "type": "string",
+          "title": "Identifier or name of the associated company"
+        },
+        "lines": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/VendorCreditLine"
+          },
+          "title": "Line items associated with the vendor credit"
+        },
+        "trackingCategories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Tracking categories for accounting purposes"
+        },
+        "remoteWasDeleted": {
+          "type": "boolean",
+          "title": "Flag indicating if the VendorCredit was deleted in the remote system"
+        },
+        "accountingPeriod": {
+          "type": "string",
+          "title": "Accounting period for the transaction"
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Timestamp of the last modification"
+        },
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "Unique identifier for the VendorCredit"
+        }
+      },
+      "description": "The VendorCredit object represents an accounts receivable transaction indicating that a customer is owed a gift or refund. \nIt includes details such as the amount of credit, the vendor responsible, the associated account, and other relevant information."
+    },
+    "VendorCreditLine": {
+      "type": "object",
+      "properties": {
+        "remoteId": {
+          "type": "string",
+          "title": "Identifier for the VendorCreditLine in the remote system"
+        },
+        "netAmount": {
+          "type": "number",
+          "format": "double",
+          "title": "Net amount for the line item"
+        },
+        "trackingCategory": {
+          "type": "string",
+          "title": "Single tracking category for this line item"
+        },
+        "trackingCategories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Multiple tracking categories for detailed accounting"
+        },
+        "description": {
+          "type": "string",
+          "title": "Description of the line item"
+        },
+        "account": {
+          "type": "string",
+          "title": "Account associated with the line item"
+        },
+        "company": {
+          "type": "string",
+          "title": "Identifier or name of the associated company"
+        },
+        "exchangeRate": {
+          "type": "string",
+          "title": "Exchange rate used for currency conversion, potentially as a float or double for precision"
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Timestamp of the last modification to the line item"
+        },
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "Unique identifier for the VendorCreditLine"
+        }
+      },
+      "description": "The VendorCreditLine object represents individual line items in a VendorCredit transaction, detailing specific elements of the credit."
+    }
+  }
+}

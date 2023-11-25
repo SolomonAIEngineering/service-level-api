@@ -46,8 +46,8 @@ accounting_service:
 
 # New gen target to incorporate the build process of different services
 gen:
-	cd api/financial-service && make && cd ../..
-	cd api/social-service && make && cd ../..
-	cd api/user-service && make && cd ../..
+	for service in financial-service social-service user-service accounting-service; do \
+		cd api/$$service && make && cd ../..; \
+	done
 	make all
 	./generate.sh
