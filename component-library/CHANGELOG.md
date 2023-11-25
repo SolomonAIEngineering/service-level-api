@@ -1,3 +1,10 @@
+# [1.127.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.126.0...v1.127.0) (2023-11-25)
+
+
+### Features
+
+* checkpoint ([452c98e](https://github.com/SolomonAIEngineering/service-level-api/commit/452c98e083b7e3e409887b1673aa09c1b706eaf6))
+
 # [1.126.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.125.0...v1.126.0) (2023-11-24)
 
 
