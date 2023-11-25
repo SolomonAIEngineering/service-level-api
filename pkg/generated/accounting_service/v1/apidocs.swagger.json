@@ -76,7 +76,7 @@
             "format": "uint64"
           },
           {
-            "name": "linkId",
+            "name": "linkedAccountingAccountId",
             "in": "query",
             "required": true,
             "type": "string",
@@ -134,7 +134,7 @@
             "format": "uint64"
           },
           {
-            "name": "linkId",
+            "name": "linkedAccountingAccountId",
             "in": "query",
             "required": true,
             "type": "string",
@@ -191,7 +191,7 @@
             "format": "uint64"
           },
           {
-            "name": "linkId",
+            "name": "linkedAccountingAccountId",
             "in": "query",
             "required": true,
             "type": "string",
