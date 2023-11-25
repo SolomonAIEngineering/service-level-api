@@ -8,7 +8,6 @@ option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/gener
 import "validate/validate.proto";
 import "google/api/field_behavior.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
-import "google/protobuf/any.proto";
 import "gogoproto/gogo.proto";
 import "google/protobuf/timestamp.proto";
 
@@ -504,76 +503,6 @@ message ReadynessCheckResponse {
   bool healthy = 1;
 }
 
-message MergeGetPublicLinkTokenRequest {
-  // The user id
-  // Validations:
-  // - user_id must be greater than 0
-  // This unique identifier typically represents the ID for your end user in your product's database. T
-  // his value must be distinct from other Linked Accounts' unique identifiers.
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
-    (google.api.field_behavior) = REQUIRED
-  ];
-
-  // Your end user's organization.
-  string organization_name	= 2 [
-    (validate.rules).string.min_len = 1,
-    (google.api.field_behavior) = REQUIRED
-  ];
-
-  // Your end user's email address. This is purely for
-  // identification purposes - setting this value will not cause any emails to be sent.
-  string email	= 3 [
-    (validate.rules).string.min_len = 1,
-    (google.api.field_behavior) = REQUIRED
-  ];
-  FinancialUserProfileType profile_type = 9 [
-    (google.api.field_behavior) = REQUIRED
-  ]; 
-}
-
-message MergeGetPublicLinkTokenResponse {
-  string link_token = 1;
-  string integration_name = 2;
-  string magic_link_url	 = 3;
-  string end_user_origin_id = 4;
-  string organization_name = 5;
-}
-
-message MergeExchangePublicLinkTokenForAccountTokenRequest {
-  // The user id
-  // Validations:
-  // - user_id must be greater than 0
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
-    (google.api.field_behavior) = REQUIRED
-  ];
-
-  string public_token = 2 [
-    (validate.rules).string.min_len = 1,
-    (google.api.field_behavior) = REQUIRED
-  ];
-
-  string end_user_origin_id = 3  [
-    (validate.rules).string.min_len = 1,
-    (google.api.field_behavior) = REQUIRED
-  ];
-
-  string organization_name = 4  [
-    (validate.rules).string.min_len = 1,
-    (google.api.field_behavior) = REQUIRED
-  ];
-  FinancialUserProfileType profile_type = 9 [
-    (google.api.field_behavior) = REQUIRED
-  ];
-}
-
-message MergeExchangePublicLinkTokenForAccountTokenResponse {
-  bool success = 1 [
-    (google.api.field_behavior) = REQUIRED
-  ];
-}
-
 message PlaidInitiateTokenExchangeRequest {
   // A unique ID representing the end user. Typically this will be a user ID number from your application.
   // Personally identifiable information, such as an email address or phone number, 
@@ -910,75 +839,6 @@ message GetTransactionsResponse {
   // The transactions
   repeated Transaction transactions = 1;
   uint64 next_page_number = 2;
-}
-
-message ProcessWebhookRequest {
-  string webhook_type = 1 [
-    (validate.rules).string.min_len = 1,
-    (google.api.field_behavior) = REQUIRED
-  ];
-
-  string webhook_code = 2 [
-    (validate.rules).string.min_len = 1,
-    (google.api.field_behavior) = REQUIRED
-  ];
-
-  // The item_id of the Item associated with this webhook, warning, or error
-  string item_id = 3;
-
-  // Indicates if initial pull information is available.
-  bool initial_update_complete = 4;
-
-  // Indicates if historical pull information is available.
-  string historical_update_complete = 5;
-
-  // The Plaid environment the webhook was sent from
-  string environment = 6;
-
-  // The number of new, unfetched transactions available
-  repeated string new_transactions = 7;
-
-  // An array of transaction_ids corresponding to the removed transactions
-  repeated string removed_transactions = 8;
-  
-  // We use standard HTTP response codes for success and failure notifications, 
-  // and our errors are further classified by error_type. In general, 200 HTTP codes 
-  // correspond to success, 40X codes are for developer- or user-related failures, and 
-  // 50X codes are for Plaid-related issues. An Item with a non-null error object will 
-  // only be part of an API response when calling /item/get to view Item status. Otherwise, 
-  // error fields will be null if no error has occurred; if an error has occurred, an error 
-  // code will be returned instead.
-  map<string, google.protobuf.Any> error = 9;
-
-  // A list of account_ids for accounts that have new or updated recurring transactions data.
-  repeated string account_ids = 10;
-
-  // The time at which the user's access_token will expire. This field will only be present
-  string consent_expiration_time = 11;
-
-  // An array of account_id's for accounts that contain new liabilities.'
-  repeated string account_ids_with_new_liabilities = 12;
-
-  // An object with keys of account_id's that are mapped to their respective liabilities fields that changed.
-  repeated string account_ids_with_updated_liabilities = 13;
-
-  // The number of new holdings reported since the last time this webhook was fired.
-  uint64 new_holdings = 14;
-
-  // The number of updated holdings reported since the last time this webhook was fired.
-  // @gotag: json:"updated_holdings"
-  uint64 updated_holdings = 15;
-}
-
-message ProcessWebhookResponse{}
-
-message StripeWebhookRequest{
-  string body = 1;
-  string signature = 2;
-}
-
-message StripeWebhookResponse{
-  string message = 1;
 }
 
 message CreateSubscriptionRequest {

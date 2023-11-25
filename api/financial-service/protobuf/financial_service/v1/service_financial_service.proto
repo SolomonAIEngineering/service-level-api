@@ -15,53 +15,6 @@ option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/gener
 
 // FinancialService API.
 service FinancialService {
-  // MergeGetPublicLinkToken enables the client to get a link_token to initialize a Link session for your end user.
-  rpc MergeGetPublicLinkToken(MergeGetPublicLinkTokenRequest) 
-  returns (MergeGetPublicLinkTokenResponse) {
-    option (google.api.http) = {
-      post: "/api/v1/merge/initiate-token-exchange"
-      body: "*"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      summary: ""
-      tags: ["merge"]
-      operation_id: "MergeGetPublicLinkToken"
-      description: ""
-      responses: {
-        key: "200"
-        value: {
-          description: ""
-          schema: {
-            json_schema: {ref: ".api.v1.MergeGetPublicLinkTokenResponse"}
-          }
-        }
-      }
-    };
-  }
-
-  // MergeExchangePublicLinkTokenForAccountToken enables the client to exchange a public link token for an access token
-  rpc MergeExchangePublicLinkTokenForAccountToken(MergeExchangePublicLinkTokenForAccountTokenRequest) returns (MergeExchangePublicLinkTokenForAccountTokenResponse) {
-    option (google.api.http) = {
-      post: "/api/v1/merge/exchange-token"
-      body: "*"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      summary: ""
-      tags: ["merge"]
-      operation_id: "MergeExchangePublicLinkTokenForAccountToken"
-      description: ""
-      responses: {
-        key: "200"
-        value: {
-          description: ""
-          schema: {
-            json_schema: {ref: ".api.v1.MergeExchangePublicLinkTokenForAccountTokenResponse"}
-          }
-        }
-      }
-    };
-  }
-
   // PlaidInitiateTokenExchange enables the client to get a link_token to initialize a Link session for your end user.
   rpc PlaidInitiateTokenExchange(PlaidInitiateTokenExchangeRequest) returns (PlaidInitiateTokenExchangeResponse) {
     option (google.api.http) = {
@@ -889,54 +842,6 @@ service FinancialService {
         value: {
           description: "A successful response."
           schema: {json_schema: {ref: ".api.v1.GetTransactionsResponse"}}
-        }
-      }
-    };
-  }
-
-  // this endpoint enables us to process plaid webhooks
-  rpc ProcessWebhook(ProcessWebhookRequest) returns (ProcessWebhookResponse) {
-    option (google.api.http) = {
-      post: "/api/v1/plaid/webhook"
-      body: "*"
-    };
-
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      summary: "Processes a webhook obtained from plaid"
-      tags: ["webhook"]
-      operation_id: "ProcessWebhook"
-      description: "This endpoint enabled simfiny to process triggered webhooks"
-      responses: {
-        key: "200"
-        value: {
-          description: "A successful response."
-          schema: {
-            json_schema: {ref: ".api.v1.ProcessWebhookResponse"}
-          }
-        }
-      }
-    };
-  }
-
-  // This endpoint enables us to process stripe webhooks
-  rpc StripeWebhook(StripeWebhookRequest) returns (StripeWebhookResponse){
-    option (google.api.http) = {
-      post: "/api/v1/stripe/webhook"
-      body: "*"
-    };
-
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      summary: "Processes a webhook obtained from stripe"
-      tags: ["webhook"]
-      operation_id: "ProcessStripeWebhook"
-      description: "This endpoint enabled simfiny to process triggered webhooks from stripe"
-      responses: {
-        key: "200"
-        value: {
-          description: "A successful response."
-          schema: {
-            json_schema: {ref: ".api.v1.StripeWebhookResponse"}
-          }
         }
       }
     };

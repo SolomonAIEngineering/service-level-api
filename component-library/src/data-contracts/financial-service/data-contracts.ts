@@ -1761,56 +1761,6 @@ export interface MerchantMonthlyExpenditure {
   userId?: string;
 }
 
-export type MergeExchangePublicLinkTokenForAccountTokenData = any;
-
-export interface MergeExchangePublicLinkTokenForAccountTokenRequest {
-  endUserOriginId: string;
-  organizationName: string;
-  profileType: FinancialUserProfileType;
-  publicToken: string;
-  /**
-   * The user id
-   * Validations:
-   * - user_id must be greater than 0
-   * @format uint64
-   */
-  userId: string;
-}
-
-export interface MergeExchangePublicLinkTokenForAccountTokenResponse {
-  success: boolean;
-}
-
-export type MergeGetPublicLinkTokenData = any;
-
-export interface MergeGetPublicLinkTokenRequest {
-  /**
-   * Your end user's email address. This is purely for
-   * identification purposes - setting this value will not cause any emails to be sent.
-   */
-  email: string;
-  /** Your end user's organization. */
-  organizationName: string;
-  profileType: FinancialUserProfileType;
-  /**
-   * The user id
-   * Validations:
-   * - user_id must be greater than 0
-   * This unique identifier typically represents the ID for your end user in your product's database. T
-   * his value must be distinct from other Linked Accounts' unique identifiers.
-   * @format uint64
-   */
-  userId: string;
-}
-
-export interface MergeGetPublicLinkTokenResponse {
-  endUserOriginId?: string;
-  integrationName?: string;
-  linkToken?: string;
-  magicLinkUrl?: string;
-  organizationName?: string;
-}
-
 /**
  * Milestone: represents a milestone in the context of simfinni. A financial milestone that is both smart
  * and achievable. A milestone is a sub goal of a goal and is tied to a goal by the goal id
@@ -2748,58 +2698,6 @@ export type PocketType =
   | "POCKET_TYPE_SHORT_TERM_SAVINGS"
   | "POCKET_TYPE_LONG_TERM_SAVINGS";
 
-export type ProcessStripeWebhookData = any;
-
-export type ProcessWebhookData = any;
-
-export interface ProcessWebhookRequest {
-  /** A list of account_ids for accounts that have new or updated recurring transactions data. */
-  accountIds?: Array<string>;
-  /** An array of account_id's for accounts that contain new liabilities.' */
-  accountIdsWithNewLiabilities?: Array<string>;
-  /** An object with keys of account_id's that are mapped to their respective liabilities fields that changed. */
-  accountIdsWithUpdatedLiabilities?: Array<string>;
-  /** The time at which the user's access_token will expire. This field will only be present */
-  consentExpirationTime?: string;
-  /** The Plaid environment the webhook was sent from */
-  environment?: string;
-  /**
-   * We use standard HTTP response codes for success and failure notifications,
-   * and our errors are further classified by error_type. In general, 200 HTTP codes
-   * correspond to success, 40X codes are for developer- or user-related failures, and
-   * 50X codes are for Plaid-related issues. An Item with a non-null error object will
-   * only be part of an API response when calling /item/get to view Item status. Otherwise,
-   * error fields will be null if no error has occurred; if an error has occurred, an error
-   * code will be returned instead.
-   */
-  error?: Record<string, Any>;
-  /** Indicates if historical pull information is available. */
-  historicalUpdateComplete?: string;
-  /** Indicates if initial pull information is available. */
-  initialUpdateComplete?: boolean;
-  /** The item_id of the Item associated with this webhook, warning, or error */
-  itemId?: string;
-  /**
-   * The number of new holdings reported since the last time this webhook was fired.
-   * @format uint64
-   */
-  newHoldings?: string;
-  /** The number of new, unfetched transactions available */
-  newTransactions?: Array<string>;
-  /** An array of transaction_ids corresponding to the removed transactions */
-  removedTransactions?: Array<string>;
-  /**
-   * The number of updated holdings reported since the last time this webhook was fired.
-   * @gotag: json:"updated_holdings"
-   * @format uint64
-   */
-  updatedHoldings?: string;
-  webhookCode: string;
-  webhookType: string;
-}
-
-export type ProcessWebhookResponse = object;
-
 /** @default "RE_CURRING_FLOW_UNSPECIFIED" */
 export type ReCurringFlow = "RE_CURRING_FLOW_UNSPECIFIED" | "RE_CURRING_FLOW_INFLOW" | "RE_CURRING_FLOW_OUTFLOW";
 
@@ -3162,15 +3060,6 @@ export type StripeSubscriptionStatus =
   | "STRIPE_SUBSCRIPTION_STATUS_INCOMPLETE_EXPIRED"
   | "STRIPE_SUBSCRIPTION_STATUS_CREATED"
   | "STRIPE_SUBSCRIPTION_STATUS_PAUSED";
-
-export interface StripeWebhookRequest {
-  body?: string;
-  signature?: string;
-}
-
-export interface StripeWebhookResponse {
-  message?: string;
-}
 
 export interface StudentLoanAccount {
   disbursementDates?: Array<string>;

@@ -19,108 +19,100 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	FinancialService_MergeGetPublicLinkToken_FullMethodName                     = "/financial_service.v1.FinancialService/MergeGetPublicLinkToken"
-	FinancialService_MergeExchangePublicLinkTokenForAccountToken_FullMethodName = "/financial_service.v1.FinancialService/MergeExchangePublicLinkTokenForAccountToken"
-	FinancialService_PlaidInitiateTokenExchange_FullMethodName                  = "/financial_service.v1.FinancialService/PlaidInitiateTokenExchange"
-	FinancialService_PlaidInitiateTokenUpdate_FullMethodName                    = "/financial_service.v1.FinancialService/PlaidInitiateTokenUpdate"
-	FinancialService_PlaidExchangeToken_FullMethodName                          = "/financial_service.v1.FinancialService/PlaidExchangeToken"
-	FinancialService_CreateUserProfile_FullMethodName                           = "/financial_service.v1.FinancialService/CreateUserProfile"
-	FinancialService_GetUserProfile_FullMethodName                              = "/financial_service.v1.FinancialService/GetUserProfile"
-	FinancialService_DeleteUserProfile_FullMethodName                           = "/financial_service.v1.FinancialService/DeleteUserProfile"
-	FinancialService_UpdateUserProfile_FullMethodName                           = "/financial_service.v1.FinancialService/UpdateUserProfile"
-	FinancialService_CreateBankAccount_FullMethodName                           = "/financial_service.v1.FinancialService/CreateBankAccount"
-	FinancialService_GetBankAccount_FullMethodName                              = "/financial_service.v1.FinancialService/GetBankAccount"
-	FinancialService_UpdateBankAccount_FullMethodName                           = "/financial_service.v1.FinancialService/UpdateBankAccount"
-	FinancialService_DeleteBankAccount_FullMethodName                           = "/financial_service.v1.FinancialService/DeleteBankAccount"
-	FinancialService_GetPocket_FullMethodName                                   = "/financial_service.v1.FinancialService/GetPocket"
-	FinancialService_GetSmartGoalsByPocketId_FullMethodName                     = "/financial_service.v1.FinancialService/GetSmartGoalsByPocketId"
-	FinancialService_CreateSmartGoal_FullMethodName                             = "/financial_service.v1.FinancialService/CreateSmartGoal"
-	FinancialService_UpdateSmartGoal_FullMethodName                             = "/financial_service.v1.FinancialService/UpdateSmartGoal"
-	FinancialService_DeleteSmartGoal_FullMethodName                             = "/financial_service.v1.FinancialService/DeleteSmartGoal"
-	FinancialService_CreateMilestone_FullMethodName                             = "/financial_service.v1.FinancialService/CreateMilestone"
-	FinancialService_DeleteMilestone_FullMethodName                             = "/financial_service.v1.FinancialService/DeleteMilestone"
-	FinancialService_UpdateMilestone_FullMethodName                             = "/financial_service.v1.FinancialService/UpdateMilestone"
-	FinancialService_GetMilestone_FullMethodName                                = "/financial_service.v1.FinancialService/GetMilestone"
-	FinancialService_GetMilestonesBySmartGoalId_FullMethodName                  = "/financial_service.v1.FinancialService/GetMilestonesBySmartGoalId"
-	FinancialService_GetForecast_FullMethodName                                 = "/financial_service.v1.FinancialService/GetForecast"
-	FinancialService_CreateBudget_FullMethodName                                = "/financial_service.v1.FinancialService/CreateBudget"
-	FinancialService_UpdateBudget_FullMethodName                                = "/financial_service.v1.FinancialService/UpdateBudget"
-	FinancialService_DeleteBudget_FullMethodName                                = "/financial_service.v1.FinancialService/DeleteBudget"
-	FinancialService_GetBudget_FullMethodName                                   = "/financial_service.v1.FinancialService/GetBudget"
-	FinancialService_GetAllBudgets_FullMethodName                               = "/financial_service.v1.FinancialService/GetAllBudgets"
-	FinancialService_HealthCheck_FullMethodName                                 = "/financial_service.v1.FinancialService/HealthCheck"
-	FinancialService_ReadynessCheck_FullMethodName                              = "/financial_service.v1.FinancialService/ReadynessCheck"
-	FinancialService_GetInvestmentAcccount_FullMethodName                       = "/financial_service.v1.FinancialService/GetInvestmentAcccount"
-	FinancialService_GetMortgageAccount_FullMethodName                          = "/financial_service.v1.FinancialService/GetMortgageAccount"
-	FinancialService_GetLiabilityAccount_FullMethodName                         = "/financial_service.v1.FinancialService/GetLiabilityAccount"
-	FinancialService_GetStudentLoanAccount_FullMethodName                       = "/financial_service.v1.FinancialService/GetStudentLoanAccount"
-	FinancialService_CreateManualLink_FullMethodName                            = "/financial_service.v1.FinancialService/CreateManualLink"
-	FinancialService_GetLink_FullMethodName                                     = "/financial_service.v1.FinancialService/GetLink"
-	FinancialService_GetLinks_FullMethodName                                    = "/financial_service.v1.FinancialService/GetLinks"
-	FinancialService_DeleteLink_FullMethodName                                  = "/financial_service.v1.FinancialService/DeleteLink"
-	FinancialService_GetReCurringTransactions_FullMethodName                    = "/financial_service.v1.FinancialService/GetReCurringTransactions"
-	FinancialService_GetTransactions_FullMethodName                             = "/financial_service.v1.FinancialService/GetTransactions"
-	FinancialService_ProcessWebhook_FullMethodName                              = "/financial_service.v1.FinancialService/ProcessWebhook"
-	FinancialService_StripeWebhook_FullMethodName                               = "/financial_service.v1.FinancialService/StripeWebhook"
-	FinancialService_CreateSubscription_FullMethodName                          = "/financial_service.v1.FinancialService/CreateSubscription"
-	FinancialService_GetTransactionAggregates_FullMethodName                    = "/financial_service.v1.FinancialService/GetTransactionAggregates"
-	FinancialService_GetUserAccountBalanceHistory_FullMethodName                = "/financial_service.v1.FinancialService/GetUserAccountBalanceHistory"
-	FinancialService_GetAccountBalanceHistory_FullMethodName                    = "/financial_service.v1.FinancialService/GetAccountBalanceHistory"
-	FinancialService_GetUserCategoryMonthlyExpenditure_FullMethodName           = "/financial_service.v1.FinancialService/GetUserCategoryMonthlyExpenditure"
-	FinancialService_GetUserCategoryMonthlyIncome_FullMethodName                = "/financial_service.v1.FinancialService/GetUserCategoryMonthlyIncome"
-	FinancialService_GetCategoryMonthlyTransactionCount_FullMethodName          = "/financial_service.v1.FinancialService/GetCategoryMonthlyTransactionCount"
-	FinancialService_GetDebtToIncomeRatio_FullMethodName                        = "/financial_service.v1.FinancialService/GetDebtToIncomeRatio"
-	FinancialService_GetExpenseMetrics_FullMethodName                           = "/financial_service.v1.FinancialService/GetExpenseMetrics"
-	FinancialService_GetFinancialProfile_FullMethodName                         = "/financial_service.v1.FinancialService/GetFinancialProfile"
-	FinancialService_GetIncomeExpenseRatio_FullMethodName                       = "/financial_service.v1.FinancialService/GetIncomeExpenseRatio"
-	FinancialService_GetIncomeMetrics_FullMethodName                            = "/financial_service.v1.FinancialService/GetIncomeMetrics"
-	FinancialService_GetMerchantMonthlyExpenditure_FullMethodName               = "/financial_service.v1.FinancialService/GetMerchantMonthlyExpenditure"
-	FinancialService_GetMonthlyBalance_FullMethodName                           = "/financial_service.v1.FinancialService/GetMonthlyBalance"
-	FinancialService_GetMonthlyExpenditure_FullMethodName                       = "/financial_service.v1.FinancialService/GetMonthlyExpenditure"
-	FinancialService_GetMonthlyIncome_FullMethodName                            = "/financial_service.v1.FinancialService/GetMonthlyIncome"
-	FinancialService_GetMonthlySavings_FullMethodName                           = "/financial_service.v1.FinancialService/GetMonthlySavings"
-	FinancialService_GetMonthlyTotalQuantityBySecurityAndUser_FullMethodName    = "/financial_service.v1.FinancialService/GetMonthlyTotalQuantityBySecurityAndUser"
-	FinancialService_GetMonthlyTransactionCount_FullMethodName                  = "/financial_service.v1.FinancialService/GetMonthlyTransactionCount"
-	FinancialService_GetPaymentChannelMonthlyExpenditure_FullMethodName         = "/financial_service.v1.FinancialService/GetPaymentChannelMonthlyExpenditure"
-	FinancialService_GetTotalInvestmentBySecurity_FullMethodName                = "/financial_service.v1.FinancialService/GetTotalInvestmentBySecurity"
-	FinancialService_GetMelodyFinancialContext_FullMethodName                   = "/financial_service.v1.FinancialService/GetMelodyFinancialContext"
-	FinancialService_GetTransactionsForBankAccount_FullMethodName               = "/financial_service.v1.FinancialService/GetTransactionsForBankAccount"
-	FinancialService_GetHistoricalAccountBalance_FullMethodName                 = "/financial_service.v1.FinancialService/GetHistoricalAccountBalance"
-	FinancialService_AddDefaultPocketsToBankAccount_FullMethodName              = "/financial_service.v1.FinancialService/AddDefaultPocketsToBankAccount"
-	FinancialService_UpdatePocket_FullMethodName                                = "/financial_service.v1.FinancialService/UpdatePocket"
-	FinancialService_DeletePocket_FullMethodName                                = "/financial_service.v1.FinancialService/DeletePocket"
-	FinancialService_GetTransactionsBetweenTimeRanges_FullMethodName            = "/financial_service.v1.FinancialService/GetTransactionsBetweenTimeRanges"
-	FinancialService_GetTransactionsForPastWeek_FullMethodName                  = "/financial_service.v1.FinancialService/GetTransactionsForPastWeek"
-	FinancialService_GetTransactionsForPastMonth_FullMethodName                 = "/financial_service.v1.FinancialService/GetTransactionsForPastMonth"
-	FinancialService_AddNoteToSmartGoal_FullMethodName                          = "/financial_service.v1.FinancialService/AddNoteToSmartGoal"
-	FinancialService_UpdateNoteToSmartGoal_FullMethodName                       = "/financial_service.v1.FinancialService/UpdateNoteToSmartGoal"
-	FinancialService_DeleteNoteFromSmartGoal_FullMethodName                     = "/financial_service.v1.FinancialService/DeleteNoteFromSmartGoal"
-	FinancialService_GetNotesFromSmartGoal_FullMethodName                       = "/financial_service.v1.FinancialService/GetNotesFromSmartGoal"
-	FinancialService_GetNoteFromSmartGoal_FullMethodName                        = "/financial_service.v1.FinancialService/GetNoteFromSmartGoal"
-	FinancialService_ListTransactions_FullMethodName                            = "/financial_service.v1.FinancialService/ListTransactions"
-	FinancialService_GetTransaction_FullMethodName                              = "/financial_service.v1.FinancialService/GetTransaction"
-	FinancialService_UpdateTransaction_FullMethodName                           = "/financial_service.v1.FinancialService/UpdateTransaction"
-	FinancialService_BulkUpdateTransaction_FullMethodName                       = "/financial_service.v1.FinancialService/BulkUpdateTransaction"
-	FinancialService_DeleteTransaction_FullMethodName                           = "/financial_service.v1.FinancialService/DeleteTransaction"
-	FinancialService_AddNoteToTransaction_FullMethodName                        = "/financial_service.v1.FinancialService/AddNoteToTransaction"
-	FinancialService_UpdateNoteToTransaction_FullMethodName                     = "/financial_service.v1.FinancialService/UpdateNoteToTransaction"
-	FinancialService_DeleteNoteFromTransaction_FullMethodName                   = "/financial_service.v1.FinancialService/DeleteNoteFromTransaction"
-	FinancialService_ListTransactionNotes_FullMethodName                        = "/financial_service.v1.FinancialService/ListTransactionNotes"
-	FinancialService_GetNoteFromTransaction_FullMethodName                      = "/financial_service.v1.FinancialService/GetNoteFromTransaction"
-	FinancialService_SplitTransaction_FullMethodName                            = "/financial_service.v1.FinancialService/SplitTransaction"
-	FinancialService_UnSplitTransactions_FullMethodName                         = "/financial_service.v1.FinancialService/UnSplitTransactions"
-	FinancialService_GetSplitTransaction_FullMethodName                         = "/financial_service.v1.FinancialService/GetSplitTransaction"
-	FinancialService_SearchTransactions_FullMethodName                          = "/financial_service.v1.FinancialService/SearchTransactions"
+	FinancialService_PlaidInitiateTokenExchange_FullMethodName               = "/financial_service.v1.FinancialService/PlaidInitiateTokenExchange"
+	FinancialService_PlaidInitiateTokenUpdate_FullMethodName                 = "/financial_service.v1.FinancialService/PlaidInitiateTokenUpdate"
+	FinancialService_PlaidExchangeToken_FullMethodName                       = "/financial_service.v1.FinancialService/PlaidExchangeToken"
+	FinancialService_CreateUserProfile_FullMethodName                        = "/financial_service.v1.FinancialService/CreateUserProfile"
+	FinancialService_GetUserProfile_FullMethodName                           = "/financial_service.v1.FinancialService/GetUserProfile"
+	FinancialService_DeleteUserProfile_FullMethodName                        = "/financial_service.v1.FinancialService/DeleteUserProfile"
+	FinancialService_UpdateUserProfile_FullMethodName                        = "/financial_service.v1.FinancialService/UpdateUserProfile"
+	FinancialService_CreateBankAccount_FullMethodName                        = "/financial_service.v1.FinancialService/CreateBankAccount"
+	FinancialService_GetBankAccount_FullMethodName                           = "/financial_service.v1.FinancialService/GetBankAccount"
+	FinancialService_UpdateBankAccount_FullMethodName                        = "/financial_service.v1.FinancialService/UpdateBankAccount"
+	FinancialService_DeleteBankAccount_FullMethodName                        = "/financial_service.v1.FinancialService/DeleteBankAccount"
+	FinancialService_GetPocket_FullMethodName                                = "/financial_service.v1.FinancialService/GetPocket"
+	FinancialService_GetSmartGoalsByPocketId_FullMethodName                  = "/financial_service.v1.FinancialService/GetSmartGoalsByPocketId"
+	FinancialService_CreateSmartGoal_FullMethodName                          = "/financial_service.v1.FinancialService/CreateSmartGoal"
+	FinancialService_UpdateSmartGoal_FullMethodName                          = "/financial_service.v1.FinancialService/UpdateSmartGoal"
+	FinancialService_DeleteSmartGoal_FullMethodName                          = "/financial_service.v1.FinancialService/DeleteSmartGoal"
+	FinancialService_CreateMilestone_FullMethodName                          = "/financial_service.v1.FinancialService/CreateMilestone"
+	FinancialService_DeleteMilestone_FullMethodName                          = "/financial_service.v1.FinancialService/DeleteMilestone"
+	FinancialService_UpdateMilestone_FullMethodName                          = "/financial_service.v1.FinancialService/UpdateMilestone"
+	FinancialService_GetMilestone_FullMethodName                             = "/financial_service.v1.FinancialService/GetMilestone"
+	FinancialService_GetMilestonesBySmartGoalId_FullMethodName               = "/financial_service.v1.FinancialService/GetMilestonesBySmartGoalId"
+	FinancialService_GetForecast_FullMethodName                              = "/financial_service.v1.FinancialService/GetForecast"
+	FinancialService_CreateBudget_FullMethodName                             = "/financial_service.v1.FinancialService/CreateBudget"
+	FinancialService_UpdateBudget_FullMethodName                             = "/financial_service.v1.FinancialService/UpdateBudget"
+	FinancialService_DeleteBudget_FullMethodName                             = "/financial_service.v1.FinancialService/DeleteBudget"
+	FinancialService_GetBudget_FullMethodName                                = "/financial_service.v1.FinancialService/GetBudget"
+	FinancialService_GetAllBudgets_FullMethodName                            = "/financial_service.v1.FinancialService/GetAllBudgets"
+	FinancialService_HealthCheck_FullMethodName                              = "/financial_service.v1.FinancialService/HealthCheck"
+	FinancialService_ReadynessCheck_FullMethodName                           = "/financial_service.v1.FinancialService/ReadynessCheck"
+	FinancialService_GetInvestmentAcccount_FullMethodName                    = "/financial_service.v1.FinancialService/GetInvestmentAcccount"
+	FinancialService_GetMortgageAccount_FullMethodName                       = "/financial_service.v1.FinancialService/GetMortgageAccount"
+	FinancialService_GetLiabilityAccount_FullMethodName                      = "/financial_service.v1.FinancialService/GetLiabilityAccount"
+	FinancialService_GetStudentLoanAccount_FullMethodName                    = "/financial_service.v1.FinancialService/GetStudentLoanAccount"
+	FinancialService_CreateManualLink_FullMethodName                         = "/financial_service.v1.FinancialService/CreateManualLink"
+	FinancialService_GetLink_FullMethodName                                  = "/financial_service.v1.FinancialService/GetLink"
+	FinancialService_GetLinks_FullMethodName                                 = "/financial_service.v1.FinancialService/GetLinks"
+	FinancialService_DeleteLink_FullMethodName                               = "/financial_service.v1.FinancialService/DeleteLink"
+	FinancialService_GetReCurringTransactions_FullMethodName                 = "/financial_service.v1.FinancialService/GetReCurringTransactions"
+	FinancialService_GetTransactions_FullMethodName                          = "/financial_service.v1.FinancialService/GetTransactions"
+	FinancialService_CreateSubscription_FullMethodName                       = "/financial_service.v1.FinancialService/CreateSubscription"
+	FinancialService_GetTransactionAggregates_FullMethodName                 = "/financial_service.v1.FinancialService/GetTransactionAggregates"
+	FinancialService_GetUserAccountBalanceHistory_FullMethodName             = "/financial_service.v1.FinancialService/GetUserAccountBalanceHistory"
+	FinancialService_GetAccountBalanceHistory_FullMethodName                 = "/financial_service.v1.FinancialService/GetAccountBalanceHistory"
+	FinancialService_GetUserCategoryMonthlyExpenditure_FullMethodName        = "/financial_service.v1.FinancialService/GetUserCategoryMonthlyExpenditure"
+	FinancialService_GetUserCategoryMonthlyIncome_FullMethodName             = "/financial_service.v1.FinancialService/GetUserCategoryMonthlyIncome"
+	FinancialService_GetCategoryMonthlyTransactionCount_FullMethodName       = "/financial_service.v1.FinancialService/GetCategoryMonthlyTransactionCount"
+	FinancialService_GetDebtToIncomeRatio_FullMethodName                     = "/financial_service.v1.FinancialService/GetDebtToIncomeRatio"
+	FinancialService_GetExpenseMetrics_FullMethodName                        = "/financial_service.v1.FinancialService/GetExpenseMetrics"
+	FinancialService_GetFinancialProfile_FullMethodName                      = "/financial_service.v1.FinancialService/GetFinancialProfile"
+	FinancialService_GetIncomeExpenseRatio_FullMethodName                    = "/financial_service.v1.FinancialService/GetIncomeExpenseRatio"
+	FinancialService_GetIncomeMetrics_FullMethodName                         = "/financial_service.v1.FinancialService/GetIncomeMetrics"
+	FinancialService_GetMerchantMonthlyExpenditure_FullMethodName            = "/financial_service.v1.FinancialService/GetMerchantMonthlyExpenditure"
+	FinancialService_GetMonthlyBalance_FullMethodName                        = "/financial_service.v1.FinancialService/GetMonthlyBalance"
+	FinancialService_GetMonthlyExpenditure_FullMethodName                    = "/financial_service.v1.FinancialService/GetMonthlyExpenditure"
+	FinancialService_GetMonthlyIncome_FullMethodName                         = "/financial_service.v1.FinancialService/GetMonthlyIncome"
+	FinancialService_GetMonthlySavings_FullMethodName                        = "/financial_service.v1.FinancialService/GetMonthlySavings"
+	FinancialService_GetMonthlyTotalQuantityBySecurityAndUser_FullMethodName = "/financial_service.v1.FinancialService/GetMonthlyTotalQuantityBySecurityAndUser"
+	FinancialService_GetMonthlyTransactionCount_FullMethodName               = "/financial_service.v1.FinancialService/GetMonthlyTransactionCount"
+	FinancialService_GetPaymentChannelMonthlyExpenditure_FullMethodName      = "/financial_service.v1.FinancialService/GetPaymentChannelMonthlyExpenditure"
+	FinancialService_GetTotalInvestmentBySecurity_FullMethodName             = "/financial_service.v1.FinancialService/GetTotalInvestmentBySecurity"
+	FinancialService_GetMelodyFinancialContext_FullMethodName                = "/financial_service.v1.FinancialService/GetMelodyFinancialContext"
+	FinancialService_GetTransactionsForBankAccount_FullMethodName            = "/financial_service.v1.FinancialService/GetTransactionsForBankAccount"
+	FinancialService_GetHistoricalAccountBalance_FullMethodName              = "/financial_service.v1.FinancialService/GetHistoricalAccountBalance"
+	FinancialService_AddDefaultPocketsToBankAccount_FullMethodName           = "/financial_service.v1.FinancialService/AddDefaultPocketsToBankAccount"
+	FinancialService_UpdatePocket_FullMethodName                             = "/financial_service.v1.FinancialService/UpdatePocket"
+	FinancialService_DeletePocket_FullMethodName                             = "/financial_service.v1.FinancialService/DeletePocket"
+	FinancialService_GetTransactionsBetweenTimeRanges_FullMethodName         = "/financial_service.v1.FinancialService/GetTransactionsBetweenTimeRanges"
+	FinancialService_GetTransactionsForPastWeek_FullMethodName               = "/financial_service.v1.FinancialService/GetTransactionsForPastWeek"
+	FinancialService_GetTransactionsForPastMonth_FullMethodName              = "/financial_service.v1.FinancialService/GetTransactionsForPastMonth"
+	FinancialService_AddNoteToSmartGoal_FullMethodName                       = "/financial_service.v1.FinancialService/AddNoteToSmartGoal"
+	FinancialService_UpdateNoteToSmartGoal_FullMethodName                    = "/financial_service.v1.FinancialService/UpdateNoteToSmartGoal"
+	FinancialService_DeleteNoteFromSmartGoal_FullMethodName                  = "/financial_service.v1.FinancialService/DeleteNoteFromSmartGoal"
+	FinancialService_GetNotesFromSmartGoal_FullMethodName                    = "/financial_service.v1.FinancialService/GetNotesFromSmartGoal"
+	FinancialService_GetNoteFromSmartGoal_FullMethodName                     = "/financial_service.v1.FinancialService/GetNoteFromSmartGoal"
+	FinancialService_ListTransactions_FullMethodName                         = "/financial_service.v1.FinancialService/ListTransactions"
+	FinancialService_GetTransaction_FullMethodName                           = "/financial_service.v1.FinancialService/GetTransaction"
+	FinancialService_UpdateTransaction_FullMethodName                        = "/financial_service.v1.FinancialService/UpdateTransaction"
+	FinancialService_BulkUpdateTransaction_FullMethodName                    = "/financial_service.v1.FinancialService/BulkUpdateTransaction"
+	FinancialService_DeleteTransaction_FullMethodName                        = "/financial_service.v1.FinancialService/DeleteTransaction"
+	FinancialService_AddNoteToTransaction_FullMethodName                     = "/financial_service.v1.FinancialService/AddNoteToTransaction"
+	FinancialService_UpdateNoteToTransaction_FullMethodName                  = "/financial_service.v1.FinancialService/UpdateNoteToTransaction"
+	FinancialService_DeleteNoteFromTransaction_FullMethodName                = "/financial_service.v1.FinancialService/DeleteNoteFromTransaction"
+	FinancialService_ListTransactionNotes_FullMethodName                     = "/financial_service.v1.FinancialService/ListTransactionNotes"
+	FinancialService_GetNoteFromTransaction_FullMethodName                   = "/financial_service.v1.FinancialService/GetNoteFromTransaction"
+	FinancialService_SplitTransaction_FullMethodName                         = "/financial_service.v1.FinancialService/SplitTransaction"
+	FinancialService_UnSplitTransactions_FullMethodName                      = "/financial_service.v1.FinancialService/UnSplitTransactions"
+	FinancialService_GetSplitTransaction_FullMethodName                      = "/financial_service.v1.FinancialService/GetSplitTransaction"
+	FinancialService_SearchTransactions_FullMethodName                       = "/financial_service.v1.FinancialService/SearchTransactions"
 )
 
 // FinancialServiceClient is the client API for FinancialService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type FinancialServiceClient interface {
-	// MergeGetPublicLinkToken enables the client to get a link_token to initialize a Link session for your end user.
-	MergeGetPublicLinkToken(ctx context.Context, in *MergeGetPublicLinkTokenRequest, opts ...grpc.CallOption) (*MergeGetPublicLinkTokenResponse, error)
-	// MergeExchangePublicLinkTokenForAccountToken enables the client to exchange a public link token for an access token
-	MergeExchangePublicLinkTokenForAccountToken(ctx context.Context, in *MergeExchangePublicLinkTokenForAccountTokenRequest, opts ...grpc.CallOption) (*MergeExchangePublicLinkTokenForAccountTokenResponse, error)
 	// PlaidInitiateTokenExchange enables the client to get a link_token to initialize a Link session for your end user.
 	PlaidInitiateTokenExchange(ctx context.Context, in *PlaidInitiateTokenExchangeRequest, opts ...grpc.CallOption) (*PlaidInitiateTokenExchangeResponse, error)
 	// PlaidInitiateTokenUpdate enables the cleint to initiate a plaid token update operation
@@ -198,10 +190,6 @@ type FinancialServiceClient interface {
 	GetReCurringTransactions(ctx context.Context, in *GetReCurringTransactionsRequest, opts ...grpc.CallOption) (*GetReCurringTransactionsResponse, error)
 	// This endpoint enables end users to get transactions in a paginated manner
 	GetTransactions(ctx context.Context, in *GetTransactionsRequest, opts ...grpc.CallOption) (*GetTransactionsResponse, error)
-	// this endpoint enables us to process plaid webhooks
-	ProcessWebhook(ctx context.Context, in *ProcessWebhookRequest, opts ...grpc.CallOption) (*ProcessWebhookResponse, error)
-	// This endpoint enables us to process stripe webhooks
-	StripeWebhook(ctx context.Context, in *StripeWebhookRequest, opts ...grpc.CallOption) (*StripeWebhookResponse, error)
 	// This endpoint enables end users to get transactions in a paginated manner
 	CreateSubscription(ctx context.Context, in *CreateSubscriptionRequest, opts ...grpc.CallOption) (*CreateSubscriptionResponse, error)
 	// Transaction Aggregates By Various parameters
@@ -308,24 +296,6 @@ type financialServiceClient struct {
 
 func NewFinancialServiceClient(cc grpc.ClientConnInterface) FinancialServiceClient {
 	return &financialServiceClient{cc}
-}
-
-func (c *financialServiceClient) MergeGetPublicLinkToken(ctx context.Context, in *MergeGetPublicLinkTokenRequest, opts ...grpc.CallOption) (*MergeGetPublicLinkTokenResponse, error) {
-	out := new(MergeGetPublicLinkTokenResponse)
-	err := c.cc.Invoke(ctx, FinancialService_MergeGetPublicLinkToken_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *financialServiceClient) MergeExchangePublicLinkTokenForAccountToken(ctx context.Context, in *MergeExchangePublicLinkTokenForAccountTokenRequest, opts ...grpc.CallOption) (*MergeExchangePublicLinkTokenForAccountTokenResponse, error) {
-	out := new(MergeExchangePublicLinkTokenForAccountTokenResponse)
-	err := c.cc.Invoke(ctx, FinancialService_MergeExchangePublicLinkTokenForAccountToken_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }
 
 func (c *financialServiceClient) PlaidInitiateTokenExchange(ctx context.Context, in *PlaidInitiateTokenExchangeRequest, opts ...grpc.CallOption) (*PlaidInitiateTokenExchangeResponse, error) {
@@ -673,24 +643,6 @@ func (c *financialServiceClient) GetReCurringTransactions(ctx context.Context, i
 func (c *financialServiceClient) GetTransactions(ctx context.Context, in *GetTransactionsRequest, opts ...grpc.CallOption) (*GetTransactionsResponse, error) {
 	out := new(GetTransactionsResponse)
 	err := c.cc.Invoke(ctx, FinancialService_GetTransactions_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *financialServiceClient) ProcessWebhook(ctx context.Context, in *ProcessWebhookRequest, opts ...grpc.CallOption) (*ProcessWebhookResponse, error) {
-	out := new(ProcessWebhookResponse)
-	err := c.cc.Invoke(ctx, FinancialService_ProcessWebhook_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *financialServiceClient) StripeWebhook(ctx context.Context, in *StripeWebhookRequest, opts ...grpc.CallOption) (*StripeWebhookResponse, error) {
-	out := new(StripeWebhookResponse)
-	err := c.cc.Invoke(ctx, FinancialService_StripeWebhook_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1142,10 +1094,6 @@ func (c *financialServiceClient) SearchTransactions(ctx context.Context, in *Sea
 // All implementations must embed UnimplementedFinancialServiceServer
 // for forward compatibility
 type FinancialServiceServer interface {
-	// MergeGetPublicLinkToken enables the client to get a link_token to initialize a Link session for your end user.
-	MergeGetPublicLinkToken(context.Context, *MergeGetPublicLinkTokenRequest) (*MergeGetPublicLinkTokenResponse, error)
-	// MergeExchangePublicLinkTokenForAccountToken enables the client to exchange a public link token for an access token
-	MergeExchangePublicLinkTokenForAccountToken(context.Context, *MergeExchangePublicLinkTokenForAccountTokenRequest) (*MergeExchangePublicLinkTokenForAccountTokenResponse, error)
 	// PlaidInitiateTokenExchange enables the client to get a link_token to initialize a Link session for your end user.
 	PlaidInitiateTokenExchange(context.Context, *PlaidInitiateTokenExchangeRequest) (*PlaidInitiateTokenExchangeResponse, error)
 	// PlaidInitiateTokenUpdate enables the cleint to initiate a plaid token update operation
@@ -1223,10 +1171,6 @@ type FinancialServiceServer interface {
 	GetReCurringTransactions(context.Context, *GetReCurringTransactionsRequest) (*GetReCurringTransactionsResponse, error)
 	// This endpoint enables end users to get transactions in a paginated manner
 	GetTransactions(context.Context, *GetTransactionsRequest) (*GetTransactionsResponse, error)
-	// this endpoint enables us to process plaid webhooks
-	ProcessWebhook(context.Context, *ProcessWebhookRequest) (*ProcessWebhookResponse, error)
-	// This endpoint enables us to process stripe webhooks
-	StripeWebhook(context.Context, *StripeWebhookRequest) (*StripeWebhookResponse, error)
 	// This endpoint enables end users to get transactions in a paginated manner
 	CreateSubscription(context.Context, *CreateSubscriptionRequest) (*CreateSubscriptionResponse, error)
 	// Transaction Aggregates By Various parameters
@@ -1332,12 +1276,6 @@ type FinancialServiceServer interface {
 type UnimplementedFinancialServiceServer struct {
 }
 
-func (UnimplementedFinancialServiceServer) MergeGetPublicLinkToken(context.Context, *MergeGetPublicLinkTokenRequest) (*MergeGetPublicLinkTokenResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method MergeGetPublicLinkToken not implemented")
-}
-func (UnimplementedFinancialServiceServer) MergeExchangePublicLinkTokenForAccountToken(context.Context, *MergeExchangePublicLinkTokenForAccountTokenRequest) (*MergeExchangePublicLinkTokenForAccountTokenResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method MergeExchangePublicLinkTokenForAccountToken not implemented")
-}
 func (UnimplementedFinancialServiceServer) PlaidInitiateTokenExchange(context.Context, *PlaidInitiateTokenExchangeRequest) (*PlaidInitiateTokenExchangeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PlaidInitiateTokenExchange not implemented")
 }
@@ -1454,12 +1392,6 @@ func (UnimplementedFinancialServiceServer) GetReCurringTransactions(context.Cont
 }
 func (UnimplementedFinancialServiceServer) GetTransactions(context.Context, *GetTransactionsRequest) (*GetTransactionsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTransactions not implemented")
-}
-func (UnimplementedFinancialServiceServer) ProcessWebhook(context.Context, *ProcessWebhookRequest) (*ProcessWebhookResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ProcessWebhook not implemented")
-}
-func (UnimplementedFinancialServiceServer) StripeWebhook(context.Context, *StripeWebhookRequest) (*StripeWebhookResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method StripeWebhook not implemented")
 }
 func (UnimplementedFinancialServiceServer) CreateSubscription(context.Context, *CreateSubscriptionRequest) (*CreateSubscriptionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateSubscription not implemented")
@@ -1619,42 +1551,6 @@ type UnsafeFinancialServiceServer interface {
 
 func RegisterFinancialServiceServer(s grpc.ServiceRegistrar, srv FinancialServiceServer) {
 	s.RegisterService(&FinancialService_ServiceDesc, srv)
-}
-
-func _FinancialService_MergeGetPublicLinkToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MergeGetPublicLinkTokenRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(FinancialServiceServer).MergeGetPublicLinkToken(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: FinancialService_MergeGetPublicLinkToken_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FinancialServiceServer).MergeGetPublicLinkToken(ctx, req.(*MergeGetPublicLinkTokenRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _FinancialService_MergeExchangePublicLinkTokenForAccountToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MergeExchangePublicLinkTokenForAccountTokenRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(FinancialServiceServer).MergeExchangePublicLinkTokenForAccountToken(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: FinancialService_MergeExchangePublicLinkTokenForAccountToken_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FinancialServiceServer).MergeExchangePublicLinkTokenForAccountToken(ctx, req.(*MergeExchangePublicLinkTokenForAccountTokenRequest))
-	}
-	return interceptor(ctx, in, info, handler)
 }
 
 func _FinancialService_PlaidInitiateTokenExchange_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -2355,42 +2251,6 @@ func _FinancialService_GetTransactions_Handler(srv interface{}, ctx context.Cont
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(FinancialServiceServer).GetTransactions(ctx, req.(*GetTransactionsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _FinancialService_ProcessWebhook_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ProcessWebhookRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(FinancialServiceServer).ProcessWebhook(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: FinancialService_ProcessWebhook_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FinancialServiceServer).ProcessWebhook(ctx, req.(*ProcessWebhookRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _FinancialService_StripeWebhook_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(StripeWebhookRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(FinancialServiceServer).StripeWebhook(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: FinancialService_StripeWebhook_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FinancialServiceServer).StripeWebhook(ctx, req.(*StripeWebhookRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -3285,14 +3145,6 @@ var FinancialService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*FinancialServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "MergeGetPublicLinkToken",
-			Handler:    _FinancialService_MergeGetPublicLinkToken_Handler,
-		},
-		{
-			MethodName: "MergeExchangePublicLinkTokenForAccountToken",
-			Handler:    _FinancialService_MergeExchangePublicLinkTokenForAccountToken_Handler,
-		},
-		{
 			MethodName: "PlaidInitiateTokenExchange",
 			Handler:    _FinancialService_PlaidInitiateTokenExchange_Handler,
 		},
@@ -3447,14 +3299,6 @@ var FinancialService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetTransactions",
 			Handler:    _FinancialService_GetTransactions_Handler,
-		},
-		{
-			MethodName: "ProcessWebhook",
-			Handler:    _FinancialService_ProcessWebhook_Handler,
-		},
-		{
-			MethodName: "StripeWebhook",
-			Handler:    _FinancialService_StripeWebhook_Handler,
 		},
 		{
 			MethodName: "CreateSubscription",
