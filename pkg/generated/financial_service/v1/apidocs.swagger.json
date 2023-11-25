@@ -5799,20 +5799,20 @@
             "type": "string"
           },
           {
-            "name": "startTime",
-            "description": "NOTE: time ranges must follow the follownig semantic - 2023-01-01",
+            "name": "startDate",
+            "description": "start date",
             "in": "query",
             "required": false,
             "type": "string",
-            "format": "uint64"
+            "format": "date-time"
           },
           {
-            "name": "endTime",
-            "description": "NOTE: time ranges must follow the follownig semantic - 2023-01-03",
+            "name": "endDate",
+            "description": "end date",
             "in": "query",
             "required": false,
             "type": "string",
-            "format": "uint64"
+            "format": "date-time"
           },
           {
             "name": "page",

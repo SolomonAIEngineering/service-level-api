@@ -957,10 +957,11 @@ message GetTransactionsBetweenTimeRangesRequest {
     (google.api.field_behavior) = REQUIRED
   ];
 
-  // NOTE: time ranges must follow the follownig semantic - 2023-01-01
-  uint64 start_time = 3;
-  // NOTE: time ranges must follow the follownig semantic - 2023-01-03
-  uint64 end_time = 4;
+  // start date
+  google.protobuf.Timestamp start_date = 3;
+
+  // end date
+  google.protobuf.Timestamp end_date = 4;
   uint32 page = 5;   // Current page number
   uint32 limit = 6;  // Number of transactions per page
   FinancialUserProfileType profile_type = 9 [
