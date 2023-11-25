@@ -28,8 +28,8 @@ func newLinkedAccountingAccountORM(db *gorm.DB, opts ...gen.DOOption) linkedAcco
 
 	tableName := _linkedAccountingAccountORM.linkedAccountingAccountORMDo.TableName()
 	_linkedAccountingAccountORM.ALL = field.NewAsterisk(tableName)
+	_linkedAccountingAccountORM.AccountingIntegrationMergeLinkId = field.NewUint64(tableName, "accounting_integration_merge_link_id")
 	_linkedAccountingAccountORM.Id = field.NewUint64(tableName, "id")
-	_linkedAccountingAccountORM.MergeLinkId = field.NewUint64(tableName, "merge_link_id")
 	_linkedAccountingAccountORM.ReferenceDetails = linkedAccountingAccountORMHasOneReferenceDetails{
 		db: db.Session(&gorm.Session{}),
 
@@ -287,10 +287,10 @@ func newLinkedAccountingAccountORM(db *gorm.DB, opts ...gen.DOOption) linkedAcco
 type linkedAccountingAccountORM struct {
 	linkedAccountingAccountORMDo
 
-	ALL              field.Asterisk
-	Id               field.Uint64
-	MergeLinkId      field.Uint64
-	ReferenceDetails linkedAccountingAccountORMHasOneReferenceDetails
+	ALL                              field.Asterisk
+	AccountingIntegrationMergeLinkId field.Uint64
+	Id                               field.Uint64
+	ReferenceDetails                 linkedAccountingAccountORMHasOneReferenceDetails
 
 	ReportDetails linkedAccountingAccountORMHasOneReportDetails
 
@@ -317,8 +317,8 @@ func (l linkedAccountingAccountORM) As(alias string) *linkedAccountingAccountORM
 
 func (l *linkedAccountingAccountORM) updateTableName(table string) *linkedAccountingAccountORM {
 	l.ALL = field.NewAsterisk(table)
+	l.AccountingIntegrationMergeLinkId = field.NewUint64(table, "accounting_integration_merge_link_id")
 	l.Id = field.NewUint64(table, "id")
-	l.MergeLinkId = field.NewUint64(table, "merge_link_id")
 
 	l.fillFieldMap()
 
@@ -336,8 +336,8 @@ func (l *linkedAccountingAccountORM) GetFieldByName(fieldName string) (field.Ord
 
 func (l *linkedAccountingAccountORM) fillFieldMap() {
 	l.fieldMap = make(map[string]field.Expr, 8)
+	l.fieldMap["accounting_integration_merge_link_id"] = l.AccountingIntegrationMergeLinkId
 	l.fieldMap["id"] = l.Id
-	l.fieldMap["merge_link_id"] = l.MergeLinkId
 
 }
 

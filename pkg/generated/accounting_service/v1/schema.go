@@ -7,7 +7,7 @@ func GetDatabaseSchemas() []interface{} {
 		BusinessActionableInsightORM{},
 		MergeLinkedAccountTokenORM{},
 		CategoryORM{},
-		MergeLinkORM{},
+		AccountingIntegrationMergeLinkORM{},
 		LinkedAccountingAccountORM{},
 		TransactionDetailsORM{},
 		ReferenceDetailsORM{},

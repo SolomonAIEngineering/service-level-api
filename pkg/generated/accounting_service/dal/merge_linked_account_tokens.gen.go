@@ -29,13 +29,13 @@ func newMergeLinkedAccountTokenORM(db *gorm.DB, opts ...gen.DOOption) mergeLinke
 	tableName := _mergeLinkedAccountTokenORM.mergeLinkedAccountTokenORMDo.TableName()
 	_mergeLinkedAccountTokenORM.ALL = field.NewAsterisk(tableName)
 	_mergeLinkedAccountTokenORM.AccessToken = field.NewString(tableName, "access_token")
+	_mergeLinkedAccountTokenORM.AccountingIntegrationMergeLinkId = field.NewUint64(tableName, "accounting_integration_merge_link_id")
 	_mergeLinkedAccountTokenORM.Id = field.NewUint64(tableName, "id")
 	_mergeLinkedAccountTokenORM.ItemId = field.NewString(tableName, "item_id")
 	_mergeLinkedAccountTokenORM.KeyId = field.NewString(tableName, "key_id")
 	_mergeLinkedAccountTokenORM.LastMergeCreatedAt = field.NewTime(tableName, "last_merge_created_at")
 	_mergeLinkedAccountTokenORM.MergeEndUserOriginId = field.NewString(tableName, "merge_end_user_origin_id")
 	_mergeLinkedAccountTokenORM.MergeIntegrationSlug = field.NewString(tableName, "merge_integration_slug")
-	_mergeLinkedAccountTokenORM.MergeLinkId = field.NewUint64(tableName, "merge_link_id")
 	_mergeLinkedAccountTokenORM.Version = field.NewString(tableName, "version")
 
 	_mergeLinkedAccountTokenORM.fillFieldMap()
@@ -46,16 +46,16 @@ func newMergeLinkedAccountTokenORM(db *gorm.DB, opts ...gen.DOOption) mergeLinke
 type mergeLinkedAccountTokenORM struct {
 	mergeLinkedAccountTokenORMDo
 
-	ALL                  field.Asterisk
-	AccessToken          field.String
-	Id                   field.Uint64
-	ItemId               field.String
-	KeyId                field.String
-	LastMergeCreatedAt   field.Time
-	MergeEndUserOriginId field.String
-	MergeIntegrationSlug field.String
-	MergeLinkId          field.Uint64
-	Version              field.String
+	ALL                              field.Asterisk
+	AccessToken                      field.String
+	AccountingIntegrationMergeLinkId field.Uint64
+	Id                               field.Uint64
+	ItemId                           field.String
+	KeyId                            field.String
+	LastMergeCreatedAt               field.Time
+	MergeEndUserOriginId             field.String
+	MergeIntegrationSlug             field.String
+	Version                          field.String
 
 	fieldMap map[string]field.Expr
 }
@@ -73,13 +73,13 @@ func (m mergeLinkedAccountTokenORM) As(alias string) *mergeLinkedAccountTokenORM
 func (m *mergeLinkedAccountTokenORM) updateTableName(table string) *mergeLinkedAccountTokenORM {
 	m.ALL = field.NewAsterisk(table)
 	m.AccessToken = field.NewString(table, "access_token")
+	m.AccountingIntegrationMergeLinkId = field.NewUint64(table, "accounting_integration_merge_link_id")
 	m.Id = field.NewUint64(table, "id")
 	m.ItemId = field.NewString(table, "item_id")
 	m.KeyId = field.NewString(table, "key_id")
 	m.LastMergeCreatedAt = field.NewTime(table, "last_merge_created_at")
 	m.MergeEndUserOriginId = field.NewString(table, "merge_end_user_origin_id")
 	m.MergeIntegrationSlug = field.NewString(table, "merge_integration_slug")
-	m.MergeLinkId = field.NewUint64(table, "merge_link_id")
 	m.Version = field.NewString(table, "version")
 
 	m.fillFieldMap()
@@ -99,13 +99,13 @@ func (m *mergeLinkedAccountTokenORM) GetFieldByName(fieldName string) (field.Ord
 func (m *mergeLinkedAccountTokenORM) fillFieldMap() {
 	m.fieldMap = make(map[string]field.Expr, 9)
 	m.fieldMap["access_token"] = m.AccessToken
+	m.fieldMap["accounting_integration_merge_link_id"] = m.AccountingIntegrationMergeLinkId
 	m.fieldMap["id"] = m.Id
 	m.fieldMap["item_id"] = m.ItemId
 	m.fieldMap["key_id"] = m.KeyId
 	m.fieldMap["last_merge_created_at"] = m.LastMergeCreatedAt
 	m.fieldMap["merge_end_user_origin_id"] = m.MergeEndUserOriginId
 	m.fieldMap["merge_integration_slug"] = m.MergeIntegrationSlug
-	m.fieldMap["merge_link_id"] = m.MergeLinkId
 	m.fieldMap["version"] = m.Version
 }
 

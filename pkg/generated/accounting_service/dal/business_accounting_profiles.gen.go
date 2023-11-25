@@ -33,21 +33,10 @@ func newBusinessAccountingProfileORM(db *gorm.DB, opts ...gen.DOOption) business
 	_businessAccountingProfileORM.Email = field.NewString(tableName, "email")
 	_businessAccountingProfileORM.Id = field.NewUint64(tableName, "id")
 	_businessAccountingProfileORM.UserId = field.NewUint64(tableName, "user_id")
-	_businessAccountingProfileORM.ActionablePersonalInsights = businessAccountingProfileORMHasManyActionablePersonalInsights{
+	_businessAccountingProfileORM.AccountingIntegrationMergeLink = businessAccountingProfileORMHasManyAccountingIntegrationMergeLink{
 		db: db.Session(&gorm.Session{}),
 
-		RelationField: field.NewRelation("ActionablePersonalInsights", "accounting_servicev1.BusinessActionableInsightORM"),
-	}
-
-	_businessAccountingProfileORM.MergeLiink = businessAccountingProfileORMHasManyMergeLiink{
-		db: db.Session(&gorm.Session{}),
-
-		RelationField: field.NewRelation("MergeLiink", "accounting_servicev1.MergeLinkORM"),
-		Token: struct {
-			field.RelationField
-		}{
-			RelationField: field.NewRelation("MergeLiink.Token", "accounting_servicev1.MergeLinkedAccountTokenORM"),
-		},
+		RelationField: field.NewRelation("AccountingIntegrationMergeLink", "accounting_servicev1.AccountingIntegrationMergeLinkORM"),
 		Account: struct {
 			field.RelationField
 			ReferenceDetails struct {
@@ -168,7 +157,7 @@ func newBusinessAccountingProfileORM(db *gorm.DB, opts ...gen.DOOption) business
 				}
 			}
 		}{
-			RelationField: field.NewRelation("MergeLiink.Account", "accounting_servicev1.LinkedAccountingAccountORM"),
+			RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account", "accounting_servicev1.LinkedAccountingAccountORM"),
 			ReferenceDetails: struct {
 				field.RelationField
 				ChartOfAccounts struct {
@@ -184,26 +173,26 @@ func newBusinessAccountingProfileORM(db *gorm.DB, opts ...gen.DOOption) business
 					field.RelationField
 				}
 			}{
-				RelationField: field.NewRelation("MergeLiink.Account.ReferenceDetails", "accounting_servicev1.ReferenceDetailsORM"),
+				RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.ReferenceDetails", "accounting_servicev1.ReferenceDetailsORM"),
 				ChartOfAccounts: struct {
 					field.RelationField
 				}{
-					RelationField: field.NewRelation("MergeLiink.Account.ReferenceDetails.ChartOfAccounts", "accounting_servicev1.BusinessChartOfAccountsORM"),
+					RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.ReferenceDetails.ChartOfAccounts", "accounting_servicev1.BusinessChartOfAccountsORM"),
 				},
 				Contacts: struct {
 					field.RelationField
 				}{
-					RelationField: field.NewRelation("MergeLiink.Account.ReferenceDetails.Contacts", "accounting_servicev1.ContactsORM"),
+					RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.ReferenceDetails.Contacts", "accounting_servicev1.ContactsORM"),
 				},
 				Items: struct {
 					field.RelationField
 				}{
-					RelationField: field.NewRelation("MergeLiink.Account.ReferenceDetails.Items", "accounting_servicev1.ItemORM"),
+					RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.ReferenceDetails.Items", "accounting_servicev1.ItemORM"),
 				},
 				TaxRates: struct {
 					field.RelationField
 				}{
-					RelationField: field.NewRelation("MergeLiink.Account.ReferenceDetails.TaxRates", "accounting_servicev1.TaxRateORM"),
+					RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.ReferenceDetails.TaxRates", "accounting_servicev1.TaxRateORM"),
 				},
 			},
 			ReportDetails: struct {
@@ -248,7 +237,7 @@ func newBusinessAccountingProfileORM(db *gorm.DB, opts ...gen.DOOption) business
 					}
 				}
 			}{
-				RelationField: field.NewRelation("MergeLiink.Account.ReportDetails", "accounting_servicev1.ReportDetailsORM"),
+				RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.ReportDetails", "accounting_servicev1.ReportDetailsORM"),
 				BalanceSheets: struct {
 					field.RelationField
 					Assets struct {
@@ -261,21 +250,21 @@ func newBusinessAccountingProfileORM(db *gorm.DB, opts ...gen.DOOption) business
 						field.RelationField
 					}
 				}{
-					RelationField: field.NewRelation("MergeLiink.Account.ReportDetails.BalanceSheets", "accounting_servicev1.BalanceSheetORM"),
+					RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.ReportDetails.BalanceSheets", "accounting_servicev1.BalanceSheetORM"),
 					Assets: struct {
 						field.RelationField
 					}{
-						RelationField: field.NewRelation("MergeLiink.Account.ReportDetails.BalanceSheets.Assets", "accounting_servicev1.ReportItemORM"),
+						RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.ReportDetails.BalanceSheets.Assets", "accounting_servicev1.ReportItemORM"),
 					},
 					Equity: struct {
 						field.RelationField
 					}{
-						RelationField: field.NewRelation("MergeLiink.Account.ReportDetails.BalanceSheets.Equity", "accounting_servicev1.ReportItemORM"),
+						RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.ReportDetails.BalanceSheets.Equity", "accounting_servicev1.ReportItemORM"),
 					},
 					Liabilities: struct {
 						field.RelationField
 					}{
-						RelationField: field.NewRelation("MergeLiink.Account.ReportDetails.BalanceSheets.Liabilities", "accounting_servicev1.ReportItemORM"),
+						RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.ReportDetails.BalanceSheets.Liabilities", "accounting_servicev1.ReportItemORM"),
 					},
 				},
 				CashFlowStatements: struct {
@@ -290,21 +279,21 @@ func newBusinessAccountingProfileORM(db *gorm.DB, opts ...gen.DOOption) business
 						field.RelationField
 					}
 				}{
-					RelationField: field.NewRelation("MergeLiink.Account.ReportDetails.CashFlowStatements", "accounting_servicev1.CashFlowStatementsORM"),
+					RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.ReportDetails.CashFlowStatements", "accounting_servicev1.CashFlowStatementsORM"),
 					FinancingActivities: struct {
 						field.RelationField
 					}{
-						RelationField: field.NewRelation("MergeLiink.Account.ReportDetails.CashFlowStatements.FinancingActivities", "accounting_servicev1.ReportItemORM"),
+						RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.ReportDetails.CashFlowStatements.FinancingActivities", "accounting_servicev1.ReportItemORM"),
 					},
 					InvestingActivities: struct {
 						field.RelationField
 					}{
-						RelationField: field.NewRelation("MergeLiink.Account.ReportDetails.CashFlowStatements.InvestingActivities", "accounting_servicev1.ReportItemORM"),
+						RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.ReportDetails.CashFlowStatements.InvestingActivities", "accounting_servicev1.ReportItemORM"),
 					},
 					OperatingActivities: struct {
 						field.RelationField
 					}{
-						RelationField: field.NewRelation("MergeLiink.Account.ReportDetails.CashFlowStatements.OperatingActivities", "accounting_servicev1.ReportItemORM"),
+						RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.ReportDetails.CashFlowStatements.OperatingActivities", "accounting_servicev1.ReportItemORM"),
 					},
 				},
 				IncomeStatements: struct {
@@ -322,26 +311,26 @@ func newBusinessAccountingProfileORM(db *gorm.DB, opts ...gen.DOOption) business
 						field.RelationField
 					}
 				}{
-					RelationField: field.NewRelation("MergeLiink.Account.ReportDetails.IncomeStatements", "accounting_servicev1.IncomeStatementORM"),
+					RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.ReportDetails.IncomeStatements", "accounting_servicev1.IncomeStatementORM"),
 					CostOfSales: struct {
 						field.RelationField
 					}{
-						RelationField: field.NewRelation("MergeLiink.Account.ReportDetails.IncomeStatements.CostOfSales", "accounting_servicev1.ReportItemORM"),
+						RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.ReportDetails.IncomeStatements.CostOfSales", "accounting_servicev1.ReportItemORM"),
 					},
 					Income: struct {
 						field.RelationField
 					}{
-						RelationField: field.NewRelation("MergeLiink.Account.ReportDetails.IncomeStatements.Income", "accounting_servicev1.ReportItemORM"),
+						RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.ReportDetails.IncomeStatements.Income", "accounting_servicev1.ReportItemORM"),
 					},
 					NonOperatingExpenses: struct {
 						field.RelationField
 					}{
-						RelationField: field.NewRelation("MergeLiink.Account.ReportDetails.IncomeStatements.NonOperatingExpenses", "accounting_servicev1.ReportItemORM"),
+						RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.ReportDetails.IncomeStatements.NonOperatingExpenses", "accounting_servicev1.ReportItemORM"),
 					},
 					OperatingExpenses: struct {
 						field.RelationField
 					}{
-						RelationField: field.NewRelation("MergeLiink.Account.ReportDetails.IncomeStatements.OperatingExpenses", "accounting_servicev1.ReportItemORM"),
+						RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.ReportDetails.IncomeStatements.OperatingExpenses", "accounting_servicev1.ReportItemORM"),
 					},
 				},
 			},
@@ -387,18 +376,18 @@ func newBusinessAccountingProfileORM(db *gorm.DB, opts ...gen.DOOption) business
 					}
 				}
 			}{
-				RelationField: field.NewRelation("MergeLiink.Account.TransactionsDetails", "accounting_servicev1.TransactionDetailsORM"),
+				RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.TransactionsDetails", "accounting_servicev1.TransactionDetailsORM"),
 				CreditNotes: struct {
 					field.RelationField
 					LineItems struct {
 						field.RelationField
 					}
 				}{
-					RelationField: field.NewRelation("MergeLiink.Account.TransactionsDetails.CreditNotes", "accounting_servicev1.CreditNoteORM"),
+					RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.TransactionsDetails.CreditNotes", "accounting_servicev1.CreditNoteORM"),
 					LineItems: struct {
 						field.RelationField
 					}{
-						RelationField: field.NewRelation("MergeLiink.Account.TransactionsDetails.CreditNotes.LineItems", "accounting_servicev1.CreditNoteLineItemORM"),
+						RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.TransactionsDetails.CreditNotes.LineItems", "accounting_servicev1.CreditNoteLineItemORM"),
 					},
 				},
 				Expenses: struct {
@@ -407,11 +396,11 @@ func newBusinessAccountingProfileORM(db *gorm.DB, opts ...gen.DOOption) business
 						field.RelationField
 					}
 				}{
-					RelationField: field.NewRelation("MergeLiink.Account.TransactionsDetails.Expenses", "accounting_servicev1.ExpenseORM"),
+					RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.TransactionsDetails.Expenses", "accounting_servicev1.ExpenseORM"),
 					Lines: struct {
 						field.RelationField
 					}{
-						RelationField: field.NewRelation("MergeLiink.Account.TransactionsDetails.Expenses.Lines", "accounting_servicev1.ExpenseLineORM"),
+						RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.TransactionsDetails.Expenses.Lines", "accounting_servicev1.ExpenseLineORM"),
 					},
 				},
 				Invoices: struct {
@@ -420,11 +409,11 @@ func newBusinessAccountingProfileORM(db *gorm.DB, opts ...gen.DOOption) business
 						field.RelationField
 					}
 				}{
-					RelationField: field.NewRelation("MergeLiink.Account.TransactionsDetails.Invoices", "accounting_servicev1.InvoiceORM"),
+					RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.TransactionsDetails.Invoices", "accounting_servicev1.InvoiceORM"),
 					LineItems: struct {
 						field.RelationField
 					}{
-						RelationField: field.NewRelation("MergeLiink.Account.TransactionsDetails.Invoices.LineItems", "accounting_servicev1.InvoiceLineItemORM"),
+						RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.TransactionsDetails.Invoices.LineItems", "accounting_servicev1.InvoiceLineItemORM"),
 					},
 				},
 				JournalEntries: struct {
@@ -433,17 +422,17 @@ func newBusinessAccountingProfileORM(db *gorm.DB, opts ...gen.DOOption) business
 						field.RelationField
 					}
 				}{
-					RelationField: field.NewRelation("MergeLiink.Account.TransactionsDetails.JournalEntries", "accounting_servicev1.JournalEntryORM"),
+					RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.TransactionsDetails.JournalEntries", "accounting_servicev1.JournalEntryORM"),
 					Lines: struct {
 						field.RelationField
 					}{
-						RelationField: field.NewRelation("MergeLiink.Account.TransactionsDetails.JournalEntries.Lines", "accounting_servicev1.JournalLineORM"),
+						RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.TransactionsDetails.JournalEntries.Lines", "accounting_servicev1.JournalLineORM"),
 					},
 				},
 				Payments: struct {
 					field.RelationField
 				}{
-					RelationField: field.NewRelation("MergeLiink.Account.TransactionsDetails.Payments", "accounting_servicev1.PaymentORM"),
+					RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.TransactionsDetails.Payments", "accounting_servicev1.PaymentORM"),
 				},
 				Transactions: struct {
 					field.RelationField
@@ -451,11 +440,11 @@ func newBusinessAccountingProfileORM(db *gorm.DB, opts ...gen.DOOption) business
 						field.RelationField
 					}
 				}{
-					RelationField: field.NewRelation("MergeLiink.Account.TransactionsDetails.Transactions", "accounting_servicev1.BusinessTransactionORM"),
+					RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.TransactionsDetails.Transactions", "accounting_servicev1.BusinessTransactionORM"),
 					LineItems: struct {
 						field.RelationField
 					}{
-						RelationField: field.NewRelation("MergeLiink.Account.TransactionsDetails.Transactions.LineItems", "accounting_servicev1.TransactionLineItemORM"),
+						RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.TransactionsDetails.Transactions.LineItems", "accounting_servicev1.TransactionLineItemORM"),
 					},
 				},
 				VendorCredits: struct {
@@ -464,18 +453,18 @@ func newBusinessAccountingProfileORM(db *gorm.DB, opts ...gen.DOOption) business
 						field.RelationField
 					}
 				}{
-					RelationField: field.NewRelation("MergeLiink.Account.TransactionsDetails.VendorCredits", "accounting_servicev1.VendorCreditORM"),
+					RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.TransactionsDetails.VendorCredits", "accounting_servicev1.VendorCreditORM"),
 					Lines: struct {
 						field.RelationField
 					}{
-						RelationField: field.NewRelation("MergeLiink.Account.TransactionsDetails.VendorCredits.Lines", "accounting_servicev1.VendorCreditLineORM"),
+						RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.TransactionsDetails.VendorCredits.Lines", "accounting_servicev1.VendorCreditLineORM"),
 					},
 				},
 			},
 			Attachments: struct {
 				field.RelationField
 			}{
-				RelationField: field.NewRelation("MergeLiink.Account.Attachments", "accounting_servicev1.AttachmentsORM"),
+				RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.Attachments", "accounting_servicev1.AttachmentsORM"),
 			},
 			CompanyInfo: struct {
 				field.RelationField
@@ -483,11 +472,11 @@ func newBusinessAccountingProfileORM(db *gorm.DB, opts ...gen.DOOption) business
 					field.RelationField
 				}
 			}{
-				RelationField: field.NewRelation("MergeLiink.Account.CompanyInfo", "accounting_servicev1.CompanyInfoORM"),
+				RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.CompanyInfo", "accounting_servicev1.CompanyInfoORM"),
 				Addresses: struct {
 					field.RelationField
 				}{
-					RelationField: field.NewRelation("MergeLiink.Account.CompanyInfo.Addresses", "accounting_servicev1.CompanyAddressORM"),
+					RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.CompanyInfo.Addresses", "accounting_servicev1.CompanyAddressORM"),
 				},
 			},
 			PurchaseOrders: struct {
@@ -499,19 +488,30 @@ func newBusinessAccountingProfileORM(db *gorm.DB, opts ...gen.DOOption) business
 					field.RelationField
 				}
 			}{
-				RelationField: field.NewRelation("MergeLiink.Account.PurchaseOrders", "accounting_servicev1.PurchaseOrderORM"),
+				RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.PurchaseOrders", "accounting_servicev1.PurchaseOrderORM"),
 				DeliveryAddress: struct {
 					field.RelationField
 				}{
-					RelationField: field.NewRelation("MergeLiink.Account.PurchaseOrders.DeliveryAddress", "accounting_servicev1.CompanyAddressORM"),
+					RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.PurchaseOrders.DeliveryAddress", "accounting_servicev1.CompanyAddressORM"),
 				},
 				LineItems: struct {
 					field.RelationField
 				}{
-					RelationField: field.NewRelation("MergeLiink.Account.PurchaseOrders.LineItems", "accounting_servicev1.PurchaseOrderLineItemORM"),
+					RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.PurchaseOrders.LineItems", "accounting_servicev1.PurchaseOrderLineItemORM"),
 				},
 			},
 		},
+		Token: struct {
+			field.RelationField
+		}{
+			RelationField: field.NewRelation("AccountingIntegrationMergeLink.Token", "accounting_servicev1.MergeLinkedAccountTokenORM"),
+		},
+	}
+
+	_businessAccountingProfileORM.ActionablePersonalInsights = businessAccountingProfileORMHasManyActionablePersonalInsights{
+		db: db.Session(&gorm.Session{}),
+
+		RelationField: field.NewRelation("ActionablePersonalInsights", "accounting_servicev1.BusinessActionableInsightORM"),
 	}
 
 	_businessAccountingProfileORM.fillFieldMap()
@@ -522,14 +522,14 @@ func newBusinessAccountingProfileORM(db *gorm.DB, opts ...gen.DOOption) business
 type businessAccountingProfileORM struct {
 	businessAccountingProfileORMDo
 
-	ALL                        field.Asterisk
-	CompanyName                field.String
-	Email                      field.String
-	Id                         field.Uint64
-	UserId                     field.Uint64
-	ActionablePersonalInsights businessAccountingProfileORMHasManyActionablePersonalInsights
+	ALL                            field.Asterisk
+	CompanyName                    field.String
+	Email                          field.String
+	Id                             field.Uint64
+	UserId                         field.Uint64
+	AccountingIntegrationMergeLink businessAccountingProfileORMHasManyAccountingIntegrationMergeLink
 
-	MergeLiink businessAccountingProfileORMHasManyMergeLiink
+	ActionablePersonalInsights businessAccountingProfileORMHasManyActionablePersonalInsights
 
 	fieldMap map[string]field.Expr
 }
@@ -584,85 +584,11 @@ func (b businessAccountingProfileORM) replaceDB(db *gorm.DB) businessAccountingP
 	return b
 }
 
-type businessAccountingProfileORMHasManyActionablePersonalInsights struct {
-	db *gorm.DB
-
-	field.RelationField
-}
-
-func (a businessAccountingProfileORMHasManyActionablePersonalInsights) Where(conds ...field.Expr) *businessAccountingProfileORMHasManyActionablePersonalInsights {
-	if len(conds) == 0 {
-		return &a
-	}
-
-	exprs := make([]clause.Expression, 0, len(conds))
-	for _, cond := range conds {
-		exprs = append(exprs, cond.BeCond().(clause.Expression))
-	}
-	a.db = a.db.Clauses(clause.Where{Exprs: exprs})
-	return &a
-}
-
-func (a businessAccountingProfileORMHasManyActionablePersonalInsights) WithContext(ctx context.Context) *businessAccountingProfileORMHasManyActionablePersonalInsights {
-	a.db = a.db.WithContext(ctx)
-	return &a
-}
-
-func (a businessAccountingProfileORMHasManyActionablePersonalInsights) Session(session *gorm.Session) *businessAccountingProfileORMHasManyActionablePersonalInsights {
-	a.db = a.db.Session(session)
-	return &a
-}
-
-func (a businessAccountingProfileORMHasManyActionablePersonalInsights) Model(m *accounting_servicev1.BusinessAccountingProfileORM) *businessAccountingProfileORMHasManyActionablePersonalInsightsTx {
-	return &businessAccountingProfileORMHasManyActionablePersonalInsightsTx{a.db.Model(m).Association(a.Name())}
-}
-
-type businessAccountingProfileORMHasManyActionablePersonalInsightsTx struct{ tx *gorm.Association }
-
-func (a businessAccountingProfileORMHasManyActionablePersonalInsightsTx) Find() (result []*accounting_servicev1.BusinessActionableInsightORM, err error) {
-	return result, a.tx.Find(&result)
-}
-
-func (a businessAccountingProfileORMHasManyActionablePersonalInsightsTx) Append(values ...*accounting_servicev1.BusinessActionableInsightORM) (err error) {
-	targetValues := make([]interface{}, len(values))
-	for i, v := range values {
-		targetValues[i] = v
-	}
-	return a.tx.Append(targetValues...)
-}
-
-func (a businessAccountingProfileORMHasManyActionablePersonalInsightsTx) Replace(values ...*accounting_servicev1.BusinessActionableInsightORM) (err error) {
-	targetValues := make([]interface{}, len(values))
-	for i, v := range values {
-		targetValues[i] = v
-	}
-	return a.tx.Replace(targetValues...)
-}
-
-func (a businessAccountingProfileORMHasManyActionablePersonalInsightsTx) Delete(values ...*accounting_servicev1.BusinessActionableInsightORM) (err error) {
-	targetValues := make([]interface{}, len(values))
-	for i, v := range values {
-		targetValues[i] = v
-	}
-	return a.tx.Delete(targetValues...)
-}
-
-func (a businessAccountingProfileORMHasManyActionablePersonalInsightsTx) Clear() error {
-	return a.tx.Clear()
-}
-
-func (a businessAccountingProfileORMHasManyActionablePersonalInsightsTx) Count() int64 {
-	return a.tx.Count()
-}
-
-type businessAccountingProfileORMHasManyMergeLiink struct {
+type businessAccountingProfileORMHasManyAccountingIntegrationMergeLink struct {
 	db *gorm.DB
 
 	field.RelationField
 
-	Token struct {
-		field.RelationField
-	}
 	Account struct {
 		field.RelationField
 		ReferenceDetails struct {
@@ -783,9 +709,12 @@ type businessAccountingProfileORMHasManyMergeLiink struct {
 			}
 		}
 	}
+	Token struct {
+		field.RelationField
+	}
 }
 
-func (a businessAccountingProfileORMHasManyMergeLiink) Where(conds ...field.Expr) *businessAccountingProfileORMHasManyMergeLiink {
+func (a businessAccountingProfileORMHasManyAccountingIntegrationMergeLink) Where(conds ...field.Expr) *businessAccountingProfileORMHasManyAccountingIntegrationMergeLink {
 	if len(conds) == 0 {
 		return &a
 	}
@@ -798,27 +727,27 @@ func (a businessAccountingProfileORMHasManyMergeLiink) Where(conds ...field.Expr
 	return &a
 }
 
-func (a businessAccountingProfileORMHasManyMergeLiink) WithContext(ctx context.Context) *businessAccountingProfileORMHasManyMergeLiink {
+func (a businessAccountingProfileORMHasManyAccountingIntegrationMergeLink) WithContext(ctx context.Context) *businessAccountingProfileORMHasManyAccountingIntegrationMergeLink {
 	a.db = a.db.WithContext(ctx)
 	return &a
 }
 
-func (a businessAccountingProfileORMHasManyMergeLiink) Session(session *gorm.Session) *businessAccountingProfileORMHasManyMergeLiink {
+func (a businessAccountingProfileORMHasManyAccountingIntegrationMergeLink) Session(session *gorm.Session) *businessAccountingProfileORMHasManyAccountingIntegrationMergeLink {
 	a.db = a.db.Session(session)
 	return &a
 }
 
-func (a businessAccountingProfileORMHasManyMergeLiink) Model(m *accounting_servicev1.BusinessAccountingProfileORM) *businessAccountingProfileORMHasManyMergeLiinkTx {
-	return &businessAccountingProfileORMHasManyMergeLiinkTx{a.db.Model(m).Association(a.Name())}
+func (a businessAccountingProfileORMHasManyAccountingIntegrationMergeLink) Model(m *accounting_servicev1.BusinessAccountingProfileORM) *businessAccountingProfileORMHasManyAccountingIntegrationMergeLinkTx {
+	return &businessAccountingProfileORMHasManyAccountingIntegrationMergeLinkTx{a.db.Model(m).Association(a.Name())}
 }
 
-type businessAccountingProfileORMHasManyMergeLiinkTx struct{ tx *gorm.Association }
+type businessAccountingProfileORMHasManyAccountingIntegrationMergeLinkTx struct{ tx *gorm.Association }
 
-func (a businessAccountingProfileORMHasManyMergeLiinkTx) Find() (result []*accounting_servicev1.MergeLinkORM, err error) {
+func (a businessAccountingProfileORMHasManyAccountingIntegrationMergeLinkTx) Find() (result []*accounting_servicev1.AccountingIntegrationMergeLinkORM, err error) {
 	return result, a.tx.Find(&result)
 }
 
-func (a businessAccountingProfileORMHasManyMergeLiinkTx) Append(values ...*accounting_servicev1.MergeLinkORM) (err error) {
+func (a businessAccountingProfileORMHasManyAccountingIntegrationMergeLinkTx) Append(values ...*accounting_servicev1.AccountingIntegrationMergeLinkORM) (err error) {
 	targetValues := make([]interface{}, len(values))
 	for i, v := range values {
 		targetValues[i] = v
@@ -826,7 +755,7 @@ func (a businessAccountingProfileORMHasManyMergeLiinkTx) Append(values ...*accou
 	return a.tx.Append(targetValues...)
 }
 
-func (a businessAccountingProfileORMHasManyMergeLiinkTx) Replace(values ...*accounting_servicev1.MergeLinkORM) (err error) {
+func (a businessAccountingProfileORMHasManyAccountingIntegrationMergeLinkTx) Replace(values ...*accounting_servicev1.AccountingIntegrationMergeLinkORM) (err error) {
 	targetValues := make([]interface{}, len(values))
 	for i, v := range values {
 		targetValues[i] = v
@@ -834,7 +763,7 @@ func (a businessAccountingProfileORMHasManyMergeLiinkTx) Replace(values ...*acco
 	return a.tx.Replace(targetValues...)
 }
 
-func (a businessAccountingProfileORMHasManyMergeLiinkTx) Delete(values ...*accounting_servicev1.MergeLinkORM) (err error) {
+func (a businessAccountingProfileORMHasManyAccountingIntegrationMergeLinkTx) Delete(values ...*accounting_servicev1.AccountingIntegrationMergeLinkORM) (err error) {
 	targetValues := make([]interface{}, len(values))
 	for i, v := range values {
 		targetValues[i] = v
@@ -842,11 +771,82 @@ func (a businessAccountingProfileORMHasManyMergeLiinkTx) Delete(values ...*accou
 	return a.tx.Delete(targetValues...)
 }
 
-func (a businessAccountingProfileORMHasManyMergeLiinkTx) Clear() error {
+func (a businessAccountingProfileORMHasManyAccountingIntegrationMergeLinkTx) Clear() error {
 	return a.tx.Clear()
 }
 
-func (a businessAccountingProfileORMHasManyMergeLiinkTx) Count() int64 {
+func (a businessAccountingProfileORMHasManyAccountingIntegrationMergeLinkTx) Count() int64 {
+	return a.tx.Count()
+}
+
+type businessAccountingProfileORMHasManyActionablePersonalInsights struct {
+	db *gorm.DB
+
+	field.RelationField
+}
+
+func (a businessAccountingProfileORMHasManyActionablePersonalInsights) Where(conds ...field.Expr) *businessAccountingProfileORMHasManyActionablePersonalInsights {
+	if len(conds) == 0 {
+		return &a
+	}
+
+	exprs := make([]clause.Expression, 0, len(conds))
+	for _, cond := range conds {
+		exprs = append(exprs, cond.BeCond().(clause.Expression))
+	}
+	a.db = a.db.Clauses(clause.Where{Exprs: exprs})
+	return &a
+}
+
+func (a businessAccountingProfileORMHasManyActionablePersonalInsights) WithContext(ctx context.Context) *businessAccountingProfileORMHasManyActionablePersonalInsights {
+	a.db = a.db.WithContext(ctx)
+	return &a
+}
+
+func (a businessAccountingProfileORMHasManyActionablePersonalInsights) Session(session *gorm.Session) *businessAccountingProfileORMHasManyActionablePersonalInsights {
+	a.db = a.db.Session(session)
+	return &a
+}
+
+func (a businessAccountingProfileORMHasManyActionablePersonalInsights) Model(m *accounting_servicev1.BusinessAccountingProfileORM) *businessAccountingProfileORMHasManyActionablePersonalInsightsTx {
+	return &businessAccountingProfileORMHasManyActionablePersonalInsightsTx{a.db.Model(m).Association(a.Name())}
+}
+
+type businessAccountingProfileORMHasManyActionablePersonalInsightsTx struct{ tx *gorm.Association }
+
+func (a businessAccountingProfileORMHasManyActionablePersonalInsightsTx) Find() (result []*accounting_servicev1.BusinessActionableInsightORM, err error) {
+	return result, a.tx.Find(&result)
+}
+
+func (a businessAccountingProfileORMHasManyActionablePersonalInsightsTx) Append(values ...*accounting_servicev1.BusinessActionableInsightORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Append(targetValues...)
+}
+
+func (a businessAccountingProfileORMHasManyActionablePersonalInsightsTx) Replace(values ...*accounting_servicev1.BusinessActionableInsightORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Replace(targetValues...)
+}
+
+func (a businessAccountingProfileORMHasManyActionablePersonalInsightsTx) Delete(values ...*accounting_servicev1.BusinessActionableInsightORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Delete(targetValues...)
+}
+
+func (a businessAccountingProfileORMHasManyActionablePersonalInsightsTx) Clear() error {
+	return a.tx.Clear()
+}
+
+func (a businessAccountingProfileORMHasManyActionablePersonalInsightsTx) Count() int64 {
 	return a.tx.Count()
 }
 

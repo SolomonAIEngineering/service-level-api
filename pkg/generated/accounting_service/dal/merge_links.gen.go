@@ -44,13 +44,7 @@ func newMergeLinkORM(db *gorm.DB, opts ...gen.DOOption) mergeLinkORM {
 	_mergeLinkORM.MergeLinkedAccountId = field.NewString(tableName, "merge_linked_account_id")
 	_mergeLinkORM.Status = field.NewString(tableName, "status")
 	_mergeLinkORM.WebhookListenerUrl = field.NewString(tableName, "webhook_listener_url")
-	_mergeLinkORM.Token = mergeLinkORMHasOneToken{
-		db: db.Session(&gorm.Session{}),
-
-		RelationField: field.NewRelation("Token", "accounting_servicev1.MergeLinkedAccountTokenORM"),
-	}
-
-	_mergeLinkORM.Account = mergeLinkORMHasManyAccount{
+	_mergeLinkORM.Account = mergeLinkORMHasOneAccount{
 		db: db.Session(&gorm.Session{}),
 
 		RelationField: field.NewRelation("Account", "accounting_servicev1.LinkedAccountingAccountORM"),
@@ -398,6 +392,12 @@ func newMergeLinkORM(db *gorm.DB, opts ...gen.DOOption) mergeLinkORM {
 		},
 	}
 
+	_mergeLinkORM.Token = mergeLinkORMHasOneToken{
+		db: db.Session(&gorm.Session{}),
+
+		RelationField: field.NewRelation("Token", "accounting_servicev1.MergeLinkedAccountTokenORM"),
+	}
+
 	_mergeLinkORM.fillFieldMap()
 
 	return _mergeLinkORM
@@ -423,9 +423,9 @@ type mergeLinkORM struct {
 	MergeLinkedAccountId        field.String
 	Status                      field.String
 	WebhookListenerUrl          field.String
-	Token                       mergeLinkORMHasOneToken
+	Account                     mergeLinkORMHasOneAccount
 
-	Account mergeLinkORMHasManyAccount
+	Token mergeLinkORMHasOneToken
 
 	fieldMap map[string]field.Expr
 }
@@ -504,78 +504,7 @@ func (m mergeLinkORM) replaceDB(db *gorm.DB) mergeLinkORM {
 	return m
 }
 
-type mergeLinkORMHasOneToken struct {
-	db *gorm.DB
-
-	field.RelationField
-}
-
-func (a mergeLinkORMHasOneToken) Where(conds ...field.Expr) *mergeLinkORMHasOneToken {
-	if len(conds) == 0 {
-		return &a
-	}
-
-	exprs := make([]clause.Expression, 0, len(conds))
-	for _, cond := range conds {
-		exprs = append(exprs, cond.BeCond().(clause.Expression))
-	}
-	a.db = a.db.Clauses(clause.Where{Exprs: exprs})
-	return &a
-}
-
-func (a mergeLinkORMHasOneToken) WithContext(ctx context.Context) *mergeLinkORMHasOneToken {
-	a.db = a.db.WithContext(ctx)
-	return &a
-}
-
-func (a mergeLinkORMHasOneToken) Session(session *gorm.Session) *mergeLinkORMHasOneToken {
-	a.db = a.db.Session(session)
-	return &a
-}
-
-func (a mergeLinkORMHasOneToken) Model(m *accounting_servicev1.MergeLinkORM) *mergeLinkORMHasOneTokenTx {
-	return &mergeLinkORMHasOneTokenTx{a.db.Model(m).Association(a.Name())}
-}
-
-type mergeLinkORMHasOneTokenTx struct{ tx *gorm.Association }
-
-func (a mergeLinkORMHasOneTokenTx) Find() (result *accounting_servicev1.MergeLinkedAccountTokenORM, err error) {
-	return result, a.tx.Find(&result)
-}
-
-func (a mergeLinkORMHasOneTokenTx) Append(values ...*accounting_servicev1.MergeLinkedAccountTokenORM) (err error) {
-	targetValues := make([]interface{}, len(values))
-	for i, v := range values {
-		targetValues[i] = v
-	}
-	return a.tx.Append(targetValues...)
-}
-
-func (a mergeLinkORMHasOneTokenTx) Replace(values ...*accounting_servicev1.MergeLinkedAccountTokenORM) (err error) {
-	targetValues := make([]interface{}, len(values))
-	for i, v := range values {
-		targetValues[i] = v
-	}
-	return a.tx.Replace(targetValues...)
-}
-
-func (a mergeLinkORMHasOneTokenTx) Delete(values ...*accounting_servicev1.MergeLinkedAccountTokenORM) (err error) {
-	targetValues := make([]interface{}, len(values))
-	for i, v := range values {
-		targetValues[i] = v
-	}
-	return a.tx.Delete(targetValues...)
-}
-
-func (a mergeLinkORMHasOneTokenTx) Clear() error {
-	return a.tx.Clear()
-}
-
-func (a mergeLinkORMHasOneTokenTx) Count() int64 {
-	return a.tx.Count()
-}
-
-type mergeLinkORMHasManyAccount struct {
+type mergeLinkORMHasOneAccount struct {
 	db *gorm.DB
 
 	field.RelationField
@@ -699,7 +628,7 @@ type mergeLinkORMHasManyAccount struct {
 	}
 }
 
-func (a mergeLinkORMHasManyAccount) Where(conds ...field.Expr) *mergeLinkORMHasManyAccount {
+func (a mergeLinkORMHasOneAccount) Where(conds ...field.Expr) *mergeLinkORMHasOneAccount {
 	if len(conds) == 0 {
 		return &a
 	}
@@ -712,27 +641,27 @@ func (a mergeLinkORMHasManyAccount) Where(conds ...field.Expr) *mergeLinkORMHasM
 	return &a
 }
 
-func (a mergeLinkORMHasManyAccount) WithContext(ctx context.Context) *mergeLinkORMHasManyAccount {
+func (a mergeLinkORMHasOneAccount) WithContext(ctx context.Context) *mergeLinkORMHasOneAccount {
 	a.db = a.db.WithContext(ctx)
 	return &a
 }
 
-func (a mergeLinkORMHasManyAccount) Session(session *gorm.Session) *mergeLinkORMHasManyAccount {
+func (a mergeLinkORMHasOneAccount) Session(session *gorm.Session) *mergeLinkORMHasOneAccount {
 	a.db = a.db.Session(session)
 	return &a
 }
 
-func (a mergeLinkORMHasManyAccount) Model(m *accounting_servicev1.MergeLinkORM) *mergeLinkORMHasManyAccountTx {
-	return &mergeLinkORMHasManyAccountTx{a.db.Model(m).Association(a.Name())}
+func (a mergeLinkORMHasOneAccount) Model(m *accounting_servicev1.MergeLinkORM) *mergeLinkORMHasOneAccountTx {
+	return &mergeLinkORMHasOneAccountTx{a.db.Model(m).Association(a.Name())}
 }
 
-type mergeLinkORMHasManyAccountTx struct{ tx *gorm.Association }
+type mergeLinkORMHasOneAccountTx struct{ tx *gorm.Association }
 
-func (a mergeLinkORMHasManyAccountTx) Find() (result []*accounting_servicev1.LinkedAccountingAccountORM, err error) {
+func (a mergeLinkORMHasOneAccountTx) Find() (result *accounting_servicev1.LinkedAccountingAccountORM, err error) {
 	return result, a.tx.Find(&result)
 }
 
-func (a mergeLinkORMHasManyAccountTx) Append(values ...*accounting_servicev1.LinkedAccountingAccountORM) (err error) {
+func (a mergeLinkORMHasOneAccountTx) Append(values ...*accounting_servicev1.LinkedAccountingAccountORM) (err error) {
 	targetValues := make([]interface{}, len(values))
 	for i, v := range values {
 		targetValues[i] = v
@@ -740,7 +669,7 @@ func (a mergeLinkORMHasManyAccountTx) Append(values ...*accounting_servicev1.Lin
 	return a.tx.Append(targetValues...)
 }
 
-func (a mergeLinkORMHasManyAccountTx) Replace(values ...*accounting_servicev1.LinkedAccountingAccountORM) (err error) {
+func (a mergeLinkORMHasOneAccountTx) Replace(values ...*accounting_servicev1.LinkedAccountingAccountORM) (err error) {
 	targetValues := make([]interface{}, len(values))
 	for i, v := range values {
 		targetValues[i] = v
@@ -748,7 +677,7 @@ func (a mergeLinkORMHasManyAccountTx) Replace(values ...*accounting_servicev1.Li
 	return a.tx.Replace(targetValues...)
 }
 
-func (a mergeLinkORMHasManyAccountTx) Delete(values ...*accounting_servicev1.LinkedAccountingAccountORM) (err error) {
+func (a mergeLinkORMHasOneAccountTx) Delete(values ...*accounting_servicev1.LinkedAccountingAccountORM) (err error) {
 	targetValues := make([]interface{}, len(values))
 	for i, v := range values {
 		targetValues[i] = v
@@ -756,11 +685,82 @@ func (a mergeLinkORMHasManyAccountTx) Delete(values ...*accounting_servicev1.Lin
 	return a.tx.Delete(targetValues...)
 }
 
-func (a mergeLinkORMHasManyAccountTx) Clear() error {
+func (a mergeLinkORMHasOneAccountTx) Clear() error {
 	return a.tx.Clear()
 }
 
-func (a mergeLinkORMHasManyAccountTx) Count() int64 {
+func (a mergeLinkORMHasOneAccountTx) Count() int64 {
+	return a.tx.Count()
+}
+
+type mergeLinkORMHasOneToken struct {
+	db *gorm.DB
+
+	field.RelationField
+}
+
+func (a mergeLinkORMHasOneToken) Where(conds ...field.Expr) *mergeLinkORMHasOneToken {
+	if len(conds) == 0 {
+		return &a
+	}
+
+	exprs := make([]clause.Expression, 0, len(conds))
+	for _, cond := range conds {
+		exprs = append(exprs, cond.BeCond().(clause.Expression))
+	}
+	a.db = a.db.Clauses(clause.Where{Exprs: exprs})
+	return &a
+}
+
+func (a mergeLinkORMHasOneToken) WithContext(ctx context.Context) *mergeLinkORMHasOneToken {
+	a.db = a.db.WithContext(ctx)
+	return &a
+}
+
+func (a mergeLinkORMHasOneToken) Session(session *gorm.Session) *mergeLinkORMHasOneToken {
+	a.db = a.db.Session(session)
+	return &a
+}
+
+func (a mergeLinkORMHasOneToken) Model(m *accounting_servicev1.MergeLinkORM) *mergeLinkORMHasOneTokenTx {
+	return &mergeLinkORMHasOneTokenTx{a.db.Model(m).Association(a.Name())}
+}
+
+type mergeLinkORMHasOneTokenTx struct{ tx *gorm.Association }
+
+func (a mergeLinkORMHasOneTokenTx) Find() (result *accounting_servicev1.MergeLinkedAccountTokenORM, err error) {
+	return result, a.tx.Find(&result)
+}
+
+func (a mergeLinkORMHasOneTokenTx) Append(values ...*accounting_servicev1.MergeLinkedAccountTokenORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Append(targetValues...)
+}
+
+func (a mergeLinkORMHasOneTokenTx) Replace(values ...*accounting_servicev1.MergeLinkedAccountTokenORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Replace(targetValues...)
+}
+
+func (a mergeLinkORMHasOneTokenTx) Delete(values ...*accounting_servicev1.MergeLinkedAccountTokenORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Delete(targetValues...)
+}
+
+func (a mergeLinkORMHasOneTokenTx) Clear() error {
+	return a.tx.Clear()
+}
+
+func (a mergeLinkORMHasOneTokenTx) Count() int64 {
 	return a.tx.Count()
 }
 

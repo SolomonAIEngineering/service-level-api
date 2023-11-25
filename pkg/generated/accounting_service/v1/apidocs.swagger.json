@@ -591,6 +591,66 @@
     }
   },
   "definitions": {
+    "AccountingIntegrationMergeLink": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "id"
+        },
+        "integration": {
+          "type": "string"
+        },
+        "integrationSlug": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "endUserOriginId": {
+          "type": "string"
+        },
+        "endUserOrganizationName": {
+          "type": "string"
+        },
+        "endUserEmailAddress": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "webhookListenerUrl": {
+          "type": "string"
+        },
+        "isDuplicate": {
+          "type": "boolean"
+        },
+        "token": {
+          "$ref": "#/definitions/MergeLinkedAccountToken"
+        },
+        "integrationName": {
+          "type": "string"
+        },
+        "integrationImage": {
+          "type": "string"
+        },
+        "integrationSquareImage": {
+          "type": "string"
+        },
+        "account": {
+          "$ref": "#/definitions/LinkedAccountingAccount",
+          "description": "When you request a link token to initiate a Merge Link session, Merge determines whether to create a new linked account or modify\nan existing linked account based on a combination of the end_user_origin_id and the category. If you want to support multiple\nconnections, you simply need to provide a different end_user_origin_id for each company.\n\nThis approach enables you to link multiple instances of the same integration (like QuickBooks) for the same end user.\nIt also has the added security benefit of not exposing any internal end_user_origin_ids."
+        },
+        "mergeLinkedAccountId": {
+          "type": "string"
+        },
+        "lastModifiedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
     "Any": {
       "type": "object",
       "properties": {
@@ -737,11 +797,11 @@
           "type": "string",
           "title": "a user profile can have many links (connected institutions) of which finanical accounts are tied to (checking, savings, etc)"
         },
-        "mergeLiink": {
+        "accountingIntegrationMergeLink": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/MergeLink"
+            "$ref": "#/definitions/AccountingIntegrationMergeLink"
           }
         },
         "actionablePersonalInsights": {
@@ -2282,70 +2342,6 @@
         "organizationName": {
           "type": "string",
           "title": "the organization name"
-        }
-      }
-    },
-    "MergeLink": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "format": "uint64",
-          "title": "id"
-        },
-        "integration": {
-          "type": "string"
-        },
-        "integrationSlug": {
-          "type": "string"
-        },
-        "category": {
-          "type": "string"
-        },
-        "endUserOriginId": {
-          "type": "string"
-        },
-        "endUserOrganizationName": {
-          "type": "string"
-        },
-        "endUserEmailAddress": {
-          "type": "string"
-        },
-        "status": {
-          "type": "string"
-        },
-        "webhookListenerUrl": {
-          "type": "string"
-        },
-        "isDuplicate": {
-          "type": "boolean"
-        },
-        "token": {
-          "$ref": "#/definitions/MergeLinkedAccountToken"
-        },
-        "integrationName": {
-          "type": "string"
-        },
-        "integrationImage": {
-          "type": "string"
-        },
-        "integrationSquareImage": {
-          "type": "string"
-        },
-        "account": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/LinkedAccountingAccount"
-          },
-          "description": "When you request a link token to initiate a Merge Link session, Merge determines whether to create a new linked account or modify\nan existing linked account based on a combination of the end_user_origin_id and the category. If you want to support multiple\nconnections, you simply need to provide a different end_user_origin_id for each company.\n\nThis approach enables you to link multiple instances of the same integration (like QuickBooks) for the same end user.\nIt also has the added security benefit of not exposing any internal end_user_origin_ids."
-        },
-        "mergeLinkedAccountId": {
-          "type": "string"
-        },
-        "lastModifiedAt": {
-          "type": "string",
-          "format": "date-time"
         }
       }
     },

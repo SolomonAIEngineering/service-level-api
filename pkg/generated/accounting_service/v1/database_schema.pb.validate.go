@@ -74,7 +74,7 @@ func (m *BusinessAccountingProfile) validate(all bool) error {
 
 	// no validation rules for Email
 
-	for idx, item := range m.GetMergeLiink() {
+	for idx, item := range m.GetAccountingIntegrationMergeLink() {
 		_, _ = idx, item
 
 		if all {
@@ -82,7 +82,7 @@ func (m *BusinessAccountingProfile) validate(all bool) error {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
 					errors = append(errors, BusinessAccountingProfileValidationError{
-						field:  fmt.Sprintf("MergeLiink[%v]", idx),
+						field:  fmt.Sprintf("AccountingIntegrationMergeLink[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -90,7 +90,7 @@ func (m *BusinessAccountingProfile) validate(all bool) error {
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
 					errors = append(errors, BusinessAccountingProfileValidationError{
-						field:  fmt.Sprintf("MergeLiink[%v]", idx),
+						field:  fmt.Sprintf("AccountingIntegrationMergeLink[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -99,7 +99,7 @@ func (m *BusinessAccountingProfile) validate(all bool) error {
 		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return BusinessAccountingProfileValidationError{
-					field:  fmt.Sprintf("MergeLiink[%v]", idx),
+					field:  fmt.Sprintf("AccountingIntegrationMergeLink[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -633,22 +633,22 @@ var _ interface {
 	ErrorName() string
 } = CategoryValidationError{}
 
-// Validate checks the field values on MergeLink with the rules defined in the
-// proto definition for this message. If any rules are violated, the first
-// error encountered is returned, or nil if there are no violations.
-func (m *MergeLink) Validate() error {
+// Validate checks the field values on AccountingIntegrationMergeLink with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *AccountingIntegrationMergeLink) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on MergeLink with the rules defined in
-// the proto definition for this message. If any rules are violated, the
-// result is a list of violation errors wrapped in MergeLinkMultiError, or nil
-// if none found.
-func (m *MergeLink) ValidateAll() error {
+// ValidateAll checks the field values on AccountingIntegrationMergeLink with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// AccountingIntegrationMergeLinkMultiError, or nil if none found.
+func (m *AccountingIntegrationMergeLink) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *MergeLink) validate(all bool) error {
+func (m *AccountingIntegrationMergeLink) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -679,7 +679,7 @@ func (m *MergeLink) validate(all bool) error {
 		switch v := interface{}(m.GetToken()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, MergeLinkValidationError{
+				errors = append(errors, AccountingIntegrationMergeLinkValidationError{
 					field:  "Token",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -687,7 +687,7 @@ func (m *MergeLink) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, MergeLinkValidationError{
+				errors = append(errors, AccountingIntegrationMergeLinkValidationError{
 					field:  "Token",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -696,7 +696,7 @@ func (m *MergeLink) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetToken()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return MergeLinkValidationError{
+			return AccountingIntegrationMergeLinkValidationError{
 				field:  "Token",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -710,38 +710,33 @@ func (m *MergeLink) validate(all bool) error {
 
 	// no validation rules for IntegrationSquareImage
 
-	for idx, item := range m.GetAccount() {
-		_, _ = idx, item
-
-		if all {
-			switch v := interface{}(item).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, MergeLinkValidationError{
-						field:  fmt.Sprintf("Account[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, MergeLinkValidationError{
-						field:  fmt.Sprintf("Account[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return MergeLinkValidationError{
-					field:  fmt.Sprintf("Account[%v]", idx),
+	if all {
+		switch v := interface{}(m.GetAccount()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, AccountingIntegrationMergeLinkValidationError{
+					field:  "Account",
 					reason: "embedded message failed validation",
 					cause:  err,
-				}
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, AccountingIntegrationMergeLinkValidationError{
+					field:  "Account",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
 			}
 		}
-
+	} else if v, ok := interface{}(m.GetAccount()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return AccountingIntegrationMergeLinkValidationError{
+				field:  "Account",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
 	}
 
 	// no validation rules for MergeLinkedAccountId
@@ -750,7 +745,7 @@ func (m *MergeLink) validate(all bool) error {
 		switch v := interface{}(m.GetLastModifiedAt()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, MergeLinkValidationError{
+				errors = append(errors, AccountingIntegrationMergeLinkValidationError{
 					field:  "LastModifiedAt",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -758,7 +753,7 @@ func (m *MergeLink) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, MergeLinkValidationError{
+				errors = append(errors, AccountingIntegrationMergeLinkValidationError{
 					field:  "LastModifiedAt",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -767,7 +762,7 @@ func (m *MergeLink) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetLastModifiedAt()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return MergeLinkValidationError{
+			return AccountingIntegrationMergeLinkValidationError{
 				field:  "LastModifiedAt",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -776,18 +771,19 @@ func (m *MergeLink) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return MergeLinkMultiError(errors)
+		return AccountingIntegrationMergeLinkMultiError(errors)
 	}
 
 	return nil
 }
 
-// MergeLinkMultiError is an error wrapping multiple validation errors returned
-// by MergeLink.ValidateAll() if the designated constraints aren't met.
-type MergeLinkMultiError []error
+// AccountingIntegrationMergeLinkMultiError is an error wrapping multiple
+// validation errors returned by AccountingIntegrationMergeLink.ValidateAll()
+// if the designated constraints aren't met.
+type AccountingIntegrationMergeLinkMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m MergeLinkMultiError) Error() string {
+func (m AccountingIntegrationMergeLinkMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -796,11 +792,12 @@ func (m MergeLinkMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m MergeLinkMultiError) AllErrors() []error { return m }
+func (m AccountingIntegrationMergeLinkMultiError) AllErrors() []error { return m }
 
-// MergeLinkValidationError is the validation error returned by
-// MergeLink.Validate if the designated constraints aren't met.
-type MergeLinkValidationError struct {
+// AccountingIntegrationMergeLinkValidationError is the validation error
+// returned by AccountingIntegrationMergeLink.Validate if the designated
+// constraints aren't met.
+type AccountingIntegrationMergeLinkValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -808,22 +805,24 @@ type MergeLinkValidationError struct {
 }
 
 // Field function returns field value.
-func (e MergeLinkValidationError) Field() string { return e.field }
+func (e AccountingIntegrationMergeLinkValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e MergeLinkValidationError) Reason() string { return e.reason }
+func (e AccountingIntegrationMergeLinkValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e MergeLinkValidationError) Cause() error { return e.cause }
+func (e AccountingIntegrationMergeLinkValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e MergeLinkValidationError) Key() bool { return e.key }
+func (e AccountingIntegrationMergeLinkValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e MergeLinkValidationError) ErrorName() string { return "MergeLinkValidationError" }
+func (e AccountingIntegrationMergeLinkValidationError) ErrorName() string {
+	return "AccountingIntegrationMergeLinkValidationError"
+}
 
 // Error satisfies the builtin error interface
-func (e MergeLinkValidationError) Error() string {
+func (e AccountingIntegrationMergeLinkValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -835,14 +834,14 @@ func (e MergeLinkValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sMergeLink.%s: %s%s",
+		"invalid %sAccountingIntegrationMergeLink.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = MergeLinkValidationError{}
+var _ error = AccountingIntegrationMergeLinkValidationError{}
 
 var _ interface {
 	Field() string
@@ -850,7 +849,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = MergeLinkValidationError{}
+} = AccountingIntegrationMergeLinkValidationError{}
 
 // Validate checks the field values on LinkedAccountingAccount with the rules
 // defined in the proto definition for this message. If any rules are

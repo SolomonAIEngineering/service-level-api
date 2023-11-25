@@ -54,7 +54,7 @@ message BusinessAccountingProfile {
   // a user profile can have many links (connected institutions) of which finanical accounts are tied to (checking, savings, etc)
   string email = 8;
 
-  repeated MergeLink merge_liink = 9;
+  repeated AccountingIntegrationMergeLink accounting_integration_merge_link = 9;
   repeated BusinessActionableInsight actionable_personal_insights = 10 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
 }
 
@@ -142,7 +142,7 @@ message Category {
   repeated string subcategories = 4;
 }
 
-message MergeLink {
+message AccountingIntegrationMergeLink {
     option (gorm.opts) = {ormable: true};
 
     // id
@@ -171,7 +171,7 @@ message MergeLink {
         This approach enables you to link multiple instances of the same integration (like QuickBooks) for the same end user.
          It also has the added security benefit of not exposing any internal end_user_origin_ids.
     **/
-    repeated LinkedAccountingAccount account = 15 [(gorm.field).has_one = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+    LinkedAccountingAccount account = 15 [(gorm.field).has_one = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
     string merge_linked_account_id = 16;
     google.protobuf.Timestamp last_modified_at = 17;
   }

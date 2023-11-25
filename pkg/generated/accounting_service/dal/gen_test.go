@@ -78,6 +78,7 @@ func Test_WithContext(t *testing.T) {
 
 	for _, ctx := range []context.Context{
 		qCtx.AccountingAttachmentORM.UnderlyingDB().Statement.Context,
+		qCtx.AccountingIntegrationMergeLinkORM.UnderlyingDB().Statement.Context,
 		qCtx.AttachmentsORM.UnderlyingDB().Statement.Context,
 		qCtx.BalanceSheetORM.UnderlyingDB().Statement.Context,
 		qCtx.BusinessAccountingProfileORM.UnderlyingDB().Statement.Context,
@@ -100,7 +101,6 @@ func Test_WithContext(t *testing.T) {
 		qCtx.JournalEntryORM.UnderlyingDB().Statement.Context,
 		qCtx.JournalLineORM.UnderlyingDB().Statement.Context,
 		qCtx.LinkedAccountingAccountORM.UnderlyingDB().Statement.Context,
-		qCtx.MergeLinkORM.UnderlyingDB().Statement.Context,
 		qCtx.MergeLinkedAccountTokenORM.UnderlyingDB().Statement.Context,
 		qCtx.PaymentORM.UnderlyingDB().Statement.Context,
 		qCtx.PurchaseOrderLineItemORM.UnderlyingDB().Statement.Context,
