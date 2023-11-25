@@ -74,6 +74,13 @@
             "required": true,
             "type": "string",
             "format": "uint64"
+          },
+          {
+            "name": "linkId",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
           }
         ],
         "tags": [
@@ -125,6 +132,13 @@
             "required": true,
             "type": "string",
             "format": "uint64"
+          },
+          {
+            "name": "linkId",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
           }
         ],
         "tags": [
@@ -172,6 +186,13 @@
           {
             "name": "userId",
             "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "linkId",
+            "in": "query",
             "required": true,
             "type": "string",
             "format": "uint64"

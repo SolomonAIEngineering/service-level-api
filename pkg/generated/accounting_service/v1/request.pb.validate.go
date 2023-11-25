@@ -1075,6 +1075,17 @@ func (m *GetChartOfAccountsRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	if m.GetLinkId() <= 0 {
+		err := GetChartOfAccountsRequestValidationError{
+			field:  "LinkId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if len(errors) > 0 {
 		return GetChartOfAccountsRequestMultiError(errors)
 	}
@@ -1324,6 +1335,17 @@ func (m *GetTransactionDetailsRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	if m.GetLinkId() <= 0 {
+		err := GetTransactionDetailsRequestValidationError{
+			field:  "LinkId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if len(errors) > 0 {
 		return GetTransactionDetailsRequestMultiError(errors)
 	}
@@ -1562,6 +1584,17 @@ func (m *GetReferenceDetailsRequest) validate(all bool) error {
 	if m.GetUserId() <= 0 {
 		err := GetReferenceDetailsRequestValidationError{
 			field:  "UserId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetLinkId() <= 0 {
+		err := GetReferenceDetailsRequestValidationError{
+			field:  "LinkId",
 			reason: "value must be greater than 0",
 		}
 		if !all {
