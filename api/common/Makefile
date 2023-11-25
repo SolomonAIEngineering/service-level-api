@@ -21,7 +21,7 @@ SHELL := PATH=$(GOBIN):$(PATH) /bin/sh
 
 COLOR := "\e[1;36m%s\e[0m\n"
 
-PROTO_ROOT := protobuf
+PROTO_ROOT := accounting-service
 PROTO_FILES = $(shell find $(PROTO_ROOT) -name "*.proto")
 PROTO_DIRS = $(sort $(dir $(PROTO_FILES)))
 PROTO_OUT := gen

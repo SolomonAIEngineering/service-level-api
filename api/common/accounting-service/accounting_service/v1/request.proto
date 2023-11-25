@@ -1,0 +1,109 @@
+syntax = "proto3";
+
+package accounting_service.v1;
+
+import "accounting_service/v1/database_schema.proto";
+option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/generated/accounting_service/v1";
+import "validate/validate.proto";
+import "google/api/field_behavior.proto";
+import "gogoproto/gogo.proto";
+
+option (gogoproto.gostring_all) = true;
+option (gogoproto.equal_all) = true;
+option (gogoproto.verbose_equal_all) = true;
+option (gogoproto.goproto_stringer_all) = false;
+option (gogoproto.stringer_all) =  true;
+option (gogoproto.populate_all) = true;
+option (gogoproto.testgen_all) = true;
+option (gogoproto.benchgen_all) = true;
+option (gogoproto.marshaler_all) = true;
+option (gogoproto.sizer_all) = true;
+option (gogoproto.unmarshaler_all) = true;
+
+message HealthCheckRequest {}
+
+message ReadynessCheckRequest {}
+
+message CreateBusinessAccountingProfileRequest {
+   uint64 user_id = 1  [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+   string email = 2 [
+    (validate.rules).string.len = 1,
+    (google.api.field_behavior) = REQUIRED
+  ];
+   string company_name = 3 [
+    (validate.rules).string.len = 1,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message GetBusinessAccountingProfileRequest {
+    uint64 user_id = 1  [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message DeleteBusinessAccountingProfileRequest {
+    uint64 user_id = 1  [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message UpdateBusinessAccountingProfileRequest {
+  // business accounting profile to update 
+  BusinessAccountingProfile profile = 1;
+}
+
+message MergeGetPublicLinkTokenRequest {
+  // The user id
+  // Validations:
+  // - user_id must be greater than 0
+  // This unique identifier typically represents the ID for your end user in your product's database. T
+  // his value must be distinct from other Linked Accounts' unique identifiers.
+  uint64 user_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // Your end user's organization.
+  string organization_name	= 2 [
+    (validate.rules).string.min_len = 1,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // Your end user's email address. This is purely for
+  // identification purposes - setting this value will not cause any emails to be sent.
+  string email	= 3 [
+    (validate.rules).string.min_len = 1,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message MergeExchangePublicLinkTokenForAccountTokenRequest {
+  // The user id
+  // Validations:
+  // - user_id must be greater than 0
+  uint64 user_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  string public_token = 2 [
+    (validate.rules).string.min_len = 1,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  string end_user_origin_id = 3  [
+    (validate.rules).string.min_len = 1,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  string organization_name = 4  [
+    (validate.rules).string.min_len = 1,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}

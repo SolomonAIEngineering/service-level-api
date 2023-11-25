@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package accounting_service.v1;
+
+import "accounting_service/v1/database_schema.proto";
+option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/generated/accounting_service/v1";
+import "google/api/field_behavior.proto";
+import "gogoproto/gogo.proto";
+
+option (gogoproto.gostring_all) = true;
+option (gogoproto.equal_all) = true;
+option (gogoproto.verbose_equal_all) = true;
+option (gogoproto.goproto_stringer_all) = false;
+option (gogoproto.stringer_all) =  true;
+option (gogoproto.populate_all) = true;
+option (gogoproto.testgen_all) = true;
+option (gogoproto.benchgen_all) = true;
+option (gogoproto.marshaler_all) = true;
+option (gogoproto.sizer_all) = true;
+option (gogoproto.unmarshaler_all) = true;
+
+message HealthCheckResponse {
+  // wether the service is healthy
+  bool healthy = 1;
+}
+
+message ReadynessCheckResponse {
+  // wether the service is ready to receive traffic
+  bool healthy = 1;
+}
+
+message CreateBusinessAccountingProfileResponse {
+  // the profile identifier
+  uint64 profile_id = 1;
+}
+
+message GetBusinessAccountingProfileResponse {
+  // the profile of interest
+  BusinessAccountingProfile profile = 1;
+}
+
+message DeleteBusinessAccountingProfileResponse {
+  // wether the profile is deleted
+  bool is_deleted = 1;
+}
+
+message UpdateBusinessAccountingProfileResponse {
+  BusinessAccountingProfile profile = 1;
+}
+
+message MergeGetPublicLinkTokenResponse {
+  // the link token
+  string link_token = 1;
+  // the integration name
+  string integration_name = 2;
+  // the magic link url
+  string magic_link_url	 = 3;
+  // the end user origin id
+  string end_user_origin_id = 4;
+  // the organization name
+  string organization_name = 5;
+}
+
+message MergeExchangePublicLinkTokenForAccountTokenResponse {
+  // the status of the exchange token
+  bool success = 1 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
