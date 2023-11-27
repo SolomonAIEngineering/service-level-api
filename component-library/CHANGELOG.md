@@ -1,3 +1,10 @@
+# [1.135.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.134.0...v1.135.0) (2023-11-27)
+
+
+### Features
+
+* add recurring transaction database logic ([31bea55](https://github.com/SolomonAIEngineering/service-level-api/commit/31bea551983a4ad9619dc6497c577a36d3cab416))
+
 # [1.134.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.133.0...v1.134.0) (2023-11-25)
 
 
