@@ -1408,3 +1408,194 @@ message SearchTransactionsResponse {
   repeated PlaidAccountTransaction transactions = 1;
   uint64 next_page_number = 2;
 }
+
+// RECURRING TRANSACTIONS
+// ListRecurringTransactionsRequest is the list transaction request
+message ListRecurringTransactionsRequest {
+  uint64 account_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  uint64 user_id = 2 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  uint64 page_number = 3;
+  uint64 page_size = 4;  
+  FinancialUserProfileType profile_type = 9 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+  FinancialAccountType financial_account_type = 10;
+}
+
+// ListRecurringTransactionsResponse is the list transaction response
+message ListRecurringTransactionsResponse {
+  string next_page = 2;
+  repeated PlaidAccountRecurringTransaction transactions = 4;
+}
+
+message GetRecurringTransactionsRequest {
+  // The user id
+  // Validations:
+  // - user_id must be greater than 0
+  uint64 user_id = 2 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  uint64 page_number = 3;
+  uint64 page_size = 4;  
+  FinancialUserProfileType profile_type = 9 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message GetRecurringTransactionsResponse {
+  // The transactions
+  repeated PlaidAccountRecurringTransaction transactions = 1;
+  uint64 next_page_number = 2;
+}
+
+// UpdateRecurringTransactionRequest is the update transaction request
+message UpdateRecurringTransactionRequest {
+  // The transaction to update
+  // Validations:
+  // - cannot be nil hence required
+  PlaidAccountRecurringTransaction transaction = 1 [
+    (validate.rules).message.required = true,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+// UpdateRecurringTransactionResponse is the update transaction response
+message UpdateRecurringTransactionResponse {
+  // The transaction that was successfully updated
+  PlaidAccountRecurringTransaction transaction = 1;
+}
+
+// BulkUpdateRecurringTransactionRequest is the bulk update transaction request
+message BulkUpdateRecurringTransactionRequest {
+  // The transactions to update
+  // Validations:
+  // - cannot be nil hence required
+  repeated PlaidAccountRecurringTransaction transactions = 1  [
+    (validate.rules).repeated.min_items = 1,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+// BulkUpdateRecurringTransactionResponse is the bulk update transaction response
+message BulkUpdateRecurringTransactionResponse {
+  // The transactions that were successfully updated
+  repeated PlaidAccountRecurringTransaction transactions = 1;
+}
+
+// DeleteTransactionRequest is the delete transaction request
+message DeleteRecurringTransactionRequest {
+  // the transaction of interest we aim to delete
+  uint64 transaction_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+// DeleteTransactionResponse is the delete transaction response
+message DeleteRecurringTransactionResponse {
+  // the transaction that was successfully deleted
+  bool deleted = 1;
+}
+
+// AddNoteToTransactionRequest adds a note to a transaction
+message AddNoteToRecurringTransactionRequest {
+  // The transaction id
+  // Validations:
+  // - transaction_id must be greater than 0
+  uint64 transaction_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The note to add
+  // Validations:
+  // - cannot be nil hence required
+  SmartNote note = 2 [
+    (validate.rules).message.required = true,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+// AddNoteToRecurringTransactionResponse is the responsed obtained after we add a note to a transaction
+message AddNoteToRecurringTransactionResponse {
+  // The transaction id
+  PlaidAccountRecurringTransaction transaction = 1;
+}
+
+// UpdateNoteToTransactionRequest updates a note to a transaction
+message UpdateNoteToRecurringTransactionRequest {
+  // The note to update
+  // Validations:
+  // - cannot be nil hence required
+  SmartNote note = 1 [
+    (validate.rules).message.required = true,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+// UpdateNoteToTransactionResponse is the responsed obtained after we update a note to a transaction
+message UpdateNoteToRecurringTransactionResponse {
+  // The transaction id
+  PlaidAccountRecurringTransaction transaction = 1;
+}
+
+message DeleteNoteFromRecurringTransactionRequest {
+  // The transaction id
+  // Validations:
+  // - transaction_id must be greater than 0
+  uint64 transaction_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The note id
+  // Validations:
+  // - note_id must be greater than 0
+  uint64 note_id = 2 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message DeleteNoteFromRecurringTransactionResponse {
+  // The transaction id
+  bool deleted = 1;
+}
+
+message ListRecurringTransactionNotesRequest {
+  // The transaction id
+  // Validations:
+  // - transaction_id must be greater than 0
+  uint64 transaction_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message ListRecurringTransactionNotesResponse {
+  // The notes
+  repeated SmartNote notes = 1;
+}
+
+// GetRecurringTransactionRequest is the get transaction request
+message GetRecurringTransactionRequest {
+  // the transaction of interest we aim to obtain
+  uint64 transaction_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+// GetRecurringTransactionResponse is the get transaction response
+message GetRecurringTransactionResponse {
+  // the transaction queried
+  PlaidAccountRecurringTransaction transaction = 1;
+}

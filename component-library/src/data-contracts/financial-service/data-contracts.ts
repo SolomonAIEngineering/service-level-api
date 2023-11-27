@@ -73,6 +73,17 @@ export interface AddDefaultPocketsToBankAccountResponse {
   bankAccount?: BankAccount;
 }
 
+export type AddNoteToRecurringTransactionData = any;
+
+/** AddNoteToRecurringTransactionResponse is the responsed obtained after we add a note to a transaction */
+export interface AddNoteToRecurringTransactionResponse {
+  /**
+   * The transaction id
+   * Message representing recurring transactions associated with a Plaid account.
+   */
+  transaction?: PlaidAccountRecurringTransaction;
+}
+
 export type AddNoteToSmartGoalData = any;
 
 export interface AddNoteToSmartGoalRequest {
@@ -331,6 +342,24 @@ export interface Budget {
   name?: string;
   /** the time the goal was created */
   startDate?: string;
+}
+
+export type BulkUpdateRecurringTransactionData = any;
+
+/** BulkUpdateRecurringTransactionRequest is the bulk update transaction request */
+export interface BulkUpdateRecurringTransactionRequest {
+  /**
+   * The transactions to update
+   * Validations:
+   * - cannot be nil hence required
+   */
+  transactions: Array<PlaidAccountRecurringTransaction>;
+}
+
+/** BulkUpdateRecurringTransactionResponse is the bulk update transaction response */
+export interface BulkUpdateRecurringTransactionResponse {
+  /** The transactions that were successfully updated */
+  transactions?: Array<PlaidAccountRecurringTransaction>;
 }
 
 export type BulkUpdateTransactionData = any;
@@ -764,6 +793,13 @@ export interface DeleteMilestoneResponse {
   deleted?: boolean;
 }
 
+export type DeleteNoteFromRecurringTransactionData = any;
+
+export interface DeleteNoteFromRecurringTransactionResponse {
+  /** The transaction id */
+  deleted?: boolean;
+}
+
 export type DeleteNoteFromSmartGoalData = any;
 
 export interface DeleteNoteFromSmartGoalResponse {
@@ -785,12 +821,20 @@ export interface DeletePocketResponse {
   deleted?: boolean;
 }
 
+/** DeleteTransactionResponse is the delete transaction response */
+export interface DeleteRecurringTransactionResponse {
+  /** the transaction that was successfully deleted */
+  deleted?: boolean;
+}
+
 export type DeleteSmartGoalData = any;
 
 export interface DeleteSmartGoalResponse {
   /** The smart goal id */
   deleted?: boolean;
 }
+
+export type DeleteTransaction2Data = any;
 
 export type DeleteTransactionData = any;
 
@@ -1208,6 +1252,17 @@ export interface GetPocketResponse {
 export interface GetReCurringTransactionsResponse {
   /** The re-occuring transactions */
   reCcuringTransactions?: Array<ReOccuringTransaction>;
+}
+
+export type GetRecurringTransactionData = any;
+
+/** GetRecurringTransactionResponse is the get transaction response */
+export interface GetRecurringTransactionResponse {
+  /**
+   * the transaction queried
+   * Message representing recurring transactions associated with a Plaid account.
+   */
+  transaction?: PlaidAccountRecurringTransaction;
 }
 
 export type GetRecurringTransactionsData = any;
@@ -1659,6 +1714,21 @@ export type LinkStatus =
 
 /** @default "LINK_TYPE_UNSPECIFIED" */
 export type LinkType = "LINK_TYPE_UNSPECIFIED" | "LINK_TYPE_PLAID" | "LINK_TYPE_MANUAL";
+
+export type ListRecurringTransactionNotesData = any;
+
+export interface ListRecurringTransactionNotesResponse {
+  /** The notes */
+  notes?: Array<SmartNote>;
+}
+
+export type ListRecurringTransactionsData = any;
+
+/** ListRecurringTransactionsResponse is the list transaction response */
+export interface ListRecurringTransactionsResponse {
+  nextPage?: string;
+  transactions?: Array<PlaidAccountRecurringTransaction>;
+}
 
 export type ListTransactionNotesData = any;
 
@@ -3456,6 +3526,27 @@ export interface UpdateMilestoneResponse {
   milestone?: Milestone;
 }
 
+export type UpdateNoteToRecurringTransactionData = any;
+
+/** UpdateNoteToTransactionRequest updates a note to a transaction */
+export interface UpdateNoteToRecurringTransactionRequest {
+  /**
+   * The note to update
+   * Validations:
+   * - cannot be nil hence required
+   */
+  note: SmartNote;
+}
+
+/** UpdateNoteToTransactionResponse is the responsed obtained after we update a note to a transaction */
+export interface UpdateNoteToRecurringTransactionResponse {
+  /**
+   * The transaction id
+   * Message representing recurring transactions associated with a Plaid account.
+   */
+  transaction?: PlaidAccountRecurringTransaction;
+}
+
 export type UpdateNoteToSmartGoalData = any;
 
 export interface UpdateNoteToSmartGoalRequest {
@@ -3509,6 +3600,26 @@ export interface UpdatePocketResponse {
   pocket?: Pocket;
 }
 
+/** UpdateRecurringTransactionRequest is the update transaction request */
+export interface UpdateRecurringTransactionRequest {
+  /**
+   * The transaction to update
+   * Validations:
+   * - cannot be nil hence required
+   * Message representing recurring transactions associated with a Plaid account.
+   */
+  transaction: PlaidAccountRecurringTransaction;
+}
+
+/** UpdateRecurringTransactionResponse is the update transaction response */
+export interface UpdateRecurringTransactionResponse {
+  /**
+   * The transaction that was successfully updated
+   * Message representing recurring transactions associated with a Plaid account.
+   */
+  transaction?: PlaidAccountRecurringTransaction;
+}
+
 export type UpdateSmartGoalData = any;
 
 export interface UpdateSmartGoalRequest {
@@ -3534,6 +3645,8 @@ export interface UpdateSmartGoalResponse {
    */
   smartGoalId?: string;
 }
+
+export type UpdateTransaction2Data = any;
 
 export type UpdateTransactionData = any;
 

@@ -4509,6 +4509,58 @@
         ]
       }
     },
+    "/api/v1/transactions/recurring": {
+      "put": {
+        "summary": "update a transaction",
+        "description": "This endpoint updates a transaction",
+        "operationId": "UpdateTransaction",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.UpdateUserResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateRecurringTransactionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "subscription"
+        ]
+      }
+    },
     "/api/v1/transactions/recurring-transactions/{userId}": {
       "get": {
         "summary": "get recurring transactions",
@@ -4570,6 +4622,487 @@
         ],
         "tags": [
           "recurring transactions"
+        ]
+      }
+    },
+    "/api/v1/transactions/recurring/bulk": {
+      "put": {
+        "summary": "update a transaction",
+        "description": "This endpoint updates a set of transactions",
+        "operationId": "BulkUpdateRecurringTransaction",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.BulkUpdateRecurringTransactionResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BulkUpdateRecurringTransactionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "subscription"
+        ]
+      }
+    },
+    "/api/v1/transactions/recurring/list": {
+      "get": {
+        "summary": "lists a set of transactions against a given account of interest",
+        "description": "This endpoint gets a list of transactions against a given account of interest",
+        "operationId": "ListRecurringTransactions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.ListRecurringTransactionsResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "profileType",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED",
+              "FINANCIAL_USER_PROFILE_TYPE_USER",
+              "FINANCIAL_USER_PROFILE_TYPE_BUSINESS"
+            ],
+            "default": "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED"
+          },
+          {
+            "name": "financialAccountType",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "FINANCIAL_ACCOUNT_TYPE_UNSPECIFIED",
+              "FINANCIAL_ACCOUNT_TYPE_BANK",
+              "FINANCIAL_ACCOUNT_TYPE_INVESTMENT",
+              "FINANCIAL_ACCOUNT_TYPE_CREDIT",
+              "FINANCIAL_ACCOUNT_TYPE_MORTGAGE",
+              "FINANCIAL_ACCOUNT_TYPE_STUDENT_LOAN"
+            ],
+            "default": "FINANCIAL_ACCOUNT_TYPE_UNSPECIFIED"
+          }
+        ],
+        "tags": [
+          "subscription"
+        ]
+      }
+    },
+    "/api/v1/transactions/recurring/note": {
+      "put": {
+        "summary": "Updates a note to a transaction",
+        "description": "This endpoint Updates a note to a transaction",
+        "operationId": "UpdateNoteToRecurringTransaction",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.UpdateNoteToTransactionResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateNoteToRecurringTransactionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "subscription"
+        ]
+      }
+    },
+    "/api/v1/transactions/recurring/{transactionId}": {
+      "get": {
+        "summary": "lists a set of transactions against a given account of interest",
+        "description": "This endpoint gets a specific transaction based on the transaction id",
+        "operationId": "GetRecurringTransaction",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.GetRecurringTransactionResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "transactionId",
+            "description": "the transaction of interest we aim to obtain",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "subscription"
+        ]
+      },
+      "delete": {
+        "summary": "deletes a transaction by id",
+        "description": "This endpoint deletes a specific transaction based on the transaction id",
+        "operationId": "DeleteTransaction",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.DeleteRecurringTransactionResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "transactionId",
+            "description": "the transaction of interest we aim to delete",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "subscription"
+        ]
+      }
+    },
+    "/api/v1/transactions/recurring/{transactionId}/note": {
+      "post": {
+        "summary": "adds a note to a transaction",
+        "description": "This endpoint adds a note to a transaction",
+        "operationId": "AddNoteToRecurringTransaction",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.AddNoteToRecurringTransactionResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "transactionId",
+            "description": "The transaction id\nValidations:\n- transaction_id must be greater than 0",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "note",
+            "description": "The note to add\nValidations:\n- cannot be nil hence required",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SmartNote",
+              "required": [
+                "note"
+              ]
+            }
+          }
+        ],
+        "tags": [
+          "subscription"
+        ]
+      }
+    },
+    "/api/v1/transactions/recurring/{transactionId}/note/list": {
+      "get": {
+        "summary": "lists notes from a transaction",
+        "description": "This endpoint lists notes from a transaction",
+        "operationId": "ListRecurringTransactionNotes",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.ListTransactionNotesResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "transactionId",
+            "description": "The transaction id\nValidations:\n- transaction_id must be greater than 0",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "subscription"
+        ]
+      }
+    },
+    "/api/v1/transactions/recurring/{transactionId}/note/{noteId}": {
+      "delete": {
+        "summary": "deletes a note from a transaction",
+        "description": "This endpoint deletes a note from a transaction",
+        "operationId": "DeleteNoteFromRecurringTransaction",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.DeleteNoteFromRecurringTransactionResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "transactionId",
+            "description": "The transaction id\nValidations:\n- transaction_id must be greater than 0",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "noteId",
+            "description": "The note id\nValidations:\n- note_id must be greater than 0",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "subscription"
         ]
       }
     },
@@ -6063,6 +6596,16 @@
         }
       }
     },
+    "AddNoteToRecurringTransactionResponse": {
+      "type": "object",
+      "properties": {
+        "transaction": {
+          "$ref": "#/definitions/PlaidAccountRecurringTransaction",
+          "title": "The transaction id"
+        }
+      },
+      "title": "AddNoteToRecurringTransactionResponse is the responsed obtained after we add a note to a transaction"
+    },
     "AddNoteToSmartGoalRequest": {
       "type": "object",
       "properties": {
@@ -6272,6 +6815,37 @@
         }
       },
       "description": "The Budgets table stores information about each budget created by the user,\nincluding the name of the budget, the start and end dates, and the user ID."
+    },
+    "BulkUpdateRecurringTransactionRequest": {
+      "type": "object",
+      "properties": {
+        "transactions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/PlaidAccountRecurringTransaction"
+          },
+          "title": "The transactions to update\nValidations:\n- cannot be nil hence required"
+        }
+      },
+      "title": "BulkUpdateRecurringTransactionRequest is the bulk update transaction request",
+      "required": [
+        "transactions"
+      ]
+    },
+    "BulkUpdateRecurringTransactionResponse": {
+      "type": "object",
+      "properties": {
+        "transactions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/PlaidAccountRecurringTransaction"
+          },
+          "title": "The transactions that were successfully updated"
+        }
+      },
+      "title": "BulkUpdateRecurringTransactionResponse is the bulk update transaction response"
     },
     "BulkUpdateTransactionRequest": {
       "type": "object",
@@ -6817,6 +7391,15 @@
         }
       }
     },
+    "DeleteNoteFromRecurringTransactionResponse": {
+      "type": "object",
+      "properties": {
+        "deleted": {
+          "type": "boolean",
+          "title": "The transaction id"
+        }
+      }
+    },
     "DeleteNoteFromSmartGoalResponse": {
       "type": "object",
       "properties": {
@@ -6843,6 +7426,16 @@
           "title": "The pocket id"
         }
       }
+    },
+    "DeleteRecurringTransactionResponse": {
+      "type": "object",
+      "properties": {
+        "deleted": {
+          "type": "boolean",
+          "title": "the transaction that was successfully deleted"
+        }
+      },
+      "title": "DeleteTransactionResponse is the delete transaction response"
     },
     "DeleteSmartGoalResponse": {
       "type": "object",
@@ -7488,6 +8081,16 @@
           "title": "The re-occuring transactions"
         }
       }
+    },
+    "GetRecurringTransactionResponse": {
+      "type": "object",
+      "properties": {
+        "transaction": {
+          "$ref": "#/definitions/PlaidAccountRecurringTransaction",
+          "title": "the transaction queried"
+        }
+      },
+      "title": "GetRecurringTransactionResponse is the get transaction response"
     },
     "GetSmartGoalsByPocketIdResponse": {
       "type": "object",
@@ -8188,6 +8791,35 @@
         "LINK_TYPE_MANUAL"
       ],
       "default": "LINK_TYPE_UNSPECIFIED"
+    },
+    "ListRecurringTransactionNotesResponse": {
+      "type": "object",
+      "properties": {
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/SmartNote"
+          },
+          "title": "The notes"
+        }
+      }
+    },
+    "ListRecurringTransactionsResponse": {
+      "type": "object",
+      "properties": {
+        "nextPage": {
+          "type": "string"
+        },
+        "transactions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/PlaidAccountRecurringTransaction"
+          }
+        }
+      },
+      "title": "ListRecurringTransactionsResponse is the list transaction response"
     },
     "ListTransactionNotesResponse": {
       "type": "object",
@@ -10391,6 +11023,29 @@
         }
       }
     },
+    "UpdateNoteToRecurringTransactionRequest": {
+      "type": "object",
+      "properties": {
+        "note": {
+          "$ref": "#/definitions/SmartNote",
+          "title": "The note to update\nValidations:\n- cannot be nil hence required"
+        }
+      },
+      "title": "UpdateNoteToTransactionRequest updates a note to a transaction",
+      "required": [
+        "note"
+      ]
+    },
+    "UpdateNoteToRecurringTransactionResponse": {
+      "type": "object",
+      "properties": {
+        "transaction": {
+          "$ref": "#/definitions/PlaidAccountRecurringTransaction",
+          "title": "The transaction id"
+        }
+      },
+      "title": "UpdateNoteToTransactionResponse is the responsed obtained after we update a note to a transaction"
+    },
     "UpdateNoteToSmartGoalRequest": {
       "type": "object",
       "properties": {
@@ -10455,6 +11110,29 @@
           "title": "The pocket id"
         }
       }
+    },
+    "UpdateRecurringTransactionRequest": {
+      "type": "object",
+      "properties": {
+        "transaction": {
+          "$ref": "#/definitions/PlaidAccountRecurringTransaction",
+          "title": "The transaction to update\nValidations:\n- cannot be nil hence required"
+        }
+      },
+      "title": "UpdateRecurringTransactionRequest is the update transaction request",
+      "required": [
+        "transaction"
+      ]
+    },
+    "UpdateRecurringTransactionResponse": {
+      "type": "object",
+      "properties": {
+        "transaction": {
+          "$ref": "#/definitions/PlaidAccountRecurringTransaction",
+          "title": "The transaction that was successfully updated"
+        }
+      },
+      "title": "UpdateRecurringTransactionResponse is the update transaction response"
     },
     "UpdateSmartGoalRequest": {
       "type": "object",

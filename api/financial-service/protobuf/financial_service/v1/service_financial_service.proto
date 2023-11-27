@@ -1945,4 +1945,214 @@ service FinancialService {
       }
     };
   }
+
+  // RECURRING TRANSACTION APIS
+
+  // ListRecurringTransactions lists a set of transactions against an account of interest
+  rpc ListRecurringTransactions(ListRecurringTransactionsRequest) returns (ListRecurringTransactionsResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/transactions/recurring/list"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "lists a set of transactions against a given account of interest"
+      tags: ["subscription"]
+      operation_id: "ListRecurringTransactions"
+      description: "This endpoint gets a list of transactions against a given account of interest"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.ListRecurringTransactionsResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  // GetRecurringTransaction lists a set of transactions against an account of interest
+  rpc GetRecurringTransaction(GetRecurringTransactionRequest) returns (GetRecurringTransactionResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/transactions/recurring/{transaction_id}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "lists a set of transactions against a given account of interest"
+      tags: ["subscription"]
+      operation_id: "GetRecurringTransaction"
+      description: "This endpoint gets a specific transaction based on the transaction id"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.GetRecurringTransactionResponse"}
+          }
+        }
+      }
+    };
+  }
+  
+  // updates a transaction
+  rpc UpdateRecurringTransaction(UpdateRecurringTransactionRequest) returns (UpdateRecurringTransactionResponse) {
+    option (google.api.http) = {
+      put: "/api/v1/transactions/recurring"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "update a transaction"
+      tags: ["subscription"]
+      operation_id: "UpdateTransaction"
+      description:
+        "This endpoint updates a transaction"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.UpdateUserResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  // performs a bulk update of transactions
+  rpc BulkUpdateRecurringTransaction(BulkUpdateRecurringTransactionRequest) returns (BulkUpdateRecurringTransactionResponse) {
+    option (google.api.http) = {
+      put: "/api/v1/transactions/recurring/bulk"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "update a transaction"
+      tags: ["subscription"]
+      operation_id: "BulkUpdateRecurringTransaction"
+      description:
+        "This endpoint updates a set of transactions"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.BulkUpdateRecurringTransactionResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  // deletes a transaction by id
+  rpc DeleteRecurringTransaction(DeleteRecurringTransactionRequest) returns (DeleteRecurringTransactionResponse) {
+    option (google.api.http) = {
+      delete: "/api/v1/transactions/recurring/{transaction_id}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "deletes a transaction by id"
+      tags: ["subscription"]
+      operation_id: "DeleteTransaction"
+      description: "This endpoint deletes a specific transaction based on the transaction id"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.DeleteRecurringTransactionResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  // adds a note to a transaction
+ rpc AddNoteToRecurringTransaction(AddNoteToRecurringTransactionRequest) returns (AddNoteToRecurringTransactionResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/transactions/recurring/{transaction_id}/note"
+      body: "note"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "adds a note to a transaction"
+      tags: ["subscription"]
+      operation_id: "AddNoteToRecurringTransaction"
+      description: "This endpoint adds a note to a transaction"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.AddNoteToRecurringTransactionResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  // updates a note on a transaction
+  rpc UpdateNoteToRecurringTransaction(UpdateNoteToRecurringTransactionRequest) returns (UpdateNoteToRecurringTransactionResponse) {
+    option (google.api.http) = {
+      put: "/api/v1/transactions/recurring/note",
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Updates a note to a transaction"
+      tags: ["subscription"]
+      operation_id: "UpdateNoteToRecurringTransaction"
+      description: "This endpoint Updates a note to a transaction"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.UpdateNoteToTransactionResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  // deletes a note from a transaction
+  rpc DeleteNoteFromRecurringTransaction(DeleteNoteFromRecurringTransactionRequest) returns (DeleteNoteFromRecurringTransactionResponse) {
+    option (google.api.http) = {
+      delete: "/api/v1/transactions/recurring/{transaction_id}/note/{note_id}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "deletes a note from a transaction"
+      tags: ["subscription"]
+      operation_id: "DeleteNoteFromRecurringTransaction"
+      description: "This endpoint deletes a note from a transaction"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {
+              ref: ".api.v1.DeleteNoteFromRecurringTransactionResponse"
+            }
+          }
+        }
+      }
+    };
+  }
+
+  // list transaction notes
+  rpc ListRecurringTransactionNotes(ListRecurringTransactionNotesRequest) returns (ListRecurringTransactionNotesResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/transactions/recurring/{transaction_id}/note/list"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "lists notes from a transaction"
+      tags: ["subscription"]
+      operation_id: "ListRecurringTransactionNotes"
+      description: "This endpoint lists notes from a transaction"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {
+              ref: ".api.v1.ListTransactionNotesResponse"
+            }
+          }
+        }
+      }
+    };
+  }
 }
