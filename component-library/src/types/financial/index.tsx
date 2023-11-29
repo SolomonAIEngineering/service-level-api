@@ -59,3 +59,6 @@ export { FinancialPreferencesClass } from './financial-preferences';
 export { IntegrationSettingsClass } from './integration-settings';
 export { NotificationSettingsClass } from './notification-settings';
 export { TaxSettingsClass } from './tax-settings';
+export { TransactionSplitClass } from './transaction-split';
+export { PlaidAccountTransactionClass } from './plaid-account-transactions';
+export { SmartNoteClass } from './smart-note';
