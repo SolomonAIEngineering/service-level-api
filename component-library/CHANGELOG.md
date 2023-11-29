@@ -1,3 +1,10 @@
+# [1.136.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.135.0...v1.136.0) (2023-11-29)
+
+
+### Features
+
+* expose more types ([5e24584](https://github.com/SolomonAIEngineering/service-level-api/commit/5e2458444f8ab82cefd6d1d7637864308e872fe6))
+
 # [1.135.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.134.0...v1.135.0) (2023-11-27)
 
 
