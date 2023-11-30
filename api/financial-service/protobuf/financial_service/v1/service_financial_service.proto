@@ -1619,7 +1619,7 @@ service FinancialService {
   // ListTransactions lists a set of transactions against an account of interest
   rpc ListTransactions(ListTransactionsRequest) returns (ListTransactionsResponse) {
     option (google.api.http) = {
-      get: "/api/v1/transactions/transaction/list"
+      get: "/api/v1/transactions"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       summary: "lists a set of transactions against a given account of interest"
@@ -1803,7 +1803,7 @@ service FinancialService {
   // list transaction notes
   rpc ListTransactionNotes(ListTransactionNotesRequest) returns (ListTransactionNotesResponse) {
     option (google.api.http) = {
-      get: "/api/v1/transactions/transaction/{transaction_id}/note/list"
+      get: "/api/v1/transactions/transaction/{transaction_id}/notes"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       summary: "lists notes from a transaction"
@@ -1951,7 +1951,7 @@ service FinancialService {
   // ListRecurringTransactions lists a set of transactions against an account of interest
   rpc ListRecurringTransactions(ListRecurringTransactionsRequest) returns (ListRecurringTransactionsResponse) {
     option (google.api.http) = {
-      get: "/api/v1/transactions/recurring/list"
+      get: "/api/v1/transactions/recurrings"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       summary: "lists a set of transactions against a given account of interest"
@@ -2135,7 +2135,7 @@ service FinancialService {
   // list transaction notes
   rpc ListRecurringTransactionNotes(ListRecurringTransactionNotesRequest) returns (ListRecurringTransactionNotesResponse) {
     option (google.api.http) = {
-      get: "/api/v1/transactions/recurring/{transaction_id}/note/list"
+      get: "/api/v1/transactions/recurring/{transaction_id}/notes"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       summary: "lists notes from a transaction"

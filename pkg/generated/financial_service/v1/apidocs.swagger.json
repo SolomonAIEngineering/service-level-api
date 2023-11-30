@@ -4509,6 +4509,105 @@
         ]
       }
     },
+    "/api/v1/transactions": {
+      "get": {
+        "summary": "lists a set of transactions against a given account of interest",
+        "description": "This endpoint gets a list of transactions against a given account of interest",
+        "operationId": "ListTransactions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.ListTransactionsResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "profileType",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED",
+              "FINANCIAL_USER_PROFILE_TYPE_USER",
+              "FINANCIAL_USER_PROFILE_TYPE_BUSINESS"
+            ],
+            "default": "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED"
+          },
+          {
+            "name": "financialAccountType",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "FINANCIAL_ACCOUNT_TYPE_UNSPECIFIED",
+              "FINANCIAL_ACCOUNT_TYPE_BANK",
+              "FINANCIAL_ACCOUNT_TYPE_INVESTMENT",
+              "FINANCIAL_ACCOUNT_TYPE_CREDIT",
+              "FINANCIAL_ACCOUNT_TYPE_MORTGAGE",
+              "FINANCIAL_ACCOUNT_TYPE_STUDENT_LOAN"
+            ],
+            "default": "FINANCIAL_ACCOUNT_TYPE_UNSPECIFIED"
+          }
+        ],
+        "tags": [
+          "transactions"
+        ]
+      }
+    },
     "/api/v1/transactions/recurring": {
       "put": {
         "summary": "update a transaction",
@@ -4670,105 +4769,6 @@
             "schema": {
               "$ref": "#/definitions/BulkUpdateRecurringTransactionRequest"
             }
-          }
-        ],
-        "tags": [
-          "subscription"
-        ]
-      }
-    },
-    "/api/v1/transactions/recurring/list": {
-      "get": {
-        "summary": "lists a set of transactions against a given account of interest",
-        "description": "This endpoint gets a list of transactions against a given account of interest",
-        "operationId": "ListRecurringTransactions",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": ".api.v1.ListRecurringTransactionsResponse"
-            }
-          },
-          "400": {
-            "description": "Request failed due to invalid input.",
-            "schema": {
-              "$ref": ".api.v1.ValidationErrorMessageResponse"
-            }
-          },
-          "404": {
-            "description": "Request failed due to incorrect path.",
-            "schema": {
-              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
-            }
-          },
-          "500": {
-            "description": "Request failed due to internal server error.",
-            "schema": {
-              "$ref": ".api.v1.InternalErrorMessageResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/Status"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "accountId",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "format": "uint64"
-          },
-          {
-            "name": "userId",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "format": "uint64"
-          },
-          {
-            "name": "pageNumber",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "format": "uint64"
-          },
-          {
-            "name": "pageSize",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "format": "uint64"
-          },
-          {
-            "name": "profileType",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "enum": [
-              "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED",
-              "FINANCIAL_USER_PROFILE_TYPE_USER",
-              "FINANCIAL_USER_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED"
-          },
-          {
-            "name": "financialAccountType",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "FINANCIAL_ACCOUNT_TYPE_UNSPECIFIED",
-              "FINANCIAL_ACCOUNT_TYPE_BANK",
-              "FINANCIAL_ACCOUNT_TYPE_INVESTMENT",
-              "FINANCIAL_ACCOUNT_TYPE_CREDIT",
-              "FINANCIAL_ACCOUNT_TYPE_MORTGAGE",
-              "FINANCIAL_ACCOUNT_TYPE_STUDENT_LOAN"
-            ],
-            "default": "FINANCIAL_ACCOUNT_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -4994,58 +4994,6 @@
         ]
       }
     },
-    "/api/v1/transactions/recurring/{transactionId}/note/list": {
-      "get": {
-        "summary": "lists notes from a transaction",
-        "description": "This endpoint lists notes from a transaction",
-        "operationId": "ListRecurringTransactionNotes",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": ".api.v1.ListTransactionNotesResponse"
-            }
-          },
-          "400": {
-            "description": "Request failed due to invalid input.",
-            "schema": {
-              "$ref": ".api.v1.ValidationErrorMessageResponse"
-            }
-          },
-          "404": {
-            "description": "Request failed due to incorrect path.",
-            "schema": {
-              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
-            }
-          },
-          "500": {
-            "description": "Request failed due to internal server error.",
-            "schema": {
-              "$ref": ".api.v1.InternalErrorMessageResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/Status"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "transactionId",
-            "description": "The transaction id\nValidations:\n- transaction_id must be greater than 0",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "format": "uint64"
-          }
-        ],
-        "tags": [
-          "subscription"
-        ]
-      }
-    },
     "/api/v1/transactions/recurring/{transactionId}/note/{noteId}": {
       "delete": {
         "summary": "deletes a note from a transaction",
@@ -5099,6 +5047,157 @@
             "required": true,
             "type": "string",
             "format": "uint64"
+          }
+        ],
+        "tags": [
+          "subscription"
+        ]
+      }
+    },
+    "/api/v1/transactions/recurring/{transactionId}/notes": {
+      "get": {
+        "summary": "lists notes from a transaction",
+        "description": "This endpoint lists notes from a transaction",
+        "operationId": "ListRecurringTransactionNotes",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.ListTransactionNotesResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "transactionId",
+            "description": "The transaction id\nValidations:\n- transaction_id must be greater than 0",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "subscription"
+        ]
+      }
+    },
+    "/api/v1/transactions/recurrings": {
+      "get": {
+        "summary": "lists a set of transactions against a given account of interest",
+        "description": "This endpoint gets a list of transactions against a given account of interest",
+        "operationId": "ListRecurringTransactions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.ListRecurringTransactionsResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "profileType",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED",
+              "FINANCIAL_USER_PROFILE_TYPE_USER",
+              "FINANCIAL_USER_PROFILE_TYPE_BUSINESS"
+            ],
+            "default": "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED"
+          },
+          {
+            "name": "financialAccountType",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "FINANCIAL_ACCOUNT_TYPE_UNSPECIFIED",
+              "FINANCIAL_ACCOUNT_TYPE_BANK",
+              "FINANCIAL_ACCOUNT_TYPE_INVESTMENT",
+              "FINANCIAL_ACCOUNT_TYPE_CREDIT",
+              "FINANCIAL_ACCOUNT_TYPE_MORTGAGE",
+              "FINANCIAL_ACCOUNT_TYPE_STUDENT_LOAN"
+            ],
+            "default": "FINANCIAL_ACCOUNT_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -5203,105 +5302,6 @@
             "schema": {
               "$ref": "#/definitions/BulkUpdateTransactionRequest"
             }
-          }
-        ],
-        "tags": [
-          "transactions"
-        ]
-      }
-    },
-    "/api/v1/transactions/transaction/list": {
-      "get": {
-        "summary": "lists a set of transactions against a given account of interest",
-        "description": "This endpoint gets a list of transactions against a given account of interest",
-        "operationId": "ListTransactions",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": ".api.v1.ListTransactionsResponse"
-            }
-          },
-          "400": {
-            "description": "Request failed due to invalid input.",
-            "schema": {
-              "$ref": ".api.v1.ValidationErrorMessageResponse"
-            }
-          },
-          "404": {
-            "description": "Request failed due to incorrect path.",
-            "schema": {
-              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
-            }
-          },
-          "500": {
-            "description": "Request failed due to internal server error.",
-            "schema": {
-              "$ref": ".api.v1.InternalErrorMessageResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/Status"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "accountId",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "format": "uint64"
-          },
-          {
-            "name": "userId",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "format": "uint64"
-          },
-          {
-            "name": "pageNumber",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "format": "uint64"
-          },
-          {
-            "name": "pageSize",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "format": "uint64"
-          },
-          {
-            "name": "profileType",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "enum": [
-              "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED",
-              "FINANCIAL_USER_PROFILE_TYPE_USER",
-              "FINANCIAL_USER_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED"
-          },
-          {
-            "name": "financialAccountType",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "FINANCIAL_ACCOUNT_TYPE_UNSPECIFIED",
-              "FINANCIAL_ACCOUNT_TYPE_BANK",
-              "FINANCIAL_ACCOUNT_TYPE_INVESTMENT",
-              "FINANCIAL_ACCOUNT_TYPE_CREDIT",
-              "FINANCIAL_ACCOUNT_TYPE_MORTGAGE",
-              "FINANCIAL_ACCOUNT_TYPE_STUDENT_LOAN"
-            ],
-            "default": "FINANCIAL_ACCOUNT_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -5662,58 +5662,6 @@
         ]
       }
     },
-    "/api/v1/transactions/transaction/{transactionId}/note/list": {
-      "get": {
-        "summary": "lists notes from a transaction",
-        "description": "This endpoint lists notes from a transaction",
-        "operationId": "ListTransactionNotes",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": ".api.v1.ListTransactionNotesResponse"
-            }
-          },
-          "400": {
-            "description": "Request failed due to invalid input.",
-            "schema": {
-              "$ref": ".api.v1.ValidationErrorMessageResponse"
-            }
-          },
-          "404": {
-            "description": "Request failed due to incorrect path.",
-            "schema": {
-              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
-            }
-          },
-          "500": {
-            "description": "Request failed due to internal server error.",
-            "schema": {
-              "$ref": ".api.v1.InternalErrorMessageResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/Status"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "transactionId",
-            "description": "The transaction id\nValidations:\n- transaction_id must be greater than 0",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "format": "uint64"
-          }
-        ],
-        "tags": [
-          "transactions"
-        ]
-      }
-    },
     "/api/v1/transactions/transaction/{transactionId}/note/{noteId}": {
       "get": {
         "summary": "gets a note from a transaction",
@@ -5821,6 +5769,58 @@
           {
             "name": "noteId",
             "description": "The note id\nValidations:\n- note_id must be greater than 0",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "transactions"
+        ]
+      }
+    },
+    "/api/v1/transactions/transaction/{transactionId}/notes": {
+      "get": {
+        "summary": "lists notes from a transaction",
+        "description": "This endpoint lists notes from a transaction",
+        "operationId": "ListTransactionNotes",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.ListTransactionNotesResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "transactionId",
+            "description": "The transaction id\nValidations:\n- transaction_id must be greater than 0",
             "in": "path",
             "required": true,
             "type": "string",
