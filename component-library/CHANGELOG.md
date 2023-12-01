@@ -1,3 +1,10 @@
+# [1.138.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.137.0...v1.138.0) (2023-12-01)
+
+
+### Features
+
+* update transactions view ([d5a9102](https://github.com/SolomonAIEngineering/service-level-api/commit/d5a910293a9276fe6a2b120f66c0a66a33c021ef))
+
 # [1.137.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.136.0...v1.137.0) (2023-11-30)
 
 
