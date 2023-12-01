@@ -1638,6 +1638,27 @@ service FinancialService {
     };
   }
 
+  rpc ListTransactionsAcrossAllAccounts(ListTransactionsAcrossAllAccountsRequest) returns (ListTransactionsAcrossAllAccountsResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/transactions/all_accounts"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "lists a set of transactions across all connected accounts"
+      tags: ["transactions"]
+      operation_id: "ListTransactions"
+      description: "This endpoint gets a list of transactions across all connected accounts"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.ListTransactionsAcrossAllAccountsResponse"}
+          }
+        }
+      }
+    };
+  }
+
   // GetTransaction lists a set of transactions against an account of interest
   rpc GetTransaction(GetTransactionRequest) returns (GetTransactionResponse) {
     option (google.api.http) = {

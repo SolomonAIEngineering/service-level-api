@@ -13461,6 +13461,271 @@ var _ interface {
 	ErrorName() string
 } = ListTransactionsResponseValidationError{}
 
+// Validate checks the field values on ListTransactionsAcrossAllAccountsRequest
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
+func (m *ListTransactionsAcrossAllAccountsRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// ListTransactionsAcrossAllAccountsRequest with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in
+// ListTransactionsAcrossAllAccountsRequestMultiError, or nil if none found.
+func (m *ListTransactionsAcrossAllAccountsRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListTransactionsAcrossAllAccountsRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetUserId() <= 0 {
+		err := ListTransactionsAcrossAllAccountsRequestValidationError{
+			field:  "UserId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for PageNumber
+
+	// no validation rules for PageSize
+
+	// no validation rules for ProfileType
+
+	if len(errors) > 0 {
+		return ListTransactionsAcrossAllAccountsRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListTransactionsAcrossAllAccountsRequestMultiError is an error wrapping
+// multiple validation errors returned by
+// ListTransactionsAcrossAllAccountsRequest.ValidateAll() if the designated
+// constraints aren't met.
+type ListTransactionsAcrossAllAccountsRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListTransactionsAcrossAllAccountsRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListTransactionsAcrossAllAccountsRequestMultiError) AllErrors() []error { return m }
+
+// ListTransactionsAcrossAllAccountsRequestValidationError is the validation
+// error returned by ListTransactionsAcrossAllAccountsRequest.Validate if the
+// designated constraints aren't met.
+type ListTransactionsAcrossAllAccountsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListTransactionsAcrossAllAccountsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListTransactionsAcrossAllAccountsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListTransactionsAcrossAllAccountsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListTransactionsAcrossAllAccountsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListTransactionsAcrossAllAccountsRequestValidationError) ErrorName() string {
+	return "ListTransactionsAcrossAllAccountsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListTransactionsAcrossAllAccountsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListTransactionsAcrossAllAccountsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListTransactionsAcrossAllAccountsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListTransactionsAcrossAllAccountsRequestValidationError{}
+
+// Validate checks the field values on
+// ListTransactionsAcrossAllAccountsResponse with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *ListTransactionsAcrossAllAccountsResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// ListTransactionsAcrossAllAccountsResponse with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in
+// ListTransactionsAcrossAllAccountsResponseMultiError, or nil if none found.
+func (m *ListTransactionsAcrossAllAccountsResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListTransactionsAcrossAllAccountsResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for NextPage
+
+	for idx, item := range m.GetTransactions() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ListTransactionsAcrossAllAccountsResponseValidationError{
+						field:  fmt.Sprintf("Transactions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ListTransactionsAcrossAllAccountsResponseValidationError{
+						field:  fmt.Sprintf("Transactions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ListTransactionsAcrossAllAccountsResponseValidationError{
+					field:  fmt.Sprintf("Transactions[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ListTransactionsAcrossAllAccountsResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListTransactionsAcrossAllAccountsResponseMultiError is an error wrapping
+// multiple validation errors returned by
+// ListTransactionsAcrossAllAccountsResponse.ValidateAll() if the designated
+// constraints aren't met.
+type ListTransactionsAcrossAllAccountsResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListTransactionsAcrossAllAccountsResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListTransactionsAcrossAllAccountsResponseMultiError) AllErrors() []error { return m }
+
+// ListTransactionsAcrossAllAccountsResponseValidationError is the validation
+// error returned by ListTransactionsAcrossAllAccountsResponse.Validate if the
+// designated constraints aren't met.
+type ListTransactionsAcrossAllAccountsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListTransactionsAcrossAllAccountsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListTransactionsAcrossAllAccountsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListTransactionsAcrossAllAccountsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListTransactionsAcrossAllAccountsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListTransactionsAcrossAllAccountsResponseValidationError) ErrorName() string {
+	return "ListTransactionsAcrossAllAccountsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListTransactionsAcrossAllAccountsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListTransactionsAcrossAllAccountsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListTransactionsAcrossAllAccountsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListTransactionsAcrossAllAccountsResponseValidationError{}
+
 // Validate checks the field values on GetTransactionRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.

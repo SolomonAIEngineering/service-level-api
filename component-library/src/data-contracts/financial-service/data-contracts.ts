@@ -1737,6 +1737,15 @@ export interface ListTransactionNotesResponse {
   notes?: Array<SmartNote>;
 }
 
+export type ListTransactions2Data = any;
+
+/** ListTransactionsResponse is the list transaction response */
+export interface ListTransactionsAcrossAllAccountsResponse {
+  /** @format uint64 */
+  nextPage?: string;
+  transactions?: Array<PlaidAccountTransaction>;
+}
+
 export type ListTransactionsData = any;
 
 /** ListTransactionsResponse is the list transaction response */

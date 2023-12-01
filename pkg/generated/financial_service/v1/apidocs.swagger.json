@@ -4608,6 +4608,83 @@
         ]
       }
     },
+    "/api/v1/transactions/all_accounts": {
+      "get": {
+        "summary": "lists a set of transactions across all connected accounts",
+        "description": "This endpoint gets a list of transactions across all connected accounts",
+        "operationId": "ListTransactions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.ListTransactionsAcrossAllAccountsResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "profileType",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED",
+              "FINANCIAL_USER_PROFILE_TYPE_USER",
+              "FINANCIAL_USER_PROFILE_TYPE_BUSINESS"
+            ],
+            "default": "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED"
+          }
+        ],
+        "tags": [
+          "transactions"
+        ]
+      }
+    },
     "/api/v1/transactions/recurring": {
       "put": {
         "summary": "update a transaction",
@@ -8833,6 +8910,23 @@
           "title": "The notes"
         }
       }
+    },
+    "ListTransactionsAcrossAllAccountsResponse": {
+      "type": "object",
+      "properties": {
+        "nextPage": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "transactions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/PlaidAccountTransaction"
+          }
+        }
+      },
+      "title": "ListTransactionsResponse is the list transaction response"
     },
     "ListTransactionsResponse": {
       "type": "object",

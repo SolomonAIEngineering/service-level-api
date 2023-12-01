@@ -94,6 +94,7 @@ const (
 	FinancialService_GetNotesFromSmartGoal_FullMethodName                    = "/financial_service.v1.FinancialService/GetNotesFromSmartGoal"
 	FinancialService_GetNoteFromSmartGoal_FullMethodName                     = "/financial_service.v1.FinancialService/GetNoteFromSmartGoal"
 	FinancialService_ListTransactions_FullMethodName                         = "/financial_service.v1.FinancialService/ListTransactions"
+	FinancialService_ListTransactionsAcrossAllAccounts_FullMethodName        = "/financial_service.v1.FinancialService/ListTransactionsAcrossAllAccounts"
 	FinancialService_GetTransaction_FullMethodName                           = "/financial_service.v1.FinancialService/GetTransaction"
 	FinancialService_UpdateTransaction_FullMethodName                        = "/financial_service.v1.FinancialService/UpdateTransaction"
 	FinancialService_BulkUpdateTransaction_FullMethodName                    = "/financial_service.v1.FinancialService/BulkUpdateTransaction"
@@ -271,6 +272,7 @@ type FinancialServiceClient interface {
 	GetNoteFromSmartGoal(ctx context.Context, in *GetNoteFromSmartGoalRequest, opts ...grpc.CallOption) (*GetNoteFromSmartGoalResponse, error)
 	// ListTransactions lists a set of transactions against an account of interest
 	ListTransactions(ctx context.Context, in *ListTransactionsRequest, opts ...grpc.CallOption) (*ListTransactionsResponse, error)
+	ListTransactionsAcrossAllAccounts(ctx context.Context, in *ListTransactionsAcrossAllAccountsRequest, opts ...grpc.CallOption) (*ListTransactionsAcrossAllAccountsResponse, error)
 	// GetTransaction lists a set of transactions against an account of interest
 	GetTransaction(ctx context.Context, in *GetTransactionRequest, opts ...grpc.CallOption) (*GetTransactionResponse, error)
 	// updates a transaction
@@ -1000,6 +1002,15 @@ func (c *financialServiceClient) ListTransactions(ctx context.Context, in *ListT
 	return out, nil
 }
 
+func (c *financialServiceClient) ListTransactionsAcrossAllAccounts(ctx context.Context, in *ListTransactionsAcrossAllAccountsRequest, opts ...grpc.CallOption) (*ListTransactionsAcrossAllAccountsResponse, error) {
+	out := new(ListTransactionsAcrossAllAccountsResponse)
+	err := c.cc.Invoke(ctx, FinancialService_ListTransactionsAcrossAllAccounts_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *financialServiceClient) GetTransaction(ctx context.Context, in *GetTransactionRequest, opts ...grpc.CallOption) (*GetTransactionResponse, error) {
 	out := new(GetTransactionResponse)
 	err := c.cc.Invoke(ctx, FinancialService_GetTransaction_FullMethodName, in, out, opts...)
@@ -1351,6 +1362,7 @@ type FinancialServiceServer interface {
 	GetNoteFromSmartGoal(context.Context, *GetNoteFromSmartGoalRequest) (*GetNoteFromSmartGoalResponse, error)
 	// ListTransactions lists a set of transactions against an account of interest
 	ListTransactions(context.Context, *ListTransactionsRequest) (*ListTransactionsResponse, error)
+	ListTransactionsAcrossAllAccounts(context.Context, *ListTransactionsAcrossAllAccountsRequest) (*ListTransactionsAcrossAllAccountsResponse, error)
 	// GetTransaction lists a set of transactions against an account of interest
 	GetTransaction(context.Context, *GetTransactionRequest) (*GetTransactionResponse, error)
 	// updates a transaction
@@ -1626,6 +1638,9 @@ func (UnimplementedFinancialServiceServer) GetNoteFromSmartGoal(context.Context,
 }
 func (UnimplementedFinancialServiceServer) ListTransactions(context.Context, *ListTransactionsRequest) (*ListTransactionsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListTransactions not implemented")
+}
+func (UnimplementedFinancialServiceServer) ListTransactionsAcrossAllAccounts(context.Context, *ListTransactionsAcrossAllAccountsRequest) (*ListTransactionsAcrossAllAccountsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListTransactionsAcrossAllAccounts not implemented")
 }
 func (UnimplementedFinancialServiceServer) GetTransaction(context.Context, *GetTransactionRequest) (*GetTransactionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTransaction not implemented")
@@ -3056,6 +3071,24 @@ func _FinancialService_ListTransactions_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _FinancialService_ListTransactionsAcrossAllAccounts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListTransactionsAcrossAllAccountsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FinancialServiceServer).ListTransactionsAcrossAllAccounts(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FinancialService_ListTransactionsAcrossAllAccounts_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FinancialServiceServer).ListTransactionsAcrossAllAccounts(ctx, req.(*ListTransactionsAcrossAllAccountsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _FinancialService_GetTransaction_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetTransactionRequest)
 	if err := dec(in); err != nil {
@@ -3758,6 +3791,10 @@ var FinancialService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListTransactions",
 			Handler:    _FinancialService_ListTransactions_Handler,
+		},
+		{
+			MethodName: "ListTransactionsAcrossAllAccounts",
+			Handler:    _FinancialService_ListTransactionsAcrossAllAccounts_Handler,
 		},
 		{
 			MethodName: "GetTransaction",

@@ -1141,6 +1141,24 @@ message ListTransactionsResponse {
   repeated PlaidAccountTransaction transactions = 4;
 }
 
+message ListTransactionsAcrossAllAccountsRequest {
+  uint64 user_id = 2 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+  uint64 page_number = 3;
+  uint64 page_size = 4;  
+  FinancialUserProfileType profile_type = 9 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+// ListTransactionsResponse is the list transaction response
+message ListTransactionsAcrossAllAccountsResponse {
+  uint64 next_page = 2;
+  repeated PlaidAccountTransaction transactions = 4;
+}
+
 // GetTransactionRequest is the get transaction request
 message GetTransactionRequest {
   // the transaction of interest we aim to obtain
