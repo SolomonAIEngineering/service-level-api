@@ -249,6 +249,26 @@ To enforce this notion of eventual consistency, all write requests should be per
 
 ## System Design/Architecture
 
+### System Diagram & Flowchart
+
+![Screen Shot 2022-08-09 at 12.16.17 AM.png](Screen_Shot_2022-08-09_at_12.16.17_AM.png)
+
+**Figure 1: Service Dependency Diagram**
+
+![Screen Shot 2022-08-06 at 1.38.00 PM.png](Screen_Shot_2022-08-06_at_1.38.00_PM.png)
+
+**Figure 2: Service Placement (Kubernetes)**
+
+![Screen Shot 2022-07-30 at 1.22.44 AM.png](Screen_Shot_2022-07-30_at_1.22.44_AM.png)
+
+**Figure 3: LB & Digital Ocean Node Configurations**
+
+![Screen Shot 2022-07-30 at 1.22.51 AM.png](Screen_Shot_2022-07-30_at_1.22.51_AM.png)
+
+**Figure 4: Request Pattern (LB → Social Service)**
+
+<!-- ![Screen Shot 2022-08-06 at 6.21.55 PM.png](Screen_Shot_2022-08-06_at_6.21.55_PM.png) -->
+
 **Figure 5: Solomon-AI Asynchronous Processing (AWS SQS)**
 
 ### Terminology & Components
@@ -535,8 +555,6 @@ The terms used in this SLA document are defined as follows:
 ## Caching Requirements
 
 As of now, we have a minor caching requirement. We only cache compressed and enriched newsfeed json blobs with the User ID as the key. The TTL for the cached object will range from 10-15 minutes adhering to the LRU eviction model. 
-
-Please reference our caching estimations provided [here](RFC%20Social%20Service%20(GetStream)%20Design%20Document%20b3c3e749043447789cb2b0bf0e19b2e6.md).
 
 ## Capacity Planning
 
