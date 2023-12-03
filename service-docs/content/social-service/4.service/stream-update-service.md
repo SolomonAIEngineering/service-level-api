@@ -68,8 +68,8 @@ To enforce this notion of eventual consistency, all write requests should be per
 
 ## System Design/Architecture
 
-![doc1](Screen_Shot_2022-08-06_at_6.21.55_PM.png)
-![doc2](Screen_Shot_2022-08-08_at_10.08.10_PM.png)
+<!-- ![doc1](Screen_Shot_2022-08-06_at_6.21.55_PM.png) -->
+<!-- ![doc2](Screen_Shot_2022-08-08_at_10.08.10_PM.png) -->
 
 ### Terminology & Components
 

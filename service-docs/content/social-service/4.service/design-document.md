@@ -253,23 +253,23 @@ To enforce this notion of eventual consistency, all write requests should be per
 
 ### System Diagram & Flowchart
 
-![Screen Shot 2022-08-09 at 12.16.17 AM.png](Screen_Shot_2022-08-09_at_12.16.17_AM.png)
+<!-- ![Screen Shot 2022-08-09 at 12.16.17 AM.png](Screen_Shot_2022-08-09_at_12.16.17_AM.png) -->
 
 **Figure 1: Service Dependency Diagram**
 
-![Screen Shot 2022-08-06 at 1.38.00 PM.png](Screen_Shot_2022-08-06_at_1.38.00_PM.png)
+<!-- ![Screen Shot 2022-08-06 at 1.38.00 PM.png](Screen_Shot_2022-08-06_at_1.38.00_PM.png) -->
 
 **Figure 2: Service Placement (Kubernetes)**
 
-![Screen Shot 2022-07-30 at 1.22.44 AM.png](Screen_Shot_2022-07-30_at_1.22.44_AM.png)
+<!-- ![Screen Shot 2022-07-30 at 1.22.44 AM.png](Screen_Shot_2022-07-30_at_1.22.44_AM.png) -->
 
 **Figure 3: LB & Digital Ocean Node Configurations**
 
-![Screen Shot 2022-07-30 at 1.22.51 AM.png](Screen_Shot_2022-07-30_at_1.22.51_AM.png)
+<!-- ![Screen Shot 2022-07-30 at 1.22.51 AM.png](Screen_Shot_2022-07-30_at_1.22.51_AM.png) -->
 
 **Figure 4: Request Pattern (LB → Social Service)**
 
-![Screen Shot 2022-08-06 at 6.21.55 PM.png](Screen_Shot_2022-08-06_at_6.21.55_PM.png)
+<!-- ![Screen Shot 2022-08-06 at 6.21.55 PM.png](Screen_Shot_2022-08-06_at_6.21.55_PM.png) -->
 
 **Figure 5: Solomon-AI Asynchronous Processing (AWS SQS)**
 
