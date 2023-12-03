@@ -4,8 +4,6 @@ Owner: D Yoan L Mekontchou Yomba
 
 **********References**********
 
-[RFC | Social Microservice API Spec](RFC%20Social%20Microservice%20API%20Spec%20b09e932b05d343058edf4f1ed71883b3.md)
-
 **Date:** 2022-07-28
 
 **Project:** Social Service Design Development
