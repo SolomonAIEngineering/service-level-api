@@ -1,8 +1,8 @@
-__Simifinii: Authentication Microservice Design Document__
+__Solomon AI: Authentication Microservice Design Document__
 
 __Date__: 2021-11-05
 
-__Project__: Simifinii: Authentication Microservice
+__Project__: Solomon AI: Authentication Microservice
 
 __Audience__: Engineering
 
@@ -19,7 +19,7 @@ The primary goal of this service is to serve as the primary means of authenticat
 ## Motivation
 Authentication is an extremely important aspect of an any platform due in part to the fact that data protection at the user level must be enforced as well as access level permissions. Authentication however, in a distributed system provides more complexities. In monolithic applications, authentication and authorization can be performed via sessions. However, in a distributed system, since multiple instances of a service can be deployed at one time, enforcing user requests to the originating session instance (sticky sessions) isn’t viable and introduces a ton of operational overhead.
 
-With this in mind, we at the simifinii aim to implement our authorization scheme via 2 sets of services via json web tokens (JWT). We also make use of a distributed cache for session storage which ensures that we don’t need to maintain stickiness across instances of a server. The authentication framework developed by us consists of 2 service instances. One is a stateful instance which utilizes the open-sourced keratin-authn microservice and interfaces with either a postgres or mysql database.The second instance is a headless authentication service which is stateless and serves as an interface through which the keratin-authn service can be interacted with.
+With this in mind, we at the Solomon AI aim to implement our authorization scheme via 2 sets of services via json web tokens (JWT). We also make use of a distributed cache for session storage which ensures that we don’t need to maintain stickiness across instances of a server. The authentication framework developed by us consists of 2 service instances. One is a stateful instance which utilizes the open-sourced keratin-authn microservice and interfaces with either a postgres or mysql database.The second instance is a headless authentication service which is stateless and serves as an interface through which the keratin-authn service can be interacted with.
 
 The rest of this design document provides further details pertinent to this implementation.
 

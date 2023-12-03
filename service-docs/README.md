@@ -1,14 +1,6 @@
-# Docus Starter
+# Backend Financial Integration Service Documentation
 
-Starter template for [Docus](https://docus.dev).
-
-## Clone
-
-Clone the repository (using `nuxi`):
-
-```bash
-npx nuxi init -t themes/docus
-```
+[Platform Site](https://financial-integration-service.solomon-ai.io/).
 
 ## Setup
 
