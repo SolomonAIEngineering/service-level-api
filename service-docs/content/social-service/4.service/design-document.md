@@ -654,9 +654,3 @@ Testing is crucial and will be prioritized throughout development. Unit tests wi
 - Sponsor - sign off by Yoan Yomba
 
 ## Feature Plan
-
-[RFC | Solomon-AI Stream state update services ](RFC%20Solomon-AI%20Stream%20state%20update%20services%2063a9d6bb944148d58ac0741b724ada58.md)
-
-[RFC | Solomon-AI OpenSearch Worker](RFC%20Solomon-AI%20OpenSearch%20Worker%20502247b67a7e4241a8c821fe019b2ec7.md)
-
-[RFC | Social Service API Operations](RFC%20Social%20Service%20API%20Operations%20d76b9ead9cd3462a884ce98fa35b0288.md)
