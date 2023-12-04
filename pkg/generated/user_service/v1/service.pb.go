@@ -34,7 +34,7 @@ var file_user_service_v1_service_proto_rawDesc = []byte{
 	0x70, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x2f, 0x61, 0x6e, 0x6e, 0x6f, 0x74, 0x61, 0x74, 0x69, 0x6f,
 	0x6e, 0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x1c, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65,
 	0x2f, 0x61, 0x70, 0x69, 0x2f, 0x61, 0x6e, 0x6e, 0x6f, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73,
-	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x32, 0xea, 0x57, 0x0a, 0x0b, 0x55, 0x73, 0x65, 0x72, 0x53,
+	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x32, 0xda, 0x5a, 0x0a, 0x0b, 0x55, 0x73, 0x65, 0x72, 0x53,
 	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x9f, 0x02, 0x0a, 0x07, 0x47, 0x65, 0x74, 0x55, 0x73,
 	0x65, 0x72, 0x12, 0x1f, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63,
 	0x65, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75,
@@ -737,6 +737,29 @@ var file_user_service_v1_service_proto_rawDesc = []byte{
 	0x68, 0x6e, 0x49, 0x44, 0x56, 0x32, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x82, 0xd3,
 	0xe4, 0x93, 0x02, 0x1f, 0x12, 0x1d, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x76, 0x32, 0x2f, 0x75, 0x73,
 	0x65, 0x72, 0x2f, 0x61, 0x75, 0x74, 0x68, 0x6e, 0x2f, 0x7b, 0x61, 0x75, 0x74, 0x68, 0x6e, 0x5f,
+	0x69, 0x64, 0x7d, 0x12, 0xed, 0x02, 0x0a, 0x14, 0x47, 0x65, 0x74, 0x43, 0x61, 0x6e, 0x6e, 0x79,
+	0x55, 0x73, 0x65, 0x72, 0x53, 0x53, 0x4f, 0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x12, 0x2c, 0x2e, 0x75,
+	0x73, 0x65, 0x72, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x76, 0x31, 0x2e, 0x47,
+	0x65, 0x74, 0x43, 0x61, 0x6e, 0x6e, 0x79, 0x55, 0x73, 0x65, 0x72, 0x53, 0x53, 0x4f, 0x54, 0x6f,
+	0x6b, 0x65, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x2d, 0x2e, 0x75, 0x73, 0x65,
+	0x72, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x74,
+	0x43, 0x61, 0x6e, 0x6e, 0x79, 0x55, 0x73, 0x65, 0x72, 0x53, 0x53, 0x4f, 0x54, 0x6f, 0x6b, 0x65,
+	0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0xf7, 0x01, 0x92, 0x41, 0xcf, 0x01,
+	0x0a, 0x07, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x0a, 0x02, 0x76, 0x32, 0x12, 0x22, 0x52,
+	0x65, 0x74, 0x72, 0x69, 0x65, 0x76, 0x65, 0x73, 0x20, 0x75, 0x73, 0x65, 0x72, 0x20, 0x73, 0x73,
+	0x6f, 0x20, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x20, 0x66, 0x6f, 0x72, 0x20, 0x63, 0x61, 0x6e, 0x6e,
+	0x79, 0x1a, 0x22, 0x46, 0x65, 0x74, 0x63, 0x68, 0x65, 0x73, 0x20, 0x61, 0x20, 0x75, 0x73, 0x65,
+	0x72, 0x20, 0x73, 0x73, 0x6f, 0x20, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x20, 0x66, 0x6f, 0x72, 0x20,
+	0x63, 0x61, 0x6e, 0x6e, 0x79, 0x2a, 0x14, 0x47, 0x65, 0x74, 0x43, 0x61, 0x6e, 0x6e, 0x79, 0x55,
+	0x73, 0x65, 0x72, 0x53, 0x53, 0x4f, 0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x4a, 0x62, 0x0a, 0x03, 0x32,
+	0x30, 0x30, 0x12, 0x5b, 0x0a, 0x2f, 0x53, 0x75, 0x63, 0x63, 0x65, 0x73, 0x73, 0x66, 0x75, 0x6c,
+	0x20, 0x72, 0x65, 0x74, 0x72, 0x69, 0x65, 0x76, 0x61, 0x6c, 0x20, 0x6f, 0x66, 0x20, 0x75, 0x73,
+	0x65, 0x72, 0x20, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x20, 0x73, 0x73, 0x6f, 0x20, 0x74,
+	0x6f, 0x6b, 0x65, 0x6e, 0x2e, 0x12, 0x28, 0x0a, 0x26, 0x1a, 0x24, 0x2e, 0x61, 0x70, 0x69, 0x2e,
+	0x76, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x43, 0x61, 0x6e, 0x6e, 0x79, 0x55, 0x73, 0x65, 0x72, 0x53,
+	0x53, 0x4f, 0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x73, 0x6e, 0x65, 0x82,
+	0xd3, 0xe4, 0x93, 0x02, 0x1e, 0x12, 0x1c, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x76, 0x32, 0x2f, 0x75,
+	0x73, 0x65, 0x72, 0x2f, 0x63, 0x61, 0x6e, 0x6e, 0x79, 0x2f, 0x7b, 0x75, 0x73, 0x65, 0x72, 0x5f,
 	0x69, 0x64, 0x7d, 0x42, 0xec, 0x01, 0x0a, 0x13, 0x63, 0x6f, 0x6d, 0x2e, 0x75, 0x73, 0x65, 0x72,
 	0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x76, 0x31, 0x42, 0x0c, 0x53, 0x65, 0x72,
 	0x76, 0x69, 0x63, 0x65, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x6e, 0x67, 0x69, 0x74,
@@ -784,34 +807,36 @@ var file_user_service_v1_service_proto_goTypes = []interface{}{
 	(*PasswordResetWebhookV2Request)(nil),      // 25: user_service.v1.PasswordResetWebhookV2Request
 	(*GetBusinessSettingsRequest)(nil),         // 26: user_service.v1.GetBusinessSettingsRequest
 	(*GetUserByAuthnIDV2Request)(nil),          // 27: user_service.v1.GetUserByAuthnIDV2Request
-	(*GetUserResponse)(nil),                    // 28: user_service.v1.GetUserResponse
-	(*GetUserByUsernameResponse)(nil),          // 29: user_service.v1.GetUserByUsernameResponse
-	(*GetUserByEmailResponse)(nil),             // 30: user_service.v1.GetUserByEmailResponse
-	(*CheckUsernameExistsResponse)(nil),        // 31: user_service.v1.CheckUsernameExistsResponse
-	(*CheckEmailExistsResponse)(nil),           // 32: user_service.v1.CheckEmailExistsResponse
-	(*DeleteUserResponse)(nil),                 // 33: user_service.v1.DeleteUserResponse
-	(*UpdateUserResponse)(nil),                 // 34: user_service.v1.UpdateUserResponse
-	(*CreateUserResponse)(nil),                 // 35: user_service.v1.CreateUserResponse
-	(*GetUserIdResponse)(nil),                  // 36: user_service.v1.GetUserIdResponse
-	(*HealthCheckResponse)(nil),                // 37: user_service.v1.HealthCheckResponse
-	(*ReadynessCheckResponse)(nil),             // 38: user_service.v1.ReadynessCheckResponse
-	(*GetUserByEmailOrUsernameResponse)(nil),   // 39: user_service.v1.GetUserByEmailOrUsernameResponse
-	(*VerifyUserResponse)(nil),                 // 40: user_service.v1.VerifyUserResponse
-	(*PasswordResetWebhookResponse)(nil),       // 41: user_service.v1.PasswordResetWebhookResponse
-	(*GetUserV2Response)(nil),                  // 42: user_service.v1.GetUserV2Response
-	(*GetUserByUsernameV2Response)(nil),        // 43: user_service.v1.GetUserByUsernameV2Response
-	(*GetUserByEmailV2Response)(nil),           // 44: user_service.v1.GetUserByEmailV2Response
-	(*GetUserByEmailOrUsernameV2Response)(nil), // 45: user_service.v1.GetUserByEmailOrUsernameV2Response
-	(*CheckUsernameExistsV2Response)(nil),      // 46: user_service.v1.CheckUsernameExistsV2Response
-	(*CheckEmailExistsV2Response)(nil),         // 47: user_service.v1.CheckEmailExistsV2Response
-	(*DeleteUserV2Response)(nil),               // 48: user_service.v1.DeleteUserV2Response
-	(*UpdateUserV2Response)(nil),               // 49: user_service.v1.UpdateUserV2Response
-	(*CreateUserV2Response)(nil),               // 50: user_service.v1.CreateUserV2Response
-	(*GetUserIdV2Response)(nil),                // 51: user_service.v1.GetUserIdV2Response
-	(*VerifyUserV2Response)(nil),               // 52: user_service.v1.VerifyUserV2Response
-	(*PasswordResetWebhookV2Response)(nil),     // 53: user_service.v1.PasswordResetWebhookV2Response
-	(*GetBusinessSettingsResponse)(nil),        // 54: user_service.v1.GetBusinessSettingsResponse
-	(*GetUserByAuthnIDV2Response)(nil),         // 55: user_service.v1.GetUserByAuthnIDV2Response
+	(*GetCannyUserSSOTokenRequest)(nil),        // 28: user_service.v1.GetCannyUserSSOTokenRequest
+	(*GetUserResponse)(nil),                    // 29: user_service.v1.GetUserResponse
+	(*GetUserByUsernameResponse)(nil),          // 30: user_service.v1.GetUserByUsernameResponse
+	(*GetUserByEmailResponse)(nil),             // 31: user_service.v1.GetUserByEmailResponse
+	(*CheckUsernameExistsResponse)(nil),        // 32: user_service.v1.CheckUsernameExistsResponse
+	(*CheckEmailExistsResponse)(nil),           // 33: user_service.v1.CheckEmailExistsResponse
+	(*DeleteUserResponse)(nil),                 // 34: user_service.v1.DeleteUserResponse
+	(*UpdateUserResponse)(nil),                 // 35: user_service.v1.UpdateUserResponse
+	(*CreateUserResponse)(nil),                 // 36: user_service.v1.CreateUserResponse
+	(*GetUserIdResponse)(nil),                  // 37: user_service.v1.GetUserIdResponse
+	(*HealthCheckResponse)(nil),                // 38: user_service.v1.HealthCheckResponse
+	(*ReadynessCheckResponse)(nil),             // 39: user_service.v1.ReadynessCheckResponse
+	(*GetUserByEmailOrUsernameResponse)(nil),   // 40: user_service.v1.GetUserByEmailOrUsernameResponse
+	(*VerifyUserResponse)(nil),                 // 41: user_service.v1.VerifyUserResponse
+	(*PasswordResetWebhookResponse)(nil),       // 42: user_service.v1.PasswordResetWebhookResponse
+	(*GetUserV2Response)(nil),                  // 43: user_service.v1.GetUserV2Response
+	(*GetUserByUsernameV2Response)(nil),        // 44: user_service.v1.GetUserByUsernameV2Response
+	(*GetUserByEmailV2Response)(nil),           // 45: user_service.v1.GetUserByEmailV2Response
+	(*GetUserByEmailOrUsernameV2Response)(nil), // 46: user_service.v1.GetUserByEmailOrUsernameV2Response
+	(*CheckUsernameExistsV2Response)(nil),      // 47: user_service.v1.CheckUsernameExistsV2Response
+	(*CheckEmailExistsV2Response)(nil),         // 48: user_service.v1.CheckEmailExistsV2Response
+	(*DeleteUserV2Response)(nil),               // 49: user_service.v1.DeleteUserV2Response
+	(*UpdateUserV2Response)(nil),               // 50: user_service.v1.UpdateUserV2Response
+	(*CreateUserV2Response)(nil),               // 51: user_service.v1.CreateUserV2Response
+	(*GetUserIdV2Response)(nil),                // 52: user_service.v1.GetUserIdV2Response
+	(*VerifyUserV2Response)(nil),               // 53: user_service.v1.VerifyUserV2Response
+	(*PasswordResetWebhookV2Response)(nil),     // 54: user_service.v1.PasswordResetWebhookV2Response
+	(*GetBusinessSettingsResponse)(nil),        // 55: user_service.v1.GetBusinessSettingsResponse
+	(*GetUserByAuthnIDV2Response)(nil),         // 56: user_service.v1.GetUserByAuthnIDV2Response
+	(*GetCannyUserSSOTokenResponse)(nil),       // 57: user_service.v1.GetCannyUserSSOTokenResponse
 }
 var file_user_service_v1_service_proto_depIdxs = []int32{
 	0,  // 0: user_service.v1.UserService.GetUser:input_type -> user_service.v1.GetUserRequest
@@ -842,36 +867,38 @@ var file_user_service_v1_service_proto_depIdxs = []int32{
 	25, // 25: user_service.v1.UserService.PasswordResetWebhookV2:input_type -> user_service.v1.PasswordResetWebhookV2Request
 	26, // 26: user_service.v1.UserService.GetBusinessSettings:input_type -> user_service.v1.GetBusinessSettingsRequest
 	27, // 27: user_service.v1.UserService.GetUserByAuthnIDV2:input_type -> user_service.v1.GetUserByAuthnIDV2Request
-	28, // 28: user_service.v1.UserService.GetUser:output_type -> user_service.v1.GetUserResponse
-	29, // 29: user_service.v1.UserService.GetUserByUsername:output_type -> user_service.v1.GetUserByUsernameResponse
-	30, // 30: user_service.v1.UserService.GetUserByEmail:output_type -> user_service.v1.GetUserByEmailResponse
-	31, // 31: user_service.v1.UserService.CheckUsernameExists:output_type -> user_service.v1.CheckUsernameExistsResponse
-	32, // 32: user_service.v1.UserService.CheckEmailExists:output_type -> user_service.v1.CheckEmailExistsResponse
-	33, // 33: user_service.v1.UserService.DeleteUser:output_type -> user_service.v1.DeleteUserResponse
-	34, // 34: user_service.v1.UserService.UpdateUser:output_type -> user_service.v1.UpdateUserResponse
-	35, // 35: user_service.v1.UserService.CreateUser:output_type -> user_service.v1.CreateUserResponse
-	36, // 36: user_service.v1.UserService.GetUserId:output_type -> user_service.v1.GetUserIdResponse
-	37, // 37: user_service.v1.UserService.HealthCheck:output_type -> user_service.v1.HealthCheckResponse
-	38, // 38: user_service.v1.UserService.ReadynessCheck:output_type -> user_service.v1.ReadynessCheckResponse
-	39, // 39: user_service.v1.UserService.GetUserByEmailOrUsername:output_type -> user_service.v1.GetUserByEmailOrUsernameResponse
-	40, // 40: user_service.v1.UserService.VerifyUser:output_type -> user_service.v1.VerifyUserResponse
-	41, // 41: user_service.v1.UserService.PasswordResetWebhook:output_type -> user_service.v1.PasswordResetWebhookResponse
-	42, // 42: user_service.v1.UserService.GetUserV2:output_type -> user_service.v1.GetUserV2Response
-	43, // 43: user_service.v1.UserService.GetUserByUsernameV2:output_type -> user_service.v1.GetUserByUsernameV2Response
-	44, // 44: user_service.v1.UserService.GetUserByEmailV2:output_type -> user_service.v1.GetUserByEmailV2Response
-	45, // 45: user_service.v1.UserService.GetUserByEmailOrUsernameV2:output_type -> user_service.v1.GetUserByEmailOrUsernameV2Response
-	46, // 46: user_service.v1.UserService.CheckUsernameExistsV2:output_type -> user_service.v1.CheckUsernameExistsV2Response
-	47, // 47: user_service.v1.UserService.CheckEmailExistsV2:output_type -> user_service.v1.CheckEmailExistsV2Response
-	48, // 48: user_service.v1.UserService.DeleteUserV2:output_type -> user_service.v1.DeleteUserV2Response
-	49, // 49: user_service.v1.UserService.UpdateUserV2:output_type -> user_service.v1.UpdateUserV2Response
-	50, // 50: user_service.v1.UserService.CreateUserV2:output_type -> user_service.v1.CreateUserV2Response
-	51, // 51: user_service.v1.UserService.GetUserIdV2:output_type -> user_service.v1.GetUserIdV2Response
-	52, // 52: user_service.v1.UserService.VerifyUserV2:output_type -> user_service.v1.VerifyUserV2Response
-	53, // 53: user_service.v1.UserService.PasswordResetWebhookV2:output_type -> user_service.v1.PasswordResetWebhookV2Response
-	54, // 54: user_service.v1.UserService.GetBusinessSettings:output_type -> user_service.v1.GetBusinessSettingsResponse
-	55, // 55: user_service.v1.UserService.GetUserByAuthnIDV2:output_type -> user_service.v1.GetUserByAuthnIDV2Response
-	28, // [28:56] is the sub-list for method output_type
-	0,  // [0:28] is the sub-list for method input_type
+	28, // 28: user_service.v1.UserService.GetCannyUserSSOToken:input_type -> user_service.v1.GetCannyUserSSOTokenRequest
+	29, // 29: user_service.v1.UserService.GetUser:output_type -> user_service.v1.GetUserResponse
+	30, // 30: user_service.v1.UserService.GetUserByUsername:output_type -> user_service.v1.GetUserByUsernameResponse
+	31, // 31: user_service.v1.UserService.GetUserByEmail:output_type -> user_service.v1.GetUserByEmailResponse
+	32, // 32: user_service.v1.UserService.CheckUsernameExists:output_type -> user_service.v1.CheckUsernameExistsResponse
+	33, // 33: user_service.v1.UserService.CheckEmailExists:output_type -> user_service.v1.CheckEmailExistsResponse
+	34, // 34: user_service.v1.UserService.DeleteUser:output_type -> user_service.v1.DeleteUserResponse
+	35, // 35: user_service.v1.UserService.UpdateUser:output_type -> user_service.v1.UpdateUserResponse
+	36, // 36: user_service.v1.UserService.CreateUser:output_type -> user_service.v1.CreateUserResponse
+	37, // 37: user_service.v1.UserService.GetUserId:output_type -> user_service.v1.GetUserIdResponse
+	38, // 38: user_service.v1.UserService.HealthCheck:output_type -> user_service.v1.HealthCheckResponse
+	39, // 39: user_service.v1.UserService.ReadynessCheck:output_type -> user_service.v1.ReadynessCheckResponse
+	40, // 40: user_service.v1.UserService.GetUserByEmailOrUsername:output_type -> user_service.v1.GetUserByEmailOrUsernameResponse
+	41, // 41: user_service.v1.UserService.VerifyUser:output_type -> user_service.v1.VerifyUserResponse
+	42, // 42: user_service.v1.UserService.PasswordResetWebhook:output_type -> user_service.v1.PasswordResetWebhookResponse
+	43, // 43: user_service.v1.UserService.GetUserV2:output_type -> user_service.v1.GetUserV2Response
+	44, // 44: user_service.v1.UserService.GetUserByUsernameV2:output_type -> user_service.v1.GetUserByUsernameV2Response
+	45, // 45: user_service.v1.UserService.GetUserByEmailV2:output_type -> user_service.v1.GetUserByEmailV2Response
+	46, // 46: user_service.v1.UserService.GetUserByEmailOrUsernameV2:output_type -> user_service.v1.GetUserByEmailOrUsernameV2Response
+	47, // 47: user_service.v1.UserService.CheckUsernameExistsV2:output_type -> user_service.v1.CheckUsernameExistsV2Response
+	48, // 48: user_service.v1.UserService.CheckEmailExistsV2:output_type -> user_service.v1.CheckEmailExistsV2Response
+	49, // 49: user_service.v1.UserService.DeleteUserV2:output_type -> user_service.v1.DeleteUserV2Response
+	50, // 50: user_service.v1.UserService.UpdateUserV2:output_type -> user_service.v1.UpdateUserV2Response
+	51, // 51: user_service.v1.UserService.CreateUserV2:output_type -> user_service.v1.CreateUserV2Response
+	52, // 52: user_service.v1.UserService.GetUserIdV2:output_type -> user_service.v1.GetUserIdV2Response
+	53, // 53: user_service.v1.UserService.VerifyUserV2:output_type -> user_service.v1.VerifyUserV2Response
+	54, // 54: user_service.v1.UserService.PasswordResetWebhookV2:output_type -> user_service.v1.PasswordResetWebhookV2Response
+	55, // 55: user_service.v1.UserService.GetBusinessSettings:output_type -> user_service.v1.GetBusinessSettingsResponse
+	56, // 56: user_service.v1.UserService.GetUserByAuthnIDV2:output_type -> user_service.v1.GetUserByAuthnIDV2Response
+	57, // 57: user_service.v1.UserService.GetCannyUserSSOToken:output_type -> user_service.v1.GetCannyUserSSOTokenResponse
+	29, // [29:58] is the sub-list for method output_type
+	0,  // [0:29] is the sub-list for method input_type
 	0,  // [0:0] is the sub-list for extension type_name
 	0,  // [0:0] is the sub-list for extension extendee
 	0,  // [0:0] is the sub-list for field type_name

@@ -619,3 +619,10 @@ message GetUserByAuthnIDV2Response {
     BusinessAccount business_account = 2;
   }  
 }
+
+message GetCannyUserSSOTokenRequest {
+  // The account ID associated with the user
+  uint64 user_id = 1 [(validate.rules).uint64.gt = 0];
+}
+
+message GetCannyUserSSOTokenResponse { string token = 1; }

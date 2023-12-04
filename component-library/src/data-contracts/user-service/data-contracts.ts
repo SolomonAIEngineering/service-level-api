@@ -387,6 +387,12 @@ export interface GetBusinessSettingsResponse {
   businessSettings?: BusinessAccountSettings;
 }
 
+export interface GetCannyUserSSOTokenResponse {
+  token?: string;
+}
+
+export type GetCannyUserSsoTokenData = any;
+
 /** Represents the response object for fetching user details by authn id. */
 export interface GetUserByAuthnIDV2Response {
   /** BusinessAccount represents a business account within the context of solomon-ai. */

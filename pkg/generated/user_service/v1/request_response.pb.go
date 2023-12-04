@@ -3225,6 +3225,101 @@ func (*GetUserByAuthnIDV2Response_UserAccount) isGetUserByAuthnIDV2Response_Acco
 
 func (*GetUserByAuthnIDV2Response_BusinessAccount) isGetUserByAuthnIDV2Response_Account() {}
 
+type GetCannyUserSSOTokenRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// The account ID associated with the user
+	UserId uint64 `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+}
+
+func (x *GetCannyUserSSOTokenRequest) Reset() {
+	*x = GetCannyUserSSOTokenRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_user_service_v1_request_response_proto_msgTypes[56]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetCannyUserSSOTokenRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetCannyUserSSOTokenRequest) ProtoMessage() {}
+
+func (x *GetCannyUserSSOTokenRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_user_service_v1_request_response_proto_msgTypes[56]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetCannyUserSSOTokenRequest.ProtoReflect.Descriptor instead.
+func (*GetCannyUserSSOTokenRequest) Descriptor() ([]byte, []int) {
+	return file_user_service_v1_request_response_proto_rawDescGZIP(), []int{56}
+}
+
+func (x *GetCannyUserSSOTokenRequest) GetUserId() uint64 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
+}
+
+type GetCannyUserSSOTokenResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Token string `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+}
+
+func (x *GetCannyUserSSOTokenResponse) Reset() {
+	*x = GetCannyUserSSOTokenResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_user_service_v1_request_response_proto_msgTypes[57]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetCannyUserSSOTokenResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetCannyUserSSOTokenResponse) ProtoMessage() {}
+
+func (x *GetCannyUserSSOTokenResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_user_service_v1_request_response_proto_msgTypes[57]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetCannyUserSSOTokenResponse.ProtoReflect.Descriptor instead.
+func (*GetCannyUserSSOTokenResponse) Descriptor() ([]byte, []int) {
+	return file_user_service_v1_request_response_proto_rawDescGZIP(), []int{57}
+}
+
+func (x *GetCannyUserSSOTokenResponse) GetToken() string {
+	if x != nil {
+		return x.Token
+	}
+	return ""
+}
+
 var File_user_service_v1_request_response_proto protoreflect.FileDescriptor
 
 var file_user_service_v1_request_response_proto_rawDesc = []byte{
@@ -3654,23 +3749,31 @@ var file_user_service_v1_request_response_proto_rawDesc = []byte{
 	0x2e, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x76, 0x31,
 	0x2e, 0x42, 0x75, 0x73, 0x69, 0x6e, 0x65, 0x73, 0x73, 0x41, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74,
 	0x48, 0x00, 0x52, 0x0f, 0x62, 0x75, 0x73, 0x69, 0x6e, 0x65, 0x73, 0x73, 0x41, 0x63, 0x63, 0x6f,
-	0x75, 0x6e, 0x74, 0x42, 0x09, 0x0a, 0x07, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x42, 0xf4,
-	0x01, 0x0a, 0x13, 0x63, 0x6f, 0x6d, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x73, 0x65, 0x72, 0x76,
-	0x69, 0x63, 0x65, 0x2e, 0x76, 0x31, 0x42, 0x14, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x52,
-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x6e,
-	0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x53, 0x6f, 0x6c, 0x6f, 0x6d,
-	0x6f, 0x6e, 0x41, 0x49, 0x45, 0x6e, 0x67, 0x69, 0x6e, 0x65, 0x65, 0x72, 0x69, 0x6e, 0x67, 0x2f,
-	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2d, 0x6c, 0x65, 0x76, 0x65, 0x6c, 0x2d, 0x61, 0x70,
-	0x69, 0x2f, 0x70, 0x6b, 0x67, 0x2f, 0x67, 0x65, 0x6e, 0x65, 0x72, 0x61, 0x74, 0x65, 0x64, 0x2f,
-	0x75, 0x73, 0x65, 0x72, 0x2d, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2f, 0x76, 0x31, 0x2f,
-	0x75, 0x73, 0x65, 0x72, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2f, 0x76, 0x31, 0x3b,
-	0x75, 0x73, 0x65, 0x72, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x76, 0x31, 0xa2, 0x02,
-	0x03, 0x55, 0x58, 0x58, 0xaa, 0x02, 0x0e, 0x55, 0x73, 0x65, 0x72, 0x53, 0x65, 0x72, 0x76, 0x69,
-	0x63, 0x65, 0x2e, 0x56, 0x31, 0xca, 0x02, 0x0e, 0x55, 0x73, 0x65, 0x72, 0x53, 0x65, 0x72, 0x76,
-	0x69, 0x63, 0x65, 0x5c, 0x56, 0x31, 0xe2, 0x02, 0x1a, 0x55, 0x73, 0x65, 0x72, 0x53, 0x65, 0x72,
-	0x76, 0x69, 0x63, 0x65, 0x5c, 0x56, 0x31, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64,
-	0x61, 0x74, 0x61, 0xea, 0x02, 0x0f, 0x55, 0x73, 0x65, 0x72, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63,
-	0x65, 0x3a, 0x3a, 0x56, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x75, 0x6e, 0x74, 0x42, 0x09, 0x0a, 0x07, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x22, 0x3f,
+	0x0a, 0x1b, 0x47, 0x65, 0x74, 0x43, 0x61, 0x6e, 0x6e, 0x79, 0x55, 0x73, 0x65, 0x72, 0x53, 0x53,
+	0x4f, 0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x20, 0x0a,
+	0x07, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x42, 0x07,
+	0xfa, 0x42, 0x04, 0x32, 0x02, 0x20, 0x00, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x22,
+	0x34, 0x0a, 0x1c, 0x47, 0x65, 0x74, 0x43, 0x61, 0x6e, 0x6e, 0x79, 0x55, 0x73, 0x65, 0x72, 0x53,
+	0x53, 0x4f, 0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
+	0x14, 0x0a, 0x05, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05,
+	0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x42, 0xf4, 0x01, 0x0a, 0x13, 0x63, 0x6f, 0x6d, 0x2e, 0x75, 0x73,
+	0x65, 0x72, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x76, 0x31, 0x42, 0x14, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x50, 0x72,
+	0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x6e, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f,
+	0x6d, 0x2f, 0x53, 0x6f, 0x6c, 0x6f, 0x6d, 0x6f, 0x6e, 0x41, 0x49, 0x45, 0x6e, 0x67, 0x69, 0x6e,
+	0x65, 0x65, 0x72, 0x69, 0x6e, 0x67, 0x2f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2d, 0x6c,
+	0x65, 0x76, 0x65, 0x6c, 0x2d, 0x61, 0x70, 0x69, 0x2f, 0x70, 0x6b, 0x67, 0x2f, 0x67, 0x65, 0x6e,
+	0x65, 0x72, 0x61, 0x74, 0x65, 0x64, 0x2f, 0x75, 0x73, 0x65, 0x72, 0x2d, 0x73, 0x65, 0x72, 0x76,
+	0x69, 0x63, 0x65, 0x2f, 0x76, 0x31, 0x2f, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x73, 0x65, 0x72, 0x76,
+	0x69, 0x63, 0x65, 0x2f, 0x76, 0x31, 0x3b, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x73, 0x65, 0x72, 0x76,
+	0x69, 0x63, 0x65, 0x76, 0x31, 0xa2, 0x02, 0x03, 0x55, 0x58, 0x58, 0xaa, 0x02, 0x0e, 0x55, 0x73,
+	0x65, 0x72, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x56, 0x31, 0xca, 0x02, 0x0e, 0x55,
+	0x73, 0x65, 0x72, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x5c, 0x56, 0x31, 0xe2, 0x02, 0x1a,
+	0x55, 0x73, 0x65, 0x72, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x5c, 0x56, 0x31, 0x5c, 0x47,
+	0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x0f, 0x55, 0x73, 0x65,
+	0x72, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x3a, 0x3a, 0x56, 0x31, 0x62, 0x06, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -3685,7 +3788,7 @@ func file_user_service_v1_request_response_proto_rawDescGZIP() []byte {
 	return file_user_service_v1_request_response_proto_rawDescData
 }
 
-var file_user_service_v1_request_response_proto_msgTypes = make([]protoimpl.MessageInfo, 56)
+var file_user_service_v1_request_response_proto_msgTypes = make([]protoimpl.MessageInfo, 58)
 var file_user_service_v1_request_response_proto_goTypes = []interface{}{
 	(*GetUserRequest)(nil),                     // 0: user_service.v1.GetUserRequest
 	(*GetUserResponse)(nil),                    // 1: user_service.v1.GetUserResponse
@@ -3743,46 +3846,48 @@ var file_user_service_v1_request_response_proto_goTypes = []interface{}{
 	(*PasswordResetWebhookV2Response)(nil),     // 53: user_service.v1.PasswordResetWebhookV2Response
 	(*GetUserByAuthnIDV2Request)(nil),          // 54: user_service.v1.GetUserByAuthnIDV2Request
 	(*GetUserByAuthnIDV2Response)(nil),         // 55: user_service.v1.GetUserByAuthnIDV2Response
-	(*UserAccount)(nil),                        // 56: user_service.v1.UserAccount
-	(*BusinessAccountSettings)(nil),            // 57: user_service.v1.BusinessAccountSettings
-	(ProfileType)(0),                           // 58: user_service.v1.ProfileType
-	(*BusinessAccount)(nil),                    // 59: user_service.v1.BusinessAccount
+	(*GetCannyUserSSOTokenRequest)(nil),        // 56: user_service.v1.GetCannyUserSSOTokenRequest
+	(*GetCannyUserSSOTokenResponse)(nil),       // 57: user_service.v1.GetCannyUserSSOTokenResponse
+	(*UserAccount)(nil),                        // 58: user_service.v1.UserAccount
+	(*BusinessAccountSettings)(nil),            // 59: user_service.v1.BusinessAccountSettings
+	(ProfileType)(0),                           // 60: user_service.v1.ProfileType
+	(*BusinessAccount)(nil),                    // 61: user_service.v1.BusinessAccount
 }
 var file_user_service_v1_request_response_proto_depIdxs = []int32{
-	56, // 0: user_service.v1.GetUserResponse.account:type_name -> user_service.v1.UserAccount
-	56, // 1: user_service.v1.UpdateUserRequest.account:type_name -> user_service.v1.UserAccount
-	56, // 2: user_service.v1.UpdateUserResponse.account:type_name -> user_service.v1.UserAccount
-	56, // 3: user_service.v1.CreateUserRequest.account:type_name -> user_service.v1.UserAccount
-	56, // 4: user_service.v1.GetUserByEmailOrUsernameResponse.account:type_name -> user_service.v1.UserAccount
-	56, // 5: user_service.v1.GetUserByUsernameResponse.account:type_name -> user_service.v1.UserAccount
-	56, // 6: user_service.v1.GetUserByEmailResponse.account:type_name -> user_service.v1.UserAccount
-	57, // 7: user_service.v1.GetBusinessSettingsResponse.business_settings:type_name -> user_service.v1.BusinessAccountSettings
-	58, // 8: user_service.v1.GetUserV2Request.profile_type:type_name -> user_service.v1.ProfileType
-	56, // 9: user_service.v1.GetUserV2Response.user_account:type_name -> user_service.v1.UserAccount
-	59, // 10: user_service.v1.GetUserV2Response.business_account:type_name -> user_service.v1.BusinessAccount
-	58, // 11: user_service.v1.DeleteUserV2Request.profile_type:type_name -> user_service.v1.ProfileType
-	56, // 12: user_service.v1.UpdateUserV2Request.user_account:type_name -> user_service.v1.UserAccount
-	59, // 13: user_service.v1.UpdateUserV2Request.business_account:type_name -> user_service.v1.BusinessAccount
-	56, // 14: user_service.v1.UpdateUserV2Response.user_account:type_name -> user_service.v1.UserAccount
-	59, // 15: user_service.v1.UpdateUserV2Response.business_account:type_name -> user_service.v1.BusinessAccount
-	56, // 16: user_service.v1.CreateUserV2Request.user_account:type_name -> user_service.v1.UserAccount
-	59, // 17: user_service.v1.CreateUserV2Request.business_account:type_name -> user_service.v1.BusinessAccount
-	58, // 18: user_service.v1.GetUserIdV2Request.profile_type:type_name -> user_service.v1.ProfileType
-	58, // 19: user_service.v1.GetUserByEmailOrUsernameV2Request.profile_type:type_name -> user_service.v1.ProfileType
-	56, // 20: user_service.v1.GetUserByEmailOrUsernameV2Response.user_account:type_name -> user_service.v1.UserAccount
-	59, // 21: user_service.v1.GetUserByEmailOrUsernameV2Response.business_account:type_name -> user_service.v1.BusinessAccount
-	58, // 22: user_service.v1.VerifyUserV2Request.profile_type:type_name -> user_service.v1.ProfileType
-	58, // 23: user_service.v1.GetUserByUsernameV2Request.profile_type:type_name -> user_service.v1.ProfileType
-	56, // 24: user_service.v1.GetUserByUsernameV2Response.user_account:type_name -> user_service.v1.UserAccount
-	59, // 25: user_service.v1.GetUserByUsernameV2Response.business_account:type_name -> user_service.v1.BusinessAccount
-	58, // 26: user_service.v1.CheckUsernameExistsV2Request.profile_type:type_name -> user_service.v1.ProfileType
-	58, // 27: user_service.v1.CheckEmailExistsV2Request.profile_type:type_name -> user_service.v1.ProfileType
-	58, // 28: user_service.v1.GetUserByEmailV2Request.profile_type:type_name -> user_service.v1.ProfileType
-	56, // 29: user_service.v1.GetUserByEmailV2Response.user_account:type_name -> user_service.v1.UserAccount
-	59, // 30: user_service.v1.GetUserByEmailV2Response.business_account:type_name -> user_service.v1.BusinessAccount
-	58, // 31: user_service.v1.GetUserByAuthnIDV2Request.profile_type:type_name -> user_service.v1.ProfileType
-	56, // 32: user_service.v1.GetUserByAuthnIDV2Response.user_account:type_name -> user_service.v1.UserAccount
-	59, // 33: user_service.v1.GetUserByAuthnIDV2Response.business_account:type_name -> user_service.v1.BusinessAccount
+	58, // 0: user_service.v1.GetUserResponse.account:type_name -> user_service.v1.UserAccount
+	58, // 1: user_service.v1.UpdateUserRequest.account:type_name -> user_service.v1.UserAccount
+	58, // 2: user_service.v1.UpdateUserResponse.account:type_name -> user_service.v1.UserAccount
+	58, // 3: user_service.v1.CreateUserRequest.account:type_name -> user_service.v1.UserAccount
+	58, // 4: user_service.v1.GetUserByEmailOrUsernameResponse.account:type_name -> user_service.v1.UserAccount
+	58, // 5: user_service.v1.GetUserByUsernameResponse.account:type_name -> user_service.v1.UserAccount
+	58, // 6: user_service.v1.GetUserByEmailResponse.account:type_name -> user_service.v1.UserAccount
+	59, // 7: user_service.v1.GetBusinessSettingsResponse.business_settings:type_name -> user_service.v1.BusinessAccountSettings
+	60, // 8: user_service.v1.GetUserV2Request.profile_type:type_name -> user_service.v1.ProfileType
+	58, // 9: user_service.v1.GetUserV2Response.user_account:type_name -> user_service.v1.UserAccount
+	61, // 10: user_service.v1.GetUserV2Response.business_account:type_name -> user_service.v1.BusinessAccount
+	60, // 11: user_service.v1.DeleteUserV2Request.profile_type:type_name -> user_service.v1.ProfileType
+	58, // 12: user_service.v1.UpdateUserV2Request.user_account:type_name -> user_service.v1.UserAccount
+	61, // 13: user_service.v1.UpdateUserV2Request.business_account:type_name -> user_service.v1.BusinessAccount
+	58, // 14: user_service.v1.UpdateUserV2Response.user_account:type_name -> user_service.v1.UserAccount
+	61, // 15: user_service.v1.UpdateUserV2Response.business_account:type_name -> user_service.v1.BusinessAccount
+	58, // 16: user_service.v1.CreateUserV2Request.user_account:type_name -> user_service.v1.UserAccount
+	61, // 17: user_service.v1.CreateUserV2Request.business_account:type_name -> user_service.v1.BusinessAccount
+	60, // 18: user_service.v1.GetUserIdV2Request.profile_type:type_name -> user_service.v1.ProfileType
+	60, // 19: user_service.v1.GetUserByEmailOrUsernameV2Request.profile_type:type_name -> user_service.v1.ProfileType
+	58, // 20: user_service.v1.GetUserByEmailOrUsernameV2Response.user_account:type_name -> user_service.v1.UserAccount
+	61, // 21: user_service.v1.GetUserByEmailOrUsernameV2Response.business_account:type_name -> user_service.v1.BusinessAccount
+	60, // 22: user_service.v1.VerifyUserV2Request.profile_type:type_name -> user_service.v1.ProfileType
+	60, // 23: user_service.v1.GetUserByUsernameV2Request.profile_type:type_name -> user_service.v1.ProfileType
+	58, // 24: user_service.v1.GetUserByUsernameV2Response.user_account:type_name -> user_service.v1.UserAccount
+	61, // 25: user_service.v1.GetUserByUsernameV2Response.business_account:type_name -> user_service.v1.BusinessAccount
+	60, // 26: user_service.v1.CheckUsernameExistsV2Request.profile_type:type_name -> user_service.v1.ProfileType
+	60, // 27: user_service.v1.CheckEmailExistsV2Request.profile_type:type_name -> user_service.v1.ProfileType
+	60, // 28: user_service.v1.GetUserByEmailV2Request.profile_type:type_name -> user_service.v1.ProfileType
+	58, // 29: user_service.v1.GetUserByEmailV2Response.user_account:type_name -> user_service.v1.UserAccount
+	61, // 30: user_service.v1.GetUserByEmailV2Response.business_account:type_name -> user_service.v1.BusinessAccount
+	60, // 31: user_service.v1.GetUserByAuthnIDV2Request.profile_type:type_name -> user_service.v1.ProfileType
+	58, // 32: user_service.v1.GetUserByAuthnIDV2Response.user_account:type_name -> user_service.v1.UserAccount
+	61, // 33: user_service.v1.GetUserByAuthnIDV2Response.business_account:type_name -> user_service.v1.BusinessAccount
 	34, // [34:34] is the sub-list for method output_type
 	34, // [34:34] is the sub-list for method input_type
 	34, // [34:34] is the sub-list for extension type_name
@@ -4469,6 +4574,30 @@ func file_user_service_v1_request_response_proto_init() {
 				return nil
 			}
 		}
+		file_user_service_v1_request_response_proto_msgTypes[56].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetCannyUserSSOTokenRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_user_service_v1_request_response_proto_msgTypes[57].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetCannyUserSSOTokenResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	file_user_service_v1_request_response_proto_msgTypes[31].OneofWrappers = []interface{}{
 		(*GetUserV2Response_UserAccount)(nil),
@@ -4508,7 +4637,7 @@ func file_user_service_v1_request_response_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_user_service_v1_request_response_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   56,
+			NumMessages:   58,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

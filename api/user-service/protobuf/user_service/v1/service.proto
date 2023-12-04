@@ -676,4 +676,24 @@ service UserService {
             }
         };
     }
+
+    // the following endpoints are for the canny integration. it returns the sso token for a given user
+    rpc GetCannyUserSSOToken(GetCannyUserSSOTokenRequest) returns (GetCannyUserSSOTokenResponse) {
+        option (google.api.http) = {get: "/api/v2/user/canny/{user_id}"};
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Retrieves user sso token for canny",
+            tags: ["account", "v2"],
+            operation_id: "GetCannyUserSSOToken",
+            description: "Fetches a user sso token for canny",
+            responses: {
+                key: "200",
+                value: {
+                    description: "Successful retrieval of user account sso token.",
+                    schema: {
+                        json_schema: {ref: ".api.v1.GetCannyUserSSOTokenResposne"}
+                    }
+                }
+            }
+        };
+    }
 }

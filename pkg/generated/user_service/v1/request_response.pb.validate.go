@@ -7253,3 +7253,222 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetUserByAuthnIDV2ResponseValidationError{}
+
+// Validate checks the field values on GetCannyUserSSOTokenRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetCannyUserSSOTokenRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetCannyUserSSOTokenRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetCannyUserSSOTokenRequestMultiError, or nil if none found.
+func (m *GetCannyUserSSOTokenRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetCannyUserSSOTokenRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetUserId() <= 0 {
+		err := GetCannyUserSSOTokenRequestValidationError{
+			field:  "UserId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return GetCannyUserSSOTokenRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetCannyUserSSOTokenRequestMultiError is an error wrapping multiple
+// validation errors returned by GetCannyUserSSOTokenRequest.ValidateAll() if
+// the designated constraints aren't met.
+type GetCannyUserSSOTokenRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetCannyUserSSOTokenRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetCannyUserSSOTokenRequestMultiError) AllErrors() []error { return m }
+
+// GetCannyUserSSOTokenRequestValidationError is the validation error returned
+// by GetCannyUserSSOTokenRequest.Validate if the designated constraints
+// aren't met.
+type GetCannyUserSSOTokenRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetCannyUserSSOTokenRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetCannyUserSSOTokenRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetCannyUserSSOTokenRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetCannyUserSSOTokenRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetCannyUserSSOTokenRequestValidationError) ErrorName() string {
+	return "GetCannyUserSSOTokenRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetCannyUserSSOTokenRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetCannyUserSSOTokenRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetCannyUserSSOTokenRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetCannyUserSSOTokenRequestValidationError{}
+
+// Validate checks the field values on GetCannyUserSSOTokenResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetCannyUserSSOTokenResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetCannyUserSSOTokenResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetCannyUserSSOTokenResponseMultiError, or nil if none found.
+func (m *GetCannyUserSSOTokenResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetCannyUserSSOTokenResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Token
+
+	if len(errors) > 0 {
+		return GetCannyUserSSOTokenResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetCannyUserSSOTokenResponseMultiError is an error wrapping multiple
+// validation errors returned by GetCannyUserSSOTokenResponse.ValidateAll() if
+// the designated constraints aren't met.
+type GetCannyUserSSOTokenResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetCannyUserSSOTokenResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetCannyUserSSOTokenResponseMultiError) AllErrors() []error { return m }
+
+// GetCannyUserSSOTokenResponseValidationError is the validation error returned
+// by GetCannyUserSSOTokenResponse.Validate if the designated constraints
+// aren't met.
+type GetCannyUserSSOTokenResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetCannyUserSSOTokenResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetCannyUserSSOTokenResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetCannyUserSSOTokenResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetCannyUserSSOTokenResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetCannyUserSSOTokenResponseValidationError) ErrorName() string {
+	return "GetCannyUserSSOTokenResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetCannyUserSSOTokenResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetCannyUserSSOTokenResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetCannyUserSSOTokenResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetCannyUserSSOTokenResponseValidationError{}

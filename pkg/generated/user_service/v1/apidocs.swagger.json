@@ -1121,6 +1121,59 @@
         ]
       }
     },
+    "/api/v2/user/canny/{userId}": {
+      "get": {
+        "summary": "Retrieves user sso token for canny",
+        "description": "Fetches a user sso token for canny",
+        "operationId": "GetCannyUserSSOToken",
+        "responses": {
+          "200": {
+            "description": "Successful retrieval of user account sso token.",
+            "schema": {
+              "$ref": ".api.v1.GetCannyUserSSOTokenResposne"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "description": "The account ID associated with the user",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "account",
+          "v2"
+        ]
+      }
+    },
     "/api/v2/user/email/{email}": {
       "get": {
         "summary": "Retrieve user details by email",
@@ -2086,6 +2139,14 @@
       "properties": {
         "businessSettings": {
           "$ref": "#/definitions/BusinessAccountSettings"
+        }
+      }
+    },
+    "GetCannyUserSSOTokenResponse": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
         }
       }
     },
