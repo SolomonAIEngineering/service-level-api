@@ -51,3 +51,6 @@ gen:
 	done
 	make all
 	./generate.sh
+
+precommit: gen fmt lint test
+	cd component-library && make precommit && cd ..

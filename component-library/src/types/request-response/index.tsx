@@ -36,3 +36,4 @@ export * from './plaid-token-update';
 export * from './reset-password';
 export * from './update-user-profile';
 export * from './create-account-v2';
+export * from './canny-sso-token';

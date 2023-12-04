@@ -260,6 +260,9 @@ export interface FinancialPreferences {
  * @default "FREQUENCY_UNSPECIFIED"
  */
 export type Frequency = "FREQUENCY_UNSPECIFIED" | "FREQUENCY_DAILY" | "FREQUENCY_WEEKLY" | "FREQUENCY_MONTHLY";
+export interface GetCannyUserSSOTokenResponse {
+	token?: string;
+}
 export interface IntegrationSettings {
 	/** wether to enable linking bank account for account */
 	bankAccountLinking?: boolean;
@@ -2145,6 +2148,13 @@ export type ListTransactionNotesData = any;
 export interface ListTransactionNotesResponse {
 	/** The notes */
 	notes?: Array<SmartNote>;
+}
+export type ListTransactions2Data = any;
+/** ListTransactionsResponse is the list transaction response */
+export interface ListTransactionsAcrossAllAccountsResponse {
+	/** @format uint64 */
+	nextPage?: string;
+	transactions?: Array<PlaidAccountTransaction>;
 }
 export type ListTransactionsData = any;
 /** ListTransactionsResponse is the list transaction response */
@@ -8743,6 +8753,16 @@ export declare class CreateUserV2ResponseClass extends ErrorResponse implements 
 	userId?: string;
 	constructor(data?: Partial<CreateUserV2Response>);
 	static randomInstance(): CreateUserV2Response;
+}
+export declare class GetCannyUserSSOTokenRequestClass implements IRequest {
+	/** The email of the user of interest */
+	userId: number;
+	constructor(data?: Partial<GetCannyUserSSOTokenRequestClass>);
+	isValid(): boolean;
+}
+export declare class GetCannyUserSSOTokenResponseClass extends ErrorResponse implements GetCannyUserSSOTokenResponse {
+	token: string;
+	constructor(data?: Partial<GetCannyUserSSOTokenResponse>);
 }
 /**
  * Represents individual data points for the chart.
