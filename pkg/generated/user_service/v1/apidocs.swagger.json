@@ -2192,6 +2192,9 @@
         },
         "businessAccount": {
           "$ref": "#/definitions/BusinessAccount"
+        },
+        "ssoToken": {
+          "type": "string"
         }
       }
     },
@@ -2232,6 +2235,9 @@
         },
         "businessAccount": {
           "$ref": "#/definitions/BusinessAccount"
+        },
+        "ssoToken": {
+          "type": "string"
         }
       }
     },

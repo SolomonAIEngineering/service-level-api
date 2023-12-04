@@ -5208,6 +5208,8 @@ func (m *GetUserByEmailOrUsernameV2Response) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for SsoToken
+
 	switch v := m.Account.(type) {
 	case *GetUserByEmailOrUsernameV2Response_UserAccount:
 		if v == nil {
@@ -5723,6 +5725,8 @@ func (m *GetUserByUsernameV2Response) validate(all bool) error {
 	}
 
 	var errors []error
+
+	// no validation rules for SsoToken
 
 	switch v := m.Account.(type) {
 	case *GetUserByUsernameV2Response_UserAccount:
