@@ -1,3 +1,10 @@
+# [1.141.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.140.0...v1.141.0) (2023-12-04)
+
+
+### Features
+
+* add sso token on user service queries ([c398aef](https://github.com/SolomonAIEngineering/service-level-api/commit/c398aef3a4b45ae68b7c246314454d91bd83ebe9))
+
 # [1.140.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.139.0...v1.140.0) (2023-12-04)
 
 
