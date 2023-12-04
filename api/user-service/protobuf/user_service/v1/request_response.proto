@@ -623,6 +623,17 @@ message GetUserByAuthnIDV2Response {
 message GetCannyUserSSOTokenRequest {
   // The account ID associated with the user
   uint64 user_id = 1 [(validate.rules).uint64.gt = 0];
+    /**
+   * Indicates the profile type to be queried.
+   * For example: "username:testuser"
+   */
+   ProfileType profile_type = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"username:testuser\""
+    },
+    (google.api.field_behavior) = REQUIRED   
+  ];
 }
 
 message GetCannyUserSSOTokenResponse { string token = 1; }
