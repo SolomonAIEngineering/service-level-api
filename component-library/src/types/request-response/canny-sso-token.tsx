@@ -1,10 +1,14 @@
-import { GetCannyUserSSOTokenResponse } from 'src/data-contracts/user-service/data-contracts';
+import {
+  GetCannyUserSSOTokenResponse,
+  ProfileType,
+} from 'src/data-contracts/user-service/data-contracts';
 import { ErrorResponse } from '../error';
 import { IRequest } from './IRequest';
 
 export class GetCannyUserSSOTokenRequestClass implements IRequest {
   /** The email of the user of interest */
   userId: number = 0;
+  profileType: ProfileType = 'PROFILE_TYPE_UNSPECIFIED';
 
   constructor(data?: Partial<GetCannyUserSSOTokenRequestClass>) {
     if (data) {

@@ -7161,6 +7161,7 @@ class BTe {
   constructor(t) {
     /** The email of the user of interest */
     E(this, "userId", 0);
+    E(this, "profileType", "PROFILE_TYPE_UNSPECIFIED");
     t && Object.assign(this, {
       ...t
     });

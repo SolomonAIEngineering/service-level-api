@@ -8757,6 +8757,7 @@ export declare class CreateUserV2ResponseClass extends ErrorResponse implements 
 export declare class GetCannyUserSSOTokenRequestClass implements IRequest {
 	/** The email of the user of interest */
 	userId: number;
+	profileType: ProfileType;
 	constructor(data?: Partial<GetCannyUserSSOTokenRequestClass>);
 	isValid(): boolean;
 }
