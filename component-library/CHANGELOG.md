@@ -1,3 +1,12 @@
+# [1.139.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.138.0...v1.139.0) (2023-12-04)
+
+
+### Features
+
+* add canny request and response api ([159ea11](https://github.com/SolomonAIEngineering/service-level-api/commit/159ea11765bc96e1550c2c07546727eaef74d324))
+* remove db module ([eb6d413](https://github.com/SolomonAIEngineering/service-level-api/commit/eb6d4139c80cbe7527afcf38da3661c8df6ddec7))
+* update component library and add canny sso token ([2a27403](https://github.com/SolomonAIEngineering/service-level-api/commit/2a27403b5fbbb1d5b05476dcea90f3f921ea8ffe))
+
 # [1.138.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.137.0...v1.138.0) (2023-12-01)
 
 ### Features
