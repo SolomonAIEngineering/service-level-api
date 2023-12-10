@@ -5747,7 +5747,7 @@ func request_FinancialService_PollAsyncTaskExecutionStatus_0(ctx context.Context
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "task_id")
 	}
 
-	protoReq.TaskId, err = runtime.Uint64(val)
+	protoReq.TaskId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "task_id", err)
 	}
@@ -5773,7 +5773,7 @@ func local_request_FinancialService_PollAsyncTaskExecutionStatus_0(ctx context.C
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "task_id")
 	}
 
-	protoReq.TaskId, err = runtime.Uint64(val)
+	protoReq.TaskId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "task_id", err)
 	}

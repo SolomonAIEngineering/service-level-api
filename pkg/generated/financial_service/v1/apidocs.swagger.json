@@ -2194,8 +2194,7 @@
             "description": "The task id\nValidations:\n- task_id must be greater than 0",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           }
         ],
         "tags": [

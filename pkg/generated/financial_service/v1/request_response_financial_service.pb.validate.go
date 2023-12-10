@@ -19815,16 +19815,7 @@ func (m *PollAsyncTaskExecutionStatusRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetTaskId() <= 0 {
-		err := PollAsyncTaskExecutionStatusRequestValidationError{
-			field:  "TaskId",
-			reason: "value must be greater than 0",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for TaskId
 
 	if len(errors) > 0 {
 		return PollAsyncTaskExecutionStatusRequestMultiError(errors)
