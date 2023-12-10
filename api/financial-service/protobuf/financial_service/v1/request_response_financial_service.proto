@@ -1624,8 +1624,7 @@ message PollAsyncTaskExecutionStatusRequest {
   // The task id
   // Validations:
   // - task_id must be greater than 0
-  uint64 task_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string task_id = 1 [
     (google.api.field_behavior) = REQUIRED
   ];
 }
