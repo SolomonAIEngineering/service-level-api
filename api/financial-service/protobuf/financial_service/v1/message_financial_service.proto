@@ -572,6 +572,9 @@ message Pocket {
 
   // The type of the pocket
   PocketType type = 4;
+
+  // the tags tied to this pocket
+  repeated string tags = 5;
 }
 
 /*

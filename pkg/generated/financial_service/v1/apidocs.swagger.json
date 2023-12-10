@@ -10264,6 +10264,13 @@
         "type": {
           "$ref": "#/definitions/PocketType",
           "title": "The type of the pocket"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "the tags tied to this pocket"
         }
       },
       "title": "Pocket is an abstraction of a over a bank account. A user can has at most 4 pockets per connected account\nNOTE: these pockets are automatically created by the system and should not be exposed for mutation\nby any client. The only operations that can be performed against a pocket are:\n1. Get the pocket\n2. Get the pocket's smart goals\n3. Adding a smart goal to the pocket"

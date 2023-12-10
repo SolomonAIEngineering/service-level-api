@@ -1867,6 +1867,7 @@ type PocketORM struct {
 	BankAccountId *uint64
 	Goals         []*SmartGoalORM `gorm:"foreignkey:PocketId;association_foreignkey:Id;preload:true"`
 	Id            uint64
+	Tags          pq.StringArray `gorm:"type:text[]"`
 	Type          string
 }
 
@@ -1898,6 +1899,10 @@ func (m *Pocket) ToORM(ctx context.Context) (PocketORM, error) {
 		}
 	}
 	to.Type = PocketType_name[int32(m.Type)]
+	if m.Tags != nil {
+		to.Tags = make(pq.StringArray, len(m.Tags))
+		copy(to.Tags, m.Tags)
+	}
 	if posthook, ok := interface{}(m).(PocketWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -1927,6 +1932,10 @@ func (m *PocketORM) ToPB(ctx context.Context) (Pocket, error) {
 		}
 	}
 	to.Type = PocketType(PocketType_value[m.Type])
+	if m.Tags != nil {
+		to.Tags = make(pq.StringArray, len(m.Tags))
+		copy(to.Tags, m.Tags)
+	}
 	if posthook, ok := interface{}(m).(PocketWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -9505,6 +9514,10 @@ func DefaultApplyFieldMaskPocket(ctx context.Context, patchee *Pocket, patcher *
 		}
 		if f == prefix+"Type" {
 			patchee.Type = patcher.Type
+			continue
+		}
+		if f == prefix+"Tags" {
+			patchee.Tags = patcher.Tags
 			continue
 		}
 	}

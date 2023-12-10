@@ -2764,6 +2764,8 @@ export interface Pocket {
    * @format uint64
    */
   id?: string;
+  /** the tags tied to this pocket */
+  tags?: Array<string>;
   /** The type of the pocket */
   type?: PocketType;
 }

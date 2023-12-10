@@ -30,6 +30,7 @@ func newPocketORM(db *gorm.DB, opts ...gen.DOOption) pocketORM {
 	_pocketORM.ALL = field.NewAsterisk(tableName)
 	_pocketORM.BankAccountId = field.NewUint64(tableName, "bank_account_id")
 	_pocketORM.Id = field.NewUint64(tableName, "id")
+	_pocketORM.Tags = field.NewField(tableName, "tags")
 	_pocketORM.Type = field.NewString(tableName, "type")
 	_pocketORM.Goals = pocketORMHasManyGoals{
 		db: db.Session(&gorm.Session{}),
@@ -82,6 +83,7 @@ type pocketORM struct {
 	ALL           field.Asterisk
 	BankAccountId field.Uint64
 	Id            field.Uint64
+	Tags          field.Field
 	Type          field.String
 	Goals         pocketORMHasManyGoals
 
@@ -102,6 +104,7 @@ func (p *pocketORM) updateTableName(table string) *pocketORM {
 	p.ALL = field.NewAsterisk(table)
 	p.BankAccountId = field.NewUint64(table, "bank_account_id")
 	p.Id = field.NewUint64(table, "id")
+	p.Tags = field.NewField(table, "tags")
 	p.Type = field.NewString(table, "type")
 
 	p.fillFieldMap()
@@ -119,9 +122,10 @@ func (p *pocketORM) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (p *pocketORM) fillFieldMap() {
-	p.fieldMap = make(map[string]field.Expr, 4)
+	p.fieldMap = make(map[string]field.Expr, 5)
 	p.fieldMap["bank_account_id"] = p.BankAccountId
 	p.fieldMap["id"] = p.Id
+	p.fieldMap["tags"] = p.Tags
 	p.fieldMap["type"] = p.Type
 
 }
