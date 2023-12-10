@@ -6700,9 +6700,8 @@
           "format": "uint64",
           "title": "The user id\nValidations:\n- user_id must be greater than 0"
         },
-        "accountId": {
+        "plaidAccountId": {
           "type": "string",
-          "format": "uint64",
           "title": "The bank account id\nValidations:\n- account_id must be greater than 0"
         },
         "profileType": {
@@ -6715,7 +6714,7 @@
       },
       "required": [
         "userId",
-        "accountId",
+        "plaidAccountId",
         "profileType",
         "financialAccountType"
       ]

@@ -905,8 +905,7 @@ message AddDefaultPocketsToBankAccountRequest {
   // The bank account id
   // Validations:
   // - account_id must be greater than 0
-  uint64 account_id = 2 [
-    (validate.rules).uint64.gt = 0,
+  string plaid_account_id = 2 [
     (google.api.field_behavior) = REQUIRED
   ];
   FinancialUserProfileType profile_type = 9 [

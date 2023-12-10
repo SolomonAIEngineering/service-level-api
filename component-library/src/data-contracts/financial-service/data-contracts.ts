@@ -52,17 +52,16 @@ export type AddDefaultPocketsToBankAccountData = any;
 
 export interface AddDefaultPocketsToBankAccountRequest {
   /**
-   * The bank account id
-   * Validations:
-   * - account_id must be greater than 0
-   * @format uint64
-   */
-  accountId: string;
-  /**
    * The financial account type
    * as of now we only support credit and bank accounts
    */
   financialAccountType: FinancialAccountType;
+  /**
+   * The bank account id
+   * Validations:
+   * - account_id must be greater than 0
+   */
+  plaidAccountId: string;
   profileType: FinancialUserProfileType;
   /**
    * The user id

@@ -10287,16 +10287,7 @@ func (m *AddDefaultPocketsToBankAccountRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if m.GetAccountId() <= 0 {
-		err := AddDefaultPocketsToBankAccountRequestValidationError{
-			field:  "AccountId",
-			reason: "value must be greater than 0",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for PlaidAccountId
 
 	// no validation rules for ProfileType
 
