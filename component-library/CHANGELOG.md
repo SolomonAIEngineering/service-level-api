@@ -1,3 +1,10 @@
+# [1.149.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.148.0...v1.149.0) (2023-12-10)
+
+
+### Features
+
+* update pocket type ([19da0b7](https://github.com/SolomonAIEngineering/service-level-api/commit/19da0b7269f12c69f37496340a7509b142e8af9e))
+
 # [1.148.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.147.0...v1.148.0) (2023-12-10)
 
 
