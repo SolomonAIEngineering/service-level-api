@@ -1,3 +1,10 @@
+# [1.146.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.145.0...v1.146.0) (2023-12-10)
+
+
+### Features
+
+* update write to cache with ttl ([0d9fe97](https://github.com/SolomonAIEngineering/service-level-api/commit/0d9fe9795403bcc7ff52ee8cadf3c9e087e6ba0b))
+
 # [1.145.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.144.0...v1.145.0) (2023-12-10)
 
 
