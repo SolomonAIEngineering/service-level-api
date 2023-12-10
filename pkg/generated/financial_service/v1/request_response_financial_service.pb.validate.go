@@ -19935,39 +19935,6 @@ func (m *PollAsyncTaskExecutionStatusResponse) validate(all bool) error {
 
 	// no validation rules for Status
 
-	if all {
-		switch v := interface{}(m.GetCompletedAt()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, PollAsyncTaskExecutionStatusResponseValidationError{
-					field:  "CompletedAt",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, PollAsyncTaskExecutionStatusResponseValidationError{
-					field:  "CompletedAt",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetCompletedAt()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return PollAsyncTaskExecutionStatusResponseValidationError{
-				field:  "CompletedAt",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	// no validation rules for IsOrphaned
-
-	// no validation rules for TaskType
-
 	if len(errors) > 0 {
 		return PollAsyncTaskExecutionStatusResponseMultiError(errors)
 	}

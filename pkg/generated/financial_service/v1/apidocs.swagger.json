@@ -10284,25 +10284,11 @@
       "properties": {
         "taskId": {
           "type": "string",
-          "format": "uint64",
           "title": "The task id"
         },
         "status": {
           "$ref": "#/definitions/TaskState",
           "title": "The task status"
-        },
-        "completedAt": {
-          "type": "string",
-          "format": "date-time",
-          "title": "The time the task completed"
-        },
-        "isOrphaned": {
-          "type": "boolean",
-          "title": "Wether the task is orphaned"
-        },
-        "taskType": {
-          "type": "string",
-          "title": "The type of task that was executed"
         }
       }
     },

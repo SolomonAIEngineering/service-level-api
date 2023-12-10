@@ -2781,13 +2781,6 @@ export type PollAsyncTaskExecutionStatusData = any;
 
 export interface PollAsyncTaskExecutionStatusResponse {
   /**
-   * The time the task completed
-   * @format date-time
-   */
-  completedAt?: string;
-  /** Wether the task is orphaned */
-  isOrphaned?: boolean;
-  /**
    * The task status
    *  - TASK_STATE_UNSPECIFIED: The zero value is omitted in proto3 by convention if it's not used.
    * In your case, since you start your iota with 1, we will not define a zero value.
@@ -2800,13 +2793,8 @@ export interface PollAsyncTaskExecutionStatusResponse {
    *  - TASK_STATE_AGGREGATING: Indicates that the task is waiting in a group to be aggregated into one task.
    */
   status?: TaskState;
-  /**
-   * The task id
-   * @format uint64
-   */
+  /** The task id */
   taskId?: string;
-  /** The type of task that was executed */
-  taskType?: string;
 }
 
 /** @default "RE_CURRING_FLOW_UNSPECIFIED" */
