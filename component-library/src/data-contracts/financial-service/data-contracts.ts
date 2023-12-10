@@ -73,8 +73,8 @@ export interface AddDefaultPocketsToBankAccountRequest {
 }
 
 export interface AddDefaultPocketsToBankAccountResponse {
-  /** The bank account id */
   bankAccount?: BankAccount;
+  creditAccount?: CreditAccount;
 }
 
 export type AddNoteToRecurringTransactionData = any;

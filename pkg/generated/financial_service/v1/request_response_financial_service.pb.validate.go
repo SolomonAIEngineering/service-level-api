@@ -10415,33 +10415,91 @@ func (m *AddDefaultPocketsToBankAccountResponse) validate(all bool) error {
 
 	var errors []error
 
-	if all {
-		switch v := interface{}(m.GetBankAccount()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, AddDefaultPocketsToBankAccountResponseValidationError{
-					field:  "BankAccount",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
+	switch v := m.Account.(type) {
+	case *AddDefaultPocketsToBankAccountResponse_BankAccount:
+		if v == nil {
+			err := AddDefaultPocketsToBankAccountResponseValidationError{
+				field:  "Account",
+				reason: "oneof value cannot be a typed-nil",
 			}
-		case interface{ Validate() error }:
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetBankAccount()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, AddDefaultPocketsToBankAccountResponseValidationError{
+						field:  "BankAccount",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, AddDefaultPocketsToBankAccountResponseValidationError{
+						field:  "BankAccount",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetBankAccount()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				errors = append(errors, AddDefaultPocketsToBankAccountResponseValidationError{
+				return AddDefaultPocketsToBankAccountResponseValidationError{
 					field:  "BankAccount",
 					reason: "embedded message failed validation",
 					cause:  err,
-				})
+				}
 			}
 		}
-	} else if v, ok := interface{}(m.GetBankAccount()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return AddDefaultPocketsToBankAccountResponseValidationError{
-				field:  "BankAccount",
-				reason: "embedded message failed validation",
-				cause:  err,
+
+	case *AddDefaultPocketsToBankAccountResponse_CreditAccount:
+		if v == nil {
+			err := AddDefaultPocketsToBankAccountResponseValidationError{
+				field:  "Account",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetCreditAccount()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, AddDefaultPocketsToBankAccountResponseValidationError{
+						field:  "CreditAccount",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, AddDefaultPocketsToBankAccountResponseValidationError{
+						field:  "CreditAccount",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetCreditAccount()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return AddDefaultPocketsToBankAccountResponseValidationError{
+					field:  "CreditAccount",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
 			}
 		}
+
+	default:
+		_ = v // ensures v is used
 	}
 
 	if len(errors) > 0 {

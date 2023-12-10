@@ -8,7 +8,6 @@ import (
 	"context"
 	"strings"
 
-	financial_servicev1 "github.com/SolomonAIEngineering/service-level-api/pkg/generated/financial_service/v1"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 	"gorm.io/gorm/schema"
@@ -18,6 +17,8 @@ import (
 	"gorm.io/gen/helper"
 
 	"gorm.io/plugin/dbresolver"
+
+	financial_servicev1 "github.com/SolomonAIEngineering/service-level-api/pkg/generated/financial_service/v1"
 )
 
 func newSmartGoalORM(db *gorm.DB, opts ...gen.DOOption) smartGoalORM {

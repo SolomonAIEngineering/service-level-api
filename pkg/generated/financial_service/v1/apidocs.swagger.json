@@ -6723,8 +6723,10 @@
       "type": "object",
       "properties": {
         "bankAccount": {
-          "$ref": "#/definitions/BankAccount",
-          "title": "The bank account id"
+          "$ref": "#/definitions/BankAccount"
+        },
+        "creditAccount": {
+          "$ref": "#/definitions/CreditAccount"
         }
       }
     },

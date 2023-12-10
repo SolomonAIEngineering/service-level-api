@@ -922,7 +922,10 @@ message AddDefaultPocketsToBankAccountRequest {
 
 message AddDefaultPocketsToBankAccountResponse {
   // The bank account id
-  BankAccount bank_account = 1;
+  oneof account {
+    BankAccount bank_account = 1;
+    CreditAccount credit_account = 2;
+  };
 }
 
 message DeletePocketRequest {
