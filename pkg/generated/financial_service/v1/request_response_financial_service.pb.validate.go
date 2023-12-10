@@ -19792,6 +19792,264 @@ var _ interface {
 	ErrorName() string
 } = GetRecurringTransactionResponseValidationError{}
 
+// Validate checks the field values on PollAsyncTaskExecutionStatusRequest with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *PollAsyncTaskExecutionStatusRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PollAsyncTaskExecutionStatusRequest
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// PollAsyncTaskExecutionStatusRequestMultiError, or nil if none found.
+func (m *PollAsyncTaskExecutionStatusRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PollAsyncTaskExecutionStatusRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetTaskId() <= 0 {
+		err := PollAsyncTaskExecutionStatusRequestValidationError{
+			field:  "TaskId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return PollAsyncTaskExecutionStatusRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// PollAsyncTaskExecutionStatusRequestMultiError is an error wrapping multiple
+// validation errors returned by
+// PollAsyncTaskExecutionStatusRequest.ValidateAll() if the designated
+// constraints aren't met.
+type PollAsyncTaskExecutionStatusRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PollAsyncTaskExecutionStatusRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PollAsyncTaskExecutionStatusRequestMultiError) AllErrors() []error { return m }
+
+// PollAsyncTaskExecutionStatusRequestValidationError is the validation error
+// returned by PollAsyncTaskExecutionStatusRequest.Validate if the designated
+// constraints aren't met.
+type PollAsyncTaskExecutionStatusRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PollAsyncTaskExecutionStatusRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PollAsyncTaskExecutionStatusRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PollAsyncTaskExecutionStatusRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PollAsyncTaskExecutionStatusRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PollAsyncTaskExecutionStatusRequestValidationError) ErrorName() string {
+	return "PollAsyncTaskExecutionStatusRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e PollAsyncTaskExecutionStatusRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPollAsyncTaskExecutionStatusRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PollAsyncTaskExecutionStatusRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PollAsyncTaskExecutionStatusRequestValidationError{}
+
+// Validate checks the field values on PollAsyncTaskExecutionStatusResponse
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
+func (m *PollAsyncTaskExecutionStatusResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PollAsyncTaskExecutionStatusResponse
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// PollAsyncTaskExecutionStatusResponseMultiError, or nil if none found.
+func (m *PollAsyncTaskExecutionStatusResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PollAsyncTaskExecutionStatusResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for TaskId
+
+	// no validation rules for Status
+
+	if all {
+		switch v := interface{}(m.GetCompletedAt()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PollAsyncTaskExecutionStatusResponseValidationError{
+					field:  "CompletedAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PollAsyncTaskExecutionStatusResponseValidationError{
+					field:  "CompletedAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCompletedAt()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PollAsyncTaskExecutionStatusResponseValidationError{
+				field:  "CompletedAt",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for IsOrphaned
+
+	// no validation rules for TaskType
+
+	if len(errors) > 0 {
+		return PollAsyncTaskExecutionStatusResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// PollAsyncTaskExecutionStatusResponseMultiError is an error wrapping multiple
+// validation errors returned by
+// PollAsyncTaskExecutionStatusResponse.ValidateAll() if the designated
+// constraints aren't met.
+type PollAsyncTaskExecutionStatusResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PollAsyncTaskExecutionStatusResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PollAsyncTaskExecutionStatusResponseMultiError) AllErrors() []error { return m }
+
+// PollAsyncTaskExecutionStatusResponseValidationError is the validation error
+// returned by PollAsyncTaskExecutionStatusResponse.Validate if the designated
+// constraints aren't met.
+type PollAsyncTaskExecutionStatusResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PollAsyncTaskExecutionStatusResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PollAsyncTaskExecutionStatusResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PollAsyncTaskExecutionStatusResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PollAsyncTaskExecutionStatusResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PollAsyncTaskExecutionStatusResponseValidationError) ErrorName() string {
+	return "PollAsyncTaskExecutionStatusResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e PollAsyncTaskExecutionStatusResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPollAsyncTaskExecutionStatusResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PollAsyncTaskExecutionStatusResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PollAsyncTaskExecutionStatusResponseValidationError{}
+
 // Validate checks the field values on
 // GetReCurringTransactionsResponse_ParticipantReCurringTransactions with the
 // rules defined in the proto definition for this message. If any rules are

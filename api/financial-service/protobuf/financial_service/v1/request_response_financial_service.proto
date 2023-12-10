@@ -4,6 +4,8 @@ package financial_service.v1;
 
 import "financial_service/v1/message_financial_service.proto";
 import "financial_service/v1/clickhouse_financial_service.proto";
+import "financial_service/v1/task_state.proto";
+
 option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/generated/financial_service/v1";
 import "validate/validate.proto";
 import "google/api/field_behavior.proto";
@@ -1616,4 +1618,27 @@ message GetRecurringTransactionRequest {
 message GetRecurringTransactionResponse {
   // the transaction queried
   PlaidAccountRecurringTransaction transaction = 1;
+}
+
+message PollAsyncTaskExecutionStatusRequest {
+  // The task id
+  // Validations:
+  // - task_id must be greater than 0
+  uint64 task_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message PollAsyncTaskExecutionStatusResponse {
+  // The task id
+  uint64 task_id = 1;
+  // The task status
+  TaskState status = 2;
+  // The time the task completed
+  google.protobuf.Timestamp completed_at = 3;
+  // Wether the task is orphaned
+  bool is_orphaned = 4;
+  // The type of task that was executed
+  string task_type = 5;
 }

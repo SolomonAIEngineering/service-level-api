@@ -1,0 +1,29 @@
+syntax = "proto3";
+package financial_service.v1;
+option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/generated/financial_service/v1";
+
+enum TaskState {
+  // The zero value is omitted in proto3 by convention if it's not used.
+  // In your case, since you start your iota with 1, we will not define a zero value.
+  TASK_STATE_UNSPECIFIED = 0;
+  // Indicates that the task is currently being processed by Handler.
+  TASK_STATE_ACTIVE = 1;
+
+  // Indicates that the task is ready to be processed by Handler.
+  TASK_STATE_PENDING = 2;
+
+  // Indicates that the task is scheduled to be processed some time in the future.
+  TASK_STATE_SCHEDULED = 3;
+
+  // Indicates that the task has previously failed and scheduled to be processed some time in the future.
+  TASK_STATE_RETRY = 4;
+
+  // Indicates that the task is archived and stored for inspection purposes.
+  TASK_STATE_ARCHIVED = 5;
+
+  // Indicates that the task is processed successfully and retained until the retention TTL expires.
+  TASK_STATE_COMPLETED = 6;
+
+  // Indicates that the task is waiting in a group to be aggregated into one task.
+  TASK_STATE_AGGREGATING = 7;
+}

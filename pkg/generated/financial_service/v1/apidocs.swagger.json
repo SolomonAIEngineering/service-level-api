@@ -2151,6 +2151,58 @@
         ]
       }
     },
+    "/api/v1/async-task/{taskId}": {
+      "get": {
+        "summary": "polls the status of an async task",
+        "description": "This endpoint polls the status of an async task",
+        "operationId": "PollAsyncTaskExecutionStatus",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.PollAsyncTaskExecutionStatusResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "taskId",
+            "description": "The task id\nValidations:\n- task_id must be greater than 0",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "async-task"
+        ]
+      }
+    },
     "/api/v1/bank-account": {
       "put": {
         "summary": "update a bank account for a given user profile",
@@ -10227,6 +10279,33 @@
       ],
       "default": "POCKET_TYPE_UNSPECIFIED"
     },
+    "PollAsyncTaskExecutionStatusResponse": {
+      "type": "object",
+      "properties": {
+        "taskId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "The task id"
+        },
+        "status": {
+          "$ref": "#/definitions/TaskState",
+          "title": "The task status"
+        },
+        "completedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "The time the task completed"
+        },
+        "isOrphaned": {
+          "type": "boolean",
+          "title": "Wether the task is orphaned"
+        },
+        "taskType": {
+          "type": "string",
+          "title": "The type of task that was executed"
+        }
+      }
+    },
     "ReCurringFlow": {
       "type": "string",
       "enum": [
@@ -10710,6 +10789,21 @@
           "title": "the bank account status"
         }
       }
+    },
+    "TaskState": {
+      "type": "string",
+      "enum": [
+        "TASK_STATE_UNSPECIFIED",
+        "TASK_STATE_ACTIVE",
+        "TASK_STATE_PENDING",
+        "TASK_STATE_SCHEDULED",
+        "TASK_STATE_RETRY",
+        "TASK_STATE_ARCHIVED",
+        "TASK_STATE_COMPLETED",
+        "TASK_STATE_AGGREGATING"
+      ],
+      "default": "TASK_STATE_UNSPECIFIED",
+      "description": " - TASK_STATE_UNSPECIFIED: The zero value is omitted in proto3 by convention if it's not used.\nIn your case, since you start your iota with 1, we will not define a zero value.\n - TASK_STATE_ACTIVE: Indicates that the task is currently being processed by Handler.\n - TASK_STATE_PENDING: Indicates that the task is ready to be processed by Handler.\n - TASK_STATE_SCHEDULED: Indicates that the task is scheduled to be processed some time in the future.\n - TASK_STATE_RETRY: Indicates that the task has previously failed and scheduled to be processed some time in the future.\n - TASK_STATE_ARCHIVED: Indicates that the task is archived and stored for inspection purposes.\n - TASK_STATE_COMPLETED: Indicates that the task is processed successfully and retained until the retention TTL expires.\n - TASK_STATE_AGGREGATING: Indicates that the task is waiting in a group to be aggregated into one task."
     },
     "Token": {
       "type": "object",

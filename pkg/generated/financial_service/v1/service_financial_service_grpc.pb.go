@@ -117,6 +117,7 @@ const (
 	FinancialService_UpdateNoteToRecurringTransaction_FullMethodName         = "/financial_service.v1.FinancialService/UpdateNoteToRecurringTransaction"
 	FinancialService_DeleteNoteFromRecurringTransaction_FullMethodName       = "/financial_service.v1.FinancialService/DeleteNoteFromRecurringTransaction"
 	FinancialService_ListRecurringTransactionNotes_FullMethodName            = "/financial_service.v1.FinancialService/ListRecurringTransactionNotes"
+	FinancialService_PollAsyncTaskExecutionStatus_FullMethodName             = "/financial_service.v1.FinancialService/PollAsyncTaskExecutionStatus"
 )
 
 // FinancialServiceClient is the client API for FinancialService service.
@@ -317,6 +318,7 @@ type FinancialServiceClient interface {
 	DeleteNoteFromRecurringTransaction(ctx context.Context, in *DeleteNoteFromRecurringTransactionRequest, opts ...grpc.CallOption) (*DeleteNoteFromRecurringTransactionResponse, error)
 	// list transaction notes
 	ListRecurringTransactionNotes(ctx context.Context, in *ListRecurringTransactionNotesRequest, opts ...grpc.CallOption) (*ListRecurringTransactionNotesResponse, error)
+	PollAsyncTaskExecutionStatus(ctx context.Context, in *PollAsyncTaskExecutionStatusRequest, opts ...grpc.CallOption) (*PollAsyncTaskExecutionStatusResponse, error)
 }
 
 type financialServiceClient struct {
@@ -1209,6 +1211,15 @@ func (c *financialServiceClient) ListRecurringTransactionNotes(ctx context.Conte
 	return out, nil
 }
 
+func (c *financialServiceClient) PollAsyncTaskExecutionStatus(ctx context.Context, in *PollAsyncTaskExecutionStatusRequest, opts ...grpc.CallOption) (*PollAsyncTaskExecutionStatusResponse, error) {
+	out := new(PollAsyncTaskExecutionStatusResponse)
+	err := c.cc.Invoke(ctx, FinancialService_PollAsyncTaskExecutionStatus_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // FinancialServiceServer is the server API for FinancialService service.
 // All implementations must embed UnimplementedFinancialServiceServer
 // for forward compatibility
@@ -1407,6 +1418,7 @@ type FinancialServiceServer interface {
 	DeleteNoteFromRecurringTransaction(context.Context, *DeleteNoteFromRecurringTransactionRequest) (*DeleteNoteFromRecurringTransactionResponse, error)
 	// list transaction notes
 	ListRecurringTransactionNotes(context.Context, *ListRecurringTransactionNotesRequest) (*ListRecurringTransactionNotesResponse, error)
+	PollAsyncTaskExecutionStatus(context.Context, *PollAsyncTaskExecutionStatusRequest) (*PollAsyncTaskExecutionStatusResponse, error)
 	mustEmbedUnimplementedFinancialServiceServer()
 }
 
@@ -1707,6 +1719,9 @@ func (UnimplementedFinancialServiceServer) DeleteNoteFromRecurringTransaction(co
 }
 func (UnimplementedFinancialServiceServer) ListRecurringTransactionNotes(context.Context, *ListRecurringTransactionNotesRequest) (*ListRecurringTransactionNotesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListRecurringTransactionNotes not implemented")
+}
+func (UnimplementedFinancialServiceServer) PollAsyncTaskExecutionStatus(context.Context, *PollAsyncTaskExecutionStatusRequest) (*PollAsyncTaskExecutionStatusResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PollAsyncTaskExecutionStatus not implemented")
 }
 func (UnimplementedFinancialServiceServer) mustEmbedUnimplementedFinancialServiceServer() {}
 
@@ -3485,6 +3500,24 @@ func _FinancialService_ListRecurringTransactionNotes_Handler(srv interface{}, ct
 	return interceptor(ctx, in, info, handler)
 }
 
+func _FinancialService_PollAsyncTaskExecutionStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PollAsyncTaskExecutionStatusRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FinancialServiceServer).PollAsyncTaskExecutionStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FinancialService_PollAsyncTaskExecutionStatus_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FinancialServiceServer).PollAsyncTaskExecutionStatus(ctx, req.(*PollAsyncTaskExecutionStatusRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // FinancialService_ServiceDesc is the grpc.ServiceDesc for FinancialService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -3883,6 +3916,10 @@ var FinancialService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListRecurringTransactionNotes",
 			Handler:    _FinancialService_ListRecurringTransactionNotes_Handler,
+		},
+		{
+			MethodName: "PollAsyncTaskExecutionStatus",
+			Handler:    _FinancialService_PollAsyncTaskExecutionStatus_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

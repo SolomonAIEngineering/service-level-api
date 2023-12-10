@@ -2176,4 +2176,23 @@ service FinancialService {
       }
     };
   }
+
+  rpc PollAsyncTaskExecutionStatus(PollAsyncTaskExecutionStatusRequest) returns (PollAsyncTaskExecutionStatusResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/async-task/{task_id}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "polls the status of an async task"
+      tags: ["async-task"]
+      operation_id: "PollAsyncTaskExecutionStatus"
+      description: "This endpoint polls the status of an async task"
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {json_schema: {ref: ".api.v1.PollAsyncTaskExecutionStatusResponse"}}
+        }
+      }
+    };
+  }
 }

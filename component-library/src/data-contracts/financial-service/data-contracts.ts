@@ -2777,6 +2777,38 @@ export type PocketType =
   | "POCKET_TYPE_SHORT_TERM_SAVINGS"
   | "POCKET_TYPE_LONG_TERM_SAVINGS";
 
+export type PollAsyncTaskExecutionStatusData = any;
+
+export interface PollAsyncTaskExecutionStatusResponse {
+  /**
+   * The time the task completed
+   * @format date-time
+   */
+  completedAt?: string;
+  /** Wether the task is orphaned */
+  isOrphaned?: boolean;
+  /**
+   * The task status
+   *  - TASK_STATE_UNSPECIFIED: The zero value is omitted in proto3 by convention if it's not used.
+   * In your case, since you start your iota with 1, we will not define a zero value.
+   *  - TASK_STATE_ACTIVE: Indicates that the task is currently being processed by Handler.
+   *  - TASK_STATE_PENDING: Indicates that the task is ready to be processed by Handler.
+   *  - TASK_STATE_SCHEDULED: Indicates that the task is scheduled to be processed some time in the future.
+   *  - TASK_STATE_RETRY: Indicates that the task has previously failed and scheduled to be processed some time in the future.
+   *  - TASK_STATE_ARCHIVED: Indicates that the task is archived and stored for inspection purposes.
+   *  - TASK_STATE_COMPLETED: Indicates that the task is processed successfully and retained until the retention TTL expires.
+   *  - TASK_STATE_AGGREGATING: Indicates that the task is waiting in a group to be aggregated into one task.
+   */
+  status?: TaskState;
+  /**
+   * The task id
+   * @format uint64
+   */
+  taskId?: string;
+  /** The type of task that was executed */
+  taskType?: string;
+}
+
 /** @default "RE_CURRING_FLOW_UNSPECIFIED" */
 export type ReCurringFlow = "RE_CURRING_FLOW_UNSPECIFIED" | "RE_CURRING_FLOW_INFLOW" | "RE_CURRING_FLOW_OUTFLOW";
 
@@ -3197,6 +3229,28 @@ export interface StudentLoanAccount {
   /** @format double */
   ytdPrincipalPaid?: number;
 }
+
+/**
+ *  - TASK_STATE_UNSPECIFIED: The zero value is omitted in proto3 by convention if it's not used.
+ * In your case, since you start your iota with 1, we will not define a zero value.
+ *  - TASK_STATE_ACTIVE: Indicates that the task is currently being processed by Handler.
+ *  - TASK_STATE_PENDING: Indicates that the task is ready to be processed by Handler.
+ *  - TASK_STATE_SCHEDULED: Indicates that the task is scheduled to be processed some time in the future.
+ *  - TASK_STATE_RETRY: Indicates that the task has previously failed and scheduled to be processed some time in the future.
+ *  - TASK_STATE_ARCHIVED: Indicates that the task is archived and stored for inspection purposes.
+ *  - TASK_STATE_COMPLETED: Indicates that the task is processed successfully and retained until the retention TTL expires.
+ *  - TASK_STATE_AGGREGATING: Indicates that the task is waiting in a group to be aggregated into one task.
+ * @default "TASK_STATE_UNSPECIFIED"
+ */
+export type TaskState =
+  | "TASK_STATE_UNSPECIFIED"
+  | "TASK_STATE_ACTIVE"
+  | "TASK_STATE_PENDING"
+  | "TASK_STATE_SCHEDULED"
+  | "TASK_STATE_RETRY"
+  | "TASK_STATE_ARCHIVED"
+  | "TASK_STATE_COMPLETED"
+  | "TASK_STATE_AGGREGATING";
 
 export interface Token {
   accessToken?: string;
