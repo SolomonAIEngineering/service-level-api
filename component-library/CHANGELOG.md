@@ -1,3 +1,10 @@
+# [1.148.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.147.0...v1.148.0) (2023-12-10)
+
+
+### Features
+
+* add task failure to task state ([44f0463](https://github.com/SolomonAIEngineering/service-level-api/commit/44f046307a447ccb2aefaeb4fd64483f5fc8cedf))
+
 # [1.147.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.146.0...v1.147.0) (2023-12-10)
 
 
