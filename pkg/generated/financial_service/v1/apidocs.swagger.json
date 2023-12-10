@@ -10804,10 +10804,11 @@
         "TASK_STATE_RETRY",
         "TASK_STATE_ARCHIVED",
         "TASK_STATE_COMPLETED",
-        "TASK_STATE_AGGREGATING"
+        "TASK_STATE_AGGREGATING",
+        "TASK_STATE_FAILED"
       ],
       "default": "TASK_STATE_UNSPECIFIED",
-      "description": " - TASK_STATE_UNSPECIFIED: The zero value is omitted in proto3 by convention if it's not used.\nIn your case, since you start your iota with 1, we will not define a zero value.\n - TASK_STATE_ACTIVE: Indicates that the task is currently being processed by Handler.\n - TASK_STATE_PENDING: Indicates that the task is ready to be processed by Handler.\n - TASK_STATE_SCHEDULED: Indicates that the task is scheduled to be processed some time in the future.\n - TASK_STATE_RETRY: Indicates that the task has previously failed and scheduled to be processed some time in the future.\n - TASK_STATE_ARCHIVED: Indicates that the task is archived and stored for inspection purposes.\n - TASK_STATE_COMPLETED: Indicates that the task is processed successfully and retained until the retention TTL expires.\n - TASK_STATE_AGGREGATING: Indicates that the task is waiting in a group to be aggregated into one task."
+      "description": " - TASK_STATE_UNSPECIFIED: The zero value is omitted in proto3 by convention if it's not used.\nIn your case, since you start your iota with 1, we will not define a zero value.\n - TASK_STATE_ACTIVE: Indicates that the task is currently being processed by Handler.\n - TASK_STATE_PENDING: Indicates that the task is ready to be processed by Handler.\n - TASK_STATE_SCHEDULED: Indicates that the task is scheduled to be processed some time in the future.\n - TASK_STATE_RETRY: Indicates that the task has previously failed and scheduled to be processed some time in the future.\n - TASK_STATE_ARCHIVED: Indicates that the task is archived and stored for inspection purposes.\n - TASK_STATE_COMPLETED: Indicates that the task is processed successfully and retained until the retention TTL expires.\n - TASK_STATE_AGGREGATING: Indicates that the task is waiting in a group to be aggregated into one task.\n - TASK_STATE_FAILED: Indicates that the task has failed and will not be retried."
     },
     "Token": {
       "type": "object",

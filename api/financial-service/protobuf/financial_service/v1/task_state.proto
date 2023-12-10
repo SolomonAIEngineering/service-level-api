@@ -26,4 +26,7 @@ enum TaskState {
 
   // Indicates that the task is waiting in a group to be aggregated into one task.
   TASK_STATE_AGGREGATING = 7;
+
+  // Indicates that the task has failed and will not be retried.
+  TASK_STATE_FAILED = 8;
 }

@@ -2797,6 +2797,7 @@ export interface PollAsyncTaskExecutionStatusResponse {
    *  - TASK_STATE_ARCHIVED: Indicates that the task is archived and stored for inspection purposes.
    *  - TASK_STATE_COMPLETED: Indicates that the task is processed successfully and retained until the retention TTL expires.
    *  - TASK_STATE_AGGREGATING: Indicates that the task is waiting in a group to be aggregated into one task.
+   *  - TASK_STATE_FAILED: Indicates that the task has failed and will not be retried.
    */
   status?: TaskState;
   /** The task id */
@@ -3234,6 +3235,7 @@ export interface StudentLoanAccount {
  *  - TASK_STATE_ARCHIVED: Indicates that the task is archived and stored for inspection purposes.
  *  - TASK_STATE_COMPLETED: Indicates that the task is processed successfully and retained until the retention TTL expires.
  *  - TASK_STATE_AGGREGATING: Indicates that the task is waiting in a group to be aggregated into one task.
+ *  - TASK_STATE_FAILED: Indicates that the task has failed and will not be retried.
  * @default "TASK_STATE_UNSPECIFIED"
  */
 export type TaskState =
@@ -3244,7 +3246,8 @@ export type TaskState =
   | "TASK_STATE_RETRY"
   | "TASK_STATE_ARCHIVED"
   | "TASK_STATE_COMPLETED"
-  | "TASK_STATE_AGGREGATING";
+  | "TASK_STATE_AGGREGATING"
+  | "TASK_STATE_FAILED";
 
 export interface Token {
   accessToken?: string;
