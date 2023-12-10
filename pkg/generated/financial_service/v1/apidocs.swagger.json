@@ -10093,6 +10093,9 @@
         "success": {
           "type": "boolean",
           "title": "wether the operation was successful"
+        },
+        "taskId": {
+          "type": "string"
         }
       },
       "required": [

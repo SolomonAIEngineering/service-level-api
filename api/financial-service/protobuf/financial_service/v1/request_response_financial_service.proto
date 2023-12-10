@@ -600,6 +600,9 @@ message PlaidExchangeTokenResponse {
   bool success = 1 [
     (google.api.field_behavior) = REQUIRED
   ];
+
+  // the id of the async task triggered to sync plaid records
+  string task_id = 2;
 }
 
 message GetInvestmentAcccountRequest {

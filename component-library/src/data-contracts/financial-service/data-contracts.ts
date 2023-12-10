@@ -2655,6 +2655,7 @@ export interface PlaidExchangeTokenRequest {
 export interface PlaidExchangeTokenResponse {
   /** wether the operation was successful */
   success: boolean;
+  taskId?: string;
 }
 
 export interface PlaidInitiateTokenExchangeRequest {

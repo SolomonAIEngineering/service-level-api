@@ -7131,6 +7131,8 @@ func (m *PlaidExchangeTokenResponse) validate(all bool) error {
 
 	// no validation rules for Success
 
+	// no validation rules for TaskId
+
 	if len(errors) > 0 {
 		return PlaidExchangeTokenResponseMultiError(errors)
 	}
