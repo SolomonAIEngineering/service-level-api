@@ -1,3 +1,11 @@
+# [1.145.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.144.0...v1.145.0) (2023-12-10)
+
+
+### Features
+
+* add endpoint to poll task status ([42f5ff8](https://github.com/SolomonAIEngineering/service-level-api/commit/42f5ff867cfdf587d6c62e7b02543c25a2511b66))
+* add endpoint to poll task status ([c42c225](https://github.com/SolomonAIEngineering/service-level-api/commit/c42c22593f7847ca442f06779513bf94c6dffacd))
+
 # [1.144.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.143.0...v1.144.0) (2023-12-10)
 
 
