@@ -3091,8 +3091,9 @@ type PlaidExchangeTokenResponse struct {
 	unknownFields protoimpl.UnknownFields
 
 	// wether the operation was successful
-	Success bool   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
-	TaskId  string `protobuf:"bytes,2,opt,name=task_id,json=taskId,proto3" json:"task_id,omitempty"`
+	Success bool `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	// the id of the async task triggered to sync plaid records
+	TaskId string `protobuf:"bytes,2,opt,name=task_id,json=taskId,proto3" json:"task_id,omitempty"`
 }
 
 func (x *PlaidExchangeTokenResponse) Reset() {

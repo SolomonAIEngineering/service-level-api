@@ -2655,6 +2655,7 @@ export interface PlaidExchangeTokenRequest {
 export interface PlaidExchangeTokenResponse {
   /** wether the operation was successful */
   success: boolean;
+  /** the id of the async task triggered to sync plaid records */
   taskId?: string;
 }
 
