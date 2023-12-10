@@ -1632,13 +1632,7 @@ message PollAsyncTaskExecutionStatusRequest {
 
 message PollAsyncTaskExecutionStatusResponse {
   // The task id
-  uint64 task_id = 1;
+  string task_id = 1;
   // The task status
   TaskState status = 2;
-  // The time the task completed
-  google.protobuf.Timestamp completed_at = 3;
-  // Wether the task is orphaned
-  bool is_orphaned = 4;
-  // The type of task that was executed
-  string task_type = 5;
 }
