@@ -1,3 +1,11 @@
+# [1.144.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.143.0...v1.144.0) (2023-12-10)
+
+
+### Features
+
+* add api to poll async task execution ([636b5f9](https://github.com/SolomonAIEngineering/service-level-api/commit/636b5f9edfa941ef28dd9632017685aebdce57e2))
+* add api to poll async task execution ([9da9640](https://github.com/SolomonAIEngineering/service-level-api/commit/9da96407131c96aae426b4aa3ba87fd932c78dd5))
+
 # [1.143.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.142.0...v1.143.0) (2023-12-10)
 
 
