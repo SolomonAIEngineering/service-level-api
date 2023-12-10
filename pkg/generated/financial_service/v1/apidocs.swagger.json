@@ -6700,19 +6700,24 @@
           "format": "uint64",
           "title": "The user id\nValidations:\n- user_id must be greater than 0"
         },
-        "bankAccountId": {
+        "accountId": {
           "type": "string",
           "format": "uint64",
-          "title": "The bank account id\nValidations:\n- bank_account_id must be greater than 0"
+          "title": "The bank account id\nValidations:\n- account_id must be greater than 0"
         },
         "profileType": {
           "$ref": "#/definitions/FinancialUserProfileType"
+        },
+        "financialAccountType": {
+          "$ref": "#/definitions/FinancialAccountType",
+          "title": "The financial account type\nas of now we only support credit and bank accounts"
         }
       },
       "required": [
         "userId",
-        "bankAccountId",
-        "profileType"
+        "accountId",
+        "profileType",
+        "financialAccountType"
       ]
     },
     "AddDefaultPocketsToBankAccountResponse": {

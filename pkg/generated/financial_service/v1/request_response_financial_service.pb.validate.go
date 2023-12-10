@@ -10287,9 +10287,9 @@ func (m *AddDefaultPocketsToBankAccountRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if m.GetBankAccountId() <= 0 {
+	if m.GetAccountId() <= 0 {
 		err := AddDefaultPocketsToBankAccountRequestValidationError{
-			field:  "BankAccountId",
+			field:  "AccountId",
 			reason: "value must be greater than 0",
 		}
 		if !all {
@@ -10299,6 +10299,17 @@ func (m *AddDefaultPocketsToBankAccountRequest) validate(all bool) error {
 	}
 
 	// no validation rules for ProfileType
+
+	if _, ok := _AddDefaultPocketsToBankAccountRequest_FinancialAccountType_NotInLookup[m.GetFinancialAccountType()]; ok {
+		err := AddDefaultPocketsToBankAccountRequestValidationError{
+			field:  "FinancialAccountType",
+			reason: "value must not be in list [FINANCIAL_ACCOUNT_TYPE_UNSPECIFIED FINANCIAL_ACCOUNT_TYPE_INVESTMENT FINANCIAL_ACCOUNT_TYPE_MORTGAGE FINANCIAL_ACCOUNT_TYPE_STUDENT_LOAN]",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return AddDefaultPocketsToBankAccountRequestMultiError(errors)
@@ -10381,6 +10392,13 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = AddDefaultPocketsToBankAccountRequestValidationError{}
+
+var _AddDefaultPocketsToBankAccountRequest_FinancialAccountType_NotInLookup = map[FinancialAccountType]struct{}{
+	0: {},
+	2: {},
+	4: {},
+	5: {},
+}
 
 // Validate checks the field values on AddDefaultPocketsToBankAccountResponse
 // with the rules defined in the proto definition for this message. If any

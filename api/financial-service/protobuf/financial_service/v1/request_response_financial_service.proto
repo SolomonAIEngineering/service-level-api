@@ -904,12 +904,19 @@ message AddDefaultPocketsToBankAccountRequest {
   ];
   // The bank account id
   // Validations:
-  // - bank_account_id must be greater than 0
-  uint64 bank_account_id = 2 [
+  // - account_id must be greater than 0
+  uint64 account_id = 2 [
     (validate.rules).uint64.gt = 0,
     (google.api.field_behavior) = REQUIRED
   ];
   FinancialUserProfileType profile_type = 9 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The financial account type
+  // as of now we only support credit and bank accounts
+  FinancialAccountType financial_account_type = 10 [
+    (validate.rules).enum = {not_in: [0,2,4,5]},  
     (google.api.field_behavior) = REQUIRED
   ];
 }
