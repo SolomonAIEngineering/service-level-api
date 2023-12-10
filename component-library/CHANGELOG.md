@@ -1,3 +1,10 @@
+# [1.150.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.149.0...v1.150.0) (2023-12-10)
+
+
+### Features
+
+* add default pockets api ([5668db9](https://github.com/SolomonAIEngineering/service-level-api/commit/5668db96dcf2cfe4188d64ee8a11ae0d951d1bbb))
+
 # [1.149.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.148.0...v1.149.0) (2023-12-10)
 
 
