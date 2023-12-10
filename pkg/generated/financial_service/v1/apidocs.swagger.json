@@ -7457,6 +7457,14 @@
             "$ref": "#/definitions/PlaidAccountRecurringTransaction"
           },
           "title": "the set of subscriptions tied to this account"
+        },
+        "pockets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/Pocket"
+          },
+          "title": "set of pockets tied to this account"
         }
       }
     },

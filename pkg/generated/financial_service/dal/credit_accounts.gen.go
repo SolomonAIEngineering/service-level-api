@@ -55,6 +55,66 @@ func newCreditAccountORM(db *gorm.DB, opts ...gen.DOOption) creditAccountORM {
 		RelationField: field.NewRelation("Aprs", "financial_servicev1.AprORM"),
 	}
 
+	_creditAccountORM.Pockets = creditAccountORMHasManyPockets{
+		db: db.Session(&gorm.Session{}),
+
+		RelationField: field.NewRelation("Pockets", "financial_servicev1.PocketORM"),
+		Goals: struct {
+			field.RelationField
+			Forecasts struct {
+				field.RelationField
+			}
+			Milestones struct {
+				field.RelationField
+				Budget struct {
+					field.RelationField
+					Category struct {
+						field.RelationField
+					}
+				}
+			}
+			Notes struct {
+				field.RelationField
+			}
+		}{
+			RelationField: field.NewRelation("Pockets.Goals", "financial_servicev1.SmartGoalORM"),
+			Forecasts: struct {
+				field.RelationField
+			}{
+				RelationField: field.NewRelation("Pockets.Goals.Forecasts", "financial_servicev1.ForecastORM"),
+			},
+			Milestones: struct {
+				field.RelationField
+				Budget struct {
+					field.RelationField
+					Category struct {
+						field.RelationField
+					}
+				}
+			}{
+				RelationField: field.NewRelation("Pockets.Goals.Milestones", "financial_servicev1.MilestoneORM"),
+				Budget: struct {
+					field.RelationField
+					Category struct {
+						field.RelationField
+					}
+				}{
+					RelationField: field.NewRelation("Pockets.Goals.Milestones.Budget", "financial_servicev1.BudgetORM"),
+					Category: struct {
+						field.RelationField
+					}{
+						RelationField: field.NewRelation("Pockets.Goals.Milestones.Budget.Category", "financial_servicev1.CategoryORM"),
+					},
+				},
+			},
+			Notes: struct {
+				field.RelationField
+			}{
+				RelationField: field.NewRelation("Pockets.Goals.Notes", "financial_servicev1.SmartNoteORM"),
+			},
+		},
+	}
+
 	_creditAccountORM.RecurringTransactions = creditAccountORMHasManyRecurringTransactions{
 		db: db.Session(&gorm.Session{}),
 
@@ -114,6 +174,8 @@ type creditAccountORM struct {
 	UserId                 field.Uint64
 	Aprs                   creditAccountORMHasManyAprs
 
+	Pockets creditAccountORMHasManyPockets
+
 	RecurringTransactions creditAccountORMHasManyRecurringTransactions
 
 	Transactions creditAccountORMHasManyTransactions
@@ -170,7 +232,7 @@ func (c *creditAccountORM) GetFieldByName(fieldName string) (field.OrderExpr, bo
 }
 
 func (c *creditAccountORM) fillFieldMap() {
-	c.fieldMap = make(map[string]field.Expr, 24)
+	c.fieldMap = make(map[string]field.Expr, 25)
 	c.fieldMap["balance"] = c.Balance
 	c.fieldMap["balance_limit"] = c.BalanceLimit
 	c.fieldMap["current_funds"] = c.CurrentFunds
@@ -273,6 +335,96 @@ func (a creditAccountORMHasManyAprsTx) Clear() error {
 }
 
 func (a creditAccountORMHasManyAprsTx) Count() int64 {
+	return a.tx.Count()
+}
+
+type creditAccountORMHasManyPockets struct {
+	db *gorm.DB
+
+	field.RelationField
+
+	Goals struct {
+		field.RelationField
+		Forecasts struct {
+			field.RelationField
+		}
+		Milestones struct {
+			field.RelationField
+			Budget struct {
+				field.RelationField
+				Category struct {
+					field.RelationField
+				}
+			}
+		}
+		Notes struct {
+			field.RelationField
+		}
+	}
+}
+
+func (a creditAccountORMHasManyPockets) Where(conds ...field.Expr) *creditAccountORMHasManyPockets {
+	if len(conds) == 0 {
+		return &a
+	}
+
+	exprs := make([]clause.Expression, 0, len(conds))
+	for _, cond := range conds {
+		exprs = append(exprs, cond.BeCond().(clause.Expression))
+	}
+	a.db = a.db.Clauses(clause.Where{Exprs: exprs})
+	return &a
+}
+
+func (a creditAccountORMHasManyPockets) WithContext(ctx context.Context) *creditAccountORMHasManyPockets {
+	a.db = a.db.WithContext(ctx)
+	return &a
+}
+
+func (a creditAccountORMHasManyPockets) Session(session *gorm.Session) *creditAccountORMHasManyPockets {
+	a.db = a.db.Session(session)
+	return &a
+}
+
+func (a creditAccountORMHasManyPockets) Model(m *financial_servicev1.CreditAccountORM) *creditAccountORMHasManyPocketsTx {
+	return &creditAccountORMHasManyPocketsTx{a.db.Model(m).Association(a.Name())}
+}
+
+type creditAccountORMHasManyPocketsTx struct{ tx *gorm.Association }
+
+func (a creditAccountORMHasManyPocketsTx) Find() (result []*financial_servicev1.PocketORM, err error) {
+	return result, a.tx.Find(&result)
+}
+
+func (a creditAccountORMHasManyPocketsTx) Append(values ...*financial_servicev1.PocketORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Append(targetValues...)
+}
+
+func (a creditAccountORMHasManyPocketsTx) Replace(values ...*financial_servicev1.PocketORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Replace(targetValues...)
+}
+
+func (a creditAccountORMHasManyPocketsTx) Delete(values ...*financial_servicev1.PocketORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Delete(targetValues...)
+}
+
+func (a creditAccountORMHasManyPocketsTx) Clear() error {
+	return a.tx.Clear()
+}
+
+func (a creditAccountORMHasManyPocketsTx) Count() int64 {
 	return a.tx.Count()
 }
 

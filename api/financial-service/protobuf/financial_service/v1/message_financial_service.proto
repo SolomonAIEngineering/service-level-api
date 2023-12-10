@@ -402,6 +402,11 @@ message CreditAccount {
   repeated PlaidAccountTransaction transactions = 25 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
   // the set of subscriptions tied to this account
   repeated PlaidAccountRecurringTransaction recurring_transactions = 26 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+  // set of pockets tied to this account
+  repeated Pocket pockets = 27 [
+    (gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true},
+    (validate.rules).repeated.min_items = 0
+  ];
 }
 
 message MortgageAccount {

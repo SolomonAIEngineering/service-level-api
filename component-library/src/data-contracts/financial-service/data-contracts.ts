@@ -730,6 +730,8 @@ export interface CreditAccount {
   number?: string;
   /** plaid account id mapped to this bank account */
   plaidAccountId?: string;
+  /** set of pockets tied to this account */
+  pockets?: Array<Pocket>;
   /** the set of subscriptions tied to this account */
   recurringTransactions?: Array<PlaidAccountRecurringTransaction>;
   /** the bank account status */

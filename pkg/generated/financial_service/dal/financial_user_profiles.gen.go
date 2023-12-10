@@ -228,6 +228,9 @@ func newFinancialUserProfileORM(db *gorm.DB, opts ...gen.DOOption) financialUser
 			Aprs struct {
 				field.RelationField
 			}
+			Pockets struct {
+				field.RelationField
+			}
 			RecurringTransactions struct {
 				field.RelationField
 			}
@@ -240,6 +243,11 @@ func newFinancialUserProfileORM(db *gorm.DB, opts ...gen.DOOption) financialUser
 				field.RelationField
 			}{
 				RelationField: field.NewRelation("Link.CreditAccounts.Aprs", "financial_servicev1.AprORM"),
+			},
+			Pockets: struct {
+				field.RelationField
+			}{
+				RelationField: field.NewRelation("Link.CreditAccounts.Pockets", "financial_servicev1.PocketORM"),
 			},
 			RecurringTransactions: struct {
 				field.RelationField
@@ -650,6 +658,9 @@ type financialUserProfileORMHasManyLink struct {
 	CreditAccounts struct {
 		field.RelationField
 		Aprs struct {
+			field.RelationField
+		}
+		Pockets struct {
 			field.RelationField
 		}
 		RecurringTransactions struct {

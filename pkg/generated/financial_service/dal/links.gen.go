@@ -188,6 +188,11 @@ func newLinkORM(db *gorm.DB, opts ...gen.DOOption) linkORM {
 		}{
 			RelationField: field.NewRelation("CreditAccounts.Aprs", "financial_servicev1.AprORM"),
 		},
+		Pockets: struct {
+			field.RelationField
+		}{
+			RelationField: field.NewRelation("CreditAccounts.Pockets", "financial_servicev1.PocketORM"),
+		},
 		RecurringTransactions: struct {
 			field.RelationField
 		}{
@@ -686,6 +691,9 @@ type linkORMHasManyCreditAccounts struct {
 	field.RelationField
 
 	Aprs struct {
+		field.RelationField
+	}
+	Pockets struct {
 		field.RelationField
 	}
 	RecurringTransactions struct {
