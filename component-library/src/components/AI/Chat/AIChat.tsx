@@ -32,7 +32,6 @@ export const initialMessages: ChatGPTMessage[] = [
 /*
   Context types allows any other 
 */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ContextTypes = {
   contextName: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

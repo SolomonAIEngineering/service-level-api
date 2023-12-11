@@ -15,7 +15,6 @@ import {
 } from 'src/data-contracts/financial-service/data-contracts';
 import { BankAccountClass } from 'src/types/financial/bank-account';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 /** @type {React.Context<BankAccount>} */
 const BankAccountHoverLabelContext = createContext<BankAccount>(
   BankAccountClass.randomInstance(),

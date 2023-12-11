@@ -1,10 +1,10 @@
-
-import * as React from "react";
+import * as React from 'react';
 import { createContext, ReactNode, RefObject, Component } from 'react';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 /** @type {React.Context<string>} */
-const MortgageAccountCardContext = createContext<string>('MortgageAccountCardContextValue');
+const MortgageAccountCardContext = createContext<string>(
+  'MortgageAccountCardContextValue',
+);
 
 export type MortgageAccountCardProps<T> = {
   data: T;
@@ -25,7 +25,10 @@ export type MortgageAccountCardState = {
  * with TSDoc annotations. It has various features like context usage,
  * dynamic styles, generic props, and more.
  */
-export class MortgageAccountCard<T> extends Component<MortgageAccountCardProps<T>, MortgageAccountCardState> {
+export class MortgageAccountCard<T> extends Component<
+  MortgageAccountCardProps<T>,
+  MortgageAccountCardState
+> {
   private myRef: RefObject<HTMLDivElement>;
 
   static defaultProps = {
@@ -76,10 +79,7 @@ export class MortgageAccountCard<T> extends Component<MortgageAccountCardProps<T
     return (
       <MortgageAccountCardContext.Consumer>
         {(contextValue) => (
-          <div
-            className={className}
-            ref={this.myRef}
-          >
+          <div className={className} ref={this.myRef}>
             {greeting} from MortgageAccountCard! Context Value: {contextValue}
             <p>Counter: {counter}</p>
             <p>{`Data Prop Value: ${data}`}</p>

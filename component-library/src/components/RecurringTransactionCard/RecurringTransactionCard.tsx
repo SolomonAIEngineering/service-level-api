@@ -32,7 +32,6 @@ import {
 } from 'src/data-contracts/financial-service/data-contracts';
 import { ReOccuringTransactionClass } from 'src/index';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 /** @type {React.Context<ReOccuringTransaction>} */
 const RecurringTransactionCardContext = createContext<ReOccuringTransaction>(
   new ReOccuringTransactionClass({}),

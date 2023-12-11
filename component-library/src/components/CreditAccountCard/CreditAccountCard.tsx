@@ -39,7 +39,6 @@ import {
 } from 'src/data-contracts/financial-service/data-contracts';
 import { CreditAccountClass, FinancialProfileClass } from 'src/index';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 /** @type {React.Context<CreditAccount>} */
 const CreditAccountCardContext = createContext<CreditAccount>(
   new CreditAccountClass({}),

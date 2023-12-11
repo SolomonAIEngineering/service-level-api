@@ -33,7 +33,6 @@ import { Tabs, TabsTrigger } from '../ui/tabs';
 import { MonthlyExpenditureCard } from './MonthlyExpenditureCard';
 import { Transaction } from 'src/data-contracts/financial-service/data-contracts';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 /** @type {React.Context<Transaction[]>} */
 const TransactionAnalyticsByMonthContext = createContext<Transaction[]>([]);
 

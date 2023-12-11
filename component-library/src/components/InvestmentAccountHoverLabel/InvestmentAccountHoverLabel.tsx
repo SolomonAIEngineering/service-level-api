@@ -15,7 +15,6 @@ import {
 } from 'src/data-contracts/financial-service/data-contracts';
 import { BankAccountClass, InvestmentAccountClass } from 'src/index';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 /** @type {React.Context<InvestmentAccount>} */
 const InvestmentAccountHoverLabelContext = createContext<InvestmentAccount>(
   new InvestmentAccountClass({}),

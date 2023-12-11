@@ -216,7 +216,6 @@ class PromptContext implements IContextPrompt {
    * @param additionalContext Additional context to be used to generate the prompt.
    * @returns A string value representing the prompt.
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public getFinancialContextBasedPrompt(
     question: string,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

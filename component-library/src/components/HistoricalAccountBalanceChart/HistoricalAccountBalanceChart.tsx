@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import { createContext, ReactNode, RefObject, Component } from 'react';
 import {
@@ -15,7 +14,6 @@ import { AreaChart } from '@tremor/react';
 import { BarChart } from 'lucide-react';
 import { AccountBalanceHistory } from 'src/data-contracts/financial-service/data-contracts';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 /** @type {React.Context<string>} */
 /**
  * Context to provide account balance history for child components.

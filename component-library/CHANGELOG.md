@@ -7,100 +7,87 @@
 
 # [1.151.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.150.0...v1.151.0) (2023-12-10)
 
-
 ### Features
 
-* add default pockets api ([6890019](https://github.com/SolomonAIEngineering/service-level-api/commit/68900194deae51ff253a60a54831a0d77db62e4a))
+- add default pockets api ([6890019](https://github.com/SolomonAIEngineering/service-level-api/commit/68900194deae51ff253a60a54831a0d77db62e4a))
 
 # [1.150.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.149.0...v1.150.0) (2023-12-10)
 
-
 ### Features
 
-* add default pockets api ([5668db9](https://github.com/SolomonAIEngineering/service-level-api/commit/5668db96dcf2cfe4188d64ee8a11ae0d951d1bbb))
+- add default pockets api ([5668db9](https://github.com/SolomonAIEngineering/service-level-api/commit/5668db96dcf2cfe4188d64ee8a11ae0d951d1bbb))
 
 # [1.149.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.148.0...v1.149.0) (2023-12-10)
 
-
 ### Features
 
-* update pocket type ([19da0b7](https://github.com/SolomonAIEngineering/service-level-api/commit/19da0b7269f12c69f37496340a7509b142e8af9e))
+- update pocket type ([19da0b7](https://github.com/SolomonAIEngineering/service-level-api/commit/19da0b7269f12c69f37496340a7509b142e8af9e))
 
 # [1.148.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.147.0...v1.148.0) (2023-12-10)
 
-
 ### Features
 
-* add task failure to task state ([44f0463](https://github.com/SolomonAIEngineering/service-level-api/commit/44f046307a447ccb2aefaeb4fd64483f5fc8cedf))
+- add task failure to task state ([44f0463](https://github.com/SolomonAIEngineering/service-level-api/commit/44f046307a447ccb2aefaeb4fd64483f5fc8cedf))
 
 # [1.147.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.146.0...v1.147.0) (2023-12-10)
 
-
 ### Features
 
-* update write to cache with ttl ([14440a2](https://github.com/SolomonAIEngineering/service-level-api/commit/14440a2422ec16a93c0938e996d1050488e454aa))
+- update write to cache with ttl ([14440a2](https://github.com/SolomonAIEngineering/service-level-api/commit/14440a2422ec16a93c0938e996d1050488e454aa))
 
 # [1.146.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.145.0...v1.146.0) (2023-12-10)
 
-
 ### Features
 
-* update write to cache with ttl ([0d9fe97](https://github.com/SolomonAIEngineering/service-level-api/commit/0d9fe9795403bcc7ff52ee8cadf3c9e087e6ba0b))
+- update write to cache with ttl ([0d9fe97](https://github.com/SolomonAIEngineering/service-level-api/commit/0d9fe9795403bcc7ff52ee8cadf3c9e087e6ba0b))
 
 # [1.145.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.144.0...v1.145.0) (2023-12-10)
 
-
 ### Features
 
-* add endpoint to poll task status ([42f5ff8](https://github.com/SolomonAIEngineering/service-level-api/commit/42f5ff867cfdf587d6c62e7b02543c25a2511b66))
-* add endpoint to poll task status ([c42c225](https://github.com/SolomonAIEngineering/service-level-api/commit/c42c22593f7847ca442f06779513bf94c6dffacd))
+- add endpoint to poll task status ([42f5ff8](https://github.com/SolomonAIEngineering/service-level-api/commit/42f5ff867cfdf587d6c62e7b02543c25a2511b66))
+- add endpoint to poll task status ([c42c225](https://github.com/SolomonAIEngineering/service-level-api/commit/c42c22593f7847ca442f06779513bf94c6dffacd))
 
 # [1.144.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.143.0...v1.144.0) (2023-12-10)
 
-
 ### Features
 
-* add api to poll async task execution ([636b5f9](https://github.com/SolomonAIEngineering/service-level-api/commit/636b5f9edfa941ef28dd9632017685aebdce57e2))
-* add api to poll async task execution ([9da9640](https://github.com/SolomonAIEngineering/service-level-api/commit/9da96407131c96aae426b4aa3ba87fd932c78dd5))
+- add api to poll async task execution ([636b5f9](https://github.com/SolomonAIEngineering/service-level-api/commit/636b5f9edfa941ef28dd9632017685aebdce57e2))
+- add api to poll async task execution ([9da9640](https://github.com/SolomonAIEngineering/service-level-api/commit/9da96407131c96aae426b4aa3ba87fd932c78dd5))
 
 # [1.143.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.142.0...v1.143.0) (2023-12-10)
 
-
 ### Features
 
-* add api to poll async task execution ([b71dd30](https://github.com/SolomonAIEngineering/service-level-api/commit/b71dd30af5e58a220bdc9499f043e1e8aebdca69))
-* add api to poll async task execution ([e50ec5d](https://github.com/SolomonAIEngineering/service-level-api/commit/e50ec5da8a395b7c557dd1c33aeaaaac24185986))
+- add api to poll async task execution ([b71dd30](https://github.com/SolomonAIEngineering/service-level-api/commit/b71dd30af5e58a220bdc9499f043e1e8aebdca69))
+- add api to poll async task execution ([e50ec5d](https://github.com/SolomonAIEngineering/service-level-api/commit/e50ec5da8a395b7c557dd1c33aeaaaac24185986))
 
 # [1.142.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.141.0...v1.142.0) (2023-12-10)
 
-
 ### Features
 
-* add api to poll async task execution ([eedeb25](https://github.com/SolomonAIEngineering/service-level-api/commit/eedeb2517351e8e198952ff10b88dab6da2b00c3))
+- add api to poll async task execution ([eedeb25](https://github.com/SolomonAIEngineering/service-level-api/commit/eedeb2517351e8e198952ff10b88dab6da2b00c3))
 
 # [1.141.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.140.0...v1.141.0) (2023-12-04)
 
-
 ### Features
 
-* add sso token on user service queries ([c398aef](https://github.com/SolomonAIEngineering/service-level-api/commit/c398aef3a4b45ae68b7c246314454d91bd83ebe9))
+- add sso token on user service queries ([c398aef](https://github.com/SolomonAIEngineering/service-level-api/commit/c398aef3a4b45ae68b7c246314454d91bd83ebe9))
 
 # [1.140.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.139.0...v1.140.0) (2023-12-04)
 
-
 ### Features
 
-* update component library ([9efb151](https://github.com/SolomonAIEngineering/service-level-api/commit/9efb1510388d07b2cb9f0bdbd52951595ab82d10))
-* update repo ([7eb5318](https://github.com/SolomonAIEngineering/service-level-api/commit/7eb5318f564683339209be90418aca283773edd2))
+- update component library ([9efb151](https://github.com/SolomonAIEngineering/service-level-api/commit/9efb1510388d07b2cb9f0bdbd52951595ab82d10))
+- update repo ([7eb5318](https://github.com/SolomonAIEngineering/service-level-api/commit/7eb5318f564683339209be90418aca283773edd2))
 
 # [1.139.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.138.0...v1.139.0) (2023-12-04)
 
-
 ### Features
 
-* add canny request and response api ([159ea11](https://github.com/SolomonAIEngineering/service-level-api/commit/159ea11765bc96e1550c2c07546727eaef74d324))
-* remove db module ([eb6d413](https://github.com/SolomonAIEngineering/service-level-api/commit/eb6d4139c80cbe7527afcf38da3661c8df6ddec7))
-* update component library and add canny sso token ([2a27403](https://github.com/SolomonAIEngineering/service-level-api/commit/2a27403b5fbbb1d5b05476dcea90f3f921ea8ffe))
+- add canny request and response api ([159ea11](https://github.com/SolomonAIEngineering/service-level-api/commit/159ea11765bc96e1550c2c07546727eaef74d324))
+- remove db module ([eb6d413](https://github.com/SolomonAIEngineering/service-level-api/commit/eb6d4139c80cbe7527afcf38da3661c8df6ddec7))
+- update component library and add canny sso token ([2a27403](https://github.com/SolomonAIEngineering/service-level-api/commit/2a27403b5fbbb1d5b05476dcea90f3f921ea8ffe))
 
 # [1.138.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.137.0...v1.138.0) (2023-12-01)
 

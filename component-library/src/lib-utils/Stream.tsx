@@ -123,7 +123,6 @@ export async function OpenAIStream(
  * @param req - Request object containing the last 10 messages, the user, and the financial context.
  * @returns A readable stream containing the AI's responses.
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const handler = async (req: {
   last10messages: ChatGPTMessage[];
   user: string;

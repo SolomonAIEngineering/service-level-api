@@ -46,7 +46,6 @@ import {
   Transaction,
 } from 'src/data-contracts/financial-service/data-contracts';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 /** @type {React.Context<ransaction[]>} */
 const TransactionDataTableContext = createContext<Transaction[]>([]);
 

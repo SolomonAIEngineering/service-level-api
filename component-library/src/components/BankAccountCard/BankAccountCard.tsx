@@ -13,7 +13,6 @@ import { cn } from 'src/lib-utils/utils';
 import { FinancialProfileClass } from 'src/types/financial/financial-profile';
 import { BankAccountClass } from 'src/types';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 /** @type {React.Context<T extends BankAccount>} */
 const BankAccountContext = createContext<BankAccount | undefined>(undefined);
 const FinancialProfileContext = createContext<FinancialProfile>(

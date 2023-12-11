@@ -5,7 +5,6 @@ import { cn, formatDate } from 'src/lib-utils/utils';
 import { InvestmentSecurity } from 'src/data-contracts/financial-service/data-contracts';
 import { InvestmentSecurityClass } from 'src/types';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 /** @type {React.Context<InvestmentSecurity>} */
 const InvestmentSecurityCardContext = createContext<InvestmentSecurity>(
   new InvestmentSecurityClass({}),

@@ -687,12 +687,16 @@ export interface ActionableInsight {
 export type AddDefaultPocketsToBankAccountData = any;
 export interface AddDefaultPocketsToBankAccountRequest {
 	/**
+	 * The financial account type
+	 * as of now we only support credit and bank accounts
+	 */
+	financialAccountType: FinancialAccountType;
+	/**
 	 * The bank account id
 	 * Validations:
-	 * - bank_account_id must be greater than 0
-	 * @format uint64
+	 * - account_id must be greater than 0
 	 */
-	bankAccountId: string;
+	plaidAccountId: string;
 	profileType: FinancialUserProfileType;
 	/**
 	 * The user id
@@ -703,8 +707,8 @@ export interface AddDefaultPocketsToBankAccountRequest {
 	userId: string;
 }
 export interface AddDefaultPocketsToBankAccountResponse {
-	/** The bank account id */
 	bankAccount?: BankAccount;
+	creditAccount?: CreditAccount;
 }
 export type AddNoteToRecurringTransactionData = any;
 /** AddNoteToRecurringTransactionResponse is the responsed obtained after we add a note to a transaction */
@@ -1315,6 +1319,8 @@ export interface CreditAccount {
 	number?: string;
 	/** plaid account id mapped to this bank account */
 	plaidAccountId?: string;
+	/** set of pockets tied to this account */
+	pockets?: Array<Pocket>;
 	/** the set of subscriptions tied to this account */
 	recurringTransactions?: Array<PlaidAccountRecurringTransaction>;
 	/** the bank account status */
@@ -3036,6 +3042,8 @@ export interface PlaidExchangeTokenRequest {
 export interface PlaidExchangeTokenResponse {
 	/** wether the operation was successful */
 	success: boolean;
+	/** the id of the async task triggered to sync plaid records */
+	taskId?: string;
 }
 export interface PlaidInitiateTokenExchangeRequest {
 	/**
@@ -3136,11 +3144,32 @@ export interface Pocket {
 	 * @format uint64
 	 */
 	id?: string;
+	/** the tags tied to this pocket */
+	tags?: Array<string>;
 	/** The type of the pocket */
 	type?: PocketType;
 }
 /** @default "POCKET_TYPE_UNSPECIFIED" */
-export type PocketType = "POCKET_TYPE_UNSPECIFIED" | "POCKET_TYPE_DISCRETIONARY_SPENDING" | "POCKET_TYPE_FUN_MONEY" | "POCKET_TYPE_DEBT_REDUCTION" | "POCKET_TYPE_EMERGENCY_FUND" | "POCKET_TYPE_INVESTMENT" | "POCKET_TYPE_SHORT_TERM_SAVINGS" | "POCKET_TYPE_LONG_TERM_SAVINGS";
+export type PocketType = "POCKET_TYPE_UNSPECIFIED" | "POCKET_TYPE_DISCRETIONARY_SPENDING" | "POCKET_TYPE_FUN_MONEY" | "POCKET_TYPE_DEBT_REDUCTION" | "POCKET_TYPE_EMERGENCY_FUND" | "POCKET_TYPE_INVESTMENT" | "POCKET_TYPE_SHORT_TERM_SAVINGS" | "POCKET_TYPE_LONG_TERM_SAVINGS" | "POCKET_TYPE_IMPROVE_CREDIT_SCORE" | "POCKET_TYPE_DEBT_CONSOLIDATION" | "POCKET_TYPE_CREDIT_CARD_MANAGEMENT" | "POCKET_TYPE_LOAN_REPAYMENT";
+export type PollAsyncTaskExecutionStatusData = any;
+export interface PollAsyncTaskExecutionStatusResponse {
+	/**
+	 * The task status
+	 *  - TASK_STATE_UNSPECIFIED: The zero value is omitted in proto3 by convention if it's not used.
+	 * In your case, since you start your iota with 1, we will not define a zero value.
+	 *  - TASK_STATE_ACTIVE: Indicates that the task is currently being processed by Handler.
+	 *  - TASK_STATE_PENDING: Indicates that the task is ready to be processed by Handler.
+	 *  - TASK_STATE_SCHEDULED: Indicates that the task is scheduled to be processed some time in the future.
+	 *  - TASK_STATE_RETRY: Indicates that the task has previously failed and scheduled to be processed some time in the future.
+	 *  - TASK_STATE_ARCHIVED: Indicates that the task is archived and stored for inspection purposes.
+	 *  - TASK_STATE_COMPLETED: Indicates that the task is processed successfully and retained until the retention TTL expires.
+	 *  - TASK_STATE_AGGREGATING: Indicates that the task is waiting in a group to be aggregated into one task.
+	 *  - TASK_STATE_FAILED: Indicates that the task has failed and will not be retried.
+	 */
+	status?: TaskState;
+	/** The task id */
+	taskId?: string;
+}
 /** @default "RE_CURRING_FLOW_UNSPECIFIED" */
 export type ReCurringFlow = "RE_CURRING_FLOW_UNSPECIFIED" | "RE_CURRING_FLOW_INFLOW" | "RE_CURRING_FLOW_OUTFLOW";
 export interface ReOccuringTransaction {
@@ -3524,6 +3553,20 @@ export interface StudentLoanAccount {
 	/** @format double */
 	ytdPrincipalPaid?: number;
 }
+/**
+ *  - TASK_STATE_UNSPECIFIED: The zero value is omitted in proto3 by convention if it's not used.
+ * In your case, since you start your iota with 1, we will not define a zero value.
+ *  - TASK_STATE_ACTIVE: Indicates that the task is currently being processed by Handler.
+ *  - TASK_STATE_PENDING: Indicates that the task is ready to be processed by Handler.
+ *  - TASK_STATE_SCHEDULED: Indicates that the task is scheduled to be processed some time in the future.
+ *  - TASK_STATE_RETRY: Indicates that the task has previously failed and scheduled to be processed some time in the future.
+ *  - TASK_STATE_ARCHIVED: Indicates that the task is archived and stored for inspection purposes.
+ *  - TASK_STATE_COMPLETED: Indicates that the task is processed successfully and retained until the retention TTL expires.
+ *  - TASK_STATE_AGGREGATING: Indicates that the task is waiting in a group to be aggregated into one task.
+ *  - TASK_STATE_FAILED: Indicates that the task has failed and will not be retried.
+ * @default "TASK_STATE_UNSPECIFIED"
+ */
+export type TaskState = "TASK_STATE_UNSPECIFIED" | "TASK_STATE_ACTIVE" | "TASK_STATE_PENDING" | "TASK_STATE_SCHEDULED" | "TASK_STATE_RETRY" | "TASK_STATE_ARCHIVED" | "TASK_STATE_COMPLETED" | "TASK_STATE_AGGREGATING" | "TASK_STATE_FAILED";
 export interface Token {
 	accessToken?: string;
 	/**

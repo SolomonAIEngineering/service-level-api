@@ -48300,7 +48300,6 @@ class xM {
    * @param additionalContext Additional context to be used to generate the prompt.
    * @returns A string value representing the prompt.
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getFinancialContextBasedPrompt(t, r, n = !0) {
     if (r) {
       const a = JSON.stringify(r).trim();
