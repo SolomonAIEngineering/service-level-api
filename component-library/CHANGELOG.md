@@ -1,3 +1,10 @@
+# [1.155.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.154.0...v1.155.0) (2023-12-16)
+
+
+### Features
+
+* add product specification for the smart goals feature ([ce3f18d](https://github.com/SolomonAIEngineering/service-level-api/commit/ce3f18dd2e18621b8bf8f77bd8cb9a7a6d9b44bc))
+
 # [1.154.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.153.0...v1.154.0) (2023-12-12)
 
 
