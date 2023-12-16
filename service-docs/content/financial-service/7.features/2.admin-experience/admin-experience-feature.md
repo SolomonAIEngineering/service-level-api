@@ -35,8 +35,6 @@ The platform in question serves as a dynamic and interactive hub, specifically d
   
 - **Data Analytics and Reporting:** Business owners have access to advanced analytics tools that process their operational data to generate insights and reports. These features assist in making informed decisions based on real-time data.
 
-- **Collaboration Features:** The platform fosters collaboration among business owners, allowing for networking, sharing of best practices, and partnerships in projects or ventures.
-
 - **Resource Library:** A curated collection of resources, including guides, industry reports, and market analysis, is available to assist business owners in staying informed and up-to-date with the latest trends and practices in their respective fields.
 
 The platform stores various types of data, including but not limited to:
