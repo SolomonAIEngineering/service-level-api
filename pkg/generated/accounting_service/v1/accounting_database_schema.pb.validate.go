@@ -935,22 +935,22 @@ var _ interface {
 	ErrorName() string
 } = LinkedAccountingAccountValidationError{}
 
-// Validate checks the field values on BusinessChartOfAccounts with the rules
+// Validate checks the field values on BusinessChartOfAccount with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *BusinessChartOfAccounts) Validate() error {
+func (m *BusinessChartOfAccount) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on BusinessChartOfAccounts with the
-// rules defined in the proto definition for this message. If any rules are
+// ValidateAll checks the field values on BusinessChartOfAccount with the rules
+// defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// BusinessChartOfAccountsMultiError, or nil if none found.
-func (m *BusinessChartOfAccounts) ValidateAll() error {
+// BusinessChartOfAccountMultiError, or nil if none found.
+func (m *BusinessChartOfAccount) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *BusinessChartOfAccounts) validate(all bool) error {
+func (m *BusinessChartOfAccount) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -987,7 +987,7 @@ func (m *BusinessChartOfAccounts) validate(all bool) error {
 		switch v := interface{}(m.GetModifiedAt()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, BusinessChartOfAccountsValidationError{
+				errors = append(errors, BusinessChartOfAccountValidationError{
 					field:  "ModifiedAt",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -995,7 +995,7 @@ func (m *BusinessChartOfAccounts) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, BusinessChartOfAccountsValidationError{
+				errors = append(errors, BusinessChartOfAccountValidationError{
 					field:  "ModifiedAt",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1004,7 +1004,7 @@ func (m *BusinessChartOfAccounts) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetModifiedAt()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return BusinessChartOfAccountsValidationError{
+			return BusinessChartOfAccountValidationError{
 				field:  "ModifiedAt",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -1018,7 +1018,7 @@ func (m *BusinessChartOfAccounts) validate(all bool) error {
 		switch v := interface{}(m.GetCreatedAt()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, BusinessChartOfAccountsValidationError{
+				errors = append(errors, BusinessChartOfAccountValidationError{
 					field:  "CreatedAt",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1026,7 +1026,7 @@ func (m *BusinessChartOfAccounts) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, BusinessChartOfAccountsValidationError{
+				errors = append(errors, BusinessChartOfAccountValidationError{
 					field:  "CreatedAt",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1035,7 +1035,7 @@ func (m *BusinessChartOfAccounts) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetCreatedAt()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return BusinessChartOfAccountsValidationError{
+			return BusinessChartOfAccountValidationError{
 				field:  "CreatedAt",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -1044,19 +1044,19 @@ func (m *BusinessChartOfAccounts) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return BusinessChartOfAccountsMultiError(errors)
+		return BusinessChartOfAccountMultiError(errors)
 	}
 
 	return nil
 }
 
-// BusinessChartOfAccountsMultiError is an error wrapping multiple validation
-// errors returned by BusinessChartOfAccounts.ValidateAll() if the designated
+// BusinessChartOfAccountMultiError is an error wrapping multiple validation
+// errors returned by BusinessChartOfAccount.ValidateAll() if the designated
 // constraints aren't met.
-type BusinessChartOfAccountsMultiError []error
+type BusinessChartOfAccountMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m BusinessChartOfAccountsMultiError) Error() string {
+func (m BusinessChartOfAccountMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -1065,11 +1065,11 @@ func (m BusinessChartOfAccountsMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m BusinessChartOfAccountsMultiError) AllErrors() []error { return m }
+func (m BusinessChartOfAccountMultiError) AllErrors() []error { return m }
 
-// BusinessChartOfAccountsValidationError is the validation error returned by
-// BusinessChartOfAccounts.Validate if the designated constraints aren't met.
-type BusinessChartOfAccountsValidationError struct {
+// BusinessChartOfAccountValidationError is the validation error returned by
+// BusinessChartOfAccount.Validate if the designated constraints aren't met.
+type BusinessChartOfAccountValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1077,24 +1077,24 @@ type BusinessChartOfAccountsValidationError struct {
 }
 
 // Field function returns field value.
-func (e BusinessChartOfAccountsValidationError) Field() string { return e.field }
+func (e BusinessChartOfAccountValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e BusinessChartOfAccountsValidationError) Reason() string { return e.reason }
+func (e BusinessChartOfAccountValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e BusinessChartOfAccountsValidationError) Cause() error { return e.cause }
+func (e BusinessChartOfAccountValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e BusinessChartOfAccountsValidationError) Key() bool { return e.key }
+func (e BusinessChartOfAccountValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e BusinessChartOfAccountsValidationError) ErrorName() string {
-	return "BusinessChartOfAccountsValidationError"
+func (e BusinessChartOfAccountValidationError) ErrorName() string {
+	return "BusinessChartOfAccountValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e BusinessChartOfAccountsValidationError) Error() string {
+func (e BusinessChartOfAccountValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1106,14 +1106,14 @@ func (e BusinessChartOfAccountsValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sBusinessChartOfAccounts.%s: %s%s",
+		"invalid %sBusinessChartOfAccount.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = BusinessChartOfAccountsValidationError{}
+var _ error = BusinessChartOfAccountValidationError{}
 
 var _ interface {
 	Field() string
@@ -1121,7 +1121,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = BusinessChartOfAccountsValidationError{}
+} = BusinessChartOfAccountValidationError{}
 
 // Validate checks the field values on CompanyAddress with the rules defined in
 // the proto definition for this message. If any rules are violated, the first

@@ -237,3 +237,21 @@ message ReadIncomeStatementsRequest {
     (google.api.field_behavior) = REQUIRED
   ];
 }
+
+message ReadBusinessChartOfAccountsRequest {
+  // The user id
+  // Validations:
+  // - user_id must be greater than 0
+  uint64 user_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The accounting integration merge link id
+  // Validations:
+  // - acounting_integration_merge_link_id must be greater than 0
+  uint64 acounting_integration_merge_link_id = 2 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}

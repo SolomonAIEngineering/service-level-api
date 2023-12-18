@@ -75,7 +75,7 @@ message LinkedAccountingAccount {
     // A "Business Chart of Accounts" is a structured list of a company's general ledger accounts. 
     // These accounts are used to categorize every financial transaction a company makes. 
     // This structure allows businesses to systematically track, manage, and report their financial activities
-    repeated BusinessChartOfAccounts chart_of_accounts = 8 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+    repeated BusinessChartOfAccount chart_of_accounts = 8 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
     
     // a business can have many items
     repeated Item items = 9 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
@@ -114,7 +114,7 @@ message LinkedAccountingAccount {
 
     Note: a company can have a multitude of these accounts
 **/
-message BusinessChartOfAccounts {
+message BusinessChartOfAccount {
   option (gorm.opts) = {ormable: true};
 
   // the database record's id 

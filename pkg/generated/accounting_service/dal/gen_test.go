@@ -81,7 +81,7 @@ func Test_WithContext(t *testing.T) {
 		qCtx.AccountingIntegrationMergeLinkORM.UnderlyingDB().Statement.Context,
 		qCtx.BalanceSheetORM.UnderlyingDB().Statement.Context,
 		qCtx.BusinessActionableInsightORM.UnderlyingDB().Statement.Context,
-		qCtx.BusinessChartOfAccountsORM.UnderlyingDB().Statement.Context,
+		qCtx.BusinessChartOfAccountORM.UnderlyingDB().Statement.Context,
 		qCtx.BusinessTransactionORM.UnderlyingDB().Statement.Context,
 		qCtx.CashFlowStatementORM.UnderlyingDB().Statement.Context,
 		qCtx.CompanyAddressORM.UnderlyingDB().Statement.Context,

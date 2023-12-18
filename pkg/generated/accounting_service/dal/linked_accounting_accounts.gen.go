@@ -82,7 +82,7 @@ func newLinkedAccountingAccountORM(db *gorm.DB, opts ...gen.DOOption) linkedAcco
 	_linkedAccountingAccountORM.ChartOfAccounts = linkedAccountingAccountORMHasManyChartOfAccounts{
 		db: db.Session(&gorm.Session{}),
 
-		RelationField: field.NewRelation("ChartOfAccounts", "accounting_servicev1.BusinessChartOfAccountsORM"),
+		RelationField: field.NewRelation("ChartOfAccounts", "accounting_servicev1.BusinessChartOfAccountORM"),
 	}
 
 	_linkedAccountingAccountORM.CompanyInfo = linkedAccountingAccountORMHasManyCompanyInfo{
@@ -590,11 +590,11 @@ func (a linkedAccountingAccountORMHasManyChartOfAccounts) Model(m *accounting_se
 
 type linkedAccountingAccountORMHasManyChartOfAccountsTx struct{ tx *gorm.Association }
 
-func (a linkedAccountingAccountORMHasManyChartOfAccountsTx) Find() (result []*accounting_servicev1.BusinessChartOfAccountsORM, err error) {
+func (a linkedAccountingAccountORMHasManyChartOfAccountsTx) Find() (result []*accounting_servicev1.BusinessChartOfAccountORM, err error) {
 	return result, a.tx.Find(&result)
 }
 
-func (a linkedAccountingAccountORMHasManyChartOfAccountsTx) Append(values ...*accounting_servicev1.BusinessChartOfAccountsORM) (err error) {
+func (a linkedAccountingAccountORMHasManyChartOfAccountsTx) Append(values ...*accounting_servicev1.BusinessChartOfAccountORM) (err error) {
 	targetValues := make([]interface{}, len(values))
 	for i, v := range values {
 		targetValues[i] = v
@@ -602,7 +602,7 @@ func (a linkedAccountingAccountORMHasManyChartOfAccountsTx) Append(values ...*ac
 	return a.tx.Append(targetValues...)
 }
 
-func (a linkedAccountingAccountORMHasManyChartOfAccountsTx) Replace(values ...*accounting_servicev1.BusinessChartOfAccountsORM) (err error) {
+func (a linkedAccountingAccountORMHasManyChartOfAccountsTx) Replace(values ...*accounting_servicev1.BusinessChartOfAccountORM) (err error) {
 	targetValues := make([]interface{}, len(values))
 	for i, v := range values {
 		targetValues[i] = v
@@ -610,7 +610,7 @@ func (a linkedAccountingAccountORMHasManyChartOfAccountsTx) Replace(values ...*a
 	return a.tx.Replace(targetValues...)
 }
 
-func (a linkedAccountingAccountORMHasManyChartOfAccountsTx) Delete(values ...*accounting_servicev1.BusinessChartOfAccountsORM) (err error) {
+func (a linkedAccountingAccountORMHasManyChartOfAccountsTx) Delete(values ...*accounting_servicev1.BusinessChartOfAccountORM) (err error) {
 	targetValues := make([]interface{}, len(values))
 	for i, v := range values {
 		targetValues[i] = v

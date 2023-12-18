@@ -1594,3 +1594,130 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ReadIncomeStatementsRequestValidationError{}
+
+// Validate checks the field values on ReadBusinessChartOfAccountsRequest with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *ReadBusinessChartOfAccountsRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ReadBusinessChartOfAccountsRequest
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// ReadBusinessChartOfAccountsRequestMultiError, or nil if none found.
+func (m *ReadBusinessChartOfAccountsRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ReadBusinessChartOfAccountsRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetUserId() <= 0 {
+		err := ReadBusinessChartOfAccountsRequestValidationError{
+			field:  "UserId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetAcountingIntegrationMergeLinkId() <= 0 {
+		err := ReadBusinessChartOfAccountsRequestValidationError{
+			field:  "AcountingIntegrationMergeLinkId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return ReadBusinessChartOfAccountsRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// ReadBusinessChartOfAccountsRequestMultiError is an error wrapping multiple
+// validation errors returned by
+// ReadBusinessChartOfAccountsRequest.ValidateAll() if the designated
+// constraints aren't met.
+type ReadBusinessChartOfAccountsRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ReadBusinessChartOfAccountsRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ReadBusinessChartOfAccountsRequestMultiError) AllErrors() []error { return m }
+
+// ReadBusinessChartOfAccountsRequestValidationError is the validation error
+// returned by ReadBusinessChartOfAccountsRequest.Validate if the designated
+// constraints aren't met.
+type ReadBusinessChartOfAccountsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ReadBusinessChartOfAccountsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ReadBusinessChartOfAccountsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ReadBusinessChartOfAccountsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ReadBusinessChartOfAccountsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ReadBusinessChartOfAccountsRequestValidationError) ErrorName() string {
+	return "ReadBusinessChartOfAccountsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ReadBusinessChartOfAccountsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sReadBusinessChartOfAccountsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ReadBusinessChartOfAccountsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ReadBusinessChartOfAccountsRequestValidationError{}

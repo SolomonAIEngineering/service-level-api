@@ -8,7 +8,7 @@ func GetDatabaseSchemas() []interface{} {
 		MergeLinkedAccountTokenORM{},
 		AccountingIntegrationMergeLinkORM{},
 		LinkedAccountingAccountORM{},
-		BusinessChartOfAccountsORM{},
+		BusinessChartOfAccountORM{},
 		CompanyAddressORM{},
 		AccountingAttachmentORM{},
 		BalanceSheetORM{},

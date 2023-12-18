@@ -1351,3 +1351,142 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ReadIncomeStatementsResponseValidationError{}
+
+// Validate checks the field values on ReadBusinessChartOfAccountsResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *ReadBusinessChartOfAccountsResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ReadBusinessChartOfAccountsResponse
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// ReadBusinessChartOfAccountsResponseMultiError, or nil if none found.
+func (m *ReadBusinessChartOfAccountsResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ReadBusinessChartOfAccountsResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetChartOfAccounts() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ReadBusinessChartOfAccountsResponseValidationError{
+						field:  fmt.Sprintf("ChartOfAccounts[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ReadBusinessChartOfAccountsResponseValidationError{
+						field:  fmt.Sprintf("ChartOfAccounts[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ReadBusinessChartOfAccountsResponseValidationError{
+					field:  fmt.Sprintf("ChartOfAccounts[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ReadBusinessChartOfAccountsResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ReadBusinessChartOfAccountsResponseMultiError is an error wrapping multiple
+// validation errors returned by
+// ReadBusinessChartOfAccountsResponse.ValidateAll() if the designated
+// constraints aren't met.
+type ReadBusinessChartOfAccountsResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ReadBusinessChartOfAccountsResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ReadBusinessChartOfAccountsResponseMultiError) AllErrors() []error { return m }
+
+// ReadBusinessChartOfAccountsResponseValidationError is the validation error
+// returned by ReadBusinessChartOfAccountsResponse.Validate if the designated
+// constraints aren't met.
+type ReadBusinessChartOfAccountsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ReadBusinessChartOfAccountsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ReadBusinessChartOfAccountsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ReadBusinessChartOfAccountsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ReadBusinessChartOfAccountsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ReadBusinessChartOfAccountsResponseValidationError) ErrorName() string {
+	return "ReadBusinessChartOfAccountsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ReadBusinessChartOfAccountsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sReadBusinessChartOfAccountsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ReadBusinessChartOfAccountsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ReadBusinessChartOfAccountsResponseValidationError{}

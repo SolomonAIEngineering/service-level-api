@@ -191,6 +191,7 @@ service AccountingService {
     };
   }
 
+  // ReadBalanceSheets reads the balances sheet for a given a user
   rpc ReadBalanceSheets(ReadBalanceSheetsRequest) returns (ReadBalanceSheetsResponse) {
     option (google.api.http) = {
       post: "/api/v1/balance-sheets"
@@ -213,6 +214,7 @@ service AccountingService {
     };
   }
 
+  // ReadCashFlowStatements reads the cash flow statements for a given a user
   rpc ReadCashFlowStatements(ReadCashFlowStatementsRequest) returns (ReadCashFlowStatementsResponse) {
     option (google.api.http) = {
       post: "/api/v1/cashflow-statements"
@@ -235,6 +237,7 @@ service AccountingService {
     };
   }
 
+  // ReadIncomeStatements reads the income statements for a given a user 
   rpc ReadIncomeStatements(ReadIncomeStatementsRequest) returns (ReadIncomeStatementsResponse) {
     option (google.api.http) = {
       post: "/api/v1/income-statements"
@@ -251,6 +254,28 @@ service AccountingService {
           description: ""
           schema: {
             json_schema: {ref: ".api.v1.ReadIncomeStatementsResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc ReadBusinessChartOfAccounts(ReadBusinessChartOfAccountsRequest) returns (ReadBusinessChartOfAccountsResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/chart-of-accounts"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Gets Chart of Accounts",
+      tags: ["Chart of Accounts"],
+      operation_id: "ReadBusinessChartOfAccounts"
+      description: "Queries chart of accounts for a business.",
+      responses: {
+        key: "200"
+        value: {
+          description: ""
+          schema: {
+            json_schema: {ref: ".api.v1.ReadBusinessChartOfAccountsResponse"}
           }
         }
       }

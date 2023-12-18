@@ -21,7 +21,7 @@ var (
 	AccountingIntegrationMergeLinkORM *accountingIntegrationMergeLinkORM
 	BalanceSheetORM                   *balanceSheetORM
 	BusinessActionableInsightORM      *businessActionableInsightORM
-	BusinessChartOfAccountsORM        *businessChartOfAccountsORM
+	BusinessChartOfAccountORM         *businessChartOfAccountORM
 	BusinessTransactionORM            *businessTransactionORM
 	CashFlowStatementORM              *cashFlowStatementORM
 	CompanyAddressORM                 *companyAddressORM
@@ -57,7 +57,7 @@ func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
 	AccountingIntegrationMergeLinkORM = &Q.AccountingIntegrationMergeLinkORM
 	BalanceSheetORM = &Q.BalanceSheetORM
 	BusinessActionableInsightORM = &Q.BusinessActionableInsightORM
-	BusinessChartOfAccountsORM = &Q.BusinessChartOfAccountsORM
+	BusinessChartOfAccountORM = &Q.BusinessChartOfAccountORM
 	BusinessTransactionORM = &Q.BusinessTransactionORM
 	CashFlowStatementORM = &Q.CashFlowStatementORM
 	CompanyAddressORM = &Q.CompanyAddressORM
@@ -94,7 +94,7 @@ func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 		AccountingIntegrationMergeLinkORM: newAccountingIntegrationMergeLinkORM(db, opts...),
 		BalanceSheetORM:                   newBalanceSheetORM(db, opts...),
 		BusinessActionableInsightORM:      newBusinessActionableInsightORM(db, opts...),
-		BusinessChartOfAccountsORM:        newBusinessChartOfAccountsORM(db, opts...),
+		BusinessChartOfAccountORM:         newBusinessChartOfAccountORM(db, opts...),
 		BusinessTransactionORM:            newBusinessTransactionORM(db, opts...),
 		CashFlowStatementORM:              newCashFlowStatementORM(db, opts...),
 		CompanyAddressORM:                 newCompanyAddressORM(db, opts...),
@@ -132,7 +132,7 @@ type Query struct {
 	AccountingIntegrationMergeLinkORM accountingIntegrationMergeLinkORM
 	BalanceSheetORM                   balanceSheetORM
 	BusinessActionableInsightORM      businessActionableInsightORM
-	BusinessChartOfAccountsORM        businessChartOfAccountsORM
+	BusinessChartOfAccountORM         businessChartOfAccountORM
 	BusinessTransactionORM            businessTransactionORM
 	CashFlowStatementORM              cashFlowStatementORM
 	CompanyAddressORM                 companyAddressORM
@@ -171,7 +171,7 @@ func (q *Query) clone(db *gorm.DB) *Query {
 		AccountingIntegrationMergeLinkORM: q.AccountingIntegrationMergeLinkORM.clone(db),
 		BalanceSheetORM:                   q.BalanceSheetORM.clone(db),
 		BusinessActionableInsightORM:      q.BusinessActionableInsightORM.clone(db),
-		BusinessChartOfAccountsORM:        q.BusinessChartOfAccountsORM.clone(db),
+		BusinessChartOfAccountORM:         q.BusinessChartOfAccountORM.clone(db),
 		BusinessTransactionORM:            q.BusinessTransactionORM.clone(db),
 		CashFlowStatementORM:              q.CashFlowStatementORM.clone(db),
 		CompanyAddressORM:                 q.CompanyAddressORM.clone(db),
@@ -217,7 +217,7 @@ func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 		AccountingIntegrationMergeLinkORM: q.AccountingIntegrationMergeLinkORM.replaceDB(db),
 		BalanceSheetORM:                   q.BalanceSheetORM.replaceDB(db),
 		BusinessActionableInsightORM:      q.BusinessActionableInsightORM.replaceDB(db),
-		BusinessChartOfAccountsORM:        q.BusinessChartOfAccountsORM.replaceDB(db),
+		BusinessChartOfAccountORM:         q.BusinessChartOfAccountORM.replaceDB(db),
 		BusinessTransactionORM:            q.BusinessTransactionORM.replaceDB(db),
 		CashFlowStatementORM:              q.CashFlowStatementORM.replaceDB(db),
 		CompanyAddressORM:                 q.CompanyAddressORM.replaceDB(db),
@@ -253,7 +253,7 @@ type queryCtx struct {
 	AccountingIntegrationMergeLinkORM IAccountingIntegrationMergeLinkORMDo
 	BalanceSheetORM                   IBalanceSheetORMDo
 	BusinessActionableInsightORM      IBusinessActionableInsightORMDo
-	BusinessChartOfAccountsORM        IBusinessChartOfAccountsORMDo
+	BusinessChartOfAccountORM         IBusinessChartOfAccountORMDo
 	BusinessTransactionORM            IBusinessTransactionORMDo
 	CashFlowStatementORM              ICashFlowStatementORMDo
 	CompanyAddressORM                 ICompanyAddressORMDo
@@ -289,7 +289,7 @@ func (q *Query) WithContext(ctx context.Context) *queryCtx {
 		AccountingIntegrationMergeLinkORM: q.AccountingIntegrationMergeLinkORM.WithContext(ctx),
 		BalanceSheetORM:                   q.BalanceSheetORM.WithContext(ctx),
 		BusinessActionableInsightORM:      q.BusinessActionableInsightORM.WithContext(ctx),
-		BusinessChartOfAccountsORM:        q.BusinessChartOfAccountsORM.WithContext(ctx),
+		BusinessChartOfAccountORM:         q.BusinessChartOfAccountORM.WithContext(ctx),
 		BusinessTransactionORM:            q.BusinessTransactionORM.WithContext(ctx),
 		CashFlowStatementORM:              q.CashFlowStatementORM.WithContext(ctx),
 		CompanyAddressORM:                 q.CompanyAddressORM.WithContext(ctx),

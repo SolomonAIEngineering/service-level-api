@@ -18,45 +18,45 @@ import (
 
 func init() {
 	InitializeDB()
-	err := db.AutoMigrate(&accounting_servicev1.BusinessChartOfAccountsORM{})
+	err := db.AutoMigrate(&accounting_servicev1.BusinessChartOfAccountORM{})
 	if err != nil {
-		fmt.Printf("Error: AutoMigrate(&accounting_servicev1.BusinessChartOfAccountsORM{}) fail: %s", err)
+		fmt.Printf("Error: AutoMigrate(&accounting_servicev1.BusinessChartOfAccountORM{}) fail: %s", err)
 	}
 }
 
-func Test_businessChartOfAccountsORMQuery(t *testing.T) {
-	businessChartOfAccountsORM := newBusinessChartOfAccountsORM(db)
-	businessChartOfAccountsORM = *businessChartOfAccountsORM.As(businessChartOfAccountsORM.TableName())
-	_do := businessChartOfAccountsORM.WithContext(context.Background()).Debug()
+func Test_businessChartOfAccountORMQuery(t *testing.T) {
+	businessChartOfAccountORM := newBusinessChartOfAccountORM(db)
+	businessChartOfAccountORM = *businessChartOfAccountORM.As(businessChartOfAccountORM.TableName())
+	_do := businessChartOfAccountORM.WithContext(context.Background()).Debug()
 
-	primaryKey := field.NewString(businessChartOfAccountsORM.TableName(), clause.PrimaryKey)
+	primaryKey := field.NewString(businessChartOfAccountORM.TableName(), clause.PrimaryKey)
 	_, err := _do.Unscoped().Where(primaryKey.IsNotNull()).Delete()
 	if err != nil {
 		t.Error("clean table <business_chart_of_accounts> fail:", err)
 		return
 	}
 
-	_, ok := businessChartOfAccountsORM.GetFieldByName("")
+	_, ok := businessChartOfAccountORM.GetFieldByName("")
 	if ok {
-		t.Error("GetFieldByName(\"\") from businessChartOfAccountsORM success")
+		t.Error("GetFieldByName(\"\") from businessChartOfAccountORM success")
 	}
 
-	err = _do.Create(&accounting_servicev1.BusinessChartOfAccountsORM{})
+	err = _do.Create(&accounting_servicev1.BusinessChartOfAccountORM{})
 	if err != nil {
 		t.Error("create item in table <business_chart_of_accounts> fail:", err)
 	}
 
-	err = _do.Save(&accounting_servicev1.BusinessChartOfAccountsORM{})
+	err = _do.Save(&accounting_servicev1.BusinessChartOfAccountORM{})
 	if err != nil {
 		t.Error("create item in table <business_chart_of_accounts> fail:", err)
 	}
 
-	err = _do.CreateInBatches([]*accounting_servicev1.BusinessChartOfAccountsORM{{}, {}}, 10)
+	err = _do.CreateInBatches([]*accounting_servicev1.BusinessChartOfAccountORM{{}, {}}, 10)
 	if err != nil {
 		t.Error("create item in table <business_chart_of_accounts> fail:", err)
 	}
 
-	_, err = _do.Select(businessChartOfAccountsORM.ALL).Take()
+	_, err = _do.Select(businessChartOfAccountORM.ALL).Take()
 	if err != nil {
 		t.Error("Take() on table <business_chart_of_accounts> fail:", err)
 	}
@@ -76,12 +76,12 @@ func Test_businessChartOfAccountsORMQuery(t *testing.T) {
 		t.Error("FindInBatch() on table <business_chart_of_accounts> fail:", err)
 	}
 
-	err = _do.Where(primaryKey.IsNotNull()).FindInBatches(&[]*accounting_servicev1.BusinessChartOfAccountsORM{}, 10, func(tx gen.Dao, batch int) error { return nil })
+	err = _do.Where(primaryKey.IsNotNull()).FindInBatches(&[]*accounting_servicev1.BusinessChartOfAccountORM{}, 10, func(tx gen.Dao, batch int) error { return nil })
 	if err != nil {
 		t.Error("FindInBatches() on table <business_chart_of_accounts> fail:", err)
 	}
 
-	_, err = _do.Select(businessChartOfAccountsORM.ALL).Where(primaryKey.IsNotNull()).Order(primaryKey.Desc()).Find()
+	_, err = _do.Select(businessChartOfAccountORM.ALL).Where(primaryKey.IsNotNull()).Order(primaryKey.Desc()).Find()
 	if err != nil {
 		t.Error("Find() on table <business_chart_of_accounts> fail:", err)
 	}
@@ -91,7 +91,7 @@ func Test_businessChartOfAccountsORMQuery(t *testing.T) {
 		t.Error("select Distinct() on table <business_chart_of_accounts> fail:", err)
 	}
 
-	_, err = _do.Select(businessChartOfAccountsORM.ALL).Omit(primaryKey).Take()
+	_, err = _do.Select(businessChartOfAccountORM.ALL).Omit(primaryKey).Take()
 	if err != nil {
 		t.Error("Omit() on table <business_chart_of_accounts> fail:", err)
 	}
@@ -111,7 +111,7 @@ func Test_businessChartOfAccountsORMQuery(t *testing.T) {
 		t.Error("FindByPage() on table <business_chart_of_accounts> fail:", err)
 	}
 
-	_, err = _do.ScanByPage(&accounting_servicev1.BusinessChartOfAccountsORM{}, 0, 1)
+	_, err = _do.ScanByPage(&accounting_servicev1.BusinessChartOfAccountORM{}, 0, 1)
 	if err != nil {
 		t.Error("ScanByPage() on table <business_chart_of_accounts> fail:", err)
 	}
@@ -145,13 +145,13 @@ func Test_businessChartOfAccountsORMQuery(t *testing.T) {
 	}
 }
 
-var BusinessChartOfAccountsORMGetRecordByIDTestCase = []TestCase{}
+var BusinessChartOfAccountORMGetRecordByIDTestCase = []TestCase{}
 
-func Test_businessChartOfAccountsORM_GetRecordByID(t *testing.T) {
-	businessChartOfAccountsORM := newBusinessChartOfAccountsORM(db)
-	do := businessChartOfAccountsORM.WithContext(context.Background()).Debug()
+func Test_businessChartOfAccountORM_GetRecordByID(t *testing.T) {
+	businessChartOfAccountORM := newBusinessChartOfAccountORM(db)
+	do := businessChartOfAccountORM.WithContext(context.Background()).Debug()
 
-	for i, tt := range BusinessChartOfAccountsORMGetRecordByIDTestCase {
+	for i, tt := range BusinessChartOfAccountORMGetRecordByIDTestCase {
 		t.Run("GetRecordByID_"+strconv.Itoa(i), func(t *testing.T) {
 			res1, res2 := do.GetRecordByID(tt.Input.Args[0].(int))
 			assert(t, "GetRecordByID", res1, tt.Expectation.Ret[0])
@@ -160,13 +160,13 @@ func Test_businessChartOfAccountsORM_GetRecordByID(t *testing.T) {
 	}
 }
 
-var BusinessChartOfAccountsORMGetRecordByIDsTestCase = []TestCase{}
+var BusinessChartOfAccountORMGetRecordByIDsTestCase = []TestCase{}
 
-func Test_businessChartOfAccountsORM_GetRecordByIDs(t *testing.T) {
-	businessChartOfAccountsORM := newBusinessChartOfAccountsORM(db)
-	do := businessChartOfAccountsORM.WithContext(context.Background()).Debug()
+func Test_businessChartOfAccountORM_GetRecordByIDs(t *testing.T) {
+	businessChartOfAccountORM := newBusinessChartOfAccountORM(db)
+	do := businessChartOfAccountORM.WithContext(context.Background()).Debug()
 
-	for i, tt := range BusinessChartOfAccountsORMGetRecordByIDsTestCase {
+	for i, tt := range BusinessChartOfAccountORMGetRecordByIDsTestCase {
 		t.Run("GetRecordByIDs_"+strconv.Itoa(i), func(t *testing.T) {
 			res1, res2 := do.GetRecordByIDs(tt.Input.Args[0].([]int))
 			assert(t, "GetRecordByIDs", res1, tt.Expectation.Ret[0])
@@ -175,41 +175,41 @@ func Test_businessChartOfAccountsORM_GetRecordByIDs(t *testing.T) {
 	}
 }
 
-var BusinessChartOfAccountsORMCreateRecordTestCase = []TestCase{}
+var BusinessChartOfAccountORMCreateRecordTestCase = []TestCase{}
 
-func Test_businessChartOfAccountsORM_CreateRecord(t *testing.T) {
-	businessChartOfAccountsORM := newBusinessChartOfAccountsORM(db)
-	do := businessChartOfAccountsORM.WithContext(context.Background()).Debug()
+func Test_businessChartOfAccountORM_CreateRecord(t *testing.T) {
+	businessChartOfAccountORM := newBusinessChartOfAccountORM(db)
+	do := businessChartOfAccountORM.WithContext(context.Background()).Debug()
 
-	for i, tt := range BusinessChartOfAccountsORMCreateRecordTestCase {
+	for i, tt := range BusinessChartOfAccountORMCreateRecordTestCase {
 		t.Run("CreateRecord_"+strconv.Itoa(i), func(t *testing.T) {
-			res1 := do.CreateRecord(tt.Input.Args[0].(accounting_servicev1.BusinessChartOfAccountsORM))
+			res1 := do.CreateRecord(tt.Input.Args[0].(accounting_servicev1.BusinessChartOfAccountORM))
 			assert(t, "CreateRecord", res1, tt.Expectation.Ret[0])
 		})
 	}
 }
 
-var BusinessChartOfAccountsORMUpdateRecordByIDTestCase = []TestCase{}
+var BusinessChartOfAccountORMUpdateRecordByIDTestCase = []TestCase{}
 
-func Test_businessChartOfAccountsORM_UpdateRecordByID(t *testing.T) {
-	businessChartOfAccountsORM := newBusinessChartOfAccountsORM(db)
-	do := businessChartOfAccountsORM.WithContext(context.Background()).Debug()
+func Test_businessChartOfAccountORM_UpdateRecordByID(t *testing.T) {
+	businessChartOfAccountORM := newBusinessChartOfAccountORM(db)
+	do := businessChartOfAccountORM.WithContext(context.Background()).Debug()
 
-	for i, tt := range BusinessChartOfAccountsORMUpdateRecordByIDTestCase {
+	for i, tt := range BusinessChartOfAccountORMUpdateRecordByIDTestCase {
 		t.Run("UpdateRecordByID_"+strconv.Itoa(i), func(t *testing.T) {
-			res1 := do.UpdateRecordByID(tt.Input.Args[0].(int), tt.Input.Args[1].(accounting_servicev1.BusinessChartOfAccountsORM))
+			res1 := do.UpdateRecordByID(tt.Input.Args[0].(int), tt.Input.Args[1].(accounting_servicev1.BusinessChartOfAccountORM))
 			assert(t, "UpdateRecordByID", res1, tt.Expectation.Ret[0])
 		})
 	}
 }
 
-var BusinessChartOfAccountsORMDeleteRecordByIDTestCase = []TestCase{}
+var BusinessChartOfAccountORMDeleteRecordByIDTestCase = []TestCase{}
 
-func Test_businessChartOfAccountsORM_DeleteRecordByID(t *testing.T) {
-	businessChartOfAccountsORM := newBusinessChartOfAccountsORM(db)
-	do := businessChartOfAccountsORM.WithContext(context.Background()).Debug()
+func Test_businessChartOfAccountORM_DeleteRecordByID(t *testing.T) {
+	businessChartOfAccountORM := newBusinessChartOfAccountORM(db)
+	do := businessChartOfAccountORM.WithContext(context.Background()).Debug()
 
-	for i, tt := range BusinessChartOfAccountsORMDeleteRecordByIDTestCase {
+	for i, tt := range BusinessChartOfAccountORMDeleteRecordByIDTestCase {
 		t.Run("DeleteRecordByID_"+strconv.Itoa(i), func(t *testing.T) {
 			res1 := do.DeleteRecordByID(tt.Input.Args[0].(int))
 			assert(t, "DeleteRecordByID", res1, tt.Expectation.Ret[0])
@@ -217,13 +217,13 @@ func Test_businessChartOfAccountsORM_DeleteRecordByID(t *testing.T) {
 	}
 }
 
-var BusinessChartOfAccountsORMGetAllRecordsTestCase = []TestCase{}
+var BusinessChartOfAccountORMGetAllRecordsTestCase = []TestCase{}
 
-func Test_businessChartOfAccountsORM_GetAllRecords(t *testing.T) {
-	businessChartOfAccountsORM := newBusinessChartOfAccountsORM(db)
-	do := businessChartOfAccountsORM.WithContext(context.Background()).Debug()
+func Test_businessChartOfAccountORM_GetAllRecords(t *testing.T) {
+	businessChartOfAccountORM := newBusinessChartOfAccountORM(db)
+	do := businessChartOfAccountORM.WithContext(context.Background()).Debug()
 
-	for i, tt := range BusinessChartOfAccountsORMGetAllRecordsTestCase {
+	for i, tt := range BusinessChartOfAccountORMGetAllRecordsTestCase {
 		t.Run("GetAllRecords_"+strconv.Itoa(i), func(t *testing.T) {
 			res1, res2 := do.GetAllRecords(tt.Input.Args[0].(string), tt.Input.Args[1].(int), tt.Input.Args[2].(int))
 			assert(t, "GetAllRecords", res1, tt.Expectation.Ret[0])
@@ -232,13 +232,13 @@ func Test_businessChartOfAccountsORM_GetAllRecords(t *testing.T) {
 	}
 }
 
-var BusinessChartOfAccountsORMCountAllTestCase = []TestCase{}
+var BusinessChartOfAccountORMCountAllTestCase = []TestCase{}
 
-func Test_businessChartOfAccountsORM_CountAll(t *testing.T) {
-	businessChartOfAccountsORM := newBusinessChartOfAccountsORM(db)
-	do := businessChartOfAccountsORM.WithContext(context.Background()).Debug()
+func Test_businessChartOfAccountORM_CountAll(t *testing.T) {
+	businessChartOfAccountORM := newBusinessChartOfAccountORM(db)
+	do := businessChartOfAccountORM.WithContext(context.Background()).Debug()
 
-	for i, tt := range BusinessChartOfAccountsORMCountAllTestCase {
+	for i, tt := range BusinessChartOfAccountORMCountAllTestCase {
 		t.Run("CountAll_"+strconv.Itoa(i), func(t *testing.T) {
 			res1, res2 := do.CountAll()
 			assert(t, "CountAll", res1, tt.Expectation.Ret[0])
@@ -247,13 +247,13 @@ func Test_businessChartOfAccountsORM_CountAll(t *testing.T) {
 	}
 }
 
-var BusinessChartOfAccountsORMGetByIDTestCase = []TestCase{}
+var BusinessChartOfAccountORMGetByIDTestCase = []TestCase{}
 
-func Test_businessChartOfAccountsORM_GetByID(t *testing.T) {
-	businessChartOfAccountsORM := newBusinessChartOfAccountsORM(db)
-	do := businessChartOfAccountsORM.WithContext(context.Background()).Debug()
+func Test_businessChartOfAccountORM_GetByID(t *testing.T) {
+	businessChartOfAccountORM := newBusinessChartOfAccountORM(db)
+	do := businessChartOfAccountORM.WithContext(context.Background()).Debug()
 
-	for i, tt := range BusinessChartOfAccountsORMGetByIDTestCase {
+	for i, tt := range BusinessChartOfAccountORMGetByIDTestCase {
 		t.Run("GetByID_"+strconv.Itoa(i), func(t *testing.T) {
 			res1, res2 := do.GetByID(tt.Input.Args[0].(uint64))
 			assert(t, "GetByID", res1, tt.Expectation.Ret[0])
@@ -262,13 +262,13 @@ func Test_businessChartOfAccountsORM_GetByID(t *testing.T) {
 	}
 }
 
-var BusinessChartOfAccountsORMGetByIDsTestCase = []TestCase{}
+var BusinessChartOfAccountORMGetByIDsTestCase = []TestCase{}
 
-func Test_businessChartOfAccountsORM_GetByIDs(t *testing.T) {
-	businessChartOfAccountsORM := newBusinessChartOfAccountsORM(db)
-	do := businessChartOfAccountsORM.WithContext(context.Background()).Debug()
+func Test_businessChartOfAccountORM_GetByIDs(t *testing.T) {
+	businessChartOfAccountORM := newBusinessChartOfAccountORM(db)
+	do := businessChartOfAccountORM.WithContext(context.Background()).Debug()
 
-	for i, tt := range BusinessChartOfAccountsORMGetByIDsTestCase {
+	for i, tt := range BusinessChartOfAccountORMGetByIDsTestCase {
 		t.Run("GetByIDs_"+strconv.Itoa(i), func(t *testing.T) {
 			res1, res2 := do.GetByIDs(tt.Input.Args[0].([]uint64))
 			assert(t, "GetByIDs", res1, tt.Expectation.Ret[0])

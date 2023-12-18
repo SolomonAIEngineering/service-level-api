@@ -98,3 +98,8 @@ message ReadIncomeStatementsResponse {
   // the pagination token
   int32 next_page = 2;
 }
+
+message ReadBusinessChartOfAccountsResponse {
+  // the chart of accounts
+  repeated BusinessChartOfAccount chart_of_accounts = 1;
+} 

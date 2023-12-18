@@ -134,6 +134,58 @@
         ]
       }
     },
+    "/api/v1/chart-of-accounts": {
+      "post": {
+        "summary": "Gets Chart of Accounts",
+        "description": "Queries chart of accounts for a business.",
+        "operationId": "ReadBusinessChartOfAccounts",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.ReadBusinessChartOfAccountsResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ReadBusinessChartOfAccountsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Chart of Accounts"
+        ]
+      }
+    },
     "/api/v1/health": {
       "get": {
         "summary": "Health Check",
@@ -935,7 +987,7 @@
       "description": "- BUSINESS_ACTIONABLE_INSIGHT_TYPE_OPERATING_EXPENSES: Operating Expenses: Insights on managing day-to-day operational costs.\n - BUSINESS_ACTIONABLE_INSIGHT_TYPE_CASH_FLOW_MANAGEMENT: Cash Flow Management: Insights into cash inflows and outflows.\n - BUSINESS_ACTIONABLE_INSIGHT_TYPE_REVENUE_GROWTH: Revenue Growth: Strategies or opportunities to increase revenue.\n - BUSINESS_ACTIONABLE_INSIGHT_TYPE_COST_REDUCTION: Cost Reduction: Identifying areas where expenses can be minimized.\n - BUSINESS_ACTIONABLE_INSIGHT_TYPE_INVENTORY_MANAGEMENT: Inventory Management: Insights on optimizing inventory levels and costs.\n - BUSINESS_ACTIONABLE_INSIGHT_TYPE_CAPITAL_ALLOCATION: Capital Allocation: Guidance on efficient allocation of financial resources.\n - BUSINESS_ACTIONABLE_INSIGHT_TYPE_INVESTMENT_OPPORTUNITIES: Investment Opportunities: Identifying potential profitable investments.\n - BUSINESS_ACTIONABLE_INSIGHT_TYPE_RISK_ASSESSMENT: Risk Assessment: Insights into potential risks and mitigation strategies.\n - BUSINESS_ACTIONABLE_INSIGHT_TYPE_TAX_PLANNING: Tax Planning: Suggestions for tax optimization.\n - BUSINESS_ACTIONABLE_INSIGHT_TYPE_DEBT_MANAGEMENT: Debt Management: Strategies for managing and reducing debt.",
       "title": "BusinessActionableInsightType is the type of actionable insight"
     },
-    "BusinessChartOfAccounts": {
+    "BusinessChartOfAccount": {
       "type": "object",
       "properties": {
         "id": {
@@ -3425,7 +3477,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/BusinessChartOfAccounts"
+            "$ref": "#/definitions/BusinessChartOfAccount"
           },
           "title": "A \"Business Chart of Accounts\" is a structured list of a company's general ledger accounts. \nThese accounts are used to categorize every financial transaction a company makes. \nThis structure allows businesses to systematically track, manage, and report their financial activities"
         },
@@ -4064,6 +4116,38 @@
           "type": "integer",
           "format": "int32",
           "title": "the pagination token"
+        }
+      }
+    },
+    "ReadBusinessChartOfAccountsRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "The user id\nValidations:\n- user_id must be greater than 0"
+        },
+        "acountingIntegrationMergeLinkId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "The accounting integration merge link id\nValidations:\n- acounting_integration_merge_link_id must be greater than 0"
+        }
+      },
+      "required": [
+        "userId",
+        "acountingIntegrationMergeLinkId"
+      ]
+    },
+    "ReadBusinessChartOfAccountsResponse": {
+      "type": "object",
+      "properties": {
+        "chartOfAccounts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/BusinessChartOfAccount"
+          },
+          "title": "the chart of accounts"
         }
       }
     },

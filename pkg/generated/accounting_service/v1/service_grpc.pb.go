@@ -30,6 +30,7 @@ const (
 	AccountingService_ReadBalanceSheets_FullMethodName                      = "/accounting_service.v1.AccountingService/ReadBalanceSheets"
 	AccountingService_ReadCashFlowStatements_FullMethodName                 = "/accounting_service.v1.AccountingService/ReadCashFlowStatements"
 	AccountingService_ReadIncomeStatements_FullMethodName                   = "/accounting_service.v1.AccountingService/ReadIncomeStatements"
+	AccountingService_ReadBusinessChartOfAccounts_FullMethodName            = "/accounting_service.v1.AccountingService/ReadBusinessChartOfAccounts"
 )
 
 // AccountingServiceClient is the client API for AccountingService service.
@@ -52,9 +53,13 @@ type AccountingServiceClient interface {
 	GetLinkToken(ctx context.Context, in *GetLinkTokenRequest, opts ...grpc.CallOption) (*GetLinkTokenResponse, error)
 	// enables the client to exchange a public link token for an access token
 	ExchangePublicLinkTokenForAccountToken(ctx context.Context, in *ExchangePublicLinkTokenForAccountTokenRequest, opts ...grpc.CallOption) (*ExchangePublicLinkTokenForAccountTokenResponse, error)
+	// ReadBalanceSheets reads the balances sheet for a given a user
 	ReadBalanceSheets(ctx context.Context, in *ReadBalanceSheetsRequest, opts ...grpc.CallOption) (*ReadBalanceSheetsResponse, error)
+	// ReadCashFlowStatements reads the cash flow statements for a given a user
 	ReadCashFlowStatements(ctx context.Context, in *ReadCashFlowStatementsRequest, opts ...grpc.CallOption) (*ReadCashFlowStatementsResponse, error)
+	// ReadIncomeStatements reads the income statements for a given a user
 	ReadIncomeStatements(ctx context.Context, in *ReadIncomeStatementsRequest, opts ...grpc.CallOption) (*ReadIncomeStatementsResponse, error)
+	ReadBusinessChartOfAccounts(ctx context.Context, in *ReadBusinessChartOfAccountsRequest, opts ...grpc.CallOption) (*ReadBusinessChartOfAccountsResponse, error)
 }
 
 type accountingServiceClient struct {
@@ -164,6 +169,15 @@ func (c *accountingServiceClient) ReadIncomeStatements(ctx context.Context, in *
 	return out, nil
 }
 
+func (c *accountingServiceClient) ReadBusinessChartOfAccounts(ctx context.Context, in *ReadBusinessChartOfAccountsRequest, opts ...grpc.CallOption) (*ReadBusinessChartOfAccountsResponse, error) {
+	out := new(ReadBusinessChartOfAccountsResponse)
+	err := c.cc.Invoke(ctx, AccountingService_ReadBusinessChartOfAccounts_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AccountingServiceServer is the server API for AccountingService service.
 // All implementations must embed UnimplementedAccountingServiceServer
 // for forward compatibility
@@ -184,9 +198,13 @@ type AccountingServiceServer interface {
 	GetLinkToken(context.Context, *GetLinkTokenRequest) (*GetLinkTokenResponse, error)
 	// enables the client to exchange a public link token for an access token
 	ExchangePublicLinkTokenForAccountToken(context.Context, *ExchangePublicLinkTokenForAccountTokenRequest) (*ExchangePublicLinkTokenForAccountTokenResponse, error)
+	// ReadBalanceSheets reads the balances sheet for a given a user
 	ReadBalanceSheets(context.Context, *ReadBalanceSheetsRequest) (*ReadBalanceSheetsResponse, error)
+	// ReadCashFlowStatements reads the cash flow statements for a given a user
 	ReadCashFlowStatements(context.Context, *ReadCashFlowStatementsRequest) (*ReadCashFlowStatementsResponse, error)
+	// ReadIncomeStatements reads the income statements for a given a user
 	ReadIncomeStatements(context.Context, *ReadIncomeStatementsRequest) (*ReadIncomeStatementsResponse, error)
+	ReadBusinessChartOfAccounts(context.Context, *ReadBusinessChartOfAccountsRequest) (*ReadBusinessChartOfAccountsResponse, error)
 	mustEmbedUnimplementedAccountingServiceServer()
 }
 
@@ -226,6 +244,9 @@ func (UnimplementedAccountingServiceServer) ReadCashFlowStatements(context.Conte
 }
 func (UnimplementedAccountingServiceServer) ReadIncomeStatements(context.Context, *ReadIncomeStatementsRequest) (*ReadIncomeStatementsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReadIncomeStatements not implemented")
+}
+func (UnimplementedAccountingServiceServer) ReadBusinessChartOfAccounts(context.Context, *ReadBusinessChartOfAccountsRequest) (*ReadBusinessChartOfAccountsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReadBusinessChartOfAccounts not implemented")
 }
 func (UnimplementedAccountingServiceServer) mustEmbedUnimplementedAccountingServiceServer() {}
 
@@ -438,6 +459,24 @@ func _AccountingService_ReadIncomeStatements_Handler(srv interface{}, ctx contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AccountingService_ReadBusinessChartOfAccounts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReadBusinessChartOfAccountsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountingServiceServer).ReadBusinessChartOfAccounts(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountingService_ReadBusinessChartOfAccounts_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountingServiceServer).ReadBusinessChartOfAccounts(ctx, req.(*ReadBusinessChartOfAccountsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AccountingService_ServiceDesc is the grpc.ServiceDesc for AccountingService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -488,6 +527,10 @@ var AccountingService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ReadIncomeStatements",
 			Handler:    _AccountingService_ReadIncomeStatements_Handler,
+		},
+		{
+			MethodName: "ReadBusinessChartOfAccounts",
+			Handler:    _AccountingService_ReadBusinessChartOfAccounts_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

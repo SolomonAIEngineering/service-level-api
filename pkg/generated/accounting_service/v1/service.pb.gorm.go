@@ -74,3 +74,9 @@ func (m *AccountingServiceDefaultServer) ReadIncomeStatements(ctx context.Contex
 	out := &ReadIncomeStatementsResponse{}
 	return out, nil
 }
+
+// ReadBusinessChartOfAccounts ...
+func (m *AccountingServiceDefaultServer) ReadBusinessChartOfAccounts(ctx context.Context, in *ReadBusinessChartOfAccountsRequest) (*ReadBusinessChartOfAccountsResponse, error) {
+	out := &ReadBusinessChartOfAccountsResponse{}
+	return out, nil
+}
