@@ -1,3 +1,10 @@
+# [1.156.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.155.0...v1.156.0) (2023-12-18)
+
+
+### Features
+
+* update api names ([7a302a4](https://github.com/SolomonAIEngineering/service-level-api/commit/7a302a47450b8f7bf8ec671e97d78b88d8d08096))
+
 # [1.155.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.154.0...v1.155.0) (2023-12-16)
 
 
