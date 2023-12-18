@@ -31,6 +31,7 @@ func newExpenseLineORM(db *gorm.DB, opts ...gen.DOOption) expenseLineORM {
 	_expenseLineORM.Account = field.NewString(tableName, "account")
 	_expenseLineORM.Company = field.NewString(tableName, "company")
 	_expenseLineORM.Contact = field.NewString(tableName, "contact")
+	_expenseLineORM.CreatedAt = field.NewTime(tableName, "created_at")
 	_expenseLineORM.Currency = field.NewString(tableName, "currency")
 	_expenseLineORM.Description = field.NewString(tableName, "description")
 	_expenseLineORM.ExchangeRate = field.NewString(tableName, "exchange_rate")
@@ -40,6 +41,7 @@ func newExpenseLineORM(db *gorm.DB, opts ...gen.DOOption) expenseLineORM {
 	_expenseLineORM.ModifiedAt = field.NewTime(tableName, "modified_at")
 	_expenseLineORM.NetAmount = field.NewFloat64(tableName, "net_amount")
 	_expenseLineORM.RemoteId = field.NewString(tableName, "remote_id")
+	_expenseLineORM.RemoteWasDeleted = field.NewBool(tableName, "remote_was_deleted")
 	_expenseLineORM.TrackingCategories = field.NewField(tableName, "tracking_categories")
 	_expenseLineORM.TrackingCategory = field.NewString(tableName, "tracking_category")
 
@@ -55,6 +57,7 @@ type expenseLineORM struct {
 	Account            field.String
 	Company            field.String
 	Contact            field.String
+	CreatedAt          field.Time
 	Currency           field.String
 	Description        field.String
 	ExchangeRate       field.String
@@ -64,6 +67,7 @@ type expenseLineORM struct {
 	ModifiedAt         field.Time
 	NetAmount          field.Float64
 	RemoteId           field.String
+	RemoteWasDeleted   field.Bool
 	TrackingCategories field.Field
 	TrackingCategory   field.String
 
@@ -85,6 +89,7 @@ func (e *expenseLineORM) updateTableName(table string) *expenseLineORM {
 	e.Account = field.NewString(table, "account")
 	e.Company = field.NewString(table, "company")
 	e.Contact = field.NewString(table, "contact")
+	e.CreatedAt = field.NewTime(table, "created_at")
 	e.Currency = field.NewString(table, "currency")
 	e.Description = field.NewString(table, "description")
 	e.ExchangeRate = field.NewString(table, "exchange_rate")
@@ -94,6 +99,7 @@ func (e *expenseLineORM) updateTableName(table string) *expenseLineORM {
 	e.ModifiedAt = field.NewTime(table, "modified_at")
 	e.NetAmount = field.NewFloat64(table, "net_amount")
 	e.RemoteId = field.NewString(table, "remote_id")
+	e.RemoteWasDeleted = field.NewBool(table, "remote_was_deleted")
 	e.TrackingCategories = field.NewField(table, "tracking_categories")
 	e.TrackingCategory = field.NewString(table, "tracking_category")
 
@@ -112,10 +118,11 @@ func (e *expenseLineORM) GetFieldByName(fieldName string) (field.OrderExpr, bool
 }
 
 func (e *expenseLineORM) fillFieldMap() {
-	e.fieldMap = make(map[string]field.Expr, 14)
+	e.fieldMap = make(map[string]field.Expr, 16)
 	e.fieldMap["account"] = e.Account
 	e.fieldMap["company"] = e.Company
 	e.fieldMap["contact"] = e.Contact
+	e.fieldMap["created_at"] = e.CreatedAt
 	e.fieldMap["currency"] = e.Currency
 	e.fieldMap["description"] = e.Description
 	e.fieldMap["exchange_rate"] = e.ExchangeRate
@@ -125,6 +132,7 @@ func (e *expenseLineORM) fillFieldMap() {
 	e.fieldMap["modified_at"] = e.ModifiedAt
 	e.fieldMap["net_amount"] = e.NetAmount
 	e.fieldMap["remote_id"] = e.RemoteId
+	e.fieldMap["remote_was_deleted"] = e.RemoteWasDeleted
 	e.fieldMap["tracking_categories"] = e.TrackingCategories
 	e.fieldMap["tracking_category"] = e.TrackingCategory
 }

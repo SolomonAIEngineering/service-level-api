@@ -34,13 +34,13 @@ func newCashFlowStatementsORM(db *gorm.DB, opts ...gen.DOOption) cashFlowStateme
 	_cashFlowStatementsORM.Currency = field.NewString(tableName, "currency")
 	_cashFlowStatementsORM.EndPeriod = field.NewTime(tableName, "end_period")
 	_cashFlowStatementsORM.Id = field.NewUint64(tableName, "id")
+	_cashFlowStatementsORM.LinkedAccountingAccountId = field.NewUint64(tableName, "linked_accounting_account_id")
 	_cashFlowStatementsORM.MergeRecordId = field.NewString(tableName, "merge_record_id")
 	_cashFlowStatementsORM.ModifiedAt = field.NewTime(tableName, "modified_at")
 	_cashFlowStatementsORM.Name = field.NewString(tableName, "name")
 	_cashFlowStatementsORM.RemoteGeneratedAt = field.NewTime(tableName, "remote_generated_at")
 	_cashFlowStatementsORM.RemoteId = field.NewString(tableName, "remote_id")
 	_cashFlowStatementsORM.RemoteWasDeleted = field.NewBool(tableName, "remote_was_deleted")
-	_cashFlowStatementsORM.ReportDetailsId = field.NewUint64(tableName, "report_details_id")
 	_cashFlowStatementsORM.StartPeriod = field.NewTime(tableName, "start_period")
 	_cashFlowStatementsORM.FinancingActivities = cashFlowStatementsORMHasManyFinancingActivities{
 		db: db.Session(&gorm.Session{}),
@@ -68,22 +68,22 @@ func newCashFlowStatementsORM(db *gorm.DB, opts ...gen.DOOption) cashFlowStateme
 type cashFlowStatementsORM struct {
 	cashFlowStatementsORMDo
 
-	ALL                     field.Asterisk
-	CashAtBeginningOfPeriod field.Float64
-	CashAtEndOfPeriod       field.Float64
-	Company                 field.String
-	Currency                field.String
-	EndPeriod               field.Time
-	Id                      field.Uint64
-	MergeRecordId           field.String
-	ModifiedAt              field.Time
-	Name                    field.String
-	RemoteGeneratedAt       field.Time
-	RemoteId                field.String
-	RemoteWasDeleted        field.Bool
-	ReportDetailsId         field.Uint64
-	StartPeriod             field.Time
-	FinancingActivities     cashFlowStatementsORMHasManyFinancingActivities
+	ALL                       field.Asterisk
+	CashAtBeginningOfPeriod   field.Float64
+	CashAtEndOfPeriod         field.Float64
+	Company                   field.String
+	Currency                  field.String
+	EndPeriod                 field.Time
+	Id                        field.Uint64
+	LinkedAccountingAccountId field.Uint64
+	MergeRecordId             field.String
+	ModifiedAt                field.Time
+	Name                      field.String
+	RemoteGeneratedAt         field.Time
+	RemoteId                  field.String
+	RemoteWasDeleted          field.Bool
+	StartPeriod               field.Time
+	FinancingActivities       cashFlowStatementsORMHasManyFinancingActivities
 
 	InvestingActivities cashFlowStatementsORMHasManyInvestingActivities
 
@@ -110,13 +110,13 @@ func (c *cashFlowStatementsORM) updateTableName(table string) *cashFlowStatement
 	c.Currency = field.NewString(table, "currency")
 	c.EndPeriod = field.NewTime(table, "end_period")
 	c.Id = field.NewUint64(table, "id")
+	c.LinkedAccountingAccountId = field.NewUint64(table, "linked_accounting_account_id")
 	c.MergeRecordId = field.NewString(table, "merge_record_id")
 	c.ModifiedAt = field.NewTime(table, "modified_at")
 	c.Name = field.NewString(table, "name")
 	c.RemoteGeneratedAt = field.NewTime(table, "remote_generated_at")
 	c.RemoteId = field.NewString(table, "remote_id")
 	c.RemoteWasDeleted = field.NewBool(table, "remote_was_deleted")
-	c.ReportDetailsId = field.NewUint64(table, "report_details_id")
 	c.StartPeriod = field.NewTime(table, "start_period")
 
 	c.fillFieldMap()
@@ -141,13 +141,13 @@ func (c *cashFlowStatementsORM) fillFieldMap() {
 	c.fieldMap["currency"] = c.Currency
 	c.fieldMap["end_period"] = c.EndPeriod
 	c.fieldMap["id"] = c.Id
+	c.fieldMap["linked_accounting_account_id"] = c.LinkedAccountingAccountId
 	c.fieldMap["merge_record_id"] = c.MergeRecordId
 	c.fieldMap["modified_at"] = c.ModifiedAt
 	c.fieldMap["name"] = c.Name
 	c.fieldMap["remote_generated_at"] = c.RemoteGeneratedAt
 	c.fieldMap["remote_id"] = c.RemoteId
 	c.fieldMap["remote_was_deleted"] = c.RemoteWasDeleted
-	c.fieldMap["report_details_id"] = c.ReportDetailsId
 	c.fieldMap["start_period"] = c.StartPeriod
 
 }

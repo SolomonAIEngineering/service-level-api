@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package accounting_service.v1;
+
+import "protoc-gen-gorm/options/gorm.proto";
+import "validate/validate.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "accounting_service/v1/actionable_insights_database_schema.proto";
+import "accounting_service/v1/payroll_database_schema.proto";
+import "accounting_service/v1/accounting_database_schema.proto";
+
+option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/generated/accounting_service/v1";
+
+// MergeBusinessProfile stores high level user profile details
+// such as the id, user_id tied to the profile, and many more
+message MergeBusinessProfile {
+  option (gorm.opts) = {ormable: true};
+
+  // id
+  uint64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+    ];
+  // the user id tied to the profile
+  uint64 user_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (validate.rules).uint64.gt = 0
+  ];
+
+  string company_name = 3;
+  // a user profile can have many links (connected institutions) of which finanical accounts are tied to (checking, savings, etc)
+  string email = 8;
+
+  // this is the accounting integration the business has decided to authorize
+  repeated AccountingIntegrationMergeLink accounting_integration_merge_link = 9 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+
+  // this is the payroll integration the business has decided to authorize
+  repeated HrisIntegrationMergeLink payroll_integration_merge_link = 10  [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+
+  // ths is the actionable inisghts the business has be provided with
+  repeated BusinessActionableInsight actionable_personal_insights = 11 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+}

@@ -30,183 +30,10 @@
     "application/json"
   ],
   "paths": {
-    "/api/v1/business-analysis/{userId}/chart-of-accounts": {
-      "get": {
-        "summary": "gets a business chart of accounts",
-        "operationId": "GetChartOfAccounts",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": ".api.v1.GetChartOfAccountsResponse"
-            }
-          },
-          "400": {
-            "description": "Request failed due to invalid input.",
-            "schema": {
-              "$ref": ".api.v1.ValidationErrorMessageResponse"
-            }
-          },
-          "404": {
-            "description": "Request failed due to incorrect path.",
-            "schema": {
-              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
-            }
-          },
-          "500": {
-            "description": "Request failed due to internal server error.",
-            "schema": {
-              "$ref": ".api.v1.InternalErrorMessageResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/Status"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "userId",
-            "description": "the user id of interest",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "format": "uint64"
-          },
-          {
-            "name": "linkedAccountingAccountId",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "format": "uint64"
-          }
-        ],
-        "tags": [
-          "business-analysis"
-        ]
-      }
-    },
-    "/api/v1/business-analysis/{userId}/reference-details": {
-      "get": {
-        "summary": "gets a business reference details",
-        "operationId": "GetReferenceDetails",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": ".api.v1.GetReferenceDetailsResponse"
-            }
-          },
-          "400": {
-            "description": "Request failed due to invalid input.",
-            "schema": {
-              "$ref": ".api.v1.ValidationErrorMessageResponse"
-            }
-          },
-          "404": {
-            "description": "Request failed due to incorrect path.",
-            "schema": {
-              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
-            }
-          },
-          "500": {
-            "description": "Request failed due to internal server error.",
-            "schema": {
-              "$ref": ".api.v1.InternalErrorMessageResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/Status"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "userId",
-            "description": "the user id of interest",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "format": "uint64"
-          },
-          {
-            "name": "linkedAccountingAccountId",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "format": "uint64"
-          }
-        ],
-        "tags": [
-          "business-analysis"
-        ]
-      }
-    },
-    "/api/v1/business-analysis/{userId}/transaction-details": {
-      "get": {
-        "summary": "gets a business transactions details",
-        "operationId": "GetTransactionDetails",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": ".api.v1.GetTransactionDetailsResponse"
-            }
-          },
-          "400": {
-            "description": "Request failed due to invalid input.",
-            "schema": {
-              "$ref": ".api.v1.ValidationErrorMessageResponse"
-            }
-          },
-          "404": {
-            "description": "Request failed due to incorrect path.",
-            "schema": {
-              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
-            }
-          },
-          "500": {
-            "description": "Request failed due to internal server error.",
-            "schema": {
-              "$ref": ".api.v1.InternalErrorMessageResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/Status"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "format": "uint64"
-          },
-          {
-            "name": "linkedAccountingAccountId",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "format": "uint64"
-          }
-        ],
-        "tags": [
-          "business-analysis"
-        ]
-      }
-    },
     "/api/v1/health": {
       "get": {
-        "summary": "health check",
-        "description": "This endpoint performs a healc check on the service",
+        "summary": "Health Check",
+        "description": "Performs a health check on the service.",
         "operationId": "HealthCheck",
         "responses": {
           "200": {
@@ -247,13 +74,14 @@
     },
     "/api/v1/merge/exchange-token": {
       "post": {
-        "summary": "enables the client to exchange a public link token for an access token",
-        "operationId": "MergeExchangePublicLinkTokenForAccountToken",
+        "summary": "Exchange Link Token",
+        "description": "Exchanges a public link token for an account token.",
+        "operationId": "ExchangePublicLinkTokenForAccountTokenResponse",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": ".api.v1.MergeExchangePublicLinkTokenForAccountTokenResponse"
+              "$ref": ".api.v1.ExchangePublicLinkTokenForAccountTokenResponse"
             }
           },
           "400": {
@@ -284,27 +112,29 @@
         "parameters": [
           {
             "name": "body",
+            "description": "Defines a message named ExchangePublicLinkTokenForAccountTokenRequest.",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/MergeExchangePublicLinkTokenForAccountTokenRequest"
+              "$ref": "#/definitions/ExchangePublicLinkTokenForAccountTokenRequest"
             }
           }
         ],
         "tags": [
-          "merge"
+          "Token Management"
         ]
       }
     },
     "/api/v1/merge/initiate-token-exchange": {
       "post": {
-        "summary": "enables the client to get a link_token to initialize a Link session for your end user.",
-        "operationId": "MergeGetPublicLinkToken",
+        "summary": "Get Link Token",
+        "description": "Provides a link token to initialize a Link session for the user.",
+        "operationId": "GetLinkToken",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": ".api.v1.MergeGetPublicLinkTokenResponse"
+              "$ref": ".api.v1.GetLinkTokenResponse"
             }
           },
           "400": {
@@ -335,28 +165,29 @@
         "parameters": [
           {
             "name": "body",
+            "description": "Defines a message named GetLinkTokenRequest.",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/MergeGetPublicLinkTokenRequest"
+              "$ref": "#/definitions/GetLinkTokenRequest"
             }
           }
         ],
         "tags": [
-          "merge"
+          "Token Management"
         ]
       }
     },
     "/api/v1/profile": {
       "post": {
-        "summary": "create accounting profile",
-        "description": "This endpoint creates an accounting profile",
-        "operationId": "CreateAccountingProfile",
+        "summary": "Create Payroll Profile",
+        "description": "Creates a payroll profile.",
+        "operationId": "CreatePayrollProfile",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": ".api.v1.CreateBusinessAccountingProfileResponse"
+              "$ref": ".api.v1.CreateBusinessPayrollProfileResponse"
             }
           },
           "400": {
@@ -387,10 +218,11 @@
         "parameters": [
           {
             "name": "body",
+            "description": "Defines a message named CreateProfileRequest.",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/CreateBusinessAccountingProfileRequest"
+              "$ref": "#/definitions/CreateProfileRequest"
             }
           }
         ],
@@ -399,14 +231,14 @@
         ]
       },
       "put": {
-        "summary": "Update accounting profile",
-        "description": "This endpoint Updates an accounting profile",
-        "operationId": "UpdateAccountingProfile",
+        "summary": "Update Payroll Profile",
+        "description": "Updates a payroll profile.",
+        "operationId": "UpdatePayrollProfile",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": ".api.v1.UpdateBusinessAccountingProfileResponse"
+              "$ref": ".api.v1.UpdateProfileResponse"
             }
           },
           "400": {
@@ -437,10 +269,11 @@
         "parameters": [
           {
             "name": "body",
+            "description": "Defines a message named UpdateProfileRequest.",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/UpdateBusinessAccountingProfileRequest"
+              "$ref": "#/definitions/UpdateProfileRequest"
             }
           }
         ],
@@ -451,13 +284,14 @@
     },
     "/api/v1/profile/{userId}": {
       "get": {
-        "summary": "gets a business account profile",
-        "operationId": "GetBusinessAccountingProfile",
+        "summary": "Get Business Account Profile",
+        "description": "Retrieves a business account profile.",
+        "operationId": "ReadProfileResponse",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": ".api.v1.GetBusinessAccountingProfileResponse"
+              "$ref": ".api.v1.ReadProfileResponse"
             }
           },
           "400": {
@@ -492,6 +326,13 @@
             "required": true,
             "type": "string",
             "format": "uint64"
+          },
+          {
+            "name": "linkedAccountingAccountId",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
           }
         ],
         "tags": [
@@ -499,13 +340,14 @@
         ]
       },
       "delete": {
-        "summary": "delete business accounting profile",
-        "operationId": "DeleteBusinessAccountingProfile",
+        "summary": "Delete Payroll Profile",
+        "description": "Deletes a business payroll profile.",
+        "operationId": "DeleteProfile",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": ".api.v1.DeleteBusinessAccountingProfileResponse"
+              "$ref": ".api.v1.DeleteProfileResponse"
             }
           },
           "400": {
@@ -549,9 +391,9 @@
     },
     "/api/v1/ready": {
       "get": {
-        "summary": "readyness check",
-        "description": "This endpoint performs a readiness check on the service",
-        "operationId": "ReadynessCheck",
+        "summary": "Readiness Check",
+        "description": "Performs a readiness check on the service.",
+        "operationId": "ReadinessCheck",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -585,12 +427,55 @@
           }
         },
         "tags": [
-          "service readyness"
+          "Service Readiness"
         ]
       }
     }
   },
   "definitions": {
+    "AccountingAttachment": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "remoteId": {
+          "type": "string",
+          "description": "The third-party API ID of the matching object."
+        },
+        "fileName": {
+          "type": "string",
+          "description": "The attachment's name."
+        },
+        "fileUrl": {
+          "type": "string",
+          "description": "The attachment's url."
+        },
+        "company": {
+          "type": "string",
+          "description": "The company the accounting attachment belongs to."
+        },
+        "remoteWasDeleted": {
+          "type": "boolean"
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Consider using google.protobuf.Timestamp if precise time manipulation is required",
+          "title": "This is the datetime that this object was last updated by Merge"
+        },
+        "mergeRecordId": {
+          "type": "string",
+          "description": "The third-party API ID of the matching object."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "description": "The AccountingAttachment object is used to represent a company's attachments."
+    },
     "AccountingIntegrationMergeLink": {
       "type": "object",
       "properties": {
@@ -660,45 +545,6 @@
       },
       "additionalProperties": {}
     },
-    "Attachments": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "format": "uint64"
-        },
-        "mergeAccountId": {
-          "type": "string",
-          "title": "the object's id as stored in merge"
-        },
-        "remoteId": {
-          "type": "string",
-          "description": "The third-party API ID of the matching object."
-        },
-        "fileName": {
-          "type": "string",
-          "description": "The attachment's name."
-        },
-        "fileUrl": {
-          "type": "string",
-          "description": "The attachment's url."
-        },
-        "company": {
-          "type": "string",
-          "description": "The company the accounting attachment belongs to."
-        },
-        "remoteWasDeleted": {
-          "type": "boolean",
-          "description": "Indicates whether or not this object has been deleted by third party webhooks."
-        },
-        "modifiedAt": {
-          "type": "string",
-          "format": "date-time",
-          "title": "This is the datetime that this object was last updated by Merge"
-        }
-      },
-      "description": "The AccountingAttachment object is used to represent a company's attachments."
-    },
     "BalanceSheet": {
       "type": "object",
       "properties": {
@@ -727,8 +573,8 @@
           "description": "The balance sheet's date. The balance sheet data will\n reflect the company's financial position this point in time.\n\nConsider using google.protobuf.Timestamp"
         },
         "netAssets": {
-          "type": "string",
-          "format": "int64",
+          "type": "number",
+          "format": "double",
           "description": "The balance sheet's net assets."
         },
         "assets": {
@@ -770,49 +616,88 @@
           "description": "Consider using google.protobuf.Timestamp",
           "title": "This is the datetime that this object was last updated by Merge"
         },
-        "mergeAccountId": {
+        "mergeRecordId": {
           "type": "string",
           "title": "the id as stored in merge"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "the time the record was created at"
         }
       },
       "description": "The BalanceSheet object shows a company’s assets, liabilities, and equity. Assets should be equal\nto liability and equity combined.  This shows the company’s financial health at a specific point in time."
     },
-    "BusinessAccountingProfile": {
+    "BankAccountType": {
+      "type": "string",
+      "enum": [
+        "BANK_ACCOUNT_TYPE_UNSPECIFIED",
+        "BANK_ACCOUNT_TYPE_CHECKING",
+        "BANK_ACCOUNT_TYPE_SAVINGS"
+      ],
+      "default": "BANK_ACCOUNT_TYPE_UNSPECIFIED"
+    },
+    "BankInfo": {
       "type": "object",
       "properties": {
         "id": {
           "type": "string",
           "format": "uint64",
-          "title": "id"
+          "title": "id of the record"
         },
-        "userId": {
+        "remoteId": {
           "type": "string",
-          "format": "uint64",
-          "title": "the user id tied to the profile"
+          "description": "The third-party API ID of the matching object."
         },
-        "companyName": {
-          "type": "string"
-        },
-        "email": {
+        "accountNumber": {
           "type": "string",
-          "title": "a user profile can have many links (connected institutions) of which finanical accounts are tied to (checking, savings, etc)"
+          "title": "The account number"
         },
-        "accountingIntegrationMergeLink": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/AccountingIntegrationMergeLink"
-          }
+        "routingNumber": {
+          "type": "string",
+          "title": "The routing number"
         },
-        "actionablePersonalInsights": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/BusinessActionableInsight"
-          }
+        "bankName": {
+          "type": "string",
+          "title": "The bank name"
+        },
+        "accountType": {
+          "$ref": "#/definitions/BankAccountType",
+          "description": "The bank account type Possible values include: SAVINGS, CHECKING. \nIn cases where there is no clear mapping, the original value passed through will be returned."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the matching bank object was created in the third party system."
+        },
+        "mergeAccountId": {
+          "type": "string",
+          "title": "The record id as stored on the merge platform"
+        },
+        "remoteWasDeleted": {
+          "type": "boolean",
+          "description": "Indicates whether or not this object has been deleted in the third party platform."
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "This is the datetime that this object was last updated by Merge"
         }
       },
-      "title": "FinancialUserProfile stores high level user profile details\nsuch as the id, user_id tied to the profile, and many more"
+      "description": "The BankInfo object is used to represent the Bank Account information for an Employee."
+    },
+    "BenefitPlanType": {
+      "type": "string",
+      "enum": [
+        "BENEFIT_PLAN_TYPE_UNSPECIFIED",
+        "BENEFIT_PLAN_TYPE_MEDICAL",
+        "BENEFIT_PLAN_TYPE_HEALTH_SAVINGS",
+        "BENEFIT_PLAN_TYPE_INSURANCE",
+        "BENEFIT_PLAN_TYPE_RETIREMENT",
+        "BENEFIT_PLAN_TYPE_OTHER"
+      ],
+      "default": "BENEFIT_PLAN_TYPE_UNSPECIFIED",
+      "description": "The type of benefit plan. Possible values include: MEDICAL, HEALTH_SAVINGS, \nINSURANCE, RETIREMENT, OTHER. In cases where there is no clear mapping, \nthe original value passed through will be returned."
     },
     "BusinessActionableInsight": {
       "type": "object",
@@ -823,8 +708,8 @@
           "example": "1234567890",
           "title": "Unique identifier for the insight"
         },
-        "insightName": {
-          "$ref": "#/definitions/BusinessActionableInsightName",
+        "type": {
+          "$ref": "#/definitions/BusinessActionableInsightType",
           "title": "Type of the actionable insight"
         },
         "description": {
@@ -876,23 +761,24 @@
         }
       }
     },
-    "BusinessActionableInsightName": {
+    "BusinessActionableInsightType": {
       "type": "string",
       "enum": [
-        "BUSINESS_ACTIONABLE_INSIGHT_NAME_UNSPECIFIED",
-        "BUSINESS_ACTIONABLE_INSIGHT_NAME_OPERATING_EXPENSES",
-        "BUSINESS_ACTIONABLE_INSIGHT_NAME_CASH_FLOW_MANAGEMENT",
-        "BUSINESS_ACTIONABLE_INSIGHT_NAME_REVENUE_GROWTH",
-        "BUSINESS_ACTIONABLE_INSIGHT_NAME_COST_REDUCTION",
-        "BUSINESS_ACTIONABLE_INSIGHT_NAME_INVENTORY_MANAGEMENT",
-        "BUSINESS_ACTIONABLE_INSIGHT_NAME_CAPITAL_ALLOCATION",
-        "BUSINESS_ACTIONABLE_INSIGHT_NAME_INVESTMENT_OPPORTUNITIES",
-        "BUSINESS_ACTIONABLE_INSIGHT_NAME_RISK_ASSESSMENT",
-        "BUSINESS_ACTIONABLE_INSIGHT_NAME_TAX_PLANNING",
-        "BUSINESS_ACTIONABLE_INSIGHT_NAME_DEBT_MANAGEMENT"
+        "BUSINESS_ACTIONABLE_INSIGHT_TYPE_UNSPECIFIED",
+        "BUSINESS_ACTIONABLE_INSIGHT_TYPE_OPERATING_EXPENSES",
+        "BUSINESS_ACTIONABLE_INSIGHT_TYPE_CASH_FLOW_MANAGEMENT",
+        "BUSINESS_ACTIONABLE_INSIGHT_TYPE_REVENUE_GROWTH",
+        "BUSINESS_ACTIONABLE_INSIGHT_TYPE_COST_REDUCTION",
+        "BUSINESS_ACTIONABLE_INSIGHT_TYPE_INVENTORY_MANAGEMENT",
+        "BUSINESS_ACTIONABLE_INSIGHT_TYPE_CAPITAL_ALLOCATION",
+        "BUSINESS_ACTIONABLE_INSIGHT_TYPE_INVESTMENT_OPPORTUNITIES",
+        "BUSINESS_ACTIONABLE_INSIGHT_TYPE_RISK_ASSESSMENT",
+        "BUSINESS_ACTIONABLE_INSIGHT_TYPE_TAX_PLANNING",
+        "BUSINESS_ACTIONABLE_INSIGHT_TYPE_DEBT_MANAGEMENT"
       ],
-      "default": "BUSINESS_ACTIONABLE_INSIGHT_NAME_UNSPECIFIED",
-      "description": " - BUSINESS_ACTIONABLE_INSIGHT_NAME_OPERATING_EXPENSES: Operating Expenses: Insights on managing day-to-day operational costs.\n - BUSINESS_ACTIONABLE_INSIGHT_NAME_CASH_FLOW_MANAGEMENT: Cash Flow Management: Insights into cash inflows and outflows.\n - BUSINESS_ACTIONABLE_INSIGHT_NAME_REVENUE_GROWTH: Revenue Growth: Strategies or opportunities to increase revenue.\n - BUSINESS_ACTIONABLE_INSIGHT_NAME_COST_REDUCTION: Cost Reduction: Identifying areas where expenses can be minimized.\n - BUSINESS_ACTIONABLE_INSIGHT_NAME_INVENTORY_MANAGEMENT: Inventory Management: Insights on optimizing inventory levels and costs.\n - BUSINESS_ACTIONABLE_INSIGHT_NAME_CAPITAL_ALLOCATION: Capital Allocation: Guidance on efficient allocation of financial resources.\n - BUSINESS_ACTIONABLE_INSIGHT_NAME_INVESTMENT_OPPORTUNITIES: Investment Opportunities: Identifying potential profitable investments.\n - BUSINESS_ACTIONABLE_INSIGHT_NAME_RISK_ASSESSMENT: Risk Assessment: Insights into potential risks and mitigation strategies.\n - BUSINESS_ACTIONABLE_INSIGHT_NAME_TAX_PLANNING: Tax Planning: Suggestions for tax optimization.\n - BUSINESS_ACTIONABLE_INSIGHT_NAME_DEBT_MANAGEMENT: Debt Management: Strategies for managing and reducing debt."
+      "default": "BUSINESS_ACTIONABLE_INSIGHT_TYPE_UNSPECIFIED",
+      "description": "- BUSINESS_ACTIONABLE_INSIGHT_TYPE_OPERATING_EXPENSES: Operating Expenses: Insights on managing day-to-day operational costs.\n - BUSINESS_ACTIONABLE_INSIGHT_TYPE_CASH_FLOW_MANAGEMENT: Cash Flow Management: Insights into cash inflows and outflows.\n - BUSINESS_ACTIONABLE_INSIGHT_TYPE_REVENUE_GROWTH: Revenue Growth: Strategies or opportunities to increase revenue.\n - BUSINESS_ACTIONABLE_INSIGHT_TYPE_COST_REDUCTION: Cost Reduction: Identifying areas where expenses can be minimized.\n - BUSINESS_ACTIONABLE_INSIGHT_TYPE_INVENTORY_MANAGEMENT: Inventory Management: Insights on optimizing inventory levels and costs.\n - BUSINESS_ACTIONABLE_INSIGHT_TYPE_CAPITAL_ALLOCATION: Capital Allocation: Guidance on efficient allocation of financial resources.\n - BUSINESS_ACTIONABLE_INSIGHT_TYPE_INVESTMENT_OPPORTUNITIES: Investment Opportunities: Identifying potential profitable investments.\n - BUSINESS_ACTIONABLE_INSIGHT_TYPE_RISK_ASSESSMENT: Risk Assessment: Insights into potential risks and mitigation strategies.\n - BUSINESS_ACTIONABLE_INSIGHT_TYPE_TAX_PLANNING: Tax Planning: Suggestions for tax optimization.\n - BUSINESS_ACTIONABLE_INSIGHT_TYPE_DEBT_MANAGEMENT: Debt Management: Strategies for managing and reducing debt.",
+      "title": "BusinessActionableInsightType is the type of actionable insight"
     },
     "BusinessChartOfAccounts": {
       "type": "object",
@@ -902,7 +788,7 @@
           "format": "uint64",
           "title": "the database record's id"
         },
-        "mergeAccountId": {
+        "mergeRecordId": {
           "type": "string",
           "title": "the account id as stored in merge-api. this is a required field"
         },
@@ -958,11 +844,15 @@
         "remoteWasDeleted": {
           "type": "boolean",
           "description": "Indicates whether or not this object has been deleted by third party webhooks."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
         }
       },
       "description": "The Account object is what companies use to track transactions. \nThey can be both bank accounts or a general ledger account (also called a chart of accounts).\n\nNote: a company can have a multitude of these accounts",
       "required": [
-        "mergeAccountId"
+        "mergeRecordId"
       ]
     },
     "BusinessTransaction": {
@@ -973,34 +863,40 @@
           "format": "uint64"
         },
         "transactionType": {
-          "type": "string"
+          "type": "string",
+          "description": "The type of transaction, which can by any transaction object not already included in Merge’s common model."
         },
         "number": {
-          "type": "string"
+          "type": "string",
+          "description": "The transaction's number used for identifying purposes."
         },
         "transactionDate": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "description": "The date upon which the transaction occurred."
         },
         "account": {
-          "type": "string"
+          "type": "string",
+          "description": "The transaction's account."
         },
         "contact": {
-          "type": "string"
+          "type": "string",
+          "description": "The contact to whom the transaction relates to."
         },
         "totalAmount": {
           "type": "string",
-          "description": "Might be better as double."
+          "description": "The total amount being paid after taxes.\n\nMight be better as double."
         },
         "currency": {
           "type": "string"
         },
         "exchangeRate": {
           "type": "string",
-          "description": "Assuming string, but might be better as float or double."
+          "description": "The transaction's exchange rate.\n\nAssuming string, but might be better as float or double."
         },
         "company": {
-          "type": "string"
+          "type": "string",
+          "description": "The company the transaction belongs to."
         },
         "trackingCategories": {
           "type": "array",
@@ -1013,15 +909,18 @@
           "items": {
             "type": "object",
             "$ref": "#/definitions/TransactionLineItem"
-          }
+          },
+          "title": "The TransactionLineItem object is used to represent a transaction's line item"
         },
         "remoteWasDeleted": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Indicates whether or not this object has been deleted in the third party platform."
         },
         "accountingPeriod": {
-          "type": "string"
+          "type": "string",
+          "description": "The accounting period that the Transaction was generated in."
         },
-        "mergeAccountId": {
+        "mergeRecordId": {
           "type": "string"
         },
         "remoteId": {
@@ -1029,10 +928,16 @@
         },
         "modifiedAt": {
           "type": "string",
+          "format": "date-time",
+          "title": "This is the datetime that this object was last updated by Merge"
+        },
+        "createdAt": {
+          "type": "string",
           "format": "date-time"
         }
       },
-      "description": "The Transaction includes different types of transactions. The Transactions object does not cover expenses, credit notes,\nvendor credit, invoices, purchase orders, and journal entries. See the “transaction_type” field for more information."
+      "description": "* Credit Notes\n* Expenses\n* Invoices\n* Journal Entries\n* Payments\n* Purchase Orders\n* Vendor Credits",
+      "title": "The Transaction common model includes records of all types of transactions that do not appear in other common models.\nThe type of transaction can be identified through the type field. More specifically, \nit will contain all types of transactions outside of:"
     },
     "CashFlowStatements": {
       "type": "object",
@@ -1246,12 +1151,60 @@
           "format": "date-time",
           "title": "This is the datetime that this object was last updated by Merge"
         },
-        "mergeAccountId": {
+        "mergeRecordId": {
           "type": "string",
           "title": "the id of the record as stored in merge"
         }
       },
       "description": "The CompanyInfo object is used to represent a company's information."
+    },
+    "CompanyProfile": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "id of the record"
+        },
+        "remoteId": {
+          "type": "string",
+          "description": "The third-party API ID of the matching object."
+        },
+        "legalName": {
+          "type": "string",
+          "description": "The company's legal name."
+        },
+        "displayName": {
+          "type": "string",
+          "title": "The displayed name of the company"
+        },
+        "einNumbers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The company's tax number."
+        },
+        "remoteWasDeleted": {
+          "type": "boolean",
+          "description": "Indicates whether or not this object has been deleted in the third party platform."
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "This is the datetime that this object was last updated by Merge"
+        },
+        "lastUpdatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "This is the datetime that this object was created"
+        },
+        "mergeAccountId": {
+          "type": "string",
+          "title": "The uuid of the object as stored in merge"
+        }
+      },
+      "title": "The CompanyProfile object is used to represent a company within the HRIS / Payroll system.\nNOTE: a company can link multiple hris company profiles. This is important because a company can have multiple\nlocations and each location can have its own hris company profile"
     },
     "Contacts": {
       "type": "object",
@@ -1325,34 +1278,27 @@
           "description": "Consider using google.protobuf.Timestamp",
           "title": "This is the datetime that this object was last updated by Merge"
         },
-        "mergeAccountId": {
+        "mergeRecordId": {
           "type": "string",
           "title": "The account id as seen in merge"
         }
       },
       "description": "The Contact object refers to either a supplier or a customer."
     },
-    "CreateBusinessAccountingProfileRequest": {
+    "CreateProfileRequest": {
       "type": "object",
       "properties": {
         "userId": {
           "type": "string",
           "format": "uint64"
-        },
-        "email": {
-          "type": "string"
-        },
-        "companyName": {
-          "type": "string"
         }
       },
+      "description": "Defines a message named CreateProfileRequest.",
       "required": [
-        "userId",
-        "email",
-        "companyName"
+        "userId"
       ]
     },
-    "CreateBusinessAccountingProfileResponse": {
+    "CreateProfileResponse": {
       "type": "object",
       "properties": {
         "profileId": {
@@ -1360,7 +1306,8 @@
           "format": "uint64",
           "title": "the profile identifier"
         }
-      }
+      },
+      "description": "Defines a message named CreatesProfileResponse."
     },
     "CreditNote": {
       "type": "object",
@@ -1456,12 +1403,16 @@
           "format": "date-time",
           "title": "Consider using google.protobuf.Timestamp"
         },
-        "mergeAccountId": {
+        "mergeRecordId": {
           "type": "string",
           "title": "the id as stored in merge"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
         }
       },
-      "description": "The CreditNote object is an accounts payable transaction used when to represent a gift or refund to a customer. \nA credit note will contain information on the amount of credit owed, the customer, and the account."
+      "description": "A CreditNote is transaction issued to a customer, indicating a reduction or cancellation of the amount owed by the customer. \nIt is most generally used as an adjustment note used to rectify errors, returns, or overpayments related to a sales transaction. \nA CreditNote can be applied to Accounts Receivable Invoices to decrease the overall amount of the Invoice."
     },
     "CreditNoteLineItem": {
       "type": "object",
@@ -1514,18 +1465,841 @@
         },
         "item": {
           "type": "string"
+        },
+        "remoteWasDeleted": {
+          "type": "boolean"
+        },
+        "memo": {
+          "type": "string"
         }
       },
       "description": "CreditNoteLineItem is used to represent a credit note's line items."
     },
-    "DeleteBusinessAccountingProfileResponse": {
+    "Deduction": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "id"
+        },
+        "remoteId": {
+          "type": "string",
+          "description": "The third-party API ID of the matching object."
+        },
+        "name": {
+          "type": "string",
+          "description": "The deduction's name."
+        },
+        "employeeDeduction": {
+          "type": "number",
+          "format": "double",
+          "description": "The amount of money that is withheld from an employee's gross pay by the employee."
+        },
+        "companyDeduction": {
+          "type": "number",
+          "format": "double",
+          "description": "The amount of money that is withheld on behalf of an employee by the company."
+        },
+        "remoteWasDeleted": {
+          "type": "boolean",
+          "description": "Indicates whether or not this object has been deleted in the third party platform."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "This is the datetime that this object was last updated by Merge"
+        },
+        "payrollRunMergeAccountId": {
+          "type": "string",
+          "description": "The payroll being run."
+        },
+        "mergeAccountId": {
+          "type": "string",
+          "title": "This is the record id as seen on the merge platform"
+        }
+      },
+      "description": "The Deduction object is used to represent an array of the wages\nwithheld from total earnings for the purpose of paying taxes."
+    },
+    "DeleteProfileResponse": {
       "type": "object",
       "properties": {
         "isDeleted": {
           "type": "boolean",
-          "title": "wether the profile is deleted"
+          "description": "A boolean field named \"is_deleted\" with field number 1.",
+          "title": "whether the profile is deleted"
+        }
+      },
+      "description": "Defines a message named DeleteProfileResponse."
+    },
+    "DependentRelationship": {
+      "type": "string",
+      "enum": [
+        "DEPENDENT_RELATIONSHIP_UNSPECIFIED",
+        "DEPENDENT_RELATIONSHIP_CHILD",
+        "DEPENDENT_RELATIONSHIP_SPOUSE",
+        "DEPENDENT_RELATIONSHIP_DOMESTIC_PARTNER"
+      ],
+      "default": "DEPENDENT_RELATIONSHIP_UNSPECIFIED",
+      "description": "The dependent's relationship to the employee. Possible values include: CHILD, \nSPOUSE, DOMESTIC_PARTNER. In cases where there is no clear mapping, \nthe original value passed through will be returned."
+    },
+    "Dependents": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "id of the record"
+        },
+        "remoteId": {
+          "type": "string",
+          "description": "The third-party API ID of the matching object."
+        },
+        "firstName": {
+          "type": "string",
+          "description": "The employee's first name."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "The employee's last name."
+        },
+        "middleName": {
+          "type": "string",
+          "title": "The employee's middle name"
+        },
+        "dependentRelationshipToEmployee": {
+          "$ref": "#/definitions/DependentRelationship",
+          "description": "The relationship of the dependent to the employee. Possible values include: CHILD, SPOUSE, DOMESTIC_PARTNER, OTHER.\nIn cases where there is no clear mapping, the original value passed through will be returned."
+        },
+        "dateOfBirth": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The dependent's date of birth."
+        },
+        "gender": {
+          "$ref": "#/definitions/Gender",
+          "title": "the gender of the dependent"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "title": "the phone number of the dependent"
+        },
+        "homeLocation": {
+          "$ref": "#/definitions/LocationAddress",
+          "title": "The dependents home location"
+        },
+        "isStudent": {
+          "type": "boolean",
+          "title": "Whether or not the dependent is a student"
+        },
+        "ssn": {
+          "type": "string",
+          "description": "The dependents's social security number."
+        },
+        "remoteWasDeleted": {
+          "type": "boolean",
+          "description": "Indicates whether or not this object has been deleted in the third party platform."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "This is the datetime that this object was created by Merge"
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "This is the datetime that this object was last updated by Merge"
+        },
+        "mergeAccountId": {
+          "type": "string",
+          "title": "This is the record id as seen on the merge platform"
+        }
+      },
+      "title": "Dependents object is used to represent a dependent (e.g. child, spouse, domestic partner, etc) of an Employee"
+    },
+    "Earning": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "id"
+        },
+        "remoteId": {
+          "type": "string",
+          "description": "The third-party API ID of the matching object."
+        },
+        "amount": {
+          "type": "number",
+          "format": "double"
+        },
+        "type": {
+          "$ref": "#/definitions/EarningType",
+          "description": "The type of earning. Possible values include: SALARY, REIMBURSEMENT, OVERTIME, BONUS.\n In cases where there is no clear mapping, the original value passed through will be returned."
+        },
+        "remoteWasDeleted": {
+          "type": "boolean",
+          "description": "Indicates whether or not this object has been deleted in the third party platform."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "This is the datetime that this object was last updated by Merge"
+        },
+        "payrollRunMergeAccountId": {
+          "type": "string",
+          "description": "The payroll being run."
+        },
+        "mergeAccountId": {
+          "type": "string",
+          "title": "This is the record id as seen on the merge platform"
+        }
+      },
+      "description": "The Earning object is used to represent an array of different compensations \nthat an employee receives within specific wage categories."
+    },
+    "EarningType": {
+      "type": "string",
+      "enum": [
+        "EARNING_TYPE_UNSPECIFIED",
+        "EARNING_TYPE_SALARY",
+        "EARNING_TYPE_REIMBURSEMENT",
+        "EARNING_TYPE_OVERTIME",
+        "EARNING_TYPE_BONUS"
+      ],
+      "default": "EARNING_TYPE_UNSPECIFIED",
+      "description": "The type of earning. Possible values include: SALARY, REIMBURSEMENT, OVERTIME, BONUS. \nIn cases where there is no clear mapping, the original value passed through will be returned."
+    },
+    "EmployeTimeOffBalance": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "id"
+        },
+        "remoteId": {
+          "type": "string",
+          "description": "The third-party API ID of the matching object."
+        },
+        "balance": {
+          "type": "number",
+          "format": "double",
+          "title": "balance"
+        },
+        "used": {
+          "type": "number",
+          "format": "double",
+          "title": "used"
+        },
+        "policyType": {
+          "$ref": "#/definitions/PolicyType",
+          "title": "policy type of the time off balance"
+        },
+        "remoteWasDeleted": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "This is the datetime that this object was last updated by Merge"
+        },
+        "mergeAccountId": {
+          "type": "string",
+          "title": "This is the record id as seen on the merge platform"
         }
       }
+    },
+    "Employee": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "id of the record"
+        },
+        "remoteId": {
+          "type": "string",
+          "description": "The third-party API ID of the matching object."
+        },
+        "employeeNumber": {
+          "type": "string",
+          "title": "The employee's number"
+        },
+        "companyId": {
+          "type": "string",
+          "description": "The ID of the employee's company."
+        },
+        "firstName": {
+          "type": "string",
+          "description": "The employee's first name."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "The employee's last name."
+        },
+        "employeesPreferredName": {
+          "type": "string",
+          "description": "The employee's preferred name."
+        },
+        "displayFullName": {
+          "type": "string",
+          "title": "The employee's full name, to use for display purposes. \nIf a preferred first name is available, the full name \nwill include the preferred first name"
+        },
+        "employeeUserNameAsSeenInRemoteUi": {
+          "type": "string",
+          "description": "The employee's username that appears in the remote UI."
+        },
+        "workEmail": {
+          "type": "string",
+          "description": "The employee's work email."
+        },
+        "personalEmail": {
+          "type": "string",
+          "title": "the employee's personal email"
+        },
+        "mobilePhoneNumber": {
+          "type": "string",
+          "description": "The employee's mobile phone number."
+        },
+        "employments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/EmployeeJobPositionAtCompany"
+          },
+          "title": "The employee's various position at the company"
+        },
+        "employmentType": {
+          "type": "string",
+          "description": "UUID fields",
+          "title": "the employment type"
+        },
+        "homeLocation": {
+          "$ref": "#/definitions/LocationAddress",
+          "title": "the employee's home location"
+        },
+        "workLocation": {
+          "$ref": "#/definitions/LocationAddress",
+          "title": "the employee's work location"
+        },
+        "manager": {
+          "$ref": "#/definitions/Employee",
+          "title": "the employee's manager"
+        },
+        "group": {
+          "$ref": "#/definitions/Group",
+          "title": "the employee's pay group"
+        },
+        "ssn": {
+          "type": "string",
+          "title": "Other fields\nthe employee's social security number"
+        },
+        "gender": {
+          "$ref": "#/definitions/Gender",
+          "description": "The employee's gender. Possible values include: MALE, FEMALE, NON-BINARY, OTHER, PREFER_NOT_TO_DISCLOSE.\nIn cases where there is no clear mapping, the original value passed through will be returned."
+        },
+        "ethnicity": {
+          "$ref": "#/definitions/Ethnicity",
+          "description": "The employee's ethnicity. Possible values include: AMERICAN_INDIAN_OR_ALASKA_NATIVE, ASIAN_OR_INDIAN_SUBCONTINENT, \nBLACK_OR_AFRICAN_AMERICAN, HISPANIC_OR_LATINO, NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER, \nTWO_OR_MORE_RACES, WHITE, PREFER_NOT_TO_DISCLOSE. In cases where there is no clear mapping, the original value passed through will be returned."
+        },
+        "maritalStatus": {
+          "$ref": "#/definitions/MaritalStatus",
+          "description": "The employee's filing status as related to marital status. Possible values include: SINGLE, MARRIED_FILING_JOINTLY,\nMARRIED_FILING_SEPARATELY, HEAD_OF_HOUSEHOLD, QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD.\nIn cases where there is no clear mapping, the original value passed through will be returned."
+        },
+        "dateOfBirth": {
+          "type": "string",
+          "description": "The employee's date of birth.\n\nUse string for ISO 8601 datetime"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date that the employee started working. \nIf an employee was rehired, the most recent start date will be returned."
+        },
+        "remoteCreatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the third party's employee was created."
+        },
+        "employmentStatus": {
+          "$ref": "#/definitions/EmploymentStatus",
+          "description": "The employment status of the employee. Possible values include: ACTIVE, PENDING, INACTIVE.\nIn cases where there is no clear mapping, the original value passed through will be returned."
+        },
+        "terminationDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The employee's termination date."
+        },
+        "avatar": {
+          "type": "string",
+          "description": "The URL of the employee's avatar image."
+        },
+        "bankAccounts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/BankInfo"
+          },
+          "title": "The bank account information for an employee"
+        },
+        "dependents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/Dependents"
+          },
+          "title": "The dependents of the employee"
+        },
+        "payrollRuns": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/EmployeePayrollRun"
+          },
+          "description": "Represent an employee's pay statement for a specific payroll run."
+        },
+        "payTimeOffBalance": {
+          "$ref": "#/definitions/EmployeTimeOffBalance",
+          "title": "The time off balance for an employee"
+        },
+        "benefits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/EmployeeBenefits"
+          },
+          "description": "the benefits associated with the employee."
+        },
+        "mergeAccountId": {
+          "type": "string",
+          "title": "Merge record UUID"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "This is the datetime that this object was last updated by Merge"
+        },
+        "remoteWasDeleted": {
+          "type": "boolean"
+        }
+      },
+      "description": "The Employee object is used to represent any person who has been employed by a company."
+    },
+    "EmployeeBenefits": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "id of the record"
+        },
+        "remoteId": {
+          "type": "string",
+          "description": "The third-party API ID of the matching object."
+        },
+        "providerName": {
+          "type": "string",
+          "description": "The name of the benefit provider."
+        },
+        "employeeMergeAccountId": {
+          "type": "string",
+          "description": "The ID of the employee."
+        },
+        "benefitPlanMergeAccountId": {
+          "type": "string",
+          "description": "The ID of the benefit plan."
+        },
+        "employeeContribution": {
+          "type": "string",
+          "format": "uint64",
+          "description": "The employee's contribution."
+        },
+        "companyContribution": {
+          "type": "string",
+          "format": "uint64",
+          "description": "The company's contribution."
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The day and time the benefit started."
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The day and time the benefit ended."
+        },
+        "remoteWasDeleted": {
+          "type": "boolean",
+          "description": "Indicates whether or not this object has been deleted in the third party platform."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "This is the datetime that this object was last updated by Merge"
+        },
+        "mergeAccountId": {
+          "type": "string",
+          "title": "This it the id of the record as seeon on the merge platform"
+        }
+      },
+      "description": "The Benefit object is used to represent a benefit that an employee has enrolled in."
+    },
+    "EmployeeJobPositionAtCompany": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "id of the record"
+        },
+        "remoteId": {
+          "type": "string",
+          "description": "The third-party API ID of the matching object."
+        },
+        "jobTitle": {
+          "type": "string",
+          "title": "The job title"
+        },
+        "payRate": {
+          "type": "number",
+          "format": "double",
+          "title": "the pay rate"
+        },
+        "payPeriod": {
+          "$ref": "#/definitions/PayPeriod",
+          "title": "the pay period"
+        },
+        "payFrequency": {
+          "$ref": "#/definitions/PayFrequency",
+          "title": "the pay frequency"
+        },
+        "payCurrency": {
+          "type": "string",
+          "title": "the pay currency"
+        },
+        "flsaStatus": {
+          "$ref": "#/definitions/FlsaStatus",
+          "title": "the positions flsa status"
+        },
+        "effectiveDate": {
+          "type": "string",
+          "format": "date-time",
+          "title": "the positions effective date"
+        },
+        "remoteWasDeleted": {
+          "type": "boolean",
+          "description": "Indicates whether or not this object has been deleted in the third party platform."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "This is the datetime that this object was last updated by Merge"
+        },
+        "mergeAccountId": {
+          "type": "string",
+          "title": "This is the record id as seen on merge"
+        }
+      },
+      "description": "The Employment object is used to represent a job position at a company.\nNOTE: When there is a change in pay or title, integrations with historical \ndata will create new Employment objects while integrations without \nhistorical data will update existing ones."
+    },
+    "EmployeePayrollRun": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "id"
+        },
+        "remoteId": {
+          "type": "string",
+          "description": "The third-party API ID of the matching object."
+        },
+        "grossPay": {
+          "type": "number",
+          "format": "double",
+          "description": "The total earnings throughout a given period for an employee before any deductions are made."
+        },
+        "netPay": {
+          "type": "number",
+          "format": "double",
+          "description": "The take-home pay throughout a given period for an employee after deductions are made."
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The day and time the payroll run started."
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "checkDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "earnings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/Earning"
+          },
+          "title": "The Earning object is used to represent an array of different compensations\nthat an employee receives within specific wage categories"
+        },
+        "deductions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/Deduction"
+          },
+          "description": "The Deduction object is used to represent an array of the wages withheld \nfrom total earnings for the purpose of paying taxes."
+        },
+        "taxes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/Tax"
+          },
+          "description": "The Tax object is used to represent an array of the tax deductions \nfor a given employee's payroll run."
+        },
+        "remoteWasDeleted": {
+          "type": "boolean",
+          "description": "Indicates whether or not this object has been deleted in the third party platform."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "This is the datetime that this object was last updated by Merge"
+        },
+        "payrollRunMergeAccountId": {
+          "type": "string",
+          "description": "The payroll being run."
+        },
+        "employeeMergeAccountId": {
+          "type": "string",
+          "description": "The employee whose payroll is being run."
+        },
+        "mergeAccountId": {
+          "type": "string",
+          "title": "This is the record id as seen on the merge platform"
+        }
+      },
+      "description": "The EmployeePayrollRun object is used to represent an employee's pay statement for a specific payroll run."
+    },
+    "EmployerBenefits": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "id of the record"
+        },
+        "remoteId": {
+          "type": "string",
+          "description": "The third-party API ID of the matching object.\n\nExternal system identifier (integration)"
+        },
+        "benefitPlanType": {
+          "$ref": "#/definitions/BenefitPlanType",
+          "description": "The type of benefit plan. Possible values include: MEDICAL, HEALTH_SAVINGS, INSURANCE, RETIREMENT, OTHER. \nIn cases where there is no clear mapping, the original value passed through will be returned.\n\nType of benefit plan, e.g., \"MEDICAL\""
+        },
+        "name": {
+          "type": "string",
+          "description": "The employer benefit's name - typically the carrier or network name.\n\nName of the benefit plan"
+        },
+        "description": {
+          "type": "string",
+          "description": "The employer benefit's description.\n\nDescription of the plan"
+        },
+        "deductionCode": {
+          "type": "string",
+          "description": "The employer benefit's deduction code.\n\nCode for payroll deduction"
+        },
+        "remoteWasDeleted": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Indicates whether or not this object has been deleted in the third party platform.\n\nFlag for deletion status"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Creation date in ISO 8601 format"
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last modification date in ISO 8601 format",
+          "title": "This is the datetime that this object was last updated by Merge"
+        },
+        "mergeAccountId": {
+          "type": "string",
+          "description": "Merge record UUID",
+          "title": "The id of the record as seen on the merge platform"
+        },
+        "employeeBenefits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/EmployeeBenefits"
+          },
+          "title": "The employee benefits tied to this provided record"
+        }
+      },
+      "description": "EmployerBenefits is used to represent a benefit plan offered by a company."
+    },
+    "EmployerPayrollRun": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "id of the record"
+        },
+        "remoteId": {
+          "type": "string",
+          "description": "The third-party API ID of the matching object."
+        },
+        "runState": {
+          "$ref": "#/definitions/PayrollRunState",
+          "description": "The state of the payroll run Possible values include: PAID, DRAFT, APPROVED, FAILED, CLOSED.\nIn cases where there is no clear mapping, the original value passed through will be returned."
+        },
+        "runType": {
+          "$ref": "#/definitions/PayrollRunType",
+          "description": "The type of the payroll run Possible values include: REGULAR, OFF_CYCLE, \nCORRECTION, TERMINATION, SIGN_ON_BONUS. In cases where there is no clear mapping, the original value passed through will be returned."
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The day and time the payroll run started."
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The day and time the payroll run ended."
+        },
+        "checkDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The day and time the payroll run was checked."
+        },
+        "remoteWasDeleted": {
+          "type": "boolean",
+          "title": "Indicates whether or not this object has been deleted in the third party platform"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "This is the datetime that this object was created by Merge"
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "This is the datetime that this object was last updated by Merge"
+        },
+        "payrollRuns": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/EmployeePayrollRun"
+          },
+          "title": "The set of payroll records for the payroll run"
+        }
+      },
+      "description": "The EmployerPayrollRun object is used to represent a group of pay statements for a specific pay schedule."
+    },
+    "EmploymentStatus": {
+      "type": "string",
+      "enum": [
+        "EMPLOYMENT_STATUS_UNSPECIFIED",
+        "EMPLOYMENT_STATUS_ACTIVE",
+        "EMPLOYMENT_STATUS_PENDING",
+        "EMPLOYMENT_STATUS_INACTIVE"
+      ],
+      "default": "EMPLOYMENT_STATUS_UNSPECIFIED"
+    },
+    "Ethnicity": {
+      "type": "string",
+      "enum": [
+        "ETHNICITY_UNSPECIFIED",
+        "ETHNICITY_AMERICAN_INDIAN_OR_ALASKA_NATIVE",
+        "ETHNICITY_ASIAN_OR_INDIAN_SUBCONTINENT",
+        "ETHNICITY_BLACK_OR_AFRICAN_AMERICAN",
+        "ETHNICITY_HISPANIC_OR_LATINO",
+        "ETHNICITY_NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER",
+        "ETHNICITY_TWO_OR_MORE_RACES",
+        "ETHNICITY_WHITE",
+        "ETHNICITY_PREFER_NOT_TO_DISCLOSE"
+      ],
+      "default": "ETHNICITY_UNSPECIFIED",
+      "description": "The employee's ethnicity. Possible values include: AMERICAN_INDIAN_OR_ALASKA_NATIVE, ASIAN_OR_INDIAN_SUBCONTINENT, \nBLACK_OR_AFRICAN_AMERICAN, HISPANIC_OR_LATINO, NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER, \nTWO_OR_MORE_RACES, WHITE, PREFER_NOT_TO_DISCLOSE. In cases where there is no clear mapping, the original value passed through will be returned."
+    },
+    "ExchangePublicLinkTokenForAccountTokenRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "The user id\nValidations:\n- user_id must be greater than 0"
+        },
+        "publicToken": {
+          "type": "string",
+          "title": "the public link token"
+        },
+        "endUserOriginId": {
+          "type": "string",
+          "title": "the end user's origin id"
+        },
+        "organizationName": {
+          "type": "string",
+          "title": "the organization name"
+        }
+      },
+      "description": "Defines a message named ExchangePublicLinkTokenForAccountTokenRequest.",
+      "required": [
+        "userId",
+        "publicToken",
+        "endUserOriginId",
+        "organizationName"
+      ]
+    },
+    "ExchangePublicLinkTokenForAccountTokenResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "title": "the status of the exchange token"
+        }
+      },
+      "description": "Defines a message named ExchangePublicLinkTokenForAccountTokenResponse.",
+      "required": [
+        "success"
+      ]
     },
     "Expense": {
       "type": "object",
@@ -1616,11 +2390,11 @@
           "description": "Consider using google.protobuf.Timestamp",
           "title": "This is the datetime that this object was last updated by Merge"
         },
-        "mergeAccountId": {
+        "mergeRecordId": {
           "type": "string"
         }
       },
-      "description": "The Expense object is used to represent a purchase made from a business which can be made with a check, credit card, or cash.\nEach expense object is dedicated to a grouping of expenses, with each expense recorded in the lines object."
+      "description": "The Expense object is used to represent a direct purchase by a business, typically made with a check, credit card, or cash. \nEach Expense object is dedicated to a grouping of expenses, with each expense recorded in the lines object.\n\nThe Expense object is used also used to represent refunds to direct purchases. Refunds can be distinguished from purchases \nby the amount sign of the records. Expense objects with a negative amount are purchases and Expense objects \nwith a positive amount are refunds to those purchases."
     },
     "ExpenseLine": {
       "type": "object",
@@ -1682,53 +2456,246 @@
           "format": "date-time",
           "description": "Consider using google.protobuf.Timestamp",
           "title": "This is the datetime that this object was last updated by Merge"
+        },
+        "remoteWasDeleted": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
         }
       },
       "description": "The ExpenseLine object is used to represent an expense's line items."
     },
-    "GetBusinessAccountingProfileResponse": {
-      "type": "object",
-      "properties": {
-        "profile": {
-          "$ref": "#/definitions/BusinessAccountingProfile",
-          "title": "the profile of interest"
-        }
-      }
+    "FlsaStatus": {
+      "type": "string",
+      "enum": [
+        "FLSA_STATUS_UNSPECIFIED",
+        "FLSA_STATUS_EXEMPT",
+        "FLSA_STATUS_NON_EXEMPT",
+        "FLSA_STATUS_SALARIED_NON_EXEMPT",
+        "FLSA_STATUS_OWNER"
+      ],
+      "default": "FLSA_STATUS_UNSPECIFIED",
+      "description": "The position's FLSA status. Possible values include: EXEMPT, SALARIED_NONEXEMPT, \nNONEXEMPT, OWNER. In cases where there is no clear mapping, \nthe original value passed through will be returned."
     },
-    "GetChartOfAccountsResponse": {
-      "type": "object",
-      "properties": {
-        "chartOfAccounts": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/BusinessChartOfAccounts"
-          }
-        }
-      }
+    "Gender": {
+      "type": "string",
+      "enum": [
+        "GENDER_UNSPECIFIED",
+        "GENDER_MALE",
+        "GENDER_FEMALE",
+        "GENDER_NON_BINARY",
+        "GENDER_OTHER",
+        "GENDER_PREFER_NOT_TO_DISCLOSE"
+      ],
+      "default": "GENDER_UNSPECIFIED",
+      "description": "The employee's gender. Possible values include: MALE, FEMALE, NON-BINARY, OTHER,\nPREFER_NOT_TO_DISCLOSE. In cases where there is no clear mapping, \nthe original value passed through will be returned."
     },
-    "GetReferenceDetailsResponse": {
+    "GetLinkTokenRequest": {
       "type": "object",
       "properties": {
-        "referenceDetails": {
-          "$ref": "#/definitions/ReferenceDetails"
+        "userId": {
+          "type": "string",
+          "format": "uint64",
+          "description": "The user id\nValidations:\n- user_id must be greater than 0\nThis unique identifier typically represents the ID for your end user in your product's database.\nThis value must be distinct from other Linked Accounts' unique identifiers."
+        },
+        "organizationName": {
+          "type": "string",
+          "description": "Your end user's organization."
+        },
+        "email": {
+          "type": "string",
+          "description": "Your end user's email address. This is purely for\nidentification purposes - setting this value will not cause any emails to be sent."
         }
-      }
+      },
+      "description": "Defines a message named GetLinkTokenRequest.",
+      "required": [
+        "userId",
+        "organizationName",
+        "email"
+      ]
     },
-    "GetTransactionDetailsResponse": {
+    "GetLinkTokenResponse": {
       "type": "object",
       "properties": {
-        "transactionDetails": {
-          "$ref": "#/definitions/TransactionDetails"
+        "linkToken": {
+          "type": "string",
+          "description": "A string field named \"link_token\" with field number 1.",
+          "title": "the link token"
+        },
+        "integrationName": {
+          "type": "string",
+          "description": "A string field named \"integration_name\" with field number 2.",
+          "title": "the integration name"
+        },
+        "magicLinkUrl": {
+          "type": "string",
+          "description": "A string field named \"magic_link_url\" with field number 3.",
+          "title": "the magic link URL"
+        },
+        "endUserOriginId": {
+          "type": "string",
+          "description": "A string field named \"end_user_origin_id\" with field number 4.",
+          "title": "the end user origin id"
+        },
+        "organizationName": {
+          "type": "string",
+          "description": "A string field named \"organization_name\" with field number 5.",
+          "title": "the organization name"
         }
-      }
+      },
+      "description": "Defines a message named GetLinkTokenResponse."
+    },
+    "Group": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "id of the record"
+        },
+        "remoteId": {
+          "type": "string",
+          "description": "The third-party API ID of the matching object."
+        },
+        "name": {
+          "type": "string",
+          "title": "the pay group's name"
+        },
+        "type": {
+          "$ref": "#/definitions/PayGroupType",
+          "title": "the pay group's type"
+        },
+        "parentGroupMergeAccountId": {
+          "type": "string",
+          "title": "the parent pay group merge record id"
+        },
+        "remoteWasDeleted": {
+          "type": "boolean",
+          "description": "Indicates whether or not this object has been deleted in the third party platform."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "This is the datetime that this object was last updated by Merge"
+        },
+        "mergeAccountId": {
+          "type": "string",
+          "title": "This is the record id as seen on merge"
+        }
+      },
+      "description": "The Group object is used to represent any subset of employees, such as PayGroup or Team. Employees can be in multiple Groups."
     },
     "HealthCheckResponse": {
       "type": "object",
       "properties": {
         "healthy": {
           "type": "boolean",
-          "title": "wether the service is healthy"
+          "title": "whether the service is healthy"
+        }
+      },
+      "description": "Defines a message named HealthCheckResponse."
+    },
+    "HrisIntegrationMergeLink": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "id"
+        },
+        "integration": {
+          "type": "string"
+        },
+        "integrationSlug": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "endUserOriginId": {
+          "type": "string"
+        },
+        "endUserOrganizationName": {
+          "type": "string"
+        },
+        "endUserEmailAddress": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "webhookListenerUrl": {
+          "type": "string"
+        },
+        "isDuplicate": {
+          "type": "boolean"
+        },
+        "token": {
+          "$ref": "#/definitions/MergeLinkedAccountToken"
+        },
+        "integrationName": {
+          "type": "string"
+        },
+        "integrationImage": {
+          "type": "string"
+        },
+        "integrationSquareImage": {
+          "type": "string"
+        },
+        "account": {
+          "$ref": "#/definitions/HrisLinkedAccount",
+          "description": "When you request a link token to initiate a Merge Link session, Merge determines whether to create a new linked account or modify\nan existing linked account based on a combination of the end_user_origin_id and the category. If you want to support multiple\nconnections, you simply need to provide a different end_user_origin_id for each company.\n\nThis approach enables you to link multiple instances of the same integration (like QuickBooks) for the same end user.\nIt also has the added security benefit of not exposing any internal end_user_origin_ids."
+        },
+        "mergeLinkedAccountId": {
+          "type": "string"
+        },
+        "lastModifiedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "HrisLinkedAccount": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "id"
+        },
+        "profile": {
+          "$ref": "#/definitions/CompanyProfile",
+          "title": "the company profile of interest"
+        },
+        "benefitPlans": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/EmployerBenefits"
+          },
+          "title": "the set of benefit plans offered by the company"
+        },
+        "employees": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/Employee"
+          },
+          "title": "the set of employees employed by the employer"
+        },
+        "payrollRuns": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/EmployerPayrollRun"
+          },
+          "title": "the set of payroll runs by the employer"
         }
       }
     },
@@ -1782,8 +2749,8 @@
           "title": "cost of sales"
         },
         "grossProfit": {
-          "type": "integer",
-          "format": "int32",
+          "type": "number",
+          "format": "double",
           "description": "The revenue minus the cost of sale."
         },
         "operatingExpenses": {
@@ -1795,8 +2762,8 @@
           "title": "operating expenses"
         },
         "netOperatingIncome": {
-          "type": "integer",
-          "format": "int32",
+          "type": "number",
+          "format": "double",
           "description": "The revenue minus the operating expenses."
         },
         "nonOperatingExpenses": {
@@ -1807,8 +2774,8 @@
           }
         },
         "netIncome": {
-          "type": "integer",
-          "format": "int32",
+          "type": "number",
+          "format": "double",
           "description": "The gross profit minus the total expenses."
         },
         "remoteWasDeleted": {
@@ -1819,9 +2786,16 @@
           "type": "string",
           "format": "date-time",
           "title": "This is the datetime that this object was last updated by Merge"
+        },
+        "mergeRecordId": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
         }
       },
-      "description": "The IncomeStatement object is used to represent a company’s income, the cost of sales, operating expenses,\nand other non-operating expenses. The object also includes other important values like gross profit, gross \noperating profit, and net income. This represents a period of time (month, quarter, or year)."
+      "description": "The IncomeStatement object is used to represent a company’s income, the cost of sales, operating expenses, \nand other non-operating expenses. The object also includes other important values like gross profit, \ngross operating profit, and net income. This represents a period of time (month, quarter, or year)."
     },
     "Invoice": {
       "type": "object",
@@ -1947,7 +2921,7 @@
           "type": "string",
           "format": "date-time"
         },
-        "mergeAccountId": {
+        "mergeRecordId": {
           "type": "string",
           "title": "the account id as stored in merge"
         }
@@ -2011,7 +2985,7 @@
           "type": "string",
           "description": "The company the line item belongs to."
         },
-        "mergeAccountId": {
+        "mergeRecordId": {
           "type": "string",
           "title": "the id of the record as stored in merge"
         },
@@ -2078,8 +3052,12 @@
           "format": "date-time",
           "title": "This is the datetime that this object was last updated by Merge"
         },
-        "mergeAccountId": {
+        "mergeRecordId": {
           "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
         }
       },
       "description": "The Item object refers to the goods involved in a transaction."
@@ -2108,7 +3086,7 @@
           "type": "string",
           "format": "date-time"
         },
-        "paymentIds": {
+        "payments": {
           "type": "array",
           "items": {
             "type": "string"
@@ -2123,17 +3101,19 @@
         },
         "exchangeRate": {
           "type": "string",
-          "description": "Assuming string due to the example provided, but could be float or double."
+          "description": "The journal entry's exchange rate.\n\nAssuming string due to the example provided, but could be float or double."
         },
         "company": {
-          "type": "string"
+          "type": "string",
+          "description": "The company the journal entry belongs to."
         },
         "lines": {
           "type": "array",
           "items": {
             "type": "object",
             "$ref": "#/definitions/JournalLine"
-          }
+          },
+          "description": "The JournalLine object is used to represent a journal entry's line items."
         },
         "journalNumber": {
           "type": "string",
@@ -2159,12 +3139,23 @@
           "type": "string",
           "format": "date-time"
         },
-        "mergeAccountId": {
+        "mergeRecordId": {
           "type": "string",
           "title": "the id of the record as stored in merge"
+        },
+        "appliedPayments": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "A list of the Payment Applied to Lines common models \nrelated to a given Invoice, Credit Note, or Journal Entry."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
         }
       },
-      "description": "The JournalEntry object is used to get a record of all manually created entries made in a company’s general ledger.\nThe journal line items for each journal entry should sum to zero."
+      "description": "A JournalEntry is a record of a transaction or event that is entered into a company's accounting system.\n\nThe JournalEntry common model contains records that are automatically created as a result of a \ncertain type of transaction, like an Invoice, and records that are manually created against a company’s ledger.\n\nThe lines of a given JournalEntry object should always sum to 0. A positive net_amount means\nthe line represents a debit and a negative net_amount represents a credit."
     },
     "JournalLine": {
       "type": "object",
@@ -2174,7 +3165,8 @@
           "format": "uint64"
         },
         "remoteId": {
-          "type": "string"
+          "type": "string",
+          "description": "The third-party API ID of the matching object."
         },
         "account": {
           "type": "string"
@@ -2182,7 +3174,7 @@
         "netAmount": {
           "type": "number",
           "format": "float",
-          "title": "Might want to use double or a more precise type"
+          "description": "The value of the line item including taxes and other fees.\n\nMight want to use double or a more precise type"
         },
         "trackingCategory": {
           "type": "string"
@@ -2197,16 +3189,22 @@
           "type": "string"
         },
         "company": {
-          "type": "string"
+          "type": "string",
+          "description": "The company the journal entry belongs to."
         },
         "description": {
-          "type": "string"
+          "type": "string",
+          "description": "The line's description."
         },
         "exchangeRate": {
           "type": "string",
-          "description": "Assuming string due to the example provided, but could be float or double."
+          "description": "The journal line item's exchange rate.\n\nAssuming string due to the example provided, but could be float or double."
         },
         "modifiedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdAt": {
           "type": "string",
           "format": "date-time"
         }
@@ -2225,7 +3223,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/Attachments"
+            "$ref": "#/definitions/AccountingAttachment"
           },
           "title": "Represent a company's attachments. a business can have many attachments"
         },
@@ -2245,105 +3243,256 @@
           },
           "title": "a business can have many purchase orders"
         },
-        "reportDetails": {
-          "$ref": "#/definitions/ReportDetails",
-          "title": "a business can have one report object"
+        "balanceSheets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/BalanceSheet"
+          },
+          "title": "The BalanceSheet object shows a company’s assets, liabilities, and equity. Assets should be equal to liability and equity combined. This shows the company’s financial health at a specific point in time.\na business can have many balance sheets"
         },
-        "referenceDetails": {
-          "$ref": "#/definitions/ReferenceDetails"
+        "cashFlowStatements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/CashFlowStatements"
+          },
+          "title": "The CashFlowStatement object shows operating activities, investing activities, and financing activities over a period of time (month, quarter, or year).\na company can have many cash flow statements"
         },
-        "transactionsDetails": {
-          "$ref": "#/definitions/TransactionDetails"
+        "incomeStatements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/IncomeStatement"
+          },
+          "title": "a business can have many income statements"
+        },
+        "chartOfAccounts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/BusinessChartOfAccounts"
+          },
+          "description": "The Account object is what companies use to track transactions. They can be both bank accounts or a general ledger account (also called a chart of accounts)."
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/Item"
+          },
+          "title": "a business can have many items"
+        },
+        "taxRates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/TaxRate"
+          },
+          "title": "a business can have many tax rates"
+        },
+        "contacts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/Contacts"
+          },
+          "description": "The Contact object refers to either a supplier or a customer."
+        },
+        "invoices": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/Invoice"
+          },
+          "title": "a business can have many invoices"
+        },
+        "payments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/Payment"
+          },
+          "title": "a business can have many payments"
+        },
+        "expenses": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/Expense"
+          },
+          "title": "a business can have many expenses"
+        },
+        "journalEntries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/JournalEntry"
+          },
+          "title": "a business can have many journal entries"
+        },
+        "transactions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/BusinessTransaction"
+          },
+          "title": "a business can have many transactions"
+        },
+        "vendorCredits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/VendorCredit"
+          },
+          "title": "a business can have many vendor credits"
+        },
+        "creditNotes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/CreditNote"
+          },
+          "title": "a business can have many credit notes"
         }
       }
     },
-    "MergeExchangePublicLinkTokenForAccountTokenRequest": {
+    "LocationAddress": {
       "type": "object",
       "properties": {
-        "userId": {
+        "id": {
           "type": "string",
           "format": "uint64",
-          "title": "The user id\nValidations:\n- user_id must be greater than 0"
+          "title": "id of the record"
         },
-        "publicToken": {
-          "type": "string",
-          "title": "the public link token"
+        "remoteId": {
+          "type": "string"
         },
-        "endUserOriginId": {
+        "name": {
           "type": "string",
-          "title": "the end users origin id"
+          "description": "The location's name."
         },
-        "organizationName": {
+        "phoneNumber": {
           "type": "string",
-          "title": "the organization name"
-        }
-      },
-      "required": [
-        "userId",
-        "publicToken",
-        "endUserOriginId",
-        "organizationName"
-      ]
-    },
-    "MergeExchangePublicLinkTokenForAccountTokenResponse": {
-      "type": "object",
-      "properties": {
-        "success": {
+          "description": "The location's phone number."
+        },
+        "street1": {
+          "type": "string",
+          "description": "Line 1 of the location's street address."
+        },
+        "street2": {
+          "type": "string",
+          "description": "Line 2 of the location's street address."
+        },
+        "city": {
+          "type": "string",
+          "description": "The location's city."
+        },
+        "state": {
+          "type": "string",
+          "description": "The location's state. Represents a region if outside of the US."
+        },
+        "zipCode": {
+          "type": "string",
+          "description": "The location's zip code or postal code."
+        },
+        "country": {
+          "type": "string",
+          "description": "The location's country."
+        },
+        "locationType": {
+          "$ref": "#/definitions/LocationType",
+          "description": "The location's type. Can be either WORK or HOME Possible values include: HOME, WORK. \nIn cases where there is no clear mapping, the original value passed through will be returned."
+        },
+        "remoteWasDeleted": {
           "type": "boolean",
-          "title": "the status of the exchange token"
+          "description": "Indicates whether or not this object has been deleted in the third party platform."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "This is the datetime that this object was last updated by Merge"
+        },
+        "mergeAccountId": {
+          "type": "string",
+          "title": "This is the record id as seen on merge"
         }
       },
-      "required": [
-        "success"
-      ]
+      "description": "The Location object is used to represent an address that can be associated with an employee."
     },
-    "MergeGetPublicLinkTokenRequest": {
+    "LocationType": {
+      "type": "string",
+      "enum": [
+        "LOCATION_TYPE_UNSPECIFIED",
+        "LOCATION_TYPE_HOME",
+        "LOCATION_TYPE_WORK"
+      ],
+      "default": "LOCATION_TYPE_UNSPECIFIED",
+      "description": "The location's type. Can be either WORK or HOME Possible values include: HOME, WORK.\nIn cases where there is no clear mapping, the original value passed through will be returned."
+    },
+    "MaritalStatus": {
+      "type": "string",
+      "enum": [
+        "MARITAL_STATUS_UNSPECIFIED",
+        "MARITAL_STATUS_SINGLE",
+        "MARITAL_STATUS_MARRIED_FILING_JOINTLY",
+        "MARITAL_STATUS_MARRIED_FILING_SEPARATELY",
+        "MARITAL_STATUS_HEAD_OF_HOUSEHOLD",
+        "MARITAL_STATUS_QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD"
+      ],
+      "default": "MARITAL_STATUS_UNSPECIFIED",
+      "description": "The employee's filing status as related to marital status. Possible values include: SINGLE, \nMARRIED_FILING_JOINTLY, MARRIED_FILING_SEPARATELY, HEAD_OF_HOUSEHOLD, QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD.\nIn cases where there is no clear mapping, the original value passed through will be returned."
+    },
+    "MergeBusinessProfile": {
       "type": "object",
       "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "id"
+        },
         "userId": {
           "type": "string",
           "format": "uint64",
-          "description": "The user id\nValidations:\n- user_id must be greater than 0\nThis unique identifier typically represents the ID for your end user in your product's database. T\nhis value must be distinct from other Linked Accounts' unique identifiers."
+          "title": "the user id tied to the profile"
         },
-        "organizationName": {
-          "type": "string",
-          "description": "Your end user's organization."
+        "companyName": {
+          "type": "string"
         },
         "email": {
           "type": "string",
-          "description": "Your end user's email address. This is purely for\nidentification purposes - setting this value will not cause any emails to be sent."
+          "title": "a user profile can have many links (connected institutions) of which finanical accounts are tied to (checking, savings, etc)"
+        },
+        "accountingIntegrationMergeLink": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/AccountingIntegrationMergeLink"
+          },
+          "title": "this is the accounting integration the business has decided to authorize"
+        },
+        "payrollIntegrationMergeLink": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/HrisIntegrationMergeLink"
+          },
+          "title": "this is the payroll integration the business has decided to authorize"
+        },
+        "actionablePersonalInsights": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/BusinessActionableInsight"
+          },
+          "title": "ths is the actionable inisghts the business has be provided with"
         }
       },
-      "required": [
-        "userId",
-        "organizationName",
-        "email"
-      ]
-    },
-    "MergeGetPublicLinkTokenResponse": {
-      "type": "object",
-      "properties": {
-        "linkToken": {
-          "type": "string",
-          "title": "the link token"
-        },
-        "integrationName": {
-          "type": "string",
-          "title": "the integration name"
-        },
-        "magicLinkUrl": {
-          "type": "string",
-          "title": "the magic link url"
-        },
-        "endUserOriginId": {
-          "type": "string",
-          "title": "the end user origin id"
-        },
-        "organizationName": {
-          "type": "string",
-          "title": "the organization name"
-        }
-      }
+      "title": "MergeBusinessProfile stores high level user profile details\nsuch as the id, user_id tied to the profile, and many more"
     },
     "MergeLinkedAccountToken": {
       "type": "object",
@@ -2376,6 +3525,53 @@
         }
       }
     },
+    "PayFrequency": {
+      "type": "string",
+      "enum": [
+        "PAY_FREQUENCY_UNSPECIFIED",
+        "PAY_FREQUENCY_WEEKLY",
+        "PAY_FREQUENCY_BIWEEKLY",
+        "PAY_FREQUENCY_MONTHLY",
+        "PAY_FREQUENCY_QUARTERLY",
+        "PAY_FREQUENCY_SEMIANNUALLY",
+        "PAY_FREQUENCY_ANNUALLY",
+        "PAY_FREQUENCY_THIRTEEN_MONTHLY",
+        "PAY_FREQUENCY_PRO_RATA",
+        "PAY_FREQUENCY_SEMIMONTHLY"
+      ],
+      "default": "PAY_FREQUENCY_UNSPECIFIED",
+      "description": "The position's pay frequency. Possible values include: WEEKLY, BIWEEKLY, MONTHLY, \nQUARTERLY, SEMIANNUALLY, ANNUALLY, THIRTEEN-MONTHLY, PRO_RATA, SEMIMONTHLY. \nIn cases where there is no clear mapping, the original value passed through will be returned."
+    },
+    "PayGroupType": {
+      "type": "string",
+      "enum": [
+        "PAY_GROUP_TYPE_UNSPECIFIED",
+        "PAY_GROUP_TYPE_TEAM",
+        "PAY_GROUP_TYPE_DEPARTMENT",
+        "PAY_GROUP_TYPE_COST_CENTER",
+        "PAY_GROUP_TYPE_BUSINESS_UNIT",
+        "PAY_GROUP_TYPE_GROUP"
+      ],
+      "default": "PAY_GROUP_TYPE_UNSPECIFIED",
+      "description": "The group type Possible values include: TEAM, DEPARTMENT, COST_CENTER, BUSINESS_UNIT, GROUP. \nIn cases where there is no clear mapping, the original value passed through will be returned."
+    },
+    "PayPeriod": {
+      "type": "string",
+      "enum": [
+        "PAY_PERIOD_UNSPECIFIED",
+        "PAY_PERIOD_HOUR",
+        "PAY_PERIOD_DAY",
+        "PAY_PERIOD_WEEK",
+        "PAY_PERIOD_EVERY_TWO_WEEKS",
+        "PAY_PERIOD_SEMIMONTHLY",
+        "PAY_PERIOD_MONTH",
+        "PAY_PERIOD_QUARTER",
+        "PAY_PERIOD_EVERY_SIX_MONTHS",
+        "PAY_PERIOD_YEAR"
+      ],
+      "default": "PAY_PERIOD_UNSPECIFIED",
+      "description": "The time period this pay rate encompasses. Possible values include: \nHOUR, DAY, WEEK, EVERY_TWO_WEEKS, SEMIMONTHLY, MONTH, QUARTER, \nEVERY_SIX_MONTHS, YEAR. In cases where there is no clear mapping, \nthe original value passed through will be returned."
+    },
     "Payment": {
       "type": "object",
       "properties": {
@@ -2388,10 +3584,12 @@
         },
         "transactionDate": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "description": "The payment's transaction date."
         },
         "contact": {
-          "type": "string"
+          "type": "string",
+          "description": "The supplier, or customer involved in the payment."
         },
         "account": {
           "type": "string",
@@ -2402,10 +3600,11 @@
         },
         "exchangeRate": {
           "type": "string",
-          "description": "Assuming string due to the example provided, but could be float or double."
+          "description": "The payment's exchange rate.\n\nAssuming string due to the example provided, but could be float or double."
         },
         "company": {
-          "type": "string"
+          "type": "string",
+          "description": "The company the payment belongs to."
         },
         "totalAmount": {
           "type": "number",
@@ -2434,12 +3633,56 @@
           "format": "date-time",
           "title": "This is the datetime that this object was last updated by Merge"
         },
-        "mergeAccountId": {
+        "mergeRecordId": {
           "type": "string",
           "title": "the id as stored in merge"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
         }
       },
       "description": "The Payment object represents general payments made towards a specific transaction."
+    },
+    "PayrollRunState": {
+      "type": "string",
+      "enum": [
+        "PAYROLL_RUN_STATE_UNSPECIFIED",
+        "PAYROLL_RUN_STATE_PAID",
+        "PAYROLL_RUN_STATE_DRAFT",
+        "PAYROLL_RUN_STATE_APPROVED",
+        "PAYROLL_RUN_STATE_FAILED",
+        "PAYROLL_RUN_STATE_CLOSED"
+      ],
+      "default": "PAYROLL_RUN_STATE_UNSPECIFIED",
+      "description": "The state of the payroll run Possible values include: PAID, DRAFT, APPROVED, FAILED, CLOSED. \nIn cases where there is no clear mapping, the original value passed through will be returned."
+    },
+    "PayrollRunType": {
+      "type": "string",
+      "enum": [
+        "PAYROLL_RUN_TYPE_UNSPECIFIED",
+        "PAYROLL_RUN_TYPE_REGULAR",
+        "PAYROLL_RUN_TYPE_OFF_CYCLE",
+        "PAYROLL_RUN_TYPE_CORRECTION",
+        "PAYROLL_RUN_TYPE_TERMINATION",
+        "PAYROLL_RUN_TYPE_SIGN_ON_BONUS"
+      ],
+      "default": "PAYROLL_RUN_TYPE_UNSPECIFIED",
+      "description": "The type of the payroll run Possible values include: REGULAR, OFF_CYCLE, CORRECTION, TERMINATION, SIGN_ON_BONUS. \nIn cases where there is no clear mapping, the original value passed through will be returned."
+    },
+    "PolicyType": {
+      "type": "string",
+      "enum": [
+        "POLICY_TYPE_UNSPECIFIED",
+        "POLICY_TYPE_VACATION",
+        "POLICY_TYPE_SICK",
+        "POLICY_TYPE_PERSONAL",
+        "POLICY_TYPE_JURY_DUTY",
+        "POLICY_TYPE_VOLUNTEER",
+        "POLICY_TYPE_BEREAVEMENT"
+      ],
+      "default": "POLICY_TYPE_UNSPECIFIED",
+      "title": "The policy type of this time off balance. Possible values include: VACATION, SICK, PERSONAL,\nJURY_DUTY, VOLUNTEER, BEREAVEMENT. In cases where there is no clear mapping, the original\nvalue passed through will be returned"
     },
     "PurchaseOrder": {
       "type": "object",
@@ -2448,7 +3691,7 @@
           "type": "string",
           "format": "uint64"
         },
-        "mergeAccountId": {
+        "mergeRecordId": {
           "type": "string"
         },
         "status": {
@@ -2535,6 +3778,10 @@
         "modifiedAt": {
           "type": "string",
           "format": "date-time"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
         }
       },
       "description": "The PurchaseOrder object is a record of request for a product or service between a buyer and seller."
@@ -2594,96 +3841,37 @@
         "modifiedAt": {
           "type": "string",
           "format": "date-time"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "remoteWasDeleted": {
+          "type": "boolean"
         }
       },
       "description": "The PurchaseOrderLineItem object is used to represent a purchase order's line item."
+    },
+    "ReadProfileResponse": {
+      "type": "object",
+      "properties": {
+        "profile": {
+          "$ref": "#/definitions/MergeBusinessProfile",
+          "description": "A field named \"profile\" of type BusinessPayrollProfile with field number 1.",
+          "title": "the profile of interest"
+        }
+      },
+      "description": "Defines a message named ReadProfileRequest."
     },
     "ReadynessCheckResponse": {
       "type": "object",
       "properties": {
         "healthy": {
           "type": "boolean",
-          "title": "wether the service is ready to receive traffic"
-        }
-      }
-    },
-    "ReferenceDetails": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "format": "uint64",
-          "title": "id"
-        },
-        "chartOfAccounts": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/BusinessChartOfAccounts"
-          },
-          "description": "The Account object is what companies use to track transactions. They can be both bank accounts or a general ledger account (also called a chart of accounts)."
-        },
-        "items": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/Item"
-          },
-          "title": "a business can have many items"
-        },
-        "taxRates": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/TaxRate"
-          },
-          "title": "a business can have many tax rates"
-        },
-        "contacts": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/Contacts"
-          },
-          "description": "The Contact object refers to either a supplier or a customer."
+          "title": "whether the service is ready to receive traffic"
         }
       },
-      "description": "ReferenceDetails: These are the objects that provide additional context or information about the transactions.\nThey include things like Accounts, Contacts, Items, and Tax Rates."
-    },
-    "ReportDetails": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "format": "uint64",
-          "title": "id"
-        },
-        "balanceSheets": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/BalanceSheet"
-          },
-          "title": "The BalanceSheet object shows a company’s assets, liabilities, and equity. Assets should be equal to liability and equity combined. This shows the company’s financial health at a specific point in time.\na business can have many balance sheets"
-        },
-        "cashFlowStatements": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/CashFlowStatements"
-          },
-          "title": "The CashFlowStatement object shows operating activities, investing activities, and financing activities over a period of time (month, quarter, or year).\na company can have many cash flow statements"
-        },
-        "incomeStatements": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/IncomeStatement"
-          },
-          "title": "a business can have many income statements"
-        }
-      },
-      "description": "ReportDetails: These are the summaries or overviews of the financial data. They include things\nlike Balance Sheets, Income Statements, and Cash Flow Statements."
+      "description": "Defines a message named ReadynessCheckResponse."
     },
     "ReportItem": {
       "type": "object",
@@ -2737,6 +3925,54 @@
         }
       }
     },
+    "Tax": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "id"
+        },
+        "remoteId": {
+          "type": "string",
+          "description": "The third-party API ID of the matching object."
+        },
+        "name": {
+          "type": "string",
+          "description": "The tax's name."
+        },
+        "amount": {
+          "type": "number",
+          "format": "double",
+          "description": "The tax amount."
+        },
+        "employerTax": {
+          "type": "boolean",
+          "description": "Whether or not the employer is responsible for paying the tax."
+        },
+        "remoteWasDeleted": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "This is the datetime that this object was last updated by Merge"
+        },
+        "payrollRunMergeAccountId": {
+          "type": "string",
+          "description": "The payroll being run."
+        },
+        "mergeAccountId": {
+          "type": "string",
+          "title": "This is the record id as seen on the merge platform"
+        }
+      },
+      "description": "The Tax object is used to represent an array of the tax deductions for a given employee's payroll run."
+    },
     "TaxRate": {
       "type": "object",
       "properties": {
@@ -2745,101 +3981,45 @@
           "format": "uint64"
         },
         "remoteId": {
-          "type": "string"
+          "type": "string",
+          "description": "The third-party API ID of the matching object."
         },
         "description": {
-          "type": "string"
+          "type": "string",
+          "description": "The tax rate's description."
         },
         "totalTaxRate": {
           "type": "number",
-          "format": "double"
+          "format": "double",
+          "description": "The tax rate's total tax rate."
         },
         "effectiveTaxRate": {
           "type": "number",
-          "format": "double"
+          "format": "double",
+          "description": "The tax rate's effective tax rate."
         },
         "company": {
-          "type": "string"
+          "type": "string",
+          "description": "The company the tax rate belongs to."
         },
         "remoteWasDeleted": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Indicates whether or not this object has been deleted in the third party platform."
         },
         "modifiedAt": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "title": "This is the datetime that this object was last updated by Merge"
         },
-        "mergeAccountId": {
+        "mergeRecordId": {
           "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
         }
       },
       "description": "The TaxRate object is used to represent a tax rate."
-    },
-    "TransactionDetails": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "format": "uint64",
-          "title": "id"
-        },
-        "invoices": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/Invoice"
-          },
-          "title": "a business can have many invoices"
-        },
-        "payments": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/Payment"
-          },
-          "title": "a business can have many payments"
-        },
-        "expenses": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/Expense"
-          },
-          "title": "a business can have many expenses"
-        },
-        "journalEntries": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/JournalEntry"
-          },
-          "title": "a business can have many journal entries"
-        },
-        "transactions": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/BusinessTransaction"
-          },
-          "title": "a business can have many transactions"
-        },
-        "vendorCredits": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/VendorCredit"
-          },
-          "title": "a business can have many vendor credits"
-        },
-        "creditNotes": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/CreditNote"
-          },
-          "title": "a business can have many credit notes"
-        }
-      },
-      "description": "TransactionDetails: These are the actual financial transactions that occur within an accounting system.\nThey include things like Invoices, Payments, Expenses, and Journal Entries."
     },
     "TransactionLineItem": {
       "type": "object",
@@ -2852,22 +4032,27 @@
           "type": "string"
         },
         "memo": {
-          "type": "string"
+          "type": "string",
+          "description": "An internal note used by the business to clarify purpose of the transaction."
         },
         "unitPrice": {
-          "type": "string"
+          "type": "string",
+          "description": "The line item's unit price."
         },
         "quantity": {
-          "type": "string"
+          "type": "string",
+          "description": "The line item's quantity."
         },
         "item": {
           "type": "string"
         },
         "account": {
-          "type": "string"
+          "type": "string",
+          "description": "The line item's account."
         },
         "trackingCategory": {
-          "type": "string"
+          "type": "string",
+          "description": "The line's associated tracking category."
         },
         "trackingCategories": {
           "type": "array",
@@ -2876,48 +4061,65 @@
           }
         },
         "totalLineAmount": {
-          "type": "string"
+          "type": "string",
+          "description": "The line item's total."
         },
         "taxRate": {
-          "type": "string"
+          "type": "string",
+          "description": "The line item's tax rate."
         },
         "currency": {
-          "type": "string"
+          "type": "string",
+          "title": "The line item's currency"
         },
         "exchangeRate": {
           "type": "string",
-          "description": "Assuming string, but might be better as float or double."
+          "description": "The line item's exchange rate.\n\nAssuming string, but might be better as float or double."
         },
         "company": {
-          "type": "string"
+          "type": "string",
+          "description": "The company the line belongs to."
         },
         "modifiedAt": {
           "type": "string",
           "format": "date-time"
+        },
+        "remoteWasDeleted": {
+          "type": "boolean",
+          "description": "Indicates whether or not this object has been deleted in the third party platform."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
         }
-      }
+      },
+      "description": "The TransactionLineItem object is used to represent a transaction's line items."
     },
-    "UpdateBusinessAccountingProfileRequest": {
+    "UpdateProfileRequest": {
       "type": "object",
       "properties": {
         "profile": {
-          "$ref": "#/definitions/BusinessAccountingProfile",
+          "$ref": "#/definitions/MergeBusinessProfile",
+          "description": "A field named \"profile\" of type BusinessPayrollProfile.",
           "title": "business accounting profile to update"
         }
-      }
+      },
+      "description": "Defines a message named UpdateProfileRequest."
     },
-    "UpdateBusinessAccountingProfileResponse": {
+    "UpdateProfileResponse": {
       "type": "object",
       "properties": {
         "profile": {
-          "$ref": "#/definitions/BusinessAccountingProfile"
+          "$ref": "#/definitions/MergeBusinessProfile",
+          "description": "A field named \"profile\" of type BusinessPayrollProfile with field number 1."
         }
-      }
+      },
+      "description": "Defines a message named UpdateProfileResponse."
     },
     "VendorCredit": {
       "type": "object",
       "properties": {
-        "mergeAccountId": {
+        "mergeRecordId": {
           "type": "string",
           "title": "Unique identifier for the Merge account"
         },
@@ -2989,7 +4191,7 @@
           "title": "Unique identifier for the VendorCredit"
         }
       },
-      "description": "The VendorCredit object represents an accounts receivable transaction indicating that a customer is owed a gift or refund. \nIt includes details such as the amount of credit, the vendor responsible, the associated account, and other relevant information."
+      "description": "The VendorCredit object represents an accounts receivable transaction indicating that a customer is owed a gift or refund. \nIt includes details such as the amount of credit, the vendor responsible, \nthe associated account, and other relevant information."
     },
     "VendorCreditLine": {
       "type": "object",

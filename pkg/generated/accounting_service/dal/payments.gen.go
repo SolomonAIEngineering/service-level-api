@@ -32,10 +32,12 @@ func newPaymentORM(db *gorm.DB, opts ...gen.DOOption) paymentORM {
 	_paymentORM.AccountingPeriod = field.NewString(tableName, "accounting_period")
 	_paymentORM.Company = field.NewString(tableName, "company")
 	_paymentORM.Contact = field.NewString(tableName, "contact")
+	_paymentORM.CreatedAt = field.NewTime(tableName, "created_at")
 	_paymentORM.Currency = field.NewString(tableName, "currency")
 	_paymentORM.ExchangeRate = field.NewString(tableName, "exchange_rate")
 	_paymentORM.Id = field.NewUint64(tableName, "id")
-	_paymentORM.MergeAccountId = field.NewString(tableName, "merge_account_id")
+	_paymentORM.LinkedAccountingAccountId = field.NewUint64(tableName, "linked_accounting_account_id")
+	_paymentORM.MergeRecordId = field.NewString(tableName, "merge_record_id")
 	_paymentORM.ModifiedAt = field.NewTime(tableName, "modified_at")
 	_paymentORM.RemoteId = field.NewString(tableName, "remote_id")
 	_paymentORM.RemoteUpdatedAt = field.NewTime(tableName, "remote_updated_at")
@@ -43,7 +45,6 @@ func newPaymentORM(db *gorm.DB, opts ...gen.DOOption) paymentORM {
 	_paymentORM.TotalAmount = field.NewFloat32(tableName, "total_amount")
 	_paymentORM.TrackingCategories = field.NewField(tableName, "tracking_categories")
 	_paymentORM.TransactionDate = field.NewTime(tableName, "transaction_date")
-	_paymentORM.TransactionDetailsId = field.NewUint64(tableName, "transaction_details_id")
 
 	_paymentORM.fillFieldMap()
 
@@ -53,23 +54,24 @@ func newPaymentORM(db *gorm.DB, opts ...gen.DOOption) paymentORM {
 type paymentORM struct {
 	paymentORMDo
 
-	ALL                  field.Asterisk
-	Account              field.String
-	AccountingPeriod     field.String
-	Company              field.String
-	Contact              field.String
-	Currency             field.String
-	ExchangeRate         field.String
-	Id                   field.Uint64
-	MergeAccountId       field.String
-	ModifiedAt           field.Time
-	RemoteId             field.String
-	RemoteUpdatedAt      field.Time
-	RemoteWasDeleted     field.Bool
-	TotalAmount          field.Float32
-	TrackingCategories   field.Field
-	TransactionDate      field.Time
-	TransactionDetailsId field.Uint64
+	ALL                       field.Asterisk
+	Account                   field.String
+	AccountingPeriod          field.String
+	Company                   field.String
+	Contact                   field.String
+	CreatedAt                 field.Time
+	Currency                  field.String
+	ExchangeRate              field.String
+	Id                        field.Uint64
+	LinkedAccountingAccountId field.Uint64
+	MergeRecordId             field.String
+	ModifiedAt                field.Time
+	RemoteId                  field.String
+	RemoteUpdatedAt           field.Time
+	RemoteWasDeleted          field.Bool
+	TotalAmount               field.Float32
+	TrackingCategories        field.Field
+	TransactionDate           field.Time
 
 	fieldMap map[string]field.Expr
 }
@@ -90,10 +92,12 @@ func (p *paymentORM) updateTableName(table string) *paymentORM {
 	p.AccountingPeriod = field.NewString(table, "accounting_period")
 	p.Company = field.NewString(table, "company")
 	p.Contact = field.NewString(table, "contact")
+	p.CreatedAt = field.NewTime(table, "created_at")
 	p.Currency = field.NewString(table, "currency")
 	p.ExchangeRate = field.NewString(table, "exchange_rate")
 	p.Id = field.NewUint64(table, "id")
-	p.MergeAccountId = field.NewString(table, "merge_account_id")
+	p.LinkedAccountingAccountId = field.NewUint64(table, "linked_accounting_account_id")
+	p.MergeRecordId = field.NewString(table, "merge_record_id")
 	p.ModifiedAt = field.NewTime(table, "modified_at")
 	p.RemoteId = field.NewString(table, "remote_id")
 	p.RemoteUpdatedAt = field.NewTime(table, "remote_updated_at")
@@ -101,7 +105,6 @@ func (p *paymentORM) updateTableName(table string) *paymentORM {
 	p.TotalAmount = field.NewFloat32(table, "total_amount")
 	p.TrackingCategories = field.NewField(table, "tracking_categories")
 	p.TransactionDate = field.NewTime(table, "transaction_date")
-	p.TransactionDetailsId = field.NewUint64(table, "transaction_details_id")
 
 	p.fillFieldMap()
 
@@ -118,15 +121,17 @@ func (p *paymentORM) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (p *paymentORM) fillFieldMap() {
-	p.fieldMap = make(map[string]field.Expr, 16)
+	p.fieldMap = make(map[string]field.Expr, 17)
 	p.fieldMap["account"] = p.Account
 	p.fieldMap["accounting_period"] = p.AccountingPeriod
 	p.fieldMap["company"] = p.Company
 	p.fieldMap["contact"] = p.Contact
+	p.fieldMap["created_at"] = p.CreatedAt
 	p.fieldMap["currency"] = p.Currency
 	p.fieldMap["exchange_rate"] = p.ExchangeRate
 	p.fieldMap["id"] = p.Id
-	p.fieldMap["merge_account_id"] = p.MergeAccountId
+	p.fieldMap["linked_accounting_account_id"] = p.LinkedAccountingAccountId
+	p.fieldMap["merge_record_id"] = p.MergeRecordId
 	p.fieldMap["modified_at"] = p.ModifiedAt
 	p.fieldMap["remote_id"] = p.RemoteId
 	p.fieldMap["remote_updated_at"] = p.RemoteUpdatedAt
@@ -134,7 +139,6 @@ func (p *paymentORM) fillFieldMap() {
 	p.fieldMap["total_amount"] = p.TotalAmount
 	p.fieldMap["tracking_categories"] = p.TrackingCategories
 	p.fieldMap["transaction_date"] = p.TransactionDate
-	p.fieldMap["transaction_details_id"] = p.TransactionDetailsId
 }
 
 func (p paymentORM) clone(db *gorm.DB) paymentORM {

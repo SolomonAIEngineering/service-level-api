@@ -1,0 +1,193 @@
+syntax = "proto3";
+
+package accounting_service.v1;
+
+import "accounting_service/v1/request.proto";
+import "accounting_service/v1/response.proto";
+import "protoc-gen-gorm/options/gorm.proto";
+
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/generated/accounting_service/v1";
+
+// AccountingService API.
+service AccountingService {
+  option (gorm.server).autogen = true;
+  // Healthcheck performs a health check on the service
+  rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse) {
+    option (google.api.http) = {get: "/api/v1/health"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Health Check",
+      tags: ["service health"]
+      operation_id: "HealthCheck"
+      description: "Performs a health check on the service.",
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.HealthCheckResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  // ReadynessCheck performs a readiness check on the service
+  rpc ReadynessCheck(ReadynessCheckRequest) returns (ReadynessCheckResponse) {
+    option (google.api.http) = {get: "/api/v1/ready"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Readiness Check",
+      tags: ["Service Readiness"],
+      operation_id: "ReadinessCheck",
+      description: "Performs a readiness check on the service.",
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.ReadynessCheckResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  // creates a business accouting profile on the service
+  rpc CreateProfile(CreateProfileRequest) returns (CreateProfileResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/profile"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Create Payroll Profile",
+      tags: ["profile"]
+      operation_id: "CreatePayrollProfile"
+      description: "Creates a payroll profile.",
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.CreateBusinessPayrollProfileResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  // gets business accounting profile
+  rpc ReadProfile(ReadProfileRequest) returns (ReadProfileResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/profile/{user_id}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get Business Account Profile",
+      tags: ["profile"]
+      operation_id: "ReadProfileResponse"
+      description: "Retrieves a business account profile.",
+      responses: {
+        key: "200"
+        value: {
+          description: ""
+          schema: {
+            json_schema: {ref: ".api.v1.ReadProfileResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  // delete business payroll profile
+  rpc DeleteProfile(DeleteProfileRequest) returns (DeleteProfileResponse) {
+    option (google.api.http) = {
+      delete: "/api/v1/profile/{user_id}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Delete Payroll Profile",
+      tags: ["profile"]
+      operation_id: "DeleteProfile"
+      description: "Deletes a business payroll profile.",
+      responses: {
+        key: "200"
+        value: {
+          description: ""
+          schema: {
+            json_schema: {ref: ".api.v1.DeleteProfileResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  // updates a business account
+  rpc UpdateProfile(UpdateProfileRequest) returns (UpdateProfileResponse) {
+    option (google.api.http) = {
+      put: "/api/v1/profile"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Update Payroll Profile",
+      tags: ["profile"]
+      operation_id: "UpdatePayrollProfile"
+      description: "Updates a payroll profile.",
+      responses: {
+        key: "200"
+        value: {
+          description: "A successful response."
+          schema: {
+            json_schema: {ref: ".api.v1.UpdateProfileResponse"}
+          }
+        }
+      }
+    };
+  }
+
+
+  // enables the client to get a link_token to initialize a Link session for your end user.
+  rpc GetLinkToken(GetLinkTokenRequest) returns (GetLinkTokenResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/merge/initiate-token-exchange"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get Link Token",
+      tags: ["Token Management"],
+      operation_id: "GetLinkToken"
+      description: "Provides a link token to initialize a Link session for the user.",
+      responses: {
+        key: "200"
+        value: {
+          description: ""
+          schema: {
+            json_schema: {ref: ".api.v1.GetLinkTokenResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  // enables the client to exchange a public link token for an access token
+  rpc ExchangePublicLinkTokenForAccountToken(ExchangePublicLinkTokenForAccountTokenRequest) returns (ExchangePublicLinkTokenForAccountTokenResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/merge/exchange-token"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Exchange Link Token",
+      tags: ["Token Management"],
+      operation_id: "ExchangePublicLinkTokenForAccountTokenResponse"
+      description: "Exchanges a public link token for an account token.",
+      responses: {
+        key: "200"
+        value: {
+          description: ""
+          schema: {
+            json_schema: {ref: ".api.v1.ExchangePublicLinkTokenForAccountTokenResponse"}
+          }
+        }
+      }
+    };
+  }
+}

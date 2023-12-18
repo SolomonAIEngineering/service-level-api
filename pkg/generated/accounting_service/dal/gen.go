@@ -19,9 +19,7 @@ var (
 	Q                                 = new(Query)
 	AccountingAttachmentORM           *accountingAttachmentORM
 	AccountingIntegrationMergeLinkORM *accountingIntegrationMergeLinkORM
-	AttachmentsORM                    *attachmentsORM
 	BalanceSheetORM                   *balanceSheetORM
-	BusinessAccountingProfileORM      *businessAccountingProfileORM
 	BusinessActionableInsightORM      *businessActionableInsightORM
 	BusinessChartOfAccountsORM        *businessChartOfAccountsORM
 	BusinessTransactionORM            *businessTransactionORM
@@ -41,16 +39,14 @@ var (
 	JournalEntryORM                   *journalEntryORM
 	JournalLineORM                    *journalLineORM
 	LinkedAccountingAccountORM        *linkedAccountingAccountORM
+	MergeBusinessProfileORM           *mergeBusinessProfileORM
 	MergeLinkedAccountTokenORM        *mergeLinkedAccountTokenORM
 	PaymentORM                        *paymentORM
 	PurchaseOrderLineItemORM          *purchaseOrderLineItemORM
 	PurchaseOrderORM                  *purchaseOrderORM
-	ReferenceDetailsORM               *referenceDetailsORM
-	ReportDetailsORM                  *reportDetailsORM
 	ReportItemORM                     *reportItemORM
 	TaxRateORM                        *taxRateORM
 	TrackingCategoryORM               *trackingCategoryORM
-	TransactionDetailsORM             *transactionDetailsORM
 	TransactionLineItemORM            *transactionLineItemORM
 	VendorCreditLineORM               *vendorCreditLineORM
 	VendorCreditORM                   *vendorCreditORM
@@ -60,9 +56,7 @@ func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
 	*Q = *Use(db, opts...)
 	AccountingAttachmentORM = &Q.AccountingAttachmentORM
 	AccountingIntegrationMergeLinkORM = &Q.AccountingIntegrationMergeLinkORM
-	AttachmentsORM = &Q.AttachmentsORM
 	BalanceSheetORM = &Q.BalanceSheetORM
-	BusinessAccountingProfileORM = &Q.BusinessAccountingProfileORM
 	BusinessActionableInsightORM = &Q.BusinessActionableInsightORM
 	BusinessChartOfAccountsORM = &Q.BusinessChartOfAccountsORM
 	BusinessTransactionORM = &Q.BusinessTransactionORM
@@ -82,16 +76,14 @@ func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
 	JournalEntryORM = &Q.JournalEntryORM
 	JournalLineORM = &Q.JournalLineORM
 	LinkedAccountingAccountORM = &Q.LinkedAccountingAccountORM
+	MergeBusinessProfileORM = &Q.MergeBusinessProfileORM
 	MergeLinkedAccountTokenORM = &Q.MergeLinkedAccountTokenORM
 	PaymentORM = &Q.PaymentORM
 	PurchaseOrderLineItemORM = &Q.PurchaseOrderLineItemORM
 	PurchaseOrderORM = &Q.PurchaseOrderORM
-	ReferenceDetailsORM = &Q.ReferenceDetailsORM
-	ReportDetailsORM = &Q.ReportDetailsORM
 	ReportItemORM = &Q.ReportItemORM
 	TaxRateORM = &Q.TaxRateORM
 	TrackingCategoryORM = &Q.TrackingCategoryORM
-	TransactionDetailsORM = &Q.TransactionDetailsORM
 	TransactionLineItemORM = &Q.TransactionLineItemORM
 	VendorCreditLineORM = &Q.VendorCreditLineORM
 	VendorCreditORM = &Q.VendorCreditORM
@@ -102,9 +94,7 @@ func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 		db:                                db,
 		AccountingAttachmentORM:           newAccountingAttachmentORM(db, opts...),
 		AccountingIntegrationMergeLinkORM: newAccountingIntegrationMergeLinkORM(db, opts...),
-		AttachmentsORM:                    newAttachmentsORM(db, opts...),
 		BalanceSheetORM:                   newBalanceSheetORM(db, opts...),
-		BusinessAccountingProfileORM:      newBusinessAccountingProfileORM(db, opts...),
 		BusinessActionableInsightORM:      newBusinessActionableInsightORM(db, opts...),
 		BusinessChartOfAccountsORM:        newBusinessChartOfAccountsORM(db, opts...),
 		BusinessTransactionORM:            newBusinessTransactionORM(db, opts...),
@@ -124,16 +114,14 @@ func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 		JournalEntryORM:                   newJournalEntryORM(db, opts...),
 		JournalLineORM:                    newJournalLineORM(db, opts...),
 		LinkedAccountingAccountORM:        newLinkedAccountingAccountORM(db, opts...),
+		MergeBusinessProfileORM:           newMergeBusinessProfileORM(db, opts...),
 		MergeLinkedAccountTokenORM:        newMergeLinkedAccountTokenORM(db, opts...),
 		PaymentORM:                        newPaymentORM(db, opts...),
 		PurchaseOrderLineItemORM:          newPurchaseOrderLineItemORM(db, opts...),
 		PurchaseOrderORM:                  newPurchaseOrderORM(db, opts...),
-		ReferenceDetailsORM:               newReferenceDetailsORM(db, opts...),
-		ReportDetailsORM:                  newReportDetailsORM(db, opts...),
 		ReportItemORM:                     newReportItemORM(db, opts...),
 		TaxRateORM:                        newTaxRateORM(db, opts...),
 		TrackingCategoryORM:               newTrackingCategoryORM(db, opts...),
-		TransactionDetailsORM:             newTransactionDetailsORM(db, opts...),
 		TransactionLineItemORM:            newTransactionLineItemORM(db, opts...),
 		VendorCreditLineORM:               newVendorCreditLineORM(db, opts...),
 		VendorCreditORM:                   newVendorCreditORM(db, opts...),
@@ -145,9 +133,7 @@ type Query struct {
 
 	AccountingAttachmentORM           accountingAttachmentORM
 	AccountingIntegrationMergeLinkORM accountingIntegrationMergeLinkORM
-	AttachmentsORM                    attachmentsORM
 	BalanceSheetORM                   balanceSheetORM
-	BusinessAccountingProfileORM      businessAccountingProfileORM
 	BusinessActionableInsightORM      businessActionableInsightORM
 	BusinessChartOfAccountsORM        businessChartOfAccountsORM
 	BusinessTransactionORM            businessTransactionORM
@@ -167,16 +153,14 @@ type Query struct {
 	JournalEntryORM                   journalEntryORM
 	JournalLineORM                    journalLineORM
 	LinkedAccountingAccountORM        linkedAccountingAccountORM
+	MergeBusinessProfileORM           mergeBusinessProfileORM
 	MergeLinkedAccountTokenORM        mergeLinkedAccountTokenORM
 	PaymentORM                        paymentORM
 	PurchaseOrderLineItemORM          purchaseOrderLineItemORM
 	PurchaseOrderORM                  purchaseOrderORM
-	ReferenceDetailsORM               referenceDetailsORM
-	ReportDetailsORM                  reportDetailsORM
 	ReportItemORM                     reportItemORM
 	TaxRateORM                        taxRateORM
 	TrackingCategoryORM               trackingCategoryORM
-	TransactionDetailsORM             transactionDetailsORM
 	TransactionLineItemORM            transactionLineItemORM
 	VendorCreditLineORM               vendorCreditLineORM
 	VendorCreditORM                   vendorCreditORM
@@ -189,9 +173,7 @@ func (q *Query) clone(db *gorm.DB) *Query {
 		db:                                db,
 		AccountingAttachmentORM:           q.AccountingAttachmentORM.clone(db),
 		AccountingIntegrationMergeLinkORM: q.AccountingIntegrationMergeLinkORM.clone(db),
-		AttachmentsORM:                    q.AttachmentsORM.clone(db),
 		BalanceSheetORM:                   q.BalanceSheetORM.clone(db),
-		BusinessAccountingProfileORM:      q.BusinessAccountingProfileORM.clone(db),
 		BusinessActionableInsightORM:      q.BusinessActionableInsightORM.clone(db),
 		BusinessChartOfAccountsORM:        q.BusinessChartOfAccountsORM.clone(db),
 		BusinessTransactionORM:            q.BusinessTransactionORM.clone(db),
@@ -211,16 +193,14 @@ func (q *Query) clone(db *gorm.DB) *Query {
 		JournalEntryORM:                   q.JournalEntryORM.clone(db),
 		JournalLineORM:                    q.JournalLineORM.clone(db),
 		LinkedAccountingAccountORM:        q.LinkedAccountingAccountORM.clone(db),
+		MergeBusinessProfileORM:           q.MergeBusinessProfileORM.clone(db),
 		MergeLinkedAccountTokenORM:        q.MergeLinkedAccountTokenORM.clone(db),
 		PaymentORM:                        q.PaymentORM.clone(db),
 		PurchaseOrderLineItemORM:          q.PurchaseOrderLineItemORM.clone(db),
 		PurchaseOrderORM:                  q.PurchaseOrderORM.clone(db),
-		ReferenceDetailsORM:               q.ReferenceDetailsORM.clone(db),
-		ReportDetailsORM:                  q.ReportDetailsORM.clone(db),
 		ReportItemORM:                     q.ReportItemORM.clone(db),
 		TaxRateORM:                        q.TaxRateORM.clone(db),
 		TrackingCategoryORM:               q.TrackingCategoryORM.clone(db),
-		TransactionDetailsORM:             q.TransactionDetailsORM.clone(db),
 		TransactionLineItemORM:            q.TransactionLineItemORM.clone(db),
 		VendorCreditLineORM:               q.VendorCreditLineORM.clone(db),
 		VendorCreditORM:                   q.VendorCreditORM.clone(db),
@@ -240,9 +220,7 @@ func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 		db:                                db,
 		AccountingAttachmentORM:           q.AccountingAttachmentORM.replaceDB(db),
 		AccountingIntegrationMergeLinkORM: q.AccountingIntegrationMergeLinkORM.replaceDB(db),
-		AttachmentsORM:                    q.AttachmentsORM.replaceDB(db),
 		BalanceSheetORM:                   q.BalanceSheetORM.replaceDB(db),
-		BusinessAccountingProfileORM:      q.BusinessAccountingProfileORM.replaceDB(db),
 		BusinessActionableInsightORM:      q.BusinessActionableInsightORM.replaceDB(db),
 		BusinessChartOfAccountsORM:        q.BusinessChartOfAccountsORM.replaceDB(db),
 		BusinessTransactionORM:            q.BusinessTransactionORM.replaceDB(db),
@@ -262,16 +240,14 @@ func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 		JournalEntryORM:                   q.JournalEntryORM.replaceDB(db),
 		JournalLineORM:                    q.JournalLineORM.replaceDB(db),
 		LinkedAccountingAccountORM:        q.LinkedAccountingAccountORM.replaceDB(db),
+		MergeBusinessProfileORM:           q.MergeBusinessProfileORM.replaceDB(db),
 		MergeLinkedAccountTokenORM:        q.MergeLinkedAccountTokenORM.replaceDB(db),
 		PaymentORM:                        q.PaymentORM.replaceDB(db),
 		PurchaseOrderLineItemORM:          q.PurchaseOrderLineItemORM.replaceDB(db),
 		PurchaseOrderORM:                  q.PurchaseOrderORM.replaceDB(db),
-		ReferenceDetailsORM:               q.ReferenceDetailsORM.replaceDB(db),
-		ReportDetailsORM:                  q.ReportDetailsORM.replaceDB(db),
 		ReportItemORM:                     q.ReportItemORM.replaceDB(db),
 		TaxRateORM:                        q.TaxRateORM.replaceDB(db),
 		TrackingCategoryORM:               q.TrackingCategoryORM.replaceDB(db),
-		TransactionDetailsORM:             q.TransactionDetailsORM.replaceDB(db),
 		TransactionLineItemORM:            q.TransactionLineItemORM.replaceDB(db),
 		VendorCreditLineORM:               q.VendorCreditLineORM.replaceDB(db),
 		VendorCreditORM:                   q.VendorCreditORM.replaceDB(db),
@@ -281,9 +257,7 @@ func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 type queryCtx struct {
 	AccountingAttachmentORM           IAccountingAttachmentORMDo
 	AccountingIntegrationMergeLinkORM IAccountingIntegrationMergeLinkORMDo
-	AttachmentsORM                    IAttachmentsORMDo
 	BalanceSheetORM                   IBalanceSheetORMDo
-	BusinessAccountingProfileORM      IBusinessAccountingProfileORMDo
 	BusinessActionableInsightORM      IBusinessActionableInsightORMDo
 	BusinessChartOfAccountsORM        IBusinessChartOfAccountsORMDo
 	BusinessTransactionORM            IBusinessTransactionORMDo
@@ -303,16 +277,14 @@ type queryCtx struct {
 	JournalEntryORM                   IJournalEntryORMDo
 	JournalLineORM                    IJournalLineORMDo
 	LinkedAccountingAccountORM        ILinkedAccountingAccountORMDo
+	MergeBusinessProfileORM           IMergeBusinessProfileORMDo
 	MergeLinkedAccountTokenORM        IMergeLinkedAccountTokenORMDo
 	PaymentORM                        IPaymentORMDo
 	PurchaseOrderLineItemORM          IPurchaseOrderLineItemORMDo
 	PurchaseOrderORM                  IPurchaseOrderORMDo
-	ReferenceDetailsORM               IReferenceDetailsORMDo
-	ReportDetailsORM                  IReportDetailsORMDo
 	ReportItemORM                     IReportItemORMDo
 	TaxRateORM                        ITaxRateORMDo
 	TrackingCategoryORM               ITrackingCategoryORMDo
-	TransactionDetailsORM             ITransactionDetailsORMDo
 	TransactionLineItemORM            ITransactionLineItemORMDo
 	VendorCreditLineORM               IVendorCreditLineORMDo
 	VendorCreditORM                   IVendorCreditORMDo
@@ -322,9 +294,7 @@ func (q *Query) WithContext(ctx context.Context) *queryCtx {
 	return &queryCtx{
 		AccountingAttachmentORM:           q.AccountingAttachmentORM.WithContext(ctx),
 		AccountingIntegrationMergeLinkORM: q.AccountingIntegrationMergeLinkORM.WithContext(ctx),
-		AttachmentsORM:                    q.AttachmentsORM.WithContext(ctx),
 		BalanceSheetORM:                   q.BalanceSheetORM.WithContext(ctx),
-		BusinessAccountingProfileORM:      q.BusinessAccountingProfileORM.WithContext(ctx),
 		BusinessActionableInsightORM:      q.BusinessActionableInsightORM.WithContext(ctx),
 		BusinessChartOfAccountsORM:        q.BusinessChartOfAccountsORM.WithContext(ctx),
 		BusinessTransactionORM:            q.BusinessTransactionORM.WithContext(ctx),
@@ -344,16 +314,14 @@ func (q *Query) WithContext(ctx context.Context) *queryCtx {
 		JournalEntryORM:                   q.JournalEntryORM.WithContext(ctx),
 		JournalLineORM:                    q.JournalLineORM.WithContext(ctx),
 		LinkedAccountingAccountORM:        q.LinkedAccountingAccountORM.WithContext(ctx),
+		MergeBusinessProfileORM:           q.MergeBusinessProfileORM.WithContext(ctx),
 		MergeLinkedAccountTokenORM:        q.MergeLinkedAccountTokenORM.WithContext(ctx),
 		PaymentORM:                        q.PaymentORM.WithContext(ctx),
 		PurchaseOrderLineItemORM:          q.PurchaseOrderLineItemORM.WithContext(ctx),
 		PurchaseOrderORM:                  q.PurchaseOrderORM.WithContext(ctx),
-		ReferenceDetailsORM:               q.ReferenceDetailsORM.WithContext(ctx),
-		ReportDetailsORM:                  q.ReportDetailsORM.WithContext(ctx),
 		ReportItemORM:                     q.ReportItemORM.WithContext(ctx),
 		TaxRateORM:                        q.TaxRateORM.WithContext(ctx),
 		TrackingCategoryORM:               q.TrackingCategoryORM.WithContext(ctx),
-		TransactionDetailsORM:             q.TransactionDetailsORM.WithContext(ctx),
 		TransactionLineItemORM:            q.TransactionLineItemORM.WithContext(ctx),
 		VendorCreditLineORM:               q.VendorCreditLineORM.WithContext(ctx),
 		VendorCreditORM:                   q.VendorCreditORM.WithContext(ctx),

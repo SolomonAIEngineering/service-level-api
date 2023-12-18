@@ -3,18 +3,15 @@ package accounting_servicev1
 // GetDatabaseSchemas returns a suite of database schemas
 func GetDatabaseSchemas() []interface{} {
 	models := []interface{}{
-		BusinessAccountingProfileORM{},
+		MergeBusinessProfileORM{},
 		BusinessActionableInsightORM{},
 		MergeLinkedAccountTokenORM{},
 		CategoryORM{},
 		AccountingIntegrationMergeLinkORM{},
 		LinkedAccountingAccountORM{},
-		TransactionDetailsORM{},
-		ReferenceDetailsORM{},
-		ReportDetailsORM{},
 		BusinessChartOfAccountsORM{},
 		CompanyAddressORM{},
-		AttachmentsORM{},
+		AccountingAttachmentORM{},
 		BalanceSheetORM{},
 		ReportItemORM{},
 		CashFlowStatementsORM{},

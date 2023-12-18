@@ -28,7 +28,6 @@ func newAccountingIntegrationMergeLinkORM(db *gorm.DB, opts ...gen.DOOption) acc
 
 	tableName := _accountingIntegrationMergeLinkORM.accountingIntegrationMergeLinkORMDo.TableName()
 	_accountingIntegrationMergeLinkORM.ALL = field.NewAsterisk(tableName)
-	_accountingIntegrationMergeLinkORM.BusinessAccountingProfileId = field.NewUint64(tableName, "business_accounting_profile_id")
 	_accountingIntegrationMergeLinkORM.Category = field.NewString(tableName, "category")
 	_accountingIntegrationMergeLinkORM.EndUserEmailAddress = field.NewString(tableName, "end_user_email_address")
 	_accountingIntegrationMergeLinkORM.EndUserOrganizationName = field.NewString(tableName, "end_user_organization_name")
@@ -41,6 +40,7 @@ func newAccountingIntegrationMergeLinkORM(db *gorm.DB, opts ...gen.DOOption) acc
 	_accountingIntegrationMergeLinkORM.IntegrationSquareImage = field.NewString(tableName, "integration_square_image")
 	_accountingIntegrationMergeLinkORM.IsDuplicate = field.NewBool(tableName, "is_duplicate")
 	_accountingIntegrationMergeLinkORM.LastModifiedAt = field.NewTime(tableName, "last_modified_at")
+	_accountingIntegrationMergeLinkORM.MergeBusinessProfileId = field.NewUint64(tableName, "merge_business_profile_id")
 	_accountingIntegrationMergeLinkORM.MergeLinkedAccountId = field.NewString(tableName, "merge_linked_account_id")
 	_accountingIntegrationMergeLinkORM.Status = field.NewString(tableName, "status")
 	_accountingIntegrationMergeLinkORM.WebhookListenerUrl = field.NewString(tableName, "webhook_listener_url")
@@ -48,313 +48,73 @@ func newAccountingIntegrationMergeLinkORM(db *gorm.DB, opts ...gen.DOOption) acc
 		db: db.Session(&gorm.Session{}),
 
 		RelationField: field.NewRelation("Account", "accounting_servicev1.LinkedAccountingAccountORM"),
-		ReferenceDetails: struct {
-			field.RelationField
-			ChartOfAccounts struct {
-				field.RelationField
-			}
-			Contacts struct {
-				field.RelationField
-			}
-			Items struct {
-				field.RelationField
-			}
-			TaxRates struct {
-				field.RelationField
-			}
-		}{
-			RelationField: field.NewRelation("Account.ReferenceDetails", "accounting_servicev1.ReferenceDetailsORM"),
-			ChartOfAccounts: struct {
-				field.RelationField
-			}{
-				RelationField: field.NewRelation("Account.ReferenceDetails.ChartOfAccounts", "accounting_servicev1.BusinessChartOfAccountsORM"),
-			},
-			Contacts: struct {
-				field.RelationField
-			}{
-				RelationField: field.NewRelation("Account.ReferenceDetails.Contacts", "accounting_servicev1.ContactsORM"),
-			},
-			Items: struct {
-				field.RelationField
-			}{
-				RelationField: field.NewRelation("Account.ReferenceDetails.Items", "accounting_servicev1.ItemORM"),
-			},
-			TaxRates: struct {
-				field.RelationField
-			}{
-				RelationField: field.NewRelation("Account.ReferenceDetails.TaxRates", "accounting_servicev1.TaxRateORM"),
-			},
-		},
-		ReportDetails: struct {
-			field.RelationField
-			BalanceSheets struct {
-				field.RelationField
-				Assets struct {
-					field.RelationField
-				}
-				Equity struct {
-					field.RelationField
-				}
-				Liabilities struct {
-					field.RelationField
-				}
-			}
-			CashFlowStatements struct {
-				field.RelationField
-				FinancingActivities struct {
-					field.RelationField
-				}
-				InvestingActivities struct {
-					field.RelationField
-				}
-				OperatingActivities struct {
-					field.RelationField
-				}
-			}
-			IncomeStatements struct {
-				field.RelationField
-				CostOfSales struct {
-					field.RelationField
-				}
-				Income struct {
-					field.RelationField
-				}
-				NonOperatingExpenses struct {
-					field.RelationField
-				}
-				OperatingExpenses struct {
-					field.RelationField
-				}
-			}
-		}{
-			RelationField: field.NewRelation("Account.ReportDetails", "accounting_servicev1.ReportDetailsORM"),
-			BalanceSheets: struct {
-				field.RelationField
-				Assets struct {
-					field.RelationField
-				}
-				Equity struct {
-					field.RelationField
-				}
-				Liabilities struct {
-					field.RelationField
-				}
-			}{
-				RelationField: field.NewRelation("Account.ReportDetails.BalanceSheets", "accounting_servicev1.BalanceSheetORM"),
-				Assets: struct {
-					field.RelationField
-				}{
-					RelationField: field.NewRelation("Account.ReportDetails.BalanceSheets.Assets", "accounting_servicev1.ReportItemORM"),
-				},
-				Equity: struct {
-					field.RelationField
-				}{
-					RelationField: field.NewRelation("Account.ReportDetails.BalanceSheets.Equity", "accounting_servicev1.ReportItemORM"),
-				},
-				Liabilities: struct {
-					field.RelationField
-				}{
-					RelationField: field.NewRelation("Account.ReportDetails.BalanceSheets.Liabilities", "accounting_servicev1.ReportItemORM"),
-				},
-			},
-			CashFlowStatements: struct {
-				field.RelationField
-				FinancingActivities struct {
-					field.RelationField
-				}
-				InvestingActivities struct {
-					field.RelationField
-				}
-				OperatingActivities struct {
-					field.RelationField
-				}
-			}{
-				RelationField: field.NewRelation("Account.ReportDetails.CashFlowStatements", "accounting_servicev1.CashFlowStatementsORM"),
-				FinancingActivities: struct {
-					field.RelationField
-				}{
-					RelationField: field.NewRelation("Account.ReportDetails.CashFlowStatements.FinancingActivities", "accounting_servicev1.ReportItemORM"),
-				},
-				InvestingActivities: struct {
-					field.RelationField
-				}{
-					RelationField: field.NewRelation("Account.ReportDetails.CashFlowStatements.InvestingActivities", "accounting_servicev1.ReportItemORM"),
-				},
-				OperatingActivities: struct {
-					field.RelationField
-				}{
-					RelationField: field.NewRelation("Account.ReportDetails.CashFlowStatements.OperatingActivities", "accounting_servicev1.ReportItemORM"),
-				},
-			},
-			IncomeStatements: struct {
-				field.RelationField
-				CostOfSales struct {
-					field.RelationField
-				}
-				Income struct {
-					field.RelationField
-				}
-				NonOperatingExpenses struct {
-					field.RelationField
-				}
-				OperatingExpenses struct {
-					field.RelationField
-				}
-			}{
-				RelationField: field.NewRelation("Account.ReportDetails.IncomeStatements", "accounting_servicev1.IncomeStatementORM"),
-				CostOfSales: struct {
-					field.RelationField
-				}{
-					RelationField: field.NewRelation("Account.ReportDetails.IncomeStatements.CostOfSales", "accounting_servicev1.ReportItemORM"),
-				},
-				Income: struct {
-					field.RelationField
-				}{
-					RelationField: field.NewRelation("Account.ReportDetails.IncomeStatements.Income", "accounting_servicev1.ReportItemORM"),
-				},
-				NonOperatingExpenses: struct {
-					field.RelationField
-				}{
-					RelationField: field.NewRelation("Account.ReportDetails.IncomeStatements.NonOperatingExpenses", "accounting_servicev1.ReportItemORM"),
-				},
-				OperatingExpenses: struct {
-					field.RelationField
-				}{
-					RelationField: field.NewRelation("Account.ReportDetails.IncomeStatements.OperatingExpenses", "accounting_servicev1.ReportItemORM"),
-				},
-			},
-		},
-		TransactionsDetails: struct {
-			field.RelationField
-			CreditNotes struct {
-				field.RelationField
-				LineItems struct {
-					field.RelationField
-				}
-			}
-			Expenses struct {
-				field.RelationField
-				Lines struct {
-					field.RelationField
-				}
-			}
-			Invoices struct {
-				field.RelationField
-				LineItems struct {
-					field.RelationField
-				}
-			}
-			JournalEntries struct {
-				field.RelationField
-				Lines struct {
-					field.RelationField
-				}
-			}
-			Payments struct {
-				field.RelationField
-			}
-			Transactions struct {
-				field.RelationField
-				LineItems struct {
-					field.RelationField
-				}
-			}
-			VendorCredits struct {
-				field.RelationField
-				Lines struct {
-					field.RelationField
-				}
-			}
-		}{
-			RelationField: field.NewRelation("Account.TransactionsDetails", "accounting_servicev1.TransactionDetailsORM"),
-			CreditNotes: struct {
-				field.RelationField
-				LineItems struct {
-					field.RelationField
-				}
-			}{
-				RelationField: field.NewRelation("Account.TransactionsDetails.CreditNotes", "accounting_servicev1.CreditNoteORM"),
-				LineItems: struct {
-					field.RelationField
-				}{
-					RelationField: field.NewRelation("Account.TransactionsDetails.CreditNotes.LineItems", "accounting_servicev1.CreditNoteLineItemORM"),
-				},
-			},
-			Expenses: struct {
-				field.RelationField
-				Lines struct {
-					field.RelationField
-				}
-			}{
-				RelationField: field.NewRelation("Account.TransactionsDetails.Expenses", "accounting_servicev1.ExpenseORM"),
-				Lines: struct {
-					field.RelationField
-				}{
-					RelationField: field.NewRelation("Account.TransactionsDetails.Expenses.Lines", "accounting_servicev1.ExpenseLineORM"),
-				},
-			},
-			Invoices: struct {
-				field.RelationField
-				LineItems struct {
-					field.RelationField
-				}
-			}{
-				RelationField: field.NewRelation("Account.TransactionsDetails.Invoices", "accounting_servicev1.InvoiceORM"),
-				LineItems: struct {
-					field.RelationField
-				}{
-					RelationField: field.NewRelation("Account.TransactionsDetails.Invoices.LineItems", "accounting_servicev1.InvoiceLineItemORM"),
-				},
-			},
-			JournalEntries: struct {
-				field.RelationField
-				Lines struct {
-					field.RelationField
-				}
-			}{
-				RelationField: field.NewRelation("Account.TransactionsDetails.JournalEntries", "accounting_servicev1.JournalEntryORM"),
-				Lines: struct {
-					field.RelationField
-				}{
-					RelationField: field.NewRelation("Account.TransactionsDetails.JournalEntries.Lines", "accounting_servicev1.JournalLineORM"),
-				},
-			},
-			Payments: struct {
-				field.RelationField
-			}{
-				RelationField: field.NewRelation("Account.TransactionsDetails.Payments", "accounting_servicev1.PaymentORM"),
-			},
-			Transactions: struct {
-				field.RelationField
-				LineItems struct {
-					field.RelationField
-				}
-			}{
-				RelationField: field.NewRelation("Account.TransactionsDetails.Transactions", "accounting_servicev1.BusinessTransactionORM"),
-				LineItems: struct {
-					field.RelationField
-				}{
-					RelationField: field.NewRelation("Account.TransactionsDetails.Transactions.LineItems", "accounting_servicev1.TransactionLineItemORM"),
-				},
-			},
-			VendorCredits: struct {
-				field.RelationField
-				Lines struct {
-					field.RelationField
-				}
-			}{
-				RelationField: field.NewRelation("Account.TransactionsDetails.VendorCredits", "accounting_servicev1.VendorCreditORM"),
-				Lines: struct {
-					field.RelationField
-				}{
-					RelationField: field.NewRelation("Account.TransactionsDetails.VendorCredits.Lines", "accounting_servicev1.VendorCreditLineORM"),
-				},
-			},
-		},
 		Attachments: struct {
 			field.RelationField
 		}{
-			RelationField: field.NewRelation("Account.Attachments", "accounting_servicev1.AttachmentsORM"),
+			RelationField: field.NewRelation("Account.Attachments", "accounting_servicev1.AccountingAttachmentORM"),
+		},
+		BalanceSheets: struct {
+			field.RelationField
+			Assets struct {
+				field.RelationField
+			}
+			Equity struct {
+				field.RelationField
+			}
+			Liabilities struct {
+				field.RelationField
+			}
+		}{
+			RelationField: field.NewRelation("Account.BalanceSheets", "accounting_servicev1.BalanceSheetORM"),
+			Assets: struct {
+				field.RelationField
+			}{
+				RelationField: field.NewRelation("Account.BalanceSheets.Assets", "accounting_servicev1.ReportItemORM"),
+			},
+			Equity: struct {
+				field.RelationField
+			}{
+				RelationField: field.NewRelation("Account.BalanceSheets.Equity", "accounting_servicev1.ReportItemORM"),
+			},
+			Liabilities: struct {
+				field.RelationField
+			}{
+				RelationField: field.NewRelation("Account.BalanceSheets.Liabilities", "accounting_servicev1.ReportItemORM"),
+			},
+		},
+		CashFlowStatements: struct {
+			field.RelationField
+			FinancingActivities struct {
+				field.RelationField
+			}
+			InvestingActivities struct {
+				field.RelationField
+			}
+			OperatingActivities struct {
+				field.RelationField
+			}
+		}{
+			RelationField: field.NewRelation("Account.CashFlowStatements", "accounting_servicev1.CashFlowStatementsORM"),
+			FinancingActivities: struct {
+				field.RelationField
+			}{
+				RelationField: field.NewRelation("Account.CashFlowStatements.FinancingActivities", "accounting_servicev1.ReportItemORM"),
+			},
+			InvestingActivities: struct {
+				field.RelationField
+			}{
+				RelationField: field.NewRelation("Account.CashFlowStatements.InvestingActivities", "accounting_servicev1.ReportItemORM"),
+			},
+			OperatingActivities: struct {
+				field.RelationField
+			}{
+				RelationField: field.NewRelation("Account.CashFlowStatements.OperatingActivities", "accounting_servicev1.ReportItemORM"),
+			},
+		},
+		ChartOfAccounts: struct {
+			field.RelationField
+		}{
+			RelationField: field.NewRelation("Account.ChartOfAccounts", "accounting_servicev1.BusinessChartOfAccountsORM"),
 		},
 		CompanyInfo: struct {
 			field.RelationField
@@ -368,6 +128,110 @@ func newAccountingIntegrationMergeLinkORM(db *gorm.DB, opts ...gen.DOOption) acc
 			}{
 				RelationField: field.NewRelation("Account.CompanyInfo.Addresses", "accounting_servicev1.CompanyAddressORM"),
 			},
+		},
+		Contacts: struct {
+			field.RelationField
+		}{
+			RelationField: field.NewRelation("Account.Contacts", "accounting_servicev1.ContactsORM"),
+		},
+		CreditNotes: struct {
+			field.RelationField
+			LineItems struct {
+				field.RelationField
+			}
+		}{
+			RelationField: field.NewRelation("Account.CreditNotes", "accounting_servicev1.CreditNoteORM"),
+			LineItems: struct {
+				field.RelationField
+			}{
+				RelationField: field.NewRelation("Account.CreditNotes.LineItems", "accounting_servicev1.CreditNoteLineItemORM"),
+			},
+		},
+		Expenses: struct {
+			field.RelationField
+			Lines struct {
+				field.RelationField
+			}
+		}{
+			RelationField: field.NewRelation("Account.Expenses", "accounting_servicev1.ExpenseORM"),
+			Lines: struct {
+				field.RelationField
+			}{
+				RelationField: field.NewRelation("Account.Expenses.Lines", "accounting_servicev1.ExpenseLineORM"),
+			},
+		},
+		IncomeStatements: struct {
+			field.RelationField
+			CostOfSales struct {
+				field.RelationField
+			}
+			Income struct {
+				field.RelationField
+			}
+			NonOperatingExpenses struct {
+				field.RelationField
+			}
+			OperatingExpenses struct {
+				field.RelationField
+			}
+		}{
+			RelationField: field.NewRelation("Account.IncomeStatements", "accounting_servicev1.IncomeStatementORM"),
+			CostOfSales: struct {
+				field.RelationField
+			}{
+				RelationField: field.NewRelation("Account.IncomeStatements.CostOfSales", "accounting_servicev1.ReportItemORM"),
+			},
+			Income: struct {
+				field.RelationField
+			}{
+				RelationField: field.NewRelation("Account.IncomeStatements.Income", "accounting_servicev1.ReportItemORM"),
+			},
+			NonOperatingExpenses: struct {
+				field.RelationField
+			}{
+				RelationField: field.NewRelation("Account.IncomeStatements.NonOperatingExpenses", "accounting_servicev1.ReportItemORM"),
+			},
+			OperatingExpenses: struct {
+				field.RelationField
+			}{
+				RelationField: field.NewRelation("Account.IncomeStatements.OperatingExpenses", "accounting_servicev1.ReportItemORM"),
+			},
+		},
+		Invoices: struct {
+			field.RelationField
+			LineItems struct {
+				field.RelationField
+			}
+		}{
+			RelationField: field.NewRelation("Account.Invoices", "accounting_servicev1.InvoiceORM"),
+			LineItems: struct {
+				field.RelationField
+			}{
+				RelationField: field.NewRelation("Account.Invoices.LineItems", "accounting_servicev1.InvoiceLineItemORM"),
+			},
+		},
+		Items: struct {
+			field.RelationField
+		}{
+			RelationField: field.NewRelation("Account.Items", "accounting_servicev1.ItemORM"),
+		},
+		JournalEntries: struct {
+			field.RelationField
+			Lines struct {
+				field.RelationField
+			}
+		}{
+			RelationField: field.NewRelation("Account.JournalEntries", "accounting_servicev1.JournalEntryORM"),
+			Lines: struct {
+				field.RelationField
+			}{
+				RelationField: field.NewRelation("Account.JournalEntries.Lines", "accounting_servicev1.JournalLineORM"),
+			},
+		},
+		Payments: struct {
+			field.RelationField
+		}{
+			RelationField: field.NewRelation("Account.Payments", "accounting_servicev1.PaymentORM"),
 		},
 		PurchaseOrders: struct {
 			field.RelationField
@@ -390,6 +254,37 @@ func newAccountingIntegrationMergeLinkORM(db *gorm.DB, opts ...gen.DOOption) acc
 				RelationField: field.NewRelation("Account.PurchaseOrders.LineItems", "accounting_servicev1.PurchaseOrderLineItemORM"),
 			},
 		},
+		TaxRates: struct {
+			field.RelationField
+		}{
+			RelationField: field.NewRelation("Account.TaxRates", "accounting_servicev1.TaxRateORM"),
+		},
+		Transactions: struct {
+			field.RelationField
+			LineItems struct {
+				field.RelationField
+			}
+		}{
+			RelationField: field.NewRelation("Account.Transactions", "accounting_servicev1.BusinessTransactionORM"),
+			LineItems: struct {
+				field.RelationField
+			}{
+				RelationField: field.NewRelation("Account.Transactions.LineItems", "accounting_servicev1.TransactionLineItemORM"),
+			},
+		},
+		VendorCredits: struct {
+			field.RelationField
+			Lines struct {
+				field.RelationField
+			}
+		}{
+			RelationField: field.NewRelation("Account.VendorCredits", "accounting_servicev1.VendorCreditORM"),
+			Lines: struct {
+				field.RelationField
+			}{
+				RelationField: field.NewRelation("Account.VendorCredits.Lines", "accounting_servicev1.VendorCreditLineORM"),
+			},
+		},
 	}
 
 	_accountingIntegrationMergeLinkORM.Token = accountingIntegrationMergeLinkORMHasOneToken{
@@ -406,24 +301,24 @@ func newAccountingIntegrationMergeLinkORM(db *gorm.DB, opts ...gen.DOOption) acc
 type accountingIntegrationMergeLinkORM struct {
 	accountingIntegrationMergeLinkORMDo
 
-	ALL                         field.Asterisk
-	BusinessAccountingProfileId field.Uint64
-	Category                    field.String
-	EndUserEmailAddress         field.String
-	EndUserOrganizationName     field.String
-	EndUserOriginId             field.String
-	Id                          field.Uint64
-	Integration                 field.String
-	IntegrationImage            field.String
-	IntegrationName             field.String
-	IntegrationSlug             field.String
-	IntegrationSquareImage      field.String
-	IsDuplicate                 field.Bool
-	LastModifiedAt              field.Time
-	MergeLinkedAccountId        field.String
-	Status                      field.String
-	WebhookListenerUrl          field.String
-	Account                     accountingIntegrationMergeLinkORMHasOneAccount
+	ALL                     field.Asterisk
+	Category                field.String
+	EndUserEmailAddress     field.String
+	EndUserOrganizationName field.String
+	EndUserOriginId         field.String
+	Id                      field.Uint64
+	Integration             field.String
+	IntegrationImage        field.String
+	IntegrationName         field.String
+	IntegrationSlug         field.String
+	IntegrationSquareImage  field.String
+	IsDuplicate             field.Bool
+	LastModifiedAt          field.Time
+	MergeBusinessProfileId  field.Uint64
+	MergeLinkedAccountId    field.String
+	Status                  field.String
+	WebhookListenerUrl      field.String
+	Account                 accountingIntegrationMergeLinkORMHasOneAccount
 
 	Token accountingIntegrationMergeLinkORMHasOneToken
 
@@ -442,7 +337,6 @@ func (a accountingIntegrationMergeLinkORM) As(alias string) *accountingIntegrati
 
 func (a *accountingIntegrationMergeLinkORM) updateTableName(table string) *accountingIntegrationMergeLinkORM {
 	a.ALL = field.NewAsterisk(table)
-	a.BusinessAccountingProfileId = field.NewUint64(table, "business_accounting_profile_id")
 	a.Category = field.NewString(table, "category")
 	a.EndUserEmailAddress = field.NewString(table, "end_user_email_address")
 	a.EndUserOrganizationName = field.NewString(table, "end_user_organization_name")
@@ -455,6 +349,7 @@ func (a *accountingIntegrationMergeLinkORM) updateTableName(table string) *accou
 	a.IntegrationSquareImage = field.NewString(table, "integration_square_image")
 	a.IsDuplicate = field.NewBool(table, "is_duplicate")
 	a.LastModifiedAt = field.NewTime(table, "last_modified_at")
+	a.MergeBusinessProfileId = field.NewUint64(table, "merge_business_profile_id")
 	a.MergeLinkedAccountId = field.NewString(table, "merge_linked_account_id")
 	a.Status = field.NewString(table, "status")
 	a.WebhookListenerUrl = field.NewString(table, "webhook_listener_url")
@@ -475,7 +370,6 @@ func (a *accountingIntegrationMergeLinkORM) GetFieldByName(fieldName string) (fi
 
 func (a *accountingIntegrationMergeLinkORM) fillFieldMap() {
 	a.fieldMap = make(map[string]field.Expr, 18)
-	a.fieldMap["business_accounting_profile_id"] = a.BusinessAccountingProfileId
 	a.fieldMap["category"] = a.Category
 	a.fieldMap["end_user_email_address"] = a.EndUserEmailAddress
 	a.fieldMap["end_user_organization_name"] = a.EndUserOrganizationName
@@ -488,6 +382,7 @@ func (a *accountingIntegrationMergeLinkORM) fillFieldMap() {
 	a.fieldMap["integration_square_image"] = a.IntegrationSquareImage
 	a.fieldMap["is_duplicate"] = a.IsDuplicate
 	a.fieldMap["last_modified_at"] = a.LastModifiedAt
+	a.fieldMap["merge_business_profile_id"] = a.MergeBusinessProfileId
 	a.fieldMap["merge_linked_account_id"] = a.MergeLinkedAccountId
 	a.fieldMap["status"] = a.Status
 	a.fieldMap["webhook_listener_url"] = a.WebhookListenerUrl
@@ -509,106 +404,34 @@ type accountingIntegrationMergeLinkORMHasOneAccount struct {
 
 	field.RelationField
 
-	ReferenceDetails struct {
-		field.RelationField
-		ChartOfAccounts struct {
-			field.RelationField
-		}
-		Contacts struct {
-			field.RelationField
-		}
-		Items struct {
-			field.RelationField
-		}
-		TaxRates struct {
-			field.RelationField
-		}
-	}
-	ReportDetails struct {
-		field.RelationField
-		BalanceSheets struct {
-			field.RelationField
-			Assets struct {
-				field.RelationField
-			}
-			Equity struct {
-				field.RelationField
-			}
-			Liabilities struct {
-				field.RelationField
-			}
-		}
-		CashFlowStatements struct {
-			field.RelationField
-			FinancingActivities struct {
-				field.RelationField
-			}
-			InvestingActivities struct {
-				field.RelationField
-			}
-			OperatingActivities struct {
-				field.RelationField
-			}
-		}
-		IncomeStatements struct {
-			field.RelationField
-			CostOfSales struct {
-				field.RelationField
-			}
-			Income struct {
-				field.RelationField
-			}
-			NonOperatingExpenses struct {
-				field.RelationField
-			}
-			OperatingExpenses struct {
-				field.RelationField
-			}
-		}
-	}
-	TransactionsDetails struct {
-		field.RelationField
-		CreditNotes struct {
-			field.RelationField
-			LineItems struct {
-				field.RelationField
-			}
-		}
-		Expenses struct {
-			field.RelationField
-			Lines struct {
-				field.RelationField
-			}
-		}
-		Invoices struct {
-			field.RelationField
-			LineItems struct {
-				field.RelationField
-			}
-		}
-		JournalEntries struct {
-			field.RelationField
-			Lines struct {
-				field.RelationField
-			}
-		}
-		Payments struct {
-			field.RelationField
-		}
-		Transactions struct {
-			field.RelationField
-			LineItems struct {
-				field.RelationField
-			}
-		}
-		VendorCredits struct {
-			field.RelationField
-			Lines struct {
-				field.RelationField
-			}
-		}
-	}
 	Attachments struct {
+		field.RelationField
+	}
+	BalanceSheets struct {
+		field.RelationField
+		Assets struct {
+			field.RelationField
+		}
+		Equity struct {
+			field.RelationField
+		}
+		Liabilities struct {
+			field.RelationField
+		}
+	}
+	CashFlowStatements struct {
+		field.RelationField
+		FinancingActivities struct {
+			field.RelationField
+		}
+		InvestingActivities struct {
+			field.RelationField
+		}
+		OperatingActivities struct {
+			field.RelationField
+		}
+	}
+	ChartOfAccounts struct {
 		field.RelationField
 	}
 	CompanyInfo struct {
@@ -617,12 +440,75 @@ type accountingIntegrationMergeLinkORMHasOneAccount struct {
 			field.RelationField
 		}
 	}
+	Contacts struct {
+		field.RelationField
+	}
+	CreditNotes struct {
+		field.RelationField
+		LineItems struct {
+			field.RelationField
+		}
+	}
+	Expenses struct {
+		field.RelationField
+		Lines struct {
+			field.RelationField
+		}
+	}
+	IncomeStatements struct {
+		field.RelationField
+		CostOfSales struct {
+			field.RelationField
+		}
+		Income struct {
+			field.RelationField
+		}
+		NonOperatingExpenses struct {
+			field.RelationField
+		}
+		OperatingExpenses struct {
+			field.RelationField
+		}
+	}
+	Invoices struct {
+		field.RelationField
+		LineItems struct {
+			field.RelationField
+		}
+	}
+	Items struct {
+		field.RelationField
+	}
+	JournalEntries struct {
+		field.RelationField
+		Lines struct {
+			field.RelationField
+		}
+	}
+	Payments struct {
+		field.RelationField
+	}
 	PurchaseOrders struct {
 		field.RelationField
 		DeliveryAddress struct {
 			field.RelationField
 		}
 		LineItems struct {
+			field.RelationField
+		}
+	}
+	TaxRates struct {
+		field.RelationField
+	}
+	Transactions struct {
+		field.RelationField
+		LineItems struct {
+			field.RelationField
+		}
+	}
+	VendorCredits struct {
+		field.RelationField
+		Lines struct {
 			field.RelationField
 		}
 	}

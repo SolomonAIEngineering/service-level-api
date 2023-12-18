@@ -31,6 +31,7 @@ func newJournalLineORM(db *gorm.DB, opts ...gen.DOOption) journalLineORM {
 	_journalLineORM.Account = field.NewString(tableName, "account")
 	_journalLineORM.Company = field.NewString(tableName, "company")
 	_journalLineORM.Contact = field.NewString(tableName, "contact")
+	_journalLineORM.CreatedAt = field.NewTime(tableName, "created_at")
 	_journalLineORM.Description = field.NewString(tableName, "description")
 	_journalLineORM.ExchangeRate = field.NewString(tableName, "exchange_rate")
 	_journalLineORM.Id = field.NewUint64(tableName, "id")
@@ -53,6 +54,7 @@ type journalLineORM struct {
 	Account            field.String
 	Company            field.String
 	Contact            field.String
+	CreatedAt          field.Time
 	Description        field.String
 	ExchangeRate       field.String
 	Id                 field.Uint64
@@ -81,6 +83,7 @@ func (j *journalLineORM) updateTableName(table string) *journalLineORM {
 	j.Account = field.NewString(table, "account")
 	j.Company = field.NewString(table, "company")
 	j.Contact = field.NewString(table, "contact")
+	j.CreatedAt = field.NewTime(table, "created_at")
 	j.Description = field.NewString(table, "description")
 	j.ExchangeRate = field.NewString(table, "exchange_rate")
 	j.Id = field.NewUint64(table, "id")
@@ -106,10 +109,11 @@ func (j *journalLineORM) GetFieldByName(fieldName string) (field.OrderExpr, bool
 }
 
 func (j *journalLineORM) fillFieldMap() {
-	j.fieldMap = make(map[string]field.Expr, 12)
+	j.fieldMap = make(map[string]field.Expr, 13)
 	j.fieldMap["account"] = j.Account
 	j.fieldMap["company"] = j.Company
 	j.fieldMap["contact"] = j.Contact
+	j.fieldMap["created_at"] = j.CreatedAt
 	j.fieldMap["description"] = j.Description
 	j.fieldMap["exchange_rate"] = j.ExchangeRate
 	j.fieldMap["id"] = j.Id

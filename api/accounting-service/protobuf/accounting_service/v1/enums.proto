@@ -1,0 +1,244 @@
+syntax = "proto3";
+
+package accounting_service.v1;
+
+option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/generated/accounting_service/v1";
+
+// The time period this pay rate encompasses. Possible values include: 
+// HOUR, DAY, WEEK, EVERY_TWO_WEEKS, SEMIMONTHLY, MONTH, QUARTER, 
+// EVERY_SIX_MONTHS, YEAR. In cases where there is no clear mapping, 
+// the original value passed through will be returned.
+enum PayPeriod {
+    PAY_PERIOD_UNSPECIFIED = 0;
+    PAY_PERIOD_HOUR = 1;
+    PAY_PERIOD_DAY = 2;
+    PAY_PERIOD_WEEK = 3;
+    PAY_PERIOD_EVERY_TWO_WEEKS = 4;
+    PAY_PERIOD_SEMIMONTHLY = 5;
+    PAY_PERIOD_MONTH = 6;
+    PAY_PERIOD_QUARTER = 7;
+    PAY_PERIOD_EVERY_SIX_MONTHS = 8;
+    PAY_PERIOD_YEAR = 9;
+}
+
+// The position's pay frequency. Possible values include: WEEKLY, BIWEEKLY, MONTHLY, 
+// QUARTERLY, SEMIANNUALLY, ANNUALLY, THIRTEEN-MONTHLY, PRO_RATA, SEMIMONTHLY. 
+// In cases where there is no clear mapping, the original value passed through will be returned.
+enum PayFrequency {
+    PAY_FREQUENCY_UNSPECIFIED = 0;
+    PAY_FREQUENCY_WEEKLY = 1;
+    PAY_FREQUENCY_BIWEEKLY = 2;
+    PAY_FREQUENCY_MONTHLY = 3;
+    PAY_FREQUENCY_QUARTERLY = 4;
+    PAY_FREQUENCY_SEMIANNUALLY = 5;
+    PAY_FREQUENCY_ANNUALLY = 6;
+    PAY_FREQUENCY_THIRTEEN_MONTHLY = 7;
+    PAY_FREQUENCY_PRO_RATA = 8;
+    PAY_FREQUENCY_SEMIMONTHLY = 9;
+}
+
+// The position's FLSA status. Possible values include: EXEMPT, SALARIED_NONEXEMPT, 
+// NONEXEMPT, OWNER. In cases where there is no clear mapping, 
+// the original value passed through will be returned.
+enum FlsaStatus {
+    FLSA_STATUS_UNSPECIFIED = 0;
+    FLSA_STATUS_EXEMPT = 1;
+    FLSA_STATUS_NON_EXEMPT = 2;
+    FLSA_STATUS_SALARIED_NON_EXEMPT = 3;
+    FLSA_STATUS_OWNER = 4;
+}
+
+// The position's type of employment. Possible values include: FULL_TIME, PART_TIME, INTERN, CONTRACTOR, FREELANCE. 
+// In cases where there is no clear mapping, the original value passed through will be returned.
+enum EmploymentType {
+    EMPLOYMENT_TYPE_UNSPECIFIED = 0;
+    EMPLOYMENT_TYPE_FULL_TIME = 1;
+    EMPLOYMENT_TYPE_PART_TIME = 2;
+    EMPLOYMENT_TYPE_INTERN = 3;
+    EMPLOYMENT_TYPE_CONTRACTOR = 4;
+    EMPLOYMENT_TYPE_FREELANCE = 5;
+}
+
+// The group type Possible values include: TEAM, DEPARTMENT, COST_CENTER, BUSINESS_UNIT, GROUP. 
+// In cases where there is no clear mapping, the original value passed through will be returned.
+enum PayGroupType {
+    PAY_GROUP_TYPE_UNSPECIFIED = 0;
+    PAY_GROUP_TYPE_TEAM = 1;
+    PAY_GROUP_TYPE_DEPARTMENT = 2;
+    PAY_GROUP_TYPE_COST_CENTER = 3;
+    PAY_GROUP_TYPE_BUSINESS_UNIT = 4;
+    PAY_GROUP_TYPE_GROUP = 5;
+}
+
+// The employee's gender. Possible values include: MALE, FEMALE, NON-BINARY, OTHER,
+// PREFER_NOT_TO_DISCLOSE. In cases where there is no clear mapping, 
+// the original value passed through will be returned.
+enum Gender {
+    GENDER_UNSPECIFIED = 0;
+    GENDER_MALE = 1;
+    GENDER_FEMALE = 2;
+    GENDER_NON_BINARY = 3;
+    GENDER_OTHER = 4;
+    GENDER_PREFER_NOT_TO_DISCLOSE = 5;
+}
+
+// The employee's ethnicity. Possible values include: AMERICAN_INDIAN_OR_ALASKA_NATIVE, ASIAN_OR_INDIAN_SUBCONTINENT, 
+// BLACK_OR_AFRICAN_AMERICAN, HISPANIC_OR_LATINO, NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER, 
+// TWO_OR_MORE_RACES, WHITE, PREFER_NOT_TO_DISCLOSE. In cases where there is no clear mapping, the original value passed through will be returned.
+enum Ethnicity {
+    ETHNICITY_UNSPECIFIED = 0;
+    ETHNICITY_AMERICAN_INDIAN_OR_ALASKA_NATIVE = 1;
+    ETHNICITY_ASIAN_OR_INDIAN_SUBCONTINENT = 2;
+    ETHNICITY_BLACK_OR_AFRICAN_AMERICAN = 3;
+    ETHNICITY_HISPANIC_OR_LATINO = 4;
+    ETHNICITY_NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER = 5;
+    ETHNICITY_TWO_OR_MORE_RACES = 6;
+    ETHNICITY_WHITE = 7;
+    ETHNICITY_PREFER_NOT_TO_DISCLOSE = 8;
+}
+
+// The employee's filing status as related to marital status. Possible values include: SINGLE, 
+// MARRIED_FILING_JOINTLY, MARRIED_FILING_SEPARATELY, HEAD_OF_HOUSEHOLD, QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD.
+// In cases where there is no clear mapping, the original value passed through will be returned.
+enum MaritalStatus {
+    MARITAL_STATUS_UNSPECIFIED = 0;
+    MARITAL_STATUS_SINGLE = 1;
+    MARITAL_STATUS_MARRIED_FILING_JOINTLY = 2;
+    MARITAL_STATUS_MARRIED_FILING_SEPARATELY = 3;
+    MARITAL_STATUS_HEAD_OF_HOUSEHOLD = 4;
+    MARITAL_STATUS_QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD = 5;
+}
+
+enum EmploymentStatus {
+    EMPLOYMENT_STATUS_UNSPECIFIED = 0;
+    EMPLOYMENT_STATUS_ACTIVE = 1;
+    EMPLOYMENT_STATUS_PENDING = 2;
+    EMPLOYMENT_STATUS_INACTIVE = 3;
+}
+
+enum BankAccountType {
+    BANK_ACCOUNT_TYPE_UNSPECIFIED = 0;
+    BANK_ACCOUNT_TYPE_CHECKING = 1;
+    BANK_ACCOUNT_TYPE_SAVINGS = 2;
+}
+
+// The type of benefit plan. Possible values include: MEDICAL, HEALTH_SAVINGS, 
+// INSURANCE, RETIREMENT, OTHER. In cases where there is no clear mapping, 
+// the original value passed through will be returned.
+enum BenefitPlanType {
+    BENEFIT_PLAN_TYPE_UNSPECIFIED = 0;
+    BENEFIT_PLAN_TYPE_MEDICAL = 1;
+    BENEFIT_PLAN_TYPE_HEALTH_SAVINGS = 2;
+    BENEFIT_PLAN_TYPE_INSURANCE = 3;
+    BENEFIT_PLAN_TYPE_RETIREMENT = 4;
+    BENEFIT_PLAN_TYPE_OTHER = 5;
+}
+
+// The dependent's relationship to the employee. Possible values include: CHILD, 
+// SPOUSE, DOMESTIC_PARTNER. In cases where there is no clear mapping, 
+// the original value passed through will be returned.
+enum DependentRelationship {
+    DEPENDENT_RELATIONSHIP_UNSPECIFIED = 0;
+    DEPENDENT_RELATIONSHIP_CHILD = 1;
+    DEPENDENT_RELATIONSHIP_SPOUSE = 2;
+    DEPENDENT_RELATIONSHIP_DOMESTIC_PARTNER = 3;
+}
+
+// The location's type. Can be either WORK or HOME Possible values include: HOME, WORK.
+// In cases where there is no clear mapping, the original value passed through will be returned.
+enum LocationType {
+    LOCATION_TYPE_UNSPECIFIED = 0;
+    LOCATION_TYPE_HOME = 1;
+    LOCATION_TYPE_WORK = 2;
+}
+
+// The state of the payroll run Possible values include: PAID, DRAFT, APPROVED, FAILED, CLOSED. 
+// In cases where there is no clear mapping, the original value passed through will be returned.
+enum PayrollRunState {
+    PAYROLL_RUN_STATE_UNSPECIFIED = 0;
+    PAYROLL_RUN_STATE_PAID = 1;
+    PAYROLL_RUN_STATE_DRAFT = 2;
+    PAYROLL_RUN_STATE_APPROVED = 3;
+    PAYROLL_RUN_STATE_FAILED = 4;
+    PAYROLL_RUN_STATE_CLOSED = 5;
+}
+
+// The type of the payroll run Possible values include: REGULAR, OFF_CYCLE, CORRECTION, TERMINATION, SIGN_ON_BONUS. 
+// In cases where there is no clear mapping, the original value passed through will be returned.
+enum PayrollRunType {
+    PAYROLL_RUN_TYPE_UNSPECIFIED = 0;
+    PAYROLL_RUN_TYPE_REGULAR = 1;
+    PAYROLL_RUN_TYPE_OFF_CYCLE = 2;
+    PAYROLL_RUN_TYPE_CORRECTION = 3;
+    PAYROLL_RUN_TYPE_TERMINATION = 4;
+    PAYROLL_RUN_TYPE_SIGN_ON_BONUS = 5;
+}
+
+// The type of earning. Possible values include: SALARY, REIMBURSEMENT, OVERTIME, BONUS. 
+// In cases where there is no clear mapping, the original value passed through will be returned.
+enum EarningType {
+    EARNING_TYPE_UNSPECIFIED = 0;
+    EARNING_TYPE_SALARY = 1;
+    EARNING_TYPE_REIMBURSEMENT = 2;
+    EARNING_TYPE_OVERTIME = 3;
+    EARNING_TYPE_BONUS = 4;
+}
+
+// The policy type of this time off balance. Possible values include: VACATION, SICK, PERSONAL,
+// JURY_DUTY, VOLUNTEER, BEREAVEMENT. In cases where there is no clear mapping, the original
+// value passed through will be returned
+enum PolicyType {
+    POLICY_TYPE_UNSPECIFIED = 0;
+    POLICY_TYPE_VACATION = 1;
+    POLICY_TYPE_SICK = 2;
+    POLICY_TYPE_PERSONAL = 3;
+    POLICY_TYPE_JURY_DUTY = 4;
+    POLICY_TYPE_VOLUNTEER = 5;
+    POLICY_TYPE_BEREAVEMENT = 6;
+}
+
+// The status of this time off request. Possible values include: REQUESTED, 
+// APPROVED, DECLINED, CANCELLED, DELETED. In cases where there is no clear mapping,
+// the original value passed through will be returned.
+enum TimeOffStatus {
+    TIME_OFF_STATUS_UNSPECIFIED = 0;
+    TIME_OFF_STATUS_REQUESTED = 1;
+    TIME_OFF_STATUS_APPROVED = 2;
+    TIME_OFF_STATUS_DECLINED = 3;
+    TIME_OFF_STATUS_CANCELLED = 4;
+    TIME_OFF_STATUS_DELETED = 5;
+}
+
+// The measurement that the third-party integration uses to count time requested.
+// Possible values include: HOURS, DAYS. In cases where there is no clear mapping,
+// the original value passed through will be returned.
+enum TimeOffUnits {
+    TIME_OFF_UNITS_UNSPECIFIED = 0;
+    TIME_OFF_UNITS_HOURS = 1;
+    TIME_OFF_UNITS_DAYS = 2;
+}
+
+// BusinessActionableInsightType is the type of actionable insight
+enum BusinessActionableInsightType {
+  BUSINESS_ACTIONABLE_INSIGHT_TYPE_UNSPECIFIED = 0;
+  // Operating Expenses: Insights on managing day-to-day operational costs.
+  BUSINESS_ACTIONABLE_INSIGHT_TYPE_OPERATING_EXPENSES = 1;
+  // Cash Flow Management: Insights into cash inflows and outflows.
+  BUSINESS_ACTIONABLE_INSIGHT_TYPE_CASH_FLOW_MANAGEMENT = 2;
+  // Revenue Growth: Strategies or opportunities to increase revenue.
+  BUSINESS_ACTIONABLE_INSIGHT_TYPE_REVENUE_GROWTH = 3;
+  // Cost Reduction: Identifying areas where expenses can be minimized.
+  BUSINESS_ACTIONABLE_INSIGHT_TYPE_COST_REDUCTION = 4;
+  // Inventory Management: Insights on optimizing inventory levels and costs.
+  BUSINESS_ACTIONABLE_INSIGHT_TYPE_INVENTORY_MANAGEMENT = 5;
+  // Capital Allocation: Guidance on efficient allocation of financial resources.
+  BUSINESS_ACTIONABLE_INSIGHT_TYPE_CAPITAL_ALLOCATION = 6;
+  // Investment Opportunities: Identifying potential profitable investments.
+  BUSINESS_ACTIONABLE_INSIGHT_TYPE_INVESTMENT_OPPORTUNITIES = 7;
+  // Risk Assessment: Insights into potential risks and mitigation strategies.
+  BUSINESS_ACTIONABLE_INSIGHT_TYPE_RISK_ASSESSMENT = 8;
+  // Tax Planning: Suggestions for tax optimization.
+  BUSINESS_ACTIONABLE_INSIGHT_TYPE_TAX_PLANNING = 9;
+  // Debt Management: Strategies for managing and reducing debt.
+  BUSINESS_ACTIONABLE_INSIGHT_TYPE_DEBT_MANAGEMENT = 10;
+}

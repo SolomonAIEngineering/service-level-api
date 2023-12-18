@@ -29,15 +29,15 @@ func newBusinessActionableInsightORM(db *gorm.DB, opts ...gen.DOOption) business
 	tableName := _businessActionableInsightORM.businessActionableInsightORMDo.TableName()
 	_businessActionableInsightORM.ALL = field.NewAsterisk(tableName)
 	_businessActionableInsightORM.Action = field.NewString(tableName, "action")
-	_businessActionableInsightORM.BusinessAccountingProfileId = field.NewUint64(tableName, "business_accounting_profile_id")
 	_businessActionableInsightORM.Description = field.NewString(tableName, "description")
 	_businessActionableInsightORM.ExpectedBenefit = field.NewString(tableName, "expected_benefit")
 	_businessActionableInsightORM.GeneratedTime = field.NewTime(tableName, "generated_time")
 	_businessActionableInsightORM.Id = field.NewUint64(tableName, "id")
-	_businessActionableInsightORM.InsightName = field.NewString(tableName, "insight_name")
+	_businessActionableInsightORM.MergeBusinessProfileId = field.NewUint64(tableName, "merge_business_profile_id")
 	_businessActionableInsightORM.MetricsToOptimizeFor = field.NewField(tableName, "metrics_to_optimize_for")
 	_businessActionableInsightORM.Tags = field.NewField(tableName, "tags")
 	_businessActionableInsightORM.Takeaway = field.NewString(tableName, "takeaway")
+	_businessActionableInsightORM.Type = field.NewString(tableName, "type")
 
 	_businessActionableInsightORM.fillFieldMap()
 
@@ -47,17 +47,17 @@ func newBusinessActionableInsightORM(db *gorm.DB, opts ...gen.DOOption) business
 type businessActionableInsightORM struct {
 	businessActionableInsightORMDo
 
-	ALL                         field.Asterisk
-	Action                      field.String
-	BusinessAccountingProfileId field.Uint64
-	Description                 field.String
-	ExpectedBenefit             field.String
-	GeneratedTime               field.Time
-	Id                          field.Uint64
-	InsightName                 field.String
-	MetricsToOptimizeFor        field.Field
-	Tags                        field.Field
-	Takeaway                    field.String
+	ALL                    field.Asterisk
+	Action                 field.String
+	Description            field.String
+	ExpectedBenefit        field.String
+	GeneratedTime          field.Time
+	Id                     field.Uint64
+	MergeBusinessProfileId field.Uint64
+	MetricsToOptimizeFor   field.Field
+	Tags                   field.Field
+	Takeaway               field.String
+	Type                   field.String
 
 	fieldMap map[string]field.Expr
 }
@@ -75,15 +75,15 @@ func (b businessActionableInsightORM) As(alias string) *businessActionableInsigh
 func (b *businessActionableInsightORM) updateTableName(table string) *businessActionableInsightORM {
 	b.ALL = field.NewAsterisk(table)
 	b.Action = field.NewString(table, "action")
-	b.BusinessAccountingProfileId = field.NewUint64(table, "business_accounting_profile_id")
 	b.Description = field.NewString(table, "description")
 	b.ExpectedBenefit = field.NewString(table, "expected_benefit")
 	b.GeneratedTime = field.NewTime(table, "generated_time")
 	b.Id = field.NewUint64(table, "id")
-	b.InsightName = field.NewString(table, "insight_name")
+	b.MergeBusinessProfileId = field.NewUint64(table, "merge_business_profile_id")
 	b.MetricsToOptimizeFor = field.NewField(table, "metrics_to_optimize_for")
 	b.Tags = field.NewField(table, "tags")
 	b.Takeaway = field.NewString(table, "takeaway")
+	b.Type = field.NewString(table, "type")
 
 	b.fillFieldMap()
 
@@ -102,15 +102,15 @@ func (b *businessActionableInsightORM) GetFieldByName(fieldName string) (field.O
 func (b *businessActionableInsightORM) fillFieldMap() {
 	b.fieldMap = make(map[string]field.Expr, 10)
 	b.fieldMap["action"] = b.Action
-	b.fieldMap["business_accounting_profile_id"] = b.BusinessAccountingProfileId
 	b.fieldMap["description"] = b.Description
 	b.fieldMap["expected_benefit"] = b.ExpectedBenefit
 	b.fieldMap["generated_time"] = b.GeneratedTime
 	b.fieldMap["id"] = b.Id
-	b.fieldMap["insight_name"] = b.InsightName
+	b.fieldMap["merge_business_profile_id"] = b.MergeBusinessProfileId
 	b.fieldMap["metrics_to_optimize_for"] = b.MetricsToOptimizeFor
 	b.fieldMap["tags"] = b.Tags
 	b.fieldMap["takeaway"] = b.Takeaway
+	b.fieldMap["type"] = b.Type
 }
 
 func (b businessActionableInsightORM) clone(db *gorm.DB) businessActionableInsightORM {

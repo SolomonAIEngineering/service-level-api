@@ -1,0 +1,811 @@
+syntax = "proto3";
+
+package accounting_service.v1;
+
+import "protoc-gen-gorm/options/gorm.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "accounting_service/v1/enums.proto";
+import "accounting_service/v1/link_token_database_schema.proto";
+
+option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/generated/accounting_service/v1";
+
+message HrisIntegrationMergeLink {
+    option (gorm.opts) = {ormable: true};
+
+    // id
+    uint64 id = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+    ];
+
+    string integration = 2;
+    string integration_slug = 3;
+    string category = 4;
+    string end_user_origin_id = 5;
+    string end_user_organization_name = 6;
+    string end_user_email_address = 7;
+    string status = 8;
+    string webhook_listener_url = 9;
+    bool is_duplicate = 10;
+    MergeLinkedAccountToken token = 11 [
+    (gorm.field).has_one = {disable_association_autocreate: false disable_association_autoupdate: false preload: true},
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+    ];
+    string integration_name = 12;
+    string integration_image = 13;
+    string integration_square_image = 14;
+    /**
+        When you request a link token to initiate a Merge Link session, Merge determines whether to create a new linked account or modify
+         an existing linked account based on a combination of the end_user_origin_id and the category. If you want to support multiple
+          connections, you simply need to provide a different end_user_origin_id for each company.
+
+        This approach enables you to link multiple instances of the same integration (like QuickBooks) for the same end user.
+         It also has the added security benefit of not exposing any internal end_user_origin_ids.
+    **/
+    HrisLinkedAccount account = 15 [
+    (gorm.field).has_one = {disable_association_autocreate: false disable_association_autoupdate: false preload: true},
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+  ];
+    string merge_linked_account_id = 16;
+    google.protobuf.Timestamp last_modified_at = 17;
+  }
+
+message HrisLinkedAccount {
+  option (gorm.opts) = {ormable: true};
+  // id
+  uint64 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+  
+  // the company profile of interest
+  CompanyProfile profile = 2  [
+    (gorm.field).has_one = {disable_association_autocreate: false disable_association_autoupdate: false preload: true},
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+  ];
+  // the set of benefit plans offered by the company
+  repeated EmployerBenefits benefit_plans = 3 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+
+  // the set of employees employed by the employer
+  repeated Employee employees = 4 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+
+  // the set of payroll runs by the employer
+  repeated EmployerPayrollRun payroll_runs = 5 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+}
+
+// The CompanyProfile object is used to represent a company within the HRIS / Payroll system.
+// NOTE: a company can link multiple hris company profiles. This is important because a company can have multiple
+// locations and each location can have its own hris company profile
+message CompanyProfile {
+    // we use gorm to define this object as a database orm model
+    option (gorm.opts) = {ormable: true};
+
+    // id of the record
+    uint64 id = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+    ];
+
+    // The third-party API ID of the matching object.
+    string remote_id = 2;
+
+    // The company's legal name.
+    string legal_name = 3;
+
+    // The displayed name of the company
+    string display_name = 4;
+
+    // The company's tax number.
+    repeated string ein_numbers = 5;
+
+    // Indicates whether or not this object has been deleted in the third party platform.
+    bool remote_was_deleted = 6;
+
+    // This is the datetime that this object was last updated by Merge
+    google.protobuf.Timestamp modified_at = 7;
+
+    // This is the datetime that this object was created
+    google.protobuf.Timestamp last_updated_at = 8;
+
+    // The uuid of the object as stored in merge
+    string merge_account_id = 9;
+}
+
+// EmployerBenefits is used to represent a benefit plan offered by a company.
+message EmployerBenefits {
+    // we use gorm to define this object as a database orm model
+    option (gorm.opts) = {ormable: true};
+
+    // id of the record
+    uint64 id = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+    ];
+
+    // The third-party API ID of the matching object.
+    string remote_id = 2;  // External system identifier (integration)
+
+    // The type of benefit plan. Possible values include: MEDICAL, HEALTH_SAVINGS, INSURANCE, RETIREMENT, OTHER. 
+    // In cases where there is no clear mapping, the original value passed through will be returned.
+    BenefitPlanType benefit_plan_type = 3;  // Type of benefit plan, e.g., "MEDICAL"
+    
+    // The employer benefit's name - typically the carrier or network name.
+    string name = 4;  // Name of the benefit plan
+
+    // The employer benefit's description.
+    string description = 5;  // Description of the plan
+
+    // The employer benefit's deduction code.
+    string deduction_code = 6;  // Code for payroll deduction
+
+    // Indicates whether or not this object has been deleted in the third party platform.
+    google.protobuf.Timestamp remote_was_deleted = 7;  // Flag for deletion status
+
+    google.protobuf.Timestamp created_at = 8;  // Creation date in ISO 8601 format
+
+    // This is the datetime that this object was last updated by Merge
+    google.protobuf.Timestamp modified_at = 9;  // Last modification date in ISO 8601 format
+
+    // The id of the record as seen on the merge platform
+    string merge_account_id = 10; // Merge record UUID
+
+    // The employee benefits tied to this provided record
+    repeated EmployeeBenefits employee_benefits = 11 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+}
+
+// The Employee object is used to represent any person who has been employed by a company.
+message Employee {
+    // we use gorm to define this object as a database orm model
+    option (gorm.opts) = {ormable: true};
+    
+    // id of the record
+    uint64 id = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+    ];
+
+    // The third-party API ID of the matching object.
+    string remote_id = 2;
+
+    // The employee's number
+    string employee_number = 3;
+
+    // The ID of the employee's company.
+    string company_id = 4;
+
+    // The employee's first name.
+    string first_name = 5;
+
+    // The employee's last name.
+    string last_name = 6;
+
+    // The employee's preferred name.
+    string employees_preferred_name = 7;
+
+    // The employee's full name, to use for display purposes. 
+    // If a preferred first name is available, the full name 
+    // will include the preferred first name
+    string display_full_name = 8;
+
+    // The employee's username that appears in the remote UI.
+    string employee_user_name_as_seen_in_remote_ui = 9;
+
+    // The employee's work email.
+    string work_email = 10;
+
+    // the employee's personal email
+    string personal_email = 11;
+
+    // The employee's mobile phone number.
+    string mobile_phone_number = 12;
+
+    // The employee's various position at the company
+    repeated EmployeeJobPositionAtCompany employments = 13 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+
+       // the employment type
+    string employment_type = 14;
+     // UUID fields
+
+    // the employee's home location
+    LocationAddress home_location = 15 [
+    (gorm.field).has_one = {disable_association_autocreate: false disable_association_autoupdate: false preload: true},
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+  ];
+
+    // the employee's work location
+    LocationAddress work_location = 16 [
+    (gorm.field).has_one = {disable_association_autocreate: false disable_association_autoupdate: false preload: true},
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+  ];
+
+    // the employee's manager
+    Employee manager = 17 [
+    (gorm.field).has_one = {disable_association_autocreate: false disable_association_autoupdate: false preload: true},
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+  ];
+
+    // the employee's pay group
+    Group group = 18 [
+    (gorm.field).has_one = {disable_association_autocreate: false disable_association_autoupdate: false preload: true},
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+  ];
+
+    // Other fields
+    // the employee's social security number
+    string ssn = 20;
+
+    // The employee's gender. Possible values include: MALE, FEMALE, NON-BINARY, OTHER, PREFER_NOT_TO_DISCLOSE.
+    // In cases where there is no clear mapping, the original value passed through will be returned.
+    Gender gender = 21;
+
+    // The employee's ethnicity. Possible values include: AMERICAN_INDIAN_OR_ALASKA_NATIVE, ASIAN_OR_INDIAN_SUBCONTINENT, 
+    // BLACK_OR_AFRICAN_AMERICAN, HISPANIC_OR_LATINO, NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER, 
+    // TWO_OR_MORE_RACES, WHITE, PREFER_NOT_TO_DISCLOSE. In cases where there is no clear mapping, the original value passed through will be returned.
+    Ethnicity ethnicity = 22;
+
+    // The employee's filing status as related to marital status. Possible values include: SINGLE, MARRIED_FILING_JOINTLY,
+    // MARRIED_FILING_SEPARATELY, HEAD_OF_HOUSEHOLD, QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD.
+    // In cases where there is no clear mapping, the original value passed through will be returned.
+    MaritalStatus marital_status = 23;
+
+    // The employee's date of birth.
+    string date_of_birth = 24; // Use string for ISO 8601 datetime
+
+    // The date that the employee started working. 
+    // If an employee was rehired, the most recent start date will be returned.
+    google.protobuf.Timestamp start_date = 26;
+
+    // When the third party's employee was created.
+    google.protobuf.Timestamp remote_created_at = 27;
+
+    // The employment status of the employee. Possible values include: ACTIVE, PENDING, INACTIVE.
+    // In cases where there is no clear mapping, the original value passed through will be returned.
+    EmploymentStatus employment_status = 28;
+
+    // The employee's termination date.
+    google.protobuf.Timestamp termination_date = 29;
+
+    // The URL of the employee's avatar image.
+    string avatar = 30;
+
+    // The bank account information for an employee
+    repeated BankInfo bank_accounts = 31 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+
+    // The dependents of the employee
+    repeated Dependents dependents = 32 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+
+    // Represent an employee's pay statement for a specific payroll run.
+    repeated EmployeePayrollRun payroll_runs = 33 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+
+    // The time off balance for an employee
+    EmployeTimeOffBalance pay_time_off_balance = 34 [
+    (gorm.field).has_one = {disable_association_autocreate: false disable_association_autoupdate: false preload: true},
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+  ];
+
+    // the benefits associated with the employee.
+    repeated EmployeeBenefits benefits = 35 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+
+    string merge_account_id = 36; // Merge record UUID
+
+    google.protobuf.Timestamp created_at = 37;
+
+    // This is the datetime that this object was last updated by Merge
+    google.protobuf.Timestamp modified_at = 38;
+
+    bool remote_was_deleted = 39;
+}
+
+// The Benefit object is used to represent a benefit that an employee has enrolled in.
+message EmployeeBenefits {
+    // we use gorm to define this object as a database orm model
+    option (gorm.opts) = {ormable: true};
+    
+    // id of the record
+    uint64 id = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+    ];
+
+    // The third-party API ID of the matching object.
+    string remote_id = 2;
+
+    // The name of the benefit provider.
+    string provider_name = 3;
+
+    // The ID of the employee.
+    string employee_merge_account_id = 4;
+
+    // The ID of the benefit plan.
+    string benefit_plan_merge_account_id = 5;
+
+    // The employee's contribution.
+    uint64 employee_contribution = 6;
+
+    // The company's contribution.
+    uint64 company_contribution = 7;
+
+    // The day and time the benefit started.
+    google.protobuf.Timestamp start_date = 8;
+
+    // The day and time the benefit ended.
+    google.protobuf.Timestamp end_date = 9;
+
+    // Indicates whether or not this object has been deleted in the third party platform.
+    bool remote_was_deleted = 10;
+
+    google.protobuf.Timestamp created_at = 11;
+
+    // This is the datetime that this object was last updated by Merge
+    google.protobuf.Timestamp modified_at = 12;
+
+    // This it the id of the record as seeon on the merge platform
+    string merge_account_id = 13;
+}
+
+// The EmployerPayrollRun object is used to represent a group of pay statements for a specific pay schedule.
+message EmployerPayrollRun {
+  // we use gorm to define this object as a database orm model
+  option (gorm.opts) = {ormable: true};
+
+  // id of the record
+  uint64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+  ];
+
+  // The third-party API ID of the matching object.
+  string remote_id = 2;
+
+  // The state of the payroll run Possible values include: PAID, DRAFT, APPROVED, FAILED, CLOSED.
+  // In cases where there is no clear mapping, the original value passed through will be returned.
+  PayrollRunState run_state = 3;
+
+  // The type of the payroll run Possible values include: REGULAR, OFF_CYCLE, 
+  // CORRECTION, TERMINATION, SIGN_ON_BONUS. In cases where there is no clear mapping, the original value passed through will be returned.
+  PayrollRunType run_type = 4;
+
+  // The day and time the payroll run started.
+  google.protobuf.Timestamp start_date = 5;
+
+  // The day and time the payroll run ended.
+  google.protobuf.Timestamp end_date = 6;
+
+  // The day and time the payroll run was checked.
+  google.protobuf.Timestamp check_date = 7;
+
+  // Indicates whether or not this object has been deleted in the third party platform
+  bool remote_was_deleted = 8;
+
+  // This is the datetime that this object was created by Merge
+  google.protobuf.Timestamp created_at = 9;
+
+  // This is the datetime that this object was last updated by Merge
+  google.protobuf.Timestamp modified_at = 10;
+  
+    // The set of payroll records for the payroll run
+  repeated EmployeePayrollRun payroll_runs = 11 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+}
+
+// The Employment object is used to represent a job position at a company.
+// NOTE: When there is a change in pay or title, integrations with historical 
+// data will create new Employment objects while integrations without 
+// historical data will update existing ones.
+message EmployeeJobPositionAtCompany {
+    // we use gorm to define this object as a database orm model
+    option (gorm.opts) = {ormable: true};
+
+    // id of the record
+    uint64 id = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+    ];
+
+    // The third-party API ID of the matching object.
+    string remote_id = 2;
+
+    // The job title
+    string job_title = 3;
+
+    // the pay rate
+    double pay_rate = 4;
+
+    // the pay period
+    PayPeriod pay_period = 5;
+
+    // the pay frequency
+    PayFrequency pay_frequency = 6;
+
+    // the pay currency
+    string pay_currency = 7;
+
+    // the positions flsa status
+    FlsaStatus flsa_status = 8;
+
+    // the positions effective date 
+    google.protobuf.Timestamp effective_date = 9;
+
+    // Indicates whether or not this object has been deleted in the third party platform.
+    bool remote_was_deleted = 12;
+    google.protobuf.Timestamp created_at = 13;
+
+    // This is the datetime that this object was last updated by Merge
+    google.protobuf.Timestamp modified_at = 14;
+
+    // This is the record id as seen on merge
+    string merge_account_id = 15;
+}
+
+// The Group object is used to represent any subset of employees, such as PayGroup or Team. Employees can be in multiple Groups.
+message Group {
+    // we use gorm to define this object as a database orm model
+    option (gorm.opts) = {ormable: true};
+
+    // id of the record
+    uint64 id = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+    ];
+    
+    // The third-party API ID of the matching object.
+    string remote_id = 2;
+
+    // the pay group's name
+    string name = 4;
+
+    // the pay group's type
+    PayGroupType type = 5;
+
+    // the parent pay group merge record id
+    string parent_group_merge_account_id = 6;
+
+    // Indicates whether or not this object has been deleted in the third party platform.
+    bool remote_was_deleted = 12;
+    google.protobuf.Timestamp created_at = 13;
+
+    // This is the datetime that this object was last updated by Merge
+    google.protobuf.Timestamp modified_at = 14;
+
+    // This is the record id as seen on merge
+    string merge_account_id = 15;
+}
+
+// The Location object is used to represent an address that can be associated with an employee.
+message LocationAddress {
+  // we use gorm to define this object as a database orm model
+  option (gorm.opts) = {ormable: true};
+
+  // id of the record
+  uint64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+  ];
+
+  string remote_id = 2;
+
+  // The location's name.
+  string name = 3;
+
+  // The location's phone number.
+  string phone_number = 4;
+
+  // Line 1 of the location's street address.
+  string street_1 = 5;
+
+  // Line 2 of the location's street address.
+  string street_2 = 6;
+
+  // The location's city.
+  string city = 7;
+
+  // The location's state. Represents a region if outside of the US.
+  string state = 8;
+
+  // The location's zip code or postal code.
+  string zip_code = 9;
+
+  // The location's country.
+  string country = 10;
+
+  // The location's type. Can be either WORK or HOME Possible values include: HOME, WORK. 
+  // In cases where there is no clear mapping, the original value passed through will be returned.
+  LocationType location_type = 11;
+
+  // Indicates whether or not this object has been deleted in the third party platform.
+  bool remote_was_deleted = 12;
+  google.protobuf.Timestamp created_at = 13;
+
+  // This is the datetime that this object was last updated by Merge
+  google.protobuf.Timestamp modified_at = 14;
+
+  // This is the record id as seen on merge
+  string merge_account_id = 15;
+}
+
+// The BankInfo object is used to represent the Bank Account information for an Employee.
+message BankInfo {
+    // we use gorm to define this object as a database orm model
+    option (gorm.opts) = {ormable: true};
+    
+    // id of the record
+    uint64 id = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+    ];
+
+    // The third-party API ID of the matching object.
+    string remote_id = 2;
+
+    // The account number
+    string account_number = 3;
+
+    // The routing number
+    string routing_number = 4;
+
+    // The bank name
+    string bank_name = 5;
+
+    // The bank account type Possible values include: SAVINGS, CHECKING. 
+    // In cases where there is no clear mapping, the original value passed through will be returned.
+    BankAccountType account_type = 6;
+    // When the matching bank object was created in the third party system.
+    google.protobuf.Timestamp created_at = 7;
+    // The record id as stored on the merge platform
+    string merge_account_id = 8;
+    // Indicates whether or not this object has been deleted in the third party platform.
+    bool remote_was_deleted = 12;
+    // This is the datetime that this object was last updated by Merge
+    google.protobuf.Timestamp modified_at = 14;
+}
+
+// Dependents object is used to represent a dependent (e.g. child, spouse, domestic partner, etc) of an Employee
+message Dependents {
+    // we use gorm to define this object as a database orm model
+    option (gorm.opts) = {ormable: true};
+    
+    // id of the record
+    uint64 id = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+    ];
+
+    // The third-party API ID of the matching object.
+    string remote_id = 2;
+
+    // The employee's first name.
+    string first_name = 3;
+
+    // The employee's last name.
+    string last_name = 4;
+
+    // The employee's middle name
+    string middle_name = 5;
+
+    // The relationship of the dependent to the employee. Possible values include: CHILD, SPOUSE, DOMESTIC_PARTNER, OTHER.
+    // In cases where there is no clear mapping, the original value passed through will be returned.
+    DependentRelationship dependent_relationship_to_employee = 6;
+
+    // The dependent's date of birth.
+    google.protobuf.Timestamp date_of_birth = 9;
+
+    // the gender of the dependent
+    Gender gender = 10;
+
+    // the phone number of the dependent
+    string phone_number = 11;
+
+    // The dependents home location
+    LocationAddress home_location = 12;
+
+    // Whether or not the dependent is a student
+    bool is_student = 13;
+
+    // The dependents's social security number.
+    string ssn = 14;
+
+    // Indicates whether or not this object has been deleted in the third party platform.
+    bool remote_was_deleted = 15;
+
+    // This is the datetime that this object was created by Merge
+    google.protobuf.Timestamp created_at = 16;
+
+    // This is the datetime that this object was last updated by Merge
+    google.protobuf.Timestamp modified_at = 17;
+
+    // This is the record id as seen on the merge platform
+    string merge_account_id = 18;
+}
+
+// The EmployeePayrollRun object is used to represent an employee's pay statement for a specific payroll run.
+message EmployeePayrollRun {
+  // we use gorm to define this object as a database orm model
+  option (gorm.opts) = {ormable: true};
+  
+  // id
+  uint64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+  ];
+
+  // The third-party API ID of the matching object.
+  string remote_id = 2;
+  
+  // The total earnings throughout a given period for an employee before any deductions are made.
+  double gross_pay = 5;
+
+  // The take-home pay throughout a given period for an employee after deductions are made.
+  double net_pay = 6;
+
+  // The day and time the payroll run started.
+  google.protobuf.Timestamp start_date = 7;
+  google.protobuf.Timestamp end_date = 8;
+  google.protobuf.Timestamp check_date = 9;
+
+  // The Earning object is used to represent an array of different compensations
+  // that an employee receives within specific wage categories
+  repeated Earning earnings = 10;
+
+  // The Deduction object is used to represent an array of the wages withheld 
+  // from total earnings for the purpose of paying taxes.
+  repeated Deduction deductions = 11;
+
+  // The Tax object is used to represent an array of the tax deductions 
+  // for a given employee's payroll run.
+  repeated Tax taxes = 12;
+
+  // Indicates whether or not this object has been deleted in the third party platform.
+  bool remote_was_deleted = 13;
+
+  google.protobuf.Timestamp created_at = 14;
+
+  // This is the datetime that this object was last updated by Merge
+  google.protobuf.Timestamp modified_at = 15;
+
+  // The payroll being run.
+  string payroll_run_merge_account_id = 16;
+
+  // The employee whose payroll is being run.
+  string employee_merge_account_id = 17;
+
+  // This is the record id as seen on the merge platform
+  string merge_account_id = 18;
+}
+
+// The Earning object is used to represent an array of different compensations 
+// that an employee receives within specific wage categories.
+message Earning {
+  // we use gorm to define this object as a database orm model
+  option (gorm.opts) = {ormable: true};
+  
+  // id
+  uint64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+  ];
+
+  // The third-party API ID of the matching object.
+  string remote_id = 2;
+  double amount = 3;
+  // The type of earning. Possible values include: SALARY, REIMBURSEMENT, OVERTIME, BONUS.
+  //  In cases where there is no clear mapping, the original value passed through will be returned.
+  EarningType type = 4; 
+  // Indicates whether or not this object has been deleted in the third party platform.
+  bool remote_was_deleted = 5;
+  google.protobuf.Timestamp created_at = 6;
+  // This is the datetime that this object was last updated by Merge
+  google.protobuf.Timestamp modified_at = 7;
+  // The payroll being run.
+  string payroll_run_merge_account_id = 16;
+  // This is the record id as seen on the merge platform
+  string merge_account_id = 18;
+}
+
+// The Deduction object is used to represent an array of the wages
+// withheld from total earnings for the purpose of paying taxes.
+message Deduction {
+  // we use gorm to define this object as a database orm model
+  option (gorm.opts) = {ormable: true};
+  
+  // id
+  uint64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+  ];
+
+  // The third-party API ID of the matching object.
+  string remote_id = 2;
+  // The deduction's name.
+  string name = 3;
+  // The amount of money that is withheld from an employee's gross pay by the employee.
+  double employee_deduction = 4;
+  // The amount of money that is withheld on behalf of an employee by the company.
+  double company_deduction = 5;
+  // Indicates whether or not this object has been deleted in the third party platform.
+  bool remote_was_deleted = 6;
+  google.protobuf.Timestamp created_at = 7;
+  // This is the datetime that this object was last updated by Merge
+  google.protobuf.Timestamp modified_at = 8;
+  // The payroll being run.
+  string payroll_run_merge_account_id = 16;
+  // This is the record id as seen on the merge platform
+  string merge_account_id = 18;
+}
+
+// The Tax object is used to represent an array of the tax deductions for a given employee's payroll run.
+message Tax {
+  // we use gorm to define this object as a database orm model
+  option (gorm.opts) = {ormable: true};
+  
+  // id
+  uint64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+  ];
+
+  // The third-party API ID of the matching object.
+  string remote_id = 2;
+
+  // The tax's name.
+  string name = 3;
+  // The tax amount.
+  double amount = 4;
+  // Whether or not the employer is responsible for paying the tax.
+  bool employer_tax = 5;
+  bool remote_was_deleted = 6;
+  google.protobuf.Timestamp created_at = 7;
+  // This is the datetime that this object was last updated by Merge
+  google.protobuf.Timestamp modified_at = 8;
+  // The payroll being run.
+  string payroll_run_merge_account_id = 16;
+  // This is the record id as seen on the merge platform
+  string merge_account_id = 18;
+}
+
+message EmployeTimeOffBalance {
+  // we use gorm to define this object as a database orm model
+  option (gorm.opts) = {ormable: true};
+  
+  // id
+  uint64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+  ];
+
+  // The third-party API ID of the matching object.
+  string remote_id = 2;
+ 
+  // balance
+  double balance = 3;
+
+  // used
+  double used = 4;
+  // policy type of the time off balance
+  PolicyType policy_type = 5;
+  bool remote_was_deleted = 6;
+  google.protobuf.Timestamp created_at = 7;
+  // This is the datetime that this object was last updated by Merge
+  google.protobuf.Timestamp modified_at = 8;
+  // This is the record id as seen on the merge platform
+  string merge_account_id = 18;
+}
+
+// The TimeOff object is used to represent all employees' Time Off entries.
+message TimeOff {
+   // we use gorm to define this object as a database orm model
+   option (gorm.opts) = {ormable: true};
+  
+   // id
+   uint64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+   ];
+
+    // The third-party API ID of the matching object.
+    string remote_id = 2;
+    Employee employee = 3 [
+      (gorm.field).has_one = {disable_association_autocreate: false disable_association_autoupdate: false preload: true},
+      (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+    ];
+    Employee approver = 4 [
+      (gorm.field).has_one = {disable_association_autocreate: false disable_association_autoupdate: false preload: true},
+      (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+    ];
+    TimeOffStatus status = 5;
+    string employment_note = 6;
+    TimeOffUnits units = 7;
+    double amount = 8;
+    string request_type = 9;
+    google.protobuf.Timestamp start_time = 10;
+    google.protobuf.Timestamp end_time = 11;
+    bool remote_was_deleted = 12;
+    google.protobuf.Timestamp created_at = 13;
+    // This is the datetime that this object was last updated by Merge
+    google.protobuf.Timestamp modified_at = 14;
+    // This is the record id as seen on the merge platform
+    string merge_account_id = 18;
+    // This is the record id as seen on the merge platform of the employee requesting time off
+    string employee_merge_account_id = 19;
+    // This is the record id as seen on the merge platform of the approver
+    string approver_merge_account_id = 20;
+}

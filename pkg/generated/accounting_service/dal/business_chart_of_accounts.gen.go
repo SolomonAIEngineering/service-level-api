@@ -31,15 +31,16 @@ func newBusinessChartOfAccountsORM(db *gorm.DB, opts ...gen.DOOption) businessCh
 	_businessChartOfAccountsORM.AccountNumber = field.NewString(tableName, "account_number")
 	_businessChartOfAccountsORM.Classification = field.NewString(tableName, "classification")
 	_businessChartOfAccountsORM.Company = field.NewString(tableName, "company")
+	_businessChartOfAccountsORM.CreatedAt = field.NewTime(tableName, "created_at")
 	_businessChartOfAccountsORM.Currency = field.NewString(tableName, "currency")
 	_businessChartOfAccountsORM.CurrentBalance = field.NewFloat64(tableName, "current_balance")
 	_businessChartOfAccountsORM.Description = field.NewString(tableName, "description")
 	_businessChartOfAccountsORM.Id = field.NewUint64(tableName, "id")
-	_businessChartOfAccountsORM.MergeAccountId = field.NewString(tableName, "merge_account_id")
+	_businessChartOfAccountsORM.LinkedAccountingAccountId = field.NewUint64(tableName, "linked_accounting_account_id")
+	_businessChartOfAccountsORM.MergeRecordId = field.NewString(tableName, "merge_record_id")
 	_businessChartOfAccountsORM.ModifiedAt = field.NewTime(tableName, "modified_at")
 	_businessChartOfAccountsORM.Name = field.NewString(tableName, "name")
 	_businessChartOfAccountsORM.ParentAccountId = field.NewString(tableName, "parent_account_id")
-	_businessChartOfAccountsORM.ReferenceDetailsId = field.NewUint64(tableName, "reference_details_id")
 	_businessChartOfAccountsORM.RemoteId = field.NewString(tableName, "remote_id")
 	_businessChartOfAccountsORM.RemoteWasDeleted = field.NewBool(tableName, "remote_was_deleted")
 	_businessChartOfAccountsORM.Status = field.NewString(tableName, "status")
@@ -53,23 +54,24 @@ func newBusinessChartOfAccountsORM(db *gorm.DB, opts ...gen.DOOption) businessCh
 type businessChartOfAccountsORM struct {
 	businessChartOfAccountsORMDo
 
-	ALL                field.Asterisk
-	AccountNumber      field.String
-	Classification     field.String
-	Company            field.String
-	Currency           field.String
-	CurrentBalance     field.Float64
-	Description        field.String
-	Id                 field.Uint64
-	MergeAccountId     field.String
-	ModifiedAt         field.Time
-	Name               field.String
-	ParentAccountId    field.String
-	ReferenceDetailsId field.Uint64
-	RemoteId           field.String
-	RemoteWasDeleted   field.Bool
-	Status             field.String
-	Type               field.String
+	ALL                       field.Asterisk
+	AccountNumber             field.String
+	Classification            field.String
+	Company                   field.String
+	CreatedAt                 field.Time
+	Currency                  field.String
+	CurrentBalance            field.Float64
+	Description               field.String
+	Id                        field.Uint64
+	LinkedAccountingAccountId field.Uint64
+	MergeRecordId             field.String
+	ModifiedAt                field.Time
+	Name                      field.String
+	ParentAccountId           field.String
+	RemoteId                  field.String
+	RemoteWasDeleted          field.Bool
+	Status                    field.String
+	Type                      field.String
 
 	fieldMap map[string]field.Expr
 }
@@ -89,15 +91,16 @@ func (b *businessChartOfAccountsORM) updateTableName(table string) *businessChar
 	b.AccountNumber = field.NewString(table, "account_number")
 	b.Classification = field.NewString(table, "classification")
 	b.Company = field.NewString(table, "company")
+	b.CreatedAt = field.NewTime(table, "created_at")
 	b.Currency = field.NewString(table, "currency")
 	b.CurrentBalance = field.NewFloat64(table, "current_balance")
 	b.Description = field.NewString(table, "description")
 	b.Id = field.NewUint64(table, "id")
-	b.MergeAccountId = field.NewString(table, "merge_account_id")
+	b.LinkedAccountingAccountId = field.NewUint64(table, "linked_accounting_account_id")
+	b.MergeRecordId = field.NewString(table, "merge_record_id")
 	b.ModifiedAt = field.NewTime(table, "modified_at")
 	b.Name = field.NewString(table, "name")
 	b.ParentAccountId = field.NewString(table, "parent_account_id")
-	b.ReferenceDetailsId = field.NewUint64(table, "reference_details_id")
 	b.RemoteId = field.NewString(table, "remote_id")
 	b.RemoteWasDeleted = field.NewBool(table, "remote_was_deleted")
 	b.Status = field.NewString(table, "status")
@@ -118,19 +121,20 @@ func (b *businessChartOfAccountsORM) GetFieldByName(fieldName string) (field.Ord
 }
 
 func (b *businessChartOfAccountsORM) fillFieldMap() {
-	b.fieldMap = make(map[string]field.Expr, 16)
+	b.fieldMap = make(map[string]field.Expr, 17)
 	b.fieldMap["account_number"] = b.AccountNumber
 	b.fieldMap["classification"] = b.Classification
 	b.fieldMap["company"] = b.Company
+	b.fieldMap["created_at"] = b.CreatedAt
 	b.fieldMap["currency"] = b.Currency
 	b.fieldMap["current_balance"] = b.CurrentBalance
 	b.fieldMap["description"] = b.Description
 	b.fieldMap["id"] = b.Id
-	b.fieldMap["merge_account_id"] = b.MergeAccountId
+	b.fieldMap["linked_accounting_account_id"] = b.LinkedAccountingAccountId
+	b.fieldMap["merge_record_id"] = b.MergeRecordId
 	b.fieldMap["modified_at"] = b.ModifiedAt
 	b.fieldMap["name"] = b.Name
 	b.fieldMap["parent_account_id"] = b.ParentAccountId
-	b.fieldMap["reference_details_id"] = b.ReferenceDetailsId
 	b.fieldMap["remote_id"] = b.RemoteId
 	b.fieldMap["remote_was_deleted"] = b.RemoteWasDeleted
 	b.fieldMap["status"] = b.Status

@@ -31,10 +31,12 @@ func newCreditNoteORM(db *gorm.DB, opts ...gen.DOOption) creditNoteORM {
 	_creditNoteORM.AccountingPeriod = field.NewString(tableName, "accounting_period")
 	_creditNoteORM.Company = field.NewString(tableName, "company")
 	_creditNoteORM.Contact = field.NewString(tableName, "contact")
+	_creditNoteORM.CreatedAt = field.NewTime(tableName, "created_at")
 	_creditNoteORM.Currency = field.NewString(tableName, "currency")
 	_creditNoteORM.ExchangeRate = field.NewString(tableName, "exchange_rate")
 	_creditNoteORM.Id = field.NewUint64(tableName, "id")
-	_creditNoteORM.MergeAccountId = field.NewString(tableName, "merge_account_id")
+	_creditNoteORM.LinkedAccountingAccountId = field.NewUint64(tableName, "linked_accounting_account_id")
+	_creditNoteORM.MergeRecordId = field.NewString(tableName, "merge_record_id")
 	_creditNoteORM.ModifiedAt = field.NewTime(tableName, "modified_at")
 	_creditNoteORM.Number = field.NewString(tableName, "number")
 	_creditNoteORM.PaymentIds = field.NewField(tableName, "payment_ids")
@@ -47,7 +49,6 @@ func newCreditNoteORM(db *gorm.DB, opts ...gen.DOOption) creditNoteORM {
 	_creditNoteORM.TotalAmount = field.NewFloat64(tableName, "total_amount")
 	_creditNoteORM.TrackingCategories = field.NewField(tableName, "tracking_categories")
 	_creditNoteORM.TransactionDate = field.NewTime(tableName, "transaction_date")
-	_creditNoteORM.TransactionDetailsId = field.NewUint64(tableName, "transaction_details_id")
 	_creditNoteORM.LineItems = creditNoteORMHasManyLineItems{
 		db: db.Session(&gorm.Session{}),
 
@@ -62,28 +63,29 @@ func newCreditNoteORM(db *gorm.DB, opts ...gen.DOOption) creditNoteORM {
 type creditNoteORM struct {
 	creditNoteORMDo
 
-	ALL                  field.Asterisk
-	AccountingPeriod     field.String
-	Company              field.String
-	Contact              field.String
-	Currency             field.String
-	ExchangeRate         field.String
-	Id                   field.Uint64
-	MergeAccountId       field.String
-	ModifiedAt           field.Time
-	Number               field.String
-	PaymentIds           field.Field
-	RemainingCredit      field.Float64
-	RemoteCreatedAt      field.Time
-	RemoteId             field.String
-	RemoteUpdatedAt      field.Time
-	RemoteWasDeleted     field.Bool
-	Status               field.String
-	TotalAmount          field.Float64
-	TrackingCategories   field.Field
-	TransactionDate      field.Time
-	TransactionDetailsId field.Uint64
-	LineItems            creditNoteORMHasManyLineItems
+	ALL                       field.Asterisk
+	AccountingPeriod          field.String
+	Company                   field.String
+	Contact                   field.String
+	CreatedAt                 field.Time
+	Currency                  field.String
+	ExchangeRate              field.String
+	Id                        field.Uint64
+	LinkedAccountingAccountId field.Uint64
+	MergeRecordId             field.String
+	ModifiedAt                field.Time
+	Number                    field.String
+	PaymentIds                field.Field
+	RemainingCredit           field.Float64
+	RemoteCreatedAt           field.Time
+	RemoteId                  field.String
+	RemoteUpdatedAt           field.Time
+	RemoteWasDeleted          field.Bool
+	Status                    field.String
+	TotalAmount               field.Float64
+	TrackingCategories        field.Field
+	TransactionDate           field.Time
+	LineItems                 creditNoteORMHasManyLineItems
 
 	fieldMap map[string]field.Expr
 }
@@ -103,10 +105,12 @@ func (c *creditNoteORM) updateTableName(table string) *creditNoteORM {
 	c.AccountingPeriod = field.NewString(table, "accounting_period")
 	c.Company = field.NewString(table, "company")
 	c.Contact = field.NewString(table, "contact")
+	c.CreatedAt = field.NewTime(table, "created_at")
 	c.Currency = field.NewString(table, "currency")
 	c.ExchangeRate = field.NewString(table, "exchange_rate")
 	c.Id = field.NewUint64(table, "id")
-	c.MergeAccountId = field.NewString(table, "merge_account_id")
+	c.LinkedAccountingAccountId = field.NewUint64(table, "linked_accounting_account_id")
+	c.MergeRecordId = field.NewString(table, "merge_record_id")
 	c.ModifiedAt = field.NewTime(table, "modified_at")
 	c.Number = field.NewString(table, "number")
 	c.PaymentIds = field.NewField(table, "payment_ids")
@@ -119,7 +123,6 @@ func (c *creditNoteORM) updateTableName(table string) *creditNoteORM {
 	c.TotalAmount = field.NewFloat64(table, "total_amount")
 	c.TrackingCategories = field.NewField(table, "tracking_categories")
 	c.TransactionDate = field.NewTime(table, "transaction_date")
-	c.TransactionDetailsId = field.NewUint64(table, "transaction_details_id")
 
 	c.fillFieldMap()
 
@@ -136,14 +139,16 @@ func (c *creditNoteORM) GetFieldByName(fieldName string) (field.OrderExpr, bool)
 }
 
 func (c *creditNoteORM) fillFieldMap() {
-	c.fieldMap = make(map[string]field.Expr, 21)
+	c.fieldMap = make(map[string]field.Expr, 22)
 	c.fieldMap["accounting_period"] = c.AccountingPeriod
 	c.fieldMap["company"] = c.Company
 	c.fieldMap["contact"] = c.Contact
+	c.fieldMap["created_at"] = c.CreatedAt
 	c.fieldMap["currency"] = c.Currency
 	c.fieldMap["exchange_rate"] = c.ExchangeRate
 	c.fieldMap["id"] = c.Id
-	c.fieldMap["merge_account_id"] = c.MergeAccountId
+	c.fieldMap["linked_accounting_account_id"] = c.LinkedAccountingAccountId
+	c.fieldMap["merge_record_id"] = c.MergeRecordId
 	c.fieldMap["modified_at"] = c.ModifiedAt
 	c.fieldMap["number"] = c.Number
 	c.fieldMap["payment_ids"] = c.PaymentIds
@@ -156,7 +161,6 @@ func (c *creditNoteORM) fillFieldMap() {
 	c.fieldMap["total_amount"] = c.TotalAmount
 	c.fieldMap["tracking_categories"] = c.TrackingCategories
 	c.fieldMap["transaction_date"] = c.TransactionDate
-	c.fieldMap["transaction_details_id"] = c.TransactionDetailsId
 
 }
 

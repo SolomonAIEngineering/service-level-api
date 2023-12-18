@@ -34,9 +34,11 @@ func newCreditNoteLineItemORM(db *gorm.DB, opts ...gen.DOOption) creditNoteLineI
 	_creditNoteLineItemORM.Description = field.NewString(tableName, "description")
 	_creditNoteLineItemORM.Id = field.NewUint64(tableName, "id")
 	_creditNoteLineItemORM.Item = field.NewString(tableName, "item")
+	_creditNoteLineItemORM.Memo = field.NewString(tableName, "memo")
 	_creditNoteLineItemORM.Name = field.NewString(tableName, "name")
 	_creditNoteLineItemORM.Quantity = field.NewString(tableName, "quantity")
 	_creditNoteLineItemORM.RemoteId = field.NewString(tableName, "remote_id")
+	_creditNoteLineItemORM.RemoteWasDeleted = field.NewBool(tableName, "remote_was_deleted")
 	_creditNoteLineItemORM.TaxRate = field.NewString(tableName, "tax_rate")
 	_creditNoteLineItemORM.TotalLineAmount = field.NewString(tableName, "total_line_amount")
 	_creditNoteLineItemORM.TrackingCategories = field.NewField(tableName, "tracking_categories")
@@ -58,9 +60,11 @@ type creditNoteLineItemORM struct {
 	Description        field.String
 	Id                 field.Uint64
 	Item               field.String
+	Memo               field.String
 	Name               field.String
 	Quantity           field.String
 	RemoteId           field.String
+	RemoteWasDeleted   field.Bool
 	TaxRate            field.String
 	TotalLineAmount    field.String
 	TrackingCategories field.Field
@@ -88,9 +92,11 @@ func (c *creditNoteLineItemORM) updateTableName(table string) *creditNoteLineIte
 	c.Description = field.NewString(table, "description")
 	c.Id = field.NewUint64(table, "id")
 	c.Item = field.NewString(table, "item")
+	c.Memo = field.NewString(table, "memo")
 	c.Name = field.NewString(table, "name")
 	c.Quantity = field.NewString(table, "quantity")
 	c.RemoteId = field.NewString(table, "remote_id")
+	c.RemoteWasDeleted = field.NewBool(table, "remote_was_deleted")
 	c.TaxRate = field.NewString(table, "tax_rate")
 	c.TotalLineAmount = field.NewString(table, "total_line_amount")
 	c.TrackingCategories = field.NewField(table, "tracking_categories")
@@ -112,16 +118,18 @@ func (c *creditNoteLineItemORM) GetFieldByName(fieldName string) (field.OrderExp
 }
 
 func (c *creditNoteLineItemORM) fillFieldMap() {
-	c.fieldMap = make(map[string]field.Expr, 14)
+	c.fieldMap = make(map[string]field.Expr, 16)
 	c.fieldMap["account"] = c.Account
 	c.fieldMap["company"] = c.Company
 	c.fieldMap["credit_note_id"] = c.CreditNoteId
 	c.fieldMap["description"] = c.Description
 	c.fieldMap["id"] = c.Id
 	c.fieldMap["item"] = c.Item
+	c.fieldMap["memo"] = c.Memo
 	c.fieldMap["name"] = c.Name
 	c.fieldMap["quantity"] = c.Quantity
 	c.fieldMap["remote_id"] = c.RemoteId
+	c.fieldMap["remote_was_deleted"] = c.RemoteWasDeleted
 	c.fieldMap["tax_rate"] = c.TaxRate
 	c.fieldMap["total_line_amount"] = c.TotalLineAmount
 	c.fieldMap["tracking_categories"] = c.TrackingCategories

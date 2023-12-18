@@ -29,15 +29,18 @@ func newJournalEntryORM(db *gorm.DB, opts ...gen.DOOption) journalEntryORM {
 	tableName := _journalEntryORM.journalEntryORMDo.TableName()
 	_journalEntryORM.ALL = field.NewAsterisk(tableName)
 	_journalEntryORM.AccountingPeriod = field.NewString(tableName, "accounting_period")
+	_journalEntryORM.AppliedPayments = field.NewField(tableName, "applied_payments")
 	_journalEntryORM.Company = field.NewString(tableName, "company")
+	_journalEntryORM.CreatedAt = field.NewTime(tableName, "created_at")
 	_journalEntryORM.Currency = field.NewString(tableName, "currency")
 	_journalEntryORM.ExchangeRate = field.NewString(tableName, "exchange_rate")
 	_journalEntryORM.Id = field.NewUint64(tableName, "id")
 	_journalEntryORM.JournalNumber = field.NewString(tableName, "journal_number")
+	_journalEntryORM.LinkedAccountingAccountId = field.NewUint64(tableName, "linked_accounting_account_id")
 	_journalEntryORM.Memo = field.NewString(tableName, "memo")
-	_journalEntryORM.MergeAccountId = field.NewString(tableName, "merge_account_id")
+	_journalEntryORM.MergeRecordId = field.NewString(tableName, "merge_record_id")
 	_journalEntryORM.ModifiedAt = field.NewTime(tableName, "modified_at")
-	_journalEntryORM.PaymentIds = field.NewField(tableName, "payment_ids")
+	_journalEntryORM.Payments = field.NewField(tableName, "payments")
 	_journalEntryORM.PostingStatus = field.NewString(tableName, "posting_status")
 	_journalEntryORM.RemoteCreatedAt = field.NewTime(tableName, "remote_created_at")
 	_journalEntryORM.RemoteId = field.NewString(tableName, "remote_id")
@@ -45,7 +48,6 @@ func newJournalEntryORM(db *gorm.DB, opts ...gen.DOOption) journalEntryORM {
 	_journalEntryORM.RemoteWasDeleted = field.NewBool(tableName, "remote_was_deleted")
 	_journalEntryORM.TrackingCategories = field.NewField(tableName, "tracking_categories")
 	_journalEntryORM.TransactionDate = field.NewTime(tableName, "transaction_date")
-	_journalEntryORM.TransactionDetailsId = field.NewUint64(tableName, "transaction_details_id")
 	_journalEntryORM.Lines = journalEntryORMHasManyLines{
 		db: db.Session(&gorm.Session{}),
 
@@ -60,26 +62,28 @@ func newJournalEntryORM(db *gorm.DB, opts ...gen.DOOption) journalEntryORM {
 type journalEntryORM struct {
 	journalEntryORMDo
 
-	ALL                  field.Asterisk
-	AccountingPeriod     field.String
-	Company              field.String
-	Currency             field.String
-	ExchangeRate         field.String
-	Id                   field.Uint64
-	JournalNumber        field.String
-	Memo                 field.String
-	MergeAccountId       field.String
-	ModifiedAt           field.Time
-	PaymentIds           field.Field
-	PostingStatus        field.String
-	RemoteCreatedAt      field.Time
-	RemoteId             field.String
-	RemoteUpdatedAt      field.Time
-	RemoteWasDeleted     field.Bool
-	TrackingCategories   field.Field
-	TransactionDate      field.Time
-	TransactionDetailsId field.Uint64
-	Lines                journalEntryORMHasManyLines
+	ALL                       field.Asterisk
+	AccountingPeriod          field.String
+	AppliedPayments           field.Field
+	Company                   field.String
+	CreatedAt                 field.Time
+	Currency                  field.String
+	ExchangeRate              field.String
+	Id                        field.Uint64
+	JournalNumber             field.String
+	LinkedAccountingAccountId field.Uint64
+	Memo                      field.String
+	MergeRecordId             field.String
+	ModifiedAt                field.Time
+	Payments                  field.Field
+	PostingStatus             field.String
+	RemoteCreatedAt           field.Time
+	RemoteId                  field.String
+	RemoteUpdatedAt           field.Time
+	RemoteWasDeleted          field.Bool
+	TrackingCategories        field.Field
+	TransactionDate           field.Time
+	Lines                     journalEntryORMHasManyLines
 
 	fieldMap map[string]field.Expr
 }
@@ -97,15 +101,18 @@ func (j journalEntryORM) As(alias string) *journalEntryORM {
 func (j *journalEntryORM) updateTableName(table string) *journalEntryORM {
 	j.ALL = field.NewAsterisk(table)
 	j.AccountingPeriod = field.NewString(table, "accounting_period")
+	j.AppliedPayments = field.NewField(table, "applied_payments")
 	j.Company = field.NewString(table, "company")
+	j.CreatedAt = field.NewTime(table, "created_at")
 	j.Currency = field.NewString(table, "currency")
 	j.ExchangeRate = field.NewString(table, "exchange_rate")
 	j.Id = field.NewUint64(table, "id")
 	j.JournalNumber = field.NewString(table, "journal_number")
+	j.LinkedAccountingAccountId = field.NewUint64(table, "linked_accounting_account_id")
 	j.Memo = field.NewString(table, "memo")
-	j.MergeAccountId = field.NewString(table, "merge_account_id")
+	j.MergeRecordId = field.NewString(table, "merge_record_id")
 	j.ModifiedAt = field.NewTime(table, "modified_at")
-	j.PaymentIds = field.NewField(table, "payment_ids")
+	j.Payments = field.NewField(table, "payments")
 	j.PostingStatus = field.NewString(table, "posting_status")
 	j.RemoteCreatedAt = field.NewTime(table, "remote_created_at")
 	j.RemoteId = field.NewString(table, "remote_id")
@@ -113,7 +120,6 @@ func (j *journalEntryORM) updateTableName(table string) *journalEntryORM {
 	j.RemoteWasDeleted = field.NewBool(table, "remote_was_deleted")
 	j.TrackingCategories = field.NewField(table, "tracking_categories")
 	j.TransactionDate = field.NewTime(table, "transaction_date")
-	j.TransactionDetailsId = field.NewUint64(table, "transaction_details_id")
 
 	j.fillFieldMap()
 
@@ -130,17 +136,20 @@ func (j *journalEntryORM) GetFieldByName(fieldName string) (field.OrderExpr, boo
 }
 
 func (j *journalEntryORM) fillFieldMap() {
-	j.fieldMap = make(map[string]field.Expr, 19)
+	j.fieldMap = make(map[string]field.Expr, 21)
 	j.fieldMap["accounting_period"] = j.AccountingPeriod
+	j.fieldMap["applied_payments"] = j.AppliedPayments
 	j.fieldMap["company"] = j.Company
+	j.fieldMap["created_at"] = j.CreatedAt
 	j.fieldMap["currency"] = j.Currency
 	j.fieldMap["exchange_rate"] = j.ExchangeRate
 	j.fieldMap["id"] = j.Id
 	j.fieldMap["journal_number"] = j.JournalNumber
+	j.fieldMap["linked_accounting_account_id"] = j.LinkedAccountingAccountId
 	j.fieldMap["memo"] = j.Memo
-	j.fieldMap["merge_account_id"] = j.MergeAccountId
+	j.fieldMap["merge_record_id"] = j.MergeRecordId
 	j.fieldMap["modified_at"] = j.ModifiedAt
-	j.fieldMap["payment_ids"] = j.PaymentIds
+	j.fieldMap["payments"] = j.Payments
 	j.fieldMap["posting_status"] = j.PostingStatus
 	j.fieldMap["remote_created_at"] = j.RemoteCreatedAt
 	j.fieldMap["remote_id"] = j.RemoteId
@@ -148,7 +157,6 @@ func (j *journalEntryORM) fillFieldMap() {
 	j.fieldMap["remote_was_deleted"] = j.RemoteWasDeleted
 	j.fieldMap["tracking_categories"] = j.TrackingCategories
 	j.fieldMap["transaction_date"] = j.TransactionDate
-	j.fieldMap["transaction_details_id"] = j.TransactionDetailsId
 
 }
 

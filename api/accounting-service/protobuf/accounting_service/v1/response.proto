@@ -2,10 +2,12 @@ syntax = "proto3";
 
 package accounting_service.v1;
 
-import "accounting_service/v1/database_schema.proto";
-option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/generated/accounting_service/v1";
+import "accounting_service/v1/business_profile_database_schema.proto";
+
 import "google/api/field_behavior.proto";
 import "gogoproto/gogo.proto";
+
+option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/generated/accounting_service/v1";
 
 option (gogoproto.gostring_all) = true;
 option (gogoproto.equal_all) = true;
@@ -19,51 +21,55 @@ option (gogoproto.marshaler_all) = true;
 option (gogoproto.sizer_all) = true;
 option (gogoproto.unmarshaler_all) = true;
 
-message HealthCheckResponse {
-  // wether the service is healthy
-  bool healthy = 1;
+message HealthCheckResponse { // Defines a message named HealthCheckResponse.
+  // whether the service is healthy
+  bool healthy = 1; 
 }
 
-message ReadynessCheckResponse {
-  // wether the service is ready to receive traffic
-  bool healthy = 1;
+message ReadynessCheckResponse { // Defines a message named ReadynessCheckResponse.
+  // whether the service is ready to receive traffic
+  bool healthy = 1; 
 }
 
-message CreateBusinessAccountingProfileResponse {
+message CreateProfileResponse { // Defines a message named CreatesProfileResponse.
   // the profile identifier
   uint64 profile_id = 1;
 }
 
-message GetBusinessAccountingProfileResponse {
+message ReadProfileResponse { // Defines a message named ReadProfileRequest.
   // the profile of interest
-  BusinessAccountingProfile profile = 1;
+  MergeBusinessProfile profile = 1; // A field named "profile" of type BusinessPayrollProfile with field number 1.
 }
 
-message DeleteBusinessAccountingProfileResponse {
-  // wether the profile is deleted
-  bool is_deleted = 1;
+message DeleteProfileResponse { // Defines a message named DeleteProfileResponse.
+  // whether the profile is deleted
+  bool is_deleted = 1; // A boolean field named "is_deleted" with field number 1.
 }
 
-message UpdateBusinessAccountingProfileResponse {
-  BusinessAccountingProfile profile = 1;
+message UpdateProfileResponse { // Defines a message named UpdateProfileResponse.
+  MergeBusinessProfile profile = 1; // A field named "profile" of type BusinessPayrollProfile with field number 1.
 }
 
-message MergeGetPublicLinkTokenResponse {
+message GetLinkTokenResponse { // Defines a message named GetLinkTokenResponse.
   // the link token
-  string link_token = 1;
+  string link_token = 1; // A string field named "link_token" with field number 1.
+  
   // the integration name
-  string integration_name = 2;
-  // the magic link url
-  string magic_link_url	 = 3;
+  string integration_name = 2; // A string field named "integration_name" with field number 2.
+  
+  // the magic link URL
+  string magic_link_url = 3; // A string field named "magic_link_url" with field number 3.
+  
   // the end user origin id
-  string end_user_origin_id = 4;
+  string end_user_origin_id = 4; // A string field named "end_user_origin_id" with field number 4.
+  
   // the organization name
-  string organization_name = 5;
+  string organization_name = 5; // A string field named "organization_name" with field number 5.
 }
 
-message MergeExchangePublicLinkTokenForAccountTokenResponse {
+message ExchangePublicLinkTokenForAccountTokenResponse { // Defines a message named ExchangePublicLinkTokenForAccountTokenResponse.
   // the status of the exchange token
   bool success = 1 [
-    (google.api.field_behavior) = REQUIRED
+    (google.api.field_behavior) = REQUIRED // Field behavior: success is required.
   ];
 }

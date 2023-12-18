@@ -32,10 +32,12 @@ func newBusinessTransactionORM(db *gorm.DB, opts ...gen.DOOption) businessTransa
 	_businessTransactionORM.AccountingPeriod = field.NewString(tableName, "accounting_period")
 	_businessTransactionORM.Company = field.NewString(tableName, "company")
 	_businessTransactionORM.Contact = field.NewString(tableName, "contact")
+	_businessTransactionORM.CreatedAt = field.NewTime(tableName, "created_at")
 	_businessTransactionORM.Currency = field.NewString(tableName, "currency")
 	_businessTransactionORM.ExchangeRate = field.NewString(tableName, "exchange_rate")
 	_businessTransactionORM.Id = field.NewUint64(tableName, "id")
-	_businessTransactionORM.MergeAccountId = field.NewString(tableName, "merge_account_id")
+	_businessTransactionORM.LinkedAccountingAccountId = field.NewUint64(tableName, "linked_accounting_account_id")
+	_businessTransactionORM.MergeRecordId = field.NewString(tableName, "merge_record_id")
 	_businessTransactionORM.ModifiedAt = field.NewTime(tableName, "modified_at")
 	_businessTransactionORM.Number = field.NewString(tableName, "number")
 	_businessTransactionORM.RemoteId = field.NewString(tableName, "remote_id")
@@ -43,7 +45,6 @@ func newBusinessTransactionORM(db *gorm.DB, opts ...gen.DOOption) businessTransa
 	_businessTransactionORM.TotalAmount = field.NewString(tableName, "total_amount")
 	_businessTransactionORM.TrackingCategories = field.NewField(tableName, "tracking_categories")
 	_businessTransactionORM.TransactionDate = field.NewTime(tableName, "transaction_date")
-	_businessTransactionORM.TransactionDetailsId = field.NewUint64(tableName, "transaction_details_id")
 	_businessTransactionORM.TransactionType = field.NewString(tableName, "transaction_type")
 	_businessTransactionORM.LineItems = businessTransactionORMHasManyLineItems{
 		db: db.Session(&gorm.Session{}),
@@ -59,25 +60,26 @@ func newBusinessTransactionORM(db *gorm.DB, opts ...gen.DOOption) businessTransa
 type businessTransactionORM struct {
 	businessTransactionORMDo
 
-	ALL                  field.Asterisk
-	Account              field.String
-	AccountingPeriod     field.String
-	Company              field.String
-	Contact              field.String
-	Currency             field.String
-	ExchangeRate         field.String
-	Id                   field.Uint64
-	MergeAccountId       field.String
-	ModifiedAt           field.Time
-	Number               field.String
-	RemoteId             field.String
-	RemoteWasDeleted     field.Bool
-	TotalAmount          field.String
-	TrackingCategories   field.Field
-	TransactionDate      field.Time
-	TransactionDetailsId field.Uint64
-	TransactionType      field.String
-	LineItems            businessTransactionORMHasManyLineItems
+	ALL                       field.Asterisk
+	Account                   field.String
+	AccountingPeriod          field.String
+	Company                   field.String
+	Contact                   field.String
+	CreatedAt                 field.Time
+	Currency                  field.String
+	ExchangeRate              field.String
+	Id                        field.Uint64
+	LinkedAccountingAccountId field.Uint64
+	MergeRecordId             field.String
+	ModifiedAt                field.Time
+	Number                    field.String
+	RemoteId                  field.String
+	RemoteWasDeleted          field.Bool
+	TotalAmount               field.String
+	TrackingCategories        field.Field
+	TransactionDate           field.Time
+	TransactionType           field.String
+	LineItems                 businessTransactionORMHasManyLineItems
 
 	fieldMap map[string]field.Expr
 }
@@ -98,10 +100,12 @@ func (b *businessTransactionORM) updateTableName(table string) *businessTransact
 	b.AccountingPeriod = field.NewString(table, "accounting_period")
 	b.Company = field.NewString(table, "company")
 	b.Contact = field.NewString(table, "contact")
+	b.CreatedAt = field.NewTime(table, "created_at")
 	b.Currency = field.NewString(table, "currency")
 	b.ExchangeRate = field.NewString(table, "exchange_rate")
 	b.Id = field.NewUint64(table, "id")
-	b.MergeAccountId = field.NewString(table, "merge_account_id")
+	b.LinkedAccountingAccountId = field.NewUint64(table, "linked_accounting_account_id")
+	b.MergeRecordId = field.NewString(table, "merge_record_id")
 	b.ModifiedAt = field.NewTime(table, "modified_at")
 	b.Number = field.NewString(table, "number")
 	b.RemoteId = field.NewString(table, "remote_id")
@@ -109,7 +113,6 @@ func (b *businessTransactionORM) updateTableName(table string) *businessTransact
 	b.TotalAmount = field.NewString(table, "total_amount")
 	b.TrackingCategories = field.NewField(table, "tracking_categories")
 	b.TransactionDate = field.NewTime(table, "transaction_date")
-	b.TransactionDetailsId = field.NewUint64(table, "transaction_details_id")
 	b.TransactionType = field.NewString(table, "transaction_type")
 
 	b.fillFieldMap()
@@ -127,15 +130,17 @@ func (b *businessTransactionORM) GetFieldByName(fieldName string) (field.OrderEx
 }
 
 func (b *businessTransactionORM) fillFieldMap() {
-	b.fieldMap = make(map[string]field.Expr, 18)
+	b.fieldMap = make(map[string]field.Expr, 19)
 	b.fieldMap["account"] = b.Account
 	b.fieldMap["accounting_period"] = b.AccountingPeriod
 	b.fieldMap["company"] = b.Company
 	b.fieldMap["contact"] = b.Contact
+	b.fieldMap["created_at"] = b.CreatedAt
 	b.fieldMap["currency"] = b.Currency
 	b.fieldMap["exchange_rate"] = b.ExchangeRate
 	b.fieldMap["id"] = b.Id
-	b.fieldMap["merge_account_id"] = b.MergeAccountId
+	b.fieldMap["linked_accounting_account_id"] = b.LinkedAccountingAccountId
+	b.fieldMap["merge_record_id"] = b.MergeRecordId
 	b.fieldMap["modified_at"] = b.ModifiedAt
 	b.fieldMap["number"] = b.Number
 	b.fieldMap["remote_id"] = b.RemoteId
@@ -143,7 +148,6 @@ func (b *businessTransactionORM) fillFieldMap() {
 	b.fieldMap["total_amount"] = b.TotalAmount
 	b.fieldMap["tracking_categories"] = b.TrackingCategories
 	b.fieldMap["transaction_date"] = b.TransactionDate
-	b.fieldMap["transaction_details_id"] = b.TransactionDetailsId
 	b.fieldMap["transaction_type"] = b.TransactionType
 
 }

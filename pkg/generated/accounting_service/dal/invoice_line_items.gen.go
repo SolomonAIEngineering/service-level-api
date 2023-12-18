@@ -36,7 +36,7 @@ func newInvoiceLineItemORM(db *gorm.DB, opts ...gen.DOOption) invoiceLineItemORM
 	_invoiceLineItemORM.Id = field.NewUint64(tableName, "id")
 	_invoiceLineItemORM.InvoiceId = field.NewUint64(tableName, "invoice_id")
 	_invoiceLineItemORM.Item = field.NewString(tableName, "item")
-	_invoiceLineItemORM.MergeAccountId = field.NewString(tableName, "merge_account_id")
+	_invoiceLineItemORM.MergeRecordId = field.NewString(tableName, "merge_record_id")
 	_invoiceLineItemORM.ModifiedAt = field.NewTime(tableName, "modified_at")
 	_invoiceLineItemORM.Quantity = field.NewInt32(tableName, "quantity")
 	_invoiceLineItemORM.RemoteId = field.NewString(tableName, "remote_id")
@@ -62,7 +62,7 @@ type invoiceLineItemORM struct {
 	Id                 field.Uint64
 	InvoiceId          field.Uint64
 	Item               field.String
-	MergeAccountId     field.String
+	MergeRecordId      field.String
 	ModifiedAt         field.Time
 	Quantity           field.Int32
 	RemoteId           field.String
@@ -94,7 +94,7 @@ func (i *invoiceLineItemORM) updateTableName(table string) *invoiceLineItemORM {
 	i.Id = field.NewUint64(table, "id")
 	i.InvoiceId = field.NewUint64(table, "invoice_id")
 	i.Item = field.NewString(table, "item")
-	i.MergeAccountId = field.NewString(table, "merge_account_id")
+	i.MergeRecordId = field.NewString(table, "merge_record_id")
 	i.ModifiedAt = field.NewTime(table, "modified_at")
 	i.Quantity = field.NewInt32(table, "quantity")
 	i.RemoteId = field.NewString(table, "remote_id")
@@ -127,7 +127,7 @@ func (i *invoiceLineItemORM) fillFieldMap() {
 	i.fieldMap["id"] = i.Id
 	i.fieldMap["invoice_id"] = i.InvoiceId
 	i.fieldMap["item"] = i.Item
-	i.fieldMap["merge_account_id"] = i.MergeAccountId
+	i.fieldMap["merge_record_id"] = i.MergeRecordId
 	i.fieldMap["modified_at"] = i.ModifiedAt
 	i.fieldMap["quantity"] = i.Quantity
 	i.fieldMap["remote_id"] = i.RemoteId

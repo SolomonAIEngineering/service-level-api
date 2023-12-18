@@ -34,7 +34,7 @@ func newCompanyInfoORM(db *gorm.DB, opts ...gen.DOOption) companyInfoORM {
 	_companyInfoORM.Id = field.NewUint64(tableName, "id")
 	_companyInfoORM.LegalName = field.NewString(tableName, "legal_name")
 	_companyInfoORM.LinkedAccountingAccountId = field.NewUint64(tableName, "linked_accounting_account_id")
-	_companyInfoORM.MergeAccountId = field.NewString(tableName, "merge_account_id")
+	_companyInfoORM.MergeRecordId = field.NewString(tableName, "merge_record_id")
 	_companyInfoORM.ModifiedAt = field.NewTime(tableName, "modified_at")
 	_companyInfoORM.Name = field.NewString(tableName, "name")
 	_companyInfoORM.PhoneNumbers = field.NewField(tableName, "phone_numbers")
@@ -64,7 +64,7 @@ type companyInfoORM struct {
 	Id                        field.Uint64
 	LegalName                 field.String
 	LinkedAccountingAccountId field.Uint64
-	MergeAccountId            field.String
+	MergeRecordId             field.String
 	ModifiedAt                field.Time
 	Name                      field.String
 	PhoneNumbers              field.Field
@@ -96,7 +96,7 @@ func (c *companyInfoORM) updateTableName(table string) *companyInfoORM {
 	c.Id = field.NewUint64(table, "id")
 	c.LegalName = field.NewString(table, "legal_name")
 	c.LinkedAccountingAccountId = field.NewUint64(table, "linked_accounting_account_id")
-	c.MergeAccountId = field.NewString(table, "merge_account_id")
+	c.MergeRecordId = field.NewString(table, "merge_record_id")
 	c.ModifiedAt = field.NewTime(table, "modified_at")
 	c.Name = field.NewString(table, "name")
 	c.PhoneNumbers = field.NewField(table, "phone_numbers")
@@ -128,7 +128,7 @@ func (c *companyInfoORM) fillFieldMap() {
 	c.fieldMap["id"] = c.Id
 	c.fieldMap["legal_name"] = c.LegalName
 	c.fieldMap["linked_accounting_account_id"] = c.LinkedAccountingAccountId
-	c.fieldMap["merge_account_id"] = c.MergeAccountId
+	c.fieldMap["merge_record_id"] = c.MergeRecordId
 	c.fieldMap["modified_at"] = c.ModifiedAt
 	c.fieldMap["name"] = c.Name
 	c.fieldMap["phone_numbers"] = c.PhoneNumbers

@@ -30,6 +30,7 @@ func newMergeLinkedAccountTokenORM(db *gorm.DB, opts ...gen.DOOption) mergeLinke
 	_mergeLinkedAccountTokenORM.ALL = field.NewAsterisk(tableName)
 	_mergeLinkedAccountTokenORM.AccessToken = field.NewString(tableName, "access_token")
 	_mergeLinkedAccountTokenORM.AccountingIntegrationMergeLinkId = field.NewUint64(tableName, "accounting_integration_merge_link_id")
+	_mergeLinkedAccountTokenORM.HrisIntegrationMergeLinkId = field.NewUint64(tableName, "hris_integration_merge_link_id")
 	_mergeLinkedAccountTokenORM.Id = field.NewUint64(tableName, "id")
 	_mergeLinkedAccountTokenORM.ItemId = field.NewString(tableName, "item_id")
 	_mergeLinkedAccountTokenORM.KeyId = field.NewString(tableName, "key_id")
@@ -48,6 +49,7 @@ type mergeLinkedAccountTokenORM struct {
 	ALL                              field.Asterisk
 	AccessToken                      field.String
 	AccountingIntegrationMergeLinkId field.Uint64
+	HrisIntegrationMergeLinkId       field.Uint64
 	Id                               field.Uint64
 	ItemId                           field.String
 	KeyId                            field.String
@@ -72,6 +74,7 @@ func (m *mergeLinkedAccountTokenORM) updateTableName(table string) *mergeLinkedA
 	m.ALL = field.NewAsterisk(table)
 	m.AccessToken = field.NewString(table, "access_token")
 	m.AccountingIntegrationMergeLinkId = field.NewUint64(table, "accounting_integration_merge_link_id")
+	m.HrisIntegrationMergeLinkId = field.NewUint64(table, "hris_integration_merge_link_id")
 	m.Id = field.NewUint64(table, "id")
 	m.ItemId = field.NewString(table, "item_id")
 	m.KeyId = field.NewString(table, "key_id")
@@ -94,9 +97,10 @@ func (m *mergeLinkedAccountTokenORM) GetFieldByName(fieldName string) (field.Ord
 }
 
 func (m *mergeLinkedAccountTokenORM) fillFieldMap() {
-	m.fieldMap = make(map[string]field.Expr, 8)
+	m.fieldMap = make(map[string]field.Expr, 9)
 	m.fieldMap["access_token"] = m.AccessToken
 	m.fieldMap["accounting_integration_merge_link_id"] = m.AccountingIntegrationMergeLinkId
+	m.fieldMap["hris_integration_merge_link_id"] = m.HrisIntegrationMergeLinkId
 	m.fieldMap["id"] = m.Id
 	m.fieldMap["item_id"] = m.ItemId
 	m.fieldMap["key_id"] = m.KeyId

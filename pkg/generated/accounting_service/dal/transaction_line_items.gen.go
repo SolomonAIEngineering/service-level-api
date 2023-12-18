@@ -31,6 +31,7 @@ func newTransactionLineItemORM(db *gorm.DB, opts ...gen.DOOption) transactionLin
 	_transactionLineItemORM.Account = field.NewString(tableName, "account")
 	_transactionLineItemORM.BusinessTransactionId = field.NewUint64(tableName, "business_transaction_id")
 	_transactionLineItemORM.Company = field.NewString(tableName, "company")
+	_transactionLineItemORM.CreatedAt = field.NewTime(tableName, "created_at")
 	_transactionLineItemORM.Currency = field.NewString(tableName, "currency")
 	_transactionLineItemORM.ExchangeRate = field.NewString(tableName, "exchange_rate")
 	_transactionLineItemORM.Id = field.NewUint64(tableName, "id")
@@ -39,6 +40,7 @@ func newTransactionLineItemORM(db *gorm.DB, opts ...gen.DOOption) transactionLin
 	_transactionLineItemORM.ModifiedAt = field.NewTime(tableName, "modified_at")
 	_transactionLineItemORM.Quantity = field.NewString(tableName, "quantity")
 	_transactionLineItemORM.RemoteId = field.NewString(tableName, "remote_id")
+	_transactionLineItemORM.RemoteWasDeleted = field.NewBool(tableName, "remote_was_deleted")
 	_transactionLineItemORM.TaxRate = field.NewString(tableName, "tax_rate")
 	_transactionLineItemORM.TotalLineAmount = field.NewString(tableName, "total_line_amount")
 	_transactionLineItemORM.TrackingCategories = field.NewField(tableName, "tracking_categories")
@@ -57,6 +59,7 @@ type transactionLineItemORM struct {
 	Account               field.String
 	BusinessTransactionId field.Uint64
 	Company               field.String
+	CreatedAt             field.Time
 	Currency              field.String
 	ExchangeRate          field.String
 	Id                    field.Uint64
@@ -65,6 +68,7 @@ type transactionLineItemORM struct {
 	ModifiedAt            field.Time
 	Quantity              field.String
 	RemoteId              field.String
+	RemoteWasDeleted      field.Bool
 	TaxRate               field.String
 	TotalLineAmount       field.String
 	TrackingCategories    field.Field
@@ -89,6 +93,7 @@ func (t *transactionLineItemORM) updateTableName(table string) *transactionLineI
 	t.Account = field.NewString(table, "account")
 	t.BusinessTransactionId = field.NewUint64(table, "business_transaction_id")
 	t.Company = field.NewString(table, "company")
+	t.CreatedAt = field.NewTime(table, "created_at")
 	t.Currency = field.NewString(table, "currency")
 	t.ExchangeRate = field.NewString(table, "exchange_rate")
 	t.Id = field.NewUint64(table, "id")
@@ -97,6 +102,7 @@ func (t *transactionLineItemORM) updateTableName(table string) *transactionLineI
 	t.ModifiedAt = field.NewTime(table, "modified_at")
 	t.Quantity = field.NewString(table, "quantity")
 	t.RemoteId = field.NewString(table, "remote_id")
+	t.RemoteWasDeleted = field.NewBool(table, "remote_was_deleted")
 	t.TaxRate = field.NewString(table, "tax_rate")
 	t.TotalLineAmount = field.NewString(table, "total_line_amount")
 	t.TrackingCategories = field.NewField(table, "tracking_categories")
@@ -118,10 +124,11 @@ func (t *transactionLineItemORM) GetFieldByName(fieldName string) (field.OrderEx
 }
 
 func (t *transactionLineItemORM) fillFieldMap() {
-	t.fieldMap = make(map[string]field.Expr, 16)
+	t.fieldMap = make(map[string]field.Expr, 18)
 	t.fieldMap["account"] = t.Account
 	t.fieldMap["business_transaction_id"] = t.BusinessTransactionId
 	t.fieldMap["company"] = t.Company
+	t.fieldMap["created_at"] = t.CreatedAt
 	t.fieldMap["currency"] = t.Currency
 	t.fieldMap["exchange_rate"] = t.ExchangeRate
 	t.fieldMap["id"] = t.Id
@@ -130,6 +137,7 @@ func (t *transactionLineItemORM) fillFieldMap() {
 	t.fieldMap["modified_at"] = t.ModifiedAt
 	t.fieldMap["quantity"] = t.Quantity
 	t.fieldMap["remote_id"] = t.RemoteId
+	t.fieldMap["remote_was_deleted"] = t.RemoteWasDeleted
 	t.fieldMap["tax_rate"] = t.TaxRate
 	t.fieldMap["total_line_amount"] = t.TotalLineAmount
 	t.fieldMap["tracking_categories"] = t.TrackingCategories

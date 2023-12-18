@@ -33,7 +33,8 @@ func newVendorCreditORM(db *gorm.DB, opts ...gen.DOOption) vendorCreditORM {
 	_vendorCreditORM.Currency = field.NewString(tableName, "currency")
 	_vendorCreditORM.ExchangeRate = field.NewString(tableName, "exchange_rate")
 	_vendorCreditORM.Id = field.NewUint64(tableName, "id")
-	_vendorCreditORM.MergeAccountId = field.NewString(tableName, "merge_account_id")
+	_vendorCreditORM.LinkedAccountingAccountId = field.NewUint64(tableName, "linked_accounting_account_id")
+	_vendorCreditORM.MergeRecordId = field.NewString(tableName, "merge_record_id")
 	_vendorCreditORM.ModifiedAt = field.NewTime(tableName, "modified_at")
 	_vendorCreditORM.Number = field.NewString(tableName, "number")
 	_vendorCreditORM.RemoteId = field.NewString(tableName, "remote_id")
@@ -41,7 +42,6 @@ func newVendorCreditORM(db *gorm.DB, opts ...gen.DOOption) vendorCreditORM {
 	_vendorCreditORM.TotalAmount = field.NewFloat64(tableName, "total_amount")
 	_vendorCreditORM.TrackingCategories = field.NewField(tableName, "tracking_categories")
 	_vendorCreditORM.TransactionDate = field.NewTime(tableName, "transaction_date")
-	_vendorCreditORM.TransactionDetailsId = field.NewUint64(tableName, "transaction_details_id")
 	_vendorCreditORM.Vendor = field.NewString(tableName, "vendor")
 	_vendorCreditORM.Lines = vendorCreditORMHasManyLines{
 		db: db.Session(&gorm.Session{}),
@@ -57,23 +57,23 @@ func newVendorCreditORM(db *gorm.DB, opts ...gen.DOOption) vendorCreditORM {
 type vendorCreditORM struct {
 	vendorCreditORMDo
 
-	ALL                  field.Asterisk
-	AccountingPeriod     field.String
-	Company              field.String
-	Currency             field.String
-	ExchangeRate         field.String
-	Id                   field.Uint64
-	MergeAccountId       field.String
-	ModifiedAt           field.Time
-	Number               field.String
-	RemoteId             field.String
-	RemoteWasDeleted     field.Bool
-	TotalAmount          field.Float64
-	TrackingCategories   field.Field
-	TransactionDate      field.Time
-	TransactionDetailsId field.Uint64
-	Vendor               field.String
-	Lines                vendorCreditORMHasManyLines
+	ALL                       field.Asterisk
+	AccountingPeriod          field.String
+	Company                   field.String
+	Currency                  field.String
+	ExchangeRate              field.String
+	Id                        field.Uint64
+	LinkedAccountingAccountId field.Uint64
+	MergeRecordId             field.String
+	ModifiedAt                field.Time
+	Number                    field.String
+	RemoteId                  field.String
+	RemoteWasDeleted          field.Bool
+	TotalAmount               field.Float64
+	TrackingCategories        field.Field
+	TransactionDate           field.Time
+	Vendor                    field.String
+	Lines                     vendorCreditORMHasManyLines
 
 	fieldMap map[string]field.Expr
 }
@@ -95,7 +95,8 @@ func (v *vendorCreditORM) updateTableName(table string) *vendorCreditORM {
 	v.Currency = field.NewString(table, "currency")
 	v.ExchangeRate = field.NewString(table, "exchange_rate")
 	v.Id = field.NewUint64(table, "id")
-	v.MergeAccountId = field.NewString(table, "merge_account_id")
+	v.LinkedAccountingAccountId = field.NewUint64(table, "linked_accounting_account_id")
+	v.MergeRecordId = field.NewString(table, "merge_record_id")
 	v.ModifiedAt = field.NewTime(table, "modified_at")
 	v.Number = field.NewString(table, "number")
 	v.RemoteId = field.NewString(table, "remote_id")
@@ -103,7 +104,6 @@ func (v *vendorCreditORM) updateTableName(table string) *vendorCreditORM {
 	v.TotalAmount = field.NewFloat64(table, "total_amount")
 	v.TrackingCategories = field.NewField(table, "tracking_categories")
 	v.TransactionDate = field.NewTime(table, "transaction_date")
-	v.TransactionDetailsId = field.NewUint64(table, "transaction_details_id")
 	v.Vendor = field.NewString(table, "vendor")
 
 	v.fillFieldMap()
@@ -127,7 +127,8 @@ func (v *vendorCreditORM) fillFieldMap() {
 	v.fieldMap["currency"] = v.Currency
 	v.fieldMap["exchange_rate"] = v.ExchangeRate
 	v.fieldMap["id"] = v.Id
-	v.fieldMap["merge_account_id"] = v.MergeAccountId
+	v.fieldMap["linked_accounting_account_id"] = v.LinkedAccountingAccountId
+	v.fieldMap["merge_record_id"] = v.MergeRecordId
 	v.fieldMap["modified_at"] = v.ModifiedAt
 	v.fieldMap["number"] = v.Number
 	v.fieldMap["remote_id"] = v.RemoteId
@@ -135,7 +136,6 @@ func (v *vendorCreditORM) fillFieldMap() {
 	v.fieldMap["total_amount"] = v.TotalAmount
 	v.fieldMap["tracking_categories"] = v.TrackingCategories
 	v.fieldMap["transaction_date"] = v.TransactionDate
-	v.fieldMap["transaction_details_id"] = v.TransactionDetailsId
 	v.fieldMap["vendor"] = v.Vendor
 
 }
