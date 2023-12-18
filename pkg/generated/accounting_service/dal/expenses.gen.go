@@ -35,8 +35,9 @@ func newExpenseORM(db *gorm.DB, opts ...gen.DOOption) expenseORM {
 	_expenseORM.Currency = field.NewString(tableName, "currency")
 	_expenseORM.ExchangeRate = field.NewString(tableName, "exchange_rate")
 	_expenseORM.Id = field.NewUint64(tableName, "id")
+	_expenseORM.LinkedAccountingAccountId = field.NewUint64(tableName, "linked_accounting_account_id")
 	_expenseORM.Memo = field.NewString(tableName, "memo")
-	_expenseORM.MergeAccountId = field.NewString(tableName, "merge_account_id")
+	_expenseORM.MergeRecordId = field.NewString(tableName, "merge_record_id")
 	_expenseORM.ModifiedAt = field.NewTime(tableName, "modified_at")
 	_expenseORM.RemoteCreatedAt = field.NewTime(tableName, "remote_created_at")
 	_expenseORM.RemoteId = field.NewString(tableName, "remote_id")
@@ -46,7 +47,6 @@ func newExpenseORM(db *gorm.DB, opts ...gen.DOOption) expenseORM {
 	_expenseORM.TotalTaxAmount = field.NewFloat64(tableName, "total_tax_amount")
 	_expenseORM.TrackingCategories = field.NewField(tableName, "tracking_categories")
 	_expenseORM.TransactionDate = field.NewTime(tableName, "transaction_date")
-	_expenseORM.TransactionDetailsId = field.NewUint64(tableName, "transaction_details_id")
 	_expenseORM.Lines = expenseORMHasManyLines{
 		db: db.Session(&gorm.Session{}),
 
@@ -61,27 +61,27 @@ func newExpenseORM(db *gorm.DB, opts ...gen.DOOption) expenseORM {
 type expenseORM struct {
 	expenseORMDo
 
-	ALL                  field.Asterisk
-	Account              field.String
-	AccountingPeriod     field.String
-	Company              field.String
-	Contact              field.String
-	Currency             field.String
-	ExchangeRate         field.String
-	Id                   field.Uint64
-	Memo                 field.String
-	MergeAccountId       field.String
-	ModifiedAt           field.Time
-	RemoteCreatedAt      field.Time
-	RemoteId             field.String
-	RemoteWasDeleted     field.Bool
-	SubTotal             field.Float64
-	TotalAmount          field.Float64
-	TotalTaxAmount       field.Float64
-	TrackingCategories   field.Field
-	TransactionDate      field.Time
-	TransactionDetailsId field.Uint64
-	Lines                expenseORMHasManyLines
+	ALL                       field.Asterisk
+	Account                   field.String
+	AccountingPeriod          field.String
+	Company                   field.String
+	Contact                   field.String
+	Currency                  field.String
+	ExchangeRate              field.String
+	Id                        field.Uint64
+	LinkedAccountingAccountId field.Uint64
+	Memo                      field.String
+	MergeRecordId             field.String
+	ModifiedAt                field.Time
+	RemoteCreatedAt           field.Time
+	RemoteId                  field.String
+	RemoteWasDeleted          field.Bool
+	SubTotal                  field.Float64
+	TotalAmount               field.Float64
+	TotalTaxAmount            field.Float64
+	TrackingCategories        field.Field
+	TransactionDate           field.Time
+	Lines                     expenseORMHasManyLines
 
 	fieldMap map[string]field.Expr
 }
@@ -105,8 +105,9 @@ func (e *expenseORM) updateTableName(table string) *expenseORM {
 	e.Currency = field.NewString(table, "currency")
 	e.ExchangeRate = field.NewString(table, "exchange_rate")
 	e.Id = field.NewUint64(table, "id")
+	e.LinkedAccountingAccountId = field.NewUint64(table, "linked_accounting_account_id")
 	e.Memo = field.NewString(table, "memo")
-	e.MergeAccountId = field.NewString(table, "merge_account_id")
+	e.MergeRecordId = field.NewString(table, "merge_record_id")
 	e.ModifiedAt = field.NewTime(table, "modified_at")
 	e.RemoteCreatedAt = field.NewTime(table, "remote_created_at")
 	e.RemoteId = field.NewString(table, "remote_id")
@@ -116,7 +117,6 @@ func (e *expenseORM) updateTableName(table string) *expenseORM {
 	e.TotalTaxAmount = field.NewFloat64(table, "total_tax_amount")
 	e.TrackingCategories = field.NewField(table, "tracking_categories")
 	e.TransactionDate = field.NewTime(table, "transaction_date")
-	e.TransactionDetailsId = field.NewUint64(table, "transaction_details_id")
 
 	e.fillFieldMap()
 
@@ -141,8 +141,9 @@ func (e *expenseORM) fillFieldMap() {
 	e.fieldMap["currency"] = e.Currency
 	e.fieldMap["exchange_rate"] = e.ExchangeRate
 	e.fieldMap["id"] = e.Id
+	e.fieldMap["linked_accounting_account_id"] = e.LinkedAccountingAccountId
 	e.fieldMap["memo"] = e.Memo
-	e.fieldMap["merge_account_id"] = e.MergeAccountId
+	e.fieldMap["merge_record_id"] = e.MergeRecordId
 	e.fieldMap["modified_at"] = e.ModifiedAt
 	e.fieldMap["remote_created_at"] = e.RemoteCreatedAt
 	e.fieldMap["remote_id"] = e.RemoteId
@@ -152,7 +153,6 @@ func (e *expenseORM) fillFieldMap() {
 	e.fieldMap["total_tax_amount"] = e.TotalTaxAmount
 	e.fieldMap["tracking_categories"] = e.TrackingCategories
 	e.fieldMap["transaction_date"] = e.TransactionDate
-	e.fieldMap["transaction_details_id"] = e.TransactionDetailsId
 
 }
 

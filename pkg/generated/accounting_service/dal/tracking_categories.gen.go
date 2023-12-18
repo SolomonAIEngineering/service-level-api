@@ -31,12 +31,15 @@ func newTrackingCategoryORM(db *gorm.DB, opts ...gen.DOOption) trackingCategoryO
 	_trackingCategoryORM.ALL = field.NewAsterisk(tableName)
 	_trackingCategoryORM.CategoryType = field.NewString(tableName, "category_type")
 	_trackingCategoryORM.Company = field.NewString(tableName, "company")
+	_trackingCategoryORM.CreatedAt = field.NewTime(tableName, "created_at")
 	_trackingCategoryORM.Id = field.NewUint64(tableName, "id")
-	_trackingCategoryORM.MergeAccountId = field.NewString(tableName, "merge_account_id")
+	_trackingCategoryORM.MergeRecordId = field.NewString(tableName, "merge_record_id")
 	_trackingCategoryORM.ModifiedAt = field.NewTime(tableName, "modified_at")
+	_trackingCategoryORM.Name = field.NewString(tableName, "name")
 	_trackingCategoryORM.ParentCategory = field.NewString(tableName, "parent_category")
 	_trackingCategoryORM.RemoteId = field.NewString(tableName, "remote_id")
 	_trackingCategoryORM.RemoteWasDeleted = field.NewBool(tableName, "remote_was_deleted")
+	_trackingCategoryORM.Status = field.NewString(tableName, "status")
 
 	_trackingCategoryORM.fillFieldMap()
 
@@ -49,12 +52,15 @@ type trackingCategoryORM struct {
 	ALL              field.Asterisk
 	CategoryType     field.String
 	Company          field.String
+	CreatedAt        field.Time
 	Id               field.Uint64
-	MergeAccountId   field.String
+	MergeRecordId    field.String
 	ModifiedAt       field.Time
+	Name             field.String
 	ParentCategory   field.String
 	RemoteId         field.String
 	RemoteWasDeleted field.Bool
+	Status           field.String
 
 	fieldMap map[string]field.Expr
 }
@@ -73,12 +79,15 @@ func (t *trackingCategoryORM) updateTableName(table string) *trackingCategoryORM
 	t.ALL = field.NewAsterisk(table)
 	t.CategoryType = field.NewString(table, "category_type")
 	t.Company = field.NewString(table, "company")
+	t.CreatedAt = field.NewTime(table, "created_at")
 	t.Id = field.NewUint64(table, "id")
-	t.MergeAccountId = field.NewString(table, "merge_account_id")
+	t.MergeRecordId = field.NewString(table, "merge_record_id")
 	t.ModifiedAt = field.NewTime(table, "modified_at")
+	t.Name = field.NewString(table, "name")
 	t.ParentCategory = field.NewString(table, "parent_category")
 	t.RemoteId = field.NewString(table, "remote_id")
 	t.RemoteWasDeleted = field.NewBool(table, "remote_was_deleted")
+	t.Status = field.NewString(table, "status")
 
 	t.fillFieldMap()
 
@@ -95,15 +104,18 @@ func (t *trackingCategoryORM) GetFieldByName(fieldName string) (field.OrderExpr,
 }
 
 func (t *trackingCategoryORM) fillFieldMap() {
-	t.fieldMap = make(map[string]field.Expr, 8)
+	t.fieldMap = make(map[string]field.Expr, 11)
 	t.fieldMap["category_type"] = t.CategoryType
 	t.fieldMap["company"] = t.Company
+	t.fieldMap["created_at"] = t.CreatedAt
 	t.fieldMap["id"] = t.Id
-	t.fieldMap["merge_account_id"] = t.MergeAccountId
+	t.fieldMap["merge_record_id"] = t.MergeRecordId
 	t.fieldMap["modified_at"] = t.ModifiedAt
+	t.fieldMap["name"] = t.Name
 	t.fieldMap["parent_category"] = t.ParentCategory
 	t.fieldMap["remote_id"] = t.RemoteId
 	t.fieldMap["remote_was_deleted"] = t.RemoteWasDeleted
+	t.fieldMap["status"] = t.Status
 }
 
 func (t trackingCategoryORM) clone(db *gorm.DB) trackingCategoryORM {

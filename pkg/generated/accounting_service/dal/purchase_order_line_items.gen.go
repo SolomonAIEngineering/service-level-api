@@ -30,6 +30,7 @@ func newPurchaseOrderLineItemORM(db *gorm.DB, opts ...gen.DOOption) purchaseOrde
 	_purchaseOrderLineItemORM.ALL = field.NewAsterisk(tableName)
 	_purchaseOrderLineItemORM.Account = field.NewString(tableName, "account")
 	_purchaseOrderLineItemORM.Company = field.NewString(tableName, "company")
+	_purchaseOrderLineItemORM.CreatedAt = field.NewTime(tableName, "created_at")
 	_purchaseOrderLineItemORM.Currency = field.NewString(tableName, "currency")
 	_purchaseOrderLineItemORM.Description = field.NewString(tableName, "description")
 	_purchaseOrderLineItemORM.ExchangeRate = field.NewString(tableName, "exchange_rate")
@@ -39,6 +40,7 @@ func newPurchaseOrderLineItemORM(db *gorm.DB, opts ...gen.DOOption) purchaseOrde
 	_purchaseOrderLineItemORM.PurchaseOrderId = field.NewUint64(tableName, "purchase_order_id")
 	_purchaseOrderLineItemORM.Quantity = field.NewInt32(tableName, "quantity")
 	_purchaseOrderLineItemORM.RemoteId = field.NewString(tableName, "remote_id")
+	_purchaseOrderLineItemORM.RemoteWasDeleted = field.NewBool(tableName, "remote_was_deleted")
 	_purchaseOrderLineItemORM.TaxAmount = field.NewString(tableName, "tax_amount")
 	_purchaseOrderLineItemORM.TotalLineAmount = field.NewString(tableName, "total_line_amount")
 	_purchaseOrderLineItemORM.TrackingCategories = field.NewField(tableName, "tracking_categories")
@@ -56,6 +58,7 @@ type purchaseOrderLineItemORM struct {
 	ALL                field.Asterisk
 	Account            field.String
 	Company            field.String
+	CreatedAt          field.Time
 	Currency           field.String
 	Description        field.String
 	ExchangeRate       field.String
@@ -65,6 +68,7 @@ type purchaseOrderLineItemORM struct {
 	PurchaseOrderId    field.Uint64
 	Quantity           field.Int32
 	RemoteId           field.String
+	RemoteWasDeleted   field.Bool
 	TaxAmount          field.String
 	TotalLineAmount    field.String
 	TrackingCategories field.Field
@@ -88,6 +92,7 @@ func (p *purchaseOrderLineItemORM) updateTableName(table string) *purchaseOrderL
 	p.ALL = field.NewAsterisk(table)
 	p.Account = field.NewString(table, "account")
 	p.Company = field.NewString(table, "company")
+	p.CreatedAt = field.NewTime(table, "created_at")
 	p.Currency = field.NewString(table, "currency")
 	p.Description = field.NewString(table, "description")
 	p.ExchangeRate = field.NewString(table, "exchange_rate")
@@ -97,6 +102,7 @@ func (p *purchaseOrderLineItemORM) updateTableName(table string) *purchaseOrderL
 	p.PurchaseOrderId = field.NewUint64(table, "purchase_order_id")
 	p.Quantity = field.NewInt32(table, "quantity")
 	p.RemoteId = field.NewString(table, "remote_id")
+	p.RemoteWasDeleted = field.NewBool(table, "remote_was_deleted")
 	p.TaxAmount = field.NewString(table, "tax_amount")
 	p.TotalLineAmount = field.NewString(table, "total_line_amount")
 	p.TrackingCategories = field.NewField(table, "tracking_categories")
@@ -118,9 +124,10 @@ func (p *purchaseOrderLineItemORM) GetFieldByName(fieldName string) (field.Order
 }
 
 func (p *purchaseOrderLineItemORM) fillFieldMap() {
-	p.fieldMap = make(map[string]field.Expr, 16)
+	p.fieldMap = make(map[string]field.Expr, 18)
 	p.fieldMap["account"] = p.Account
 	p.fieldMap["company"] = p.Company
+	p.fieldMap["created_at"] = p.CreatedAt
 	p.fieldMap["currency"] = p.Currency
 	p.fieldMap["description"] = p.Description
 	p.fieldMap["exchange_rate"] = p.ExchangeRate
@@ -130,6 +137,7 @@ func (p *purchaseOrderLineItemORM) fillFieldMap() {
 	p.fieldMap["purchase_order_id"] = p.PurchaseOrderId
 	p.fieldMap["quantity"] = p.Quantity
 	p.fieldMap["remote_id"] = p.RemoteId
+	p.fieldMap["remote_was_deleted"] = p.RemoteWasDeleted
 	p.fieldMap["tax_amount"] = p.TaxAmount
 	p.fieldMap["total_line_amount"] = p.TotalLineAmount
 	p.fieldMap["tracking_categories"] = p.TrackingCategories

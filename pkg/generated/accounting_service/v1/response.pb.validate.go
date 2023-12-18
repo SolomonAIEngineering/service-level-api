@@ -243,24 +243,22 @@ var _ interface {
 	ErrorName() string
 } = ReadynessCheckResponseValidationError{}
 
-// Validate checks the field values on CreateBusinessAccountingProfileResponse
-// with the rules defined in the proto definition for this message. If any
-// rules are violated, the first error encountered is returned, or nil if
-// there are no violations.
-func (m *CreateBusinessAccountingProfileResponse) Validate() error {
+// Validate checks the field values on CreateProfileResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *CreateProfileResponse) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on
-// CreateBusinessAccountingProfileResponse with the rules defined in the proto
-// definition for this message. If any rules are violated, the result is a
-// list of violation errors wrapped in
-// CreateBusinessAccountingProfileResponseMultiError, or nil if none found.
-func (m *CreateBusinessAccountingProfileResponse) ValidateAll() error {
+// ValidateAll checks the field values on CreateProfileResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CreateProfileResponseMultiError, or nil if none found.
+func (m *CreateProfileResponse) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *CreateBusinessAccountingProfileResponse) validate(all bool) error {
+func (m *CreateProfileResponse) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -270,20 +268,19 @@ func (m *CreateBusinessAccountingProfileResponse) validate(all bool) error {
 	// no validation rules for ProfileId
 
 	if len(errors) > 0 {
-		return CreateBusinessAccountingProfileResponseMultiError(errors)
+		return CreateProfileResponseMultiError(errors)
 	}
 
 	return nil
 }
 
-// CreateBusinessAccountingProfileResponseMultiError is an error wrapping
-// multiple validation errors returned by
-// CreateBusinessAccountingProfileResponse.ValidateAll() if the designated
+// CreateProfileResponseMultiError is an error wrapping multiple validation
+// errors returned by CreateProfileResponse.ValidateAll() if the designated
 // constraints aren't met.
-type CreateBusinessAccountingProfileResponseMultiError []error
+type CreateProfileResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m CreateBusinessAccountingProfileResponseMultiError) Error() string {
+func (m CreateProfileResponseMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -292,12 +289,11 @@ func (m CreateBusinessAccountingProfileResponseMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m CreateBusinessAccountingProfileResponseMultiError) AllErrors() []error { return m }
+func (m CreateProfileResponseMultiError) AllErrors() []error { return m }
 
-// CreateBusinessAccountingProfileResponseValidationError is the validation
-// error returned by CreateBusinessAccountingProfileResponse.Validate if the
-// designated constraints aren't met.
-type CreateBusinessAccountingProfileResponseValidationError struct {
+// CreateProfileResponseValidationError is the validation error returned by
+// CreateProfileResponse.Validate if the designated constraints aren't met.
+type CreateProfileResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -305,24 +301,24 @@ type CreateBusinessAccountingProfileResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e CreateBusinessAccountingProfileResponseValidationError) Field() string { return e.field }
+func (e CreateProfileResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e CreateBusinessAccountingProfileResponseValidationError) Reason() string { return e.reason }
+func (e CreateProfileResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e CreateBusinessAccountingProfileResponseValidationError) Cause() error { return e.cause }
+func (e CreateProfileResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e CreateBusinessAccountingProfileResponseValidationError) Key() bool { return e.key }
+func (e CreateProfileResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e CreateBusinessAccountingProfileResponseValidationError) ErrorName() string {
-	return "CreateBusinessAccountingProfileResponseValidationError"
+func (e CreateProfileResponseValidationError) ErrorName() string {
+	return "CreateProfileResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e CreateBusinessAccountingProfileResponseValidationError) Error() string {
+func (e CreateProfileResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -334,14 +330,14 @@ func (e CreateBusinessAccountingProfileResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sCreateBusinessAccountingProfileResponse.%s: %s%s",
+		"invalid %sCreateProfileResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = CreateBusinessAccountingProfileResponseValidationError{}
+var _ error = CreateProfileResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -349,25 +345,24 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = CreateBusinessAccountingProfileResponseValidationError{}
+} = CreateProfileResponseValidationError{}
 
-// Validate checks the field values on GetBusinessAccountingProfileResponse
-// with the rules defined in the proto definition for this message. If any
-// rules are violated, the first error encountered is returned, or nil if
-// there are no violations.
-func (m *GetBusinessAccountingProfileResponse) Validate() error {
+// Validate checks the field values on ReadProfileResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ReadProfileResponse) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on GetBusinessAccountingProfileResponse
-// with the rules defined in the proto definition for this message. If any
-// rules are violated, the result is a list of violation errors wrapped in
-// GetBusinessAccountingProfileResponseMultiError, or nil if none found.
-func (m *GetBusinessAccountingProfileResponse) ValidateAll() error {
+// ValidateAll checks the field values on ReadProfileResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ReadProfileResponseMultiError, or nil if none found.
+func (m *ReadProfileResponse) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *GetBusinessAccountingProfileResponse) validate(all bool) error {
+func (m *ReadProfileResponse) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -378,7 +373,7 @@ func (m *GetBusinessAccountingProfileResponse) validate(all bool) error {
 		switch v := interface{}(m.GetProfile()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, GetBusinessAccountingProfileResponseValidationError{
+				errors = append(errors, ReadProfileResponseValidationError{
 					field:  "Profile",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -386,7 +381,7 @@ func (m *GetBusinessAccountingProfileResponse) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, GetBusinessAccountingProfileResponseValidationError{
+				errors = append(errors, ReadProfileResponseValidationError{
 					field:  "Profile",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -395,7 +390,7 @@ func (m *GetBusinessAccountingProfileResponse) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetProfile()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return GetBusinessAccountingProfileResponseValidationError{
+			return ReadProfileResponseValidationError{
 				field:  "Profile",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -404,20 +399,19 @@ func (m *GetBusinessAccountingProfileResponse) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return GetBusinessAccountingProfileResponseMultiError(errors)
+		return ReadProfileResponseMultiError(errors)
 	}
 
 	return nil
 }
 
-// GetBusinessAccountingProfileResponseMultiError is an error wrapping multiple
-// validation errors returned by
-// GetBusinessAccountingProfileResponse.ValidateAll() if the designated
+// ReadProfileResponseMultiError is an error wrapping multiple validation
+// errors returned by ReadProfileResponse.ValidateAll() if the designated
 // constraints aren't met.
-type GetBusinessAccountingProfileResponseMultiError []error
+type ReadProfileResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m GetBusinessAccountingProfileResponseMultiError) Error() string {
+func (m ReadProfileResponseMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -426,12 +420,11 @@ func (m GetBusinessAccountingProfileResponseMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m GetBusinessAccountingProfileResponseMultiError) AllErrors() []error { return m }
+func (m ReadProfileResponseMultiError) AllErrors() []error { return m }
 
-// GetBusinessAccountingProfileResponseValidationError is the validation error
-// returned by GetBusinessAccountingProfileResponse.Validate if the designated
-// constraints aren't met.
-type GetBusinessAccountingProfileResponseValidationError struct {
+// ReadProfileResponseValidationError is the validation error returned by
+// ReadProfileResponse.Validate if the designated constraints aren't met.
+type ReadProfileResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -439,24 +432,24 @@ type GetBusinessAccountingProfileResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e GetBusinessAccountingProfileResponseValidationError) Field() string { return e.field }
+func (e ReadProfileResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e GetBusinessAccountingProfileResponseValidationError) Reason() string { return e.reason }
+func (e ReadProfileResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e GetBusinessAccountingProfileResponseValidationError) Cause() error { return e.cause }
+func (e ReadProfileResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e GetBusinessAccountingProfileResponseValidationError) Key() bool { return e.key }
+func (e ReadProfileResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e GetBusinessAccountingProfileResponseValidationError) ErrorName() string {
-	return "GetBusinessAccountingProfileResponseValidationError"
+func (e ReadProfileResponseValidationError) ErrorName() string {
+	return "ReadProfileResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e GetBusinessAccountingProfileResponseValidationError) Error() string {
+func (e ReadProfileResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -468,14 +461,14 @@ func (e GetBusinessAccountingProfileResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sGetBusinessAccountingProfileResponse.%s: %s%s",
+		"invalid %sReadProfileResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = GetBusinessAccountingProfileResponseValidationError{}
+var _ error = ReadProfileResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -483,26 +476,24 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = GetBusinessAccountingProfileResponseValidationError{}
+} = ReadProfileResponseValidationError{}
 
-// Validate checks the field values on DeleteBusinessAccountingProfileResponse
-// with the rules defined in the proto definition for this message. If any
-// rules are violated, the first error encountered is returned, or nil if
-// there are no violations.
-func (m *DeleteBusinessAccountingProfileResponse) Validate() error {
+// Validate checks the field values on DeleteProfileResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeleteProfileResponse) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on
-// DeleteBusinessAccountingProfileResponse with the rules defined in the proto
-// definition for this message. If any rules are violated, the result is a
-// list of violation errors wrapped in
-// DeleteBusinessAccountingProfileResponseMultiError, or nil if none found.
-func (m *DeleteBusinessAccountingProfileResponse) ValidateAll() error {
+// ValidateAll checks the field values on DeleteProfileResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeleteProfileResponseMultiError, or nil if none found.
+func (m *DeleteProfileResponse) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *DeleteBusinessAccountingProfileResponse) validate(all bool) error {
+func (m *DeleteProfileResponse) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -512,20 +503,19 @@ func (m *DeleteBusinessAccountingProfileResponse) validate(all bool) error {
 	// no validation rules for IsDeleted
 
 	if len(errors) > 0 {
-		return DeleteBusinessAccountingProfileResponseMultiError(errors)
+		return DeleteProfileResponseMultiError(errors)
 	}
 
 	return nil
 }
 
-// DeleteBusinessAccountingProfileResponseMultiError is an error wrapping
-// multiple validation errors returned by
-// DeleteBusinessAccountingProfileResponse.ValidateAll() if the designated
+// DeleteProfileResponseMultiError is an error wrapping multiple validation
+// errors returned by DeleteProfileResponse.ValidateAll() if the designated
 // constraints aren't met.
-type DeleteBusinessAccountingProfileResponseMultiError []error
+type DeleteProfileResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m DeleteBusinessAccountingProfileResponseMultiError) Error() string {
+func (m DeleteProfileResponseMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -534,12 +524,11 @@ func (m DeleteBusinessAccountingProfileResponseMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m DeleteBusinessAccountingProfileResponseMultiError) AllErrors() []error { return m }
+func (m DeleteProfileResponseMultiError) AllErrors() []error { return m }
 
-// DeleteBusinessAccountingProfileResponseValidationError is the validation
-// error returned by DeleteBusinessAccountingProfileResponse.Validate if the
-// designated constraints aren't met.
-type DeleteBusinessAccountingProfileResponseValidationError struct {
+// DeleteProfileResponseValidationError is the validation error returned by
+// DeleteProfileResponse.Validate if the designated constraints aren't met.
+type DeleteProfileResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -547,24 +536,24 @@ type DeleteBusinessAccountingProfileResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e DeleteBusinessAccountingProfileResponseValidationError) Field() string { return e.field }
+func (e DeleteProfileResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e DeleteBusinessAccountingProfileResponseValidationError) Reason() string { return e.reason }
+func (e DeleteProfileResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e DeleteBusinessAccountingProfileResponseValidationError) Cause() error { return e.cause }
+func (e DeleteProfileResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e DeleteBusinessAccountingProfileResponseValidationError) Key() bool { return e.key }
+func (e DeleteProfileResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e DeleteBusinessAccountingProfileResponseValidationError) ErrorName() string {
-	return "DeleteBusinessAccountingProfileResponseValidationError"
+func (e DeleteProfileResponseValidationError) ErrorName() string {
+	return "DeleteProfileResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e DeleteBusinessAccountingProfileResponseValidationError) Error() string {
+func (e DeleteProfileResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -576,14 +565,14 @@ func (e DeleteBusinessAccountingProfileResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sDeleteBusinessAccountingProfileResponse.%s: %s%s",
+		"invalid %sDeleteProfileResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = DeleteBusinessAccountingProfileResponseValidationError{}
+var _ error = DeleteProfileResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -591,26 +580,24 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = DeleteBusinessAccountingProfileResponseValidationError{}
+} = DeleteProfileResponseValidationError{}
 
-// Validate checks the field values on UpdateBusinessAccountingProfileResponse
-// with the rules defined in the proto definition for this message. If any
-// rules are violated, the first error encountered is returned, or nil if
-// there are no violations.
-func (m *UpdateBusinessAccountingProfileResponse) Validate() error {
+// Validate checks the field values on UpdateProfileResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *UpdateProfileResponse) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on
-// UpdateBusinessAccountingProfileResponse with the rules defined in the proto
-// definition for this message. If any rules are violated, the result is a
-// list of violation errors wrapped in
-// UpdateBusinessAccountingProfileResponseMultiError, or nil if none found.
-func (m *UpdateBusinessAccountingProfileResponse) ValidateAll() error {
+// ValidateAll checks the field values on UpdateProfileResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UpdateProfileResponseMultiError, or nil if none found.
+func (m *UpdateProfileResponse) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *UpdateBusinessAccountingProfileResponse) validate(all bool) error {
+func (m *UpdateProfileResponse) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -621,7 +608,7 @@ func (m *UpdateBusinessAccountingProfileResponse) validate(all bool) error {
 		switch v := interface{}(m.GetProfile()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, UpdateBusinessAccountingProfileResponseValidationError{
+				errors = append(errors, UpdateProfileResponseValidationError{
 					field:  "Profile",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -629,7 +616,7 @@ func (m *UpdateBusinessAccountingProfileResponse) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, UpdateBusinessAccountingProfileResponseValidationError{
+				errors = append(errors, UpdateProfileResponseValidationError{
 					field:  "Profile",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -638,7 +625,7 @@ func (m *UpdateBusinessAccountingProfileResponse) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetProfile()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return UpdateBusinessAccountingProfileResponseValidationError{
+			return UpdateProfileResponseValidationError{
 				field:  "Profile",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -647,20 +634,19 @@ func (m *UpdateBusinessAccountingProfileResponse) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return UpdateBusinessAccountingProfileResponseMultiError(errors)
+		return UpdateProfileResponseMultiError(errors)
 	}
 
 	return nil
 }
 
-// UpdateBusinessAccountingProfileResponseMultiError is an error wrapping
-// multiple validation errors returned by
-// UpdateBusinessAccountingProfileResponse.ValidateAll() if the designated
+// UpdateProfileResponseMultiError is an error wrapping multiple validation
+// errors returned by UpdateProfileResponse.ValidateAll() if the designated
 // constraints aren't met.
-type UpdateBusinessAccountingProfileResponseMultiError []error
+type UpdateProfileResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m UpdateBusinessAccountingProfileResponseMultiError) Error() string {
+func (m UpdateProfileResponseMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -669,12 +655,11 @@ func (m UpdateBusinessAccountingProfileResponseMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m UpdateBusinessAccountingProfileResponseMultiError) AllErrors() []error { return m }
+func (m UpdateProfileResponseMultiError) AllErrors() []error { return m }
 
-// UpdateBusinessAccountingProfileResponseValidationError is the validation
-// error returned by UpdateBusinessAccountingProfileResponse.Validate if the
-// designated constraints aren't met.
-type UpdateBusinessAccountingProfileResponseValidationError struct {
+// UpdateProfileResponseValidationError is the validation error returned by
+// UpdateProfileResponse.Validate if the designated constraints aren't met.
+type UpdateProfileResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -682,24 +667,24 @@ type UpdateBusinessAccountingProfileResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e UpdateBusinessAccountingProfileResponseValidationError) Field() string { return e.field }
+func (e UpdateProfileResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e UpdateBusinessAccountingProfileResponseValidationError) Reason() string { return e.reason }
+func (e UpdateProfileResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e UpdateBusinessAccountingProfileResponseValidationError) Cause() error { return e.cause }
+func (e UpdateProfileResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e UpdateBusinessAccountingProfileResponseValidationError) Key() bool { return e.key }
+func (e UpdateProfileResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e UpdateBusinessAccountingProfileResponseValidationError) ErrorName() string {
-	return "UpdateBusinessAccountingProfileResponseValidationError"
+func (e UpdateProfileResponseValidationError) ErrorName() string {
+	return "UpdateProfileResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e UpdateBusinessAccountingProfileResponseValidationError) Error() string {
+func (e UpdateProfileResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -711,14 +696,14 @@ func (e UpdateBusinessAccountingProfileResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sUpdateBusinessAccountingProfileResponse.%s: %s%s",
+		"invalid %sUpdateProfileResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = UpdateBusinessAccountingProfileResponseValidationError{}
+var _ error = UpdateProfileResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -726,24 +711,24 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = UpdateBusinessAccountingProfileResponseValidationError{}
+} = UpdateProfileResponseValidationError{}
 
-// Validate checks the field values on MergeGetPublicLinkTokenResponse with the
-// rules defined in the proto definition for this message. If any rules are
+// Validate checks the field values on GetMergeLinkTokenResponse with the rules
+// defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *MergeGetPublicLinkTokenResponse) Validate() error {
+func (m *GetMergeLinkTokenResponse) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on MergeGetPublicLinkTokenResponse with
-// the rules defined in the proto definition for this message. If any rules
-// are violated, the result is a list of violation errors wrapped in
-// MergeGetPublicLinkTokenResponseMultiError, or nil if none found.
-func (m *MergeGetPublicLinkTokenResponse) ValidateAll() error {
+// ValidateAll checks the field values on GetMergeLinkTokenResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetMergeLinkTokenResponseMultiError, or nil if none found.
+func (m *GetMergeLinkTokenResponse) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *MergeGetPublicLinkTokenResponse) validate(all bool) error {
+func (m *GetMergeLinkTokenResponse) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -761,19 +746,19 @@ func (m *MergeGetPublicLinkTokenResponse) validate(all bool) error {
 	// no validation rules for OrganizationName
 
 	if len(errors) > 0 {
-		return MergeGetPublicLinkTokenResponseMultiError(errors)
+		return GetMergeLinkTokenResponseMultiError(errors)
 	}
 
 	return nil
 }
 
-// MergeGetPublicLinkTokenResponseMultiError is an error wrapping multiple
-// validation errors returned by MergeGetPublicLinkTokenResponse.ValidateAll()
-// if the designated constraints aren't met.
-type MergeGetPublicLinkTokenResponseMultiError []error
+// GetMergeLinkTokenResponseMultiError is an error wrapping multiple validation
+// errors returned by GetMergeLinkTokenResponse.ValidateAll() if the
+// designated constraints aren't met.
+type GetMergeLinkTokenResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m MergeGetPublicLinkTokenResponseMultiError) Error() string {
+func (m GetMergeLinkTokenResponseMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -782,12 +767,11 @@ func (m MergeGetPublicLinkTokenResponseMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m MergeGetPublicLinkTokenResponseMultiError) AllErrors() []error { return m }
+func (m GetMergeLinkTokenResponseMultiError) AllErrors() []error { return m }
 
-// MergeGetPublicLinkTokenResponseValidationError is the validation error
-// returned by MergeGetPublicLinkTokenResponse.Validate if the designated
-// constraints aren't met.
-type MergeGetPublicLinkTokenResponseValidationError struct {
+// GetMergeLinkTokenResponseValidationError is the validation error returned by
+// GetMergeLinkTokenResponse.Validate if the designated constraints aren't met.
+type GetMergeLinkTokenResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -795,24 +779,24 @@ type MergeGetPublicLinkTokenResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e MergeGetPublicLinkTokenResponseValidationError) Field() string { return e.field }
+func (e GetMergeLinkTokenResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e MergeGetPublicLinkTokenResponseValidationError) Reason() string { return e.reason }
+func (e GetMergeLinkTokenResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e MergeGetPublicLinkTokenResponseValidationError) Cause() error { return e.cause }
+func (e GetMergeLinkTokenResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e MergeGetPublicLinkTokenResponseValidationError) Key() bool { return e.key }
+func (e GetMergeLinkTokenResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e MergeGetPublicLinkTokenResponseValidationError) ErrorName() string {
-	return "MergeGetPublicLinkTokenResponseValidationError"
+func (e GetMergeLinkTokenResponseValidationError) ErrorName() string {
+	return "GetMergeLinkTokenResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e MergeGetPublicLinkTokenResponseValidationError) Error() string {
+func (e GetMergeLinkTokenResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -824,14 +808,14 @@ func (e MergeGetPublicLinkTokenResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sMergeGetPublicLinkTokenResponse.%s: %s%s",
+		"invalid %sGetMergeLinkTokenResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = MergeGetPublicLinkTokenResponseValidationError{}
+var _ error = GetMergeLinkTokenResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -839,27 +823,26 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = MergeGetPublicLinkTokenResponseValidationError{}
+} = GetMergeLinkTokenResponseValidationError{}
 
 // Validate checks the field values on
-// MergeExchangePublicLinkTokenForAccountTokenResponse with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// first error encountered is returned, or nil if there are no violations.
-func (m *MergeExchangePublicLinkTokenForAccountTokenResponse) Validate() error {
+// ExchangePublicLinkTokenForAccountTokenResponse with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *ExchangePublicLinkTokenForAccountTokenResponse) Validate() error {
 	return m.validate(false)
 }
 
 // ValidateAll checks the field values on
-// MergeExchangePublicLinkTokenForAccountTokenResponse with the rules defined
-// in the proto definition for this message. If any rules are violated, the
+// ExchangePublicLinkTokenForAccountTokenResponse with the rules defined in
+// the proto definition for this message. If any rules are violated, the
 // result is a list of violation errors wrapped in
-// MergeExchangePublicLinkTokenForAccountTokenResponseMultiError, or nil if
-// none found.
-func (m *MergeExchangePublicLinkTokenForAccountTokenResponse) ValidateAll() error {
+// ExchangePublicLinkTokenForAccountTokenResponseMultiError, or nil if none found.
+func (m *ExchangePublicLinkTokenForAccountTokenResponse) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *MergeExchangePublicLinkTokenForAccountTokenResponse) validate(all bool) error {
+func (m *ExchangePublicLinkTokenForAccountTokenResponse) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -869,20 +852,20 @@ func (m *MergeExchangePublicLinkTokenForAccountTokenResponse) validate(all bool)
 	// no validation rules for Success
 
 	if len(errors) > 0 {
-		return MergeExchangePublicLinkTokenForAccountTokenResponseMultiError(errors)
+		return ExchangePublicLinkTokenForAccountTokenResponseMultiError(errors)
 	}
 
 	return nil
 }
 
-// MergeExchangePublicLinkTokenForAccountTokenResponseMultiError is an error
+// ExchangePublicLinkTokenForAccountTokenResponseMultiError is an error
 // wrapping multiple validation errors returned by
-// MergeExchangePublicLinkTokenForAccountTokenResponse.ValidateAll() if the
+// ExchangePublicLinkTokenForAccountTokenResponse.ValidateAll() if the
 // designated constraints aren't met.
-type MergeExchangePublicLinkTokenForAccountTokenResponseMultiError []error
+type ExchangePublicLinkTokenForAccountTokenResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m MergeExchangePublicLinkTokenForAccountTokenResponseMultiError) Error() string {
+func (m ExchangePublicLinkTokenForAccountTokenResponseMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -891,13 +874,13 @@ func (m MergeExchangePublicLinkTokenForAccountTokenResponseMultiError) Error() s
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m MergeExchangePublicLinkTokenForAccountTokenResponseMultiError) AllErrors() []error { return m }
+func (m ExchangePublicLinkTokenForAccountTokenResponseMultiError) AllErrors() []error { return m }
 
-// MergeExchangePublicLinkTokenForAccountTokenResponseValidationError is the
+// ExchangePublicLinkTokenForAccountTokenResponseValidationError is the
 // validation error returned by
-// MergeExchangePublicLinkTokenForAccountTokenResponse.Validate if the
-// designated constraints aren't met.
-type MergeExchangePublicLinkTokenForAccountTokenResponseValidationError struct {
+// ExchangePublicLinkTokenForAccountTokenResponse.Validate if the designated
+// constraints aren't met.
+type ExchangePublicLinkTokenForAccountTokenResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -905,30 +888,26 @@ type MergeExchangePublicLinkTokenForAccountTokenResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e MergeExchangePublicLinkTokenForAccountTokenResponseValidationError) Field() string {
-	return e.field
-}
+func (e ExchangePublicLinkTokenForAccountTokenResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e MergeExchangePublicLinkTokenForAccountTokenResponseValidationError) Reason() string {
+func (e ExchangePublicLinkTokenForAccountTokenResponseValidationError) Reason() string {
 	return e.reason
 }
 
 // Cause function returns cause value.
-func (e MergeExchangePublicLinkTokenForAccountTokenResponseValidationError) Cause() error {
-	return e.cause
-}
+func (e ExchangePublicLinkTokenForAccountTokenResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e MergeExchangePublicLinkTokenForAccountTokenResponseValidationError) Key() bool { return e.key }
+func (e ExchangePublicLinkTokenForAccountTokenResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e MergeExchangePublicLinkTokenForAccountTokenResponseValidationError) ErrorName() string {
-	return "MergeExchangePublicLinkTokenForAccountTokenResponseValidationError"
+func (e ExchangePublicLinkTokenForAccountTokenResponseValidationError) ErrorName() string {
+	return "ExchangePublicLinkTokenForAccountTokenResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e MergeExchangePublicLinkTokenForAccountTokenResponseValidationError) Error() string {
+func (e ExchangePublicLinkTokenForAccountTokenResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -940,14 +919,14 @@ func (e MergeExchangePublicLinkTokenForAccountTokenResponseValidationError) Erro
 	}
 
 	return fmt.Sprintf(
-		"invalid %sMergeExchangePublicLinkTokenForAccountTokenResponse.%s: %s%s",
+		"invalid %sExchangePublicLinkTokenForAccountTokenResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = MergeExchangePublicLinkTokenForAccountTokenResponseValidationError{}
+var _ error = ExchangePublicLinkTokenForAccountTokenResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -955,4 +934,559 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = MergeExchangePublicLinkTokenForAccountTokenResponseValidationError{}
+} = ExchangePublicLinkTokenForAccountTokenResponseValidationError{}
+
+// Validate checks the field values on ReadBalanceSheetsResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ReadBalanceSheetsResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ReadBalanceSheetsResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ReadBalanceSheetsResponseMultiError, or nil if none found.
+func (m *ReadBalanceSheetsResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ReadBalanceSheetsResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetBalanceSheets() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ReadBalanceSheetsResponseValidationError{
+						field:  fmt.Sprintf("BalanceSheets[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ReadBalanceSheetsResponseValidationError{
+						field:  fmt.Sprintf("BalanceSheets[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ReadBalanceSheetsResponseValidationError{
+					field:  fmt.Sprintf("BalanceSheets[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for NextPage
+
+	if len(errors) > 0 {
+		return ReadBalanceSheetsResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ReadBalanceSheetsResponseMultiError is an error wrapping multiple validation
+// errors returned by ReadBalanceSheetsResponse.ValidateAll() if the
+// designated constraints aren't met.
+type ReadBalanceSheetsResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ReadBalanceSheetsResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ReadBalanceSheetsResponseMultiError) AllErrors() []error { return m }
+
+// ReadBalanceSheetsResponseValidationError is the validation error returned by
+// ReadBalanceSheetsResponse.Validate if the designated constraints aren't met.
+type ReadBalanceSheetsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ReadBalanceSheetsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ReadBalanceSheetsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ReadBalanceSheetsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ReadBalanceSheetsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ReadBalanceSheetsResponseValidationError) ErrorName() string {
+	return "ReadBalanceSheetsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ReadBalanceSheetsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sReadBalanceSheetsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ReadBalanceSheetsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ReadBalanceSheetsResponseValidationError{}
+
+// Validate checks the field values on ReadCashFlowStatementsResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ReadCashFlowStatementsResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ReadCashFlowStatementsResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// ReadCashFlowStatementsResponseMultiError, or nil if none found.
+func (m *ReadCashFlowStatementsResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ReadCashFlowStatementsResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetCashFlowStatements() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ReadCashFlowStatementsResponseValidationError{
+						field:  fmt.Sprintf("CashFlowStatements[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ReadCashFlowStatementsResponseValidationError{
+						field:  fmt.Sprintf("CashFlowStatements[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ReadCashFlowStatementsResponseValidationError{
+					field:  fmt.Sprintf("CashFlowStatements[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for NextPage
+
+	if len(errors) > 0 {
+		return ReadCashFlowStatementsResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ReadCashFlowStatementsResponseMultiError is an error wrapping multiple
+// validation errors returned by ReadCashFlowStatementsResponse.ValidateAll()
+// if the designated constraints aren't met.
+type ReadCashFlowStatementsResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ReadCashFlowStatementsResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ReadCashFlowStatementsResponseMultiError) AllErrors() []error { return m }
+
+// ReadCashFlowStatementsResponseValidationError is the validation error
+// returned by ReadCashFlowStatementsResponse.Validate if the designated
+// constraints aren't met.
+type ReadCashFlowStatementsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ReadCashFlowStatementsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ReadCashFlowStatementsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ReadCashFlowStatementsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ReadCashFlowStatementsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ReadCashFlowStatementsResponseValidationError) ErrorName() string {
+	return "ReadCashFlowStatementsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ReadCashFlowStatementsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sReadCashFlowStatementsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ReadCashFlowStatementsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ReadCashFlowStatementsResponseValidationError{}
+
+// Validate checks the field values on ReadIncomeStatementsResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ReadIncomeStatementsResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ReadIncomeStatementsResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ReadIncomeStatementsResponseMultiError, or nil if none found.
+func (m *ReadIncomeStatementsResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ReadIncomeStatementsResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetIncomeStatements() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ReadIncomeStatementsResponseValidationError{
+						field:  fmt.Sprintf("IncomeStatements[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ReadIncomeStatementsResponseValidationError{
+						field:  fmt.Sprintf("IncomeStatements[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ReadIncomeStatementsResponseValidationError{
+					field:  fmt.Sprintf("IncomeStatements[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for NextPage
+
+	if len(errors) > 0 {
+		return ReadIncomeStatementsResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ReadIncomeStatementsResponseMultiError is an error wrapping multiple
+// validation errors returned by ReadIncomeStatementsResponse.ValidateAll() if
+// the designated constraints aren't met.
+type ReadIncomeStatementsResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ReadIncomeStatementsResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ReadIncomeStatementsResponseMultiError) AllErrors() []error { return m }
+
+// ReadIncomeStatementsResponseValidationError is the validation error returned
+// by ReadIncomeStatementsResponse.Validate if the designated constraints
+// aren't met.
+type ReadIncomeStatementsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ReadIncomeStatementsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ReadIncomeStatementsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ReadIncomeStatementsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ReadIncomeStatementsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ReadIncomeStatementsResponseValidationError) ErrorName() string {
+	return "ReadIncomeStatementsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ReadIncomeStatementsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sReadIncomeStatementsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ReadIncomeStatementsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ReadIncomeStatementsResponseValidationError{}
+
+// Validate checks the field values on ReadBusinessChartOfAccountsResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *ReadBusinessChartOfAccountsResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ReadBusinessChartOfAccountsResponse
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// ReadBusinessChartOfAccountsResponseMultiError, or nil if none found.
+func (m *ReadBusinessChartOfAccountsResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ReadBusinessChartOfAccountsResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetChartOfAccounts() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ReadBusinessChartOfAccountsResponseValidationError{
+						field:  fmt.Sprintf("ChartOfAccounts[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ReadBusinessChartOfAccountsResponseValidationError{
+						field:  fmt.Sprintf("ChartOfAccounts[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ReadBusinessChartOfAccountsResponseValidationError{
+					field:  fmt.Sprintf("ChartOfAccounts[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ReadBusinessChartOfAccountsResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ReadBusinessChartOfAccountsResponseMultiError is an error wrapping multiple
+// validation errors returned by
+// ReadBusinessChartOfAccountsResponse.ValidateAll() if the designated
+// constraints aren't met.
+type ReadBusinessChartOfAccountsResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ReadBusinessChartOfAccountsResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ReadBusinessChartOfAccountsResponseMultiError) AllErrors() []error { return m }
+
+// ReadBusinessChartOfAccountsResponseValidationError is the validation error
+// returned by ReadBusinessChartOfAccountsResponse.Validate if the designated
+// constraints aren't met.
+type ReadBusinessChartOfAccountsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ReadBusinessChartOfAccountsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ReadBusinessChartOfAccountsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ReadBusinessChartOfAccountsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ReadBusinessChartOfAccountsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ReadBusinessChartOfAccountsResponseValidationError) ErrorName() string {
+	return "ReadBusinessChartOfAccountsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ReadBusinessChartOfAccountsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sReadBusinessChartOfAccountsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ReadBusinessChartOfAccountsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ReadBusinessChartOfAccountsResponseValidationError{}

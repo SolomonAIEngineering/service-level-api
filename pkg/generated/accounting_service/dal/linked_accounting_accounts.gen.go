@@ -30,226 +30,58 @@ func newLinkedAccountingAccountORM(db *gorm.DB, opts ...gen.DOOption) linkedAcco
 	_linkedAccountingAccountORM.ALL = field.NewAsterisk(tableName)
 	_linkedAccountingAccountORM.AccountingIntegrationMergeLinkId = field.NewUint64(tableName, "accounting_integration_merge_link_id")
 	_linkedAccountingAccountORM.Id = field.NewUint64(tableName, "id")
-	_linkedAccountingAccountORM.ReferenceDetails = linkedAccountingAccountORMHasOneReferenceDetails{
-		db: db.Session(&gorm.Session{}),
-
-		RelationField: field.NewRelation("ReferenceDetails", "accounting_servicev1.ReferenceDetailsORM"),
-		ChartOfAccounts: struct {
-			field.RelationField
-		}{
-			RelationField: field.NewRelation("ReferenceDetails.ChartOfAccounts", "accounting_servicev1.BusinessChartOfAccountsORM"),
-		},
-		Contacts: struct {
-			field.RelationField
-		}{
-			RelationField: field.NewRelation("ReferenceDetails.Contacts", "accounting_servicev1.ContactsORM"),
-		},
-		Items: struct {
-			field.RelationField
-		}{
-			RelationField: field.NewRelation("ReferenceDetails.Items", "accounting_servicev1.ItemORM"),
-		},
-		TaxRates: struct {
-			field.RelationField
-		}{
-			RelationField: field.NewRelation("ReferenceDetails.TaxRates", "accounting_servicev1.TaxRateORM"),
-		},
-	}
-
-	_linkedAccountingAccountORM.ReportDetails = linkedAccountingAccountORMHasOneReportDetails{
-		db: db.Session(&gorm.Session{}),
-
-		RelationField: field.NewRelation("ReportDetails", "accounting_servicev1.ReportDetailsORM"),
-		BalanceSheets: struct {
-			field.RelationField
-			Assets struct {
-				field.RelationField
-			}
-			Equity struct {
-				field.RelationField
-			}
-			Liabilities struct {
-				field.RelationField
-			}
-		}{
-			RelationField: field.NewRelation("ReportDetails.BalanceSheets", "accounting_servicev1.BalanceSheetORM"),
-			Assets: struct {
-				field.RelationField
-			}{
-				RelationField: field.NewRelation("ReportDetails.BalanceSheets.Assets", "accounting_servicev1.ReportItemORM"),
-			},
-			Equity: struct {
-				field.RelationField
-			}{
-				RelationField: field.NewRelation("ReportDetails.BalanceSheets.Equity", "accounting_servicev1.ReportItemORM"),
-			},
-			Liabilities: struct {
-				field.RelationField
-			}{
-				RelationField: field.NewRelation("ReportDetails.BalanceSheets.Liabilities", "accounting_servicev1.ReportItemORM"),
-			},
-		},
-		CashFlowStatements: struct {
-			field.RelationField
-			FinancingActivities struct {
-				field.RelationField
-			}
-			InvestingActivities struct {
-				field.RelationField
-			}
-			OperatingActivities struct {
-				field.RelationField
-			}
-		}{
-			RelationField: field.NewRelation("ReportDetails.CashFlowStatements", "accounting_servicev1.CashFlowStatementsORM"),
-			FinancingActivities: struct {
-				field.RelationField
-			}{
-				RelationField: field.NewRelation("ReportDetails.CashFlowStatements.FinancingActivities", "accounting_servicev1.ReportItemORM"),
-			},
-			InvestingActivities: struct {
-				field.RelationField
-			}{
-				RelationField: field.NewRelation("ReportDetails.CashFlowStatements.InvestingActivities", "accounting_servicev1.ReportItemORM"),
-			},
-			OperatingActivities: struct {
-				field.RelationField
-			}{
-				RelationField: field.NewRelation("ReportDetails.CashFlowStatements.OperatingActivities", "accounting_servicev1.ReportItemORM"),
-			},
-		},
-		IncomeStatements: struct {
-			field.RelationField
-			CostOfSales struct {
-				field.RelationField
-			}
-			Income struct {
-				field.RelationField
-			}
-			NonOperatingExpenses struct {
-				field.RelationField
-			}
-			OperatingExpenses struct {
-				field.RelationField
-			}
-		}{
-			RelationField: field.NewRelation("ReportDetails.IncomeStatements", "accounting_servicev1.IncomeStatementORM"),
-			CostOfSales: struct {
-				field.RelationField
-			}{
-				RelationField: field.NewRelation("ReportDetails.IncomeStatements.CostOfSales", "accounting_servicev1.ReportItemORM"),
-			},
-			Income: struct {
-				field.RelationField
-			}{
-				RelationField: field.NewRelation("ReportDetails.IncomeStatements.Income", "accounting_servicev1.ReportItemORM"),
-			},
-			NonOperatingExpenses: struct {
-				field.RelationField
-			}{
-				RelationField: field.NewRelation("ReportDetails.IncomeStatements.NonOperatingExpenses", "accounting_servicev1.ReportItemORM"),
-			},
-			OperatingExpenses: struct {
-				field.RelationField
-			}{
-				RelationField: field.NewRelation("ReportDetails.IncomeStatements.OperatingExpenses", "accounting_servicev1.ReportItemORM"),
-			},
-		},
-	}
-
-	_linkedAccountingAccountORM.TransactionsDetails = linkedAccountingAccountORMHasOneTransactionsDetails{
-		db: db.Session(&gorm.Session{}),
-
-		RelationField: field.NewRelation("TransactionsDetails", "accounting_servicev1.TransactionDetailsORM"),
-		CreditNotes: struct {
-			field.RelationField
-			LineItems struct {
-				field.RelationField
-			}
-		}{
-			RelationField: field.NewRelation("TransactionsDetails.CreditNotes", "accounting_servicev1.CreditNoteORM"),
-			LineItems: struct {
-				field.RelationField
-			}{
-				RelationField: field.NewRelation("TransactionsDetails.CreditNotes.LineItems", "accounting_servicev1.CreditNoteLineItemORM"),
-			},
-		},
-		Expenses: struct {
-			field.RelationField
-			Lines struct {
-				field.RelationField
-			}
-		}{
-			RelationField: field.NewRelation("TransactionsDetails.Expenses", "accounting_servicev1.ExpenseORM"),
-			Lines: struct {
-				field.RelationField
-			}{
-				RelationField: field.NewRelation("TransactionsDetails.Expenses.Lines", "accounting_servicev1.ExpenseLineORM"),
-			},
-		},
-		Invoices: struct {
-			field.RelationField
-			LineItems struct {
-				field.RelationField
-			}
-		}{
-			RelationField: field.NewRelation("TransactionsDetails.Invoices", "accounting_servicev1.InvoiceORM"),
-			LineItems: struct {
-				field.RelationField
-			}{
-				RelationField: field.NewRelation("TransactionsDetails.Invoices.LineItems", "accounting_servicev1.InvoiceLineItemORM"),
-			},
-		},
-		JournalEntries: struct {
-			field.RelationField
-			Lines struct {
-				field.RelationField
-			}
-		}{
-			RelationField: field.NewRelation("TransactionsDetails.JournalEntries", "accounting_servicev1.JournalEntryORM"),
-			Lines: struct {
-				field.RelationField
-			}{
-				RelationField: field.NewRelation("TransactionsDetails.JournalEntries.Lines", "accounting_servicev1.JournalLineORM"),
-			},
-		},
-		Payments: struct {
-			field.RelationField
-		}{
-			RelationField: field.NewRelation("TransactionsDetails.Payments", "accounting_servicev1.PaymentORM"),
-		},
-		Transactions: struct {
-			field.RelationField
-			LineItems struct {
-				field.RelationField
-			}
-		}{
-			RelationField: field.NewRelation("TransactionsDetails.Transactions", "accounting_servicev1.BusinessTransactionORM"),
-			LineItems: struct {
-				field.RelationField
-			}{
-				RelationField: field.NewRelation("TransactionsDetails.Transactions.LineItems", "accounting_servicev1.TransactionLineItemORM"),
-			},
-		},
-		VendorCredits: struct {
-			field.RelationField
-			Lines struct {
-				field.RelationField
-			}
-		}{
-			RelationField: field.NewRelation("TransactionsDetails.VendorCredits", "accounting_servicev1.VendorCreditORM"),
-			Lines: struct {
-				field.RelationField
-			}{
-				RelationField: field.NewRelation("TransactionsDetails.VendorCredits.Lines", "accounting_servicev1.VendorCreditLineORM"),
-			},
-		},
-	}
-
 	_linkedAccountingAccountORM.Attachments = linkedAccountingAccountORMHasManyAttachments{
 		db: db.Session(&gorm.Session{}),
 
-		RelationField: field.NewRelation("Attachments", "accounting_servicev1.AttachmentsORM"),
+		RelationField: field.NewRelation("Attachments", "accounting_servicev1.AccountingAttachmentORM"),
+	}
+
+	_linkedAccountingAccountORM.BalanceSheets = linkedAccountingAccountORMHasManyBalanceSheets{
+		db: db.Session(&gorm.Session{}),
+
+		RelationField: field.NewRelation("BalanceSheets", "accounting_servicev1.BalanceSheetORM"),
+		Assets: struct {
+			field.RelationField
+		}{
+			RelationField: field.NewRelation("BalanceSheets.Assets", "accounting_servicev1.ReportItemORM"),
+		},
+		Equity: struct {
+			field.RelationField
+		}{
+			RelationField: field.NewRelation("BalanceSheets.Equity", "accounting_servicev1.ReportItemORM"),
+		},
+		Liabilities: struct {
+			field.RelationField
+		}{
+			RelationField: field.NewRelation("BalanceSheets.Liabilities", "accounting_servicev1.ReportItemORM"),
+		},
+	}
+
+	_linkedAccountingAccountORM.CashFlowStatements = linkedAccountingAccountORMHasManyCashFlowStatements{
+		db: db.Session(&gorm.Session{}),
+
+		RelationField: field.NewRelation("CashFlowStatements", "accounting_servicev1.CashFlowStatementORM"),
+		FinancingActivities: struct {
+			field.RelationField
+		}{
+			RelationField: field.NewRelation("CashFlowStatements.FinancingActivities", "accounting_servicev1.ReportItemORM"),
+		},
+		InvestingActivities: struct {
+			field.RelationField
+		}{
+			RelationField: field.NewRelation("CashFlowStatements.InvestingActivities", "accounting_servicev1.ReportItemORM"),
+		},
+		OperatingActivities: struct {
+			field.RelationField
+		}{
+			RelationField: field.NewRelation("CashFlowStatements.OperatingActivities", "accounting_servicev1.ReportItemORM"),
+		},
+	}
+
+	_linkedAccountingAccountORM.ChartOfAccounts = linkedAccountingAccountORMHasManyChartOfAccounts{
+		db: db.Session(&gorm.Session{}),
+
+		RelationField: field.NewRelation("ChartOfAccounts", "accounting_servicev1.BusinessChartOfAccountORM"),
 	}
 
 	_linkedAccountingAccountORM.CompanyInfo = linkedAccountingAccountORMHasManyCompanyInfo{
@@ -261,6 +93,94 @@ func newLinkedAccountingAccountORM(db *gorm.DB, opts ...gen.DOOption) linkedAcco
 		}{
 			RelationField: field.NewRelation("CompanyInfo.Addresses", "accounting_servicev1.CompanyAddressORM"),
 		},
+	}
+
+	_linkedAccountingAccountORM.Contacts = linkedAccountingAccountORMHasManyContacts{
+		db: db.Session(&gorm.Session{}),
+
+		RelationField: field.NewRelation("Contacts", "accounting_servicev1.ContactsORM"),
+	}
+
+	_linkedAccountingAccountORM.CreditNotes = linkedAccountingAccountORMHasManyCreditNotes{
+		db: db.Session(&gorm.Session{}),
+
+		RelationField: field.NewRelation("CreditNotes", "accounting_servicev1.CreditNoteORM"),
+		LineItems: struct {
+			field.RelationField
+		}{
+			RelationField: field.NewRelation("CreditNotes.LineItems", "accounting_servicev1.CreditNoteLineItemORM"),
+		},
+	}
+
+	_linkedAccountingAccountORM.Expenses = linkedAccountingAccountORMHasManyExpenses{
+		db: db.Session(&gorm.Session{}),
+
+		RelationField: field.NewRelation("Expenses", "accounting_servicev1.ExpenseORM"),
+		Lines: struct {
+			field.RelationField
+		}{
+			RelationField: field.NewRelation("Expenses.Lines", "accounting_servicev1.ExpenseLineORM"),
+		},
+	}
+
+	_linkedAccountingAccountORM.IncomeStatements = linkedAccountingAccountORMHasManyIncomeStatements{
+		db: db.Session(&gorm.Session{}),
+
+		RelationField: field.NewRelation("IncomeStatements", "accounting_servicev1.IncomeStatementORM"),
+		CostOfSales: struct {
+			field.RelationField
+		}{
+			RelationField: field.NewRelation("IncomeStatements.CostOfSales", "accounting_servicev1.ReportItemORM"),
+		},
+		Income: struct {
+			field.RelationField
+		}{
+			RelationField: field.NewRelation("IncomeStatements.Income", "accounting_servicev1.ReportItemORM"),
+		},
+		NonOperatingExpenses: struct {
+			field.RelationField
+		}{
+			RelationField: field.NewRelation("IncomeStatements.NonOperatingExpenses", "accounting_servicev1.ReportItemORM"),
+		},
+		OperatingExpenses: struct {
+			field.RelationField
+		}{
+			RelationField: field.NewRelation("IncomeStatements.OperatingExpenses", "accounting_servicev1.ReportItemORM"),
+		},
+	}
+
+	_linkedAccountingAccountORM.Invoices = linkedAccountingAccountORMHasManyInvoices{
+		db: db.Session(&gorm.Session{}),
+
+		RelationField: field.NewRelation("Invoices", "accounting_servicev1.InvoiceORM"),
+		LineItems: struct {
+			field.RelationField
+		}{
+			RelationField: field.NewRelation("Invoices.LineItems", "accounting_servicev1.InvoiceLineItemORM"),
+		},
+	}
+
+	_linkedAccountingAccountORM.Items = linkedAccountingAccountORMHasManyItems{
+		db: db.Session(&gorm.Session{}),
+
+		RelationField: field.NewRelation("Items", "accounting_servicev1.ItemORM"),
+	}
+
+	_linkedAccountingAccountORM.JournalEntries = linkedAccountingAccountORMHasManyJournalEntries{
+		db: db.Session(&gorm.Session{}),
+
+		RelationField: field.NewRelation("JournalEntries", "accounting_servicev1.JournalEntryORM"),
+		Lines: struct {
+			field.RelationField
+		}{
+			RelationField: field.NewRelation("JournalEntries.Lines", "accounting_servicev1.JournalLineORM"),
+		},
+	}
+
+	_linkedAccountingAccountORM.Payments = linkedAccountingAccountORMHasManyPayments{
+		db: db.Session(&gorm.Session{}),
+
+		RelationField: field.NewRelation("Payments", "accounting_servicev1.PaymentORM"),
 	}
 
 	_linkedAccountingAccountORM.PurchaseOrders = linkedAccountingAccountORMHasManyPurchaseOrders{
@@ -279,6 +199,34 @@ func newLinkedAccountingAccountORM(db *gorm.DB, opts ...gen.DOOption) linkedAcco
 		},
 	}
 
+	_linkedAccountingAccountORM.TaxRates = linkedAccountingAccountORMHasManyTaxRates{
+		db: db.Session(&gorm.Session{}),
+
+		RelationField: field.NewRelation("TaxRates", "accounting_servicev1.TaxRateORM"),
+	}
+
+	_linkedAccountingAccountORM.Transactions = linkedAccountingAccountORMHasManyTransactions{
+		db: db.Session(&gorm.Session{}),
+
+		RelationField: field.NewRelation("Transactions", "accounting_servicev1.BusinessTransactionORM"),
+		LineItems: struct {
+			field.RelationField
+		}{
+			RelationField: field.NewRelation("Transactions.LineItems", "accounting_servicev1.TransactionLineItemORM"),
+		},
+	}
+
+	_linkedAccountingAccountORM.VendorCredits = linkedAccountingAccountORMHasManyVendorCredits{
+		db: db.Session(&gorm.Session{}),
+
+		RelationField: field.NewRelation("VendorCredits", "accounting_servicev1.VendorCreditORM"),
+		Lines: struct {
+			field.RelationField
+		}{
+			RelationField: field.NewRelation("VendorCredits.Lines", "accounting_servicev1.VendorCreditLineORM"),
+		},
+	}
+
 	_linkedAccountingAccountORM.fillFieldMap()
 
 	return _linkedAccountingAccountORM
@@ -290,17 +238,39 @@ type linkedAccountingAccountORM struct {
 	ALL                              field.Asterisk
 	AccountingIntegrationMergeLinkId field.Uint64
 	Id                               field.Uint64
-	ReferenceDetails                 linkedAccountingAccountORMHasOneReferenceDetails
+	Attachments                      linkedAccountingAccountORMHasManyAttachments
 
-	ReportDetails linkedAccountingAccountORMHasOneReportDetails
+	BalanceSheets linkedAccountingAccountORMHasManyBalanceSheets
 
-	TransactionsDetails linkedAccountingAccountORMHasOneTransactionsDetails
+	CashFlowStatements linkedAccountingAccountORMHasManyCashFlowStatements
 
-	Attachments linkedAccountingAccountORMHasManyAttachments
+	ChartOfAccounts linkedAccountingAccountORMHasManyChartOfAccounts
 
 	CompanyInfo linkedAccountingAccountORMHasManyCompanyInfo
 
+	Contacts linkedAccountingAccountORMHasManyContacts
+
+	CreditNotes linkedAccountingAccountORMHasManyCreditNotes
+
+	Expenses linkedAccountingAccountORMHasManyExpenses
+
+	IncomeStatements linkedAccountingAccountORMHasManyIncomeStatements
+
+	Invoices linkedAccountingAccountORMHasManyInvoices
+
+	Items linkedAccountingAccountORMHasManyItems
+
+	JournalEntries linkedAccountingAccountORMHasManyJournalEntries
+
+	Payments linkedAccountingAccountORMHasManyPayments
+
 	PurchaseOrders linkedAccountingAccountORMHasManyPurchaseOrders
+
+	TaxRates linkedAccountingAccountORMHasManyTaxRates
+
+	Transactions linkedAccountingAccountORMHasManyTransactions
+
+	VendorCredits linkedAccountingAccountORMHasManyVendorCredits
 
 	fieldMap map[string]field.Expr
 }
@@ -335,7 +305,7 @@ func (l *linkedAccountingAccountORM) GetFieldByName(fieldName string) (field.Ord
 }
 
 func (l *linkedAccountingAccountORM) fillFieldMap() {
-	l.fieldMap = make(map[string]field.Expr, 8)
+	l.fieldMap = make(map[string]field.Expr, 19)
 	l.fieldMap["accounting_integration_merge_link_id"] = l.AccountingIntegrationMergeLinkId
 	l.fieldMap["id"] = l.Id
 
@@ -349,312 +319,6 @@ func (l linkedAccountingAccountORM) clone(db *gorm.DB) linkedAccountingAccountOR
 func (l linkedAccountingAccountORM) replaceDB(db *gorm.DB) linkedAccountingAccountORM {
 	l.linkedAccountingAccountORMDo.ReplaceDB(db)
 	return l
-}
-
-type linkedAccountingAccountORMHasOneReferenceDetails struct {
-	db *gorm.DB
-
-	field.RelationField
-
-	ChartOfAccounts struct {
-		field.RelationField
-	}
-	Contacts struct {
-		field.RelationField
-	}
-	Items struct {
-		field.RelationField
-	}
-	TaxRates struct {
-		field.RelationField
-	}
-}
-
-func (a linkedAccountingAccountORMHasOneReferenceDetails) Where(conds ...field.Expr) *linkedAccountingAccountORMHasOneReferenceDetails {
-	if len(conds) == 0 {
-		return &a
-	}
-
-	exprs := make([]clause.Expression, 0, len(conds))
-	for _, cond := range conds {
-		exprs = append(exprs, cond.BeCond().(clause.Expression))
-	}
-	a.db = a.db.Clauses(clause.Where{Exprs: exprs})
-	return &a
-}
-
-func (a linkedAccountingAccountORMHasOneReferenceDetails) WithContext(ctx context.Context) *linkedAccountingAccountORMHasOneReferenceDetails {
-	a.db = a.db.WithContext(ctx)
-	return &a
-}
-
-func (a linkedAccountingAccountORMHasOneReferenceDetails) Session(session *gorm.Session) *linkedAccountingAccountORMHasOneReferenceDetails {
-	a.db = a.db.Session(session)
-	return &a
-}
-
-func (a linkedAccountingAccountORMHasOneReferenceDetails) Model(m *accounting_servicev1.LinkedAccountingAccountORM) *linkedAccountingAccountORMHasOneReferenceDetailsTx {
-	return &linkedAccountingAccountORMHasOneReferenceDetailsTx{a.db.Model(m).Association(a.Name())}
-}
-
-type linkedAccountingAccountORMHasOneReferenceDetailsTx struct{ tx *gorm.Association }
-
-func (a linkedAccountingAccountORMHasOneReferenceDetailsTx) Find() (result *accounting_servicev1.ReferenceDetailsORM, err error) {
-	return result, a.tx.Find(&result)
-}
-
-func (a linkedAccountingAccountORMHasOneReferenceDetailsTx) Append(values ...*accounting_servicev1.ReferenceDetailsORM) (err error) {
-	targetValues := make([]interface{}, len(values))
-	for i, v := range values {
-		targetValues[i] = v
-	}
-	return a.tx.Append(targetValues...)
-}
-
-func (a linkedAccountingAccountORMHasOneReferenceDetailsTx) Replace(values ...*accounting_servicev1.ReferenceDetailsORM) (err error) {
-	targetValues := make([]interface{}, len(values))
-	for i, v := range values {
-		targetValues[i] = v
-	}
-	return a.tx.Replace(targetValues...)
-}
-
-func (a linkedAccountingAccountORMHasOneReferenceDetailsTx) Delete(values ...*accounting_servicev1.ReferenceDetailsORM) (err error) {
-	targetValues := make([]interface{}, len(values))
-	for i, v := range values {
-		targetValues[i] = v
-	}
-	return a.tx.Delete(targetValues...)
-}
-
-func (a linkedAccountingAccountORMHasOneReferenceDetailsTx) Clear() error {
-	return a.tx.Clear()
-}
-
-func (a linkedAccountingAccountORMHasOneReferenceDetailsTx) Count() int64 {
-	return a.tx.Count()
-}
-
-type linkedAccountingAccountORMHasOneReportDetails struct {
-	db *gorm.DB
-
-	field.RelationField
-
-	BalanceSheets struct {
-		field.RelationField
-		Assets struct {
-			field.RelationField
-		}
-		Equity struct {
-			field.RelationField
-		}
-		Liabilities struct {
-			field.RelationField
-		}
-	}
-	CashFlowStatements struct {
-		field.RelationField
-		FinancingActivities struct {
-			field.RelationField
-		}
-		InvestingActivities struct {
-			field.RelationField
-		}
-		OperatingActivities struct {
-			field.RelationField
-		}
-	}
-	IncomeStatements struct {
-		field.RelationField
-		CostOfSales struct {
-			field.RelationField
-		}
-		Income struct {
-			field.RelationField
-		}
-		NonOperatingExpenses struct {
-			field.RelationField
-		}
-		OperatingExpenses struct {
-			field.RelationField
-		}
-	}
-}
-
-func (a linkedAccountingAccountORMHasOneReportDetails) Where(conds ...field.Expr) *linkedAccountingAccountORMHasOneReportDetails {
-	if len(conds) == 0 {
-		return &a
-	}
-
-	exprs := make([]clause.Expression, 0, len(conds))
-	for _, cond := range conds {
-		exprs = append(exprs, cond.BeCond().(clause.Expression))
-	}
-	a.db = a.db.Clauses(clause.Where{Exprs: exprs})
-	return &a
-}
-
-func (a linkedAccountingAccountORMHasOneReportDetails) WithContext(ctx context.Context) *linkedAccountingAccountORMHasOneReportDetails {
-	a.db = a.db.WithContext(ctx)
-	return &a
-}
-
-func (a linkedAccountingAccountORMHasOneReportDetails) Session(session *gorm.Session) *linkedAccountingAccountORMHasOneReportDetails {
-	a.db = a.db.Session(session)
-	return &a
-}
-
-func (a linkedAccountingAccountORMHasOneReportDetails) Model(m *accounting_servicev1.LinkedAccountingAccountORM) *linkedAccountingAccountORMHasOneReportDetailsTx {
-	return &linkedAccountingAccountORMHasOneReportDetailsTx{a.db.Model(m).Association(a.Name())}
-}
-
-type linkedAccountingAccountORMHasOneReportDetailsTx struct{ tx *gorm.Association }
-
-func (a linkedAccountingAccountORMHasOneReportDetailsTx) Find() (result *accounting_servicev1.ReportDetailsORM, err error) {
-	return result, a.tx.Find(&result)
-}
-
-func (a linkedAccountingAccountORMHasOneReportDetailsTx) Append(values ...*accounting_servicev1.ReportDetailsORM) (err error) {
-	targetValues := make([]interface{}, len(values))
-	for i, v := range values {
-		targetValues[i] = v
-	}
-	return a.tx.Append(targetValues...)
-}
-
-func (a linkedAccountingAccountORMHasOneReportDetailsTx) Replace(values ...*accounting_servicev1.ReportDetailsORM) (err error) {
-	targetValues := make([]interface{}, len(values))
-	for i, v := range values {
-		targetValues[i] = v
-	}
-	return a.tx.Replace(targetValues...)
-}
-
-func (a linkedAccountingAccountORMHasOneReportDetailsTx) Delete(values ...*accounting_servicev1.ReportDetailsORM) (err error) {
-	targetValues := make([]interface{}, len(values))
-	for i, v := range values {
-		targetValues[i] = v
-	}
-	return a.tx.Delete(targetValues...)
-}
-
-func (a linkedAccountingAccountORMHasOneReportDetailsTx) Clear() error {
-	return a.tx.Clear()
-}
-
-func (a linkedAccountingAccountORMHasOneReportDetailsTx) Count() int64 {
-	return a.tx.Count()
-}
-
-type linkedAccountingAccountORMHasOneTransactionsDetails struct {
-	db *gorm.DB
-
-	field.RelationField
-
-	CreditNotes struct {
-		field.RelationField
-		LineItems struct {
-			field.RelationField
-		}
-	}
-	Expenses struct {
-		field.RelationField
-		Lines struct {
-			field.RelationField
-		}
-	}
-	Invoices struct {
-		field.RelationField
-		LineItems struct {
-			field.RelationField
-		}
-	}
-	JournalEntries struct {
-		field.RelationField
-		Lines struct {
-			field.RelationField
-		}
-	}
-	Payments struct {
-		field.RelationField
-	}
-	Transactions struct {
-		field.RelationField
-		LineItems struct {
-			field.RelationField
-		}
-	}
-	VendorCredits struct {
-		field.RelationField
-		Lines struct {
-			field.RelationField
-		}
-	}
-}
-
-func (a linkedAccountingAccountORMHasOneTransactionsDetails) Where(conds ...field.Expr) *linkedAccountingAccountORMHasOneTransactionsDetails {
-	if len(conds) == 0 {
-		return &a
-	}
-
-	exprs := make([]clause.Expression, 0, len(conds))
-	for _, cond := range conds {
-		exprs = append(exprs, cond.BeCond().(clause.Expression))
-	}
-	a.db = a.db.Clauses(clause.Where{Exprs: exprs})
-	return &a
-}
-
-func (a linkedAccountingAccountORMHasOneTransactionsDetails) WithContext(ctx context.Context) *linkedAccountingAccountORMHasOneTransactionsDetails {
-	a.db = a.db.WithContext(ctx)
-	return &a
-}
-
-func (a linkedAccountingAccountORMHasOneTransactionsDetails) Session(session *gorm.Session) *linkedAccountingAccountORMHasOneTransactionsDetails {
-	a.db = a.db.Session(session)
-	return &a
-}
-
-func (a linkedAccountingAccountORMHasOneTransactionsDetails) Model(m *accounting_servicev1.LinkedAccountingAccountORM) *linkedAccountingAccountORMHasOneTransactionsDetailsTx {
-	return &linkedAccountingAccountORMHasOneTransactionsDetailsTx{a.db.Model(m).Association(a.Name())}
-}
-
-type linkedAccountingAccountORMHasOneTransactionsDetailsTx struct{ tx *gorm.Association }
-
-func (a linkedAccountingAccountORMHasOneTransactionsDetailsTx) Find() (result *accounting_servicev1.TransactionDetailsORM, err error) {
-	return result, a.tx.Find(&result)
-}
-
-func (a linkedAccountingAccountORMHasOneTransactionsDetailsTx) Append(values ...*accounting_servicev1.TransactionDetailsORM) (err error) {
-	targetValues := make([]interface{}, len(values))
-	for i, v := range values {
-		targetValues[i] = v
-	}
-	return a.tx.Append(targetValues...)
-}
-
-func (a linkedAccountingAccountORMHasOneTransactionsDetailsTx) Replace(values ...*accounting_servicev1.TransactionDetailsORM) (err error) {
-	targetValues := make([]interface{}, len(values))
-	for i, v := range values {
-		targetValues[i] = v
-	}
-	return a.tx.Replace(targetValues...)
-}
-
-func (a linkedAccountingAccountORMHasOneTransactionsDetailsTx) Delete(values ...*accounting_servicev1.TransactionDetailsORM) (err error) {
-	targetValues := make([]interface{}, len(values))
-	for i, v := range values {
-		targetValues[i] = v
-	}
-	return a.tx.Delete(targetValues...)
-}
-
-func (a linkedAccountingAccountORMHasOneTransactionsDetailsTx) Clear() error {
-	return a.tx.Clear()
-}
-
-func (a linkedAccountingAccountORMHasOneTransactionsDetailsTx) Count() int64 {
-	return a.tx.Count()
 }
 
 type linkedAccountingAccountORMHasManyAttachments struct {
@@ -692,11 +356,11 @@ func (a linkedAccountingAccountORMHasManyAttachments) Model(m *accounting_servic
 
 type linkedAccountingAccountORMHasManyAttachmentsTx struct{ tx *gorm.Association }
 
-func (a linkedAccountingAccountORMHasManyAttachmentsTx) Find() (result []*accounting_servicev1.AttachmentsORM, err error) {
+func (a linkedAccountingAccountORMHasManyAttachmentsTx) Find() (result []*accounting_servicev1.AccountingAttachmentORM, err error) {
 	return result, a.tx.Find(&result)
 }
 
-func (a linkedAccountingAccountORMHasManyAttachmentsTx) Append(values ...*accounting_servicev1.AttachmentsORM) (err error) {
+func (a linkedAccountingAccountORMHasManyAttachmentsTx) Append(values ...*accounting_servicev1.AccountingAttachmentORM) (err error) {
 	targetValues := make([]interface{}, len(values))
 	for i, v := range values {
 		targetValues[i] = v
@@ -704,7 +368,7 @@ func (a linkedAccountingAccountORMHasManyAttachmentsTx) Append(values ...*accoun
 	return a.tx.Append(targetValues...)
 }
 
-func (a linkedAccountingAccountORMHasManyAttachmentsTx) Replace(values ...*accounting_servicev1.AttachmentsORM) (err error) {
+func (a linkedAccountingAccountORMHasManyAttachmentsTx) Replace(values ...*accounting_servicev1.AccountingAttachmentORM) (err error) {
 	targetValues := make([]interface{}, len(values))
 	for i, v := range values {
 		targetValues[i] = v
@@ -712,7 +376,7 @@ func (a linkedAccountingAccountORMHasManyAttachmentsTx) Replace(values ...*accou
 	return a.tx.Replace(targetValues...)
 }
 
-func (a linkedAccountingAccountORMHasManyAttachmentsTx) Delete(values ...*accounting_servicev1.AttachmentsORM) (err error) {
+func (a linkedAccountingAccountORMHasManyAttachmentsTx) Delete(values ...*accounting_servicev1.AccountingAttachmentORM) (err error) {
 	targetValues := make([]interface{}, len(values))
 	for i, v := range values {
 		targetValues[i] = v
@@ -725,6 +389,239 @@ func (a linkedAccountingAccountORMHasManyAttachmentsTx) Clear() error {
 }
 
 func (a linkedAccountingAccountORMHasManyAttachmentsTx) Count() int64 {
+	return a.tx.Count()
+}
+
+type linkedAccountingAccountORMHasManyBalanceSheets struct {
+	db *gorm.DB
+
+	field.RelationField
+
+	Assets struct {
+		field.RelationField
+	}
+	Equity struct {
+		field.RelationField
+	}
+	Liabilities struct {
+		field.RelationField
+	}
+}
+
+func (a linkedAccountingAccountORMHasManyBalanceSheets) Where(conds ...field.Expr) *linkedAccountingAccountORMHasManyBalanceSheets {
+	if len(conds) == 0 {
+		return &a
+	}
+
+	exprs := make([]clause.Expression, 0, len(conds))
+	for _, cond := range conds {
+		exprs = append(exprs, cond.BeCond().(clause.Expression))
+	}
+	a.db = a.db.Clauses(clause.Where{Exprs: exprs})
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyBalanceSheets) WithContext(ctx context.Context) *linkedAccountingAccountORMHasManyBalanceSheets {
+	a.db = a.db.WithContext(ctx)
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyBalanceSheets) Session(session *gorm.Session) *linkedAccountingAccountORMHasManyBalanceSheets {
+	a.db = a.db.Session(session)
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyBalanceSheets) Model(m *accounting_servicev1.LinkedAccountingAccountORM) *linkedAccountingAccountORMHasManyBalanceSheetsTx {
+	return &linkedAccountingAccountORMHasManyBalanceSheetsTx{a.db.Model(m).Association(a.Name())}
+}
+
+type linkedAccountingAccountORMHasManyBalanceSheetsTx struct{ tx *gorm.Association }
+
+func (a linkedAccountingAccountORMHasManyBalanceSheetsTx) Find() (result []*accounting_servicev1.BalanceSheetORM, err error) {
+	return result, a.tx.Find(&result)
+}
+
+func (a linkedAccountingAccountORMHasManyBalanceSheetsTx) Append(values ...*accounting_servicev1.BalanceSheetORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Append(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyBalanceSheetsTx) Replace(values ...*accounting_servicev1.BalanceSheetORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Replace(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyBalanceSheetsTx) Delete(values ...*accounting_servicev1.BalanceSheetORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Delete(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyBalanceSheetsTx) Clear() error {
+	return a.tx.Clear()
+}
+
+func (a linkedAccountingAccountORMHasManyBalanceSheetsTx) Count() int64 {
+	return a.tx.Count()
+}
+
+type linkedAccountingAccountORMHasManyCashFlowStatements struct {
+	db *gorm.DB
+
+	field.RelationField
+
+	FinancingActivities struct {
+		field.RelationField
+	}
+	InvestingActivities struct {
+		field.RelationField
+	}
+	OperatingActivities struct {
+		field.RelationField
+	}
+}
+
+func (a linkedAccountingAccountORMHasManyCashFlowStatements) Where(conds ...field.Expr) *linkedAccountingAccountORMHasManyCashFlowStatements {
+	if len(conds) == 0 {
+		return &a
+	}
+
+	exprs := make([]clause.Expression, 0, len(conds))
+	for _, cond := range conds {
+		exprs = append(exprs, cond.BeCond().(clause.Expression))
+	}
+	a.db = a.db.Clauses(clause.Where{Exprs: exprs})
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyCashFlowStatements) WithContext(ctx context.Context) *linkedAccountingAccountORMHasManyCashFlowStatements {
+	a.db = a.db.WithContext(ctx)
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyCashFlowStatements) Session(session *gorm.Session) *linkedAccountingAccountORMHasManyCashFlowStatements {
+	a.db = a.db.Session(session)
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyCashFlowStatements) Model(m *accounting_servicev1.LinkedAccountingAccountORM) *linkedAccountingAccountORMHasManyCashFlowStatementsTx {
+	return &linkedAccountingAccountORMHasManyCashFlowStatementsTx{a.db.Model(m).Association(a.Name())}
+}
+
+type linkedAccountingAccountORMHasManyCashFlowStatementsTx struct{ tx *gorm.Association }
+
+func (a linkedAccountingAccountORMHasManyCashFlowStatementsTx) Find() (result []*accounting_servicev1.CashFlowStatementORM, err error) {
+	return result, a.tx.Find(&result)
+}
+
+func (a linkedAccountingAccountORMHasManyCashFlowStatementsTx) Append(values ...*accounting_servicev1.CashFlowStatementORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Append(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyCashFlowStatementsTx) Replace(values ...*accounting_servicev1.CashFlowStatementORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Replace(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyCashFlowStatementsTx) Delete(values ...*accounting_servicev1.CashFlowStatementORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Delete(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyCashFlowStatementsTx) Clear() error {
+	return a.tx.Clear()
+}
+
+func (a linkedAccountingAccountORMHasManyCashFlowStatementsTx) Count() int64 {
+	return a.tx.Count()
+}
+
+type linkedAccountingAccountORMHasManyChartOfAccounts struct {
+	db *gorm.DB
+
+	field.RelationField
+}
+
+func (a linkedAccountingAccountORMHasManyChartOfAccounts) Where(conds ...field.Expr) *linkedAccountingAccountORMHasManyChartOfAccounts {
+	if len(conds) == 0 {
+		return &a
+	}
+
+	exprs := make([]clause.Expression, 0, len(conds))
+	for _, cond := range conds {
+		exprs = append(exprs, cond.BeCond().(clause.Expression))
+	}
+	a.db = a.db.Clauses(clause.Where{Exprs: exprs})
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyChartOfAccounts) WithContext(ctx context.Context) *linkedAccountingAccountORMHasManyChartOfAccounts {
+	a.db = a.db.WithContext(ctx)
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyChartOfAccounts) Session(session *gorm.Session) *linkedAccountingAccountORMHasManyChartOfAccounts {
+	a.db = a.db.Session(session)
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyChartOfAccounts) Model(m *accounting_servicev1.LinkedAccountingAccountORM) *linkedAccountingAccountORMHasManyChartOfAccountsTx {
+	return &linkedAccountingAccountORMHasManyChartOfAccountsTx{a.db.Model(m).Association(a.Name())}
+}
+
+type linkedAccountingAccountORMHasManyChartOfAccountsTx struct{ tx *gorm.Association }
+
+func (a linkedAccountingAccountORMHasManyChartOfAccountsTx) Find() (result []*accounting_servicev1.BusinessChartOfAccountORM, err error) {
+	return result, a.tx.Find(&result)
+}
+
+func (a linkedAccountingAccountORMHasManyChartOfAccountsTx) Append(values ...*accounting_servicev1.BusinessChartOfAccountORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Append(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyChartOfAccountsTx) Replace(values ...*accounting_servicev1.BusinessChartOfAccountORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Replace(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyChartOfAccountsTx) Delete(values ...*accounting_servicev1.BusinessChartOfAccountORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Delete(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyChartOfAccountsTx) Clear() error {
+	return a.tx.Clear()
+}
+
+func (a linkedAccountingAccountORMHasManyChartOfAccountsTx) Count() int64 {
 	return a.tx.Count()
 }
 
@@ -803,6 +700,603 @@ func (a linkedAccountingAccountORMHasManyCompanyInfoTx) Count() int64 {
 	return a.tx.Count()
 }
 
+type linkedAccountingAccountORMHasManyContacts struct {
+	db *gorm.DB
+
+	field.RelationField
+}
+
+func (a linkedAccountingAccountORMHasManyContacts) Where(conds ...field.Expr) *linkedAccountingAccountORMHasManyContacts {
+	if len(conds) == 0 {
+		return &a
+	}
+
+	exprs := make([]clause.Expression, 0, len(conds))
+	for _, cond := range conds {
+		exprs = append(exprs, cond.BeCond().(clause.Expression))
+	}
+	a.db = a.db.Clauses(clause.Where{Exprs: exprs})
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyContacts) WithContext(ctx context.Context) *linkedAccountingAccountORMHasManyContacts {
+	a.db = a.db.WithContext(ctx)
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyContacts) Session(session *gorm.Session) *linkedAccountingAccountORMHasManyContacts {
+	a.db = a.db.Session(session)
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyContacts) Model(m *accounting_servicev1.LinkedAccountingAccountORM) *linkedAccountingAccountORMHasManyContactsTx {
+	return &linkedAccountingAccountORMHasManyContactsTx{a.db.Model(m).Association(a.Name())}
+}
+
+type linkedAccountingAccountORMHasManyContactsTx struct{ tx *gorm.Association }
+
+func (a linkedAccountingAccountORMHasManyContactsTx) Find() (result []*accounting_servicev1.ContactsORM, err error) {
+	return result, a.tx.Find(&result)
+}
+
+func (a linkedAccountingAccountORMHasManyContactsTx) Append(values ...*accounting_servicev1.ContactsORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Append(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyContactsTx) Replace(values ...*accounting_servicev1.ContactsORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Replace(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyContactsTx) Delete(values ...*accounting_servicev1.ContactsORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Delete(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyContactsTx) Clear() error {
+	return a.tx.Clear()
+}
+
+func (a linkedAccountingAccountORMHasManyContactsTx) Count() int64 {
+	return a.tx.Count()
+}
+
+type linkedAccountingAccountORMHasManyCreditNotes struct {
+	db *gorm.DB
+
+	field.RelationField
+
+	LineItems struct {
+		field.RelationField
+	}
+}
+
+func (a linkedAccountingAccountORMHasManyCreditNotes) Where(conds ...field.Expr) *linkedAccountingAccountORMHasManyCreditNotes {
+	if len(conds) == 0 {
+		return &a
+	}
+
+	exprs := make([]clause.Expression, 0, len(conds))
+	for _, cond := range conds {
+		exprs = append(exprs, cond.BeCond().(clause.Expression))
+	}
+	a.db = a.db.Clauses(clause.Where{Exprs: exprs})
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyCreditNotes) WithContext(ctx context.Context) *linkedAccountingAccountORMHasManyCreditNotes {
+	a.db = a.db.WithContext(ctx)
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyCreditNotes) Session(session *gorm.Session) *linkedAccountingAccountORMHasManyCreditNotes {
+	a.db = a.db.Session(session)
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyCreditNotes) Model(m *accounting_servicev1.LinkedAccountingAccountORM) *linkedAccountingAccountORMHasManyCreditNotesTx {
+	return &linkedAccountingAccountORMHasManyCreditNotesTx{a.db.Model(m).Association(a.Name())}
+}
+
+type linkedAccountingAccountORMHasManyCreditNotesTx struct{ tx *gorm.Association }
+
+func (a linkedAccountingAccountORMHasManyCreditNotesTx) Find() (result []*accounting_servicev1.CreditNoteORM, err error) {
+	return result, a.tx.Find(&result)
+}
+
+func (a linkedAccountingAccountORMHasManyCreditNotesTx) Append(values ...*accounting_servicev1.CreditNoteORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Append(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyCreditNotesTx) Replace(values ...*accounting_servicev1.CreditNoteORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Replace(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyCreditNotesTx) Delete(values ...*accounting_servicev1.CreditNoteORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Delete(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyCreditNotesTx) Clear() error {
+	return a.tx.Clear()
+}
+
+func (a linkedAccountingAccountORMHasManyCreditNotesTx) Count() int64 {
+	return a.tx.Count()
+}
+
+type linkedAccountingAccountORMHasManyExpenses struct {
+	db *gorm.DB
+
+	field.RelationField
+
+	Lines struct {
+		field.RelationField
+	}
+}
+
+func (a linkedAccountingAccountORMHasManyExpenses) Where(conds ...field.Expr) *linkedAccountingAccountORMHasManyExpenses {
+	if len(conds) == 0 {
+		return &a
+	}
+
+	exprs := make([]clause.Expression, 0, len(conds))
+	for _, cond := range conds {
+		exprs = append(exprs, cond.BeCond().(clause.Expression))
+	}
+	a.db = a.db.Clauses(clause.Where{Exprs: exprs})
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyExpenses) WithContext(ctx context.Context) *linkedAccountingAccountORMHasManyExpenses {
+	a.db = a.db.WithContext(ctx)
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyExpenses) Session(session *gorm.Session) *linkedAccountingAccountORMHasManyExpenses {
+	a.db = a.db.Session(session)
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyExpenses) Model(m *accounting_servicev1.LinkedAccountingAccountORM) *linkedAccountingAccountORMHasManyExpensesTx {
+	return &linkedAccountingAccountORMHasManyExpensesTx{a.db.Model(m).Association(a.Name())}
+}
+
+type linkedAccountingAccountORMHasManyExpensesTx struct{ tx *gorm.Association }
+
+func (a linkedAccountingAccountORMHasManyExpensesTx) Find() (result []*accounting_servicev1.ExpenseORM, err error) {
+	return result, a.tx.Find(&result)
+}
+
+func (a linkedAccountingAccountORMHasManyExpensesTx) Append(values ...*accounting_servicev1.ExpenseORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Append(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyExpensesTx) Replace(values ...*accounting_servicev1.ExpenseORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Replace(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyExpensesTx) Delete(values ...*accounting_servicev1.ExpenseORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Delete(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyExpensesTx) Clear() error {
+	return a.tx.Clear()
+}
+
+func (a linkedAccountingAccountORMHasManyExpensesTx) Count() int64 {
+	return a.tx.Count()
+}
+
+type linkedAccountingAccountORMHasManyIncomeStatements struct {
+	db *gorm.DB
+
+	field.RelationField
+
+	CostOfSales struct {
+		field.RelationField
+	}
+	Income struct {
+		field.RelationField
+	}
+	NonOperatingExpenses struct {
+		field.RelationField
+	}
+	OperatingExpenses struct {
+		field.RelationField
+	}
+}
+
+func (a linkedAccountingAccountORMHasManyIncomeStatements) Where(conds ...field.Expr) *linkedAccountingAccountORMHasManyIncomeStatements {
+	if len(conds) == 0 {
+		return &a
+	}
+
+	exprs := make([]clause.Expression, 0, len(conds))
+	for _, cond := range conds {
+		exprs = append(exprs, cond.BeCond().(clause.Expression))
+	}
+	a.db = a.db.Clauses(clause.Where{Exprs: exprs})
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyIncomeStatements) WithContext(ctx context.Context) *linkedAccountingAccountORMHasManyIncomeStatements {
+	a.db = a.db.WithContext(ctx)
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyIncomeStatements) Session(session *gorm.Session) *linkedAccountingAccountORMHasManyIncomeStatements {
+	a.db = a.db.Session(session)
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyIncomeStatements) Model(m *accounting_servicev1.LinkedAccountingAccountORM) *linkedAccountingAccountORMHasManyIncomeStatementsTx {
+	return &linkedAccountingAccountORMHasManyIncomeStatementsTx{a.db.Model(m).Association(a.Name())}
+}
+
+type linkedAccountingAccountORMHasManyIncomeStatementsTx struct{ tx *gorm.Association }
+
+func (a linkedAccountingAccountORMHasManyIncomeStatementsTx) Find() (result []*accounting_servicev1.IncomeStatementORM, err error) {
+	return result, a.tx.Find(&result)
+}
+
+func (a linkedAccountingAccountORMHasManyIncomeStatementsTx) Append(values ...*accounting_servicev1.IncomeStatementORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Append(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyIncomeStatementsTx) Replace(values ...*accounting_servicev1.IncomeStatementORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Replace(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyIncomeStatementsTx) Delete(values ...*accounting_servicev1.IncomeStatementORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Delete(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyIncomeStatementsTx) Clear() error {
+	return a.tx.Clear()
+}
+
+func (a linkedAccountingAccountORMHasManyIncomeStatementsTx) Count() int64 {
+	return a.tx.Count()
+}
+
+type linkedAccountingAccountORMHasManyInvoices struct {
+	db *gorm.DB
+
+	field.RelationField
+
+	LineItems struct {
+		field.RelationField
+	}
+}
+
+func (a linkedAccountingAccountORMHasManyInvoices) Where(conds ...field.Expr) *linkedAccountingAccountORMHasManyInvoices {
+	if len(conds) == 0 {
+		return &a
+	}
+
+	exprs := make([]clause.Expression, 0, len(conds))
+	for _, cond := range conds {
+		exprs = append(exprs, cond.BeCond().(clause.Expression))
+	}
+	a.db = a.db.Clauses(clause.Where{Exprs: exprs})
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyInvoices) WithContext(ctx context.Context) *linkedAccountingAccountORMHasManyInvoices {
+	a.db = a.db.WithContext(ctx)
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyInvoices) Session(session *gorm.Session) *linkedAccountingAccountORMHasManyInvoices {
+	a.db = a.db.Session(session)
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyInvoices) Model(m *accounting_servicev1.LinkedAccountingAccountORM) *linkedAccountingAccountORMHasManyInvoicesTx {
+	return &linkedAccountingAccountORMHasManyInvoicesTx{a.db.Model(m).Association(a.Name())}
+}
+
+type linkedAccountingAccountORMHasManyInvoicesTx struct{ tx *gorm.Association }
+
+func (a linkedAccountingAccountORMHasManyInvoicesTx) Find() (result []*accounting_servicev1.InvoiceORM, err error) {
+	return result, a.tx.Find(&result)
+}
+
+func (a linkedAccountingAccountORMHasManyInvoicesTx) Append(values ...*accounting_servicev1.InvoiceORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Append(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyInvoicesTx) Replace(values ...*accounting_servicev1.InvoiceORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Replace(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyInvoicesTx) Delete(values ...*accounting_servicev1.InvoiceORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Delete(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyInvoicesTx) Clear() error {
+	return a.tx.Clear()
+}
+
+func (a linkedAccountingAccountORMHasManyInvoicesTx) Count() int64 {
+	return a.tx.Count()
+}
+
+type linkedAccountingAccountORMHasManyItems struct {
+	db *gorm.DB
+
+	field.RelationField
+}
+
+func (a linkedAccountingAccountORMHasManyItems) Where(conds ...field.Expr) *linkedAccountingAccountORMHasManyItems {
+	if len(conds) == 0 {
+		return &a
+	}
+
+	exprs := make([]clause.Expression, 0, len(conds))
+	for _, cond := range conds {
+		exprs = append(exprs, cond.BeCond().(clause.Expression))
+	}
+	a.db = a.db.Clauses(clause.Where{Exprs: exprs})
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyItems) WithContext(ctx context.Context) *linkedAccountingAccountORMHasManyItems {
+	a.db = a.db.WithContext(ctx)
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyItems) Session(session *gorm.Session) *linkedAccountingAccountORMHasManyItems {
+	a.db = a.db.Session(session)
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyItems) Model(m *accounting_servicev1.LinkedAccountingAccountORM) *linkedAccountingAccountORMHasManyItemsTx {
+	return &linkedAccountingAccountORMHasManyItemsTx{a.db.Model(m).Association(a.Name())}
+}
+
+type linkedAccountingAccountORMHasManyItemsTx struct{ tx *gorm.Association }
+
+func (a linkedAccountingAccountORMHasManyItemsTx) Find() (result []*accounting_servicev1.ItemORM, err error) {
+	return result, a.tx.Find(&result)
+}
+
+func (a linkedAccountingAccountORMHasManyItemsTx) Append(values ...*accounting_servicev1.ItemORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Append(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyItemsTx) Replace(values ...*accounting_servicev1.ItemORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Replace(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyItemsTx) Delete(values ...*accounting_servicev1.ItemORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Delete(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyItemsTx) Clear() error {
+	return a.tx.Clear()
+}
+
+func (a linkedAccountingAccountORMHasManyItemsTx) Count() int64 {
+	return a.tx.Count()
+}
+
+type linkedAccountingAccountORMHasManyJournalEntries struct {
+	db *gorm.DB
+
+	field.RelationField
+
+	Lines struct {
+		field.RelationField
+	}
+}
+
+func (a linkedAccountingAccountORMHasManyJournalEntries) Where(conds ...field.Expr) *linkedAccountingAccountORMHasManyJournalEntries {
+	if len(conds) == 0 {
+		return &a
+	}
+
+	exprs := make([]clause.Expression, 0, len(conds))
+	for _, cond := range conds {
+		exprs = append(exprs, cond.BeCond().(clause.Expression))
+	}
+	a.db = a.db.Clauses(clause.Where{Exprs: exprs})
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyJournalEntries) WithContext(ctx context.Context) *linkedAccountingAccountORMHasManyJournalEntries {
+	a.db = a.db.WithContext(ctx)
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyJournalEntries) Session(session *gorm.Session) *linkedAccountingAccountORMHasManyJournalEntries {
+	a.db = a.db.Session(session)
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyJournalEntries) Model(m *accounting_servicev1.LinkedAccountingAccountORM) *linkedAccountingAccountORMHasManyJournalEntriesTx {
+	return &linkedAccountingAccountORMHasManyJournalEntriesTx{a.db.Model(m).Association(a.Name())}
+}
+
+type linkedAccountingAccountORMHasManyJournalEntriesTx struct{ tx *gorm.Association }
+
+func (a linkedAccountingAccountORMHasManyJournalEntriesTx) Find() (result []*accounting_servicev1.JournalEntryORM, err error) {
+	return result, a.tx.Find(&result)
+}
+
+func (a linkedAccountingAccountORMHasManyJournalEntriesTx) Append(values ...*accounting_servicev1.JournalEntryORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Append(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyJournalEntriesTx) Replace(values ...*accounting_servicev1.JournalEntryORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Replace(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyJournalEntriesTx) Delete(values ...*accounting_servicev1.JournalEntryORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Delete(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyJournalEntriesTx) Clear() error {
+	return a.tx.Clear()
+}
+
+func (a linkedAccountingAccountORMHasManyJournalEntriesTx) Count() int64 {
+	return a.tx.Count()
+}
+
+type linkedAccountingAccountORMHasManyPayments struct {
+	db *gorm.DB
+
+	field.RelationField
+}
+
+func (a linkedAccountingAccountORMHasManyPayments) Where(conds ...field.Expr) *linkedAccountingAccountORMHasManyPayments {
+	if len(conds) == 0 {
+		return &a
+	}
+
+	exprs := make([]clause.Expression, 0, len(conds))
+	for _, cond := range conds {
+		exprs = append(exprs, cond.BeCond().(clause.Expression))
+	}
+	a.db = a.db.Clauses(clause.Where{Exprs: exprs})
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyPayments) WithContext(ctx context.Context) *linkedAccountingAccountORMHasManyPayments {
+	a.db = a.db.WithContext(ctx)
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyPayments) Session(session *gorm.Session) *linkedAccountingAccountORMHasManyPayments {
+	a.db = a.db.Session(session)
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyPayments) Model(m *accounting_servicev1.LinkedAccountingAccountORM) *linkedAccountingAccountORMHasManyPaymentsTx {
+	return &linkedAccountingAccountORMHasManyPaymentsTx{a.db.Model(m).Association(a.Name())}
+}
+
+type linkedAccountingAccountORMHasManyPaymentsTx struct{ tx *gorm.Association }
+
+func (a linkedAccountingAccountORMHasManyPaymentsTx) Find() (result []*accounting_servicev1.PaymentORM, err error) {
+	return result, a.tx.Find(&result)
+}
+
+func (a linkedAccountingAccountORMHasManyPaymentsTx) Append(values ...*accounting_servicev1.PaymentORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Append(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyPaymentsTx) Replace(values ...*accounting_servicev1.PaymentORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Replace(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyPaymentsTx) Delete(values ...*accounting_servicev1.PaymentORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Delete(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyPaymentsTx) Clear() error {
+	return a.tx.Clear()
+}
+
+func (a linkedAccountingAccountORMHasManyPaymentsTx) Count() int64 {
+	return a.tx.Count()
+}
+
 type linkedAccountingAccountORMHasManyPurchaseOrders struct {
 	db *gorm.DB
 
@@ -878,6 +1372,227 @@ func (a linkedAccountingAccountORMHasManyPurchaseOrdersTx) Clear() error {
 }
 
 func (a linkedAccountingAccountORMHasManyPurchaseOrdersTx) Count() int64 {
+	return a.tx.Count()
+}
+
+type linkedAccountingAccountORMHasManyTaxRates struct {
+	db *gorm.DB
+
+	field.RelationField
+}
+
+func (a linkedAccountingAccountORMHasManyTaxRates) Where(conds ...field.Expr) *linkedAccountingAccountORMHasManyTaxRates {
+	if len(conds) == 0 {
+		return &a
+	}
+
+	exprs := make([]clause.Expression, 0, len(conds))
+	for _, cond := range conds {
+		exprs = append(exprs, cond.BeCond().(clause.Expression))
+	}
+	a.db = a.db.Clauses(clause.Where{Exprs: exprs})
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyTaxRates) WithContext(ctx context.Context) *linkedAccountingAccountORMHasManyTaxRates {
+	a.db = a.db.WithContext(ctx)
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyTaxRates) Session(session *gorm.Session) *linkedAccountingAccountORMHasManyTaxRates {
+	a.db = a.db.Session(session)
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyTaxRates) Model(m *accounting_servicev1.LinkedAccountingAccountORM) *linkedAccountingAccountORMHasManyTaxRatesTx {
+	return &linkedAccountingAccountORMHasManyTaxRatesTx{a.db.Model(m).Association(a.Name())}
+}
+
+type linkedAccountingAccountORMHasManyTaxRatesTx struct{ tx *gorm.Association }
+
+func (a linkedAccountingAccountORMHasManyTaxRatesTx) Find() (result []*accounting_servicev1.TaxRateORM, err error) {
+	return result, a.tx.Find(&result)
+}
+
+func (a linkedAccountingAccountORMHasManyTaxRatesTx) Append(values ...*accounting_servicev1.TaxRateORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Append(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyTaxRatesTx) Replace(values ...*accounting_servicev1.TaxRateORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Replace(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyTaxRatesTx) Delete(values ...*accounting_servicev1.TaxRateORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Delete(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyTaxRatesTx) Clear() error {
+	return a.tx.Clear()
+}
+
+func (a linkedAccountingAccountORMHasManyTaxRatesTx) Count() int64 {
+	return a.tx.Count()
+}
+
+type linkedAccountingAccountORMHasManyTransactions struct {
+	db *gorm.DB
+
+	field.RelationField
+
+	LineItems struct {
+		field.RelationField
+	}
+}
+
+func (a linkedAccountingAccountORMHasManyTransactions) Where(conds ...field.Expr) *linkedAccountingAccountORMHasManyTransactions {
+	if len(conds) == 0 {
+		return &a
+	}
+
+	exprs := make([]clause.Expression, 0, len(conds))
+	for _, cond := range conds {
+		exprs = append(exprs, cond.BeCond().(clause.Expression))
+	}
+	a.db = a.db.Clauses(clause.Where{Exprs: exprs})
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyTransactions) WithContext(ctx context.Context) *linkedAccountingAccountORMHasManyTransactions {
+	a.db = a.db.WithContext(ctx)
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyTransactions) Session(session *gorm.Session) *linkedAccountingAccountORMHasManyTransactions {
+	a.db = a.db.Session(session)
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyTransactions) Model(m *accounting_servicev1.LinkedAccountingAccountORM) *linkedAccountingAccountORMHasManyTransactionsTx {
+	return &linkedAccountingAccountORMHasManyTransactionsTx{a.db.Model(m).Association(a.Name())}
+}
+
+type linkedAccountingAccountORMHasManyTransactionsTx struct{ tx *gorm.Association }
+
+func (a linkedAccountingAccountORMHasManyTransactionsTx) Find() (result []*accounting_servicev1.BusinessTransactionORM, err error) {
+	return result, a.tx.Find(&result)
+}
+
+func (a linkedAccountingAccountORMHasManyTransactionsTx) Append(values ...*accounting_servicev1.BusinessTransactionORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Append(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyTransactionsTx) Replace(values ...*accounting_servicev1.BusinessTransactionORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Replace(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyTransactionsTx) Delete(values ...*accounting_servicev1.BusinessTransactionORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Delete(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyTransactionsTx) Clear() error {
+	return a.tx.Clear()
+}
+
+func (a linkedAccountingAccountORMHasManyTransactionsTx) Count() int64 {
+	return a.tx.Count()
+}
+
+type linkedAccountingAccountORMHasManyVendorCredits struct {
+	db *gorm.DB
+
+	field.RelationField
+
+	Lines struct {
+		field.RelationField
+	}
+}
+
+func (a linkedAccountingAccountORMHasManyVendorCredits) Where(conds ...field.Expr) *linkedAccountingAccountORMHasManyVendorCredits {
+	if len(conds) == 0 {
+		return &a
+	}
+
+	exprs := make([]clause.Expression, 0, len(conds))
+	for _, cond := range conds {
+		exprs = append(exprs, cond.BeCond().(clause.Expression))
+	}
+	a.db = a.db.Clauses(clause.Where{Exprs: exprs})
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyVendorCredits) WithContext(ctx context.Context) *linkedAccountingAccountORMHasManyVendorCredits {
+	a.db = a.db.WithContext(ctx)
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyVendorCredits) Session(session *gorm.Session) *linkedAccountingAccountORMHasManyVendorCredits {
+	a.db = a.db.Session(session)
+	return &a
+}
+
+func (a linkedAccountingAccountORMHasManyVendorCredits) Model(m *accounting_servicev1.LinkedAccountingAccountORM) *linkedAccountingAccountORMHasManyVendorCreditsTx {
+	return &linkedAccountingAccountORMHasManyVendorCreditsTx{a.db.Model(m).Association(a.Name())}
+}
+
+type linkedAccountingAccountORMHasManyVendorCreditsTx struct{ tx *gorm.Association }
+
+func (a linkedAccountingAccountORMHasManyVendorCreditsTx) Find() (result []*accounting_servicev1.VendorCreditORM, err error) {
+	return result, a.tx.Find(&result)
+}
+
+func (a linkedAccountingAccountORMHasManyVendorCreditsTx) Append(values ...*accounting_servicev1.VendorCreditORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Append(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyVendorCreditsTx) Replace(values ...*accounting_servicev1.VendorCreditORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Replace(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyVendorCreditsTx) Delete(values ...*accounting_servicev1.VendorCreditORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Delete(targetValues...)
+}
+
+func (a linkedAccountingAccountORMHasManyVendorCreditsTx) Clear() error {
+	return a.tx.Clear()
+}
+
+func (a linkedAccountingAccountORMHasManyVendorCreditsTx) Count() int64 {
 	return a.tx.Count()
 }
 

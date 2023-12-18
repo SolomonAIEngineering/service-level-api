@@ -29,17 +29,18 @@ func newBalanceSheetORM(db *gorm.DB, opts ...gen.DOOption) balanceSheetORM {
 	tableName := _balanceSheetORM.balanceSheetORMDo.TableName()
 	_balanceSheetORM.ALL = field.NewAsterisk(tableName)
 	_balanceSheetORM.Company = field.NewString(tableName, "company")
+	_balanceSheetORM.CreatedAt = field.NewTime(tableName, "created_at")
 	_balanceSheetORM.Currency = field.NewString(tableName, "currency")
 	_balanceSheetORM.Date = field.NewTime(tableName, "date")
 	_balanceSheetORM.Id = field.NewUint64(tableName, "id")
-	_balanceSheetORM.MergeAccountId = field.NewString(tableName, "merge_account_id")
+	_balanceSheetORM.LinkedAccountingAccountId = field.NewUint64(tableName, "linked_accounting_account_id")
+	_balanceSheetORM.MergeRecordId = field.NewString(tableName, "merge_record_id")
 	_balanceSheetORM.ModifiedAt = field.NewTime(tableName, "modified_at")
 	_balanceSheetORM.Name = field.NewString(tableName, "name")
-	_balanceSheetORM.NetAssets = field.NewInt64(tableName, "net_assets")
+	_balanceSheetORM.NetAssets = field.NewFloat64(tableName, "net_assets")
 	_balanceSheetORM.RemoteGeneratedAt = field.NewTime(tableName, "remote_generated_at")
 	_balanceSheetORM.RemoteId = field.NewString(tableName, "remote_id")
 	_balanceSheetORM.RemoteWasDeleted = field.NewBool(tableName, "remote_was_deleted")
-	_balanceSheetORM.ReportDetailsId = field.NewUint64(tableName, "report_details_id")
 	_balanceSheetORM.Assets = balanceSheetORMHasManyAssets{
 		db: db.Session(&gorm.Session{}),
 
@@ -66,20 +67,21 @@ func newBalanceSheetORM(db *gorm.DB, opts ...gen.DOOption) balanceSheetORM {
 type balanceSheetORM struct {
 	balanceSheetORMDo
 
-	ALL               field.Asterisk
-	Company           field.String
-	Currency          field.String
-	Date              field.Time
-	Id                field.Uint64
-	MergeAccountId    field.String
-	ModifiedAt        field.Time
-	Name              field.String
-	NetAssets         field.Int64
-	RemoteGeneratedAt field.Time
-	RemoteId          field.String
-	RemoteWasDeleted  field.Bool
-	ReportDetailsId   field.Uint64
-	Assets            balanceSheetORMHasManyAssets
+	ALL                       field.Asterisk
+	Company                   field.String
+	CreatedAt                 field.Time
+	Currency                  field.String
+	Date                      field.Time
+	Id                        field.Uint64
+	LinkedAccountingAccountId field.Uint64
+	MergeRecordId             field.String
+	ModifiedAt                field.Time
+	Name                      field.String
+	NetAssets                 field.Float64
+	RemoteGeneratedAt         field.Time
+	RemoteId                  field.String
+	RemoteWasDeleted          field.Bool
+	Assets                    balanceSheetORMHasManyAssets
 
 	Equity balanceSheetORMHasManyEquity
 
@@ -101,17 +103,18 @@ func (b balanceSheetORM) As(alias string) *balanceSheetORM {
 func (b *balanceSheetORM) updateTableName(table string) *balanceSheetORM {
 	b.ALL = field.NewAsterisk(table)
 	b.Company = field.NewString(table, "company")
+	b.CreatedAt = field.NewTime(table, "created_at")
 	b.Currency = field.NewString(table, "currency")
 	b.Date = field.NewTime(table, "date")
 	b.Id = field.NewUint64(table, "id")
-	b.MergeAccountId = field.NewString(table, "merge_account_id")
+	b.LinkedAccountingAccountId = field.NewUint64(table, "linked_accounting_account_id")
+	b.MergeRecordId = field.NewString(table, "merge_record_id")
 	b.ModifiedAt = field.NewTime(table, "modified_at")
 	b.Name = field.NewString(table, "name")
-	b.NetAssets = field.NewInt64(table, "net_assets")
+	b.NetAssets = field.NewFloat64(table, "net_assets")
 	b.RemoteGeneratedAt = field.NewTime(table, "remote_generated_at")
 	b.RemoteId = field.NewString(table, "remote_id")
 	b.RemoteWasDeleted = field.NewBool(table, "remote_was_deleted")
-	b.ReportDetailsId = field.NewUint64(table, "report_details_id")
 
 	b.fillFieldMap()
 
@@ -128,19 +131,20 @@ func (b *balanceSheetORM) GetFieldByName(fieldName string) (field.OrderExpr, boo
 }
 
 func (b *balanceSheetORM) fillFieldMap() {
-	b.fieldMap = make(map[string]field.Expr, 15)
+	b.fieldMap = make(map[string]field.Expr, 16)
 	b.fieldMap["company"] = b.Company
+	b.fieldMap["created_at"] = b.CreatedAt
 	b.fieldMap["currency"] = b.Currency
 	b.fieldMap["date"] = b.Date
 	b.fieldMap["id"] = b.Id
-	b.fieldMap["merge_account_id"] = b.MergeAccountId
+	b.fieldMap["linked_accounting_account_id"] = b.LinkedAccountingAccountId
+	b.fieldMap["merge_record_id"] = b.MergeRecordId
 	b.fieldMap["modified_at"] = b.ModifiedAt
 	b.fieldMap["name"] = b.Name
 	b.fieldMap["net_assets"] = b.NetAssets
 	b.fieldMap["remote_generated_at"] = b.RemoteGeneratedAt
 	b.fieldMap["remote_id"] = b.RemoteId
 	b.fieldMap["remote_was_deleted"] = b.RemoteWasDeleted
-	b.fieldMap["report_details_id"] = b.ReportDetailsId
 
 }
 

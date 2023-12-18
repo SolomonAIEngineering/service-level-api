@@ -20,89 +20,89 @@ import (
 	"gorm.io/plugin/dbresolver"
 )
 
-func newCashFlowStatementsORM(db *gorm.DB, opts ...gen.DOOption) cashFlowStatementsORM {
-	_cashFlowStatementsORM := cashFlowStatementsORM{}
+func newCashFlowStatementORM(db *gorm.DB, opts ...gen.DOOption) cashFlowStatementORM {
+	_cashFlowStatementORM := cashFlowStatementORM{}
 
-	_cashFlowStatementsORM.cashFlowStatementsORMDo.UseDB(db, opts...)
-	_cashFlowStatementsORM.cashFlowStatementsORMDo.UseModel(&accounting_servicev1.CashFlowStatementsORM{})
+	_cashFlowStatementORM.cashFlowStatementORMDo.UseDB(db, opts...)
+	_cashFlowStatementORM.cashFlowStatementORMDo.UseModel(&accounting_servicev1.CashFlowStatementORM{})
 
-	tableName := _cashFlowStatementsORM.cashFlowStatementsORMDo.TableName()
-	_cashFlowStatementsORM.ALL = field.NewAsterisk(tableName)
-	_cashFlowStatementsORM.CashAtBeginningOfPeriod = field.NewFloat64(tableName, "cash_at_beginning_of_period")
-	_cashFlowStatementsORM.CashAtEndOfPeriod = field.NewFloat64(tableName, "cash_at_end_of_period")
-	_cashFlowStatementsORM.Company = field.NewString(tableName, "company")
-	_cashFlowStatementsORM.Currency = field.NewString(tableName, "currency")
-	_cashFlowStatementsORM.EndPeriod = field.NewTime(tableName, "end_period")
-	_cashFlowStatementsORM.Id = field.NewUint64(tableName, "id")
-	_cashFlowStatementsORM.MergeRecordId = field.NewString(tableName, "merge_record_id")
-	_cashFlowStatementsORM.ModifiedAt = field.NewTime(tableName, "modified_at")
-	_cashFlowStatementsORM.Name = field.NewString(tableName, "name")
-	_cashFlowStatementsORM.RemoteGeneratedAt = field.NewTime(tableName, "remote_generated_at")
-	_cashFlowStatementsORM.RemoteId = field.NewString(tableName, "remote_id")
-	_cashFlowStatementsORM.RemoteWasDeleted = field.NewBool(tableName, "remote_was_deleted")
-	_cashFlowStatementsORM.ReportDetailsId = field.NewUint64(tableName, "report_details_id")
-	_cashFlowStatementsORM.StartPeriod = field.NewTime(tableName, "start_period")
-	_cashFlowStatementsORM.FinancingActivities = cashFlowStatementsORMHasManyFinancingActivities{
+	tableName := _cashFlowStatementORM.cashFlowStatementORMDo.TableName()
+	_cashFlowStatementORM.ALL = field.NewAsterisk(tableName)
+	_cashFlowStatementORM.CashAtBeginningOfPeriod = field.NewFloat64(tableName, "cash_at_beginning_of_period")
+	_cashFlowStatementORM.CashAtEndOfPeriod = field.NewFloat64(tableName, "cash_at_end_of_period")
+	_cashFlowStatementORM.Company = field.NewString(tableName, "company")
+	_cashFlowStatementORM.Currency = field.NewString(tableName, "currency")
+	_cashFlowStatementORM.EndPeriod = field.NewTime(tableName, "end_period")
+	_cashFlowStatementORM.Id = field.NewUint64(tableName, "id")
+	_cashFlowStatementORM.LinkedAccountingAccountId = field.NewUint64(tableName, "linked_accounting_account_id")
+	_cashFlowStatementORM.MergeRecordId = field.NewString(tableName, "merge_record_id")
+	_cashFlowStatementORM.ModifiedAt = field.NewTime(tableName, "modified_at")
+	_cashFlowStatementORM.Name = field.NewString(tableName, "name")
+	_cashFlowStatementORM.RemoteGeneratedAt = field.NewTime(tableName, "remote_generated_at")
+	_cashFlowStatementORM.RemoteId = field.NewString(tableName, "remote_id")
+	_cashFlowStatementORM.RemoteWasDeleted = field.NewBool(tableName, "remote_was_deleted")
+	_cashFlowStatementORM.StartPeriod = field.NewTime(tableName, "start_period")
+	_cashFlowStatementORM.FinancingActivities = cashFlowStatementORMHasManyFinancingActivities{
 		db: db.Session(&gorm.Session{}),
 
 		RelationField: field.NewRelation("FinancingActivities", "accounting_servicev1.ReportItemORM"),
 	}
 
-	_cashFlowStatementsORM.InvestingActivities = cashFlowStatementsORMHasManyInvestingActivities{
+	_cashFlowStatementORM.InvestingActivities = cashFlowStatementORMHasManyInvestingActivities{
 		db: db.Session(&gorm.Session{}),
 
 		RelationField: field.NewRelation("InvestingActivities", "accounting_servicev1.ReportItemORM"),
 	}
 
-	_cashFlowStatementsORM.OperatingActivities = cashFlowStatementsORMHasManyOperatingActivities{
+	_cashFlowStatementORM.OperatingActivities = cashFlowStatementORMHasManyOperatingActivities{
 		db: db.Session(&gorm.Session{}),
 
 		RelationField: field.NewRelation("OperatingActivities", "accounting_servicev1.ReportItemORM"),
 	}
 
-	_cashFlowStatementsORM.fillFieldMap()
+	_cashFlowStatementORM.fillFieldMap()
 
-	return _cashFlowStatementsORM
+	return _cashFlowStatementORM
 }
 
-type cashFlowStatementsORM struct {
-	cashFlowStatementsORMDo
+type cashFlowStatementORM struct {
+	cashFlowStatementORMDo
 
-	ALL                     field.Asterisk
-	CashAtBeginningOfPeriod field.Float64
-	CashAtEndOfPeriod       field.Float64
-	Company                 field.String
-	Currency                field.String
-	EndPeriod               field.Time
-	Id                      field.Uint64
-	MergeRecordId           field.String
-	ModifiedAt              field.Time
-	Name                    field.String
-	RemoteGeneratedAt       field.Time
-	RemoteId                field.String
-	RemoteWasDeleted        field.Bool
-	ReportDetailsId         field.Uint64
-	StartPeriod             field.Time
-	FinancingActivities     cashFlowStatementsORMHasManyFinancingActivities
+	ALL                       field.Asterisk
+	CashAtBeginningOfPeriod   field.Float64
+	CashAtEndOfPeriod         field.Float64
+	Company                   field.String
+	Currency                  field.String
+	EndPeriod                 field.Time
+	Id                        field.Uint64
+	LinkedAccountingAccountId field.Uint64
+	MergeRecordId             field.String
+	ModifiedAt                field.Time
+	Name                      field.String
+	RemoteGeneratedAt         field.Time
+	RemoteId                  field.String
+	RemoteWasDeleted          field.Bool
+	StartPeriod               field.Time
+	FinancingActivities       cashFlowStatementORMHasManyFinancingActivities
 
-	InvestingActivities cashFlowStatementsORMHasManyInvestingActivities
+	InvestingActivities cashFlowStatementORMHasManyInvestingActivities
 
-	OperatingActivities cashFlowStatementsORMHasManyOperatingActivities
+	OperatingActivities cashFlowStatementORMHasManyOperatingActivities
 
 	fieldMap map[string]field.Expr
 }
 
-func (c cashFlowStatementsORM) Table(newTableName string) *cashFlowStatementsORM {
-	c.cashFlowStatementsORMDo.UseTable(newTableName)
+func (c cashFlowStatementORM) Table(newTableName string) *cashFlowStatementORM {
+	c.cashFlowStatementORMDo.UseTable(newTableName)
 	return c.updateTableName(newTableName)
 }
 
-func (c cashFlowStatementsORM) As(alias string) *cashFlowStatementsORM {
-	c.cashFlowStatementsORMDo.DO = *(c.cashFlowStatementsORMDo.As(alias).(*gen.DO))
+func (c cashFlowStatementORM) As(alias string) *cashFlowStatementORM {
+	c.cashFlowStatementORMDo.DO = *(c.cashFlowStatementORMDo.As(alias).(*gen.DO))
 	return c.updateTableName(alias)
 }
 
-func (c *cashFlowStatementsORM) updateTableName(table string) *cashFlowStatementsORM {
+func (c *cashFlowStatementORM) updateTableName(table string) *cashFlowStatementORM {
 	c.ALL = field.NewAsterisk(table)
 	c.CashAtBeginningOfPeriod = field.NewFloat64(table, "cash_at_beginning_of_period")
 	c.CashAtEndOfPeriod = field.NewFloat64(table, "cash_at_end_of_period")
@@ -110,13 +110,13 @@ func (c *cashFlowStatementsORM) updateTableName(table string) *cashFlowStatement
 	c.Currency = field.NewString(table, "currency")
 	c.EndPeriod = field.NewTime(table, "end_period")
 	c.Id = field.NewUint64(table, "id")
+	c.LinkedAccountingAccountId = field.NewUint64(table, "linked_accounting_account_id")
 	c.MergeRecordId = field.NewString(table, "merge_record_id")
 	c.ModifiedAt = field.NewTime(table, "modified_at")
 	c.Name = field.NewString(table, "name")
 	c.RemoteGeneratedAt = field.NewTime(table, "remote_generated_at")
 	c.RemoteId = field.NewString(table, "remote_id")
 	c.RemoteWasDeleted = field.NewBool(table, "remote_was_deleted")
-	c.ReportDetailsId = field.NewUint64(table, "report_details_id")
 	c.StartPeriod = field.NewTime(table, "start_period")
 
 	c.fillFieldMap()
@@ -124,7 +124,7 @@ func (c *cashFlowStatementsORM) updateTableName(table string) *cashFlowStatement
 	return c
 }
 
-func (c *cashFlowStatementsORM) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
+func (c *cashFlowStatementORM) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 	_f, ok := c.fieldMap[fieldName]
 	if !ok || _f == nil {
 		return nil, false
@@ -133,7 +133,7 @@ func (c *cashFlowStatementsORM) GetFieldByName(fieldName string) (field.OrderExp
 	return _oe, ok
 }
 
-func (c *cashFlowStatementsORM) fillFieldMap() {
+func (c *cashFlowStatementORM) fillFieldMap() {
 	c.fieldMap = make(map[string]field.Expr, 17)
 	c.fieldMap["cash_at_beginning_of_period"] = c.CashAtBeginningOfPeriod
 	c.fieldMap["cash_at_end_of_period"] = c.CashAtEndOfPeriod
@@ -141,34 +141,34 @@ func (c *cashFlowStatementsORM) fillFieldMap() {
 	c.fieldMap["currency"] = c.Currency
 	c.fieldMap["end_period"] = c.EndPeriod
 	c.fieldMap["id"] = c.Id
+	c.fieldMap["linked_accounting_account_id"] = c.LinkedAccountingAccountId
 	c.fieldMap["merge_record_id"] = c.MergeRecordId
 	c.fieldMap["modified_at"] = c.ModifiedAt
 	c.fieldMap["name"] = c.Name
 	c.fieldMap["remote_generated_at"] = c.RemoteGeneratedAt
 	c.fieldMap["remote_id"] = c.RemoteId
 	c.fieldMap["remote_was_deleted"] = c.RemoteWasDeleted
-	c.fieldMap["report_details_id"] = c.ReportDetailsId
 	c.fieldMap["start_period"] = c.StartPeriod
 
 }
 
-func (c cashFlowStatementsORM) clone(db *gorm.DB) cashFlowStatementsORM {
-	c.cashFlowStatementsORMDo.ReplaceConnPool(db.Statement.ConnPool)
+func (c cashFlowStatementORM) clone(db *gorm.DB) cashFlowStatementORM {
+	c.cashFlowStatementORMDo.ReplaceConnPool(db.Statement.ConnPool)
 	return c
 }
 
-func (c cashFlowStatementsORM) replaceDB(db *gorm.DB) cashFlowStatementsORM {
-	c.cashFlowStatementsORMDo.ReplaceDB(db)
+func (c cashFlowStatementORM) replaceDB(db *gorm.DB) cashFlowStatementORM {
+	c.cashFlowStatementORMDo.ReplaceDB(db)
 	return c
 }
 
-type cashFlowStatementsORMHasManyFinancingActivities struct {
+type cashFlowStatementORMHasManyFinancingActivities struct {
 	db *gorm.DB
 
 	field.RelationField
 }
 
-func (a cashFlowStatementsORMHasManyFinancingActivities) Where(conds ...field.Expr) *cashFlowStatementsORMHasManyFinancingActivities {
+func (a cashFlowStatementORMHasManyFinancingActivities) Where(conds ...field.Expr) *cashFlowStatementORMHasManyFinancingActivities {
 	if len(conds) == 0 {
 		return &a
 	}
@@ -181,27 +181,27 @@ func (a cashFlowStatementsORMHasManyFinancingActivities) Where(conds ...field.Ex
 	return &a
 }
 
-func (a cashFlowStatementsORMHasManyFinancingActivities) WithContext(ctx context.Context) *cashFlowStatementsORMHasManyFinancingActivities {
+func (a cashFlowStatementORMHasManyFinancingActivities) WithContext(ctx context.Context) *cashFlowStatementORMHasManyFinancingActivities {
 	a.db = a.db.WithContext(ctx)
 	return &a
 }
 
-func (a cashFlowStatementsORMHasManyFinancingActivities) Session(session *gorm.Session) *cashFlowStatementsORMHasManyFinancingActivities {
+func (a cashFlowStatementORMHasManyFinancingActivities) Session(session *gorm.Session) *cashFlowStatementORMHasManyFinancingActivities {
 	a.db = a.db.Session(session)
 	return &a
 }
 
-func (a cashFlowStatementsORMHasManyFinancingActivities) Model(m *accounting_servicev1.CashFlowStatementsORM) *cashFlowStatementsORMHasManyFinancingActivitiesTx {
-	return &cashFlowStatementsORMHasManyFinancingActivitiesTx{a.db.Model(m).Association(a.Name())}
+func (a cashFlowStatementORMHasManyFinancingActivities) Model(m *accounting_servicev1.CashFlowStatementORM) *cashFlowStatementORMHasManyFinancingActivitiesTx {
+	return &cashFlowStatementORMHasManyFinancingActivitiesTx{a.db.Model(m).Association(a.Name())}
 }
 
-type cashFlowStatementsORMHasManyFinancingActivitiesTx struct{ tx *gorm.Association }
+type cashFlowStatementORMHasManyFinancingActivitiesTx struct{ tx *gorm.Association }
 
-func (a cashFlowStatementsORMHasManyFinancingActivitiesTx) Find() (result []*accounting_servicev1.ReportItemORM, err error) {
+func (a cashFlowStatementORMHasManyFinancingActivitiesTx) Find() (result []*accounting_servicev1.ReportItemORM, err error) {
 	return result, a.tx.Find(&result)
 }
 
-func (a cashFlowStatementsORMHasManyFinancingActivitiesTx) Append(values ...*accounting_servicev1.ReportItemORM) (err error) {
+func (a cashFlowStatementORMHasManyFinancingActivitiesTx) Append(values ...*accounting_servicev1.ReportItemORM) (err error) {
 	targetValues := make([]interface{}, len(values))
 	for i, v := range values {
 		targetValues[i] = v
@@ -209,7 +209,7 @@ func (a cashFlowStatementsORMHasManyFinancingActivitiesTx) Append(values ...*acc
 	return a.tx.Append(targetValues...)
 }
 
-func (a cashFlowStatementsORMHasManyFinancingActivitiesTx) Replace(values ...*accounting_servicev1.ReportItemORM) (err error) {
+func (a cashFlowStatementORMHasManyFinancingActivitiesTx) Replace(values ...*accounting_servicev1.ReportItemORM) (err error) {
 	targetValues := make([]interface{}, len(values))
 	for i, v := range values {
 		targetValues[i] = v
@@ -217,7 +217,7 @@ func (a cashFlowStatementsORMHasManyFinancingActivitiesTx) Replace(values ...*ac
 	return a.tx.Replace(targetValues...)
 }
 
-func (a cashFlowStatementsORMHasManyFinancingActivitiesTx) Delete(values ...*accounting_servicev1.ReportItemORM) (err error) {
+func (a cashFlowStatementORMHasManyFinancingActivitiesTx) Delete(values ...*accounting_servicev1.ReportItemORM) (err error) {
 	targetValues := make([]interface{}, len(values))
 	for i, v := range values {
 		targetValues[i] = v
@@ -225,21 +225,21 @@ func (a cashFlowStatementsORMHasManyFinancingActivitiesTx) Delete(values ...*acc
 	return a.tx.Delete(targetValues...)
 }
 
-func (a cashFlowStatementsORMHasManyFinancingActivitiesTx) Clear() error {
+func (a cashFlowStatementORMHasManyFinancingActivitiesTx) Clear() error {
 	return a.tx.Clear()
 }
 
-func (a cashFlowStatementsORMHasManyFinancingActivitiesTx) Count() int64 {
+func (a cashFlowStatementORMHasManyFinancingActivitiesTx) Count() int64 {
 	return a.tx.Count()
 }
 
-type cashFlowStatementsORMHasManyInvestingActivities struct {
+type cashFlowStatementORMHasManyInvestingActivities struct {
 	db *gorm.DB
 
 	field.RelationField
 }
 
-func (a cashFlowStatementsORMHasManyInvestingActivities) Where(conds ...field.Expr) *cashFlowStatementsORMHasManyInvestingActivities {
+func (a cashFlowStatementORMHasManyInvestingActivities) Where(conds ...field.Expr) *cashFlowStatementORMHasManyInvestingActivities {
 	if len(conds) == 0 {
 		return &a
 	}
@@ -252,27 +252,27 @@ func (a cashFlowStatementsORMHasManyInvestingActivities) Where(conds ...field.Ex
 	return &a
 }
 
-func (a cashFlowStatementsORMHasManyInvestingActivities) WithContext(ctx context.Context) *cashFlowStatementsORMHasManyInvestingActivities {
+func (a cashFlowStatementORMHasManyInvestingActivities) WithContext(ctx context.Context) *cashFlowStatementORMHasManyInvestingActivities {
 	a.db = a.db.WithContext(ctx)
 	return &a
 }
 
-func (a cashFlowStatementsORMHasManyInvestingActivities) Session(session *gorm.Session) *cashFlowStatementsORMHasManyInvestingActivities {
+func (a cashFlowStatementORMHasManyInvestingActivities) Session(session *gorm.Session) *cashFlowStatementORMHasManyInvestingActivities {
 	a.db = a.db.Session(session)
 	return &a
 }
 
-func (a cashFlowStatementsORMHasManyInvestingActivities) Model(m *accounting_servicev1.CashFlowStatementsORM) *cashFlowStatementsORMHasManyInvestingActivitiesTx {
-	return &cashFlowStatementsORMHasManyInvestingActivitiesTx{a.db.Model(m).Association(a.Name())}
+func (a cashFlowStatementORMHasManyInvestingActivities) Model(m *accounting_servicev1.CashFlowStatementORM) *cashFlowStatementORMHasManyInvestingActivitiesTx {
+	return &cashFlowStatementORMHasManyInvestingActivitiesTx{a.db.Model(m).Association(a.Name())}
 }
 
-type cashFlowStatementsORMHasManyInvestingActivitiesTx struct{ tx *gorm.Association }
+type cashFlowStatementORMHasManyInvestingActivitiesTx struct{ tx *gorm.Association }
 
-func (a cashFlowStatementsORMHasManyInvestingActivitiesTx) Find() (result []*accounting_servicev1.ReportItemORM, err error) {
+func (a cashFlowStatementORMHasManyInvestingActivitiesTx) Find() (result []*accounting_servicev1.ReportItemORM, err error) {
 	return result, a.tx.Find(&result)
 }
 
-func (a cashFlowStatementsORMHasManyInvestingActivitiesTx) Append(values ...*accounting_servicev1.ReportItemORM) (err error) {
+func (a cashFlowStatementORMHasManyInvestingActivitiesTx) Append(values ...*accounting_servicev1.ReportItemORM) (err error) {
 	targetValues := make([]interface{}, len(values))
 	for i, v := range values {
 		targetValues[i] = v
@@ -280,7 +280,7 @@ func (a cashFlowStatementsORMHasManyInvestingActivitiesTx) Append(values ...*acc
 	return a.tx.Append(targetValues...)
 }
 
-func (a cashFlowStatementsORMHasManyInvestingActivitiesTx) Replace(values ...*accounting_servicev1.ReportItemORM) (err error) {
+func (a cashFlowStatementORMHasManyInvestingActivitiesTx) Replace(values ...*accounting_servicev1.ReportItemORM) (err error) {
 	targetValues := make([]interface{}, len(values))
 	for i, v := range values {
 		targetValues[i] = v
@@ -288,7 +288,7 @@ func (a cashFlowStatementsORMHasManyInvestingActivitiesTx) Replace(values ...*ac
 	return a.tx.Replace(targetValues...)
 }
 
-func (a cashFlowStatementsORMHasManyInvestingActivitiesTx) Delete(values ...*accounting_servicev1.ReportItemORM) (err error) {
+func (a cashFlowStatementORMHasManyInvestingActivitiesTx) Delete(values ...*accounting_servicev1.ReportItemORM) (err error) {
 	targetValues := make([]interface{}, len(values))
 	for i, v := range values {
 		targetValues[i] = v
@@ -296,21 +296,21 @@ func (a cashFlowStatementsORMHasManyInvestingActivitiesTx) Delete(values ...*acc
 	return a.tx.Delete(targetValues...)
 }
 
-func (a cashFlowStatementsORMHasManyInvestingActivitiesTx) Clear() error {
+func (a cashFlowStatementORMHasManyInvestingActivitiesTx) Clear() error {
 	return a.tx.Clear()
 }
 
-func (a cashFlowStatementsORMHasManyInvestingActivitiesTx) Count() int64 {
+func (a cashFlowStatementORMHasManyInvestingActivitiesTx) Count() int64 {
 	return a.tx.Count()
 }
 
-type cashFlowStatementsORMHasManyOperatingActivities struct {
+type cashFlowStatementORMHasManyOperatingActivities struct {
 	db *gorm.DB
 
 	field.RelationField
 }
 
-func (a cashFlowStatementsORMHasManyOperatingActivities) Where(conds ...field.Expr) *cashFlowStatementsORMHasManyOperatingActivities {
+func (a cashFlowStatementORMHasManyOperatingActivities) Where(conds ...field.Expr) *cashFlowStatementORMHasManyOperatingActivities {
 	if len(conds) == 0 {
 		return &a
 	}
@@ -323,27 +323,27 @@ func (a cashFlowStatementsORMHasManyOperatingActivities) Where(conds ...field.Ex
 	return &a
 }
 
-func (a cashFlowStatementsORMHasManyOperatingActivities) WithContext(ctx context.Context) *cashFlowStatementsORMHasManyOperatingActivities {
+func (a cashFlowStatementORMHasManyOperatingActivities) WithContext(ctx context.Context) *cashFlowStatementORMHasManyOperatingActivities {
 	a.db = a.db.WithContext(ctx)
 	return &a
 }
 
-func (a cashFlowStatementsORMHasManyOperatingActivities) Session(session *gorm.Session) *cashFlowStatementsORMHasManyOperatingActivities {
+func (a cashFlowStatementORMHasManyOperatingActivities) Session(session *gorm.Session) *cashFlowStatementORMHasManyOperatingActivities {
 	a.db = a.db.Session(session)
 	return &a
 }
 
-func (a cashFlowStatementsORMHasManyOperatingActivities) Model(m *accounting_servicev1.CashFlowStatementsORM) *cashFlowStatementsORMHasManyOperatingActivitiesTx {
-	return &cashFlowStatementsORMHasManyOperatingActivitiesTx{a.db.Model(m).Association(a.Name())}
+func (a cashFlowStatementORMHasManyOperatingActivities) Model(m *accounting_servicev1.CashFlowStatementORM) *cashFlowStatementORMHasManyOperatingActivitiesTx {
+	return &cashFlowStatementORMHasManyOperatingActivitiesTx{a.db.Model(m).Association(a.Name())}
 }
 
-type cashFlowStatementsORMHasManyOperatingActivitiesTx struct{ tx *gorm.Association }
+type cashFlowStatementORMHasManyOperatingActivitiesTx struct{ tx *gorm.Association }
 
-func (a cashFlowStatementsORMHasManyOperatingActivitiesTx) Find() (result []*accounting_servicev1.ReportItemORM, err error) {
+func (a cashFlowStatementORMHasManyOperatingActivitiesTx) Find() (result []*accounting_servicev1.ReportItemORM, err error) {
 	return result, a.tx.Find(&result)
 }
 
-func (a cashFlowStatementsORMHasManyOperatingActivitiesTx) Append(values ...*accounting_servicev1.ReportItemORM) (err error) {
+func (a cashFlowStatementORMHasManyOperatingActivitiesTx) Append(values ...*accounting_servicev1.ReportItemORM) (err error) {
 	targetValues := make([]interface{}, len(values))
 	for i, v := range values {
 		targetValues[i] = v
@@ -351,7 +351,7 @@ func (a cashFlowStatementsORMHasManyOperatingActivitiesTx) Append(values ...*acc
 	return a.tx.Append(targetValues...)
 }
 
-func (a cashFlowStatementsORMHasManyOperatingActivitiesTx) Replace(values ...*accounting_servicev1.ReportItemORM) (err error) {
+func (a cashFlowStatementORMHasManyOperatingActivitiesTx) Replace(values ...*accounting_servicev1.ReportItemORM) (err error) {
 	targetValues := make([]interface{}, len(values))
 	for i, v := range values {
 		targetValues[i] = v
@@ -359,7 +359,7 @@ func (a cashFlowStatementsORMHasManyOperatingActivitiesTx) Replace(values ...*ac
 	return a.tx.Replace(targetValues...)
 }
 
-func (a cashFlowStatementsORMHasManyOperatingActivitiesTx) Delete(values ...*accounting_servicev1.ReportItemORM) (err error) {
+func (a cashFlowStatementORMHasManyOperatingActivitiesTx) Delete(values ...*accounting_servicev1.ReportItemORM) (err error) {
 	targetValues := make([]interface{}, len(values))
 	for i, v := range values {
 		targetValues[i] = v
@@ -367,56 +367,56 @@ func (a cashFlowStatementsORMHasManyOperatingActivitiesTx) Delete(values ...*acc
 	return a.tx.Delete(targetValues...)
 }
 
-func (a cashFlowStatementsORMHasManyOperatingActivitiesTx) Clear() error {
+func (a cashFlowStatementORMHasManyOperatingActivitiesTx) Clear() error {
 	return a.tx.Clear()
 }
 
-func (a cashFlowStatementsORMHasManyOperatingActivitiesTx) Count() int64 {
+func (a cashFlowStatementORMHasManyOperatingActivitiesTx) Count() int64 {
 	return a.tx.Count()
 }
 
-type cashFlowStatementsORMDo struct{ gen.DO }
+type cashFlowStatementORMDo struct{ gen.DO }
 
-type ICashFlowStatementsORMDo interface {
+type ICashFlowStatementORMDo interface {
 	gen.SubQuery
-	Debug() ICashFlowStatementsORMDo
-	WithContext(ctx context.Context) ICashFlowStatementsORMDo
+	Debug() ICashFlowStatementORMDo
+	WithContext(ctx context.Context) ICashFlowStatementORMDo
 	WithResult(fc func(tx gen.Dao)) gen.ResultInfo
 	ReplaceDB(db *gorm.DB)
-	ReadDB() ICashFlowStatementsORMDo
-	WriteDB() ICashFlowStatementsORMDo
+	ReadDB() ICashFlowStatementORMDo
+	WriteDB() ICashFlowStatementORMDo
 	As(alias string) gen.Dao
-	Session(config *gorm.Session) ICashFlowStatementsORMDo
+	Session(config *gorm.Session) ICashFlowStatementORMDo
 	Columns(cols ...field.Expr) gen.Columns
-	Clauses(conds ...clause.Expression) ICashFlowStatementsORMDo
-	Not(conds ...gen.Condition) ICashFlowStatementsORMDo
-	Or(conds ...gen.Condition) ICashFlowStatementsORMDo
-	Select(conds ...field.Expr) ICashFlowStatementsORMDo
-	Where(conds ...gen.Condition) ICashFlowStatementsORMDo
-	Order(conds ...field.Expr) ICashFlowStatementsORMDo
-	Distinct(cols ...field.Expr) ICashFlowStatementsORMDo
-	Omit(cols ...field.Expr) ICashFlowStatementsORMDo
-	Join(table schema.Tabler, on ...field.Expr) ICashFlowStatementsORMDo
-	LeftJoin(table schema.Tabler, on ...field.Expr) ICashFlowStatementsORMDo
-	RightJoin(table schema.Tabler, on ...field.Expr) ICashFlowStatementsORMDo
-	Group(cols ...field.Expr) ICashFlowStatementsORMDo
-	Having(conds ...gen.Condition) ICashFlowStatementsORMDo
-	Limit(limit int) ICashFlowStatementsORMDo
-	Offset(offset int) ICashFlowStatementsORMDo
+	Clauses(conds ...clause.Expression) ICashFlowStatementORMDo
+	Not(conds ...gen.Condition) ICashFlowStatementORMDo
+	Or(conds ...gen.Condition) ICashFlowStatementORMDo
+	Select(conds ...field.Expr) ICashFlowStatementORMDo
+	Where(conds ...gen.Condition) ICashFlowStatementORMDo
+	Order(conds ...field.Expr) ICashFlowStatementORMDo
+	Distinct(cols ...field.Expr) ICashFlowStatementORMDo
+	Omit(cols ...field.Expr) ICashFlowStatementORMDo
+	Join(table schema.Tabler, on ...field.Expr) ICashFlowStatementORMDo
+	LeftJoin(table schema.Tabler, on ...field.Expr) ICashFlowStatementORMDo
+	RightJoin(table schema.Tabler, on ...field.Expr) ICashFlowStatementORMDo
+	Group(cols ...field.Expr) ICashFlowStatementORMDo
+	Having(conds ...gen.Condition) ICashFlowStatementORMDo
+	Limit(limit int) ICashFlowStatementORMDo
+	Offset(offset int) ICashFlowStatementORMDo
 	Count() (count int64, err error)
-	Scopes(funcs ...func(gen.Dao) gen.Dao) ICashFlowStatementsORMDo
-	Unscoped() ICashFlowStatementsORMDo
-	Create(values ...*accounting_servicev1.CashFlowStatementsORM) error
-	CreateInBatches(values []*accounting_servicev1.CashFlowStatementsORM, batchSize int) error
-	Save(values ...*accounting_servicev1.CashFlowStatementsORM) error
-	First() (*accounting_servicev1.CashFlowStatementsORM, error)
-	Take() (*accounting_servicev1.CashFlowStatementsORM, error)
-	Last() (*accounting_servicev1.CashFlowStatementsORM, error)
-	Find() ([]*accounting_servicev1.CashFlowStatementsORM, error)
-	FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*accounting_servicev1.CashFlowStatementsORM, err error)
-	FindInBatches(result *[]*accounting_servicev1.CashFlowStatementsORM, batchSize int, fc func(tx gen.Dao, batch int) error) error
+	Scopes(funcs ...func(gen.Dao) gen.Dao) ICashFlowStatementORMDo
+	Unscoped() ICashFlowStatementORMDo
+	Create(values ...*accounting_servicev1.CashFlowStatementORM) error
+	CreateInBatches(values []*accounting_servicev1.CashFlowStatementORM, batchSize int) error
+	Save(values ...*accounting_servicev1.CashFlowStatementORM) error
+	First() (*accounting_servicev1.CashFlowStatementORM, error)
+	Take() (*accounting_servicev1.CashFlowStatementORM, error)
+	Last() (*accounting_servicev1.CashFlowStatementORM, error)
+	Find() ([]*accounting_servicev1.CashFlowStatementORM, error)
+	FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*accounting_servicev1.CashFlowStatementORM, err error)
+	FindInBatches(result *[]*accounting_servicev1.CashFlowStatementORM, batchSize int, fc func(tx gen.Dao, batch int) error) error
 	Pluck(column field.Expr, dest interface{}) error
-	Delete(...*accounting_servicev1.CashFlowStatementsORM) (info gen.ResultInfo, err error)
+	Delete(...*accounting_servicev1.CashFlowStatementORM) (info gen.ResultInfo, err error)
 	Update(column field.Expr, value interface{}) (info gen.ResultInfo, err error)
 	UpdateSimple(columns ...field.AssignExpr) (info gen.ResultInfo, err error)
 	Updates(value interface{}) (info gen.ResultInfo, err error)
@@ -424,28 +424,28 @@ type ICashFlowStatementsORMDo interface {
 	UpdateColumnSimple(columns ...field.AssignExpr) (info gen.ResultInfo, err error)
 	UpdateColumns(value interface{}) (info gen.ResultInfo, err error)
 	UpdateFrom(q gen.SubQuery) gen.Dao
-	Attrs(attrs ...field.AssignExpr) ICashFlowStatementsORMDo
-	Assign(attrs ...field.AssignExpr) ICashFlowStatementsORMDo
-	Joins(fields ...field.RelationField) ICashFlowStatementsORMDo
-	Preload(fields ...field.RelationField) ICashFlowStatementsORMDo
-	FirstOrInit() (*accounting_servicev1.CashFlowStatementsORM, error)
-	FirstOrCreate() (*accounting_servicev1.CashFlowStatementsORM, error)
-	FindByPage(offset int, limit int) (result []*accounting_servicev1.CashFlowStatementsORM, count int64, err error)
+	Attrs(attrs ...field.AssignExpr) ICashFlowStatementORMDo
+	Assign(attrs ...field.AssignExpr) ICashFlowStatementORMDo
+	Joins(fields ...field.RelationField) ICashFlowStatementORMDo
+	Preload(fields ...field.RelationField) ICashFlowStatementORMDo
+	FirstOrInit() (*accounting_servicev1.CashFlowStatementORM, error)
+	FirstOrCreate() (*accounting_servicev1.CashFlowStatementORM, error)
+	FindByPage(offset int, limit int) (result []*accounting_servicev1.CashFlowStatementORM, count int64, err error)
 	ScanByPage(result interface{}, offset int, limit int) (count int64, err error)
 	Scan(result interface{}) (err error)
-	Returning(value interface{}, columns ...string) ICashFlowStatementsORMDo
+	Returning(value interface{}, columns ...string) ICashFlowStatementORMDo
 	UnderlyingDB() *gorm.DB
 	schema.Tabler
 
-	GetRecordByID(id int) (result accounting_servicev1.CashFlowStatementsORM, err error)
-	GetRecordByIDs(ids []int) (result []accounting_servicev1.CashFlowStatementsORM, err error)
-	CreateRecord(item accounting_servicev1.CashFlowStatementsORM) (err error)
-	UpdateRecordByID(id int, item accounting_servicev1.CashFlowStatementsORM) (err error)
+	GetRecordByID(id int) (result accounting_servicev1.CashFlowStatementORM, err error)
+	GetRecordByIDs(ids []int) (result []accounting_servicev1.CashFlowStatementORM, err error)
+	CreateRecord(item accounting_servicev1.CashFlowStatementORM) (err error)
+	UpdateRecordByID(id int, item accounting_servicev1.CashFlowStatementORM) (err error)
 	DeleteRecordByID(id int) (err error)
-	GetAllRecords(orderColumn string, limit int, offset int) (result []accounting_servicev1.CashFlowStatementsORM, err error)
+	GetAllRecords(orderColumn string, limit int, offset int) (result []accounting_servicev1.CashFlowStatementORM, err error)
 	CountAll() (result int, err error)
-	GetByID(id uint64) (result accounting_servicev1.CashFlowStatementsORM, err error)
-	GetByIDs(ids []uint64) (result []accounting_servicev1.CashFlowStatementsORM, err error)
+	GetByID(id uint64) (result accounting_servicev1.CashFlowStatementORM, err error)
+	GetByIDs(ids []uint64) (result []accounting_servicev1.CashFlowStatementORM, err error)
 }
 
 // SELECT * FROM @@table
@@ -454,7 +454,7 @@ type ICashFlowStatementsORMDo interface {
 //	id=@id
 //
 // {{end}}
-func (c cashFlowStatementsORMDo) GetRecordByID(id int) (result accounting_servicev1.CashFlowStatementsORM, err error) {
+func (c cashFlowStatementORMDo) GetRecordByID(id int) (result accounting_servicev1.CashFlowStatementORM, err error) {
 	var params []interface{}
 
 	var generateSQL strings.Builder
@@ -477,7 +477,7 @@ func (c cashFlowStatementsORMDo) GetRecordByID(id int) (result accounting_servic
 //	id IN (@ids)
 //
 // {{end}}
-func (c cashFlowStatementsORMDo) GetRecordByIDs(ids []int) (result []accounting_servicev1.CashFlowStatementsORM, err error) {
+func (c cashFlowStatementORMDo) GetRecordByIDs(ids []int) (result []accounting_servicev1.CashFlowStatementORM, err error) {
 	var params []interface{}
 
 	var generateSQL strings.Builder
@@ -495,7 +495,7 @@ func (c cashFlowStatementsORMDo) GetRecordByIDs(ids []int) (result []accounting_
 }
 
 // INSERT INTO @@table (columns) VALUES (values)
-func (c cashFlowStatementsORMDo) CreateRecord(item accounting_servicev1.CashFlowStatementsORM) (err error) {
+func (c cashFlowStatementORMDo) CreateRecord(item accounting_servicev1.CashFlowStatementORM) (err error) {
 	var generateSQL strings.Builder
 	generateSQL.WriteString("INSERT INTO cash_flow_statements (columns) VALUES (values) ")
 
@@ -512,7 +512,7 @@ func (c cashFlowStatementsORMDo) CreateRecord(item accounting_servicev1.CashFlow
 //	id=@id
 //
 // {{end}}
-func (c cashFlowStatementsORMDo) UpdateRecordByID(id int, item accounting_servicev1.CashFlowStatementsORM) (err error) {
+func (c cashFlowStatementORMDo) UpdateRecordByID(id int, item accounting_servicev1.CashFlowStatementORM) (err error) {
 	var params []interface{}
 
 	var generateSQL strings.Builder
@@ -535,7 +535,7 @@ func (c cashFlowStatementsORMDo) UpdateRecordByID(id int, item accounting_servic
 //	id=@id
 //
 // {{end}}
-func (c cashFlowStatementsORMDo) DeleteRecordByID(id int) (err error) {
+func (c cashFlowStatementORMDo) DeleteRecordByID(id int) (err error) {
 	var params []interface{}
 
 	var generateSQL strings.Builder
@@ -554,7 +554,7 @@ func (c cashFlowStatementsORMDo) DeleteRecordByID(id int) (err error) {
 
 // SELECT * FROM @@table
 // ORDER BY @@orderColumn
-func (c cashFlowStatementsORMDo) GetAllRecords(orderColumn string, limit int, offset int) (result []accounting_servicev1.CashFlowStatementsORM, err error) {
+func (c cashFlowStatementORMDo) GetAllRecords(orderColumn string, limit int, offset int) (result []accounting_servicev1.CashFlowStatementORM, err error) {
 	var generateSQL strings.Builder
 	generateSQL.WriteString("SELECT * FROM cash_flow_statements ORDER BY " + c.Quote(orderColumn) + " ")
 
@@ -567,7 +567,7 @@ func (c cashFlowStatementsORMDo) GetAllRecords(orderColumn string, limit int, of
 
 // Additional Operations
 // SELECT COUNT(*) FROM @@table
-func (c cashFlowStatementsORMDo) CountAll() (result int, err error) {
+func (c cashFlowStatementORMDo) CountAll() (result int, err error) {
 	var generateSQL strings.Builder
 	generateSQL.WriteString("Additional Operations SELECT COUNT(*) FROM cash_flow_statements ")
 
@@ -584,7 +584,7 @@ func (c cashFlowStatementsORMDo) CountAll() (result int, err error) {
 //	id=@id
 //
 // {{end}}
-func (c cashFlowStatementsORMDo) GetByID(id uint64) (result accounting_servicev1.CashFlowStatementsORM, err error) {
+func (c cashFlowStatementORMDo) GetByID(id uint64) (result accounting_servicev1.CashFlowStatementORM, err error) {
 	var params []interface{}
 
 	var generateSQL strings.Builder
@@ -607,7 +607,7 @@ func (c cashFlowStatementsORMDo) GetByID(id uint64) (result accounting_servicev1
 //	id IN (@ids)
 //
 // {{end}}
-func (c cashFlowStatementsORMDo) GetByIDs(ids []uint64) (result []accounting_servicev1.CashFlowStatementsORM, err error) {
+func (c cashFlowStatementORMDo) GetByIDs(ids []uint64) (result []accounting_servicev1.CashFlowStatementORM, err error) {
 	var params []interface{}
 
 	var generateSQL strings.Builder
@@ -624,149 +624,149 @@ func (c cashFlowStatementsORMDo) GetByIDs(ids []uint64) (result []accounting_ser
 	return
 }
 
-func (c cashFlowStatementsORMDo) Debug() ICashFlowStatementsORMDo {
+func (c cashFlowStatementORMDo) Debug() ICashFlowStatementORMDo {
 	return c.withDO(c.DO.Debug())
 }
 
-func (c cashFlowStatementsORMDo) WithContext(ctx context.Context) ICashFlowStatementsORMDo {
+func (c cashFlowStatementORMDo) WithContext(ctx context.Context) ICashFlowStatementORMDo {
 	return c.withDO(c.DO.WithContext(ctx))
 }
 
-func (c cashFlowStatementsORMDo) ReadDB() ICashFlowStatementsORMDo {
+func (c cashFlowStatementORMDo) ReadDB() ICashFlowStatementORMDo {
 	return c.Clauses(dbresolver.Read)
 }
 
-func (c cashFlowStatementsORMDo) WriteDB() ICashFlowStatementsORMDo {
+func (c cashFlowStatementORMDo) WriteDB() ICashFlowStatementORMDo {
 	return c.Clauses(dbresolver.Write)
 }
 
-func (c cashFlowStatementsORMDo) Session(config *gorm.Session) ICashFlowStatementsORMDo {
+func (c cashFlowStatementORMDo) Session(config *gorm.Session) ICashFlowStatementORMDo {
 	return c.withDO(c.DO.Session(config))
 }
 
-func (c cashFlowStatementsORMDo) Clauses(conds ...clause.Expression) ICashFlowStatementsORMDo {
+func (c cashFlowStatementORMDo) Clauses(conds ...clause.Expression) ICashFlowStatementORMDo {
 	return c.withDO(c.DO.Clauses(conds...))
 }
 
-func (c cashFlowStatementsORMDo) Returning(value interface{}, columns ...string) ICashFlowStatementsORMDo {
+func (c cashFlowStatementORMDo) Returning(value interface{}, columns ...string) ICashFlowStatementORMDo {
 	return c.withDO(c.DO.Returning(value, columns...))
 }
 
-func (c cashFlowStatementsORMDo) Not(conds ...gen.Condition) ICashFlowStatementsORMDo {
+func (c cashFlowStatementORMDo) Not(conds ...gen.Condition) ICashFlowStatementORMDo {
 	return c.withDO(c.DO.Not(conds...))
 }
 
-func (c cashFlowStatementsORMDo) Or(conds ...gen.Condition) ICashFlowStatementsORMDo {
+func (c cashFlowStatementORMDo) Or(conds ...gen.Condition) ICashFlowStatementORMDo {
 	return c.withDO(c.DO.Or(conds...))
 }
 
-func (c cashFlowStatementsORMDo) Select(conds ...field.Expr) ICashFlowStatementsORMDo {
+func (c cashFlowStatementORMDo) Select(conds ...field.Expr) ICashFlowStatementORMDo {
 	return c.withDO(c.DO.Select(conds...))
 }
 
-func (c cashFlowStatementsORMDo) Where(conds ...gen.Condition) ICashFlowStatementsORMDo {
+func (c cashFlowStatementORMDo) Where(conds ...gen.Condition) ICashFlowStatementORMDo {
 	return c.withDO(c.DO.Where(conds...))
 }
 
-func (c cashFlowStatementsORMDo) Order(conds ...field.Expr) ICashFlowStatementsORMDo {
+func (c cashFlowStatementORMDo) Order(conds ...field.Expr) ICashFlowStatementORMDo {
 	return c.withDO(c.DO.Order(conds...))
 }
 
-func (c cashFlowStatementsORMDo) Distinct(cols ...field.Expr) ICashFlowStatementsORMDo {
+func (c cashFlowStatementORMDo) Distinct(cols ...field.Expr) ICashFlowStatementORMDo {
 	return c.withDO(c.DO.Distinct(cols...))
 }
 
-func (c cashFlowStatementsORMDo) Omit(cols ...field.Expr) ICashFlowStatementsORMDo {
+func (c cashFlowStatementORMDo) Omit(cols ...field.Expr) ICashFlowStatementORMDo {
 	return c.withDO(c.DO.Omit(cols...))
 }
 
-func (c cashFlowStatementsORMDo) Join(table schema.Tabler, on ...field.Expr) ICashFlowStatementsORMDo {
+func (c cashFlowStatementORMDo) Join(table schema.Tabler, on ...field.Expr) ICashFlowStatementORMDo {
 	return c.withDO(c.DO.Join(table, on...))
 }
 
-func (c cashFlowStatementsORMDo) LeftJoin(table schema.Tabler, on ...field.Expr) ICashFlowStatementsORMDo {
+func (c cashFlowStatementORMDo) LeftJoin(table schema.Tabler, on ...field.Expr) ICashFlowStatementORMDo {
 	return c.withDO(c.DO.LeftJoin(table, on...))
 }
 
-func (c cashFlowStatementsORMDo) RightJoin(table schema.Tabler, on ...field.Expr) ICashFlowStatementsORMDo {
+func (c cashFlowStatementORMDo) RightJoin(table schema.Tabler, on ...field.Expr) ICashFlowStatementORMDo {
 	return c.withDO(c.DO.RightJoin(table, on...))
 }
 
-func (c cashFlowStatementsORMDo) Group(cols ...field.Expr) ICashFlowStatementsORMDo {
+func (c cashFlowStatementORMDo) Group(cols ...field.Expr) ICashFlowStatementORMDo {
 	return c.withDO(c.DO.Group(cols...))
 }
 
-func (c cashFlowStatementsORMDo) Having(conds ...gen.Condition) ICashFlowStatementsORMDo {
+func (c cashFlowStatementORMDo) Having(conds ...gen.Condition) ICashFlowStatementORMDo {
 	return c.withDO(c.DO.Having(conds...))
 }
 
-func (c cashFlowStatementsORMDo) Limit(limit int) ICashFlowStatementsORMDo {
+func (c cashFlowStatementORMDo) Limit(limit int) ICashFlowStatementORMDo {
 	return c.withDO(c.DO.Limit(limit))
 }
 
-func (c cashFlowStatementsORMDo) Offset(offset int) ICashFlowStatementsORMDo {
+func (c cashFlowStatementORMDo) Offset(offset int) ICashFlowStatementORMDo {
 	return c.withDO(c.DO.Offset(offset))
 }
 
-func (c cashFlowStatementsORMDo) Scopes(funcs ...func(gen.Dao) gen.Dao) ICashFlowStatementsORMDo {
+func (c cashFlowStatementORMDo) Scopes(funcs ...func(gen.Dao) gen.Dao) ICashFlowStatementORMDo {
 	return c.withDO(c.DO.Scopes(funcs...))
 }
 
-func (c cashFlowStatementsORMDo) Unscoped() ICashFlowStatementsORMDo {
+func (c cashFlowStatementORMDo) Unscoped() ICashFlowStatementORMDo {
 	return c.withDO(c.DO.Unscoped())
 }
 
-func (c cashFlowStatementsORMDo) Create(values ...*accounting_servicev1.CashFlowStatementsORM) error {
+func (c cashFlowStatementORMDo) Create(values ...*accounting_servicev1.CashFlowStatementORM) error {
 	if len(values) == 0 {
 		return nil
 	}
 	return c.DO.Create(values)
 }
 
-func (c cashFlowStatementsORMDo) CreateInBatches(values []*accounting_servicev1.CashFlowStatementsORM, batchSize int) error {
+func (c cashFlowStatementORMDo) CreateInBatches(values []*accounting_servicev1.CashFlowStatementORM, batchSize int) error {
 	return c.DO.CreateInBatches(values, batchSize)
 }
 
 // Save : !!! underlying implementation is different with GORM
 // The method is equivalent to executing the statement: db.Clauses(clause.OnConflict{UpdateAll: true}).Create(values)
-func (c cashFlowStatementsORMDo) Save(values ...*accounting_servicev1.CashFlowStatementsORM) error {
+func (c cashFlowStatementORMDo) Save(values ...*accounting_servicev1.CashFlowStatementORM) error {
 	if len(values) == 0 {
 		return nil
 	}
 	return c.DO.Save(values)
 }
 
-func (c cashFlowStatementsORMDo) First() (*accounting_servicev1.CashFlowStatementsORM, error) {
+func (c cashFlowStatementORMDo) First() (*accounting_servicev1.CashFlowStatementORM, error) {
 	if result, err := c.DO.First(); err != nil {
 		return nil, err
 	} else {
-		return result.(*accounting_servicev1.CashFlowStatementsORM), nil
+		return result.(*accounting_servicev1.CashFlowStatementORM), nil
 	}
 }
 
-func (c cashFlowStatementsORMDo) Take() (*accounting_servicev1.CashFlowStatementsORM, error) {
+func (c cashFlowStatementORMDo) Take() (*accounting_servicev1.CashFlowStatementORM, error) {
 	if result, err := c.DO.Take(); err != nil {
 		return nil, err
 	} else {
-		return result.(*accounting_servicev1.CashFlowStatementsORM), nil
+		return result.(*accounting_servicev1.CashFlowStatementORM), nil
 	}
 }
 
-func (c cashFlowStatementsORMDo) Last() (*accounting_servicev1.CashFlowStatementsORM, error) {
+func (c cashFlowStatementORMDo) Last() (*accounting_servicev1.CashFlowStatementORM, error) {
 	if result, err := c.DO.Last(); err != nil {
 		return nil, err
 	} else {
-		return result.(*accounting_servicev1.CashFlowStatementsORM), nil
+		return result.(*accounting_servicev1.CashFlowStatementORM), nil
 	}
 }
 
-func (c cashFlowStatementsORMDo) Find() ([]*accounting_servicev1.CashFlowStatementsORM, error) {
+func (c cashFlowStatementORMDo) Find() ([]*accounting_servicev1.CashFlowStatementORM, error) {
 	result, err := c.DO.Find()
-	return result.([]*accounting_servicev1.CashFlowStatementsORM), err
+	return result.([]*accounting_servicev1.CashFlowStatementORM), err
 }
 
-func (c cashFlowStatementsORMDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*accounting_servicev1.CashFlowStatementsORM, err error) {
-	buf := make([]*accounting_servicev1.CashFlowStatementsORM, 0, batchSize)
+func (c cashFlowStatementORMDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*accounting_servicev1.CashFlowStatementORM, err error) {
+	buf := make([]*accounting_servicev1.CashFlowStatementORM, 0, batchSize)
 	err = c.DO.FindInBatches(&buf, batchSize, func(tx gen.Dao, batch int) error {
 		defer func() { results = append(results, buf...) }()
 		return fc(tx, batch)
@@ -774,49 +774,49 @@ func (c cashFlowStatementsORMDo) FindInBatch(batchSize int, fc func(tx gen.Dao, 
 	return results, err
 }
 
-func (c cashFlowStatementsORMDo) FindInBatches(result *[]*accounting_servicev1.CashFlowStatementsORM, batchSize int, fc func(tx gen.Dao, batch int) error) error {
+func (c cashFlowStatementORMDo) FindInBatches(result *[]*accounting_servicev1.CashFlowStatementORM, batchSize int, fc func(tx gen.Dao, batch int) error) error {
 	return c.DO.FindInBatches(result, batchSize, fc)
 }
 
-func (c cashFlowStatementsORMDo) Attrs(attrs ...field.AssignExpr) ICashFlowStatementsORMDo {
+func (c cashFlowStatementORMDo) Attrs(attrs ...field.AssignExpr) ICashFlowStatementORMDo {
 	return c.withDO(c.DO.Attrs(attrs...))
 }
 
-func (c cashFlowStatementsORMDo) Assign(attrs ...field.AssignExpr) ICashFlowStatementsORMDo {
+func (c cashFlowStatementORMDo) Assign(attrs ...field.AssignExpr) ICashFlowStatementORMDo {
 	return c.withDO(c.DO.Assign(attrs...))
 }
 
-func (c cashFlowStatementsORMDo) Joins(fields ...field.RelationField) ICashFlowStatementsORMDo {
+func (c cashFlowStatementORMDo) Joins(fields ...field.RelationField) ICashFlowStatementORMDo {
 	for _, _f := range fields {
 		c = *c.withDO(c.DO.Joins(_f))
 	}
 	return &c
 }
 
-func (c cashFlowStatementsORMDo) Preload(fields ...field.RelationField) ICashFlowStatementsORMDo {
+func (c cashFlowStatementORMDo) Preload(fields ...field.RelationField) ICashFlowStatementORMDo {
 	for _, _f := range fields {
 		c = *c.withDO(c.DO.Preload(_f))
 	}
 	return &c
 }
 
-func (c cashFlowStatementsORMDo) FirstOrInit() (*accounting_servicev1.CashFlowStatementsORM, error) {
+func (c cashFlowStatementORMDo) FirstOrInit() (*accounting_servicev1.CashFlowStatementORM, error) {
 	if result, err := c.DO.FirstOrInit(); err != nil {
 		return nil, err
 	} else {
-		return result.(*accounting_servicev1.CashFlowStatementsORM), nil
+		return result.(*accounting_servicev1.CashFlowStatementORM), nil
 	}
 }
 
-func (c cashFlowStatementsORMDo) FirstOrCreate() (*accounting_servicev1.CashFlowStatementsORM, error) {
+func (c cashFlowStatementORMDo) FirstOrCreate() (*accounting_servicev1.CashFlowStatementORM, error) {
 	if result, err := c.DO.FirstOrCreate(); err != nil {
 		return nil, err
 	} else {
-		return result.(*accounting_servicev1.CashFlowStatementsORM), nil
+		return result.(*accounting_servicev1.CashFlowStatementORM), nil
 	}
 }
 
-func (c cashFlowStatementsORMDo) FindByPage(offset int, limit int) (result []*accounting_servicev1.CashFlowStatementsORM, count int64, err error) {
+func (c cashFlowStatementORMDo) FindByPage(offset int, limit int) (result []*accounting_servicev1.CashFlowStatementORM, count int64, err error) {
 	result, err = c.Offset(offset).Limit(limit).Find()
 	if err != nil {
 		return
@@ -831,7 +831,7 @@ func (c cashFlowStatementsORMDo) FindByPage(offset int, limit int) (result []*ac
 	return
 }
 
-func (c cashFlowStatementsORMDo) ScanByPage(result interface{}, offset int, limit int) (count int64, err error) {
+func (c cashFlowStatementORMDo) ScanByPage(result interface{}, offset int, limit int) (count int64, err error) {
 	count, err = c.Count()
 	if err != nil {
 		return
@@ -841,15 +841,15 @@ func (c cashFlowStatementsORMDo) ScanByPage(result interface{}, offset int, limi
 	return
 }
 
-func (c cashFlowStatementsORMDo) Scan(result interface{}) (err error) {
+func (c cashFlowStatementORMDo) Scan(result interface{}) (err error) {
 	return c.DO.Scan(result)
 }
 
-func (c cashFlowStatementsORMDo) Delete(models ...*accounting_servicev1.CashFlowStatementsORM) (result gen.ResultInfo, err error) {
+func (c cashFlowStatementORMDo) Delete(models ...*accounting_servicev1.CashFlowStatementORM) (result gen.ResultInfo, err error) {
 	return c.DO.Delete(models)
 }
 
-func (c *cashFlowStatementsORMDo) withDO(do gen.Dao) *cashFlowStatementsORMDo {
+func (c *cashFlowStatementORMDo) withDO(do gen.Dao) *cashFlowStatementORMDo {
 	c.DO = *do.(*gen.DO)
 	return c
 }

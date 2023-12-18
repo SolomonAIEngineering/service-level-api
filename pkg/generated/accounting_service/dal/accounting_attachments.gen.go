@@ -8,6 +8,7 @@ import (
 	"context"
 	"strings"
 
+	accounting_servicev1 "github.com/SolomonAIEngineering/service-level-api/pkg/generated/accounting_service/v1"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 	"gorm.io/gorm/schema"
@@ -17,8 +18,6 @@ import (
 	"gorm.io/gen/helper"
 
 	"gorm.io/plugin/dbresolver"
-
-	accounting_servicev1 "github.com/SolomonAIEngineering/service-level-api/pkg/generated/accounting_service/v1"
 )
 
 func newAccountingAttachmentORM(db *gorm.DB, opts ...gen.DOOption) accountingAttachmentORM {
@@ -30,11 +29,13 @@ func newAccountingAttachmentORM(db *gorm.DB, opts ...gen.DOOption) accountingAtt
 	tableName := _accountingAttachmentORM.accountingAttachmentORMDo.TableName()
 	_accountingAttachmentORM.ALL = field.NewAsterisk(tableName)
 	_accountingAttachmentORM.Company = field.NewString(tableName, "company")
+	_accountingAttachmentORM.CreatedAt = field.NewTime(tableName, "created_at")
 	_accountingAttachmentORM.FileName = field.NewString(tableName, "file_name")
 	_accountingAttachmentORM.FileUrl = field.NewString(tableName, "file_url")
 	_accountingAttachmentORM.Id = field.NewUint64(tableName, "id")
+	_accountingAttachmentORM.LinkedAccountingAccountId = field.NewUint64(tableName, "linked_accounting_account_id")
 	_accountingAttachmentORM.MergeRecordId = field.NewString(tableName, "merge_record_id")
-	_accountingAttachmentORM.ModifiedAt = field.NewString(tableName, "modified_at")
+	_accountingAttachmentORM.ModifiedAt = field.NewTime(tableName, "modified_at")
 	_accountingAttachmentORM.RemoteId = field.NewString(tableName, "remote_id")
 	_accountingAttachmentORM.RemoteWasDeleted = field.NewBool(tableName, "remote_was_deleted")
 
@@ -46,15 +47,17 @@ func newAccountingAttachmentORM(db *gorm.DB, opts ...gen.DOOption) accountingAtt
 type accountingAttachmentORM struct {
 	accountingAttachmentORMDo
 
-	ALL              field.Asterisk
-	Company          field.String
-	FileName         field.String
-	FileUrl          field.String
-	Id               field.Uint64
-	MergeRecordId    field.String
-	ModifiedAt       field.String
-	RemoteId         field.String
-	RemoteWasDeleted field.Bool
+	ALL                       field.Asterisk
+	Company                   field.String
+	CreatedAt                 field.Time
+	FileName                  field.String
+	FileUrl                   field.String
+	Id                        field.Uint64
+	LinkedAccountingAccountId field.Uint64
+	MergeRecordId             field.String
+	ModifiedAt                field.Time
+	RemoteId                  field.String
+	RemoteWasDeleted          field.Bool
 
 	fieldMap map[string]field.Expr
 }
@@ -72,11 +75,13 @@ func (a accountingAttachmentORM) As(alias string) *accountingAttachmentORM {
 func (a *accountingAttachmentORM) updateTableName(table string) *accountingAttachmentORM {
 	a.ALL = field.NewAsterisk(table)
 	a.Company = field.NewString(table, "company")
+	a.CreatedAt = field.NewTime(table, "created_at")
 	a.FileName = field.NewString(table, "file_name")
 	a.FileUrl = field.NewString(table, "file_url")
 	a.Id = field.NewUint64(table, "id")
+	a.LinkedAccountingAccountId = field.NewUint64(table, "linked_accounting_account_id")
 	a.MergeRecordId = field.NewString(table, "merge_record_id")
-	a.ModifiedAt = field.NewString(table, "modified_at")
+	a.ModifiedAt = field.NewTime(table, "modified_at")
 	a.RemoteId = field.NewString(table, "remote_id")
 	a.RemoteWasDeleted = field.NewBool(table, "remote_was_deleted")
 
@@ -95,11 +100,13 @@ func (a *accountingAttachmentORM) GetFieldByName(fieldName string) (field.OrderE
 }
 
 func (a *accountingAttachmentORM) fillFieldMap() {
-	a.fieldMap = make(map[string]field.Expr, 8)
+	a.fieldMap = make(map[string]field.Expr, 10)
 	a.fieldMap["company"] = a.Company
+	a.fieldMap["created_at"] = a.CreatedAt
 	a.fieldMap["file_name"] = a.FileName
 	a.fieldMap["file_url"] = a.FileUrl
 	a.fieldMap["id"] = a.Id
+	a.fieldMap["linked_accounting_account_id"] = a.LinkedAccountingAccountId
 	a.fieldMap["merge_record_id"] = a.MergeRecordId
 	a.fieldMap["modified_at"] = a.ModifiedAt
 	a.fieldMap["remote_id"] = a.RemoteId

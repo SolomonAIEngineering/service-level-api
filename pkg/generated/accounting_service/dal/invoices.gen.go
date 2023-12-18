@@ -37,8 +37,9 @@ func newInvoiceORM(db *gorm.DB, opts ...gen.DOOption) invoiceORM {
 	_invoiceORM.ExchangeRate = field.NewString(tableName, "exchange_rate")
 	_invoiceORM.Id = field.NewUint64(tableName, "id")
 	_invoiceORM.IssueDate = field.NewTime(tableName, "issue_date")
+	_invoiceORM.LinkedAccountingAccountId = field.NewUint64(tableName, "linked_accounting_account_id")
 	_invoiceORM.Memo = field.NewString(tableName, "memo")
-	_invoiceORM.MergeAccountId = field.NewString(tableName, "merge_account_id")
+	_invoiceORM.MergeRecordId = field.NewString(tableName, "merge_record_id")
 	_invoiceORM.ModifiedAt = field.NewTime(tableName, "modified_at")
 	_invoiceORM.Number = field.NewString(tableName, "number")
 	_invoiceORM.PaidOnDate = field.NewTime(tableName, "paid_on_date")
@@ -53,7 +54,6 @@ func newInvoiceORM(db *gorm.DB, opts ...gen.DOOption) invoiceORM {
 	_invoiceORM.TotalDiscount = field.NewFloat32(tableName, "total_discount")
 	_invoiceORM.TotalTaxAmount = field.NewFloat32(tableName, "total_tax_amount")
 	_invoiceORM.TrackingCategories = field.NewField(tableName, "tracking_categories")
-	_invoiceORM.TransactionDetailsId = field.NewUint64(tableName, "transaction_details_id")
 	_invoiceORM.Type = field.NewString(tableName, "type")
 	_invoiceORM.LineItems = invoiceORMHasManyLineItems{
 		db: db.Session(&gorm.Session{}),
@@ -69,35 +69,35 @@ func newInvoiceORM(db *gorm.DB, opts ...gen.DOOption) invoiceORM {
 type invoiceORM struct {
 	invoiceORMDo
 
-	ALL                  field.Asterisk
-	AccountingPeriod     field.String
-	Balance              field.Float32
-	Company              field.String
-	Contact              field.String
-	Currency             field.String
-	DueDate              field.Time
-	ExchangeRate         field.String
-	Id                   field.Uint64
-	IssueDate            field.Time
-	Memo                 field.String
-	MergeAccountId       field.String
-	ModifiedAt           field.Time
-	Number               field.String
-	PaidOnDate           field.Time
-	Payments             field.Field
-	PurchaseOrders       field.Field
-	RemoteId             field.String
-	RemoteUpdatedAt      field.Time
-	RemoteWasDeleted     field.Bool
-	Status               field.String
-	SubTotal             field.Float32
-	TotalAmount          field.Float32
-	TotalDiscount        field.Float32
-	TotalTaxAmount       field.Float32
-	TrackingCategories   field.Field
-	TransactionDetailsId field.Uint64
-	Type                 field.String
-	LineItems            invoiceORMHasManyLineItems
+	ALL                       field.Asterisk
+	AccountingPeriod          field.String
+	Balance                   field.Float32
+	Company                   field.String
+	Contact                   field.String
+	Currency                  field.String
+	DueDate                   field.Time
+	ExchangeRate              field.String
+	Id                        field.Uint64
+	IssueDate                 field.Time
+	LinkedAccountingAccountId field.Uint64
+	Memo                      field.String
+	MergeRecordId             field.String
+	ModifiedAt                field.Time
+	Number                    field.String
+	PaidOnDate                field.Time
+	Payments                  field.Field
+	PurchaseOrders            field.Field
+	RemoteId                  field.String
+	RemoteUpdatedAt           field.Time
+	RemoteWasDeleted          field.Bool
+	Status                    field.String
+	SubTotal                  field.Float32
+	TotalAmount               field.Float32
+	TotalDiscount             field.Float32
+	TotalTaxAmount            field.Float32
+	TrackingCategories        field.Field
+	Type                      field.String
+	LineItems                 invoiceORMHasManyLineItems
 
 	fieldMap map[string]field.Expr
 }
@@ -123,8 +123,9 @@ func (i *invoiceORM) updateTableName(table string) *invoiceORM {
 	i.ExchangeRate = field.NewString(table, "exchange_rate")
 	i.Id = field.NewUint64(table, "id")
 	i.IssueDate = field.NewTime(table, "issue_date")
+	i.LinkedAccountingAccountId = field.NewUint64(table, "linked_accounting_account_id")
 	i.Memo = field.NewString(table, "memo")
-	i.MergeAccountId = field.NewString(table, "merge_account_id")
+	i.MergeRecordId = field.NewString(table, "merge_record_id")
 	i.ModifiedAt = field.NewTime(table, "modified_at")
 	i.Number = field.NewString(table, "number")
 	i.PaidOnDate = field.NewTime(table, "paid_on_date")
@@ -139,7 +140,6 @@ func (i *invoiceORM) updateTableName(table string) *invoiceORM {
 	i.TotalDiscount = field.NewFloat32(table, "total_discount")
 	i.TotalTaxAmount = field.NewFloat32(table, "total_tax_amount")
 	i.TrackingCategories = field.NewField(table, "tracking_categories")
-	i.TransactionDetailsId = field.NewUint64(table, "transaction_details_id")
 	i.Type = field.NewString(table, "type")
 
 	i.fillFieldMap()
@@ -167,8 +167,9 @@ func (i *invoiceORM) fillFieldMap() {
 	i.fieldMap["exchange_rate"] = i.ExchangeRate
 	i.fieldMap["id"] = i.Id
 	i.fieldMap["issue_date"] = i.IssueDate
+	i.fieldMap["linked_accounting_account_id"] = i.LinkedAccountingAccountId
 	i.fieldMap["memo"] = i.Memo
-	i.fieldMap["merge_account_id"] = i.MergeAccountId
+	i.fieldMap["merge_record_id"] = i.MergeRecordId
 	i.fieldMap["modified_at"] = i.ModifiedAt
 	i.fieldMap["number"] = i.Number
 	i.fieldMap["paid_on_date"] = i.PaidOnDate
@@ -183,7 +184,6 @@ func (i *invoiceORM) fillFieldMap() {
 	i.fieldMap["total_discount"] = i.TotalDiscount
 	i.fieldMap["total_tax_amount"] = i.TotalTaxAmount
 	i.fieldMap["tracking_categories"] = i.TrackingCategories
-	i.fieldMap["transaction_details_id"] = i.TransactionDetailsId
 	i.fieldMap["type"] = i.Type
 
 }

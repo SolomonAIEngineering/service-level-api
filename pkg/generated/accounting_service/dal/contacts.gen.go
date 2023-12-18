@@ -35,11 +35,11 @@ func newContactsORM(db *gorm.DB, opts ...gen.DOOption) contactsORM {
 	_contactsORM.Id = field.NewUint64(tableName, "id")
 	_contactsORM.IsCustomer = field.NewBool(tableName, "is_customer")
 	_contactsORM.IsSupplier = field.NewBool(tableName, "is_supplier")
-	_contactsORM.MergeAccountId = field.NewString(tableName, "merge_account_id")
+	_contactsORM.LinkedAccountingAccountId = field.NewUint64(tableName, "linked_accounting_account_id")
+	_contactsORM.MergeRecordId = field.NewString(tableName, "merge_record_id")
 	_contactsORM.ModifiedAt = field.NewTime(tableName, "modified_at")
 	_contactsORM.Name = field.NewString(tableName, "name")
 	_contactsORM.PhoneNumbers = field.NewField(tableName, "phone_numbers")
-	_contactsORM.ReferenceDetailsId = field.NewUint64(tableName, "reference_details_id")
 	_contactsORM.RemoteId = field.NewString(tableName, "remote_id")
 	_contactsORM.RemoteUpdatedAt = field.NewTime(tableName, "remote_updated_at")
 	_contactsORM.RemoteWasDeleted = field.NewBool(tableName, "remote_was_deleted")
@@ -54,24 +54,24 @@ func newContactsORM(db *gorm.DB, opts ...gen.DOOption) contactsORM {
 type contactsORM struct {
 	contactsORMDo
 
-	ALL                field.Asterisk
-	AddressesIds       field.Field
-	Company            field.String
-	Currency           field.String
-	EmailAddress       field.String
-	Id                 field.Uint64
-	IsCustomer         field.Bool
-	IsSupplier         field.Bool
-	MergeAccountId     field.String
-	ModifiedAt         field.Time
-	Name               field.String
-	PhoneNumbers       field.Field
-	ReferenceDetailsId field.Uint64
-	RemoteId           field.String
-	RemoteUpdatedAt    field.Time
-	RemoteWasDeleted   field.Bool
-	Status             field.String
-	TaxNumber          field.String
+	ALL                       field.Asterisk
+	AddressesIds              field.Field
+	Company                   field.String
+	Currency                  field.String
+	EmailAddress              field.String
+	Id                        field.Uint64
+	IsCustomer                field.Bool
+	IsSupplier                field.Bool
+	LinkedAccountingAccountId field.Uint64
+	MergeRecordId             field.String
+	ModifiedAt                field.Time
+	Name                      field.String
+	PhoneNumbers              field.Field
+	RemoteId                  field.String
+	RemoteUpdatedAt           field.Time
+	RemoteWasDeleted          field.Bool
+	Status                    field.String
+	TaxNumber                 field.String
 
 	fieldMap map[string]field.Expr
 }
@@ -95,11 +95,11 @@ func (c *contactsORM) updateTableName(table string) *contactsORM {
 	c.Id = field.NewUint64(table, "id")
 	c.IsCustomer = field.NewBool(table, "is_customer")
 	c.IsSupplier = field.NewBool(table, "is_supplier")
-	c.MergeAccountId = field.NewString(table, "merge_account_id")
+	c.LinkedAccountingAccountId = field.NewUint64(table, "linked_accounting_account_id")
+	c.MergeRecordId = field.NewString(table, "merge_record_id")
 	c.ModifiedAt = field.NewTime(table, "modified_at")
 	c.Name = field.NewString(table, "name")
 	c.PhoneNumbers = field.NewField(table, "phone_numbers")
-	c.ReferenceDetailsId = field.NewUint64(table, "reference_details_id")
 	c.RemoteId = field.NewString(table, "remote_id")
 	c.RemoteUpdatedAt = field.NewTime(table, "remote_updated_at")
 	c.RemoteWasDeleted = field.NewBool(table, "remote_was_deleted")
@@ -129,11 +129,11 @@ func (c *contactsORM) fillFieldMap() {
 	c.fieldMap["id"] = c.Id
 	c.fieldMap["is_customer"] = c.IsCustomer
 	c.fieldMap["is_supplier"] = c.IsSupplier
-	c.fieldMap["merge_account_id"] = c.MergeAccountId
+	c.fieldMap["linked_accounting_account_id"] = c.LinkedAccountingAccountId
+	c.fieldMap["merge_record_id"] = c.MergeRecordId
 	c.fieldMap["modified_at"] = c.ModifiedAt
 	c.fieldMap["name"] = c.Name
 	c.fieldMap["phone_numbers"] = c.PhoneNumbers
-	c.fieldMap["reference_details_id"] = c.ReferenceDetailsId
 	c.fieldMap["remote_id"] = c.RemoteId
 	c.fieldMap["remote_updated_at"] = c.RemoteUpdatedAt
 	c.fieldMap["remote_was_deleted"] = c.RemoteWasDeleted

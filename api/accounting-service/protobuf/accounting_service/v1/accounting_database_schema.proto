@@ -1,0 +1,1091 @@
+syntax = "proto3";
+
+package accounting_service.v1;
+
+import "protoc-gen-gorm/options/gorm.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "google/api/field_behavior.proto";
+import "google/protobuf/timestamp.proto";
+import "accounting_service/v1/link_token_database_schema.proto";
+
+option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/generated/accounting_service/v1";
+
+message AccountingIntegrationMergeLink {
+    option (gorm.opts) = {ormable: true};
+
+    // id
+    uint64 id = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+    ];
+
+    string integration = 2;
+    string integration_slug = 3;
+    string category = 4;
+    string end_user_origin_id = 5;
+    string end_user_organization_name = 6;
+    string end_user_email_address = 7;
+    string status = 8;
+    string webhook_listener_url = 9;
+    bool is_duplicate = 10;
+    MergeLinkedAccountToken token = 11 [(gorm.field).has_one = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+    string integration_name = 12;
+    string integration_image = 13;
+    string integration_square_image = 14;
+    /**
+        When you request a link token to initiate a Merge Link session, Merge determines whether to create a new linked account or modify
+         an existing linked account based on a combination of the end_user_origin_id and the category. If you want to support multiple
+          connections, you simply need to provide a different end_user_origin_id for each company.
+
+        This approach enables you to link multiple instances of the same integration (like QuickBooks) for the same end user.
+         It also has the added security benefit of not exposing any internal end_user_origin_ids.
+    **/
+    LinkedAccountingAccount account = 15 [(gorm.field).has_one = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+    string merge_linked_account_id = 16;
+    google.protobuf.Timestamp last_modified_at = 17;
+  }
+
+message LinkedAccountingAccount {
+    option (gorm.opts) = {ormable: true};
+
+    // id
+    uint64 id = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+    ];
+
+    // Represent a company's attachments. a business can have many attachments
+    repeated AccountingAttachment attachments = 2 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+
+    // The CompanyInfo object is used to represent a company's information.
+    repeated CompanyInfo company_info = 3 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+
+    // a business can have many purchase orders
+    repeated PurchaseOrder purchase_orders = 4 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+    
+    // The BalanceSheet object shows a company’s assets, liabilities, and equity. Assets should be equal to liability and equity combined. This shows the company’s financial health at a specific point in time.
+    // a business can have many balance sheets
+    repeated BalanceSheet balance_sheets = 5 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+    
+    // The CashFlowStatement object shows operating activities, investing activities, and financing activities over a period of time (month, quarter, or year).
+    // a company can have many cash flow statements
+    repeated CashFlowStatement cash_flow_statements = 6 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+    
+    // a business can have many income statements
+    repeated IncomeStatement income_statements = 7 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+
+    // A "Business Chart of Accounts" is a structured list of a company's general ledger accounts. 
+    // These accounts are used to categorize every financial transaction a company makes. 
+    // This structure allows businesses to systematically track, manage, and report their financial activities
+    repeated BusinessChartOfAccount chart_of_accounts = 8 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+    
+    // a business can have many items
+    repeated Item items = 9 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+    
+    // a business can have many tax rates
+    repeated TaxRate tax_rates = 10 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+    
+    // The Contact object refers to either a supplier or a customer.
+    repeated Contacts contacts = 11 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+   
+    // a business can have many invoices
+    repeated Invoice invoices = 12 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+   
+    // a business can have many payments
+    repeated Payment payments = 13 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+    
+    // a business can have many expenses
+    repeated Expense expenses = 14 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+    
+    // a business can have many journal entries
+    repeated JournalEntry journal_entries = 15 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+    
+    // a business can have many transactions
+    repeated BusinessTransaction transactions = 16 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+    
+    // a business can have many vendor credits
+    repeated VendorCredit vendor_credits = 17 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+   
+    // a business can have many credit notes
+    repeated CreditNote credit_notes = 18 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+}
+
+/**
+    The Account object is what companies use to track transactions. 
+    They can be both bank accounts or a general ledger account (also called a chart of accounts).
+
+    Note: a company can have a multitude of these accounts
+**/
+message BusinessChartOfAccount {
+  option (gorm.opts) = {ormable: true};
+
+  // the database record's id 
+  uint64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+  ];
+
+  // the account id as stored in merge-api. this is a required field
+  string merge_record_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // The third-party matching id for the object. For example, this field will be the id 
+  // as seen in quickbooks for a sample remote connection against quickbookks
+  string remote_id = 3;
+  // The account's name.
+  string name = 4;
+  // The account's description.
+  string description = 5;
+  // The account's broadest grouping. Possible values include: ASSET, EQUITY, EXPENSE, 
+  // LIABILITY, REVENUE. In cases where there is no clear mapping, the original 
+  // value passed through will be returned.
+  string classification = 6;
+  // The account's type is a narrower and more specific grouping within the account's classification.
+  string type = 7;
+  // The account's status. Possible values include: ACTIVE, PENDING, INACTIVE. In cases where there is
+  //  no clear mapping, the original value passed through will be returned.
+  string status = 8;
+  // The account's current balance.
+  double current_balance = 9;
+  string currency = 10;
+  // The account's number.
+  string account_number = 11;
+  // ID of the parent account.
+  string parent_account_id = 12;
+  // The company the account belongs to.
+  string company = 13;
+  // This is the datetime that this object was last updated by Merge
+  google.protobuf.Timestamp modified_at = 14;
+  // Indicates whether or not this object has been deleted by third party webhooks.
+  bool remote_was_deleted = 15;
+  google.protobuf.Timestamp created_at = 16;
+}
+
+/**
+    The CompanyAddress object is used to represent a contact's or company's address.
+**/
+message CompanyAddress {
+    option (gorm.opts) = {ormable: true};
+
+    // the database record's id 
+    uint64 id = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+    ];
+
+    string type = 2;
+    // Line 1 of the address's street.
+    string street_1 = 3;
+    // Line 2 of the address's street.
+    string street_2 = 4;
+    // The address's city.
+    string city = 5;
+    // The address's state or region.
+    string state = 6;
+    // country's subdivision
+    string country_subdivision = 7; // Typically, this might just be 'state' but used your field name to keep it consistent with the JSON
+    // The address's country.
+    string country = 8;
+    // The address's zip code.
+    string zip_code = 9;
+    // This is the datetime that this object was last updated by Merge
+    google.protobuf.Timestamp modified_at = 10; // Consider using google.protobuf.Timestamp if precise time manipulation is required
+  }
+
+
+/**
+    The BalanceSheet object shows a company’s assets, liabilities, and equity. Assets should be equal
+    to liability and equity combined.  This shows the company’s financial health at a specific point in time.
+**/
+message BalanceSheet {
+    option (gorm.opts) = {ormable: true};
+    uint64 id = 1;
+    // The third-party API ID of the matching object.
+    string remote_id = 2;
+    // The balance sheet's name.
+    string name = 3;
+    string currency = 4;
+    // Company object for the given BalanceSheet object. May not necessarily be the compnay name but the 
+    // company reference
+    string company = 5;
+    // The balance sheet's date. The balance sheet data will
+    //  reflect the company's financial position this point in time.
+    google.protobuf.Timestamp date = 6;  // Consider using google.protobuf.Timestamp
+    // The balance sheet's net assets.
+    double net_assets = 7;
+    // The balance sheet's total assets.
+    repeated ReportItem assets = 8 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];;
+    // The balance sheet's total liabilities.
+    repeated ReportItem liabilities = 9 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];;
+    // The balance sheet's total equity.
+    repeated ReportItem equity = 10 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];;
+    // The time that balance sheet was generated by the accounting system.
+    google.protobuf.Timestamp remote_generated_at = 11;  // Consider using google.protobuf.Timestamp
+    // Indicates whether or not this object has been deleted by third party webhooks.
+    bool remote_was_deleted = 12;
+    // This is the datetime that this object was last updated by Merge
+    google.protobuf.Timestamp modified_at = 13;  // Consider using google.protobuf.Timestamp
+    // the id as stored in merge
+    string merge_record_id = 14;
+    // the time the record was created at
+    google.protobuf.Timestamp created_at = 15;
+}
+
+/**
+    The ReportItem object is used to represent a report item for a Balance Sheet, 
+    Cash Flow Statement or Profit and Loss Report.
+**/
+message ReportItem {
+    option (gorm.opts) = {ormable: true};
+    uint64 id = 1;
+    // the id as stored in the third-party system
+    string remote_id = 2;
+    // The report item's name.
+    string name = 3;
+    // The report item's value.
+    int64 value = 4;
+    // The company the report item belongs to. may not necessarily be the company name but a reference instead
+    string company = 5;
+    // This is the datetime that this object was last updated by Merge
+    google.protobuf.Timestamp modified_at = 6;  // Consider using google.protobuf.Timestamp
+}
+
+/**
+    The CashFlowStatement object shows operating activities, investing activities, and financing activities over a
+     period of time (month, quarter, or year).
+**/
+message CashFlowStatement {
+    option (gorm.opts) = {ormable: true};
+    uint64 id = 1;
+    // The third-party API ID of the matching object.
+    string remote_id = 2;
+    // The cash flow statement's name.
+    string name = 3;
+    // The cash flow statement's currency
+    string currency = 4;
+    // The company the cash flow statement belongs to.
+    string company = 5;
+    // The cash flow statement's start period.
+     google.protobuf.Timestamp start_period = 6;  // Consider using google.protobuf.Timestamp
+     // The cash flow statement's end period.
+     google.protobuf.Timestamp end_period = 7;    // Consider using google.protobuf.Timestamp
+     // Cash and cash equivalents at the beginning of the cash flow statement's period.
+    double cash_at_beginning_of_period = 8;
+    // Cash and cash equivalents at the beginning of the cash flow statement's period.
+    double cash_at_end_of_period = 9;
+    // Operating activities
+    repeated ReportItem operating_activities = 10 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+    // Investing activities
+    repeated ReportItem investing_activities = 11 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+    // Financing activities
+    repeated ReportItem financing_activities = 12 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+    // The time that cash flow statement was generated by the accounting system. 
+    google.protobuf.Timestamp remote_generated_at = 13;  // Consider using google.protobuf.Timestamp
+    // Indicates whether or not this object has been deleted by third party webhooks.
+    bool remote_was_deleted = 14;
+    // This is the datetime that this object was last updated by Merge
+    google.protobuf.Timestamp modified_at = 15;          // Consider using google.protobuf.Timestamp
+     // the cashflow statements id as stored in merge
+    string merge_record_id = 16;
+}
+
+/**
+    The CompanyInfo object is used to represent a company's information.
+**/
+message CompanyInfo {
+    option (gorm.opts) = {ormable: true};
+    // the id of the record in our system
+    uint64 id = 1;
+    // The third-party API ID of the matching object.
+    string remote_id = 2;
+    // The company's name.
+    string name = 3;
+    // The company's legal name.
+    string legal_name = 4;
+    // The company's tax number.
+    string tax_number = 5;
+    // The company's fiscal year end month.
+    int32 fiscal_year_end_month = 6;
+    // The company's fiscal year end day.
+    int32 fiscal_year_end_day = 7;
+    // The currency set in the company's accounting platform.
+    string currency = 8;
+    // When the third party's company was created.
+    google.protobuf.Timestamp remote_created_at = 9;   // Consider using google.protobuf.Timestamp
+    // The company's urls.
+    repeated string urls = 10;
+    // the company's addresses
+    repeated CompanyAddress addresses = 11;
+    // the company's phone numbers
+    repeated string phone_numbers = 12;
+    // Indicates whether or not this object has been deleted by third party webhooks.
+    bool remote_was_deleted = 13;
+    // This is the datetime that this object was last updated by Merge
+    google.protobuf.Timestamp modified_at = 14;   
+    // the id of the record as stored in merge
+    string merge_record_id = 15;
+}
+
+/**
+    The AccountingAttachment object is used to represent a company's attachments.
+**/
+message AccountingAttachment {
+    option (gorm.opts) = {ormable: true};
+
+    uint64 id = 1;
+    // The third-party API ID of the matching object.
+    string remote_id = 2;
+    // The attachment's name.
+    string file_name = 3;
+    // The attachment's url.
+    string file_url = 4;
+    // The company the accounting attachment belongs to.
+    string company = 5;
+    bool remote_was_deleted = 6;
+    // This is the datetime that this object was last updated by Merge
+    google.protobuf.Timestamp  modified_at = 7;  // Consider using google.protobuf.Timestamp if precise time manipulation is required
+    // The third-party API ID of the matching object.
+    string merge_record_id = 8;
+    google.protobuf.Timestamp created_at = 9;
+}
+
+
+/**
+    The Contact object refers to either a supplier or a customer.
+**/
+message Contacts {
+    option (gorm.opts) = {ormable: true};
+    uint64 id = 1;
+    // The third-party API ID of the matching object.
+    string remote_id = 2;
+    // The contact's name.
+    string name = 3;
+    // Whether the contact is a supplier.
+    bool is_supplier = 4;
+    // Whether the contact is a customer.
+    bool is_customer = 5;
+    // The contact's email address.
+    string email_address = 6;
+    // The contact's tax number.
+    string tax_number = 7;
+    // The contact's status
+    string status = 8;
+    // The currency the contact's transactions are in.
+    string currency = 9;
+    // When the third party's contact was updated.
+    google.protobuf.Timestamp remote_updated_at = 10;  // Consider using google.protobuf.Timestamp
+    // The company the contact belongs to.
+    string company = 11;
+    // Address object IDs for the given Contacts object.
+    repeated string addresses_ids = 12; // These are IDs, not the Address structure itself
+    // Phone numbers of the contact
+    repeated string phone_numbers = 13;
+    // Indicates whether or not this object has been deleted by third party webhooks.
+    bool remote_was_deleted = 14;
+    // This is the datetime that this object was last updated by Merge
+    google.protobuf.Timestamp modified_at = 15;        // Consider using google.protobuf.Timestamp
+    // The account id as seen in merge
+    string merge_record_id = 16;
+}
+
+// A CreditNote is transaction issued to a customer, indicating a reduction or cancellation of the amount owed by the customer. 
+// It is most generally used as an adjustment note used to rectify errors, returns, or overpayments related to a sales transaction. 
+// A CreditNote can be applied to Accounts Receivable Invoices to decrease the overall amount of the Invoice.
+message CreditNote {
+    option (gorm.opts) = {ormable: true};
+    // the database record id as stored in our systems
+    uint64 id = 1;
+    // The third-party API ID of the matching object.
+    string remote_id = 2;
+    // The credit note's transaction date.
+    google.protobuf.Timestamp transaction_date = 3;  // Consider using google.protobuf.Timestamp
+    // The credit note's status.
+    string status = 4;
+    // The credit note's number.
+    string number = 5;
+    // The credit note's contact.
+    string contact = 6;
+    // The company the credit note belongs to.
+    string company = 7;
+    // The credit note's exchange rate.
+    string exchange_rate = 8;  // Consider using double or float if this represents a number
+    // The credit note's total amount.
+    double total_amount = 9;
+    // The amount of value remaining in the credit note that the customer can use.
+    double remaining_credit = 10;
+    repeated CreditNoteLineItem line_items = 11;
+    repeated string tracking_categories = 12;  // These are IDs
+    string currency = 13;
+    google.protobuf.Timestamp remote_created_at = 14;  // Consider using google.protobuf.Timestamp
+    google.protobuf.Timestamp remote_updated_at = 15;  // Consider using google.protobuf.Timestamp
+    // Array of Payment object IDs
+    repeated string payment_ids = 16;  // These are IDs
+    bool remote_was_deleted = 17;
+    // The accounting period that the CreditNote was generated in.
+    string accounting_period = 18;
+    google.protobuf.Timestamp modified_at = 19;        // Consider using google.protobuf.Timestamp
+    // the id as stored in merge
+    string merge_record_id = 20;
+    google.protobuf.Timestamp created_at = 21;
+}
+
+// CreditNoteLineItem is used to represent a credit note's line items.
+message CreditNoteLineItem {
+    option (gorm.opts) = {ormable: true};
+    uint64 id = 1;
+    string name = 2;
+    string description = 3;
+    string quantity = 4;
+    string unit_price = 6;  // Consider using double or float if this represents a number
+    string tax_rate = 7;   // This seems to be an ID
+    string total_line_amount = 8;  // Consider using double or float
+    string tracking_category = 9;  // This seems to be an ID
+    repeated string tracking_categories = 10;  // These are IDs
+    string account = 11;  // This seems to be an ID
+    string company = 12;
+    string remote_id = 13;
+    string item = 14;
+    bool remote_was_deleted = 17;
+    string memo = 18;
+}
+
+// The Expense object is used to represent a direct purchase by a business, typically made with a check, credit card, or cash. 
+// Each Expense object is dedicated to a grouping of expenses, with each expense recorded in the lines object.
+//
+// The Expense object is used also used to represent refunds to direct purchases. Refunds can be distinguished from purchases 
+// by the amount sign of the records. Expense objects with a negative amount are purchases and Expense objects 
+// with a positive amount are refunds to those purchases.
+message Expense {
+    option (gorm.opts) = {ormable: true};
+    uint64 id = 1;
+    // The third-party API ID of the matching object.
+    string remote_id = 2;
+    // When the transaction occurred.
+    google.protobuf.Timestamp transaction_date = 3;  // Consider using google.protobuf.Timestamp
+    // When the expense was created.
+    google.protobuf.Timestamp remote_created_at = 4;  // Consider using google.protobuf.Timestamp
+    // The expense's payment account.
+    string account = 5;
+    // The expense's contact.
+    string contact = 6;
+    // The expense's total amount.
+    double total_amount = 7;
+    // The expense's total amount before tax.
+    double sub_total = 8;
+    // The expense's total tax amount.
+    double total_tax_amount = 9;
+    // The expense's currency
+    string currency = 10;
+    // The expense's exchange rate.
+    string exchange_rate = 11;  // Consider using double or float if this represents a number
+    // The company the expense belongs to.
+    string company = 12;
+    // The expense's private note.
+    string memo = 13;
+    // The ExpenseLine object is used to represent an expense's line items.
+    repeated ExpenseLine lines = 14;
+    repeated string tracking_categories = 15;  // These are IDs
+    // Indicates whether or not this object has been deleted by third party webhooks.
+    bool remote_was_deleted = 16;
+    // The accounting period that the Expense was generated in.
+    string accounting_period = 17;
+    // This is the datetime that this object was last updated by Merge
+    google.protobuf.Timestamp modified_at = 18;  // Consider using google.protobuf.Timestamp
+    string merge_record_id = 19;
+}
+
+// The ExpenseLine object is used to represent an expense's line items.
+message ExpenseLine {
+    option (gorm.opts) = {ormable: true};
+    uint64 id = 1;
+    // The line's net amount.
+    double net_amount = 2;
+    string tracking_category = 3;  // This seems to be an ID
+    repeated string tracking_categories = 4;  // These are IDs
+    // The company the line belongs to.
+    string company = 5;
+    // The line's item.
+    string item = 6;  // This seems to be an ID
+    // The expense's payment account.
+    string account = 7;
+    // The expense's contact.
+    string contact = 8;  // Optional based on provided JSON
+    // The description of the item that was purchased by the company.
+    string description = 9;
+    // The expense line item's exchange rate.
+    string exchange_rate = 10;  // Consider using double or float if this represents a number
+    // The third-party API ID of the matching object.
+    string remote_id = 11;
+    // The expense line item's currency
+    string currency = 12;
+    // This is the datetime that this object was last updated by Merge
+    google.protobuf.Timestamp modified_at = 13;  // Consider using google.protobuf.Timestamp
+    bool remote_was_deleted = 14;
+    google.protobuf.Timestamp created_at = 15;
+}
+
+// The IncomeStatement object is used to represent a company’s income, the cost of sales, operating expenses, 
+// and other non-operating expenses. The object also includes other important values like gross profit, 
+// gross operating profit, and net income. This represents a period of time (month, quarter, or year).
+message IncomeStatement {
+    option (gorm.opts) = {ormable: true};
+    uint64 id = 1;
+    // The third-party API ID of the matching object.
+    string remote_id = 2;
+    // The income statement's name.
+    string name = 3;
+    // The income statement's currency.
+    string currency = 4;
+    // The company the income statement belongs to.
+    string company = 5;
+    // The income statement's start period.
+    google.protobuf.Timestamp start_period = 6;
+    // The income statement's end period.
+    google.protobuf.Timestamp end_period = 7;
+    // income
+    repeated ReportItem income = 8;
+    // cost of sales
+    repeated ReportItem cost_of_sales = 9;
+    // The revenue minus the cost of sale.
+    double gross_profit = 10;
+    // operating expenses
+    repeated ReportItem operating_expenses = 11;
+    // The revenue minus the operating expenses.
+    double net_operating_income = 12;
+    repeated ReportItem non_operating_expenses = 13;
+    // The gross profit minus the total expenses.
+    double net_income = 14;
+    // Indicates whether or not this object has been deleted by third party webhooks.
+    bool remote_was_deleted = 15;
+    // This is the datetime that this object was last updated by Merge
+    google.protobuf.Timestamp modified_at = 16;
+    string merge_record_id = 17;
+    google.protobuf.Timestamp created_at = 18;
+}
+
+// The Invoice object represents an itemized record of goods and/or services sold to a customer.
+message Invoice {
+    option (gorm.opts) = {ormable: true};
+    uint64 id = 1;
+    // Whether the invoice is an accounts receivable or accounts payable
+    //  If type is accounts_payable, the invoice is a bill. If type is
+    //  accounts_receivable, it is an invoice. Possible values include: ACCOUNTS_RECEIVABLE, ACCOUNTS_PAYABLE.
+    string type = 2;
+    // The invoice's contact.
+    string contact = 3;
+    // The invoice's number.
+    string number = 4;
+    // The invoice's issue date.
+    google.protobuf.Timestamp issue_date = 5;
+    // The invoice's due date.
+    google.protobuf.Timestamp due_date = 6;
+    // The invoice's paid date.
+    google.protobuf.Timestamp paid_on_date = 7;
+    // The invoice's private note.
+    string memo = 8;
+    // The company the invoice belongs to.
+    string company = 9;
+    // The invoice's currency
+    string currency = 10;
+    // The invoice's exchange rate.
+    string exchange_rate = 11;
+    // The total discounts applied to the total cost.
+    float total_discount = 12;
+    // The total amount being paid before taxes.
+    float sub_total = 13;
+    string status = 14;
+    // The total amount being paid in taxes.
+    float total_tax_amount = 15;
+    // The invoice's total amount.
+    float total_amount = 16;
+    // The invoice's remaining balance.
+    float balance = 17;
+    // When the third party's invoice entry was updated.
+    google.protobuf.Timestamp remote_updated_at = 18;
+    repeated string tracking_categories = 19;
+    // Array of Payment object IDs.
+    repeated string payments = 20;
+    repeated InvoiceLineItem line_items = 21;
+    bool remote_was_deleted = 22;
+    // The accounting period that the Invoice was generated in.
+    string accounting_period = 23;
+    repeated string purchase_orders = 24;
+    // The third-party API ID of the matching object.
+    string remote_id = 25;
+    google.protobuf.Timestamp modified_at = 26;
+    // the account id as stored in merge
+    string merge_record_id = 27;
+}
+
+/**
+    The Invoice object represents an itemized record of goods and/or services sold to a customer.
+**/
+message InvoiceLineItem {
+    option (gorm.opts) = {ormable: true};
+
+    uint64 id = 1;
+    // The third-party API ID of the matching object.
+    string remote_id = 2;
+    // The line item's description.
+    string description = 3;
+    // The line item's unit price.
+    float unit_price = 4;
+    // The line item's quantity.
+    int32 quantity = 5;
+    // The line item's total amount.
+    float total_amount = 6;
+    // The line item's currency
+    string currency = 7;
+    // The line item's exchange rate.
+    string exchange_rate = 8;
+    string item = 9;
+    string account = 10;
+    string tracking_category = 11;
+    repeated string tracking_categories = 12;
+    // The company the line item belongs to.
+    string company = 13;
+    // the id of the record as stored in merge
+    string merge_record_id = 14;
+    // This is the datetime that this object was last updated by Merge
+    google.protobuf.Timestamp modified_at = 15;  // Consider using google.protobuf.Timestamp
+}
+
+/**
+    The Item object refers to the goods involved in a transaction.
+**/
+message Item {
+    option (gorm.opts) = {ormable: true};
+
+    uint64 id = 1;
+    // The third-party API ID of the matching object.
+    string remote_id = 2;
+    // The item's name.
+    string name = 3;
+    string status = 4;
+    // The item's unit price.
+    float unit_price = 5;
+    // The price at which the item is purchased from a vendor.
+    float purchase_price = 6;
+    // References the default account used to record a purchase of the item.
+    string purchase_account = 7;
+    // References the default account used to record a sale.
+    string sales_account = 8;
+    // The company the item belongs to.
+    string company = 9;
+    // When the third party's item note was updated.
+    google.protobuf.Timestamp remote_updated_at = 10;
+    // Indicates whether or not this object has been deleted by third party webhooks.
+    bool remote_was_deleted = 11;
+    // This is the datetime that this object was last updated by Merge
+    google.protobuf.Timestamp  modified_at = 12;
+    string merge_record_id = 13;
+    google.protobuf.Timestamp  created_at = 14;
+}
+
+// A JournalEntry is a record of a transaction or event that is entered into a company's accounting system.
+//
+// The JournalEntry common model contains records that are automatically created as a result of a 
+// certain type of transaction, like an Invoice, and records that are manually created against a company’s ledger.
+//
+// The lines of a given JournalEntry object should always sum to 0. A positive net_amount means
+// the line represents a debit and a negative net_amount represents a credit.
+message JournalEntry {
+    option (gorm.opts) = {ormable: true};
+
+    uint64 id = 1;
+    string remote_id = 2;
+    // The journal entry's transaction date.
+    google.protobuf.Timestamp transaction_date = 3;
+    // When the third party's journal entry was created.
+    google.protobuf.Timestamp remote_created_at = 4;
+    google.protobuf.Timestamp remote_updated_at = 5;
+    repeated string payments = 6;
+    // The journal entry's private note.
+    string memo = 7;
+    string currency = 8;
+    // The journal entry's exchange rate.
+    string exchange_rate = 9; // Assuming string due to the example provided, but could be float or double.
+    // The company the journal entry belongs to.
+    string company = 10;
+    // The JournalLine object is used to represent a journal entry's line items.
+    repeated JournalLine lines = 11;
+    // Reference number for identifying journal entries.
+    string journal_number = 12;
+    repeated string tracking_categories = 13;
+    bool remote_was_deleted = 14;
+    string posting_status = 15;
+    // The accounting period that the JournalEntry was generated in.
+    string accounting_period = 16;
+    google.protobuf.Timestamp modified_at = 17;
+    // the id of the record as stored in merge
+    string merge_record_id = 18;
+    // A list of the Payment Applied to Lines common models 
+    // related to a given Invoice, Credit Note, or Journal Entry.
+    repeated string applied_payments = 19;
+    google.protobuf.Timestamp created_at = 20;
+
+}
+
+// The JournalLine object is used to represent a journal entry's line items.
+message JournalLine {
+    option (gorm.opts) = {ormable: true};
+    uint64 id = 1;
+    // The third-party API ID of the matching object.
+    string remote_id = 2;
+    string account = 4;
+    // The value of the line item including taxes and other fees.
+    float net_amount = 5; // Might want to use double or a more precise type
+    string tracking_category = 6;
+    repeated string tracking_categories = 7;
+    string contact = 8;
+    // The company the journal entry belongs to.
+    string company = 9;
+    // The line's description.
+    string description = 10;
+    // The journal line item's exchange rate.
+    string exchange_rate = 11; // Assuming string due to the example provided, but could be float or double.
+    google.protobuf.Timestamp modified_at = 17;
+    google.protobuf.Timestamp created_at = 18;
+}
+
+/**
+    The Payment object represents general payments made towards a specific transaction.
+**/
+message Payment {
+    option (gorm.opts) = {ormable: true};
+
+    uint64 id = 1;
+    string remote_id = 2;
+    // The payment's transaction date.
+    google.protobuf.Timestamp transaction_date = 3;
+    // The supplier, or customer involved in the payment.
+    string contact = 4;
+    // The supplier’s or customer’s account in which the payment is made.
+    string account = 5;
+    string currency = 6;
+    // The payment's exchange rate.
+    string exchange_rate = 7; // Assuming string due to the example provided, but could be float or double.
+    // The company the payment belongs to.
+    string company = 8;
+    // The total amount of money being paid to the supplier, or customer, after taxes.
+    float total_amount = 9; // Might want to use double or a more precise type
+    repeated string tracking_categories = 10;
+    google.protobuf.Timestamp remote_updated_at = 11;
+    bool remote_was_deleted = 12;
+    // The accounting period that the Payment was generated in.
+    string accounting_period = 13;
+    // This is the datetime that this object was last updated by Merge
+    google.protobuf.Timestamp modified_at = 14;
+    // the id as stored in merge
+    string merge_record_id = 15;
+    google.protobuf.Timestamp created_at = 16;
+}
+
+// The PaymentLineItem object is an applied-to-line on a Payment that 
+// can either be a Invoice, CreditNote, or JournalEntry.
+message PaymentLineItem {
+  option (gorm.opts) = {ormable: true};
+  uint64 id = 1;
+  // The amount being applied to the transaction.
+  float applied_amount = 2;
+  // The date the payment portion is applied.
+  google.protobuf.Timestamp applied_date = 3;
+  // The third-party API ID of the matching object.
+  string remote_id = 4;
+  // The Merge ID of the transaction the payment portion is being applied to.
+  string related_object_id = 5;
+  // The type of transaction the payment portion is being applied to. Possible values include: INVOICE, JOURNAL_ENTRY, or CREDIT_NOTE.
+  string related_object_type = 6;
+  // The record id as seen on merge platform
+  string merge_record_id = 7;
+  google.protobuf.Timestamp created_at = 8;
+  google.protobuf.Timestamp modified_at = 9;
+}
+
+/**
+    The PurchaseOrder object is a record of request for a product or service between a buyer and seller.
+**/
+message PurchaseOrder {
+    option (gorm.opts) = {ormable: true};
+
+    uint64 id = 1;
+    string merge_record_id = 2;
+
+    string status = 3;
+    // The purchase order's issue date.
+    google.protobuf.Timestamp issue_date = 4;
+    // The human-readable number of the purchase order.
+    string purchase_order_number = 5;
+    // The purchase order's delivery date.
+    google.protobuf.Timestamp delivery_date = 6;
+    // The purchase order's delivery address.
+    CompanyAddress delivery_address = 7;
+    // The contact making the purchase order.
+    string customer = 8;
+    // The party fulfilling the purchase order.
+    string vendor = 9;
+    // A memo attached to the purchase order.
+    string memo = 10;
+    // The company the purchase order belongs to.
+    string company = 11;
+    // The purchase order's total amount.
+    float total_amount = 12; // Might be better as double.
+    // The purchase order's currency.
+    string currency = 13;
+    string exchange_rate = 14; // Assuming string, but might be better as float or double.
+    repeated PurchaseOrderLineItem line_items = 15;
+    repeated string tracking_categories = 16;
+    google.protobuf.Timestamp remote_created_at = 17;
+    google.protobuf.Timestamp remote_updated_at = 18;
+    bool remote_was_deleted = 19;
+     // The accounting period that the PurchaseOrder was generated in.
+    string accounting_period = 20;
+    string remote_id = 21;
+    google.protobuf.Timestamp modified_at = 22;
+    google.protobuf.Timestamp created_at = 23;
+}
+
+/**
+    The PurchaseOrderLineItem object is used to represent a purchase order's line item.
+**/
+message PurchaseOrderLineItem {
+    option (gorm.opts) = {ormable: true};
+    uint64 id = 1;
+
+    string remote_id = 2;
+    string description = 3;
+    int32 quantity = 4;
+    string unit_price = 5; // Assuming string, but might be better as float or double.
+    string item = 6;
+    string account = 7;
+    string tracking_category = 8;
+    repeated string tracking_categories = 9;
+    string tax_amount = 10;
+    string total_line_amount = 11;
+    string currency = 12;
+    string exchange_rate = 13; // Assuming string, but might be better as float or double.
+    string company = 14;
+    google.protobuf.Timestamp modified_at = 15;
+    google.protobuf.Timestamp created_at = 16;
+    bool remote_was_deleted = 17;
+}
+
+// The TaxRate object is used to represent a tax rate.
+message TaxRate {
+    option (gorm.opts) = {ormable: true};
+    uint64 id = 1;
+    // The third-party API ID of the matching object.
+    string remote_id = 2;
+    // The tax rate's description.
+    string description = 3;
+    // The tax rate's total tax rate.
+    double total_tax_rate = 4;
+    // The tax rate's effective tax rate.
+    double effective_tax_rate = 5;
+    // The company the tax rate belongs to.
+    string company = 6;
+    // Indicates whether or not this object has been deleted in the third party platform.
+    bool remote_was_deleted = 7;
+    // This is the datetime that this object was last updated by Merge
+    google.protobuf.Timestamp modified_at = 8;
+    string merge_record_id = 9;
+    google.protobuf.Timestamp created_at = 10;
+}
+
+//  The TrackingCategory object is used to represent a company's tracking categories.
+message TrackingCategory {
+  enum CategoryType {
+    CATEGORY_TYPE_UNSPECIFIED = 0;
+    CATEGORY_TYPE_DEPARTMENT = 1;
+    CATEGORY_TYPE_CLASS = 2;
+  }
+
+  option (gorm.opts) = {ormable: true};
+
+  uint64 id = 1;
+
+  string remote_id = 2;
+  string merge_record_id = 3;
+  // The tracking category’s type. Possible values include: CLASS, DEPARTMENT.
+  // In cases where there is no clear mapping, the original value passed through will be returned.
+  CategoryType category_type = 4;
+  // ID of the parent tracking category.
+  string parent_category = 5;
+  // The company the tracking category belongs to.
+  string company = 6;
+  // Indicates whether or not this object has been deleted in the third party platform.
+  bool remote_was_deleted = 7;
+  // This is the datetime that this object was last updated by Merge
+  google.protobuf.Timestamp modified_at = 8;
+  // The tracking category's name.
+  string name = 9;
+  // The tracking category's status. Possible values include: ACTIVE, ARCHIVED. 
+  // In cases where there is no clear mapping, the original value passed through will be returned.
+  string status = 10;
+  google.protobuf.Timestamp created_at = 11;
+}
+
+// The Transaction common model includes records of all types of transactions that do not appear in other common models.
+// The type of transaction can be identified through the type field. More specifically, 
+// it will contain all types of transactions outside of:
+// 
+// * Credit Notes
+// * Expenses
+// * Invoices
+// * Journal Entries
+// * Payments
+// * Purchase Orders
+// * Vendor Credits
+message BusinessTransaction {
+    option (gorm.opts) = {ormable: true};
+    uint64 id = 1;
+    // The type of transaction, which can by any transaction object not already included in Merge’s common model.
+    string transaction_type = 2;
+    // The transaction's number used for identifying purposes.
+    string number = 3;
+    // The date upon which the transaction occurred.
+    google.protobuf.Timestamp transaction_date = 4;
+    // The transaction's account.
+    string account = 5;
+    // The contact to whom the transaction relates to.
+    string contact = 6;
+    // The total amount being paid after taxes.
+    string total_amount = 7; // Might be better as double.
+    string currency = 8;
+    // The transaction's exchange rate.
+    string exchange_rate = 9; // Assuming string, but might be better as float or double.
+    // The company the transaction belongs to.
+    string company = 10;
+    repeated string tracking_categories = 11;
+    // The TransactionLineItem object is used to represent a transaction's line item
+    repeated TransactionLineItem line_items = 12;
+    // Indicates whether or not this object has been deleted in the third party platform.
+    bool remote_was_deleted = 13;
+    // The accounting period that the Transaction was generated in.
+    string accounting_period = 14;
+    string merge_record_id = 15;
+    string remote_id = 16;
+    // This is the datetime that this object was last updated by Merge
+    google.protobuf.Timestamp modified_at = 17;
+    google.protobuf.Timestamp created_at = 18;
+}
+
+// The TransactionLineItem object is used to represent a transaction's line items.
+message TransactionLineItem {
+    option (gorm.opts) = {ormable: true};
+    uint64 id = 1;
+
+    string remote_id = 2;
+    // An internal note used by the business to clarify purpose of the transaction.
+    string memo = 3;
+    // The line item's unit price.
+    string unit_price = 4;
+    // The line item's quantity.
+    string quantity = 5;
+    string item = 6;
+    // The line item's account.
+    string account = 7;
+    // The line's associated tracking category.
+    string tracking_category = 8;
+    repeated string tracking_categories = 9;
+    // The line item's total.
+    string total_line_amount = 10;
+    // The line item's tax rate.
+    string tax_rate = 11;
+    // The line item's currency
+    string currency = 12;
+    // The line item's exchange rate.
+    string exchange_rate = 13; // Assuming string, but might be better as float or double.
+    // The company the line belongs to.
+    string company = 14;
+    google.protobuf.Timestamp modified_at = 15;
+    // Indicates whether or not this object has been deleted in the third party platform.
+    bool remote_was_deleted = 16;
+    google.protobuf.Timestamp created_at = 17;
+}
+
+// The VendorCredit object represents an accounts receivable transaction indicating that a customer is owed a gift or refund. 
+// It includes details such as the amount of credit, the vendor responsible, 
+// the associated account, and other relevant information.
+message VendorCredit {
+    option (gorm.opts) = {ormable: true};
+
+    // Unique identifier for the Merge account
+    string merge_record_id = 1;
+
+    // Identifier for the VendorCredit in the remote system
+    string remote_id = 2;
+
+    // Transaction number or reference identifier
+    string number = 3;
+
+    // Date of the transaction
+    google.protobuf.Timestamp transaction_date = 4;
+
+    // Name or identifier of the vendor
+    string vendor = 5;
+
+    // Total amount of credit owed
+    double total_amount = 6;
+
+    // Currency code for the transaction (e.g., USD, EUR)
+    string currency = 7;
+
+    // Exchange rate used for currency conversion, represented as a string for precision
+    string exchange_rate = 8;
+
+    // Identifier or name of the associated company
+    string company = 9;
+
+    // Line items associated with the vendor credit
+    repeated VendorCreditLine lines = 10;
+
+    // Tracking categories for accounting purposes
+    repeated string tracking_categories = 11;
+
+    // Flag indicating if the VendorCredit was deleted in the remote system
+    bool remote_was_deleted = 12;
+
+    // Accounting period for the transaction
+    string accounting_period = 13;
+
+    // Timestamp of the last modification
+    google.protobuf.Timestamp modified_at = 14;
+
+    // Unique identifier for the VendorCredit
+    uint64 id = 15;
+}
+
+/**
+    The VendorCreditLine object represents individual line items in a VendorCredit transaction, detailing specific elements of the credit.
+**/
+message VendorCreditLine {
+    option (gorm.opts) = {ormable: true};
+
+    // Identifier for the VendorCreditLine in the remote system
+    string remote_id = 1;
+
+    // Net amount for the line item
+    double net_amount = 2;
+
+    // Single tracking category for this line item
+    string tracking_category = 3;
+
+    // Multiple tracking categories for detailed accounting
+    repeated string tracking_categories = 4;
+
+    // Description of the line item
+    string description = 5;
+
+    // Account associated with the line item
+    string account = 6;
+
+    // Identifier or name of the associated company
+    string company = 7;
+
+    // Exchange rate used for currency conversion, potentially as a float or double for precision
+    string exchange_rate = 8;
+
+    // Timestamp of the last modification to the line item
+    google.protobuf.Timestamp modified_at = 9;
+
+    // Unique identifier for the VendorCreditLine
+    uint64 id = 10;
+}

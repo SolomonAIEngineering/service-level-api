@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package accounting_service.v1;
+
+import "protoc-gen-gorm/options/gorm.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "accounting_service/v1/enums.proto";
+
+option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/generated/accounting_service/v1";
+
+message BusinessActionableInsight {
+  option (gorm.opts) = {ormable: true};
+
+  // Unique identifier for the insight
+  uint64 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"1234567890\""}];
+
+  // Type of the actionable insight
+  BusinessActionableInsightType type = 2;
+
+  // Detailed description of the insight
+  string description = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"Reduce operating costs by optimizing energy usage.\""}];
+
+  // Key takeaway or summary of the insight
+  string takeaway = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"Optimizing energy usage can lead to significant cost savings.\""}];
+
+  // Suggested action based on the insight
+  string action = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"Implement energy-efficient lighting and machinery.\""}];
+
+  // Expected benefit or outcome of taking the suggested action
+  string expected_benefit = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"Expected to reduce energy costs by up to 20% annually.\""}];
+
+  // Tags associated with the insight for categorization
+  repeated string tags = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "[\"cost-saving\", \"energy-efficiency\"]"}];
+
+  // Time when the insight was generated
+  google.protobuf.Timestamp generated_time = 8;
+
+  // Specific business metrics that this insight aims to optimize
+  repeated string metrics_to_optimize_for = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "[\"operating costs\", \"energy consumption\"]"}];
+}

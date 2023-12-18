@@ -30,6 +30,7 @@ func newPurchaseOrderORM(db *gorm.DB, opts ...gen.DOOption) purchaseOrderORM {
 	_purchaseOrderORM.ALL = field.NewAsterisk(tableName)
 	_purchaseOrderORM.AccountingPeriod = field.NewString(tableName, "accounting_period")
 	_purchaseOrderORM.Company = field.NewString(tableName, "company")
+	_purchaseOrderORM.CreatedAt = field.NewTime(tableName, "created_at")
 	_purchaseOrderORM.Currency = field.NewString(tableName, "currency")
 	_purchaseOrderORM.Customer = field.NewString(tableName, "customer")
 	_purchaseOrderORM.DeliveryDate = field.NewTime(tableName, "delivery_date")
@@ -38,7 +39,7 @@ func newPurchaseOrderORM(db *gorm.DB, opts ...gen.DOOption) purchaseOrderORM {
 	_purchaseOrderORM.IssueDate = field.NewTime(tableName, "issue_date")
 	_purchaseOrderORM.LinkedAccountingAccountId = field.NewUint64(tableName, "linked_accounting_account_id")
 	_purchaseOrderORM.Memo = field.NewString(tableName, "memo")
-	_purchaseOrderORM.MergeAccountId = field.NewString(tableName, "merge_account_id")
+	_purchaseOrderORM.MergeRecordId = field.NewString(tableName, "merge_record_id")
 	_purchaseOrderORM.ModifiedAt = field.NewTime(tableName, "modified_at")
 	_purchaseOrderORM.PurchaseOrderNumber = field.NewString(tableName, "purchase_order_number")
 	_purchaseOrderORM.RemoteCreatedAt = field.NewTime(tableName, "remote_created_at")
@@ -72,6 +73,7 @@ type purchaseOrderORM struct {
 	ALL                       field.Asterisk
 	AccountingPeriod          field.String
 	Company                   field.String
+	CreatedAt                 field.Time
 	Currency                  field.String
 	Customer                  field.String
 	DeliveryDate              field.Time
@@ -80,7 +82,7 @@ type purchaseOrderORM struct {
 	IssueDate                 field.Time
 	LinkedAccountingAccountId field.Uint64
 	Memo                      field.String
-	MergeAccountId            field.String
+	MergeRecordId             field.String
 	ModifiedAt                field.Time
 	PurchaseOrderNumber       field.String
 	RemoteCreatedAt           field.Time
@@ -112,6 +114,7 @@ func (p *purchaseOrderORM) updateTableName(table string) *purchaseOrderORM {
 	p.ALL = field.NewAsterisk(table)
 	p.AccountingPeriod = field.NewString(table, "accounting_period")
 	p.Company = field.NewString(table, "company")
+	p.CreatedAt = field.NewTime(table, "created_at")
 	p.Currency = field.NewString(table, "currency")
 	p.Customer = field.NewString(table, "customer")
 	p.DeliveryDate = field.NewTime(table, "delivery_date")
@@ -120,7 +123,7 @@ func (p *purchaseOrderORM) updateTableName(table string) *purchaseOrderORM {
 	p.IssueDate = field.NewTime(table, "issue_date")
 	p.LinkedAccountingAccountId = field.NewUint64(table, "linked_accounting_account_id")
 	p.Memo = field.NewString(table, "memo")
-	p.MergeAccountId = field.NewString(table, "merge_account_id")
+	p.MergeRecordId = field.NewString(table, "merge_record_id")
 	p.ModifiedAt = field.NewTime(table, "modified_at")
 	p.PurchaseOrderNumber = field.NewString(table, "purchase_order_number")
 	p.RemoteCreatedAt = field.NewTime(table, "remote_created_at")
@@ -147,9 +150,10 @@ func (p *purchaseOrderORM) GetFieldByName(fieldName string) (field.OrderExpr, bo
 }
 
 func (p *purchaseOrderORM) fillFieldMap() {
-	p.fieldMap = make(map[string]field.Expr, 23)
+	p.fieldMap = make(map[string]field.Expr, 24)
 	p.fieldMap["accounting_period"] = p.AccountingPeriod
 	p.fieldMap["company"] = p.Company
+	p.fieldMap["created_at"] = p.CreatedAt
 	p.fieldMap["currency"] = p.Currency
 	p.fieldMap["customer"] = p.Customer
 	p.fieldMap["delivery_date"] = p.DeliveryDate
@@ -158,7 +162,7 @@ func (p *purchaseOrderORM) fillFieldMap() {
 	p.fieldMap["issue_date"] = p.IssueDate
 	p.fieldMap["linked_accounting_account_id"] = p.LinkedAccountingAccountId
 	p.fieldMap["memo"] = p.Memo
-	p.fieldMap["merge_account_id"] = p.MergeAccountId
+	p.fieldMap["merge_record_id"] = p.MergeRecordId
 	p.fieldMap["modified_at"] = p.ModifiedAt
 	p.fieldMap["purchase_order_number"] = p.PurchaseOrderNumber
 	p.fieldMap["remote_created_at"] = p.RemoteCreatedAt

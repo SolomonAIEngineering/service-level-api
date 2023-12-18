@@ -29,12 +29,13 @@ func newTaxRateORM(db *gorm.DB, opts ...gen.DOOption) taxRateORM {
 	tableName := _taxRateORM.taxRateORMDo.TableName()
 	_taxRateORM.ALL = field.NewAsterisk(tableName)
 	_taxRateORM.Company = field.NewString(tableName, "company")
+	_taxRateORM.CreatedAt = field.NewTime(tableName, "created_at")
 	_taxRateORM.Description = field.NewString(tableName, "description")
 	_taxRateORM.EffectiveTaxRate = field.NewFloat64(tableName, "effective_tax_rate")
 	_taxRateORM.Id = field.NewUint64(tableName, "id")
-	_taxRateORM.MergeAccountId = field.NewString(tableName, "merge_account_id")
+	_taxRateORM.LinkedAccountingAccountId = field.NewUint64(tableName, "linked_accounting_account_id")
+	_taxRateORM.MergeRecordId = field.NewString(tableName, "merge_record_id")
 	_taxRateORM.ModifiedAt = field.NewTime(tableName, "modified_at")
-	_taxRateORM.ReferenceDetailsId = field.NewUint64(tableName, "reference_details_id")
 	_taxRateORM.RemoteId = field.NewString(tableName, "remote_id")
 	_taxRateORM.RemoteWasDeleted = field.NewBool(tableName, "remote_was_deleted")
 	_taxRateORM.TotalTaxRate = field.NewFloat64(tableName, "total_tax_rate")
@@ -47,17 +48,18 @@ func newTaxRateORM(db *gorm.DB, opts ...gen.DOOption) taxRateORM {
 type taxRateORM struct {
 	taxRateORMDo
 
-	ALL                field.Asterisk
-	Company            field.String
-	Description        field.String
-	EffectiveTaxRate   field.Float64
-	Id                 field.Uint64
-	MergeAccountId     field.String
-	ModifiedAt         field.Time
-	ReferenceDetailsId field.Uint64
-	RemoteId           field.String
-	RemoteWasDeleted   field.Bool
-	TotalTaxRate       field.Float64
+	ALL                       field.Asterisk
+	Company                   field.String
+	CreatedAt                 field.Time
+	Description               field.String
+	EffectiveTaxRate          field.Float64
+	Id                        field.Uint64
+	LinkedAccountingAccountId field.Uint64
+	MergeRecordId             field.String
+	ModifiedAt                field.Time
+	RemoteId                  field.String
+	RemoteWasDeleted          field.Bool
+	TotalTaxRate              field.Float64
 
 	fieldMap map[string]field.Expr
 }
@@ -75,12 +77,13 @@ func (t taxRateORM) As(alias string) *taxRateORM {
 func (t *taxRateORM) updateTableName(table string) *taxRateORM {
 	t.ALL = field.NewAsterisk(table)
 	t.Company = field.NewString(table, "company")
+	t.CreatedAt = field.NewTime(table, "created_at")
 	t.Description = field.NewString(table, "description")
 	t.EffectiveTaxRate = field.NewFloat64(table, "effective_tax_rate")
 	t.Id = field.NewUint64(table, "id")
-	t.MergeAccountId = field.NewString(table, "merge_account_id")
+	t.LinkedAccountingAccountId = field.NewUint64(table, "linked_accounting_account_id")
+	t.MergeRecordId = field.NewString(table, "merge_record_id")
 	t.ModifiedAt = field.NewTime(table, "modified_at")
-	t.ReferenceDetailsId = field.NewUint64(table, "reference_details_id")
 	t.RemoteId = field.NewString(table, "remote_id")
 	t.RemoteWasDeleted = field.NewBool(table, "remote_was_deleted")
 	t.TotalTaxRate = field.NewFloat64(table, "total_tax_rate")
@@ -100,14 +103,15 @@ func (t *taxRateORM) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (t *taxRateORM) fillFieldMap() {
-	t.fieldMap = make(map[string]field.Expr, 10)
+	t.fieldMap = make(map[string]field.Expr, 11)
 	t.fieldMap["company"] = t.Company
+	t.fieldMap["created_at"] = t.CreatedAt
 	t.fieldMap["description"] = t.Description
 	t.fieldMap["effective_tax_rate"] = t.EffectiveTaxRate
 	t.fieldMap["id"] = t.Id
-	t.fieldMap["merge_account_id"] = t.MergeAccountId
+	t.fieldMap["linked_accounting_account_id"] = t.LinkedAccountingAccountId
+	t.fieldMap["merge_record_id"] = t.MergeRecordId
 	t.fieldMap["modified_at"] = t.ModifiedAt
-	t.fieldMap["reference_details_id"] = t.ReferenceDetailsId
 	t.fieldMap["remote_id"] = t.RemoteId
 	t.fieldMap["remote_was_deleted"] = t.RemoteWasDeleted
 	t.fieldMap["total_tax_rate"] = t.TotalTaxRate

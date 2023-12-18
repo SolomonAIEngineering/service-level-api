@@ -2,11 +2,13 @@ syntax = "proto3";
 
 package accounting_service.v1;
 
-import "accounting_service/v1/database_schema.proto";
-option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/generated/accounting_service/v1";
 import "validate/validate.proto";
 import "google/api/field_behavior.proto";
 import "gogoproto/gogo.proto";
+import "accounting_service/v1/business_profile_database_schema.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/generated/accounting_service/v1";
 
 option (gogoproto.gostring_all) = true;
 option (gogoproto.equal_all) = true;
@@ -20,70 +22,66 @@ option (gogoproto.marshaler_all) = true;
 option (gogoproto.sizer_all) = true;
 option (gogoproto.unmarshaler_all) = true;
 
-message HealthCheckRequest {}
+message HealthCheckRequest {} // Defines an empty message named HealthCheckRequest.
 
-message ReadynessCheckRequest {}
+message ReadynessCheckRequest {} // Defines an empty message named ReadynessCheckRequest.
 
-message CreateBusinessAccountingProfileRequest {
+message CreateProfileRequest { // Defines a message named CreateProfileRequest.
    uint64 user_id = 1  [
-    (validate.rules).uint64.gt = 0,
-    (google.api.field_behavior) = REQUIRED
-  ];
-   string email = 2 [
-    (validate.rules).string.len = 1,
-    (google.api.field_behavior) = REQUIRED
-  ];
-   string company_name = 3 [
-    (validate.rules).string.len = 1,
-    (google.api.field_behavior) = REQUIRED
+    (validate.rules).uint64.gt = 0, // Validation rule: user_id must be greater than 0.
+    (google.api.field_behavior) = REQUIRED // Field behavior: user_id is required.
   ];
 }
 
-message GetBusinessAccountingProfileRequest {
+message ReadProfileRequest { // Defines a message named ReadProfileRequest.
     uint64 user_id = 1  [
-    (validate.rules).uint64.gt = 0,
-    (google.api.field_behavior) = REQUIRED
+    (validate.rules).uint64.gt = 0, // Validation rule: user_id must be greater than 0.
+    (google.api.field_behavior) = REQUIRED // Field behavior: user_id is required.
+  ];
+  uint64 linked_accounting_account_id = 2 [
+    (validate.rules).uint64.gt = 0, // Validation rule: linked_accounting_account_id must be greater than 0.
+    (google.api.field_behavior) = REQUIRED // Field behavior: linked_accounting_account_id is required.
   ];
 }
 
-message DeleteBusinessAccountingProfileRequest {
+message DeleteProfileRequest { // Defines a message named DeleteProfile.
     uint64 user_id = 1  [
-    (validate.rules).uint64.gt = 0,
-    (google.api.field_behavior) = REQUIRED
+    (validate.rules).uint64.gt = 0, // Validation rule: user_id must be greater than 0.
+    (google.api.field_behavior) = REQUIRED // Field behavior: user_id is required.
   ];
 }
 
-message UpdateBusinessAccountingProfileRequest {
+message UpdateProfileRequest { // Defines a message named UpdateProfileRequest.
   // business accounting profile to update 
-  BusinessAccountingProfile profile = 1;
+  MergeBusinessProfile profile = 1; // A field named "profile" of type BusinessPayrollProfile.
 }
 
-message MergeGetPublicLinkTokenRequest {
+message GetMergeLinkTokenRequest { // Defines a message named GetMergeLinkTokenRequest.
   // The user id
   // Validations:
   // - user_id must be greater than 0
-  // This unique identifier typically represents the ID for your end user in your product's database. T
-  // his value must be distinct from other Linked Accounts' unique identifiers.
+  // This unique identifier typically represents the ID for your end user in your product's database.
+  // This value must be distinct from other Linked Accounts' unique identifiers.
   uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
-    (google.api.field_behavior) = REQUIRED
+    (validate.rules).uint64.gt = 0, // Validation rule: user_id must be greater than 0.
+    (google.api.field_behavior) = REQUIRED // Field behavior: user_id is required.
   ];
 
   // Your end user's organization.
   string organization_name	= 2 [
-    (validate.rules).string.min_len = 1,
-    (google.api.field_behavior) = REQUIRED
+    (validate.rules).string.min_len = 1, // Validation rule: organization_name must have a minimum length of 1.
+    (google.api.field_behavior) = REQUIRED // Field behavior: organization_name is required.
   ];
 
   // Your end user's email address. This is purely for
   // identification purposes - setting this value will not cause any emails to be sent.
   string email	= 3 [
-    (validate.rules).string.min_len = 1,
-    (google.api.field_behavior) = REQUIRED
+    (validate.rules).string.min_len = 1, // Validation rule: email must have a minimum length of 1.
+    (google.api.field_behavior) = REQUIRED // Field behavior: email is required.
   ];
 }
 
-message MergeExchangePublicLinkTokenForAccountTokenRequest {
+message ExchangePublicLinkTokenForAccountTokenRequest {
   // The user id
   // Validations:
   // - user_id must be greater than 0
@@ -94,69 +92,166 @@ message MergeExchangePublicLinkTokenForAccountTokenRequest {
 
   // the public link token
   string public_token = 2 [
-    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
 
-  // the end users origin id
+  // the end user's origin id
   string end_user_origin_id = 3  [
-    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
 
   // the organization name
   string organization_name = 4  [
-    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
 }
 
-message GetChartOfAccountsRequest {
-  // the user id of interest
+message ReadBalanceSheetsRequest {
+  // The user id
+  // Validations:
+  // - user_id must be greater than 0
   uint64 user_id = 1 [
     (validate.rules).uint64.gt = 0,
     (google.api.field_behavior) = REQUIRED
   ];
 
-  uint64 linked_accounting_account_id = 2 [
-    (validate.rules).uint64.gt = 0,
-    (google.api.field_behavior) = REQUIRED
-  ];
-}
-
-message GetChartOfAccountsResponse {
-  repeated BusinessChartOfAccounts chart_of_accounts = 1;
-}
-
-message GetTransactionDetailsRequest {
-    uint64 user_id = 1 [
+  // The accounting integration merge link id
+  // Validations:
+  // - acounting_integration_merge_link_id must be greater than 0
+  uint64 acounting_integration_merge_link_id = 2 [
     (validate.rules).uint64.gt = 0,
     (google.api.field_behavior) = REQUIRED
   ];
 
-  uint64 linked_accounting_account_id = 2 [
-    (validate.rules).uint64.gt = 0,
+  // The start date
+  // Validations:
+  // - start_date must be a valid date
+  google.protobuf.Timestamp start_date = 3 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The end date
+  // Validations:
+  // - end_date must be a valid date
+  google.protobuf.Timestamp end_date = 4 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The page size
+  int32 page_size = 5 [
+    (validate.rules).int32.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The page number
+  int32 page_number = 6 [
+    (validate.rules).int32.gt = 0,
     (google.api.field_behavior) = REQUIRED
   ];
 }
 
-message GetTransactionDetailsResponse {
-  TransactionDetails transaction_details = 1;
-}
-
-message GetReferenceDetailsRequest {
-      // the user id of interest
+message ReadCashFlowStatementsRequest {
+  // The user id
+  // Validations:
+  // - user_id must be greater than 0
   uint64 user_id = 1 [
     (validate.rules).uint64.gt = 0,
     (google.api.field_behavior) = REQUIRED
   ];
 
-  uint64 linked_accounting_account_id = 2 [
+  // The accounting integration merge link id
+  // Validations:
+  // - acounting_integration_merge_link_id must be greater than 0
+  uint64 acounting_integration_merge_link_id = 2 [
     (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The start date
+  // Validations:
+  // - start_date must be a valid date
+  google.protobuf.Timestamp start_date = 3 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The end date
+  // Validations:
+  // - end_date must be a valid date
+  google.protobuf.Timestamp end_date = 4 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The page size
+  int32 page_size = 5 [
+    (validate.rules).int32.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The page number
+  int32 page_number = 6 [
+    (validate.rules).int32.gt = 0,
     (google.api.field_behavior) = REQUIRED
   ];
 }
 
-message GetReferenceDetailsResponse {
-  ReferenceDetails reference_details = 1;
+message ReadIncomeStatementsRequest {
+  // The user id
+  // Validations:
+  // - user_id must be greater than 0
+  uint64 user_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The accounting integration merge link id
+  // Validations:
+  // - acounting_integration_merge_link_id must be greater than 0
+  uint64 acounting_integration_merge_link_id = 2 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The start date
+  // Validations:
+  // - start_date must be a valid date
+  google.protobuf.Timestamp start_date = 3 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The end date
+  // Validations:
+  // - end_date must be a valid date
+  google.protobuf.Timestamp end_date = 4 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The page size
+  int32 page_size = 5 [
+    (validate.rules).int32.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The page number
+  int32 page_number = 6 [
+    (validate.rules).int32.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message ReadBusinessChartOfAccountsRequest {
+  // The user id
+  // Validations:
+  // - user_id must be greater than 0
+  uint64 user_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The accounting integration merge link id
+  // Validations:
+  // - acounting_integration_merge_link_id must be greater than 0
+  uint64 acounting_integration_merge_link_id = 2 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
 }

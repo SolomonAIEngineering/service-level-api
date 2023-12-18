@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package accounting_service.v1;
+
+import "protoc-gen-gorm/options/gorm.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/generated/accounting_service/v1";
+
+message MergeLinkedAccountToken {
+  option (gorm.opts) = {ormable: true};
+  // id
+  uint64 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+  // the id of the item the token is tied to 
+  string item_id = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+  string key_id = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+  string access_token = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+  string version = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+  // This is what you'll pass to Merge as the end_user_origin_id.
+  string merge_end_user_origin_id = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+  // The integration slug/identifier. This is returned at the end of the linking flow.
+  string merge_integration_slug = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+}

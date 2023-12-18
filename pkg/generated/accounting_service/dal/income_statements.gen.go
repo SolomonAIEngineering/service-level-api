@@ -29,17 +29,19 @@ func newIncomeStatementORM(db *gorm.DB, opts ...gen.DOOption) incomeStatementORM
 	tableName := _incomeStatementORM.incomeStatementORMDo.TableName()
 	_incomeStatementORM.ALL = field.NewAsterisk(tableName)
 	_incomeStatementORM.Company = field.NewString(tableName, "company")
+	_incomeStatementORM.CreatedAt = field.NewTime(tableName, "created_at")
 	_incomeStatementORM.Currency = field.NewString(tableName, "currency")
 	_incomeStatementORM.EndPeriod = field.NewTime(tableName, "end_period")
-	_incomeStatementORM.GrossProfit = field.NewInt32(tableName, "gross_profit")
+	_incomeStatementORM.GrossProfit = field.NewFloat64(tableName, "gross_profit")
 	_incomeStatementORM.Id = field.NewUint64(tableName, "id")
+	_incomeStatementORM.LinkedAccountingAccountId = field.NewUint64(tableName, "linked_accounting_account_id")
+	_incomeStatementORM.MergeRecordId = field.NewString(tableName, "merge_record_id")
 	_incomeStatementORM.ModifiedAt = field.NewTime(tableName, "modified_at")
 	_incomeStatementORM.Name = field.NewString(tableName, "name")
-	_incomeStatementORM.NetIncome = field.NewInt32(tableName, "net_income")
-	_incomeStatementORM.NetOperatingIncome = field.NewInt32(tableName, "net_operating_income")
+	_incomeStatementORM.NetIncome = field.NewFloat64(tableName, "net_income")
+	_incomeStatementORM.NetOperatingIncome = field.NewFloat64(tableName, "net_operating_income")
 	_incomeStatementORM.RemoteId = field.NewString(tableName, "remote_id")
 	_incomeStatementORM.RemoteWasDeleted = field.NewBool(tableName, "remote_was_deleted")
-	_incomeStatementORM.ReportDetailsId = field.NewUint64(tableName, "report_details_id")
 	_incomeStatementORM.StartPeriod = field.NewTime(tableName, "start_period")
 	_incomeStatementORM.CostOfSales = incomeStatementORMHasManyCostOfSales{
 		db: db.Session(&gorm.Session{}),
@@ -73,21 +75,23 @@ func newIncomeStatementORM(db *gorm.DB, opts ...gen.DOOption) incomeStatementORM
 type incomeStatementORM struct {
 	incomeStatementORMDo
 
-	ALL                field.Asterisk
-	Company            field.String
-	Currency           field.String
-	EndPeriod          field.Time
-	GrossProfit        field.Int32
-	Id                 field.Uint64
-	ModifiedAt         field.Time
-	Name               field.String
-	NetIncome          field.Int32
-	NetOperatingIncome field.Int32
-	RemoteId           field.String
-	RemoteWasDeleted   field.Bool
-	ReportDetailsId    field.Uint64
-	StartPeriod        field.Time
-	CostOfSales        incomeStatementORMHasManyCostOfSales
+	ALL                       field.Asterisk
+	Company                   field.String
+	CreatedAt                 field.Time
+	Currency                  field.String
+	EndPeriod                 field.Time
+	GrossProfit               field.Float64
+	Id                        field.Uint64
+	LinkedAccountingAccountId field.Uint64
+	MergeRecordId             field.String
+	ModifiedAt                field.Time
+	Name                      field.String
+	NetIncome                 field.Float64
+	NetOperatingIncome        field.Float64
+	RemoteId                  field.String
+	RemoteWasDeleted          field.Bool
+	StartPeriod               field.Time
+	CostOfSales               incomeStatementORMHasManyCostOfSales
 
 	Income incomeStatementORMHasManyIncome
 
@@ -111,17 +115,19 @@ func (i incomeStatementORM) As(alias string) *incomeStatementORM {
 func (i *incomeStatementORM) updateTableName(table string) *incomeStatementORM {
 	i.ALL = field.NewAsterisk(table)
 	i.Company = field.NewString(table, "company")
+	i.CreatedAt = field.NewTime(table, "created_at")
 	i.Currency = field.NewString(table, "currency")
 	i.EndPeriod = field.NewTime(table, "end_period")
-	i.GrossProfit = field.NewInt32(table, "gross_profit")
+	i.GrossProfit = field.NewFloat64(table, "gross_profit")
 	i.Id = field.NewUint64(table, "id")
+	i.LinkedAccountingAccountId = field.NewUint64(table, "linked_accounting_account_id")
+	i.MergeRecordId = field.NewString(table, "merge_record_id")
 	i.ModifiedAt = field.NewTime(table, "modified_at")
 	i.Name = field.NewString(table, "name")
-	i.NetIncome = field.NewInt32(table, "net_income")
-	i.NetOperatingIncome = field.NewInt32(table, "net_operating_income")
+	i.NetIncome = field.NewFloat64(table, "net_income")
+	i.NetOperatingIncome = field.NewFloat64(table, "net_operating_income")
 	i.RemoteId = field.NewString(table, "remote_id")
 	i.RemoteWasDeleted = field.NewBool(table, "remote_was_deleted")
-	i.ReportDetailsId = field.NewUint64(table, "report_details_id")
 	i.StartPeriod = field.NewTime(table, "start_period")
 
 	i.fillFieldMap()
@@ -139,19 +145,21 @@ func (i *incomeStatementORM) GetFieldByName(fieldName string) (field.OrderExpr, 
 }
 
 func (i *incomeStatementORM) fillFieldMap() {
-	i.fieldMap = make(map[string]field.Expr, 17)
+	i.fieldMap = make(map[string]field.Expr, 19)
 	i.fieldMap["company"] = i.Company
+	i.fieldMap["created_at"] = i.CreatedAt
 	i.fieldMap["currency"] = i.Currency
 	i.fieldMap["end_period"] = i.EndPeriod
 	i.fieldMap["gross_profit"] = i.GrossProfit
 	i.fieldMap["id"] = i.Id
+	i.fieldMap["linked_accounting_account_id"] = i.LinkedAccountingAccountId
+	i.fieldMap["merge_record_id"] = i.MergeRecordId
 	i.fieldMap["modified_at"] = i.ModifiedAt
 	i.fieldMap["name"] = i.Name
 	i.fieldMap["net_income"] = i.NetIncome
 	i.fieldMap["net_operating_income"] = i.NetOperatingIncome
 	i.fieldMap["remote_id"] = i.RemoteId
 	i.fieldMap["remote_was_deleted"] = i.RemoteWasDeleted
-	i.fieldMap["report_details_id"] = i.ReportDetailsId
 	i.fieldMap["start_period"] = i.StartPeriod
 
 }

@@ -29,13 +29,14 @@ func newItemORM(db *gorm.DB, opts ...gen.DOOption) itemORM {
 	tableName := _itemORM.itemORMDo.TableName()
 	_itemORM.ALL = field.NewAsterisk(tableName)
 	_itemORM.Company = field.NewString(tableName, "company")
+	_itemORM.CreatedAt = field.NewTime(tableName, "created_at")
 	_itemORM.Id = field.NewUint64(tableName, "id")
-	_itemORM.MergeAccountId = field.NewString(tableName, "merge_account_id")
+	_itemORM.LinkedAccountingAccountId = field.NewUint64(tableName, "linked_accounting_account_id")
+	_itemORM.MergeRecordId = field.NewString(tableName, "merge_record_id")
 	_itemORM.ModifiedAt = field.NewTime(tableName, "modified_at")
 	_itemORM.Name = field.NewString(tableName, "name")
 	_itemORM.PurchaseAccount = field.NewString(tableName, "purchase_account")
 	_itemORM.PurchasePrice = field.NewFloat32(tableName, "purchase_price")
-	_itemORM.ReferenceDetailsId = field.NewUint64(tableName, "reference_details_id")
 	_itemORM.RemoteId = field.NewString(tableName, "remote_id")
 	_itemORM.RemoteUpdatedAt = field.NewTime(tableName, "remote_updated_at")
 	_itemORM.RemoteWasDeleted = field.NewBool(tableName, "remote_was_deleted")
@@ -51,21 +52,22 @@ func newItemORM(db *gorm.DB, opts ...gen.DOOption) itemORM {
 type itemORM struct {
 	itemORMDo
 
-	ALL                field.Asterisk
-	Company            field.String
-	Id                 field.Uint64
-	MergeAccountId     field.String
-	ModifiedAt         field.Time
-	Name               field.String
-	PurchaseAccount    field.String
-	PurchasePrice      field.Float32
-	ReferenceDetailsId field.Uint64
-	RemoteId           field.String
-	RemoteUpdatedAt    field.Time
-	RemoteWasDeleted   field.Bool
-	SalesAccount       field.String
-	Status             field.String
-	UnitPrice          field.Float32
+	ALL                       field.Asterisk
+	Company                   field.String
+	CreatedAt                 field.Time
+	Id                        field.Uint64
+	LinkedAccountingAccountId field.Uint64
+	MergeRecordId             field.String
+	ModifiedAt                field.Time
+	Name                      field.String
+	PurchaseAccount           field.String
+	PurchasePrice             field.Float32
+	RemoteId                  field.String
+	RemoteUpdatedAt           field.Time
+	RemoteWasDeleted          field.Bool
+	SalesAccount              field.String
+	Status                    field.String
+	UnitPrice                 field.Float32
 
 	fieldMap map[string]field.Expr
 }
@@ -83,13 +85,14 @@ func (i itemORM) As(alias string) *itemORM {
 func (i *itemORM) updateTableName(table string) *itemORM {
 	i.ALL = field.NewAsterisk(table)
 	i.Company = field.NewString(table, "company")
+	i.CreatedAt = field.NewTime(table, "created_at")
 	i.Id = field.NewUint64(table, "id")
-	i.MergeAccountId = field.NewString(table, "merge_account_id")
+	i.LinkedAccountingAccountId = field.NewUint64(table, "linked_accounting_account_id")
+	i.MergeRecordId = field.NewString(table, "merge_record_id")
 	i.ModifiedAt = field.NewTime(table, "modified_at")
 	i.Name = field.NewString(table, "name")
 	i.PurchaseAccount = field.NewString(table, "purchase_account")
 	i.PurchasePrice = field.NewFloat32(table, "purchase_price")
-	i.ReferenceDetailsId = field.NewUint64(table, "reference_details_id")
 	i.RemoteId = field.NewString(table, "remote_id")
 	i.RemoteUpdatedAt = field.NewTime(table, "remote_updated_at")
 	i.RemoteWasDeleted = field.NewBool(table, "remote_was_deleted")
@@ -112,15 +115,16 @@ func (i *itemORM) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (i *itemORM) fillFieldMap() {
-	i.fieldMap = make(map[string]field.Expr, 14)
+	i.fieldMap = make(map[string]field.Expr, 15)
 	i.fieldMap["company"] = i.Company
+	i.fieldMap["created_at"] = i.CreatedAt
 	i.fieldMap["id"] = i.Id
-	i.fieldMap["merge_account_id"] = i.MergeAccountId
+	i.fieldMap["linked_accounting_account_id"] = i.LinkedAccountingAccountId
+	i.fieldMap["merge_record_id"] = i.MergeRecordId
 	i.fieldMap["modified_at"] = i.ModifiedAt
 	i.fieldMap["name"] = i.Name
 	i.fieldMap["purchase_account"] = i.PurchaseAccount
 	i.fieldMap["purchase_price"] = i.PurchasePrice
-	i.fieldMap["reference_details_id"] = i.ReferenceDetailsId
 	i.fieldMap["remote_id"] = i.RemoteId
 	i.fieldMap["remote_updated_at"] = i.RemoteUpdatedAt
 	i.fieldMap["remote_was_deleted"] = i.RemoteWasDeleted
