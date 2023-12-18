@@ -713,22 +713,22 @@ var _ interface {
 	ErrorName() string
 } = UpdateProfileResponseValidationError{}
 
-// Validate checks the field values on GetLinkTokenResponse with the rules
+// Validate checks the field values on GetMergeLinkTokenResponse with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *GetLinkTokenResponse) Validate() error {
+func (m *GetMergeLinkTokenResponse) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on GetLinkTokenResponse with the rules
-// defined in the proto definition for this message. If any rules are
+// ValidateAll checks the field values on GetMergeLinkTokenResponse with the
+// rules defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// GetLinkTokenResponseMultiError, or nil if none found.
-func (m *GetLinkTokenResponse) ValidateAll() error {
+// GetMergeLinkTokenResponseMultiError, or nil if none found.
+func (m *GetMergeLinkTokenResponse) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *GetLinkTokenResponse) validate(all bool) error {
+func (m *GetMergeLinkTokenResponse) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -746,19 +746,19 @@ func (m *GetLinkTokenResponse) validate(all bool) error {
 	// no validation rules for OrganizationName
 
 	if len(errors) > 0 {
-		return GetLinkTokenResponseMultiError(errors)
+		return GetMergeLinkTokenResponseMultiError(errors)
 	}
 
 	return nil
 }
 
-// GetLinkTokenResponseMultiError is an error wrapping multiple validation
-// errors returned by GetLinkTokenResponse.ValidateAll() if the designated
-// constraints aren't met.
-type GetLinkTokenResponseMultiError []error
+// GetMergeLinkTokenResponseMultiError is an error wrapping multiple validation
+// errors returned by GetMergeLinkTokenResponse.ValidateAll() if the
+// designated constraints aren't met.
+type GetMergeLinkTokenResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m GetLinkTokenResponseMultiError) Error() string {
+func (m GetMergeLinkTokenResponseMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -767,11 +767,11 @@ func (m GetLinkTokenResponseMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m GetLinkTokenResponseMultiError) AllErrors() []error { return m }
+func (m GetMergeLinkTokenResponseMultiError) AllErrors() []error { return m }
 
-// GetLinkTokenResponseValidationError is the validation error returned by
-// GetLinkTokenResponse.Validate if the designated constraints aren't met.
-type GetLinkTokenResponseValidationError struct {
+// GetMergeLinkTokenResponseValidationError is the validation error returned by
+// GetMergeLinkTokenResponse.Validate if the designated constraints aren't met.
+type GetMergeLinkTokenResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -779,24 +779,24 @@ type GetLinkTokenResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e GetLinkTokenResponseValidationError) Field() string { return e.field }
+func (e GetMergeLinkTokenResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e GetLinkTokenResponseValidationError) Reason() string { return e.reason }
+func (e GetMergeLinkTokenResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e GetLinkTokenResponseValidationError) Cause() error { return e.cause }
+func (e GetMergeLinkTokenResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e GetLinkTokenResponseValidationError) Key() bool { return e.key }
+func (e GetMergeLinkTokenResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e GetLinkTokenResponseValidationError) ErrorName() string {
-	return "GetLinkTokenResponseValidationError"
+func (e GetMergeLinkTokenResponseValidationError) ErrorName() string {
+	return "GetMergeLinkTokenResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e GetLinkTokenResponseValidationError) Error() string {
+func (e GetMergeLinkTokenResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -808,14 +808,14 @@ func (e GetLinkTokenResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sGetLinkTokenResponse.%s: %s%s",
+		"invalid %sGetMergeLinkTokenResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = GetLinkTokenResponseValidationError{}
+var _ error = GetMergeLinkTokenResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -823,7 +823,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = GetLinkTokenResponseValidationError{}
+} = GetMergeLinkTokenResponseValidationError{}
 
 // Validate checks the field values on
 // ExchangePublicLinkTokenForAccountTokenResponse with the rules defined in

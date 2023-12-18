@@ -25,7 +25,7 @@ const (
 	AccountingService_ReadProfile_FullMethodName                            = "/accounting_service.v1.AccountingService/ReadProfile"
 	AccountingService_DeleteProfile_FullMethodName                          = "/accounting_service.v1.AccountingService/DeleteProfile"
 	AccountingService_UpdateProfile_FullMethodName                          = "/accounting_service.v1.AccountingService/UpdateProfile"
-	AccountingService_GetLinkToken_FullMethodName                           = "/accounting_service.v1.AccountingService/GetLinkToken"
+	AccountingService_GetMergeLinkToken_FullMethodName                      = "/accounting_service.v1.AccountingService/GetMergeLinkToken"
 	AccountingService_ExchangePublicLinkTokenForAccountToken_FullMethodName = "/accounting_service.v1.AccountingService/ExchangePublicLinkTokenForAccountToken"
 	AccountingService_ReadBalanceSheets_FullMethodName                      = "/accounting_service.v1.AccountingService/ReadBalanceSheets"
 	AccountingService_ReadCashFlowStatements_FullMethodName                 = "/accounting_service.v1.AccountingService/ReadCashFlowStatements"
@@ -50,7 +50,7 @@ type AccountingServiceClient interface {
 	// updates a business account
 	UpdateProfile(ctx context.Context, in *UpdateProfileRequest, opts ...grpc.CallOption) (*UpdateProfileResponse, error)
 	// enables the client to get a link_token to initialize a Link session for your end user.
-	GetLinkToken(ctx context.Context, in *GetLinkTokenRequest, opts ...grpc.CallOption) (*GetLinkTokenResponse, error)
+	GetMergeLinkToken(ctx context.Context, in *GetMergeLinkTokenRequest, opts ...grpc.CallOption) (*GetMergeLinkTokenResponse, error)
 	// enables the client to exchange a public link token for an access token
 	ExchangePublicLinkTokenForAccountToken(ctx context.Context, in *ExchangePublicLinkTokenForAccountTokenRequest, opts ...grpc.CallOption) (*ExchangePublicLinkTokenForAccountTokenResponse, error)
 	// ReadBalanceSheets reads the balances sheet for a given a user
@@ -124,9 +124,9 @@ func (c *accountingServiceClient) UpdateProfile(ctx context.Context, in *UpdateP
 	return out, nil
 }
 
-func (c *accountingServiceClient) GetLinkToken(ctx context.Context, in *GetLinkTokenRequest, opts ...grpc.CallOption) (*GetLinkTokenResponse, error) {
-	out := new(GetLinkTokenResponse)
-	err := c.cc.Invoke(ctx, AccountingService_GetLinkToken_FullMethodName, in, out, opts...)
+func (c *accountingServiceClient) GetMergeLinkToken(ctx context.Context, in *GetMergeLinkTokenRequest, opts ...grpc.CallOption) (*GetMergeLinkTokenResponse, error) {
+	out := new(GetMergeLinkTokenResponse)
+	err := c.cc.Invoke(ctx, AccountingService_GetMergeLinkToken_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -195,7 +195,7 @@ type AccountingServiceServer interface {
 	// updates a business account
 	UpdateProfile(context.Context, *UpdateProfileRequest) (*UpdateProfileResponse, error)
 	// enables the client to get a link_token to initialize a Link session for your end user.
-	GetLinkToken(context.Context, *GetLinkTokenRequest) (*GetLinkTokenResponse, error)
+	GetMergeLinkToken(context.Context, *GetMergeLinkTokenRequest) (*GetMergeLinkTokenResponse, error)
 	// enables the client to exchange a public link token for an access token
 	ExchangePublicLinkTokenForAccountToken(context.Context, *ExchangePublicLinkTokenForAccountTokenRequest) (*ExchangePublicLinkTokenForAccountTokenResponse, error)
 	// ReadBalanceSheets reads the balances sheet for a given a user
@@ -230,8 +230,8 @@ func (UnimplementedAccountingServiceServer) DeleteProfile(context.Context, *Dele
 func (UnimplementedAccountingServiceServer) UpdateProfile(context.Context, *UpdateProfileRequest) (*UpdateProfileResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateProfile not implemented")
 }
-func (UnimplementedAccountingServiceServer) GetLinkToken(context.Context, *GetLinkTokenRequest) (*GetLinkTokenResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetLinkToken not implemented")
+func (UnimplementedAccountingServiceServer) GetMergeLinkToken(context.Context, *GetMergeLinkTokenRequest) (*GetMergeLinkTokenResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMergeLinkToken not implemented")
 }
 func (UnimplementedAccountingServiceServer) ExchangePublicLinkTokenForAccountToken(context.Context, *ExchangePublicLinkTokenForAccountTokenRequest) (*ExchangePublicLinkTokenForAccountTokenResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ExchangePublicLinkTokenForAccountToken not implemented")
@@ -369,20 +369,20 @@ func _AccountingService_UpdateProfile_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AccountingService_GetLinkToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetLinkTokenRequest)
+func _AccountingService_GetMergeLinkToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetMergeLinkTokenRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AccountingServiceServer).GetLinkToken(ctx, in)
+		return srv.(AccountingServiceServer).GetMergeLinkToken(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: AccountingService_GetLinkToken_FullMethodName,
+		FullMethod: AccountingService_GetMergeLinkToken_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountingServiceServer).GetLinkToken(ctx, req.(*GetLinkTokenRequest))
+		return srv.(AccountingServiceServer).GetMergeLinkToken(ctx, req.(*GetMergeLinkTokenRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -509,8 +509,8 @@ var AccountingService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _AccountingService_UpdateProfile_Handler,
 		},
 		{
-			MethodName: "GetLinkToken",
-			Handler:    _AccountingService_GetLinkToken_Handler,
+			MethodName: "GetMergeLinkToken",
+			Handler:    _AccountingService_GetMergeLinkToken_Handler,
 		},
 		{
 			MethodName: "ExchangePublicLinkTokenForAccountToken",

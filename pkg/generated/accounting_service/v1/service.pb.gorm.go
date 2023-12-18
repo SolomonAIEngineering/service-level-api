@@ -45,9 +45,9 @@ func (m *AccountingServiceDefaultServer) UpdateProfile(ctx context.Context, in *
 	return out, nil
 }
 
-// GetLinkToken ...
-func (m *AccountingServiceDefaultServer) GetLinkToken(ctx context.Context, in *GetLinkTokenRequest) (*GetLinkTokenResponse, error) {
-	out := &GetLinkTokenResponse{}
+// GetMergeLinkToken ...
+func (m *AccountingServiceDefaultServer) GetMergeLinkToken(ctx context.Context, in *GetMergeLinkTokenRequest) (*GetMergeLinkTokenResponse, error) {
+	out := &GetMergeLinkTokenResponse{}
 	return out, nil
 }
 

@@ -51,7 +51,7 @@ message UpdateProfileResponse { // Defines a message named UpdateProfileResponse
   MergeBusinessProfile profile = 1; // A field named "profile" of type BusinessPayrollProfile with field number 1.
 }
 
-message GetLinkTokenResponse { // Defines a message named GetLinkTokenResponse.
+message GetMergeLinkTokenResponse { // Defines a message named GetLinkTokenResponse.
   // the link token
   string link_token = 1; // A string field named "link_token" with field number 1.
   

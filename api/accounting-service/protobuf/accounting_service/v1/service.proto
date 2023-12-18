@@ -146,7 +146,7 @@ service AccountingService {
 
 
   // enables the client to get a link_token to initialize a Link session for your end user.
-  rpc GetLinkToken(GetLinkTokenRequest) returns (GetLinkTokenResponse) {
+  rpc GetMergeLinkToken(GetMergeLinkTokenRequest) returns (GetMergeLinkTokenResponse) {
     option (google.api.http) = {
       post: "/api/v1/merge/initiate-token-exchange"
       body: "*"

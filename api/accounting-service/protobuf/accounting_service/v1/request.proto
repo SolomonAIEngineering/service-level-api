@@ -56,7 +56,7 @@ message UpdateProfileRequest { // Defines a message named UpdateProfileRequest.
   MergeBusinessProfile profile = 1; // A field named "profile" of type BusinessPayrollProfile.
 }
 
-message GetLinkTokenRequest { // Defines a message named GetLinkTokenRequest.
+message GetMergeLinkTokenRequest { // Defines a message named GetMergeLinkTokenRequest.
   // The user id
   // Validations:
   // - user_id must be greater than 0

@@ -720,22 +720,22 @@ var _ interface {
 	ErrorName() string
 } = UpdateProfileRequestValidationError{}
 
-// Validate checks the field values on GetLinkTokenRequest with the rules
+// Validate checks the field values on GetMergeLinkTokenRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *GetLinkTokenRequest) Validate() error {
+func (m *GetMergeLinkTokenRequest) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on GetLinkTokenRequest with the rules
-// defined in the proto definition for this message. If any rules are
+// ValidateAll checks the field values on GetMergeLinkTokenRequest with the
+// rules defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// GetLinkTokenRequestMultiError, or nil if none found.
-func (m *GetLinkTokenRequest) ValidateAll() error {
+// GetMergeLinkTokenRequestMultiError, or nil if none found.
+func (m *GetMergeLinkTokenRequest) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *GetLinkTokenRequest) validate(all bool) error {
+func (m *GetMergeLinkTokenRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -743,7 +743,7 @@ func (m *GetLinkTokenRequest) validate(all bool) error {
 	var errors []error
 
 	if m.GetUserId() <= 0 {
-		err := GetLinkTokenRequestValidationError{
+		err := GetMergeLinkTokenRequestValidationError{
 			field:  "UserId",
 			reason: "value must be greater than 0",
 		}
@@ -754,7 +754,7 @@ func (m *GetLinkTokenRequest) validate(all bool) error {
 	}
 
 	if utf8.RuneCountInString(m.GetOrganizationName()) < 1 {
-		err := GetLinkTokenRequestValidationError{
+		err := GetMergeLinkTokenRequestValidationError{
 			field:  "OrganizationName",
 			reason: "value length must be at least 1 runes",
 		}
@@ -765,7 +765,7 @@ func (m *GetLinkTokenRequest) validate(all bool) error {
 	}
 
 	if utf8.RuneCountInString(m.GetEmail()) < 1 {
-		err := GetLinkTokenRequestValidationError{
+		err := GetMergeLinkTokenRequestValidationError{
 			field:  "Email",
 			reason: "value length must be at least 1 runes",
 		}
@@ -776,19 +776,19 @@ func (m *GetLinkTokenRequest) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return GetLinkTokenRequestMultiError(errors)
+		return GetMergeLinkTokenRequestMultiError(errors)
 	}
 
 	return nil
 }
 
-// GetLinkTokenRequestMultiError is an error wrapping multiple validation
-// errors returned by GetLinkTokenRequest.ValidateAll() if the designated
+// GetMergeLinkTokenRequestMultiError is an error wrapping multiple validation
+// errors returned by GetMergeLinkTokenRequest.ValidateAll() if the designated
 // constraints aren't met.
-type GetLinkTokenRequestMultiError []error
+type GetMergeLinkTokenRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m GetLinkTokenRequestMultiError) Error() string {
+func (m GetMergeLinkTokenRequestMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -797,11 +797,11 @@ func (m GetLinkTokenRequestMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m GetLinkTokenRequestMultiError) AllErrors() []error { return m }
+func (m GetMergeLinkTokenRequestMultiError) AllErrors() []error { return m }
 
-// GetLinkTokenRequestValidationError is the validation error returned by
-// GetLinkTokenRequest.Validate if the designated constraints aren't met.
-type GetLinkTokenRequestValidationError struct {
+// GetMergeLinkTokenRequestValidationError is the validation error returned by
+// GetMergeLinkTokenRequest.Validate if the designated constraints aren't met.
+type GetMergeLinkTokenRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -809,24 +809,24 @@ type GetLinkTokenRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e GetLinkTokenRequestValidationError) Field() string { return e.field }
+func (e GetMergeLinkTokenRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e GetLinkTokenRequestValidationError) Reason() string { return e.reason }
+func (e GetMergeLinkTokenRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e GetLinkTokenRequestValidationError) Cause() error { return e.cause }
+func (e GetMergeLinkTokenRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e GetLinkTokenRequestValidationError) Key() bool { return e.key }
+func (e GetMergeLinkTokenRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e GetLinkTokenRequestValidationError) ErrorName() string {
-	return "GetLinkTokenRequestValidationError"
+func (e GetMergeLinkTokenRequestValidationError) ErrorName() string {
+	return "GetMergeLinkTokenRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e GetLinkTokenRequestValidationError) Error() string {
+func (e GetMergeLinkTokenRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -838,14 +838,14 @@ func (e GetLinkTokenRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sGetLinkTokenRequest.%s: %s%s",
+		"invalid %sGetMergeLinkTokenRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = GetLinkTokenRequestValidationError{}
+var _ error = GetMergeLinkTokenRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -853,7 +853,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = GetLinkTokenRequestValidationError{}
+} = GetMergeLinkTokenRequestValidationError{}
 
 // Validate checks the field values on
 // ExchangePublicLinkTokenForAccountTokenRequest with the rules defined in the

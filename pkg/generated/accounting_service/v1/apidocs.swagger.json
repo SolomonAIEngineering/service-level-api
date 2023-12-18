@@ -372,11 +372,11 @@
         "parameters": [
           {
             "name": "body",
-            "description": "Defines a message named GetLinkTokenRequest.",
+            "description": "Defines a message named GetMergeLinkTokenRequest.",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/GetLinkTokenRequest"
+              "$ref": "#/definitions/GetMergeLinkTokenRequest"
             }
           }
         ],
@@ -2698,7 +2698,7 @@
       "default": "GENDER_UNSPECIFIED",
       "description": "The employee's gender. Possible values include: MALE, FEMALE, NON-BINARY, OTHER,\nPREFER_NOT_TO_DISCLOSE. In cases where there is no clear mapping, \nthe original value passed through will be returned."
     },
-    "GetLinkTokenRequest": {
+    "GetMergeLinkTokenRequest": {
       "type": "object",
       "properties": {
         "userId": {
@@ -2715,14 +2715,14 @@
           "description": "Your end user's email address. This is purely for\nidentification purposes - setting this value will not cause any emails to be sent."
         }
       },
-      "description": "Defines a message named GetLinkTokenRequest.",
+      "description": "Defines a message named GetMergeLinkTokenRequest.",
       "required": [
         "userId",
         "organizationName",
         "email"
       ]
     },
-    "GetLinkTokenResponse": {
+    "GetMergeLinkTokenResponse": {
       "type": "object",
       "properties": {
         "linkToken": {
