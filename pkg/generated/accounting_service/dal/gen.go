@@ -20,17 +20,32 @@ var (
 	AccountingAttachmentORM           *accountingAttachmentORM
 	AccountingIntegrationMergeLinkORM *accountingIntegrationMergeLinkORM
 	BalanceSheetORM                   *balanceSheetORM
+	BankInfoORM                       *bankInfoORM
 	BusinessActionableInsightORM      *businessActionableInsightORM
 	BusinessChartOfAccountORM         *businessChartOfAccountORM
 	BusinessTransactionORM            *businessTransactionORM
 	CashFlowStatementORM              *cashFlowStatementORM
 	CompanyAddressORM                 *companyAddressORM
 	CompanyInfoORM                    *companyInfoORM
+	CompanyProfileORM                 *companyProfileORM
 	ContactsORM                       *contactsORM
 	CreditNoteLineItemORM             *creditNoteLineItemORM
 	CreditNoteORM                     *creditNoteORM
+	DeductionORM                      *deductionORM
+	DependentsORM                     *dependentsORM
+	EarningORM                        *earningORM
+	EmployeTimeOffBalanceORM          *employeTimeOffBalanceORM
+	EmployeeBenefitsORM               *employeeBenefitsORM
+	EmployeeJobPositionAtCompanyORM   *employeeJobPositionAtCompanyORM
+	EmployeeORM                       *employeeORM
+	EmployeePayrollRunORM             *employeePayrollRunORM
+	EmployerBenefitsORM               *employerBenefitsORM
+	EmployerPayrollRunORM             *employerPayrollRunORM
 	ExpenseLineORM                    *expenseLineORM
 	ExpenseORM                        *expenseORM
+	GroupORM                          *groupORM
+	HrisIntegrationMergeLinkORM       *hrisIntegrationMergeLinkORM
+	HrisLinkedAccountORM              *hrisLinkedAccountORM
 	IncomeStatementORM                *incomeStatementORM
 	InvoiceLineItemORM                *invoiceLineItemORM
 	InvoiceORM                        *invoiceORM
@@ -38,13 +53,17 @@ var (
 	JournalEntryORM                   *journalEntryORM
 	JournalLineORM                    *journalLineORM
 	LinkedAccountingAccountORM        *linkedAccountingAccountORM
+	LocationAddressORM                *locationAddressORM
 	MergeBusinessProfileORM           *mergeBusinessProfileORM
 	MergeLinkedAccountTokenORM        *mergeLinkedAccountTokenORM
+	PaymentLineItemORM                *paymentLineItemORM
 	PaymentORM                        *paymentORM
 	PurchaseOrderLineItemORM          *purchaseOrderLineItemORM
 	PurchaseOrderORM                  *purchaseOrderORM
 	ReportItemORM                     *reportItemORM
+	TaxORM                            *taxORM
 	TaxRateORM                        *taxRateORM
+	TimeOffORM                        *timeOffORM
 	TrackingCategoryORM               *trackingCategoryORM
 	TransactionLineItemORM            *transactionLineItemORM
 	VendorCreditLineORM               *vendorCreditLineORM
@@ -56,17 +75,32 @@ func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
 	AccountingAttachmentORM = &Q.AccountingAttachmentORM
 	AccountingIntegrationMergeLinkORM = &Q.AccountingIntegrationMergeLinkORM
 	BalanceSheetORM = &Q.BalanceSheetORM
+	BankInfoORM = &Q.BankInfoORM
 	BusinessActionableInsightORM = &Q.BusinessActionableInsightORM
 	BusinessChartOfAccountORM = &Q.BusinessChartOfAccountORM
 	BusinessTransactionORM = &Q.BusinessTransactionORM
 	CashFlowStatementORM = &Q.CashFlowStatementORM
 	CompanyAddressORM = &Q.CompanyAddressORM
 	CompanyInfoORM = &Q.CompanyInfoORM
+	CompanyProfileORM = &Q.CompanyProfileORM
 	ContactsORM = &Q.ContactsORM
 	CreditNoteLineItemORM = &Q.CreditNoteLineItemORM
 	CreditNoteORM = &Q.CreditNoteORM
+	DeductionORM = &Q.DeductionORM
+	DependentsORM = &Q.DependentsORM
+	EarningORM = &Q.EarningORM
+	EmployeTimeOffBalanceORM = &Q.EmployeTimeOffBalanceORM
+	EmployeeBenefitsORM = &Q.EmployeeBenefitsORM
+	EmployeeJobPositionAtCompanyORM = &Q.EmployeeJobPositionAtCompanyORM
+	EmployeeORM = &Q.EmployeeORM
+	EmployeePayrollRunORM = &Q.EmployeePayrollRunORM
+	EmployerBenefitsORM = &Q.EmployerBenefitsORM
+	EmployerPayrollRunORM = &Q.EmployerPayrollRunORM
 	ExpenseLineORM = &Q.ExpenseLineORM
 	ExpenseORM = &Q.ExpenseORM
+	GroupORM = &Q.GroupORM
+	HrisIntegrationMergeLinkORM = &Q.HrisIntegrationMergeLinkORM
+	HrisLinkedAccountORM = &Q.HrisLinkedAccountORM
 	IncomeStatementORM = &Q.IncomeStatementORM
 	InvoiceLineItemORM = &Q.InvoiceLineItemORM
 	InvoiceORM = &Q.InvoiceORM
@@ -74,13 +108,17 @@ func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
 	JournalEntryORM = &Q.JournalEntryORM
 	JournalLineORM = &Q.JournalLineORM
 	LinkedAccountingAccountORM = &Q.LinkedAccountingAccountORM
+	LocationAddressORM = &Q.LocationAddressORM
 	MergeBusinessProfileORM = &Q.MergeBusinessProfileORM
 	MergeLinkedAccountTokenORM = &Q.MergeLinkedAccountTokenORM
+	PaymentLineItemORM = &Q.PaymentLineItemORM
 	PaymentORM = &Q.PaymentORM
 	PurchaseOrderLineItemORM = &Q.PurchaseOrderLineItemORM
 	PurchaseOrderORM = &Q.PurchaseOrderORM
 	ReportItemORM = &Q.ReportItemORM
+	TaxORM = &Q.TaxORM
 	TaxRateORM = &Q.TaxRateORM
+	TimeOffORM = &Q.TimeOffORM
 	TrackingCategoryORM = &Q.TrackingCategoryORM
 	TransactionLineItemORM = &Q.TransactionLineItemORM
 	VendorCreditLineORM = &Q.VendorCreditLineORM
@@ -93,17 +131,32 @@ func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 		AccountingAttachmentORM:           newAccountingAttachmentORM(db, opts...),
 		AccountingIntegrationMergeLinkORM: newAccountingIntegrationMergeLinkORM(db, opts...),
 		BalanceSheetORM:                   newBalanceSheetORM(db, opts...),
+		BankInfoORM:                       newBankInfoORM(db, opts...),
 		BusinessActionableInsightORM:      newBusinessActionableInsightORM(db, opts...),
 		BusinessChartOfAccountORM:         newBusinessChartOfAccountORM(db, opts...),
 		BusinessTransactionORM:            newBusinessTransactionORM(db, opts...),
 		CashFlowStatementORM:              newCashFlowStatementORM(db, opts...),
 		CompanyAddressORM:                 newCompanyAddressORM(db, opts...),
 		CompanyInfoORM:                    newCompanyInfoORM(db, opts...),
+		CompanyProfileORM:                 newCompanyProfileORM(db, opts...),
 		ContactsORM:                       newContactsORM(db, opts...),
 		CreditNoteLineItemORM:             newCreditNoteLineItemORM(db, opts...),
 		CreditNoteORM:                     newCreditNoteORM(db, opts...),
+		DeductionORM:                      newDeductionORM(db, opts...),
+		DependentsORM:                     newDependentsORM(db, opts...),
+		EarningORM:                        newEarningORM(db, opts...),
+		EmployeTimeOffBalanceORM:          newEmployeTimeOffBalanceORM(db, opts...),
+		EmployeeBenefitsORM:               newEmployeeBenefitsORM(db, opts...),
+		EmployeeJobPositionAtCompanyORM:   newEmployeeJobPositionAtCompanyORM(db, opts...),
+		EmployeeORM:                       newEmployeeORM(db, opts...),
+		EmployeePayrollRunORM:             newEmployeePayrollRunORM(db, opts...),
+		EmployerBenefitsORM:               newEmployerBenefitsORM(db, opts...),
+		EmployerPayrollRunORM:             newEmployerPayrollRunORM(db, opts...),
 		ExpenseLineORM:                    newExpenseLineORM(db, opts...),
 		ExpenseORM:                        newExpenseORM(db, opts...),
+		GroupORM:                          newGroupORM(db, opts...),
+		HrisIntegrationMergeLinkORM:       newHrisIntegrationMergeLinkORM(db, opts...),
+		HrisLinkedAccountORM:              newHrisLinkedAccountORM(db, opts...),
 		IncomeStatementORM:                newIncomeStatementORM(db, opts...),
 		InvoiceLineItemORM:                newInvoiceLineItemORM(db, opts...),
 		InvoiceORM:                        newInvoiceORM(db, opts...),
@@ -111,13 +164,17 @@ func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 		JournalEntryORM:                   newJournalEntryORM(db, opts...),
 		JournalLineORM:                    newJournalLineORM(db, opts...),
 		LinkedAccountingAccountORM:        newLinkedAccountingAccountORM(db, opts...),
+		LocationAddressORM:                newLocationAddressORM(db, opts...),
 		MergeBusinessProfileORM:           newMergeBusinessProfileORM(db, opts...),
 		MergeLinkedAccountTokenORM:        newMergeLinkedAccountTokenORM(db, opts...),
+		PaymentLineItemORM:                newPaymentLineItemORM(db, opts...),
 		PaymentORM:                        newPaymentORM(db, opts...),
 		PurchaseOrderLineItemORM:          newPurchaseOrderLineItemORM(db, opts...),
 		PurchaseOrderORM:                  newPurchaseOrderORM(db, opts...),
 		ReportItemORM:                     newReportItemORM(db, opts...),
+		TaxORM:                            newTaxORM(db, opts...),
 		TaxRateORM:                        newTaxRateORM(db, opts...),
+		TimeOffORM:                        newTimeOffORM(db, opts...),
 		TrackingCategoryORM:               newTrackingCategoryORM(db, opts...),
 		TransactionLineItemORM:            newTransactionLineItemORM(db, opts...),
 		VendorCreditLineORM:               newVendorCreditLineORM(db, opts...),
@@ -131,17 +188,32 @@ type Query struct {
 	AccountingAttachmentORM           accountingAttachmentORM
 	AccountingIntegrationMergeLinkORM accountingIntegrationMergeLinkORM
 	BalanceSheetORM                   balanceSheetORM
+	BankInfoORM                       bankInfoORM
 	BusinessActionableInsightORM      businessActionableInsightORM
 	BusinessChartOfAccountORM         businessChartOfAccountORM
 	BusinessTransactionORM            businessTransactionORM
 	CashFlowStatementORM              cashFlowStatementORM
 	CompanyAddressORM                 companyAddressORM
 	CompanyInfoORM                    companyInfoORM
+	CompanyProfileORM                 companyProfileORM
 	ContactsORM                       contactsORM
 	CreditNoteLineItemORM             creditNoteLineItemORM
 	CreditNoteORM                     creditNoteORM
+	DeductionORM                      deductionORM
+	DependentsORM                     dependentsORM
+	EarningORM                        earningORM
+	EmployeTimeOffBalanceORM          employeTimeOffBalanceORM
+	EmployeeBenefitsORM               employeeBenefitsORM
+	EmployeeJobPositionAtCompanyORM   employeeJobPositionAtCompanyORM
+	EmployeeORM                       employeeORM
+	EmployeePayrollRunORM             employeePayrollRunORM
+	EmployerBenefitsORM               employerBenefitsORM
+	EmployerPayrollRunORM             employerPayrollRunORM
 	ExpenseLineORM                    expenseLineORM
 	ExpenseORM                        expenseORM
+	GroupORM                          groupORM
+	HrisIntegrationMergeLinkORM       hrisIntegrationMergeLinkORM
+	HrisLinkedAccountORM              hrisLinkedAccountORM
 	IncomeStatementORM                incomeStatementORM
 	InvoiceLineItemORM                invoiceLineItemORM
 	InvoiceORM                        invoiceORM
@@ -149,13 +221,17 @@ type Query struct {
 	JournalEntryORM                   journalEntryORM
 	JournalLineORM                    journalLineORM
 	LinkedAccountingAccountORM        linkedAccountingAccountORM
+	LocationAddressORM                locationAddressORM
 	MergeBusinessProfileORM           mergeBusinessProfileORM
 	MergeLinkedAccountTokenORM        mergeLinkedAccountTokenORM
+	PaymentLineItemORM                paymentLineItemORM
 	PaymentORM                        paymentORM
 	PurchaseOrderLineItemORM          purchaseOrderLineItemORM
 	PurchaseOrderORM                  purchaseOrderORM
 	ReportItemORM                     reportItemORM
+	TaxORM                            taxORM
 	TaxRateORM                        taxRateORM
+	TimeOffORM                        timeOffORM
 	TrackingCategoryORM               trackingCategoryORM
 	TransactionLineItemORM            transactionLineItemORM
 	VendorCreditLineORM               vendorCreditLineORM
@@ -170,17 +246,32 @@ func (q *Query) clone(db *gorm.DB) *Query {
 		AccountingAttachmentORM:           q.AccountingAttachmentORM.clone(db),
 		AccountingIntegrationMergeLinkORM: q.AccountingIntegrationMergeLinkORM.clone(db),
 		BalanceSheetORM:                   q.BalanceSheetORM.clone(db),
+		BankInfoORM:                       q.BankInfoORM.clone(db),
 		BusinessActionableInsightORM:      q.BusinessActionableInsightORM.clone(db),
 		BusinessChartOfAccountORM:         q.BusinessChartOfAccountORM.clone(db),
 		BusinessTransactionORM:            q.BusinessTransactionORM.clone(db),
 		CashFlowStatementORM:              q.CashFlowStatementORM.clone(db),
 		CompanyAddressORM:                 q.CompanyAddressORM.clone(db),
 		CompanyInfoORM:                    q.CompanyInfoORM.clone(db),
+		CompanyProfileORM:                 q.CompanyProfileORM.clone(db),
 		ContactsORM:                       q.ContactsORM.clone(db),
 		CreditNoteLineItemORM:             q.CreditNoteLineItemORM.clone(db),
 		CreditNoteORM:                     q.CreditNoteORM.clone(db),
+		DeductionORM:                      q.DeductionORM.clone(db),
+		DependentsORM:                     q.DependentsORM.clone(db),
+		EarningORM:                        q.EarningORM.clone(db),
+		EmployeTimeOffBalanceORM:          q.EmployeTimeOffBalanceORM.clone(db),
+		EmployeeBenefitsORM:               q.EmployeeBenefitsORM.clone(db),
+		EmployeeJobPositionAtCompanyORM:   q.EmployeeJobPositionAtCompanyORM.clone(db),
+		EmployeeORM:                       q.EmployeeORM.clone(db),
+		EmployeePayrollRunORM:             q.EmployeePayrollRunORM.clone(db),
+		EmployerBenefitsORM:               q.EmployerBenefitsORM.clone(db),
+		EmployerPayrollRunORM:             q.EmployerPayrollRunORM.clone(db),
 		ExpenseLineORM:                    q.ExpenseLineORM.clone(db),
 		ExpenseORM:                        q.ExpenseORM.clone(db),
+		GroupORM:                          q.GroupORM.clone(db),
+		HrisIntegrationMergeLinkORM:       q.HrisIntegrationMergeLinkORM.clone(db),
+		HrisLinkedAccountORM:              q.HrisLinkedAccountORM.clone(db),
 		IncomeStatementORM:                q.IncomeStatementORM.clone(db),
 		InvoiceLineItemORM:                q.InvoiceLineItemORM.clone(db),
 		InvoiceORM:                        q.InvoiceORM.clone(db),
@@ -188,13 +279,17 @@ func (q *Query) clone(db *gorm.DB) *Query {
 		JournalEntryORM:                   q.JournalEntryORM.clone(db),
 		JournalLineORM:                    q.JournalLineORM.clone(db),
 		LinkedAccountingAccountORM:        q.LinkedAccountingAccountORM.clone(db),
+		LocationAddressORM:                q.LocationAddressORM.clone(db),
 		MergeBusinessProfileORM:           q.MergeBusinessProfileORM.clone(db),
 		MergeLinkedAccountTokenORM:        q.MergeLinkedAccountTokenORM.clone(db),
+		PaymentLineItemORM:                q.PaymentLineItemORM.clone(db),
 		PaymentORM:                        q.PaymentORM.clone(db),
 		PurchaseOrderLineItemORM:          q.PurchaseOrderLineItemORM.clone(db),
 		PurchaseOrderORM:                  q.PurchaseOrderORM.clone(db),
 		ReportItemORM:                     q.ReportItemORM.clone(db),
+		TaxORM:                            q.TaxORM.clone(db),
 		TaxRateORM:                        q.TaxRateORM.clone(db),
+		TimeOffORM:                        q.TimeOffORM.clone(db),
 		TrackingCategoryORM:               q.TrackingCategoryORM.clone(db),
 		TransactionLineItemORM:            q.TransactionLineItemORM.clone(db),
 		VendorCreditLineORM:               q.VendorCreditLineORM.clone(db),
@@ -216,17 +311,32 @@ func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 		AccountingAttachmentORM:           q.AccountingAttachmentORM.replaceDB(db),
 		AccountingIntegrationMergeLinkORM: q.AccountingIntegrationMergeLinkORM.replaceDB(db),
 		BalanceSheetORM:                   q.BalanceSheetORM.replaceDB(db),
+		BankInfoORM:                       q.BankInfoORM.replaceDB(db),
 		BusinessActionableInsightORM:      q.BusinessActionableInsightORM.replaceDB(db),
 		BusinessChartOfAccountORM:         q.BusinessChartOfAccountORM.replaceDB(db),
 		BusinessTransactionORM:            q.BusinessTransactionORM.replaceDB(db),
 		CashFlowStatementORM:              q.CashFlowStatementORM.replaceDB(db),
 		CompanyAddressORM:                 q.CompanyAddressORM.replaceDB(db),
 		CompanyInfoORM:                    q.CompanyInfoORM.replaceDB(db),
+		CompanyProfileORM:                 q.CompanyProfileORM.replaceDB(db),
 		ContactsORM:                       q.ContactsORM.replaceDB(db),
 		CreditNoteLineItemORM:             q.CreditNoteLineItemORM.replaceDB(db),
 		CreditNoteORM:                     q.CreditNoteORM.replaceDB(db),
+		DeductionORM:                      q.DeductionORM.replaceDB(db),
+		DependentsORM:                     q.DependentsORM.replaceDB(db),
+		EarningORM:                        q.EarningORM.replaceDB(db),
+		EmployeTimeOffBalanceORM:          q.EmployeTimeOffBalanceORM.replaceDB(db),
+		EmployeeBenefitsORM:               q.EmployeeBenefitsORM.replaceDB(db),
+		EmployeeJobPositionAtCompanyORM:   q.EmployeeJobPositionAtCompanyORM.replaceDB(db),
+		EmployeeORM:                       q.EmployeeORM.replaceDB(db),
+		EmployeePayrollRunORM:             q.EmployeePayrollRunORM.replaceDB(db),
+		EmployerBenefitsORM:               q.EmployerBenefitsORM.replaceDB(db),
+		EmployerPayrollRunORM:             q.EmployerPayrollRunORM.replaceDB(db),
 		ExpenseLineORM:                    q.ExpenseLineORM.replaceDB(db),
 		ExpenseORM:                        q.ExpenseORM.replaceDB(db),
+		GroupORM:                          q.GroupORM.replaceDB(db),
+		HrisIntegrationMergeLinkORM:       q.HrisIntegrationMergeLinkORM.replaceDB(db),
+		HrisLinkedAccountORM:              q.HrisLinkedAccountORM.replaceDB(db),
 		IncomeStatementORM:                q.IncomeStatementORM.replaceDB(db),
 		InvoiceLineItemORM:                q.InvoiceLineItemORM.replaceDB(db),
 		InvoiceORM:                        q.InvoiceORM.replaceDB(db),
@@ -234,13 +344,17 @@ func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 		JournalEntryORM:                   q.JournalEntryORM.replaceDB(db),
 		JournalLineORM:                    q.JournalLineORM.replaceDB(db),
 		LinkedAccountingAccountORM:        q.LinkedAccountingAccountORM.replaceDB(db),
+		LocationAddressORM:                q.LocationAddressORM.replaceDB(db),
 		MergeBusinessProfileORM:           q.MergeBusinessProfileORM.replaceDB(db),
 		MergeLinkedAccountTokenORM:        q.MergeLinkedAccountTokenORM.replaceDB(db),
+		PaymentLineItemORM:                q.PaymentLineItemORM.replaceDB(db),
 		PaymentORM:                        q.PaymentORM.replaceDB(db),
 		PurchaseOrderLineItemORM:          q.PurchaseOrderLineItemORM.replaceDB(db),
 		PurchaseOrderORM:                  q.PurchaseOrderORM.replaceDB(db),
 		ReportItemORM:                     q.ReportItemORM.replaceDB(db),
+		TaxORM:                            q.TaxORM.replaceDB(db),
 		TaxRateORM:                        q.TaxRateORM.replaceDB(db),
+		TimeOffORM:                        q.TimeOffORM.replaceDB(db),
 		TrackingCategoryORM:               q.TrackingCategoryORM.replaceDB(db),
 		TransactionLineItemORM:            q.TransactionLineItemORM.replaceDB(db),
 		VendorCreditLineORM:               q.VendorCreditLineORM.replaceDB(db),
@@ -252,17 +366,32 @@ type queryCtx struct {
 	AccountingAttachmentORM           IAccountingAttachmentORMDo
 	AccountingIntegrationMergeLinkORM IAccountingIntegrationMergeLinkORMDo
 	BalanceSheetORM                   IBalanceSheetORMDo
+	BankInfoORM                       IBankInfoORMDo
 	BusinessActionableInsightORM      IBusinessActionableInsightORMDo
 	BusinessChartOfAccountORM         IBusinessChartOfAccountORMDo
 	BusinessTransactionORM            IBusinessTransactionORMDo
 	CashFlowStatementORM              ICashFlowStatementORMDo
 	CompanyAddressORM                 ICompanyAddressORMDo
 	CompanyInfoORM                    ICompanyInfoORMDo
+	CompanyProfileORM                 ICompanyProfileORMDo
 	ContactsORM                       IContactsORMDo
 	CreditNoteLineItemORM             ICreditNoteLineItemORMDo
 	CreditNoteORM                     ICreditNoteORMDo
+	DeductionORM                      IDeductionORMDo
+	DependentsORM                     IDependentsORMDo
+	EarningORM                        IEarningORMDo
+	EmployeTimeOffBalanceORM          IEmployeTimeOffBalanceORMDo
+	EmployeeBenefitsORM               IEmployeeBenefitsORMDo
+	EmployeeJobPositionAtCompanyORM   IEmployeeJobPositionAtCompanyORMDo
+	EmployeeORM                       IEmployeeORMDo
+	EmployeePayrollRunORM             IEmployeePayrollRunORMDo
+	EmployerBenefitsORM               IEmployerBenefitsORMDo
+	EmployerPayrollRunORM             IEmployerPayrollRunORMDo
 	ExpenseLineORM                    IExpenseLineORMDo
 	ExpenseORM                        IExpenseORMDo
+	GroupORM                          IGroupORMDo
+	HrisIntegrationMergeLinkORM       IHrisIntegrationMergeLinkORMDo
+	HrisLinkedAccountORM              IHrisLinkedAccountORMDo
 	IncomeStatementORM                IIncomeStatementORMDo
 	InvoiceLineItemORM                IInvoiceLineItemORMDo
 	InvoiceORM                        IInvoiceORMDo
@@ -270,13 +399,17 @@ type queryCtx struct {
 	JournalEntryORM                   IJournalEntryORMDo
 	JournalLineORM                    IJournalLineORMDo
 	LinkedAccountingAccountORM        ILinkedAccountingAccountORMDo
+	LocationAddressORM                ILocationAddressORMDo
 	MergeBusinessProfileORM           IMergeBusinessProfileORMDo
 	MergeLinkedAccountTokenORM        IMergeLinkedAccountTokenORMDo
+	PaymentLineItemORM                IPaymentLineItemORMDo
 	PaymentORM                        IPaymentORMDo
 	PurchaseOrderLineItemORM          IPurchaseOrderLineItemORMDo
 	PurchaseOrderORM                  IPurchaseOrderORMDo
 	ReportItemORM                     IReportItemORMDo
+	TaxORM                            ITaxORMDo
 	TaxRateORM                        ITaxRateORMDo
+	TimeOffORM                        ITimeOffORMDo
 	TrackingCategoryORM               ITrackingCategoryORMDo
 	TransactionLineItemORM            ITransactionLineItemORMDo
 	VendorCreditLineORM               IVendorCreditLineORMDo
@@ -288,17 +421,32 @@ func (q *Query) WithContext(ctx context.Context) *queryCtx {
 		AccountingAttachmentORM:           q.AccountingAttachmentORM.WithContext(ctx),
 		AccountingIntegrationMergeLinkORM: q.AccountingIntegrationMergeLinkORM.WithContext(ctx),
 		BalanceSheetORM:                   q.BalanceSheetORM.WithContext(ctx),
+		BankInfoORM:                       q.BankInfoORM.WithContext(ctx),
 		BusinessActionableInsightORM:      q.BusinessActionableInsightORM.WithContext(ctx),
 		BusinessChartOfAccountORM:         q.BusinessChartOfAccountORM.WithContext(ctx),
 		BusinessTransactionORM:            q.BusinessTransactionORM.WithContext(ctx),
 		CashFlowStatementORM:              q.CashFlowStatementORM.WithContext(ctx),
 		CompanyAddressORM:                 q.CompanyAddressORM.WithContext(ctx),
 		CompanyInfoORM:                    q.CompanyInfoORM.WithContext(ctx),
+		CompanyProfileORM:                 q.CompanyProfileORM.WithContext(ctx),
 		ContactsORM:                       q.ContactsORM.WithContext(ctx),
 		CreditNoteLineItemORM:             q.CreditNoteLineItemORM.WithContext(ctx),
 		CreditNoteORM:                     q.CreditNoteORM.WithContext(ctx),
+		DeductionORM:                      q.DeductionORM.WithContext(ctx),
+		DependentsORM:                     q.DependentsORM.WithContext(ctx),
+		EarningORM:                        q.EarningORM.WithContext(ctx),
+		EmployeTimeOffBalanceORM:          q.EmployeTimeOffBalanceORM.WithContext(ctx),
+		EmployeeBenefitsORM:               q.EmployeeBenefitsORM.WithContext(ctx),
+		EmployeeJobPositionAtCompanyORM:   q.EmployeeJobPositionAtCompanyORM.WithContext(ctx),
+		EmployeeORM:                       q.EmployeeORM.WithContext(ctx),
+		EmployeePayrollRunORM:             q.EmployeePayrollRunORM.WithContext(ctx),
+		EmployerBenefitsORM:               q.EmployerBenefitsORM.WithContext(ctx),
+		EmployerPayrollRunORM:             q.EmployerPayrollRunORM.WithContext(ctx),
 		ExpenseLineORM:                    q.ExpenseLineORM.WithContext(ctx),
 		ExpenseORM:                        q.ExpenseORM.WithContext(ctx),
+		GroupORM:                          q.GroupORM.WithContext(ctx),
+		HrisIntegrationMergeLinkORM:       q.HrisIntegrationMergeLinkORM.WithContext(ctx),
+		HrisLinkedAccountORM:              q.HrisLinkedAccountORM.WithContext(ctx),
 		IncomeStatementORM:                q.IncomeStatementORM.WithContext(ctx),
 		InvoiceLineItemORM:                q.InvoiceLineItemORM.WithContext(ctx),
 		InvoiceORM:                        q.InvoiceORM.WithContext(ctx),
@@ -306,13 +454,17 @@ func (q *Query) WithContext(ctx context.Context) *queryCtx {
 		JournalEntryORM:                   q.JournalEntryORM.WithContext(ctx),
 		JournalLineORM:                    q.JournalLineORM.WithContext(ctx),
 		LinkedAccountingAccountORM:        q.LinkedAccountingAccountORM.WithContext(ctx),
+		LocationAddressORM:                q.LocationAddressORM.WithContext(ctx),
 		MergeBusinessProfileORM:           q.MergeBusinessProfileORM.WithContext(ctx),
 		MergeLinkedAccountTokenORM:        q.MergeLinkedAccountTokenORM.WithContext(ctx),
+		PaymentLineItemORM:                q.PaymentLineItemORM.WithContext(ctx),
 		PaymentORM:                        q.PaymentORM.WithContext(ctx),
 		PurchaseOrderLineItemORM:          q.PurchaseOrderLineItemORM.WithContext(ctx),
 		PurchaseOrderORM:                  q.PurchaseOrderORM.WithContext(ctx),
 		ReportItemORM:                     q.ReportItemORM.WithContext(ctx),
+		TaxORM:                            q.TaxORM.WithContext(ctx),
 		TaxRateORM:                        q.TaxRateORM.WithContext(ctx),
+		TimeOffORM:                        q.TimeOffORM.WithContext(ctx),
 		TrackingCategoryORM:               q.TrackingCategoryORM.WithContext(ctx),
 		TransactionLineItemORM:            q.TransactionLineItemORM.WithContext(ctx),
 		VendorCreditLineORM:               q.VendorCreditLineORM.WithContext(ctx),
