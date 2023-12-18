@@ -21,10 +21,10 @@ const _ = grpc.SupportPackageIsVersion7
 const (
 	AccountingService_HealthCheck_FullMethodName                            = "/accounting_service.v1.AccountingService/HealthCheck"
 	AccountingService_ReadynessCheck_FullMethodName                         = "/accounting_service.v1.AccountingService/ReadynessCheck"
-	AccountingService_CreateProfile_FullMethodName                          = "/accounting_service.v1.AccountingService/CreateProfile"
-	AccountingService_ReadProfile_FullMethodName                            = "/accounting_service.v1.AccountingService/ReadProfile"
-	AccountingService_DeleteProfile_FullMethodName                          = "/accounting_service.v1.AccountingService/DeleteProfile"
-	AccountingService_UpdateProfile_FullMethodName                          = "/accounting_service.v1.AccountingService/UpdateProfile"
+	AccountingService_CreateAccountingProfile_FullMethodName                = "/accounting_service.v1.AccountingService/CreateAccountingProfile"
+	AccountingService_ReadAccountingProfile_FullMethodName                  = "/accounting_service.v1.AccountingService/ReadAccountingProfile"
+	AccountingService_DeleteAccountingProfile_FullMethodName                = "/accounting_service.v1.AccountingService/DeleteAccountingProfile"
+	AccountingService_UpdateAccountingProfile_FullMethodName                = "/accounting_service.v1.AccountingService/UpdateAccountingProfile"
 	AccountingService_GetMergeLinkToken_FullMethodName                      = "/accounting_service.v1.AccountingService/GetMergeLinkToken"
 	AccountingService_ExchangePublicLinkTokenForAccountToken_FullMethodName = "/accounting_service.v1.AccountingService/ExchangePublicLinkTokenForAccountToken"
 	AccountingService_ReadBalanceSheets_FullMethodName                      = "/accounting_service.v1.AccountingService/ReadBalanceSheets"
@@ -42,13 +42,13 @@ type AccountingServiceClient interface {
 	// ReadynessCheck performs a readiness check on the service
 	ReadynessCheck(ctx context.Context, in *ReadynessCheckRequest, opts ...grpc.CallOption) (*ReadynessCheckResponse, error)
 	// creates a business accouting profile on the service
-	CreateProfile(ctx context.Context, in *CreateProfileRequest, opts ...grpc.CallOption) (*CreateProfileResponse, error)
+	CreateAccountingProfile(ctx context.Context, in *CreateAccountingProfileRequest, opts ...grpc.CallOption) (*CreateAccountingProfileResponse, error)
 	// gets business accounting profile
-	ReadProfile(ctx context.Context, in *ReadProfileRequest, opts ...grpc.CallOption) (*ReadProfileResponse, error)
+	ReadAccountingProfile(ctx context.Context, in *ReadAccountingProfileRequest, opts ...grpc.CallOption) (*ReadAccountingProfileResponse, error)
 	// delete business payroll profile
-	DeleteProfile(ctx context.Context, in *DeleteProfileRequest, opts ...grpc.CallOption) (*DeleteProfileResponse, error)
+	DeleteAccountingProfile(ctx context.Context, in *DeleteAccountingProfileRequest, opts ...grpc.CallOption) (*DeleteAccountingProfileResponse, error)
 	// updates a business account
-	UpdateProfile(ctx context.Context, in *UpdateProfileRequest, opts ...grpc.CallOption) (*UpdateProfileResponse, error)
+	UpdateAccountingProfile(ctx context.Context, in *UpdateAccountingProfileRequest, opts ...grpc.CallOption) (*UpdateAccountingProfileResponse, error)
 	// enables the client to get a link_token to initialize a Link session for your end user.
 	GetMergeLinkToken(ctx context.Context, in *GetMergeLinkTokenRequest, opts ...grpc.CallOption) (*GetMergeLinkTokenResponse, error)
 	// enables the client to exchange a public link token for an access token
@@ -88,36 +88,36 @@ func (c *accountingServiceClient) ReadynessCheck(ctx context.Context, in *Readyn
 	return out, nil
 }
 
-func (c *accountingServiceClient) CreateProfile(ctx context.Context, in *CreateProfileRequest, opts ...grpc.CallOption) (*CreateProfileResponse, error) {
-	out := new(CreateProfileResponse)
-	err := c.cc.Invoke(ctx, AccountingService_CreateProfile_FullMethodName, in, out, opts...)
+func (c *accountingServiceClient) CreateAccountingProfile(ctx context.Context, in *CreateAccountingProfileRequest, opts ...grpc.CallOption) (*CreateAccountingProfileResponse, error) {
+	out := new(CreateAccountingProfileResponse)
+	err := c.cc.Invoke(ctx, AccountingService_CreateAccountingProfile_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *accountingServiceClient) ReadProfile(ctx context.Context, in *ReadProfileRequest, opts ...grpc.CallOption) (*ReadProfileResponse, error) {
-	out := new(ReadProfileResponse)
-	err := c.cc.Invoke(ctx, AccountingService_ReadProfile_FullMethodName, in, out, opts...)
+func (c *accountingServiceClient) ReadAccountingProfile(ctx context.Context, in *ReadAccountingProfileRequest, opts ...grpc.CallOption) (*ReadAccountingProfileResponse, error) {
+	out := new(ReadAccountingProfileResponse)
+	err := c.cc.Invoke(ctx, AccountingService_ReadAccountingProfile_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *accountingServiceClient) DeleteProfile(ctx context.Context, in *DeleteProfileRequest, opts ...grpc.CallOption) (*DeleteProfileResponse, error) {
-	out := new(DeleteProfileResponse)
-	err := c.cc.Invoke(ctx, AccountingService_DeleteProfile_FullMethodName, in, out, opts...)
+func (c *accountingServiceClient) DeleteAccountingProfile(ctx context.Context, in *DeleteAccountingProfileRequest, opts ...grpc.CallOption) (*DeleteAccountingProfileResponse, error) {
+	out := new(DeleteAccountingProfileResponse)
+	err := c.cc.Invoke(ctx, AccountingService_DeleteAccountingProfile_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *accountingServiceClient) UpdateProfile(ctx context.Context, in *UpdateProfileRequest, opts ...grpc.CallOption) (*UpdateProfileResponse, error) {
-	out := new(UpdateProfileResponse)
-	err := c.cc.Invoke(ctx, AccountingService_UpdateProfile_FullMethodName, in, out, opts...)
+func (c *accountingServiceClient) UpdateAccountingProfile(ctx context.Context, in *UpdateAccountingProfileRequest, opts ...grpc.CallOption) (*UpdateAccountingProfileResponse, error) {
+	out := new(UpdateAccountingProfileResponse)
+	err := c.cc.Invoke(ctx, AccountingService_UpdateAccountingProfile_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -187,13 +187,13 @@ type AccountingServiceServer interface {
 	// ReadynessCheck performs a readiness check on the service
 	ReadynessCheck(context.Context, *ReadynessCheckRequest) (*ReadynessCheckResponse, error)
 	// creates a business accouting profile on the service
-	CreateProfile(context.Context, *CreateProfileRequest) (*CreateProfileResponse, error)
+	CreateAccountingProfile(context.Context, *CreateAccountingProfileRequest) (*CreateAccountingProfileResponse, error)
 	// gets business accounting profile
-	ReadProfile(context.Context, *ReadProfileRequest) (*ReadProfileResponse, error)
+	ReadAccountingProfile(context.Context, *ReadAccountingProfileRequest) (*ReadAccountingProfileResponse, error)
 	// delete business payroll profile
-	DeleteProfile(context.Context, *DeleteProfileRequest) (*DeleteProfileResponse, error)
+	DeleteAccountingProfile(context.Context, *DeleteAccountingProfileRequest) (*DeleteAccountingProfileResponse, error)
 	// updates a business account
-	UpdateProfile(context.Context, *UpdateProfileRequest) (*UpdateProfileResponse, error)
+	UpdateAccountingProfile(context.Context, *UpdateAccountingProfileRequest) (*UpdateAccountingProfileResponse, error)
 	// enables the client to get a link_token to initialize a Link session for your end user.
 	GetMergeLinkToken(context.Context, *GetMergeLinkTokenRequest) (*GetMergeLinkTokenResponse, error)
 	// enables the client to exchange a public link token for an access token
@@ -218,17 +218,17 @@ func (UnimplementedAccountingServiceServer) HealthCheck(context.Context, *Health
 func (UnimplementedAccountingServiceServer) ReadynessCheck(context.Context, *ReadynessCheckRequest) (*ReadynessCheckResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReadynessCheck not implemented")
 }
-func (UnimplementedAccountingServiceServer) CreateProfile(context.Context, *CreateProfileRequest) (*CreateProfileResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateProfile not implemented")
+func (UnimplementedAccountingServiceServer) CreateAccountingProfile(context.Context, *CreateAccountingProfileRequest) (*CreateAccountingProfileResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateAccountingProfile not implemented")
 }
-func (UnimplementedAccountingServiceServer) ReadProfile(context.Context, *ReadProfileRequest) (*ReadProfileResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ReadProfile not implemented")
+func (UnimplementedAccountingServiceServer) ReadAccountingProfile(context.Context, *ReadAccountingProfileRequest) (*ReadAccountingProfileResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReadAccountingProfile not implemented")
 }
-func (UnimplementedAccountingServiceServer) DeleteProfile(context.Context, *DeleteProfileRequest) (*DeleteProfileResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteProfile not implemented")
+func (UnimplementedAccountingServiceServer) DeleteAccountingProfile(context.Context, *DeleteAccountingProfileRequest) (*DeleteAccountingProfileResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteAccountingProfile not implemented")
 }
-func (UnimplementedAccountingServiceServer) UpdateProfile(context.Context, *UpdateProfileRequest) (*UpdateProfileResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateProfile not implemented")
+func (UnimplementedAccountingServiceServer) UpdateAccountingProfile(context.Context, *UpdateAccountingProfileRequest) (*UpdateAccountingProfileResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateAccountingProfile not implemented")
 }
 func (UnimplementedAccountingServiceServer) GetMergeLinkToken(context.Context, *GetMergeLinkTokenRequest) (*GetMergeLinkTokenResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMergeLinkToken not implemented")
@@ -297,74 +297,74 @@ func _AccountingService_ReadynessCheck_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AccountingService_CreateProfile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateProfileRequest)
+func _AccountingService_CreateAccountingProfile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateAccountingProfileRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AccountingServiceServer).CreateProfile(ctx, in)
+		return srv.(AccountingServiceServer).CreateAccountingProfile(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: AccountingService_CreateProfile_FullMethodName,
+		FullMethod: AccountingService_CreateAccountingProfile_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountingServiceServer).CreateProfile(ctx, req.(*CreateProfileRequest))
+		return srv.(AccountingServiceServer).CreateAccountingProfile(ctx, req.(*CreateAccountingProfileRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AccountingService_ReadProfile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ReadProfileRequest)
+func _AccountingService_ReadAccountingProfile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReadAccountingProfileRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AccountingServiceServer).ReadProfile(ctx, in)
+		return srv.(AccountingServiceServer).ReadAccountingProfile(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: AccountingService_ReadProfile_FullMethodName,
+		FullMethod: AccountingService_ReadAccountingProfile_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountingServiceServer).ReadProfile(ctx, req.(*ReadProfileRequest))
+		return srv.(AccountingServiceServer).ReadAccountingProfile(ctx, req.(*ReadAccountingProfileRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AccountingService_DeleteProfile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteProfileRequest)
+func _AccountingService_DeleteAccountingProfile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteAccountingProfileRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AccountingServiceServer).DeleteProfile(ctx, in)
+		return srv.(AccountingServiceServer).DeleteAccountingProfile(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: AccountingService_DeleteProfile_FullMethodName,
+		FullMethod: AccountingService_DeleteAccountingProfile_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountingServiceServer).DeleteProfile(ctx, req.(*DeleteProfileRequest))
+		return srv.(AccountingServiceServer).DeleteAccountingProfile(ctx, req.(*DeleteAccountingProfileRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AccountingService_UpdateProfile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateProfileRequest)
+func _AccountingService_UpdateAccountingProfile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateAccountingProfileRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AccountingServiceServer).UpdateProfile(ctx, in)
+		return srv.(AccountingServiceServer).UpdateAccountingProfile(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: AccountingService_UpdateProfile_FullMethodName,
+		FullMethod: AccountingService_UpdateAccountingProfile_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountingServiceServer).UpdateProfile(ctx, req.(*UpdateProfileRequest))
+		return srv.(AccountingServiceServer).UpdateAccountingProfile(ctx, req.(*UpdateAccountingProfileRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -493,20 +493,20 @@ var AccountingService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _AccountingService_ReadynessCheck_Handler,
 		},
 		{
-			MethodName: "CreateProfile",
-			Handler:    _AccountingService_CreateProfile_Handler,
+			MethodName: "CreateAccountingProfile",
+			Handler:    _AccountingService_CreateAccountingProfile_Handler,
 		},
 		{
-			MethodName: "ReadProfile",
-			Handler:    _AccountingService_ReadProfile_Handler,
+			MethodName: "ReadAccountingProfile",
+			Handler:    _AccountingService_ReadAccountingProfile_Handler,
 		},
 		{
-			MethodName: "DeleteProfile",
-			Handler:    _AccountingService_DeleteProfile_Handler,
+			MethodName: "DeleteAccountingProfile",
+			Handler:    _AccountingService_DeleteAccountingProfile_Handler,
 		},
 		{
-			MethodName: "UpdateProfile",
-			Handler:    _AccountingService_UpdateProfile_Handler,
+			MethodName: "UpdateAccountingProfile",
+			Handler:    _AccountingService_UpdateAccountingProfile_Handler,
 		},
 		{
 			MethodName: "GetMergeLinkToken",

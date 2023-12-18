@@ -21,27 +21,27 @@ func (m *AccountingServiceDefaultServer) ReadynessCheck(ctx context.Context, in 
 	return out, nil
 }
 
-// CreateProfile ...
-func (m *AccountingServiceDefaultServer) CreateProfile(ctx context.Context, in *CreateProfileRequest) (*CreateProfileResponse, error) {
-	out := &CreateProfileResponse{}
+// CreateAccountingProfile ...
+func (m *AccountingServiceDefaultServer) CreateAccountingProfile(ctx context.Context, in *CreateAccountingProfileRequest) (*CreateAccountingProfileResponse, error) {
+	out := &CreateAccountingProfileResponse{}
 	return out, nil
 }
 
-// ReadProfile ...
-func (m *AccountingServiceDefaultServer) ReadProfile(ctx context.Context, in *ReadProfileRequest) (*ReadProfileResponse, error) {
-	out := &ReadProfileResponse{}
+// ReadAccountingProfile ...
+func (m *AccountingServiceDefaultServer) ReadAccountingProfile(ctx context.Context, in *ReadAccountingProfileRequest) (*ReadAccountingProfileResponse, error) {
+	out := &ReadAccountingProfileResponse{}
 	return out, nil
 }
 
-// DeleteProfile ...
-func (m *AccountingServiceDefaultServer) DeleteProfile(ctx context.Context, in *DeleteProfileRequest) (*DeleteProfileResponse, error) {
-	out := &DeleteProfileResponse{}
+// DeleteAccountingProfile ...
+func (m *AccountingServiceDefaultServer) DeleteAccountingProfile(ctx context.Context, in *DeleteAccountingProfileRequest) (*DeleteAccountingProfileResponse, error) {
+	out := &DeleteAccountingProfileResponse{}
 	return out, nil
 }
 
-// UpdateProfile ...
-func (m *AccountingServiceDefaultServer) UpdateProfile(ctx context.Context, in *UpdateProfileRequest) (*UpdateProfileResponse, error) {
-	out := &UpdateProfileResponse{}
+// UpdateAccountingProfile ...
+func (m *AccountingServiceDefaultServer) UpdateAccountingProfile(ctx context.Context, in *UpdateAccountingProfileRequest) (*UpdateAccountingProfileResponse, error) {
+	out := &UpdateAccountingProfileResponse{}
 	return out, nil
 }
 

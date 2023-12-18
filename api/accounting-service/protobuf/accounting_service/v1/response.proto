@@ -32,22 +32,22 @@ message ReadynessCheckResponse { // Defines a message named ReadynessCheckRespon
   bool healthy = 1; 
 }
 
-message CreateProfileResponse { // Defines a message named CreatesProfileResponse.
+message CreateAccountingProfileResponse { // Defines a message named CreatesAccountingProfileResponse.
   // the profile identifier
   uint64 profile_id = 1;
 }
 
-message ReadProfileResponse { // Defines a message named ReadProfileRequest.
+message ReadAccountingProfileResponse { // Defines a message named ReadProfileRequest.
   // the profile of interest
   MergeBusinessProfile profile = 1; // A field named "profile" of type BusinessPayrollProfile with field number 1.
 }
 
-message DeleteProfileResponse { // Defines a message named DeleteProfileResponse.
+message DeleteAccountingProfileResponse { // Defines a message named DeleteAccountingProfileResponse.
   // whether the profile is deleted
   bool is_deleted = 1; // A boolean field named "is_deleted" with field number 1.
 }
 
-message UpdateProfileResponse { // Defines a message named UpdateProfileResponse.
+message UpdateAccountingProfileResponse { // Defines a message named UpdateAccountingProfileResponse.
   MergeBusinessProfile profile = 1; // A field named "profile" of type BusinessPayrollProfile with field number 1.
 }
 

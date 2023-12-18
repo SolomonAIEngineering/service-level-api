@@ -55,7 +55,7 @@ service AccountingService {
   }
 
   // creates a business accouting profile on the service
-  rpc CreateProfile(CreateProfileRequest) returns (CreateProfileResponse) {
+  rpc CreateAccountingProfile(CreateAccountingProfileRequest) returns (CreateAccountingProfileResponse) {
     option (google.api.http) = {
       post: "/api/v1/profile"
       body: "*"
@@ -70,7 +70,7 @@ service AccountingService {
         value: {
           description: "A successful response."
           schema: {
-            json_schema: {ref: ".api.v1.CreateBusinessPayrollProfileResponse"}
+            json_schema: {ref: ".api.v1.CreateBusinessPayrollAccountingProfileResponse"}
           }
         }
       }
@@ -78,21 +78,21 @@ service AccountingService {
   }
 
   // gets business accounting profile
-  rpc ReadProfile(ReadProfileRequest) returns (ReadProfileResponse) {
+  rpc ReadAccountingProfile(ReadAccountingProfileRequest) returns (ReadAccountingProfileResponse) {
     option (google.api.http) = {
       get: "/api/v1/profile/{user_id}"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       summary: "Get Business Account Profile",
       tags: ["profile"]
-      operation_id: "ReadProfileResponse"
+      operation_id: "ReadAccountingProfileResponse"
       description: "Retrieves a business account profile.",
       responses: {
         key: "200"
         value: {
           description: ""
           schema: {
-            json_schema: {ref: ".api.v1.ReadProfileResponse"}
+            json_schema: {ref: ".api.v1.ReadAccountingProfileResponse"}
           }
         }
       }
@@ -100,7 +100,7 @@ service AccountingService {
   }
 
   // delete business payroll profile
-  rpc DeleteProfile(DeleteProfileRequest) returns (DeleteProfileResponse) {
+  rpc DeleteAccountingProfile(DeleteAccountingProfileRequest) returns (DeleteAccountingProfileResponse) {
     option (google.api.http) = {
       delete: "/api/v1/profile/{user_id}"
     };
@@ -114,7 +114,7 @@ service AccountingService {
         value: {
           description: ""
           schema: {
-            json_schema: {ref: ".api.v1.DeleteProfileResponse"}
+            json_schema: {ref: ".api.v1.DeleteAccountingProfileResponse"}
           }
         }
       }
@@ -122,7 +122,7 @@ service AccountingService {
   }
 
   // updates a business account
-  rpc UpdateProfile(UpdateProfileRequest) returns (UpdateProfileResponse) {
+  rpc UpdateAccountingProfile(UpdateAccountingProfileRequest) returns (UpdateAccountingProfileResponse) {
     option (google.api.http) = {
       put: "/api/v1/profile"
       body: "*"
@@ -137,7 +137,7 @@ service AccountingService {
         value: {
           description: "A successful response."
           schema: {
-            json_schema: {ref: ".api.v1.UpdateProfileResponse"}
+            json_schema: {ref: ".api.v1.UpdateAccountingProfileResponse"}
           }
         }
       }

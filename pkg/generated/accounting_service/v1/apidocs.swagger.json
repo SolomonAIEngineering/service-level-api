@@ -394,7 +394,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": ".api.v1.CreateBusinessPayrollProfileResponse"
+              "$ref": ".api.v1.CreateBusinessPayrollAccountingProfileResponse"
             }
           },
           "400": {
@@ -425,11 +425,11 @@
         "parameters": [
           {
             "name": "body",
-            "description": "Defines a message named CreateProfileRequest.",
+            "description": "Defines a message named CreateAccountingProfileRequest.",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/CreateProfileRequest"
+              "$ref": "#/definitions/CreateAccountingProfileRequest"
             }
           }
         ],
@@ -445,7 +445,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": ".api.v1.UpdateProfileResponse"
+              "$ref": ".api.v1.UpdateAccountingProfileResponse"
             }
           },
           "400": {
@@ -476,11 +476,11 @@
         "parameters": [
           {
             "name": "body",
-            "description": "Defines a message named UpdateProfileRequest.",
+            "description": "Defines a message named UpdateAccountingProfileRequest.",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/UpdateProfileRequest"
+              "$ref": "#/definitions/UpdateAccountingProfileRequest"
             }
           }
         ],
@@ -493,12 +493,12 @@
       "get": {
         "summary": "Get Business Account Profile",
         "description": "Retrieves a business account profile.",
-        "operationId": "ReadProfileResponse",
+        "operationId": "ReadAccountingProfileResponse",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": ".api.v1.ReadProfileResponse"
+              "$ref": ".api.v1.ReadAccountingProfileResponse"
             }
           },
           "400": {
@@ -554,7 +554,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": ".api.v1.DeleteProfileResponse"
+              "$ref": ".api.v1.DeleteAccountingProfileResponse"
             }
           },
           "400": {
@@ -1492,7 +1492,7 @@
       },
       "description": "The Contact object refers to either a supplier or a customer."
     },
-    "CreateProfileRequest": {
+    "CreateAccountingProfileRequest": {
       "type": "object",
       "properties": {
         "userId": {
@@ -1500,12 +1500,12 @@
           "format": "uint64"
         }
       },
-      "description": "Defines a message named CreateProfileRequest.",
+      "description": "Defines a message named CreateAccountingProfileRequest.",
       "required": [
         "userId"
       ]
     },
-    "CreateProfileResponse": {
+    "CreateAccountingProfileResponse": {
       "type": "object",
       "properties": {
         "profileId": {
@@ -1514,7 +1514,7 @@
           "title": "the profile identifier"
         }
       },
-      "description": "Defines a message named CreatesProfileResponse."
+      "description": "Defines a message named CreatesAccountingProfileResponse."
     },
     "CreditNote": {
       "type": "object",
@@ -1732,7 +1732,7 @@
       },
       "description": "The Deduction object is used to represent an array of the wages\nwithheld from total earnings for the purpose of paying taxes."
     },
-    "DeleteProfileResponse": {
+    "DeleteAccountingProfileResponse": {
       "type": "object",
       "properties": {
         "isDeleted": {
@@ -1741,7 +1741,7 @@
           "title": "whether the profile is deleted"
         }
       },
-      "description": "Defines a message named DeleteProfileResponse."
+      "description": "Defines a message named DeleteAccountingProfileResponse."
     },
     "DependentRelationship": {
       "type": "string",
@@ -4058,6 +4058,17 @@
       },
       "description": "The PurchaseOrderLineItem object is used to represent a purchase order's line item."
     },
+    "ReadAccountingProfileResponse": {
+      "type": "object",
+      "properties": {
+        "profile": {
+          "$ref": "#/definitions/MergeBusinessProfile",
+          "description": "A field named \"profile\" of type BusinessPayrollProfile with field number 1.",
+          "title": "the profile of interest"
+        }
+      },
+      "description": "Defines a message named ReadProfileRequest."
+    },
     "ReadBalanceSheetsRequest": {
       "type": "object",
       "properties": {
@@ -4272,17 +4283,6 @@
           "title": "the pagination token"
         }
       }
-    },
-    "ReadProfileResponse": {
-      "type": "object",
-      "properties": {
-        "profile": {
-          "$ref": "#/definitions/MergeBusinessProfile",
-          "description": "A field named \"profile\" of type BusinessPayrollProfile with field number 1.",
-          "title": "the profile of interest"
-        }
-      },
-      "description": "Defines a message named ReadProfileRequest."
     },
     "ReadynessCheckResponse": {
       "type": "object",
@@ -4516,7 +4516,7 @@
       },
       "description": "The TransactionLineItem object is used to represent a transaction's line items."
     },
-    "UpdateProfileRequest": {
+    "UpdateAccountingProfileRequest": {
       "type": "object",
       "properties": {
         "profile": {
@@ -4525,9 +4525,9 @@
           "title": "business accounting profile to update"
         }
       },
-      "description": "Defines a message named UpdateProfileRequest."
+      "description": "Defines a message named UpdateAccountingProfileRequest."
     },
-    "UpdateProfileResponse": {
+    "UpdateAccountingProfileResponse": {
       "type": "object",
       "properties": {
         "profile": {
@@ -4535,7 +4535,7 @@
           "description": "A field named \"profile\" of type BusinessPayrollProfile with field number 1."
         }
       },
-      "description": "Defines a message named UpdateProfileResponse."
+      "description": "Defines a message named UpdateAccountingProfileResponse."
     },
     "VendorCredit": {
       "type": "object",

@@ -67,8 +67,8 @@ func local_request_AccountingService_ReadynessCheck_0(ctx context.Context, marsh
 
 }
 
-func request_AccountingService_CreateProfile_0(ctx context.Context, marshaler runtime.Marshaler, client AccountingServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq CreateProfileRequest
+func request_AccountingService_CreateAccountingProfile_0(ctx context.Context, marshaler runtime.Marshaler, client AccountingServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq CreateAccountingProfileRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -79,13 +79,13 @@ func request_AccountingService_CreateProfile_0(ctx context.Context, marshaler ru
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := client.CreateProfile(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.CreateAccountingProfile(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_AccountingService_CreateProfile_0(ctx context.Context, marshaler runtime.Marshaler, server AccountingServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq CreateProfileRequest
+func local_request_AccountingService_CreateAccountingProfile_0(ctx context.Context, marshaler runtime.Marshaler, server AccountingServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq CreateAccountingProfileRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -96,17 +96,17 @@ func local_request_AccountingService_CreateProfile_0(ctx context.Context, marsha
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := server.CreateProfile(ctx, &protoReq)
+	msg, err := server.CreateAccountingProfile(ctx, &protoReq)
 	return msg, metadata, err
 
 }
 
 var (
-	filter_AccountingService_ReadProfile_0 = &utilities.DoubleArray{Encoding: map[string]int{"user_id": 0, "userId": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
+	filter_AccountingService_ReadAccountingProfile_0 = &utilities.DoubleArray{Encoding: map[string]int{"user_id": 0, "userId": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
 )
 
-func request_AccountingService_ReadProfile_0(ctx context.Context, marshaler runtime.Marshaler, client AccountingServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ReadProfileRequest
+func request_AccountingService_ReadAccountingProfile_0(ctx context.Context, marshaler runtime.Marshaler, client AccountingServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ReadAccountingProfileRequest
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -129,17 +129,17 @@ func request_AccountingService_ReadProfile_0(ctx context.Context, marshaler runt
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_AccountingService_ReadProfile_0); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_AccountingService_ReadAccountingProfile_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := client.ReadProfile(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.ReadAccountingProfile(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_AccountingService_ReadProfile_0(ctx context.Context, marshaler runtime.Marshaler, server AccountingServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ReadProfileRequest
+func local_request_AccountingService_ReadAccountingProfile_0(ctx context.Context, marshaler runtime.Marshaler, server AccountingServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ReadAccountingProfileRequest
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -162,17 +162,17 @@ func local_request_AccountingService_ReadProfile_0(ctx context.Context, marshale
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_AccountingService_ReadProfile_0); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_AccountingService_ReadAccountingProfile_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := server.ReadProfile(ctx, &protoReq)
+	msg, err := server.ReadAccountingProfile(ctx, &protoReq)
 	return msg, metadata, err
 
 }
 
-func request_AccountingService_DeleteProfile_0(ctx context.Context, marshaler runtime.Marshaler, client AccountingServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq DeleteProfileRequest
+func request_AccountingService_DeleteAccountingProfile_0(ctx context.Context, marshaler runtime.Marshaler, client AccountingServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq DeleteAccountingProfileRequest
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -192,13 +192,13 @@ func request_AccountingService_DeleteProfile_0(ctx context.Context, marshaler ru
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
 	}
 
-	msg, err := client.DeleteProfile(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.DeleteAccountingProfile(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_AccountingService_DeleteProfile_0(ctx context.Context, marshaler runtime.Marshaler, server AccountingServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq DeleteProfileRequest
+func local_request_AccountingService_DeleteAccountingProfile_0(ctx context.Context, marshaler runtime.Marshaler, server AccountingServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq DeleteAccountingProfileRequest
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -218,13 +218,13 @@ func local_request_AccountingService_DeleteProfile_0(ctx context.Context, marsha
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
 	}
 
-	msg, err := server.DeleteProfile(ctx, &protoReq)
+	msg, err := server.DeleteAccountingProfile(ctx, &protoReq)
 	return msg, metadata, err
 
 }
 
-func request_AccountingService_UpdateProfile_0(ctx context.Context, marshaler runtime.Marshaler, client AccountingServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UpdateProfileRequest
+func request_AccountingService_UpdateAccountingProfile_0(ctx context.Context, marshaler runtime.Marshaler, client AccountingServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq UpdateAccountingProfileRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -235,13 +235,13 @@ func request_AccountingService_UpdateProfile_0(ctx context.Context, marshaler ru
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := client.UpdateProfile(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.UpdateAccountingProfile(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_AccountingService_UpdateProfile_0(ctx context.Context, marshaler runtime.Marshaler, server AccountingServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UpdateProfileRequest
+func local_request_AccountingService_UpdateAccountingProfile_0(ctx context.Context, marshaler runtime.Marshaler, server AccountingServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq UpdateAccountingProfileRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -252,7 +252,7 @@ func local_request_AccountingService_UpdateProfile_0(ctx context.Context, marsha
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := server.UpdateProfile(ctx, &protoReq)
+	msg, err := server.UpdateAccountingProfile(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -517,7 +517,7 @@ func RegisterAccountingServiceHandlerServer(ctx context.Context, mux *runtime.Se
 
 	})
 
-	mux.Handle("POST", pattern_AccountingService_CreateProfile_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_AccountingService_CreateAccountingProfile_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -525,12 +525,12 @@ func RegisterAccountingServiceHandlerServer(ctx context.Context, mux *runtime.Se
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/accounting_service.v1.AccountingService/CreateProfile", runtime.WithHTTPPathPattern("/api/v1/profile"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/accounting_service.v1.AccountingService/CreateAccountingProfile", runtime.WithHTTPPathPattern("/api/v1/profile"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_AccountingService_CreateProfile_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_AccountingService_CreateAccountingProfile_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -538,11 +538,11 @@ func RegisterAccountingServiceHandlerServer(ctx context.Context, mux *runtime.Se
 			return
 		}
 
-		forward_AccountingService_CreateProfile_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_AccountingService_CreateAccountingProfile_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("GET", pattern_AccountingService_ReadProfile_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_AccountingService_ReadAccountingProfile_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -550,12 +550,12 @@ func RegisterAccountingServiceHandlerServer(ctx context.Context, mux *runtime.Se
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/accounting_service.v1.AccountingService/ReadProfile", runtime.WithHTTPPathPattern("/api/v1/profile/{user_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/accounting_service.v1.AccountingService/ReadAccountingProfile", runtime.WithHTTPPathPattern("/api/v1/profile/{user_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_AccountingService_ReadProfile_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_AccountingService_ReadAccountingProfile_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -563,11 +563,11 @@ func RegisterAccountingServiceHandlerServer(ctx context.Context, mux *runtime.Se
 			return
 		}
 
-		forward_AccountingService_ReadProfile_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_AccountingService_ReadAccountingProfile_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("DELETE", pattern_AccountingService_DeleteProfile_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("DELETE", pattern_AccountingService_DeleteAccountingProfile_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -575,12 +575,12 @@ func RegisterAccountingServiceHandlerServer(ctx context.Context, mux *runtime.Se
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/accounting_service.v1.AccountingService/DeleteProfile", runtime.WithHTTPPathPattern("/api/v1/profile/{user_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/accounting_service.v1.AccountingService/DeleteAccountingProfile", runtime.WithHTTPPathPattern("/api/v1/profile/{user_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_AccountingService_DeleteProfile_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_AccountingService_DeleteAccountingProfile_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -588,11 +588,11 @@ func RegisterAccountingServiceHandlerServer(ctx context.Context, mux *runtime.Se
 			return
 		}
 
-		forward_AccountingService_DeleteProfile_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_AccountingService_DeleteAccountingProfile_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("PUT", pattern_AccountingService_UpdateProfile_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("PUT", pattern_AccountingService_UpdateAccountingProfile_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -600,12 +600,12 @@ func RegisterAccountingServiceHandlerServer(ctx context.Context, mux *runtime.Se
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/accounting_service.v1.AccountingService/UpdateProfile", runtime.WithHTTPPathPattern("/api/v1/profile"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/accounting_service.v1.AccountingService/UpdateAccountingProfile", runtime.WithHTTPPathPattern("/api/v1/profile"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_AccountingService_UpdateProfile_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_AccountingService_UpdateAccountingProfile_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -613,7 +613,7 @@ func RegisterAccountingServiceHandlerServer(ctx context.Context, mux *runtime.Se
 			return
 		}
 
-		forward_AccountingService_UpdateProfile_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_AccountingService_UpdateAccountingProfile_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -852,91 +852,91 @@ func RegisterAccountingServiceHandlerClient(ctx context.Context, mux *runtime.Se
 
 	})
 
-	mux.Handle("POST", pattern_AccountingService_CreateProfile_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_AccountingService_CreateAccountingProfile_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/accounting_service.v1.AccountingService/CreateProfile", runtime.WithHTTPPathPattern("/api/v1/profile"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/accounting_service.v1.AccountingService/CreateAccountingProfile", runtime.WithHTTPPathPattern("/api/v1/profile"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_AccountingService_CreateProfile_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_AccountingService_CreateAccountingProfile_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_AccountingService_CreateProfile_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_AccountingService_CreateAccountingProfile_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("GET", pattern_AccountingService_ReadProfile_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_AccountingService_ReadAccountingProfile_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/accounting_service.v1.AccountingService/ReadProfile", runtime.WithHTTPPathPattern("/api/v1/profile/{user_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/accounting_service.v1.AccountingService/ReadAccountingProfile", runtime.WithHTTPPathPattern("/api/v1/profile/{user_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_AccountingService_ReadProfile_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_AccountingService_ReadAccountingProfile_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_AccountingService_ReadProfile_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_AccountingService_ReadAccountingProfile_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("DELETE", pattern_AccountingService_DeleteProfile_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("DELETE", pattern_AccountingService_DeleteAccountingProfile_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/accounting_service.v1.AccountingService/DeleteProfile", runtime.WithHTTPPathPattern("/api/v1/profile/{user_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/accounting_service.v1.AccountingService/DeleteAccountingProfile", runtime.WithHTTPPathPattern("/api/v1/profile/{user_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_AccountingService_DeleteProfile_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_AccountingService_DeleteAccountingProfile_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_AccountingService_DeleteProfile_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_AccountingService_DeleteAccountingProfile_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("PUT", pattern_AccountingService_UpdateProfile_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("PUT", pattern_AccountingService_UpdateAccountingProfile_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/accounting_service.v1.AccountingService/UpdateProfile", runtime.WithHTTPPathPattern("/api/v1/profile"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/accounting_service.v1.AccountingService/UpdateAccountingProfile", runtime.WithHTTPPathPattern("/api/v1/profile"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_AccountingService_UpdateProfile_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_AccountingService_UpdateAccountingProfile_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_AccountingService_UpdateProfile_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_AccountingService_UpdateAccountingProfile_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -1080,13 +1080,13 @@ var (
 
 	pattern_AccountingService_ReadynessCheck_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v1", "ready"}, ""))
 
-	pattern_AccountingService_CreateProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v1", "profile"}, ""))
+	pattern_AccountingService_CreateAccountingProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v1", "profile"}, ""))
 
-	pattern_AccountingService_ReadProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v1", "profile", "user_id"}, ""))
+	pattern_AccountingService_ReadAccountingProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v1", "profile", "user_id"}, ""))
 
-	pattern_AccountingService_DeleteProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v1", "profile", "user_id"}, ""))
+	pattern_AccountingService_DeleteAccountingProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v1", "profile", "user_id"}, ""))
 
-	pattern_AccountingService_UpdateProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v1", "profile"}, ""))
+	pattern_AccountingService_UpdateAccountingProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v1", "profile"}, ""))
 
 	pattern_AccountingService_GetMergeLinkToken_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "merge", "initiate-token-exchange"}, ""))
 
@@ -1106,13 +1106,13 @@ var (
 
 	forward_AccountingService_ReadynessCheck_0 = runtime.ForwardResponseMessage
 
-	forward_AccountingService_CreateProfile_0 = runtime.ForwardResponseMessage
+	forward_AccountingService_CreateAccountingProfile_0 = runtime.ForwardResponseMessage
 
-	forward_AccountingService_ReadProfile_0 = runtime.ForwardResponseMessage
+	forward_AccountingService_ReadAccountingProfile_0 = runtime.ForwardResponseMessage
 
-	forward_AccountingService_DeleteProfile_0 = runtime.ForwardResponseMessage
+	forward_AccountingService_DeleteAccountingProfile_0 = runtime.ForwardResponseMessage
 
-	forward_AccountingService_UpdateProfile_0 = runtime.ForwardResponseMessage
+	forward_AccountingService_UpdateAccountingProfile_0 = runtime.ForwardResponseMessage
 
 	forward_AccountingService_GetMergeLinkToken_0 = runtime.ForwardResponseMessage
 

@@ -26,14 +26,14 @@ message HealthCheckRequest {} // Defines an empty message named HealthCheckReque
 
 message ReadynessCheckRequest {} // Defines an empty message named ReadynessCheckRequest.
 
-message CreateProfileRequest { // Defines a message named CreateProfileRequest.
+message CreateAccountingProfileRequest { // Defines a message named CreateAccountingProfileRequest.
    uint64 user_id = 1  [
     (validate.rules).uint64.gt = 0, // Validation rule: user_id must be greater than 0.
     (google.api.field_behavior) = REQUIRED // Field behavior: user_id is required.
   ];
 }
 
-message ReadProfileRequest { // Defines a message named ReadProfileRequest.
+message ReadAccountingProfileRequest { // Defines a message named ReadAccountingProfileRequest.
     uint64 user_id = 1  [
     (validate.rules).uint64.gt = 0, // Validation rule: user_id must be greater than 0.
     (google.api.field_behavior) = REQUIRED // Field behavior: user_id is required.
@@ -44,14 +44,14 @@ message ReadProfileRequest { // Defines a message named ReadProfileRequest.
   ];
 }
 
-message DeleteProfileRequest { // Defines a message named DeleteProfile.
+message DeleteAccountingProfileRequest { // Defines a message named DeleteProfile.
     uint64 user_id = 1  [
     (validate.rules).uint64.gt = 0, // Validation rule: user_id must be greater than 0.
     (google.api.field_behavior) = REQUIRED // Field behavior: user_id is required.
   ];
 }
 
-message UpdateProfileRequest { // Defines a message named UpdateProfileRequest.
+message UpdateAccountingProfileRequest { // Defines a message named UpdateAccountingProfileRequest.
   // business accounting profile to update 
   MergeBusinessProfile profile = 1; // A field named "profile" of type BusinessPayrollProfile.
 }
