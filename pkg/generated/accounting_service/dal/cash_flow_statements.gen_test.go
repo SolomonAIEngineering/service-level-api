@@ -18,45 +18,45 @@ import (
 
 func init() {
 	InitializeDB()
-	err := db.AutoMigrate(&accounting_servicev1.CashFlowStatementsORM{})
+	err := db.AutoMigrate(&accounting_servicev1.CashFlowStatementORM{})
 	if err != nil {
-		fmt.Printf("Error: AutoMigrate(&accounting_servicev1.CashFlowStatementsORM{}) fail: %s", err)
+		fmt.Printf("Error: AutoMigrate(&accounting_servicev1.CashFlowStatementORM{}) fail: %s", err)
 	}
 }
 
-func Test_cashFlowStatementsORMQuery(t *testing.T) {
-	cashFlowStatementsORM := newCashFlowStatementsORM(db)
-	cashFlowStatementsORM = *cashFlowStatementsORM.As(cashFlowStatementsORM.TableName())
-	_do := cashFlowStatementsORM.WithContext(context.Background()).Debug()
+func Test_cashFlowStatementORMQuery(t *testing.T) {
+	cashFlowStatementORM := newCashFlowStatementORM(db)
+	cashFlowStatementORM = *cashFlowStatementORM.As(cashFlowStatementORM.TableName())
+	_do := cashFlowStatementORM.WithContext(context.Background()).Debug()
 
-	primaryKey := field.NewString(cashFlowStatementsORM.TableName(), clause.PrimaryKey)
+	primaryKey := field.NewString(cashFlowStatementORM.TableName(), clause.PrimaryKey)
 	_, err := _do.Unscoped().Where(primaryKey.IsNotNull()).Delete()
 	if err != nil {
 		t.Error("clean table <cash_flow_statements> fail:", err)
 		return
 	}
 
-	_, ok := cashFlowStatementsORM.GetFieldByName("")
+	_, ok := cashFlowStatementORM.GetFieldByName("")
 	if ok {
-		t.Error("GetFieldByName(\"\") from cashFlowStatementsORM success")
+		t.Error("GetFieldByName(\"\") from cashFlowStatementORM success")
 	}
 
-	err = _do.Create(&accounting_servicev1.CashFlowStatementsORM{})
+	err = _do.Create(&accounting_servicev1.CashFlowStatementORM{})
 	if err != nil {
 		t.Error("create item in table <cash_flow_statements> fail:", err)
 	}
 
-	err = _do.Save(&accounting_servicev1.CashFlowStatementsORM{})
+	err = _do.Save(&accounting_servicev1.CashFlowStatementORM{})
 	if err != nil {
 		t.Error("create item in table <cash_flow_statements> fail:", err)
 	}
 
-	err = _do.CreateInBatches([]*accounting_servicev1.CashFlowStatementsORM{{}, {}}, 10)
+	err = _do.CreateInBatches([]*accounting_servicev1.CashFlowStatementORM{{}, {}}, 10)
 	if err != nil {
 		t.Error("create item in table <cash_flow_statements> fail:", err)
 	}
 
-	_, err = _do.Select(cashFlowStatementsORM.ALL).Take()
+	_, err = _do.Select(cashFlowStatementORM.ALL).Take()
 	if err != nil {
 		t.Error("Take() on table <cash_flow_statements> fail:", err)
 	}
@@ -76,12 +76,12 @@ func Test_cashFlowStatementsORMQuery(t *testing.T) {
 		t.Error("FindInBatch() on table <cash_flow_statements> fail:", err)
 	}
 
-	err = _do.Where(primaryKey.IsNotNull()).FindInBatches(&[]*accounting_servicev1.CashFlowStatementsORM{}, 10, func(tx gen.Dao, batch int) error { return nil })
+	err = _do.Where(primaryKey.IsNotNull()).FindInBatches(&[]*accounting_servicev1.CashFlowStatementORM{}, 10, func(tx gen.Dao, batch int) error { return nil })
 	if err != nil {
 		t.Error("FindInBatches() on table <cash_flow_statements> fail:", err)
 	}
 
-	_, err = _do.Select(cashFlowStatementsORM.ALL).Where(primaryKey.IsNotNull()).Order(primaryKey.Desc()).Find()
+	_, err = _do.Select(cashFlowStatementORM.ALL).Where(primaryKey.IsNotNull()).Order(primaryKey.Desc()).Find()
 	if err != nil {
 		t.Error("Find() on table <cash_flow_statements> fail:", err)
 	}
@@ -91,7 +91,7 @@ func Test_cashFlowStatementsORMQuery(t *testing.T) {
 		t.Error("select Distinct() on table <cash_flow_statements> fail:", err)
 	}
 
-	_, err = _do.Select(cashFlowStatementsORM.ALL).Omit(primaryKey).Take()
+	_, err = _do.Select(cashFlowStatementORM.ALL).Omit(primaryKey).Take()
 	if err != nil {
 		t.Error("Omit() on table <cash_flow_statements> fail:", err)
 	}
@@ -111,7 +111,7 @@ func Test_cashFlowStatementsORMQuery(t *testing.T) {
 		t.Error("FindByPage() on table <cash_flow_statements> fail:", err)
 	}
 
-	_, err = _do.ScanByPage(&accounting_servicev1.CashFlowStatementsORM{}, 0, 1)
+	_, err = _do.ScanByPage(&accounting_servicev1.CashFlowStatementORM{}, 0, 1)
 	if err != nil {
 		t.Error("ScanByPage() on table <cash_flow_statements> fail:", err)
 	}
@@ -145,13 +145,13 @@ func Test_cashFlowStatementsORMQuery(t *testing.T) {
 	}
 }
 
-var CashFlowStatementsORMGetRecordByIDTestCase = []TestCase{}
+var CashFlowStatementORMGetRecordByIDTestCase = []TestCase{}
 
-func Test_cashFlowStatementsORM_GetRecordByID(t *testing.T) {
-	cashFlowStatementsORM := newCashFlowStatementsORM(db)
-	do := cashFlowStatementsORM.WithContext(context.Background()).Debug()
+func Test_cashFlowStatementORM_GetRecordByID(t *testing.T) {
+	cashFlowStatementORM := newCashFlowStatementORM(db)
+	do := cashFlowStatementORM.WithContext(context.Background()).Debug()
 
-	for i, tt := range CashFlowStatementsORMGetRecordByIDTestCase {
+	for i, tt := range CashFlowStatementORMGetRecordByIDTestCase {
 		t.Run("GetRecordByID_"+strconv.Itoa(i), func(t *testing.T) {
 			res1, res2 := do.GetRecordByID(tt.Input.Args[0].(int))
 			assert(t, "GetRecordByID", res1, tt.Expectation.Ret[0])
@@ -160,13 +160,13 @@ func Test_cashFlowStatementsORM_GetRecordByID(t *testing.T) {
 	}
 }
 
-var CashFlowStatementsORMGetRecordByIDsTestCase = []TestCase{}
+var CashFlowStatementORMGetRecordByIDsTestCase = []TestCase{}
 
-func Test_cashFlowStatementsORM_GetRecordByIDs(t *testing.T) {
-	cashFlowStatementsORM := newCashFlowStatementsORM(db)
-	do := cashFlowStatementsORM.WithContext(context.Background()).Debug()
+func Test_cashFlowStatementORM_GetRecordByIDs(t *testing.T) {
+	cashFlowStatementORM := newCashFlowStatementORM(db)
+	do := cashFlowStatementORM.WithContext(context.Background()).Debug()
 
-	for i, tt := range CashFlowStatementsORMGetRecordByIDsTestCase {
+	for i, tt := range CashFlowStatementORMGetRecordByIDsTestCase {
 		t.Run("GetRecordByIDs_"+strconv.Itoa(i), func(t *testing.T) {
 			res1, res2 := do.GetRecordByIDs(tt.Input.Args[0].([]int))
 			assert(t, "GetRecordByIDs", res1, tt.Expectation.Ret[0])
@@ -175,41 +175,41 @@ func Test_cashFlowStatementsORM_GetRecordByIDs(t *testing.T) {
 	}
 }
 
-var CashFlowStatementsORMCreateRecordTestCase = []TestCase{}
+var CashFlowStatementORMCreateRecordTestCase = []TestCase{}
 
-func Test_cashFlowStatementsORM_CreateRecord(t *testing.T) {
-	cashFlowStatementsORM := newCashFlowStatementsORM(db)
-	do := cashFlowStatementsORM.WithContext(context.Background()).Debug()
+func Test_cashFlowStatementORM_CreateRecord(t *testing.T) {
+	cashFlowStatementORM := newCashFlowStatementORM(db)
+	do := cashFlowStatementORM.WithContext(context.Background()).Debug()
 
-	for i, tt := range CashFlowStatementsORMCreateRecordTestCase {
+	for i, tt := range CashFlowStatementORMCreateRecordTestCase {
 		t.Run("CreateRecord_"+strconv.Itoa(i), func(t *testing.T) {
-			res1 := do.CreateRecord(tt.Input.Args[0].(accounting_servicev1.CashFlowStatementsORM))
+			res1 := do.CreateRecord(tt.Input.Args[0].(accounting_servicev1.CashFlowStatementORM))
 			assert(t, "CreateRecord", res1, tt.Expectation.Ret[0])
 		})
 	}
 }
 
-var CashFlowStatementsORMUpdateRecordByIDTestCase = []TestCase{}
+var CashFlowStatementORMUpdateRecordByIDTestCase = []TestCase{}
 
-func Test_cashFlowStatementsORM_UpdateRecordByID(t *testing.T) {
-	cashFlowStatementsORM := newCashFlowStatementsORM(db)
-	do := cashFlowStatementsORM.WithContext(context.Background()).Debug()
+func Test_cashFlowStatementORM_UpdateRecordByID(t *testing.T) {
+	cashFlowStatementORM := newCashFlowStatementORM(db)
+	do := cashFlowStatementORM.WithContext(context.Background()).Debug()
 
-	for i, tt := range CashFlowStatementsORMUpdateRecordByIDTestCase {
+	for i, tt := range CashFlowStatementORMUpdateRecordByIDTestCase {
 		t.Run("UpdateRecordByID_"+strconv.Itoa(i), func(t *testing.T) {
-			res1 := do.UpdateRecordByID(tt.Input.Args[0].(int), tt.Input.Args[1].(accounting_servicev1.CashFlowStatementsORM))
+			res1 := do.UpdateRecordByID(tt.Input.Args[0].(int), tt.Input.Args[1].(accounting_servicev1.CashFlowStatementORM))
 			assert(t, "UpdateRecordByID", res1, tt.Expectation.Ret[0])
 		})
 	}
 }
 
-var CashFlowStatementsORMDeleteRecordByIDTestCase = []TestCase{}
+var CashFlowStatementORMDeleteRecordByIDTestCase = []TestCase{}
 
-func Test_cashFlowStatementsORM_DeleteRecordByID(t *testing.T) {
-	cashFlowStatementsORM := newCashFlowStatementsORM(db)
-	do := cashFlowStatementsORM.WithContext(context.Background()).Debug()
+func Test_cashFlowStatementORM_DeleteRecordByID(t *testing.T) {
+	cashFlowStatementORM := newCashFlowStatementORM(db)
+	do := cashFlowStatementORM.WithContext(context.Background()).Debug()
 
-	for i, tt := range CashFlowStatementsORMDeleteRecordByIDTestCase {
+	for i, tt := range CashFlowStatementORMDeleteRecordByIDTestCase {
 		t.Run("DeleteRecordByID_"+strconv.Itoa(i), func(t *testing.T) {
 			res1 := do.DeleteRecordByID(tt.Input.Args[0].(int))
 			assert(t, "DeleteRecordByID", res1, tt.Expectation.Ret[0])
@@ -217,13 +217,13 @@ func Test_cashFlowStatementsORM_DeleteRecordByID(t *testing.T) {
 	}
 }
 
-var CashFlowStatementsORMGetAllRecordsTestCase = []TestCase{}
+var CashFlowStatementORMGetAllRecordsTestCase = []TestCase{}
 
-func Test_cashFlowStatementsORM_GetAllRecords(t *testing.T) {
-	cashFlowStatementsORM := newCashFlowStatementsORM(db)
-	do := cashFlowStatementsORM.WithContext(context.Background()).Debug()
+func Test_cashFlowStatementORM_GetAllRecords(t *testing.T) {
+	cashFlowStatementORM := newCashFlowStatementORM(db)
+	do := cashFlowStatementORM.WithContext(context.Background()).Debug()
 
-	for i, tt := range CashFlowStatementsORMGetAllRecordsTestCase {
+	for i, tt := range CashFlowStatementORMGetAllRecordsTestCase {
 		t.Run("GetAllRecords_"+strconv.Itoa(i), func(t *testing.T) {
 			res1, res2 := do.GetAllRecords(tt.Input.Args[0].(string), tt.Input.Args[1].(int), tt.Input.Args[2].(int))
 			assert(t, "GetAllRecords", res1, tt.Expectation.Ret[0])
@@ -232,13 +232,13 @@ func Test_cashFlowStatementsORM_GetAllRecords(t *testing.T) {
 	}
 }
 
-var CashFlowStatementsORMCountAllTestCase = []TestCase{}
+var CashFlowStatementORMCountAllTestCase = []TestCase{}
 
-func Test_cashFlowStatementsORM_CountAll(t *testing.T) {
-	cashFlowStatementsORM := newCashFlowStatementsORM(db)
-	do := cashFlowStatementsORM.WithContext(context.Background()).Debug()
+func Test_cashFlowStatementORM_CountAll(t *testing.T) {
+	cashFlowStatementORM := newCashFlowStatementORM(db)
+	do := cashFlowStatementORM.WithContext(context.Background()).Debug()
 
-	for i, tt := range CashFlowStatementsORMCountAllTestCase {
+	for i, tt := range CashFlowStatementORMCountAllTestCase {
 		t.Run("CountAll_"+strconv.Itoa(i), func(t *testing.T) {
 			res1, res2 := do.CountAll()
 			assert(t, "CountAll", res1, tt.Expectation.Ret[0])
@@ -247,13 +247,13 @@ func Test_cashFlowStatementsORM_CountAll(t *testing.T) {
 	}
 }
 
-var CashFlowStatementsORMGetByIDTestCase = []TestCase{}
+var CashFlowStatementORMGetByIDTestCase = []TestCase{}
 
-func Test_cashFlowStatementsORM_GetByID(t *testing.T) {
-	cashFlowStatementsORM := newCashFlowStatementsORM(db)
-	do := cashFlowStatementsORM.WithContext(context.Background()).Debug()
+func Test_cashFlowStatementORM_GetByID(t *testing.T) {
+	cashFlowStatementORM := newCashFlowStatementORM(db)
+	do := cashFlowStatementORM.WithContext(context.Background()).Debug()
 
-	for i, tt := range CashFlowStatementsORMGetByIDTestCase {
+	for i, tt := range CashFlowStatementORMGetByIDTestCase {
 		t.Run("GetByID_"+strconv.Itoa(i), func(t *testing.T) {
 			res1, res2 := do.GetByID(tt.Input.Args[0].(uint64))
 			assert(t, "GetByID", res1, tt.Expectation.Ret[0])
@@ -262,13 +262,13 @@ func Test_cashFlowStatementsORM_GetByID(t *testing.T) {
 	}
 }
 
-var CashFlowStatementsORMGetByIDsTestCase = []TestCase{}
+var CashFlowStatementORMGetByIDsTestCase = []TestCase{}
 
-func Test_cashFlowStatementsORM_GetByIDs(t *testing.T) {
-	cashFlowStatementsORM := newCashFlowStatementsORM(db)
-	do := cashFlowStatementsORM.WithContext(context.Background()).Debug()
+func Test_cashFlowStatementORM_GetByIDs(t *testing.T) {
+	cashFlowStatementORM := newCashFlowStatementORM(db)
+	do := cashFlowStatementORM.WithContext(context.Background()).Debug()
 
-	for i, tt := range CashFlowStatementsORMGetByIDsTestCase {
+	for i, tt := range CashFlowStatementORMGetByIDsTestCase {
 		t.Run("GetByIDs_"+strconv.Itoa(i), func(t *testing.T) {
 			res1, res2 := do.GetByIDs(tt.Input.Args[0].([]uint64))
 			assert(t, "GetByIDs", res1, tt.Expectation.Ret[0])

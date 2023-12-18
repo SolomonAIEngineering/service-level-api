@@ -27,6 +27,9 @@ const (
 	AccountingService_UpdateProfile_FullMethodName                          = "/accounting_service.v1.AccountingService/UpdateProfile"
 	AccountingService_GetLinkToken_FullMethodName                           = "/accounting_service.v1.AccountingService/GetLinkToken"
 	AccountingService_ExchangePublicLinkTokenForAccountToken_FullMethodName = "/accounting_service.v1.AccountingService/ExchangePublicLinkTokenForAccountToken"
+	AccountingService_ReadBalanceSheets_FullMethodName                      = "/accounting_service.v1.AccountingService/ReadBalanceSheets"
+	AccountingService_ReadCashFlowStatements_FullMethodName                 = "/accounting_service.v1.AccountingService/ReadCashFlowStatements"
+	AccountingService_ReadIncomeStatements_FullMethodName                   = "/accounting_service.v1.AccountingService/ReadIncomeStatements"
 )
 
 // AccountingServiceClient is the client API for AccountingService service.
@@ -49,6 +52,9 @@ type AccountingServiceClient interface {
 	GetLinkToken(ctx context.Context, in *GetLinkTokenRequest, opts ...grpc.CallOption) (*GetLinkTokenResponse, error)
 	// enables the client to exchange a public link token for an access token
 	ExchangePublicLinkTokenForAccountToken(ctx context.Context, in *ExchangePublicLinkTokenForAccountTokenRequest, opts ...grpc.CallOption) (*ExchangePublicLinkTokenForAccountTokenResponse, error)
+	ReadBalanceSheets(ctx context.Context, in *ReadBalanceSheetsRequest, opts ...grpc.CallOption) (*ReadBalanceSheetsResponse, error)
+	ReadCashFlowStatements(ctx context.Context, in *ReadCashFlowStatementsRequest, opts ...grpc.CallOption) (*ReadCashFlowStatementsResponse, error)
+	ReadIncomeStatements(ctx context.Context, in *ReadIncomeStatementsRequest, opts ...grpc.CallOption) (*ReadIncomeStatementsResponse, error)
 }
 
 type accountingServiceClient struct {
@@ -131,6 +137,33 @@ func (c *accountingServiceClient) ExchangePublicLinkTokenForAccountToken(ctx con
 	return out, nil
 }
 
+func (c *accountingServiceClient) ReadBalanceSheets(ctx context.Context, in *ReadBalanceSheetsRequest, opts ...grpc.CallOption) (*ReadBalanceSheetsResponse, error) {
+	out := new(ReadBalanceSheetsResponse)
+	err := c.cc.Invoke(ctx, AccountingService_ReadBalanceSheets_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountingServiceClient) ReadCashFlowStatements(ctx context.Context, in *ReadCashFlowStatementsRequest, opts ...grpc.CallOption) (*ReadCashFlowStatementsResponse, error) {
+	out := new(ReadCashFlowStatementsResponse)
+	err := c.cc.Invoke(ctx, AccountingService_ReadCashFlowStatements_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountingServiceClient) ReadIncomeStatements(ctx context.Context, in *ReadIncomeStatementsRequest, opts ...grpc.CallOption) (*ReadIncomeStatementsResponse, error) {
+	out := new(ReadIncomeStatementsResponse)
+	err := c.cc.Invoke(ctx, AccountingService_ReadIncomeStatements_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AccountingServiceServer is the server API for AccountingService service.
 // All implementations must embed UnimplementedAccountingServiceServer
 // for forward compatibility
@@ -151,6 +184,9 @@ type AccountingServiceServer interface {
 	GetLinkToken(context.Context, *GetLinkTokenRequest) (*GetLinkTokenResponse, error)
 	// enables the client to exchange a public link token for an access token
 	ExchangePublicLinkTokenForAccountToken(context.Context, *ExchangePublicLinkTokenForAccountTokenRequest) (*ExchangePublicLinkTokenForAccountTokenResponse, error)
+	ReadBalanceSheets(context.Context, *ReadBalanceSheetsRequest) (*ReadBalanceSheetsResponse, error)
+	ReadCashFlowStatements(context.Context, *ReadCashFlowStatementsRequest) (*ReadCashFlowStatementsResponse, error)
+	ReadIncomeStatements(context.Context, *ReadIncomeStatementsRequest) (*ReadIncomeStatementsResponse, error)
 	mustEmbedUnimplementedAccountingServiceServer()
 }
 
@@ -181,6 +217,15 @@ func (UnimplementedAccountingServiceServer) GetLinkToken(context.Context, *GetLi
 }
 func (UnimplementedAccountingServiceServer) ExchangePublicLinkTokenForAccountToken(context.Context, *ExchangePublicLinkTokenForAccountTokenRequest) (*ExchangePublicLinkTokenForAccountTokenResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ExchangePublicLinkTokenForAccountToken not implemented")
+}
+func (UnimplementedAccountingServiceServer) ReadBalanceSheets(context.Context, *ReadBalanceSheetsRequest) (*ReadBalanceSheetsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReadBalanceSheets not implemented")
+}
+func (UnimplementedAccountingServiceServer) ReadCashFlowStatements(context.Context, *ReadCashFlowStatementsRequest) (*ReadCashFlowStatementsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReadCashFlowStatements not implemented")
+}
+func (UnimplementedAccountingServiceServer) ReadIncomeStatements(context.Context, *ReadIncomeStatementsRequest) (*ReadIncomeStatementsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReadIncomeStatements not implemented")
 }
 func (UnimplementedAccountingServiceServer) mustEmbedUnimplementedAccountingServiceServer() {}
 
@@ -339,6 +384,60 @@ func _AccountingService_ExchangePublicLinkTokenForAccountToken_Handler(srv inter
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AccountingService_ReadBalanceSheets_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReadBalanceSheetsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountingServiceServer).ReadBalanceSheets(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountingService_ReadBalanceSheets_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountingServiceServer).ReadBalanceSheets(ctx, req.(*ReadBalanceSheetsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AccountingService_ReadCashFlowStatements_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReadCashFlowStatementsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountingServiceServer).ReadCashFlowStatements(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountingService_ReadCashFlowStatements_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountingServiceServer).ReadCashFlowStatements(ctx, req.(*ReadCashFlowStatementsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AccountingService_ReadIncomeStatements_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReadIncomeStatementsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountingServiceServer).ReadIncomeStatements(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountingService_ReadIncomeStatements_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountingServiceServer).ReadIncomeStatements(ctx, req.(*ReadIncomeStatementsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AccountingService_ServiceDesc is the grpc.ServiceDesc for AccountingService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -377,6 +476,18 @@ var AccountingService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ExchangePublicLinkTokenForAccountToken",
 			Handler:    _AccountingService_ExchangePublicLinkTokenForAccountToken_Handler,
+		},
+		{
+			MethodName: "ReadBalanceSheets",
+			Handler:    _AccountingService_ReadBalanceSheets_Handler,
+		},
+		{
+			MethodName: "ReadCashFlowStatements",
+			Handler:    _AccountingService_ReadCashFlowStatements_Handler,
+		},
+		{
+			MethodName: "ReadIncomeStatements",
+			Handler:    _AccountingService_ReadIncomeStatements_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

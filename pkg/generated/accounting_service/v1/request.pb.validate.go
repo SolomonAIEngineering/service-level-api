@@ -890,38 +890,11 @@ func (m *ExchangePublicLinkTokenForAccountTokenRequest) validate(all bool) error
 		errors = append(errors, err)
 	}
 
-	if utf8.RuneCountInString(m.GetPublicToken()) < 1 {
-		err := ExchangePublicLinkTokenForAccountTokenRequestValidationError{
-			field:  "PublicToken",
-			reason: "value length must be at least 1 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for PublicToken
 
-	if utf8.RuneCountInString(m.GetEndUserOriginId()) < 1 {
-		err := ExchangePublicLinkTokenForAccountTokenRequestValidationError{
-			field:  "EndUserOriginId",
-			reason: "value length must be at least 1 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for EndUserOriginId
 
-	if utf8.RuneCountInString(m.GetOrganizationName()) < 1 {
-		err := ExchangePublicLinkTokenForAccountTokenRequestValidationError{
-			field:  "OrganizationName",
-			reason: "value length must be at least 1 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for OrganizationName
 
 	if len(errors) > 0 {
 		return ExchangePublicLinkTokenForAccountTokenRequestMultiError(errors)
@@ -1007,3 +980,617 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ExchangePublicLinkTokenForAccountTokenRequestValidationError{}
+
+// Validate checks the field values on ReadBalanceSheetsRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ReadBalanceSheetsRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ReadBalanceSheetsRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ReadBalanceSheetsRequestMultiError, or nil if none found.
+func (m *ReadBalanceSheetsRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ReadBalanceSheetsRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetUserId() <= 0 {
+		err := ReadBalanceSheetsRequestValidationError{
+			field:  "UserId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetAcountingIntegrationMergeLinkId() <= 0 {
+		err := ReadBalanceSheetsRequestValidationError{
+			field:  "AcountingIntegrationMergeLinkId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetStartDate()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ReadBalanceSheetsRequestValidationError{
+					field:  "StartDate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ReadBalanceSheetsRequestValidationError{
+					field:  "StartDate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetStartDate()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ReadBalanceSheetsRequestValidationError{
+				field:  "StartDate",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetEndDate()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ReadBalanceSheetsRequestValidationError{
+					field:  "EndDate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ReadBalanceSheetsRequestValidationError{
+					field:  "EndDate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetEndDate()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ReadBalanceSheetsRequestValidationError{
+				field:  "EndDate",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetPageSize() <= 0 {
+		err := ReadBalanceSheetsRequestValidationError{
+			field:  "PageSize",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetPageNumber() <= 0 {
+		err := ReadBalanceSheetsRequestValidationError{
+			field:  "PageNumber",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return ReadBalanceSheetsRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// ReadBalanceSheetsRequestMultiError is an error wrapping multiple validation
+// errors returned by ReadBalanceSheetsRequest.ValidateAll() if the designated
+// constraints aren't met.
+type ReadBalanceSheetsRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ReadBalanceSheetsRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ReadBalanceSheetsRequestMultiError) AllErrors() []error { return m }
+
+// ReadBalanceSheetsRequestValidationError is the validation error returned by
+// ReadBalanceSheetsRequest.Validate if the designated constraints aren't met.
+type ReadBalanceSheetsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ReadBalanceSheetsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ReadBalanceSheetsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ReadBalanceSheetsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ReadBalanceSheetsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ReadBalanceSheetsRequestValidationError) ErrorName() string {
+	return "ReadBalanceSheetsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ReadBalanceSheetsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sReadBalanceSheetsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ReadBalanceSheetsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ReadBalanceSheetsRequestValidationError{}
+
+// Validate checks the field values on ReadCashFlowStatementsRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ReadCashFlowStatementsRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ReadCashFlowStatementsRequest with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// ReadCashFlowStatementsRequestMultiError, or nil if none found.
+func (m *ReadCashFlowStatementsRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ReadCashFlowStatementsRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetUserId() <= 0 {
+		err := ReadCashFlowStatementsRequestValidationError{
+			field:  "UserId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetAcountingIntegrationMergeLinkId() <= 0 {
+		err := ReadCashFlowStatementsRequestValidationError{
+			field:  "AcountingIntegrationMergeLinkId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetStartDate()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ReadCashFlowStatementsRequestValidationError{
+					field:  "StartDate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ReadCashFlowStatementsRequestValidationError{
+					field:  "StartDate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetStartDate()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ReadCashFlowStatementsRequestValidationError{
+				field:  "StartDate",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetEndDate()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ReadCashFlowStatementsRequestValidationError{
+					field:  "EndDate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ReadCashFlowStatementsRequestValidationError{
+					field:  "EndDate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetEndDate()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ReadCashFlowStatementsRequestValidationError{
+				field:  "EndDate",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetPageSize() <= 0 {
+		err := ReadCashFlowStatementsRequestValidationError{
+			field:  "PageSize",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetPageNumber() <= 0 {
+		err := ReadCashFlowStatementsRequestValidationError{
+			field:  "PageNumber",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return ReadCashFlowStatementsRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// ReadCashFlowStatementsRequestMultiError is an error wrapping multiple
+// validation errors returned by ReadCashFlowStatementsRequest.ValidateAll()
+// if the designated constraints aren't met.
+type ReadCashFlowStatementsRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ReadCashFlowStatementsRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ReadCashFlowStatementsRequestMultiError) AllErrors() []error { return m }
+
+// ReadCashFlowStatementsRequestValidationError is the validation error
+// returned by ReadCashFlowStatementsRequest.Validate if the designated
+// constraints aren't met.
+type ReadCashFlowStatementsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ReadCashFlowStatementsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ReadCashFlowStatementsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ReadCashFlowStatementsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ReadCashFlowStatementsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ReadCashFlowStatementsRequestValidationError) ErrorName() string {
+	return "ReadCashFlowStatementsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ReadCashFlowStatementsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sReadCashFlowStatementsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ReadCashFlowStatementsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ReadCashFlowStatementsRequestValidationError{}
+
+// Validate checks the field values on ReadIncomeStatementsRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ReadIncomeStatementsRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ReadIncomeStatementsRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ReadIncomeStatementsRequestMultiError, or nil if none found.
+func (m *ReadIncomeStatementsRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ReadIncomeStatementsRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetUserId() <= 0 {
+		err := ReadIncomeStatementsRequestValidationError{
+			field:  "UserId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetAcountingIntegrationMergeLinkId() <= 0 {
+		err := ReadIncomeStatementsRequestValidationError{
+			field:  "AcountingIntegrationMergeLinkId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetStartDate()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ReadIncomeStatementsRequestValidationError{
+					field:  "StartDate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ReadIncomeStatementsRequestValidationError{
+					field:  "StartDate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetStartDate()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ReadIncomeStatementsRequestValidationError{
+				field:  "StartDate",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetEndDate()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ReadIncomeStatementsRequestValidationError{
+					field:  "EndDate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ReadIncomeStatementsRequestValidationError{
+					field:  "EndDate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetEndDate()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ReadIncomeStatementsRequestValidationError{
+				field:  "EndDate",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetPageSize() <= 0 {
+		err := ReadIncomeStatementsRequestValidationError{
+			field:  "PageSize",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetPageNumber() <= 0 {
+		err := ReadIncomeStatementsRequestValidationError{
+			field:  "PageNumber",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return ReadIncomeStatementsRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// ReadIncomeStatementsRequestMultiError is an error wrapping multiple
+// validation errors returned by ReadIncomeStatementsRequest.ValidateAll() if
+// the designated constraints aren't met.
+type ReadIncomeStatementsRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ReadIncomeStatementsRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ReadIncomeStatementsRequestMultiError) AllErrors() []error { return m }
+
+// ReadIncomeStatementsRequestValidationError is the validation error returned
+// by ReadIncomeStatementsRequest.Validate if the designated constraints
+// aren't met.
+type ReadIncomeStatementsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ReadIncomeStatementsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ReadIncomeStatementsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ReadIncomeStatementsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ReadIncomeStatementsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ReadIncomeStatementsRequestValidationError) ErrorName() string {
+	return "ReadIncomeStatementsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ReadIncomeStatementsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sReadIncomeStatementsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ReadIncomeStatementsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ReadIncomeStatementsRequestValidationError{}

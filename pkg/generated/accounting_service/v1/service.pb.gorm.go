@@ -56,3 +56,21 @@ func (m *AccountingServiceDefaultServer) ExchangePublicLinkTokenForAccountToken(
 	out := &ExchangePublicLinkTokenForAccountTokenResponse{}
 	return out, nil
 }
+
+// ReadBalanceSheets ...
+func (m *AccountingServiceDefaultServer) ReadBalanceSheets(ctx context.Context, in *ReadBalanceSheetsRequest) (*ReadBalanceSheetsResponse, error) {
+	out := &ReadBalanceSheetsResponse{}
+	return out, nil
+}
+
+// ReadCashFlowStatements ...
+func (m *AccountingServiceDefaultServer) ReadCashFlowStatements(ctx context.Context, in *ReadCashFlowStatementsRequest) (*ReadCashFlowStatementsResponse, error) {
+	out := &ReadCashFlowStatementsResponse{}
+	return out, nil
+}
+
+// ReadIncomeStatements ...
+func (m *AccountingServiceDefaultServer) ReadIncomeStatements(ctx context.Context, in *ReadIncomeStatementsRequest) (*ReadIncomeStatementsResponse, error) {
+	out := &ReadIncomeStatementsResponse{}
+	return out, nil
+}

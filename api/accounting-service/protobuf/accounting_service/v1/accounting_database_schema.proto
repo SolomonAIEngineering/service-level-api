@@ -3,48 +3,12 @@ syntax = "proto3";
 package accounting_service.v1;
 
 import "protoc-gen-gorm/options/gorm.proto";
-import "validate/validate.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 import "google/api/field_behavior.proto";
 import "google/protobuf/timestamp.proto";
 import "accounting_service/v1/link_token_database_schema.proto";
 
 option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/generated/accounting_service/v1";
-
-/*
-   The Categories table stores information about the different categories of expenses or income,
-   such as "Housing", "Food", "Transportation", and "Entertainment". Each category has one or more
-   subcategories, which are stored in the Subcategories table.
-   
-   For example, the "Housing" category might have subcategories for "Rent", "Utilities", and "Home Maintenance".
-*/
-message Category {
-  option (gorm.opts) = {ormable: true};
-
-  // id
-  uint64 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
-
-  // The name of the category
-  string name = 2 [
-    (validate.rules).string = {min_bytes: 3},
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      min_length: 3,
-      example: "\"Housing\""
-    }
-  ];
-
-  // The description of the category
-  string description = 3 [
-    (validate.rules).string = {min_bytes: 10},
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      min_length: 10,
-      example: "\"Housing is a category primarily for housing\""
-    }
-  ];
-
-  // the sub categories of the category
-  repeated string subcategories = 4;
-}
 
 message AccountingIntegrationMergeLink {
     option (gorm.opts) = {ormable: true};
@@ -103,12 +67,14 @@ message LinkedAccountingAccount {
     
     // The CashFlowStatement object shows operating activities, investing activities, and financing activities over a period of time (month, quarter, or year).
     // a company can have many cash flow statements
-    repeated CashFlowStatements cash_flow_statements = 6 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+    repeated CashFlowStatement cash_flow_statements = 6 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
     
     // a business can have many income statements
     repeated IncomeStatement income_statements = 7 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
-    
-    // The Account object is what companies use to track transactions. They can be both bank accounts or a general ledger account (also called a chart of accounts).
+
+    // A "Business Chart of Accounts" is a structured list of a company's general ledger accounts. 
+    // These accounts are used to categorize every financial transaction a company makes. 
+    // This structure allows businesses to systematically track, manage, and report their financial activities
     repeated BusinessChartOfAccounts chart_of_accounts = 8 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
     
     // a business can have many items
@@ -285,7 +251,7 @@ message ReportItem {
     The CashFlowStatement object shows operating activities, investing activities, and financing activities over a
      period of time (month, quarter, or year).
 **/
-message CashFlowStatements {
+message CashFlowStatement {
     option (gorm.opts) = {ormable: true};
     uint64 id = 1;
     // The third-party API ID of the matching object.

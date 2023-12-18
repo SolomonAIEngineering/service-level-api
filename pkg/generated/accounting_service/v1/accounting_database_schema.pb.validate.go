@@ -35,129 +35,6 @@ var (
 	_ = sort.Sort
 )
 
-// Validate checks the field values on Category with the rules defined in the
-// proto definition for this message. If any rules are violated, the first
-// error encountered is returned, or nil if there are no violations.
-func (m *Category) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on Category with the rules defined in
-// the proto definition for this message. If any rules are violated, the
-// result is a list of violation errors wrapped in CategoryMultiError, or nil
-// if none found.
-func (m *Category) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *Category) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	// no validation rules for Id
-
-	if len(m.GetName()) < 3 {
-		err := CategoryValidationError{
-			field:  "Name",
-			reason: "value length must be at least 3 bytes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if len(m.GetDescription()) < 10 {
-		err := CategoryValidationError{
-			field:  "Description",
-			reason: "value length must be at least 10 bytes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if len(errors) > 0 {
-		return CategoryMultiError(errors)
-	}
-
-	return nil
-}
-
-// CategoryMultiError is an error wrapping multiple validation errors returned
-// by Category.ValidateAll() if the designated constraints aren't met.
-type CategoryMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m CategoryMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m CategoryMultiError) AllErrors() []error { return m }
-
-// CategoryValidationError is the validation error returned by
-// Category.Validate if the designated constraints aren't met.
-type CategoryValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e CategoryValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e CategoryValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e CategoryValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e CategoryValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e CategoryValidationError) ErrorName() string { return "CategoryValidationError" }
-
-// Error satisfies the builtin error interface
-func (e CategoryValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sCategory.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = CategoryValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = CategoryValidationError{}
-
 // Validate checks the field values on AccountingIntegrationMergeLink with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -1864,22 +1741,22 @@ var _ interface {
 	ErrorName() string
 } = ReportItemValidationError{}
 
-// Validate checks the field values on CashFlowStatements with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *CashFlowStatements) Validate() error {
+// Validate checks the field values on CashFlowStatement with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *CashFlowStatement) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on CashFlowStatements with the rules
+// ValidateAll checks the field values on CashFlowStatement with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// CashFlowStatementsMultiError, or nil if none found.
-func (m *CashFlowStatements) ValidateAll() error {
+// CashFlowStatementMultiError, or nil if none found.
+func (m *CashFlowStatement) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *CashFlowStatements) validate(all bool) error {
+func (m *CashFlowStatement) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -1900,7 +1777,7 @@ func (m *CashFlowStatements) validate(all bool) error {
 		switch v := interface{}(m.GetStartPeriod()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, CashFlowStatementsValidationError{
+				errors = append(errors, CashFlowStatementValidationError{
 					field:  "StartPeriod",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1908,7 +1785,7 @@ func (m *CashFlowStatements) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, CashFlowStatementsValidationError{
+				errors = append(errors, CashFlowStatementValidationError{
 					field:  "StartPeriod",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1917,7 +1794,7 @@ func (m *CashFlowStatements) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetStartPeriod()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return CashFlowStatementsValidationError{
+			return CashFlowStatementValidationError{
 				field:  "StartPeriod",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -1929,7 +1806,7 @@ func (m *CashFlowStatements) validate(all bool) error {
 		switch v := interface{}(m.GetEndPeriod()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, CashFlowStatementsValidationError{
+				errors = append(errors, CashFlowStatementValidationError{
 					field:  "EndPeriod",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1937,7 +1814,7 @@ func (m *CashFlowStatements) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, CashFlowStatementsValidationError{
+				errors = append(errors, CashFlowStatementValidationError{
 					field:  "EndPeriod",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1946,7 +1823,7 @@ func (m *CashFlowStatements) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetEndPeriod()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return CashFlowStatementsValidationError{
+			return CashFlowStatementValidationError{
 				field:  "EndPeriod",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -1965,7 +1842,7 @@ func (m *CashFlowStatements) validate(all bool) error {
 			switch v := interface{}(item).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, CashFlowStatementsValidationError{
+					errors = append(errors, CashFlowStatementValidationError{
 						field:  fmt.Sprintf("OperatingActivities[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -1973,7 +1850,7 @@ func (m *CashFlowStatements) validate(all bool) error {
 				}
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
-					errors = append(errors, CashFlowStatementsValidationError{
+					errors = append(errors, CashFlowStatementValidationError{
 						field:  fmt.Sprintf("OperatingActivities[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -1982,7 +1859,7 @@ func (m *CashFlowStatements) validate(all bool) error {
 			}
 		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return CashFlowStatementsValidationError{
+				return CashFlowStatementValidationError{
 					field:  fmt.Sprintf("OperatingActivities[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1999,7 +1876,7 @@ func (m *CashFlowStatements) validate(all bool) error {
 			switch v := interface{}(item).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, CashFlowStatementsValidationError{
+					errors = append(errors, CashFlowStatementValidationError{
 						field:  fmt.Sprintf("InvestingActivities[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -2007,7 +1884,7 @@ func (m *CashFlowStatements) validate(all bool) error {
 				}
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
-					errors = append(errors, CashFlowStatementsValidationError{
+					errors = append(errors, CashFlowStatementValidationError{
 						field:  fmt.Sprintf("InvestingActivities[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -2016,7 +1893,7 @@ func (m *CashFlowStatements) validate(all bool) error {
 			}
 		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return CashFlowStatementsValidationError{
+				return CashFlowStatementValidationError{
 					field:  fmt.Sprintf("InvestingActivities[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -2033,7 +1910,7 @@ func (m *CashFlowStatements) validate(all bool) error {
 			switch v := interface{}(item).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, CashFlowStatementsValidationError{
+					errors = append(errors, CashFlowStatementValidationError{
 						field:  fmt.Sprintf("FinancingActivities[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -2041,7 +1918,7 @@ func (m *CashFlowStatements) validate(all bool) error {
 				}
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
-					errors = append(errors, CashFlowStatementsValidationError{
+					errors = append(errors, CashFlowStatementValidationError{
 						field:  fmt.Sprintf("FinancingActivities[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -2050,7 +1927,7 @@ func (m *CashFlowStatements) validate(all bool) error {
 			}
 		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return CashFlowStatementsValidationError{
+				return CashFlowStatementValidationError{
 					field:  fmt.Sprintf("FinancingActivities[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -2064,7 +1941,7 @@ func (m *CashFlowStatements) validate(all bool) error {
 		switch v := interface{}(m.GetRemoteGeneratedAt()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, CashFlowStatementsValidationError{
+				errors = append(errors, CashFlowStatementValidationError{
 					field:  "RemoteGeneratedAt",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -2072,7 +1949,7 @@ func (m *CashFlowStatements) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, CashFlowStatementsValidationError{
+				errors = append(errors, CashFlowStatementValidationError{
 					field:  "RemoteGeneratedAt",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -2081,7 +1958,7 @@ func (m *CashFlowStatements) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetRemoteGeneratedAt()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return CashFlowStatementsValidationError{
+			return CashFlowStatementValidationError{
 				field:  "RemoteGeneratedAt",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -2095,7 +1972,7 @@ func (m *CashFlowStatements) validate(all bool) error {
 		switch v := interface{}(m.GetModifiedAt()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, CashFlowStatementsValidationError{
+				errors = append(errors, CashFlowStatementValidationError{
 					field:  "ModifiedAt",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -2103,7 +1980,7 @@ func (m *CashFlowStatements) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, CashFlowStatementsValidationError{
+				errors = append(errors, CashFlowStatementValidationError{
 					field:  "ModifiedAt",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -2112,7 +1989,7 @@ func (m *CashFlowStatements) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetModifiedAt()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return CashFlowStatementsValidationError{
+			return CashFlowStatementValidationError{
 				field:  "ModifiedAt",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -2123,19 +2000,19 @@ func (m *CashFlowStatements) validate(all bool) error {
 	// no validation rules for MergeRecordId
 
 	if len(errors) > 0 {
-		return CashFlowStatementsMultiError(errors)
+		return CashFlowStatementMultiError(errors)
 	}
 
 	return nil
 }
 
-// CashFlowStatementsMultiError is an error wrapping multiple validation errors
-// returned by CashFlowStatements.ValidateAll() if the designated constraints
+// CashFlowStatementMultiError is an error wrapping multiple validation errors
+// returned by CashFlowStatement.ValidateAll() if the designated constraints
 // aren't met.
-type CashFlowStatementsMultiError []error
+type CashFlowStatementMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m CashFlowStatementsMultiError) Error() string {
+func (m CashFlowStatementMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -2144,11 +2021,11 @@ func (m CashFlowStatementsMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m CashFlowStatementsMultiError) AllErrors() []error { return m }
+func (m CashFlowStatementMultiError) AllErrors() []error { return m }
 
-// CashFlowStatementsValidationError is the validation error returned by
-// CashFlowStatements.Validate if the designated constraints aren't met.
-type CashFlowStatementsValidationError struct {
+// CashFlowStatementValidationError is the validation error returned by
+// CashFlowStatement.Validate if the designated constraints aren't met.
+type CashFlowStatementValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -2156,24 +2033,24 @@ type CashFlowStatementsValidationError struct {
 }
 
 // Field function returns field value.
-func (e CashFlowStatementsValidationError) Field() string { return e.field }
+func (e CashFlowStatementValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e CashFlowStatementsValidationError) Reason() string { return e.reason }
+func (e CashFlowStatementValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e CashFlowStatementsValidationError) Cause() error { return e.cause }
+func (e CashFlowStatementValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e CashFlowStatementsValidationError) Key() bool { return e.key }
+func (e CashFlowStatementValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e CashFlowStatementsValidationError) ErrorName() string {
-	return "CashFlowStatementsValidationError"
+func (e CashFlowStatementValidationError) ErrorName() string {
+	return "CashFlowStatementValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e CashFlowStatementsValidationError) Error() string {
+func (e CashFlowStatementValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -2185,14 +2062,14 @@ func (e CashFlowStatementsValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sCashFlowStatements.%s: %s%s",
+		"invalid %sCashFlowStatement.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = CashFlowStatementsValidationError{}
+var _ error = CashFlowStatementValidationError{}
 
 var _ interface {
 	Field() string
@@ -2200,7 +2077,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = CashFlowStatementsValidationError{}
+} = CashFlowStatementValidationError{}
 
 // Validate checks the field values on CompanyInfo with the rules defined in
 // the proto definition for this message. If any rules are violated, the first

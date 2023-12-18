@@ -23,8 +23,7 @@ var (
 	BusinessActionableInsightORM      *businessActionableInsightORM
 	BusinessChartOfAccountsORM        *businessChartOfAccountsORM
 	BusinessTransactionORM            *businessTransactionORM
-	CashFlowStatementsORM             *cashFlowStatementsORM
-	CategoryORM                       *categoryORM
+	CashFlowStatementORM              *cashFlowStatementORM
 	CompanyAddressORM                 *companyAddressORM
 	CompanyInfoORM                    *companyInfoORM
 	ContactsORM                       *contactsORM
@@ -60,8 +59,7 @@ func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
 	BusinessActionableInsightORM = &Q.BusinessActionableInsightORM
 	BusinessChartOfAccountsORM = &Q.BusinessChartOfAccountsORM
 	BusinessTransactionORM = &Q.BusinessTransactionORM
-	CashFlowStatementsORM = &Q.CashFlowStatementsORM
-	CategoryORM = &Q.CategoryORM
+	CashFlowStatementORM = &Q.CashFlowStatementORM
 	CompanyAddressORM = &Q.CompanyAddressORM
 	CompanyInfoORM = &Q.CompanyInfoORM
 	ContactsORM = &Q.ContactsORM
@@ -98,8 +96,7 @@ func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 		BusinessActionableInsightORM:      newBusinessActionableInsightORM(db, opts...),
 		BusinessChartOfAccountsORM:        newBusinessChartOfAccountsORM(db, opts...),
 		BusinessTransactionORM:            newBusinessTransactionORM(db, opts...),
-		CashFlowStatementsORM:             newCashFlowStatementsORM(db, opts...),
-		CategoryORM:                       newCategoryORM(db, opts...),
+		CashFlowStatementORM:              newCashFlowStatementORM(db, opts...),
 		CompanyAddressORM:                 newCompanyAddressORM(db, opts...),
 		CompanyInfoORM:                    newCompanyInfoORM(db, opts...),
 		ContactsORM:                       newContactsORM(db, opts...),
@@ -137,8 +134,7 @@ type Query struct {
 	BusinessActionableInsightORM      businessActionableInsightORM
 	BusinessChartOfAccountsORM        businessChartOfAccountsORM
 	BusinessTransactionORM            businessTransactionORM
-	CashFlowStatementsORM             cashFlowStatementsORM
-	CategoryORM                       categoryORM
+	CashFlowStatementORM              cashFlowStatementORM
 	CompanyAddressORM                 companyAddressORM
 	CompanyInfoORM                    companyInfoORM
 	ContactsORM                       contactsORM
@@ -177,8 +173,7 @@ func (q *Query) clone(db *gorm.DB) *Query {
 		BusinessActionableInsightORM:      q.BusinessActionableInsightORM.clone(db),
 		BusinessChartOfAccountsORM:        q.BusinessChartOfAccountsORM.clone(db),
 		BusinessTransactionORM:            q.BusinessTransactionORM.clone(db),
-		CashFlowStatementsORM:             q.CashFlowStatementsORM.clone(db),
-		CategoryORM:                       q.CategoryORM.clone(db),
+		CashFlowStatementORM:              q.CashFlowStatementORM.clone(db),
 		CompanyAddressORM:                 q.CompanyAddressORM.clone(db),
 		CompanyInfoORM:                    q.CompanyInfoORM.clone(db),
 		ContactsORM:                       q.ContactsORM.clone(db),
@@ -224,8 +219,7 @@ func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 		BusinessActionableInsightORM:      q.BusinessActionableInsightORM.replaceDB(db),
 		BusinessChartOfAccountsORM:        q.BusinessChartOfAccountsORM.replaceDB(db),
 		BusinessTransactionORM:            q.BusinessTransactionORM.replaceDB(db),
-		CashFlowStatementsORM:             q.CashFlowStatementsORM.replaceDB(db),
-		CategoryORM:                       q.CategoryORM.replaceDB(db),
+		CashFlowStatementORM:              q.CashFlowStatementORM.replaceDB(db),
 		CompanyAddressORM:                 q.CompanyAddressORM.replaceDB(db),
 		CompanyInfoORM:                    q.CompanyInfoORM.replaceDB(db),
 		ContactsORM:                       q.ContactsORM.replaceDB(db),
@@ -261,8 +255,7 @@ type queryCtx struct {
 	BusinessActionableInsightORM      IBusinessActionableInsightORMDo
 	BusinessChartOfAccountsORM        IBusinessChartOfAccountsORMDo
 	BusinessTransactionORM            IBusinessTransactionORMDo
-	CashFlowStatementsORM             ICashFlowStatementsORMDo
-	CategoryORM                       ICategoryORMDo
+	CashFlowStatementORM              ICashFlowStatementORMDo
 	CompanyAddressORM                 ICompanyAddressORMDo
 	CompanyInfoORM                    ICompanyInfoORMDo
 	ContactsORM                       IContactsORMDo
@@ -298,8 +291,7 @@ func (q *Query) WithContext(ctx context.Context) *queryCtx {
 		BusinessActionableInsightORM:      q.BusinessActionableInsightORM.WithContext(ctx),
 		BusinessChartOfAccountsORM:        q.BusinessChartOfAccountsORM.WithContext(ctx),
 		BusinessTransactionORM:            q.BusinessTransactionORM.WithContext(ctx),
-		CashFlowStatementsORM:             q.CashFlowStatementsORM.WithContext(ctx),
-		CategoryORM:                       q.CategoryORM.WithContext(ctx),
+		CashFlowStatementORM:              q.CashFlowStatementORM.WithContext(ctx),
 		CompanyAddressORM:                 q.CompanyAddressORM.WithContext(ctx),
 		CompanyInfoORM:                    q.CompanyInfoORM.WithContext(ctx),
 		ContactsORM:                       q.ContactsORM.WithContext(ctx),

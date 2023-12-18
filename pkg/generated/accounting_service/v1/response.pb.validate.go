@@ -935,3 +935,419 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ExchangePublicLinkTokenForAccountTokenResponseValidationError{}
+
+// Validate checks the field values on ReadBalanceSheetsResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ReadBalanceSheetsResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ReadBalanceSheetsResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ReadBalanceSheetsResponseMultiError, or nil if none found.
+func (m *ReadBalanceSheetsResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ReadBalanceSheetsResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetBalanceSheets() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ReadBalanceSheetsResponseValidationError{
+						field:  fmt.Sprintf("BalanceSheets[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ReadBalanceSheetsResponseValidationError{
+						field:  fmt.Sprintf("BalanceSheets[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ReadBalanceSheetsResponseValidationError{
+					field:  fmt.Sprintf("BalanceSheets[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for NextPage
+
+	if len(errors) > 0 {
+		return ReadBalanceSheetsResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ReadBalanceSheetsResponseMultiError is an error wrapping multiple validation
+// errors returned by ReadBalanceSheetsResponse.ValidateAll() if the
+// designated constraints aren't met.
+type ReadBalanceSheetsResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ReadBalanceSheetsResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ReadBalanceSheetsResponseMultiError) AllErrors() []error { return m }
+
+// ReadBalanceSheetsResponseValidationError is the validation error returned by
+// ReadBalanceSheetsResponse.Validate if the designated constraints aren't met.
+type ReadBalanceSheetsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ReadBalanceSheetsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ReadBalanceSheetsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ReadBalanceSheetsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ReadBalanceSheetsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ReadBalanceSheetsResponseValidationError) ErrorName() string {
+	return "ReadBalanceSheetsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ReadBalanceSheetsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sReadBalanceSheetsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ReadBalanceSheetsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ReadBalanceSheetsResponseValidationError{}
+
+// Validate checks the field values on ReadCashFlowStatementsResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ReadCashFlowStatementsResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ReadCashFlowStatementsResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// ReadCashFlowStatementsResponseMultiError, or nil if none found.
+func (m *ReadCashFlowStatementsResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ReadCashFlowStatementsResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetCashFlowStatements() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ReadCashFlowStatementsResponseValidationError{
+						field:  fmt.Sprintf("CashFlowStatements[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ReadCashFlowStatementsResponseValidationError{
+						field:  fmt.Sprintf("CashFlowStatements[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ReadCashFlowStatementsResponseValidationError{
+					field:  fmt.Sprintf("CashFlowStatements[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for NextPage
+
+	if len(errors) > 0 {
+		return ReadCashFlowStatementsResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ReadCashFlowStatementsResponseMultiError is an error wrapping multiple
+// validation errors returned by ReadCashFlowStatementsResponse.ValidateAll()
+// if the designated constraints aren't met.
+type ReadCashFlowStatementsResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ReadCashFlowStatementsResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ReadCashFlowStatementsResponseMultiError) AllErrors() []error { return m }
+
+// ReadCashFlowStatementsResponseValidationError is the validation error
+// returned by ReadCashFlowStatementsResponse.Validate if the designated
+// constraints aren't met.
+type ReadCashFlowStatementsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ReadCashFlowStatementsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ReadCashFlowStatementsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ReadCashFlowStatementsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ReadCashFlowStatementsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ReadCashFlowStatementsResponseValidationError) ErrorName() string {
+	return "ReadCashFlowStatementsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ReadCashFlowStatementsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sReadCashFlowStatementsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ReadCashFlowStatementsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ReadCashFlowStatementsResponseValidationError{}
+
+// Validate checks the field values on ReadIncomeStatementsResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ReadIncomeStatementsResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ReadIncomeStatementsResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ReadIncomeStatementsResponseMultiError, or nil if none found.
+func (m *ReadIncomeStatementsResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ReadIncomeStatementsResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetIncomeStatements() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ReadIncomeStatementsResponseValidationError{
+						field:  fmt.Sprintf("IncomeStatements[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ReadIncomeStatementsResponseValidationError{
+						field:  fmt.Sprintf("IncomeStatements[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ReadIncomeStatementsResponseValidationError{
+					field:  fmt.Sprintf("IncomeStatements[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for NextPage
+
+	if len(errors) > 0 {
+		return ReadIncomeStatementsResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ReadIncomeStatementsResponseMultiError is an error wrapping multiple
+// validation errors returned by ReadIncomeStatementsResponse.ValidateAll() if
+// the designated constraints aren't met.
+type ReadIncomeStatementsResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ReadIncomeStatementsResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ReadIncomeStatementsResponseMultiError) AllErrors() []error { return m }
+
+// ReadIncomeStatementsResponseValidationError is the validation error returned
+// by ReadIncomeStatementsResponse.Validate if the designated constraints
+// aren't met.
+type ReadIncomeStatementsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ReadIncomeStatementsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ReadIncomeStatementsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ReadIncomeStatementsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ReadIncomeStatementsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ReadIncomeStatementsResponseValidationError) ErrorName() string {
+	return "ReadIncomeStatementsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ReadIncomeStatementsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sReadIncomeStatementsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ReadIncomeStatementsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ReadIncomeStatementsResponseValidationError{}

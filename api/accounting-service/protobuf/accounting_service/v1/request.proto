@@ -6,6 +6,7 @@ import "validate/validate.proto";
 import "google/api/field_behavior.proto";
 import "gogoproto/gogo.proto";
 import "accounting_service/v1/business_profile_database_schema.proto";
+import "google/protobuf/timestamp.proto";
 
 option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/generated/accounting_service/v1";
 
@@ -80,30 +81,159 @@ message GetLinkTokenRequest { // Defines a message named GetLinkTokenRequest.
   ];
 }
 
-message ExchangePublicLinkTokenForAccountTokenRequest { // Defines a message named ExchangePublicLinkTokenForAccountTokenRequest.
+message ExchangePublicLinkTokenForAccountTokenRequest {
   // The user id
   // Validations:
   // - user_id must be greater than 0
   uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0, // Validation rule: user_id must be greater than 0.
-    (google.api.field_behavior) = REQUIRED // Field behavior: user_id is required.
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
   ];
 
   // the public link token
   string public_token = 2 [
-    (validate.rules).string.min_len = 1, // Validation rule: public_token must have a minimum length of 1.
-    (google.api.field_behavior) = REQUIRED // Field behavior: public_token is required.
+    (google.api.field_behavior) = REQUIRED
   ];
 
   // the end user's origin id
   string end_user_origin_id = 3  [
-    (validate.rules).string.min_len = 1, // Validation rule: end_user_origin_id must have a minimum length of 1.
-    (google.api.field_behavior) = REQUIRED // Field behavior: end_user_origin_id is required.
+    (google.api.field_behavior) = REQUIRED
   ];
 
   // the organization name
   string organization_name = 4  [
-    (validate.rules).string.min_len = 1, // Validation rule: organization_name must have a minimum length of 1.
-    (google.api.field_behavior) = REQUIRED // Field behavior: organization_name is required.
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message ReadBalanceSheetsRequest {
+  // The user id
+  // Validations:
+  // - user_id must be greater than 0
+  uint64 user_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The accounting integration merge link id
+  // Validations:
+  // - acounting_integration_merge_link_id must be greater than 0
+  uint64 acounting_integration_merge_link_id = 2 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The start date
+  // Validations:
+  // - start_date must be a valid date
+  google.protobuf.Timestamp start_date = 3 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The end date
+  // Validations:
+  // - end_date must be a valid date
+  google.protobuf.Timestamp end_date = 4 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The page size
+  int32 page_size = 5 [
+    (validate.rules).int32.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The page number
+  int32 page_number = 6 [
+    (validate.rules).int32.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message ReadCashFlowStatementsRequest {
+  // The user id
+  // Validations:
+  // - user_id must be greater than 0
+  uint64 user_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The accounting integration merge link id
+  // Validations:
+  // - acounting_integration_merge_link_id must be greater than 0
+  uint64 acounting_integration_merge_link_id = 2 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The start date
+  // Validations:
+  // - start_date must be a valid date
+  google.protobuf.Timestamp start_date = 3 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The end date
+  // Validations:
+  // - end_date must be a valid date
+  google.protobuf.Timestamp end_date = 4 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The page size
+  int32 page_size = 5 [
+    (validate.rules).int32.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The page number
+  int32 page_number = 6 [
+    (validate.rules).int32.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message ReadIncomeStatementsRequest {
+  // The user id
+  // Validations:
+  // - user_id must be greater than 0
+  uint64 user_id = 1 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The accounting integration merge link id
+  // Validations:
+  // - acounting_integration_merge_link_id must be greater than 0
+  uint64 acounting_integration_merge_link_id = 2 [
+    (validate.rules).uint64.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The start date
+  // Validations:
+  // - start_date must be a valid date
+  google.protobuf.Timestamp start_date = 3 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The end date
+  // Validations:
+  // - end_date must be a valid date
+  google.protobuf.Timestamp end_date = 4 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The page size
+  int32 page_size = 5 [
+    (validate.rules).int32.gt = 0,
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The page number
+  int32 page_number = 6 [
+    (validate.rules).int32.gt = 0,
+    (google.api.field_behavior) = REQUIRED
   ];
 }

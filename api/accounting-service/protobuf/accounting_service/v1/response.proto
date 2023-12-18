@@ -3,6 +3,7 @@ syntax = "proto3";
 package accounting_service.v1;
 
 import "accounting_service/v1/business_profile_database_schema.proto";
+import "accounting_service/v1/accounting_database_schema.proto";
 
 import "google/api/field_behavior.proto";
 import "gogoproto/gogo.proto";
@@ -72,4 +73,28 @@ message ExchangePublicLinkTokenForAccountTokenResponse { // Defines a message na
   bool success = 1 [
     (google.api.field_behavior) = REQUIRED // Field behavior: success is required.
   ];
+}
+
+message ReadBalanceSheetsResponse {
+  // the balance sheets
+  repeated BalanceSheet balance_sheets = 1;
+
+  // the pagination token
+  int32 next_page = 2;
+}
+
+message ReadCashFlowStatementsResponse {
+  // the cashflow sheets
+  repeated CashFlowStatement cash_flow_statements = 1;
+
+  // the pagination token
+  int32 next_page = 2;
+}
+
+message ReadIncomeStatementsResponse {
+  // the cashflow sheets
+  repeated IncomeStatement income_statements = 1;
+
+  // the pagination token
+  int32 next_page = 2;
 }

@@ -32,15 +32,15 @@ func newReportItemORM(db *gorm.DB, opts ...gen.DOOption) reportItemORM {
 	_reportItemORM.Company = field.NewString(tableName, "company")
 	_reportItemORM.CostOfSalesIncomeStatementId = field.NewUint64(tableName, "cost_of_sales_income_statement_id")
 	_reportItemORM.EquityBalanceSheetId = field.NewUint64(tableName, "equity_balance_sheet_id")
-	_reportItemORM.FinancingActivitiesCashFlowStatementsId = field.NewUint64(tableName, "financing_activities_cash_flow_statements_id")
+	_reportItemORM.FinancingActivitiesCashFlowStatementId = field.NewUint64(tableName, "financing_activities_cash_flow_statement_id")
 	_reportItemORM.Id = field.NewUint64(tableName, "id")
 	_reportItemORM.IncomeIncomeStatementId = field.NewUint64(tableName, "income_income_statement_id")
-	_reportItemORM.InvestingActivitiesCashFlowStatementsId = field.NewUint64(tableName, "investing_activities_cash_flow_statements_id")
+	_reportItemORM.InvestingActivitiesCashFlowStatementId = field.NewUint64(tableName, "investing_activities_cash_flow_statement_id")
 	_reportItemORM.LiabilitiesBalanceSheetId = field.NewUint64(tableName, "liabilities_balance_sheet_id")
 	_reportItemORM.ModifiedAt = field.NewTime(tableName, "modified_at")
 	_reportItemORM.Name = field.NewString(tableName, "name")
 	_reportItemORM.NonOperatingExpensesIncomeStatementId = field.NewUint64(tableName, "non_operating_expenses_income_statement_id")
-	_reportItemORM.OperatingActivitiesCashFlowStatementsId = field.NewUint64(tableName, "operating_activities_cash_flow_statements_id")
+	_reportItemORM.OperatingActivitiesCashFlowStatementId = field.NewUint64(tableName, "operating_activities_cash_flow_statement_id")
 	_reportItemORM.OperatingExpensesIncomeStatementId = field.NewUint64(tableName, "operating_expenses_income_statement_id")
 	_reportItemORM.RemoteId = field.NewString(tableName, "remote_id")
 	_reportItemORM.Value = field.NewInt64(tableName, "value")
@@ -53,23 +53,23 @@ func newReportItemORM(db *gorm.DB, opts ...gen.DOOption) reportItemORM {
 type reportItemORM struct {
 	reportItemORMDo
 
-	ALL                                     field.Asterisk
-	AssetsBalanceSheetId                    field.Uint64
-	Company                                 field.String
-	CostOfSalesIncomeStatementId            field.Uint64
-	EquityBalanceSheetId                    field.Uint64
-	FinancingActivitiesCashFlowStatementsId field.Uint64
-	Id                                      field.Uint64
-	IncomeIncomeStatementId                 field.Uint64
-	InvestingActivitiesCashFlowStatementsId field.Uint64
-	LiabilitiesBalanceSheetId               field.Uint64
-	ModifiedAt                              field.Time
-	Name                                    field.String
-	NonOperatingExpensesIncomeStatementId   field.Uint64
-	OperatingActivitiesCashFlowStatementsId field.Uint64
-	OperatingExpensesIncomeStatementId      field.Uint64
-	RemoteId                                field.String
-	Value                                   field.Int64
+	ALL                                    field.Asterisk
+	AssetsBalanceSheetId                   field.Uint64
+	Company                                field.String
+	CostOfSalesIncomeStatementId           field.Uint64
+	EquityBalanceSheetId                   field.Uint64
+	FinancingActivitiesCashFlowStatementId field.Uint64
+	Id                                     field.Uint64
+	IncomeIncomeStatementId                field.Uint64
+	InvestingActivitiesCashFlowStatementId field.Uint64
+	LiabilitiesBalanceSheetId              field.Uint64
+	ModifiedAt                             field.Time
+	Name                                   field.String
+	NonOperatingExpensesIncomeStatementId  field.Uint64
+	OperatingActivitiesCashFlowStatementId field.Uint64
+	OperatingExpensesIncomeStatementId     field.Uint64
+	RemoteId                               field.String
+	Value                                  field.Int64
 
 	fieldMap map[string]field.Expr
 }
@@ -90,15 +90,15 @@ func (r *reportItemORM) updateTableName(table string) *reportItemORM {
 	r.Company = field.NewString(table, "company")
 	r.CostOfSalesIncomeStatementId = field.NewUint64(table, "cost_of_sales_income_statement_id")
 	r.EquityBalanceSheetId = field.NewUint64(table, "equity_balance_sheet_id")
-	r.FinancingActivitiesCashFlowStatementsId = field.NewUint64(table, "financing_activities_cash_flow_statements_id")
+	r.FinancingActivitiesCashFlowStatementId = field.NewUint64(table, "financing_activities_cash_flow_statement_id")
 	r.Id = field.NewUint64(table, "id")
 	r.IncomeIncomeStatementId = field.NewUint64(table, "income_income_statement_id")
-	r.InvestingActivitiesCashFlowStatementsId = field.NewUint64(table, "investing_activities_cash_flow_statements_id")
+	r.InvestingActivitiesCashFlowStatementId = field.NewUint64(table, "investing_activities_cash_flow_statement_id")
 	r.LiabilitiesBalanceSheetId = field.NewUint64(table, "liabilities_balance_sheet_id")
 	r.ModifiedAt = field.NewTime(table, "modified_at")
 	r.Name = field.NewString(table, "name")
 	r.NonOperatingExpensesIncomeStatementId = field.NewUint64(table, "non_operating_expenses_income_statement_id")
-	r.OperatingActivitiesCashFlowStatementsId = field.NewUint64(table, "operating_activities_cash_flow_statements_id")
+	r.OperatingActivitiesCashFlowStatementId = field.NewUint64(table, "operating_activities_cash_flow_statement_id")
 	r.OperatingExpensesIncomeStatementId = field.NewUint64(table, "operating_expenses_income_statement_id")
 	r.RemoteId = field.NewString(table, "remote_id")
 	r.Value = field.NewInt64(table, "value")
@@ -123,15 +123,15 @@ func (r *reportItemORM) fillFieldMap() {
 	r.fieldMap["company"] = r.Company
 	r.fieldMap["cost_of_sales_income_statement_id"] = r.CostOfSalesIncomeStatementId
 	r.fieldMap["equity_balance_sheet_id"] = r.EquityBalanceSheetId
-	r.fieldMap["financing_activities_cash_flow_statements_id"] = r.FinancingActivitiesCashFlowStatementsId
+	r.fieldMap["financing_activities_cash_flow_statement_id"] = r.FinancingActivitiesCashFlowStatementId
 	r.fieldMap["id"] = r.Id
 	r.fieldMap["income_income_statement_id"] = r.IncomeIncomeStatementId
-	r.fieldMap["investing_activities_cash_flow_statements_id"] = r.InvestingActivitiesCashFlowStatementsId
+	r.fieldMap["investing_activities_cash_flow_statement_id"] = r.InvestingActivitiesCashFlowStatementId
 	r.fieldMap["liabilities_balance_sheet_id"] = r.LiabilitiesBalanceSheetId
 	r.fieldMap["modified_at"] = r.ModifiedAt
 	r.fieldMap["name"] = r.Name
 	r.fieldMap["non_operating_expenses_income_statement_id"] = r.NonOperatingExpensesIncomeStatementId
-	r.fieldMap["operating_activities_cash_flow_statements_id"] = r.OperatingActivitiesCashFlowStatementsId
+	r.fieldMap["operating_activities_cash_flow_statement_id"] = r.OperatingActivitiesCashFlowStatementId
 	r.fieldMap["operating_expenses_income_statement_id"] = r.OperatingExpensesIncomeStatementId
 	r.fieldMap["remote_id"] = r.RemoteId
 	r.fieldMap["value"] = r.Value

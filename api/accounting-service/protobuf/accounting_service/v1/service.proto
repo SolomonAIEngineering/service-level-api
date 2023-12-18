@@ -190,4 +190,70 @@ service AccountingService {
       }
     };
   }
+
+  rpc ReadBalanceSheets(ReadBalanceSheetsRequest) returns (ReadBalanceSheetsResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/balance-sheets"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Gets Balance Sheets",
+      tags: ["Balance Sheets"],
+      operation_id: "ReadBalanceSheets"
+      description: "Queries balance sheets for a business.",
+      responses: {
+        key: "200"
+        value: {
+          description: ""
+          schema: {
+            json_schema: {ref: ".api.v1.ReadBalanceSheetsResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc ReadCashFlowStatements(ReadCashFlowStatementsRequest) returns (ReadCashFlowStatementsResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/cashflow-statements"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Gets Cashfloe Sheets",
+      tags: ["Cashflow Sheets"],
+      operation_id: "ReadCashFlowStatements"
+      description: "Queries cashflow sheets for a business.",
+      responses: {
+        key: "200"
+        value: {
+          description: ""
+          schema: {
+            json_schema: {ref: ".api.v1.ReadCashFlowStatementsResponse"}
+          }
+        }
+      }
+    };
+  }
+
+  rpc ReadIncomeStatements(ReadIncomeStatementsRequest) returns (ReadIncomeStatementsResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/income-statements"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Gets Cashfloe Sheets",
+      tags: ["Cashflow Sheets"],
+      operation_id: "ReadIncomeStatements"
+      description: "Queries income sheets for a business.",
+      responses: {
+        key: "200"
+        value: {
+          description: ""
+          schema: {
+            json_schema: {ref: ".api.v1.ReadIncomeStatementsResponse"}
+          }
+        }
+      }
+    };
+  }
 }

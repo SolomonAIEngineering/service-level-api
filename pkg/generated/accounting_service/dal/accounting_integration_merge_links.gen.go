@@ -94,7 +94,7 @@ func newAccountingIntegrationMergeLinkORM(db *gorm.DB, opts ...gen.DOOption) acc
 				field.RelationField
 			}
 		}{
-			RelationField: field.NewRelation("Account.CashFlowStatements", "accounting_servicev1.CashFlowStatementsORM"),
+			RelationField: field.NewRelation("Account.CashFlowStatements", "accounting_servicev1.CashFlowStatementORM"),
 			FinancingActivities: struct {
 				field.RelationField
 			}{

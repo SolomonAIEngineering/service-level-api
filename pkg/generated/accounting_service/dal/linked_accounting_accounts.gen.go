@@ -8,7 +8,6 @@ import (
 	"context"
 	"strings"
 
-	accounting_servicev1 "github.com/SolomonAIEngineering/service-level-api/pkg/generated/accounting_service/v1"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 	"gorm.io/gorm/schema"
@@ -18,6 +17,8 @@ import (
 	"gorm.io/gen/helper"
 
 	"gorm.io/plugin/dbresolver"
+
+	accounting_servicev1 "github.com/SolomonAIEngineering/service-level-api/pkg/generated/accounting_service/v1"
 )
 
 func newLinkedAccountingAccountORM(db *gorm.DB, opts ...gen.DOOption) linkedAccountingAccountORM {
@@ -60,7 +61,7 @@ func newLinkedAccountingAccountORM(db *gorm.DB, opts ...gen.DOOption) linkedAcco
 	_linkedAccountingAccountORM.CashFlowStatements = linkedAccountingAccountORMHasManyCashFlowStatements{
 		db: db.Session(&gorm.Session{}),
 
-		RelationField: field.NewRelation("CashFlowStatements", "accounting_servicev1.CashFlowStatementsORM"),
+		RelationField: field.NewRelation("CashFlowStatements", "accounting_servicev1.CashFlowStatementORM"),
 		FinancingActivities: struct {
 			field.RelationField
 		}{
@@ -518,11 +519,11 @@ func (a linkedAccountingAccountORMHasManyCashFlowStatements) Model(m *accounting
 
 type linkedAccountingAccountORMHasManyCashFlowStatementsTx struct{ tx *gorm.Association }
 
-func (a linkedAccountingAccountORMHasManyCashFlowStatementsTx) Find() (result []*accounting_servicev1.CashFlowStatementsORM, err error) {
+func (a linkedAccountingAccountORMHasManyCashFlowStatementsTx) Find() (result []*accounting_servicev1.CashFlowStatementORM, err error) {
 	return result, a.tx.Find(&result)
 }
 
-func (a linkedAccountingAccountORMHasManyCashFlowStatementsTx) Append(values ...*accounting_servicev1.CashFlowStatementsORM) (err error) {
+func (a linkedAccountingAccountORMHasManyCashFlowStatementsTx) Append(values ...*accounting_servicev1.CashFlowStatementORM) (err error) {
 	targetValues := make([]interface{}, len(values))
 	for i, v := range values {
 		targetValues[i] = v
@@ -530,7 +531,7 @@ func (a linkedAccountingAccountORMHasManyCashFlowStatementsTx) Append(values ...
 	return a.tx.Append(targetValues...)
 }
 
-func (a linkedAccountingAccountORMHasManyCashFlowStatementsTx) Replace(values ...*accounting_servicev1.CashFlowStatementsORM) (err error) {
+func (a linkedAccountingAccountORMHasManyCashFlowStatementsTx) Replace(values ...*accounting_servicev1.CashFlowStatementORM) (err error) {
 	targetValues := make([]interface{}, len(values))
 	for i, v := range values {
 		targetValues[i] = v
@@ -538,7 +539,7 @@ func (a linkedAccountingAccountORMHasManyCashFlowStatementsTx) Replace(values ..
 	return a.tx.Replace(targetValues...)
 }
 
-func (a linkedAccountingAccountORMHasManyCashFlowStatementsTx) Delete(values ...*accounting_servicev1.CashFlowStatementsORM) (err error) {
+func (a linkedAccountingAccountORMHasManyCashFlowStatementsTx) Delete(values ...*accounting_servicev1.CashFlowStatementORM) (err error) {
 	targetValues := make([]interface{}, len(values))
 	for i, v := range values {
 		targetValues[i] = v

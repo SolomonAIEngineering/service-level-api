@@ -195,7 +195,7 @@ func newMergeBusinessProfileORM(db *gorm.DB, opts ...gen.DOOption) mergeBusiness
 					field.RelationField
 				}
 			}{
-				RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.CashFlowStatements", "accounting_servicev1.CashFlowStatementsORM"),
+				RelationField: field.NewRelation("AccountingIntegrationMergeLink.Account.CashFlowStatements", "accounting_servicev1.CashFlowStatementORM"),
 				FinancingActivities: struct {
 					field.RelationField
 				}{

@@ -30,6 +30,110 @@
     "application/json"
   ],
   "paths": {
+    "/api/v1/balance-sheets": {
+      "post": {
+        "summary": "Gets Balance Sheets",
+        "description": "Queries balance sheets for a business.",
+        "operationId": "ReadBalanceSheets",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.ReadBalanceSheetsResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ReadBalanceSheetsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Balance Sheets"
+        ]
+      }
+    },
+    "/api/v1/cashflow-statements": {
+      "post": {
+        "summary": "Gets Cashfloe Sheets",
+        "description": "Queries cashflow sheets for a business.",
+        "operationId": "ReadCashFlowStatements",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.ReadCashFlowStatementsResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ReadCashFlowStatementsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Cashflow Sheets"
+        ]
+      }
+    },
     "/api/v1/health": {
       "get": {
         "summary": "Health Check",
@@ -69,6 +173,58 @@
         },
         "tags": [
           "service health"
+        ]
+      }
+    },
+    "/api/v1/income-statements": {
+      "post": {
+        "summary": "Gets Cashfloe Sheets",
+        "description": "Queries income sheets for a business.",
+        "operationId": "ReadIncomeStatements",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.ReadIncomeStatementsResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ReadIncomeStatementsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Cashflow Sheets"
         ]
       }
     },
@@ -112,7 +268,6 @@
         "parameters": [
           {
             "name": "body",
-            "description": "Defines a message named ExchangePublicLinkTokenForAccountTokenRequest.",
             "in": "body",
             "required": true,
             "schema": {
@@ -939,7 +1094,7 @@
       "description": "* Credit Notes\n* Expenses\n* Invoices\n* Journal Entries\n* Payments\n* Purchase Orders\n* Vendor Credits",
       "title": "The Transaction common model includes records of all types of transactions that do not appear in other common models.\nThe type of transaction can be identified through the type field. More specifically, \nit will contain all types of transactions outside of:"
     },
-    "CashFlowStatements": {
+    "CashFlowStatement": {
       "type": "object",
       "properties": {
         "id": {
@@ -2280,7 +2435,6 @@
           "title": "the organization name"
         }
       },
-      "description": "Defines a message named ExchangePublicLinkTokenForAccountTokenRequest.",
       "required": [
         "userId",
         "publicToken",
@@ -3255,7 +3409,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/CashFlowStatements"
+            "$ref": "#/definitions/CashFlowStatement"
           },
           "title": "The CashFlowStatement object shows operating activities, investing activities, and financing activities over a period of time (month, quarter, or year).\na company can have many cash flow statements"
         },
@@ -3273,7 +3427,7 @@
             "type": "object",
             "$ref": "#/definitions/BusinessChartOfAccounts"
           },
-          "description": "The Account object is what companies use to track transactions. They can be both bank accounts or a general ledger account (also called a chart of accounts)."
+          "title": "A \"Business Chart of Accounts\" is a structured list of a company's general ledger accounts. \nThese accounts are used to categorize every financial transaction a company makes. \nThis structure allows businesses to systematically track, manage, and report their financial activities"
         },
         "items": {
           "type": "array",
@@ -3851,6 +4005,189 @@
         }
       },
       "description": "The PurchaseOrderLineItem object is used to represent a purchase order's line item."
+    },
+    "ReadBalanceSheetsRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "The user id\nValidations:\n- user_id must be greater than 0"
+        },
+        "acountingIntegrationMergeLinkId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "The accounting integration merge link id\nValidations:\n- acounting_integration_merge_link_id must be greater than 0"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date-time",
+          "title": "The start date\nValidations:\n- start_date must be a valid date"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date-time",
+          "title": "The end date\nValidations:\n- end_date must be a valid date"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "title": "The page size"
+        },
+        "pageNumber": {
+          "type": "integer",
+          "format": "int32",
+          "title": "The page number"
+        }
+      },
+      "required": [
+        "userId",
+        "acountingIntegrationMergeLinkId",
+        "startDate",
+        "endDate",
+        "pageSize",
+        "pageNumber"
+      ]
+    },
+    "ReadBalanceSheetsResponse": {
+      "type": "object",
+      "properties": {
+        "balanceSheets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/BalanceSheet"
+          },
+          "title": "the balance sheets"
+        },
+        "nextPage": {
+          "type": "integer",
+          "format": "int32",
+          "title": "the pagination token"
+        }
+      }
+    },
+    "ReadCashFlowStatementsRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "The user id\nValidations:\n- user_id must be greater than 0"
+        },
+        "acountingIntegrationMergeLinkId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "The accounting integration merge link id\nValidations:\n- acounting_integration_merge_link_id must be greater than 0"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date-time",
+          "title": "The start date\nValidations:\n- start_date must be a valid date"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date-time",
+          "title": "The end date\nValidations:\n- end_date must be a valid date"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "title": "The page size"
+        },
+        "pageNumber": {
+          "type": "integer",
+          "format": "int32",
+          "title": "The page number"
+        }
+      },
+      "required": [
+        "userId",
+        "acountingIntegrationMergeLinkId",
+        "startDate",
+        "endDate",
+        "pageSize",
+        "pageNumber"
+      ]
+    },
+    "ReadCashFlowStatementsResponse": {
+      "type": "object",
+      "properties": {
+        "cashFlowStatements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/CashFlowStatement"
+          },
+          "title": "the cashflow sheets"
+        },
+        "nextPage": {
+          "type": "integer",
+          "format": "int32",
+          "title": "the pagination token"
+        }
+      }
+    },
+    "ReadIncomeStatementsRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "The user id\nValidations:\n- user_id must be greater than 0"
+        },
+        "acountingIntegrationMergeLinkId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "The accounting integration merge link id\nValidations:\n- acounting_integration_merge_link_id must be greater than 0"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date-time",
+          "title": "The start date\nValidations:\n- start_date must be a valid date"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date-time",
+          "title": "The end date\nValidations:\n- end_date must be a valid date"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "title": "The page size"
+        },
+        "pageNumber": {
+          "type": "integer",
+          "format": "int32",
+          "title": "The page number"
+        }
+      },
+      "required": [
+        "userId",
+        "acountingIntegrationMergeLinkId",
+        "startDate",
+        "endDate",
+        "pageSize",
+        "pageNumber"
+      ]
+    },
+    "ReadIncomeStatementsResponse": {
+      "type": "object",
+      "properties": {
+        "incomeStatements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/IncomeStatement"
+          },
+          "title": "the cashflow sheets"
+        },
+        "nextPage": {
+          "type": "integer",
+          "format": "int32",
+          "title": "the pagination token"
+        }
+      }
     },
     "ReadProfileResponse": {
       "type": "object",
