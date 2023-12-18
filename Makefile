@@ -16,9 +16,9 @@ COMMON_OPTS := --name service.ts \
                --extract-request-body
 
 # Define targets for each service
-.PHONY: user_service financial_service social_service
+.PHONY: user_service financial_service social_service accounting_service
 
-all: user_service financial_service social_service
+all: user_service financial_service social_service accounting_service
 
 fmt: 
 	go fmt ./...
@@ -42,7 +42,7 @@ social_service:
 	$(BASE_CMD) -p ./pkg/generated/social_service/v2/apidocs.swagger.json -o ./component-library/src/data-contracts/social-service $(COMMON_OPTS) --api-class-name SocialService
 
 accounting_service:
-	$(BASE_CMD) -p ./pkg/generated/social_service/v2/apidocs.swagger.json -o ./component-library/src/data-contracts/social-service $(COMMON_OPTS) --api-class-name AccountingService
+	$(BASE_CMD) -p ./pkg/generated/accounting_service/v1/apidocs.swagger.json -o ./component-library/src/data-contracts/accounting-service $(COMMON_OPTS) --api-class-name AccountingService
 
 # New gen target to incorporate the build process of different services
 gen:
