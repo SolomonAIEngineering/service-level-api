@@ -1,3 +1,11 @@
+# [1.158.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.157.0...v1.158.0) (2023-12-19)
+
+
+### Features
+
+* add admin experience product guide ([6832f06](https://github.com/SolomonAIEngineering/service-level-api/commit/6832f0696d12bb2cefa9deccb22910bce8486544))
+* add admin experience product guide ([ed80beb](https://github.com/SolomonAIEngineering/service-level-api/commit/ed80beb9ffce5a06807a02b5bf99109989f88c18))
+
 # [1.157.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.156.0...v1.157.0) (2023-12-18)
 
 
