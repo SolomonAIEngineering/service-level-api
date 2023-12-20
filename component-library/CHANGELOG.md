@@ -8,45 +8,39 @@
 
 # [1.157.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.156.0...v1.157.0) (2023-12-18)
 
-
 ### Features
 
-* update api names ([23be14e](https://github.com/SolomonAIEngineering/service-level-api/commit/23be14eee40e57afce25a1b357e07556d00dc213))
+- update api names ([23be14e](https://github.com/SolomonAIEngineering/service-level-api/commit/23be14eee40e57afce25a1b357e07556d00dc213))
 
 # [1.156.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.155.0...v1.156.0) (2023-12-18)
 
-
 ### Features
 
-* update api names ([7a302a4](https://github.com/SolomonAIEngineering/service-level-api/commit/7a302a47450b8f7bf8ec671e97d78b88d8d08096))
+- update api names ([7a302a4](https://github.com/SolomonAIEngineering/service-level-api/commit/7a302a47450b8f7bf8ec671e97d78b88d8d08096))
 
 # [1.155.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.154.0...v1.155.0) (2023-12-16)
 
-
 ### Features
 
-* add product specification for the smart goals feature ([ce3f18d](https://github.com/SolomonAIEngineering/service-level-api/commit/ce3f18dd2e18621b8bf8f77bd8cb9a7a6d9b44bc))
+- add product specification for the smart goals feature ([ce3f18d](https://github.com/SolomonAIEngineering/service-level-api/commit/ce3f18dd2e18621b8bf8f77bd8cb9a7a6d9b44bc))
 
 # [1.154.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.153.0...v1.154.0) (2023-12-12)
 
-
 ### Features
 
-* update component library ([297f5bd](https://github.com/SolomonAIEngineering/service-level-api/commit/297f5bd3c99336795812c8a90090d1f9e9a72207))
+- update component library ([297f5bd](https://github.com/SolomonAIEngineering/service-level-api/commit/297f5bd3c99336795812c8a90090d1f9e9a72207))
 
 # [1.153.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.152.0...v1.153.0) (2023-12-11)
 
-
 ### Features
 
-* update component library ([4a38100](https://github.com/SolomonAIEngineering/service-level-api/commit/4a38100f995d227a76ddb7ffc465426da2c292e0))
+- update component library ([4a38100](https://github.com/SolomonAIEngineering/service-level-api/commit/4a38100f995d227a76ddb7ffc465426da2c292e0))
 
 # [1.152.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.151.0...v1.152.0) (2023-12-10)
 
-
 ### Features
 
-* add default pockets api ([9f40c1c](https://github.com/SolomonAIEngineering/service-level-api/commit/9f40c1cda63f1c529270f6c63b835fb257431079))
+- add default pockets api ([9f40c1c](https://github.com/SolomonAIEngineering/service-level-api/commit/9f40c1cda63f1c529270f6c63b835fb257431079))
 
 # [1.151.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.150.0...v1.151.0) (2023-12-10)
 

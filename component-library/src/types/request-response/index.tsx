@@ -37,3 +37,4 @@ export * from './reset-password';
 export * from './update-user-profile';
 export * from './create-account-v2';
 export * from './canny-sso-token';
+export * from './ask-copilot-question';

@@ -1187,6 +1187,59 @@
         ]
       }
     },
+    "/api/v2/user/copilot/question": {
+      "post": {
+        "summary": "Ask a question to copilot",
+        "description": "This endpoint performs an a creation operation of a user account based on the provided parametersThis operation is implemented as a distributed transactions as this operation spans multiple services",
+        "operationId": "AskCopilotQuestion",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v2.AskCopilotQuestionResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AskCopilotQuestionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "account",
+          "v2"
+        ]
+      }
+    },
     "/api/v2/user/email/{email}": {
       "get": {
         "summary": "Retrieve user details by email",
@@ -1800,6 +1853,30 @@
         }
       },
       "additionalProperties": {}
+    },
+    "AskCopilotQuestionRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "the account id associated with the user"
+        }
+      }
+    },
+    "AskCopilotQuestionResponse": {
+      "type": "object",
+      "properties": {
+        "canAsk": {
+          "type": "boolean",
+          "title": "wether or not the user is below quote"
+        },
+        "remainingQuota": {
+          "type": "number",
+          "format": "double",
+          "title": "the remaining quote"
+        }
+      }
     },
     "BusinessAccount": {
       "type": "object",

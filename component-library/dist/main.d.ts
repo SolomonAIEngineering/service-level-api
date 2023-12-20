@@ -87,6 +87,22 @@ export interface Address {
 	 */
 	zipcode?: string;
 }
+export interface AskCopilotQuestionRequest {
+	/**
+	 * the account id associated with the user
+	 * @format uint64
+	 */
+	userId?: string;
+}
+export interface AskCopilotQuestionResponse {
+	/** wether or not the user is below quote */
+	canAsk?: boolean;
+	/**
+	 * the remaining quote
+	 * @format double
+	 */
+	remainingQuota?: number;
+}
 /** BusinessAccount represents a business account within the context of solomon-ai. */
 export interface BusinessAccount {
 	/** The type of profile associated with the business account (e.g., individual, corporate). */
@@ -8807,6 +8823,52 @@ export declare class GetCannyUserSSOTokenRequestClass implements IRequest {
 export declare class GetCannyUserSSOTokenResponseClass extends ErrorResponse implements GetCannyUserSSOTokenResponse {
 	token: string;
 	constructor(data?: Partial<GetCannyUserSSOTokenResponse>);
+}
+/**
+ * Represents a request to ask a question to GitHub Copilot.
+ */
+export declare class AskCopilotQuestionRequestClass implements IRequest, AskCopilotQuestionRequest {
+	/**
+	 * The user ID associated with the request.
+	 */
+	userId: string;
+	/**
+	 * Creates an instance of AskCopilotQuestionRequestClass.
+	 * @param data - Optional data to initialize the request.
+	 */
+	constructor(data?: Partial<AskCopilotQuestionRequest>);
+	/**
+	 * Checks if the request is valid.
+	 * @returns True if the user ID is not empty, otherwise false.
+	 */
+	isValid(): boolean;
+}
+export declare class AskCopilotQuestionResponseClass extends ErrorResponse implements AskCopilotQuestionResponse {
+	code: number;
+	err: string;
+	token: string;
+	canAsk: boolean;
+	remainingQuota: number;
+	/**
+	 * Creates an instance of AskCopilotQuestionResponseClass.
+	 * @param data - Optional data to initialize the response.
+	 */
+	constructor(data?: Partial<AskCopilotQuestionResponse>);
+	/**
+	 * Checks if the response is valid.
+	 * @returns True if the response is valid, otherwise false.
+	 */
+	isValid(): boolean;
+	/**
+	 * Checks if the user can ask a question.
+	 * @returns True if the user can ask a question, otherwise false.
+	 */
+	canAskQuestion(): boolean;
+	/**
+	 * Gets the question quota.
+	 * @returns The question quota.
+	 */
+	getRemainingQuota(): number;
 }
 /**
  * Represents individual data points for the chart.
