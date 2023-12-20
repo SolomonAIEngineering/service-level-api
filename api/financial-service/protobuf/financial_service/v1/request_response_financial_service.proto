@@ -1682,3 +1682,32 @@ message CheckIfQuotaExceededRequest {
 message CheckIfQuotaExceededResponse {
   bool exceeded = 1;
 }
+
+message TriggerSyncRequest {
+  // the account id associated with the user
+  uint64 user_id = 1 [(validate.rules).uint64.gt = 0];
+  FinancialUserProfileType profile_type = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"username:testuser\""
+    },
+    (google.api.field_behavior) = REQUIRED   
+  ];
+
+  // the account id associated with the user
+  uint64 financial_account_id = 3 [(validate.rules).uint64.gt = 0];
+
+  // tha financial account type
+  FinancialAccountType financial_account_type = 4 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"username:testuser\""
+    },
+    (google.api.field_behavior) = REQUIRED   
+  ];
+}
+
+message TriggerSyncResponse {
+  // the task id
+  string task_id = 1;
+}

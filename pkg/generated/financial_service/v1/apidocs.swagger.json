@@ -4695,6 +4695,59 @@
         ]
       }
     },
+    "/api/v1/sync/trigger": {
+      "post": {
+        "summary": "Triggers a sync",
+        "description": "This endpoint triggers a sync",
+        "operationId": "TriggerSync",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v2.TriggerSyncResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TriggerSyncRequest"
+            }
+          }
+        ],
+        "tags": [
+          "sync",
+          "v1"
+        ]
+      }
+    },
     "/api/v1/transactions": {
       "get": {
         "summary": "lists a set of transactions against a given account of interest",
@@ -11306,6 +11359,43 @@
         }
       },
       "description": "PlaidAccountTransactionSplit represents a split of a PlaidAccountTransaction."
+    },
+    "TriggerSyncRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "the account id associated with the user"
+        },
+        "profileType": {
+          "$ref": "#/definitions/FinancialUserProfileType",
+          "example": "username:testuser"
+        },
+        "financialAccountId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "the account id associated with the user"
+        },
+        "financialAccountType": {
+          "$ref": "#/definitions/FinancialAccountType",
+          "example": "username:testuser",
+          "title": "tha financial account type"
+        }
+      },
+      "required": [
+        "profileType",
+        "financialAccountType"
+      ]
+    },
+    "TriggerSyncResponse": {
+      "type": "object",
+      "properties": {
+        "taskId": {
+          "type": "string",
+          "title": "the task id"
+        }
+      }
     },
     "UnSplitTransactionsResponse": {
       "type": "object",

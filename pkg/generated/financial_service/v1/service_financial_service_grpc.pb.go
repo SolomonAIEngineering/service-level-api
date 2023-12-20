@@ -120,6 +120,7 @@ const (
 	FinancialService_PollAsyncTaskExecutionStatus_FullMethodName             = "/financial_service.v1.FinancialService/PollAsyncTaskExecutionStatus"
 	FinancialService_RecordAskCopilotQuestion_FullMethodName                 = "/financial_service.v1.FinancialService/RecordAskCopilotQuestion"
 	FinancialService_CheckIfQuotaExceeded_FullMethodName                     = "/financial_service.v1.FinancialService/CheckIfQuotaExceeded"
+	FinancialService_TriggerSync_FullMethodName                              = "/financial_service.v1.FinancialService/TriggerSync"
 )
 
 // FinancialServiceClient is the client API for FinancialService service.
@@ -325,6 +326,7 @@ type FinancialServiceClient interface {
 	RecordAskCopilotQuestion(ctx context.Context, in *RecordAskCopilotQuestionRequest, opts ...grpc.CallOption) (*RecordAskCopilotQuestionResponse, error)
 	// This checks if a user can ask the copilot a question
 	CheckIfQuotaExceeded(ctx context.Context, in *CheckIfQuotaExceededRequest, opts ...grpc.CallOption) (*CheckIfQuotaExceededResponse, error)
+	TriggerSync(ctx context.Context, in *TriggerSyncRequest, opts ...grpc.CallOption) (*TriggerSyncResponse, error)
 }
 
 type financialServiceClient struct {
@@ -1244,6 +1246,15 @@ func (c *financialServiceClient) CheckIfQuotaExceeded(ctx context.Context, in *C
 	return out, nil
 }
 
+func (c *financialServiceClient) TriggerSync(ctx context.Context, in *TriggerSyncRequest, opts ...grpc.CallOption) (*TriggerSyncResponse, error) {
+	out := new(TriggerSyncResponse)
+	err := c.cc.Invoke(ctx, FinancialService_TriggerSync_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // FinancialServiceServer is the server API for FinancialService service.
 // All implementations must embed UnimplementedFinancialServiceServer
 // for forward compatibility
@@ -1447,6 +1458,7 @@ type FinancialServiceServer interface {
 	RecordAskCopilotQuestion(context.Context, *RecordAskCopilotQuestionRequest) (*RecordAskCopilotQuestionResponse, error)
 	// This checks if a user can ask the copilot a question
 	CheckIfQuotaExceeded(context.Context, *CheckIfQuotaExceededRequest) (*CheckIfQuotaExceededResponse, error)
+	TriggerSync(context.Context, *TriggerSyncRequest) (*TriggerSyncResponse, error)
 	mustEmbedUnimplementedFinancialServiceServer()
 }
 
@@ -1756,6 +1768,9 @@ func (UnimplementedFinancialServiceServer) RecordAskCopilotQuestion(context.Cont
 }
 func (UnimplementedFinancialServiceServer) CheckIfQuotaExceeded(context.Context, *CheckIfQuotaExceededRequest) (*CheckIfQuotaExceededResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CheckIfQuotaExceeded not implemented")
+}
+func (UnimplementedFinancialServiceServer) TriggerSync(context.Context, *TriggerSyncRequest) (*TriggerSyncResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method TriggerSync not implemented")
 }
 func (UnimplementedFinancialServiceServer) mustEmbedUnimplementedFinancialServiceServer() {}
 
@@ -3588,6 +3603,24 @@ func _FinancialService_CheckIfQuotaExceeded_Handler(srv interface{}, ctx context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _FinancialService_TriggerSync_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(TriggerSyncRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FinancialServiceServer).TriggerSync(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FinancialService_TriggerSync_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FinancialServiceServer).TriggerSync(ctx, req.(*TriggerSyncRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // FinancialService_ServiceDesc is the grpc.ServiceDesc for FinancialService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -3998,6 +4031,10 @@ var FinancialService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CheckIfQuotaExceeded",
 			Handler:    _FinancialService_CheckIfQuotaExceeded_Handler,
+		},
+		{
+			MethodName: "TriggerSync",
+			Handler:    _FinancialService_TriggerSync_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

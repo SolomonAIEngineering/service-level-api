@@ -20523,6 +20523,238 @@ var _ interface {
 	ErrorName() string
 } = CheckIfQuotaExceededResponseValidationError{}
 
+// Validate checks the field values on TriggerSyncRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *TriggerSyncRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on TriggerSyncRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// TriggerSyncRequestMultiError, or nil if none found.
+func (m *TriggerSyncRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *TriggerSyncRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetUserId() <= 0 {
+		err := TriggerSyncRequestValidationError{
+			field:  "UserId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for ProfileType
+
+	if m.GetFinancialAccountId() <= 0 {
+		err := TriggerSyncRequestValidationError{
+			field:  "FinancialAccountId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for FinancialAccountType
+
+	if len(errors) > 0 {
+		return TriggerSyncRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// TriggerSyncRequestMultiError is an error wrapping multiple validation errors
+// returned by TriggerSyncRequest.ValidateAll() if the designated constraints
+// aren't met.
+type TriggerSyncRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m TriggerSyncRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m TriggerSyncRequestMultiError) AllErrors() []error { return m }
+
+// TriggerSyncRequestValidationError is the validation error returned by
+// TriggerSyncRequest.Validate if the designated constraints aren't met.
+type TriggerSyncRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e TriggerSyncRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e TriggerSyncRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e TriggerSyncRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e TriggerSyncRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e TriggerSyncRequestValidationError) ErrorName() string {
+	return "TriggerSyncRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e TriggerSyncRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sTriggerSyncRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = TriggerSyncRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = TriggerSyncRequestValidationError{}
+
+// Validate checks the field values on TriggerSyncResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *TriggerSyncResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on TriggerSyncResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// TriggerSyncResponseMultiError, or nil if none found.
+func (m *TriggerSyncResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *TriggerSyncResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for TaskId
+
+	if len(errors) > 0 {
+		return TriggerSyncResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// TriggerSyncResponseMultiError is an error wrapping multiple validation
+// errors returned by TriggerSyncResponse.ValidateAll() if the designated
+// constraints aren't met.
+type TriggerSyncResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m TriggerSyncResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m TriggerSyncResponseMultiError) AllErrors() []error { return m }
+
+// TriggerSyncResponseValidationError is the validation error returned by
+// TriggerSyncResponse.Validate if the designated constraints aren't met.
+type TriggerSyncResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e TriggerSyncResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e TriggerSyncResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e TriggerSyncResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e TriggerSyncResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e TriggerSyncResponseValidationError) ErrorName() string {
+	return "TriggerSyncResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e TriggerSyncResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sTriggerSyncResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = TriggerSyncResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = TriggerSyncResponseValidationError{}
+
 // Validate checks the field values on
 // GetReCurringTransactionsResponse_ParticipantReCurringTransactions with the
 // rules defined in the proto definition for this message. If any rules are

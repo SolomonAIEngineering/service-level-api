@@ -2242,4 +2242,27 @@ service FinancialService {
           }
       };
     }
+
+    rpc TriggerSync(TriggerSyncRequest) returns (TriggerSyncResponse) {
+      option (google.api.http) = {
+          post: "/api/v1/sync/trigger" 
+          body: "*"
+      };
+      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+          summary: "Triggers a sync"
+          tags: ["sync", "v1"]
+          operation_id: "TriggerSync"
+          description: 
+              "This endpoint triggers a sync"
+          responses: {
+              key: "200"
+              value: {
+                  description: "A successful response."
+                  schema: {
+                      json_schema: {ref: ".api.v2.TriggerSyncResponse"}
+                  }
+              }
+          }
+      };
+    } 
 }
