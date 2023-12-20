@@ -118,6 +118,7 @@ const (
 	FinancialService_DeleteNoteFromRecurringTransaction_FullMethodName       = "/financial_service.v1.FinancialService/DeleteNoteFromRecurringTransaction"
 	FinancialService_ListRecurringTransactionNotes_FullMethodName            = "/financial_service.v1.FinancialService/ListRecurringTransactionNotes"
 	FinancialService_PollAsyncTaskExecutionStatus_FullMethodName             = "/financial_service.v1.FinancialService/PollAsyncTaskExecutionStatus"
+	FinancialService_AskCopilotQuestion_FullMethodName                       = "/financial_service.v1.FinancialService/AskCopilotQuestion"
 )
 
 // FinancialServiceClient is the client API for FinancialService service.
@@ -319,6 +320,8 @@ type FinancialServiceClient interface {
 	// list transaction notes
 	ListRecurringTransactionNotes(ctx context.Context, in *ListRecurringTransactionNotesRequest, opts ...grpc.CallOption) (*ListRecurringTransactionNotesResponse, error)
 	PollAsyncTaskExecutionStatus(ctx context.Context, in *PollAsyncTaskExecutionStatusRequest, opts ...grpc.CallOption) (*PollAsyncTaskExecutionStatusResponse, error)
+	// This checks if a user can ask the copilot a question
+	AskCopilotQuestion(ctx context.Context, in *AskCopilotQuestionRequest, opts ...grpc.CallOption) (*AskCopilotQuestionResponse, error)
 }
 
 type financialServiceClient struct {
@@ -1220,6 +1223,15 @@ func (c *financialServiceClient) PollAsyncTaskExecutionStatus(ctx context.Contex
 	return out, nil
 }
 
+func (c *financialServiceClient) AskCopilotQuestion(ctx context.Context, in *AskCopilotQuestionRequest, opts ...grpc.CallOption) (*AskCopilotQuestionResponse, error) {
+	out := new(AskCopilotQuestionResponse)
+	err := c.cc.Invoke(ctx, FinancialService_AskCopilotQuestion_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // FinancialServiceServer is the server API for FinancialService service.
 // All implementations must embed UnimplementedFinancialServiceServer
 // for forward compatibility
@@ -1419,6 +1431,8 @@ type FinancialServiceServer interface {
 	// list transaction notes
 	ListRecurringTransactionNotes(context.Context, *ListRecurringTransactionNotesRequest) (*ListRecurringTransactionNotesResponse, error)
 	PollAsyncTaskExecutionStatus(context.Context, *PollAsyncTaskExecutionStatusRequest) (*PollAsyncTaskExecutionStatusResponse, error)
+	// This checks if a user can ask the copilot a question
+	AskCopilotQuestion(context.Context, *AskCopilotQuestionRequest) (*AskCopilotQuestionResponse, error)
 	mustEmbedUnimplementedFinancialServiceServer()
 }
 
@@ -1722,6 +1736,9 @@ func (UnimplementedFinancialServiceServer) ListRecurringTransactionNotes(context
 }
 func (UnimplementedFinancialServiceServer) PollAsyncTaskExecutionStatus(context.Context, *PollAsyncTaskExecutionStatusRequest) (*PollAsyncTaskExecutionStatusResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PollAsyncTaskExecutionStatus not implemented")
+}
+func (UnimplementedFinancialServiceServer) AskCopilotQuestion(context.Context, *AskCopilotQuestionRequest) (*AskCopilotQuestionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AskCopilotQuestion not implemented")
 }
 func (UnimplementedFinancialServiceServer) mustEmbedUnimplementedFinancialServiceServer() {}
 
@@ -3518,6 +3535,24 @@ func _FinancialService_PollAsyncTaskExecutionStatus_Handler(srv interface{}, ctx
 	return interceptor(ctx, in, info, handler)
 }
 
+func _FinancialService_AskCopilotQuestion_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AskCopilotQuestionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FinancialServiceServer).AskCopilotQuestion(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FinancialService_AskCopilotQuestion_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FinancialServiceServer).AskCopilotQuestion(ctx, req.(*AskCopilotQuestionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // FinancialService_ServiceDesc is the grpc.ServiceDesc for FinancialService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -3920,6 +3955,10 @@ var FinancialService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "PollAsyncTaskExecutionStatus",
 			Handler:    _FinancialService_PollAsyncTaskExecutionStatus_Handler,
+		},
+		{
+			MethodName: "AskCopilotQuestion",
+			Handler:    _FinancialService_AskCopilotQuestion_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

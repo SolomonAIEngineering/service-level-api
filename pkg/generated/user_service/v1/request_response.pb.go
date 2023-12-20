@@ -3346,119 +3346,6 @@ func (x *GetCannyUserSSOTokenResponse) GetToken() string {
 	return ""
 }
 
-type AskCopilotQuestionRequest struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	// the account id associated with the user
-	UserId      uint64      `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	ProfileType ProfileType `protobuf:"varint,2,opt,name=profile_type,json=profileType,proto3,enum=user_service.v1.ProfileType" json:"profile_type,omitempty"`
-}
-
-func (x *AskCopilotQuestionRequest) Reset() {
-	*x = AskCopilotQuestionRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_user_service_v1_request_response_proto_msgTypes[58]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *AskCopilotQuestionRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*AskCopilotQuestionRequest) ProtoMessage() {}
-
-func (x *AskCopilotQuestionRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_user_service_v1_request_response_proto_msgTypes[58]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use AskCopilotQuestionRequest.ProtoReflect.Descriptor instead.
-func (*AskCopilotQuestionRequest) Descriptor() ([]byte, []int) {
-	return file_user_service_v1_request_response_proto_rawDescGZIP(), []int{58}
-}
-
-func (x *AskCopilotQuestionRequest) GetUserId() uint64 {
-	if x != nil {
-		return x.UserId
-	}
-	return 0
-}
-
-func (x *AskCopilotQuestionRequest) GetProfileType() ProfileType {
-	if x != nil {
-		return x.ProfileType
-	}
-	return ProfileType_PROFILE_TYPE_UNSPECIFIED
-}
-
-type AskCopilotQuestionResponse struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	// wether or not the user is below quote
-	CanAsk bool `protobuf:"varint,1,opt,name=can_ask,json=canAsk,proto3" json:"can_ask,omitempty"`
-	// the remaining quote
-	RemainingQuota float64 `protobuf:"fixed64,2,opt,name=remaining_quota,json=remainingQuota,proto3" json:"remaining_quota,omitempty"`
-}
-
-func (x *AskCopilotQuestionResponse) Reset() {
-	*x = AskCopilotQuestionResponse{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_user_service_v1_request_response_proto_msgTypes[59]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *AskCopilotQuestionResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*AskCopilotQuestionResponse) ProtoMessage() {}
-
-func (x *AskCopilotQuestionResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_user_service_v1_request_response_proto_msgTypes[59]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use AskCopilotQuestionResponse.ProtoReflect.Descriptor instead.
-func (*AskCopilotQuestionResponse) Descriptor() ([]byte, []int) {
-	return file_user_service_v1_request_response_proto_rawDescGZIP(), []int{59}
-}
-
-func (x *AskCopilotQuestionResponse) GetCanAsk() bool {
-	if x != nil {
-		return x.CanAsk
-	}
-	return false
-}
-
-func (x *AskCopilotQuestionResponse) GetRemainingQuota() float64 {
-	if x != nil {
-		return x.RemainingQuota
-	}
-	return 0
-}
-
 var File_user_service_v1_request_response_proto protoreflect.FileDescriptor
 
 var file_user_service_v1_request_response_proto_rawDesc = []byte{
@@ -3905,39 +3792,23 @@ var file_user_service_v1_request_response_proto_rawDesc = []byte{
 	0x66, 0x69, 0x6c, 0x65, 0x54, 0x79, 0x70, 0x65, 0x22, 0x34, 0x0a, 0x1c, 0x47, 0x65, 0x74, 0x43,
 	0x61, 0x6e, 0x6e, 0x79, 0x55, 0x73, 0x65, 0x72, 0x53, 0x53, 0x4f, 0x54, 0x6f, 0x6b, 0x65, 0x6e,
 	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x6f, 0x6b, 0x65,
-	0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x22, 0x9b,
-	0x01, 0x0a, 0x19, 0x41, 0x73, 0x6b, 0x43, 0x6f, 0x70, 0x69, 0x6c, 0x6f, 0x74, 0x51, 0x75, 0x65,
-	0x73, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x20, 0x0a, 0x07,
-	0x75, 0x73, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x42, 0x07, 0xfa,
-	0x42, 0x04, 0x32, 0x02, 0x20, 0x00, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x12, 0x5c,
-	0x0a, 0x0c, 0x70, 0x72, 0x6f, 0x66, 0x69, 0x6c, 0x65, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x18, 0x02,
-	0x20, 0x01, 0x28, 0x0e, 0x32, 0x1c, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x73, 0x65, 0x72, 0x76,
-	0x69, 0x63, 0x65, 0x2e, 0x76, 0x31, 0x2e, 0x50, 0x72, 0x6f, 0x66, 0x69, 0x6c, 0x65, 0x54, 0x79,
-	0x70, 0x65, 0x42, 0x1b, 0x92, 0x41, 0x15, 0x4a, 0x13, 0x22, 0x75, 0x73, 0x65, 0x72, 0x6e, 0x61,
-	0x6d, 0x65, 0x3a, 0x74, 0x65, 0x73, 0x74, 0x75, 0x73, 0x65, 0x72, 0x22, 0xe0, 0x41, 0x02, 0x52,
-	0x0b, 0x70, 0x72, 0x6f, 0x66, 0x69, 0x6c, 0x65, 0x54, 0x79, 0x70, 0x65, 0x22, 0x5e, 0x0a, 0x1a,
-	0x41, 0x73, 0x6b, 0x43, 0x6f, 0x70, 0x69, 0x6c, 0x6f, 0x74, 0x51, 0x75, 0x65, 0x73, 0x74, 0x69,
-	0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x17, 0x0a, 0x07, 0x63, 0x61,
-	0x6e, 0x5f, 0x61, 0x73, 0x6b, 0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x52, 0x06, 0x63, 0x61, 0x6e,
-	0x41, 0x73, 0x6b, 0x12, 0x27, 0x0a, 0x0f, 0x72, 0x65, 0x6d, 0x61, 0x69, 0x6e, 0x69, 0x6e, 0x67,
-	0x5f, 0x71, 0x75, 0x6f, 0x74, 0x61, 0x18, 0x02, 0x20, 0x01, 0x28, 0x01, 0x52, 0x0e, 0x72, 0x65,
-	0x6d, 0x61, 0x69, 0x6e, 0x69, 0x6e, 0x67, 0x51, 0x75, 0x6f, 0x74, 0x61, 0x42, 0xf4, 0x01, 0x0a,
-	0x13, 0x63, 0x6f, 0x6d, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63,
-	0x65, 0x2e, 0x76, 0x31, 0x42, 0x14, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x52, 0x65, 0x73,
-	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x6e, 0x67, 0x69,
-	0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x53, 0x6f, 0x6c, 0x6f, 0x6d, 0x6f, 0x6e,
-	0x41, 0x49, 0x45, 0x6e, 0x67, 0x69, 0x6e, 0x65, 0x65, 0x72, 0x69, 0x6e, 0x67, 0x2f, 0x73, 0x65,
-	0x72, 0x76, 0x69, 0x63, 0x65, 0x2d, 0x6c, 0x65, 0x76, 0x65, 0x6c, 0x2d, 0x61, 0x70, 0x69, 0x2f,
-	0x70, 0x6b, 0x67, 0x2f, 0x67, 0x65, 0x6e, 0x65, 0x72, 0x61, 0x74, 0x65, 0x64, 0x2f, 0x75, 0x73,
-	0x65, 0x72, 0x2d, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2f, 0x76, 0x31, 0x2f, 0x75, 0x73,
-	0x65, 0x72, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2f, 0x76, 0x31, 0x3b, 0x75, 0x73,
-	0x65, 0x72, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x76, 0x31, 0xa2, 0x02, 0x03, 0x55,
-	0x58, 0x58, 0xaa, 0x02, 0x0e, 0x55, 0x73, 0x65, 0x72, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
-	0x2e, 0x56, 0x31, 0xca, 0x02, 0x0e, 0x55, 0x73, 0x65, 0x72, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63,
-	0x65, 0x5c, 0x56, 0x31, 0xe2, 0x02, 0x1a, 0x55, 0x73, 0x65, 0x72, 0x53, 0x65, 0x72, 0x76, 0x69,
-	0x63, 0x65, 0x5c, 0x56, 0x31, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74,
-	0x61, 0xea, 0x02, 0x0f, 0x55, 0x73, 0x65, 0x72, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x3a,
-	0x3a, 0x56, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x42, 0xf4,
+	0x01, 0x0a, 0x13, 0x63, 0x6f, 0x6d, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x73, 0x65, 0x72, 0x76,
+	0x69, 0x63, 0x65, 0x2e, 0x76, 0x31, 0x42, 0x14, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x6e,
+	0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x53, 0x6f, 0x6c, 0x6f, 0x6d,
+	0x6f, 0x6e, 0x41, 0x49, 0x45, 0x6e, 0x67, 0x69, 0x6e, 0x65, 0x65, 0x72, 0x69, 0x6e, 0x67, 0x2f,
+	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2d, 0x6c, 0x65, 0x76, 0x65, 0x6c, 0x2d, 0x61, 0x70,
+	0x69, 0x2f, 0x70, 0x6b, 0x67, 0x2f, 0x67, 0x65, 0x6e, 0x65, 0x72, 0x61, 0x74, 0x65, 0x64, 0x2f,
+	0x75, 0x73, 0x65, 0x72, 0x2d, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2f, 0x76, 0x31, 0x2f,
+	0x75, 0x73, 0x65, 0x72, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2f, 0x76, 0x31, 0x3b,
+	0x75, 0x73, 0x65, 0x72, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x76, 0x31, 0xa2, 0x02,
+	0x03, 0x55, 0x58, 0x58, 0xaa, 0x02, 0x0e, 0x55, 0x73, 0x65, 0x72, 0x53, 0x65, 0x72, 0x76, 0x69,
+	0x63, 0x65, 0x2e, 0x56, 0x31, 0xca, 0x02, 0x0e, 0x55, 0x73, 0x65, 0x72, 0x53, 0x65, 0x72, 0x76,
+	0x69, 0x63, 0x65, 0x5c, 0x56, 0x31, 0xe2, 0x02, 0x1a, 0x55, 0x73, 0x65, 0x72, 0x53, 0x65, 0x72,
+	0x76, 0x69, 0x63, 0x65, 0x5c, 0x56, 0x31, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64,
+	0x61, 0x74, 0x61, 0xea, 0x02, 0x0f, 0x55, 0x73, 0x65, 0x72, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63,
+	0x65, 0x3a, 0x3a, 0x56, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -3952,7 +3823,7 @@ func file_user_service_v1_request_response_proto_rawDescGZIP() []byte {
 	return file_user_service_v1_request_response_proto_rawDescData
 }
 
-var file_user_service_v1_request_response_proto_msgTypes = make([]protoimpl.MessageInfo, 60)
+var file_user_service_v1_request_response_proto_msgTypes = make([]protoimpl.MessageInfo, 58)
 var file_user_service_v1_request_response_proto_goTypes = []interface{}{
 	(*GetUserRequest)(nil),                     // 0: user_service.v1.GetUserRequest
 	(*GetUserResponse)(nil),                    // 1: user_service.v1.GetUserResponse
@@ -4012,55 +3883,52 @@ var file_user_service_v1_request_response_proto_goTypes = []interface{}{
 	(*GetUserByAuthnIDV2Response)(nil),         // 55: user_service.v1.GetUserByAuthnIDV2Response
 	(*GetCannyUserSSOTokenRequest)(nil),        // 56: user_service.v1.GetCannyUserSSOTokenRequest
 	(*GetCannyUserSSOTokenResponse)(nil),       // 57: user_service.v1.GetCannyUserSSOTokenResponse
-	(*AskCopilotQuestionRequest)(nil),          // 58: user_service.v1.AskCopilotQuestionRequest
-	(*AskCopilotQuestionResponse)(nil),         // 59: user_service.v1.AskCopilotQuestionResponse
-	(*UserAccount)(nil),                        // 60: user_service.v1.UserAccount
-	(*BusinessAccountSettings)(nil),            // 61: user_service.v1.BusinessAccountSettings
-	(ProfileType)(0),                           // 62: user_service.v1.ProfileType
-	(*BusinessAccount)(nil),                    // 63: user_service.v1.BusinessAccount
+	(*UserAccount)(nil),                        // 58: user_service.v1.UserAccount
+	(*BusinessAccountSettings)(nil),            // 59: user_service.v1.BusinessAccountSettings
+	(ProfileType)(0),                           // 60: user_service.v1.ProfileType
+	(*BusinessAccount)(nil),                    // 61: user_service.v1.BusinessAccount
 }
 var file_user_service_v1_request_response_proto_depIdxs = []int32{
-	60, // 0: user_service.v1.GetUserResponse.account:type_name -> user_service.v1.UserAccount
-	60, // 1: user_service.v1.UpdateUserRequest.account:type_name -> user_service.v1.UserAccount
-	60, // 2: user_service.v1.UpdateUserResponse.account:type_name -> user_service.v1.UserAccount
-	60, // 3: user_service.v1.CreateUserRequest.account:type_name -> user_service.v1.UserAccount
-	60, // 4: user_service.v1.GetUserByEmailOrUsernameResponse.account:type_name -> user_service.v1.UserAccount
-	60, // 5: user_service.v1.GetUserByUsernameResponse.account:type_name -> user_service.v1.UserAccount
-	60, // 6: user_service.v1.GetUserByEmailResponse.account:type_name -> user_service.v1.UserAccount
-	61, // 7: user_service.v1.GetBusinessSettingsResponse.business_settings:type_name -> user_service.v1.BusinessAccountSettings
-	62, // 8: user_service.v1.GetUserV2Request.profile_type:type_name -> user_service.v1.ProfileType
-	60, // 9: user_service.v1.GetUserV2Response.user_account:type_name -> user_service.v1.UserAccount
-	63, // 10: user_service.v1.GetUserV2Response.business_account:type_name -> user_service.v1.BusinessAccount
-	62, // 11: user_service.v1.DeleteUserV2Request.profile_type:type_name -> user_service.v1.ProfileType
-	60, // 12: user_service.v1.UpdateUserV2Request.user_account:type_name -> user_service.v1.UserAccount
-	63, // 13: user_service.v1.UpdateUserV2Request.business_account:type_name -> user_service.v1.BusinessAccount
-	60, // 14: user_service.v1.UpdateUserV2Response.user_account:type_name -> user_service.v1.UserAccount
-	63, // 15: user_service.v1.UpdateUserV2Response.business_account:type_name -> user_service.v1.BusinessAccount
-	60, // 16: user_service.v1.CreateUserV2Request.user_account:type_name -> user_service.v1.UserAccount
-	63, // 17: user_service.v1.CreateUserV2Request.business_account:type_name -> user_service.v1.BusinessAccount
-	62, // 18: user_service.v1.GetUserIdV2Request.profile_type:type_name -> user_service.v1.ProfileType
-	62, // 19: user_service.v1.GetUserByEmailOrUsernameV2Request.profile_type:type_name -> user_service.v1.ProfileType
-	60, // 20: user_service.v1.GetUserByEmailOrUsernameV2Response.user_account:type_name -> user_service.v1.UserAccount
-	63, // 21: user_service.v1.GetUserByEmailOrUsernameV2Response.business_account:type_name -> user_service.v1.BusinessAccount
-	62, // 22: user_service.v1.VerifyUserV2Request.profile_type:type_name -> user_service.v1.ProfileType
-	62, // 23: user_service.v1.GetUserByUsernameV2Request.profile_type:type_name -> user_service.v1.ProfileType
-	60, // 24: user_service.v1.GetUserByUsernameV2Response.user_account:type_name -> user_service.v1.UserAccount
-	63, // 25: user_service.v1.GetUserByUsernameV2Response.business_account:type_name -> user_service.v1.BusinessAccount
-	62, // 26: user_service.v1.CheckUsernameExistsV2Request.profile_type:type_name -> user_service.v1.ProfileType
-	62, // 27: user_service.v1.CheckEmailExistsV2Request.profile_type:type_name -> user_service.v1.ProfileType
-	62, // 28: user_service.v1.GetUserByEmailV2Request.profile_type:type_name -> user_service.v1.ProfileType
-	60, // 29: user_service.v1.GetUserByEmailV2Response.user_account:type_name -> user_service.v1.UserAccount
-	63, // 30: user_service.v1.GetUserByEmailV2Response.business_account:type_name -> user_service.v1.BusinessAccount
-	62, // 31: user_service.v1.GetUserByAuthnIDV2Request.profile_type:type_name -> user_service.v1.ProfileType
-	60, // 32: user_service.v1.GetUserByAuthnIDV2Response.user_account:type_name -> user_service.v1.UserAccount
-	63, // 33: user_service.v1.GetUserByAuthnIDV2Response.business_account:type_name -> user_service.v1.BusinessAccount
-	62, // 34: user_service.v1.GetCannyUserSSOTokenRequest.profile_type:type_name -> user_service.v1.ProfileType
-	62, // 35: user_service.v1.AskCopilotQuestionRequest.profile_type:type_name -> user_service.v1.ProfileType
-	36, // [36:36] is the sub-list for method output_type
-	36, // [36:36] is the sub-list for method input_type
-	36, // [36:36] is the sub-list for extension type_name
-	36, // [36:36] is the sub-list for extension extendee
-	0,  // [0:36] is the sub-list for field type_name
+	58, // 0: user_service.v1.GetUserResponse.account:type_name -> user_service.v1.UserAccount
+	58, // 1: user_service.v1.UpdateUserRequest.account:type_name -> user_service.v1.UserAccount
+	58, // 2: user_service.v1.UpdateUserResponse.account:type_name -> user_service.v1.UserAccount
+	58, // 3: user_service.v1.CreateUserRequest.account:type_name -> user_service.v1.UserAccount
+	58, // 4: user_service.v1.GetUserByEmailOrUsernameResponse.account:type_name -> user_service.v1.UserAccount
+	58, // 5: user_service.v1.GetUserByUsernameResponse.account:type_name -> user_service.v1.UserAccount
+	58, // 6: user_service.v1.GetUserByEmailResponse.account:type_name -> user_service.v1.UserAccount
+	59, // 7: user_service.v1.GetBusinessSettingsResponse.business_settings:type_name -> user_service.v1.BusinessAccountSettings
+	60, // 8: user_service.v1.GetUserV2Request.profile_type:type_name -> user_service.v1.ProfileType
+	58, // 9: user_service.v1.GetUserV2Response.user_account:type_name -> user_service.v1.UserAccount
+	61, // 10: user_service.v1.GetUserV2Response.business_account:type_name -> user_service.v1.BusinessAccount
+	60, // 11: user_service.v1.DeleteUserV2Request.profile_type:type_name -> user_service.v1.ProfileType
+	58, // 12: user_service.v1.UpdateUserV2Request.user_account:type_name -> user_service.v1.UserAccount
+	61, // 13: user_service.v1.UpdateUserV2Request.business_account:type_name -> user_service.v1.BusinessAccount
+	58, // 14: user_service.v1.UpdateUserV2Response.user_account:type_name -> user_service.v1.UserAccount
+	61, // 15: user_service.v1.UpdateUserV2Response.business_account:type_name -> user_service.v1.BusinessAccount
+	58, // 16: user_service.v1.CreateUserV2Request.user_account:type_name -> user_service.v1.UserAccount
+	61, // 17: user_service.v1.CreateUserV2Request.business_account:type_name -> user_service.v1.BusinessAccount
+	60, // 18: user_service.v1.GetUserIdV2Request.profile_type:type_name -> user_service.v1.ProfileType
+	60, // 19: user_service.v1.GetUserByEmailOrUsernameV2Request.profile_type:type_name -> user_service.v1.ProfileType
+	58, // 20: user_service.v1.GetUserByEmailOrUsernameV2Response.user_account:type_name -> user_service.v1.UserAccount
+	61, // 21: user_service.v1.GetUserByEmailOrUsernameV2Response.business_account:type_name -> user_service.v1.BusinessAccount
+	60, // 22: user_service.v1.VerifyUserV2Request.profile_type:type_name -> user_service.v1.ProfileType
+	60, // 23: user_service.v1.GetUserByUsernameV2Request.profile_type:type_name -> user_service.v1.ProfileType
+	58, // 24: user_service.v1.GetUserByUsernameV2Response.user_account:type_name -> user_service.v1.UserAccount
+	61, // 25: user_service.v1.GetUserByUsernameV2Response.business_account:type_name -> user_service.v1.BusinessAccount
+	60, // 26: user_service.v1.CheckUsernameExistsV2Request.profile_type:type_name -> user_service.v1.ProfileType
+	60, // 27: user_service.v1.CheckEmailExistsV2Request.profile_type:type_name -> user_service.v1.ProfileType
+	60, // 28: user_service.v1.GetUserByEmailV2Request.profile_type:type_name -> user_service.v1.ProfileType
+	58, // 29: user_service.v1.GetUserByEmailV2Response.user_account:type_name -> user_service.v1.UserAccount
+	61, // 30: user_service.v1.GetUserByEmailV2Response.business_account:type_name -> user_service.v1.BusinessAccount
+	60, // 31: user_service.v1.GetUserByAuthnIDV2Request.profile_type:type_name -> user_service.v1.ProfileType
+	58, // 32: user_service.v1.GetUserByAuthnIDV2Response.user_account:type_name -> user_service.v1.UserAccount
+	61, // 33: user_service.v1.GetUserByAuthnIDV2Response.business_account:type_name -> user_service.v1.BusinessAccount
+	60, // 34: user_service.v1.GetCannyUserSSOTokenRequest.profile_type:type_name -> user_service.v1.ProfileType
+	35, // [35:35] is the sub-list for method output_type
+	35, // [35:35] is the sub-list for method input_type
+	35, // [35:35] is the sub-list for extension type_name
+	35, // [35:35] is the sub-list for extension extendee
+	0,  // [0:35] is the sub-list for field type_name
 }
 
 func init() { file_user_service_v1_request_response_proto_init() }
@@ -4766,30 +4634,6 @@ func file_user_service_v1_request_response_proto_init() {
 				return nil
 			}
 		}
-		file_user_service_v1_request_response_proto_msgTypes[58].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AskCopilotQuestionRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_user_service_v1_request_response_proto_msgTypes[59].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AskCopilotQuestionResponse); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
 	}
 	file_user_service_v1_request_response_proto_msgTypes[31].OneofWrappers = []interface{}{
 		(*GetUserV2Response_UserAccount)(nil),
@@ -4829,7 +4673,7 @@ func file_user_service_v1_request_response_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_user_service_v1_request_response_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   60,
+			NumMessages:   58,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

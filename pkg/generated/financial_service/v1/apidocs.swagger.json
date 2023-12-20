@@ -2726,6 +2726,76 @@
         ]
       }
     },
+    "/api/v1/copilot/question/{userId}": {
+      "post": {
+        "summary": "Ask a question to copilot",
+        "description": "This endpoint checks if a user can ask his/her copilot a question",
+        "operationId": "AskCopilotQuestion",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v2.AskCopilotQuestionResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "description": "the account id associated with the user",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "profileType": {
+                  "$ref": "#/definitions/FinancialUserProfileType",
+                  "example": "username:testuser"
+                }
+              },
+              "required": [
+                "profileType"
+              ]
+            }
+          }
+        ],
+        "tags": [
+          "copilot",
+          "v1"
+        ]
+      }
+    },
     "/api/v1/forecast/{smartGoalId}": {
       "get": {
         "summary": "get forecast by id",
@@ -6809,6 +6879,20 @@
         "interestChargeAmount": {
           "type": "number",
           "format": "double"
+        }
+      }
+    },
+    "AskCopilotQuestionResponse": {
+      "type": "object",
+      "properties": {
+        "canAsk": {
+          "type": "boolean",
+          "title": "wether or not the user is below quote"
+        },
+        "remainingQuota": {
+          "type": "number",
+          "format": "double",
+          "title": "the remaining quote"
         }
       }
     },

@@ -98,23 +98,6 @@ export interface Any {
   [key: string]: any;
 }
 
-export type AskCopilotQuestionData = any;
-
-export interface AskCopilotQuestionPayload {
-  /** @example "username:testuser" */
-  profileType: ProfileType;
-}
-
-export interface AskCopilotQuestionResponse {
-  /** wether or not the user is below quote */
-  canAsk?: boolean;
-  /**
-   * the remaining quote
-   * @format double
-   */
-  remainingQuota?: number;
-}
-
 /** BusinessAccount represents a business account within the context of solomon-ai. */
 export interface BusinessAccount {
   /** The type of profile associated with the business account (e.g., individual, corporate). */

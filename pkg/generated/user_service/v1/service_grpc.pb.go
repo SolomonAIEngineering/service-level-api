@@ -48,7 +48,6 @@ const (
 	UserService_GetBusinessSettings_FullMethodName        = "/user_service.v1.UserService/GetBusinessSettings"
 	UserService_GetUserByAuthnIDV2_FullMethodName         = "/user_service.v1.UserService/GetUserByAuthnIDV2"
 	UserService_GetCannyUserSSOToken_FullMethodName       = "/user_service.v1.UserService/GetCannyUserSSOToken"
-	UserService_AskCopilotQuestion_FullMethodName         = "/user_service.v1.UserService/AskCopilotQuestion"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -129,8 +128,6 @@ type UserServiceClient interface {
 	GetUserByAuthnIDV2(ctx context.Context, in *GetUserByAuthnIDV2Request, opts ...grpc.CallOption) (*GetUserByAuthnIDV2Response, error)
 	// the following endpoints are for the canny integration. it returns the sso token for a given user
 	GetCannyUserSSOToken(ctx context.Context, in *GetCannyUserSSOTokenRequest, opts ...grpc.CallOption) (*GetCannyUserSSOTokenResponse, error)
-	// This checks if a user can ask the copilot a question
-	AskCopilotQuestion(ctx context.Context, in *AskCopilotQuestionRequest, opts ...grpc.CallOption) (*AskCopilotQuestionResponse, error)
 }
 
 type userServiceClient struct {
@@ -402,15 +399,6 @@ func (c *userServiceClient) GetCannyUserSSOToken(ctx context.Context, in *GetCan
 	return out, nil
 }
 
-func (c *userServiceClient) AskCopilotQuestion(ctx context.Context, in *AskCopilotQuestionRequest, opts ...grpc.CallOption) (*AskCopilotQuestionResponse, error) {
-	out := new(AskCopilotQuestionResponse)
-	err := c.cc.Invoke(ctx, UserService_AskCopilotQuestion_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // UserServiceServer is the server API for UserService service.
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility
@@ -489,8 +477,6 @@ type UserServiceServer interface {
 	GetUserByAuthnIDV2(context.Context, *GetUserByAuthnIDV2Request) (*GetUserByAuthnIDV2Response, error)
 	// the following endpoints are for the canny integration. it returns the sso token for a given user
 	GetCannyUserSSOToken(context.Context, *GetCannyUserSSOTokenRequest) (*GetCannyUserSSOTokenResponse, error)
-	// This checks if a user can ask the copilot a question
-	AskCopilotQuestion(context.Context, *AskCopilotQuestionRequest) (*AskCopilotQuestionResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -584,9 +570,6 @@ func (UnimplementedUserServiceServer) GetUserByAuthnIDV2(context.Context, *GetUs
 }
 func (UnimplementedUserServiceServer) GetCannyUserSSOToken(context.Context, *GetCannyUserSSOTokenRequest) (*GetCannyUserSSOTokenResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCannyUserSSOToken not implemented")
-}
-func (UnimplementedUserServiceServer) AskCopilotQuestion(context.Context, *AskCopilotQuestionRequest) (*AskCopilotQuestionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AskCopilotQuestion not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 
@@ -1123,24 +1106,6 @@ func _UserService_GetCannyUserSSOToken_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UserService_AskCopilotQuestion_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AskCopilotQuestionRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(UserServiceServer).AskCopilotQuestion(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: UserService_AskCopilotQuestion_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).AskCopilotQuestion(ctx, req.(*AskCopilotQuestionRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1263,10 +1228,6 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetCannyUserSSOToken",
 			Handler:    _UserService_GetCannyUserSSOToken_Handler,
-		},
-		{
-			MethodName: "AskCopilotQuestion",
-			Handler:    _UserService_AskCopilotQuestion_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

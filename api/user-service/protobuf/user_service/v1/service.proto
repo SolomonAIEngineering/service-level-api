@@ -696,29 +696,4 @@ service UserService {
             }
         };
     }
-
-    // This checks if a user can ask the copilot a question
-    rpc AskCopilotQuestion(AskCopilotQuestionRequest) returns (AskCopilotQuestionResponse) {
-        option (google.api.http) = {
-            post: "/api/v2/user/copilot/question/{user_id}" 
-            body: "*"
-        };
-        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-            summary: "Ask a question to copilot"
-            tags: ["account", "v2"]
-            operation_id: "AskCopilotQuestion"
-            description: 
-                "This endpoint performs an a creation operation of a user account based on the provided parameters"
-                "This operation is implemented as a distributed transactions as this operation spans multiple services"
-            responses: {
-                key: "200"
-                value: {
-                    description: "A successful response."
-                    schema: {
-                        json_schema: {ref: ".api.v2.AskCopilotQuestionResponse"}
-                    }
-                }
-            }
-        };
-    }
 }

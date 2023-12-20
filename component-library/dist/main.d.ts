@@ -87,15 +87,6 @@ export interface Address {
 	 */
 	zipcode?: string;
 }
-export interface AskCopilotQuestionResponse {
-	/** wether or not the user is below quote */
-	canAsk?: boolean;
-	/**
-	 * the remaining quote
-	 * @format double
-	 */
-	remainingQuota?: number;
-}
 /** BusinessAccount represents a business account within the context of solomon-ai. */
 export interface BusinessAccount {
 	/** The type of profile associated with the business account (e.g., individual, corporate). */
@@ -893,6 +884,20 @@ export interface Apr {
 	/** @format double */
 	percentage?: number;
 	type?: string;
+}
+export type AskCopilotQuestionData = any;
+export interface AskCopilotQuestionPayload {
+	/** @example "username:testuser" */
+	profileType: FinancialUserProfileType;
+}
+export interface AskCopilotQuestionResponse {
+	/** wether or not the user is below quote */
+	canAsk?: boolean;
+	/**
+	 * the remaining quote
+	 * @format double
+	 */
+	remainingQuota?: number;
 }
 export interface BankAccount {
 	/**
@@ -8828,7 +8833,7 @@ export declare class AskCopilotQuestionRequestClass implements IRequest {
 	/**
 	 * The profile type associated with the request.
 	 */
-	profileType: ProfileType;
+	profileType: FinancialUserProfileType;
 	/**
 	 * Creates an instance of AskCopilotQuestionRequestClass.
 	 * @param data - Optional data to initialize the request.

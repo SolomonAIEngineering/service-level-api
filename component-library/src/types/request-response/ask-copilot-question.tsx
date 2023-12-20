@@ -1,14 +1,11 @@
-import {
-  AskCopilotQuestionResponse,
-  ProfileType,
-} from 'src/data-contracts/user-service/data-contracts';
 import { IRequest } from './IRequest';
 import { ErrorResponse } from '../error/error-response';
+import { AskCopilotQuestionResponse, FinancialUserProfileType } from 'src/main';
 
 /**
  * Represents a request to ask a question to GitHub Copilot.
  */
-export class AskCopilotQuestionRequestClass implements IRequest {
+class AskCopilotQuestionRequestClass implements IRequest {
   /**
    * The user ID associated with the request.
    */
@@ -17,7 +14,8 @@ export class AskCopilotQuestionRequestClass implements IRequest {
   /**
    * The profile type associated with the request.
    */
-  profileType: ProfileType = 'PROFILE_TYPE_UNSPECIFIED';
+  profileType: FinancialUserProfileType =
+    'FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED';
 
   /**
    * Creates an instance of AskCopilotQuestionRequestClass.
@@ -37,12 +35,13 @@ export class AskCopilotQuestionRequestClass implements IRequest {
    */
   isValid(): boolean {
     return (
-      this.userId !== '' && this.profileType !== 'PROFILE_TYPE_UNSPECIFIED'
+      this.userId !== '' &&
+      this.profileType !== 'FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED'
     );
   }
 }
 
-export class AskCopilotQuestionResponseClass
+class AskCopilotQuestionResponseClass
   extends ErrorResponse
   implements AskCopilotQuestionResponse
 {
@@ -89,3 +88,5 @@ export class AskCopilotQuestionResponseClass
     return this.remainingQuota;
   }
 }
+
+export { AskCopilotQuestionResponseClass, AskCopilotQuestionRequestClass };

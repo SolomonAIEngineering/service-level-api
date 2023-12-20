@@ -261,6 +261,23 @@ export interface Apr {
   type?: string;
 }
 
+export type AskCopilotQuestionData = any;
+
+export interface AskCopilotQuestionPayload {
+  /** @example "username:testuser" */
+  profileType: FinancialUserProfileType;
+}
+
+export interface AskCopilotQuestionResponse {
+  /** wether or not the user is below quote */
+  canAsk?: boolean;
+  /**
+   * the remaining quote
+   * @format double
+   */
+  remainingQuota?: number;
+}
+
 export interface BankAccount {
   /**
    * the bank account balance

@@ -7192,7 +7192,7 @@ class UTe {
     /**
      * The profile type associated with the request.
      */
-    E(this, "profileType", "PROFILE_TYPE_UNSPECIFIED");
+    E(this, "profileType", "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED");
     t && Object.assign(this, {
       ...t
     });
@@ -7202,7 +7202,7 @@ class UTe {
    * @returns True if the user ID is not empty, otherwise false.
    */
   isValid() {
-    return this.userId !== "" && this.profileType !== "PROFILE_TYPE_UNSPECIFIED";
+    return this.userId !== "" && this.profileType !== "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED";
   }
 }
 class HTe extends St {

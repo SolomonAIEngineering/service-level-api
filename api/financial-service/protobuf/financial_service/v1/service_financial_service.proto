@@ -2195,4 +2195,28 @@ service FinancialService {
       }
     };
   }
+
+  // This checks if a user can ask the copilot a question
+  rpc AskCopilotQuestion(AskCopilotQuestionRequest) returns (AskCopilotQuestionResponse) {
+      option (google.api.http) = {
+          post: "/api/v1/copilot/question/{user_id}" 
+          body: "*"
+      };
+      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+          summary: "Ask a question to copilot"
+          tags: ["copilot", "v1"]
+          operation_id: "AskCopilotQuestion"
+          description: 
+              "This endpoint checks if a user can ask his/her copilot a question"
+          responses: {
+              key: "200"
+              value: {
+                  description: "A successful response."
+                  schema: {
+                      json_schema: {ref: ".api.v2.AskCopilotQuestionResponse"}
+                  }
+              }
+          }
+      };
+    }
 }

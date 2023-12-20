@@ -641,22 +641,3 @@ message GetCannyUserSSOTokenRequest {
 }
 
 message GetCannyUserSSOTokenResponse { string token = 1; }
-
-message AskCopilotQuestionRequest {
-  // the account id associated with the user
-  uint64 user_id = 1 [(validate.rules).uint64.gt = 0];
-  ProfileType profile_type = 2 [
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      min_length: 0,
-      example: "\"username:testuser\""
-    },
-    (google.api.field_behavior) = REQUIRED   
-  ];
-}
-
-message AskCopilotQuestionResponse { 
-  // wether or not the user is below quote
-  bool can_ask = 1;
-  // the remaining quote
-  double remaining_quota = 2;
-}
