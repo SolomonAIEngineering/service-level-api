@@ -1648,7 +1648,7 @@ message PollAsyncTaskExecutionStatusResponse {
   TaskState status = 2;
 }
 
-message AskCopilotQuestionRequest {
+message RecordAskCopilotQuestionRequest {
   // the account id associated with the user
   uint64 user_id = 1 [(validate.rules).uint64.gt = 0];
   FinancialUserProfileType profile_type = 2 [
@@ -1660,9 +1660,9 @@ message AskCopilotQuestionRequest {
   ];
 }
 
-message AskCopilotQuestionResponse { 
+message RecordAskCopilotQuestionResponse { 
   // wether or not the user is below quote
-  bool can_ask = 1;
+  bool success = 1;
   // the remaining quote
   double remaining_quota = 2;
 }

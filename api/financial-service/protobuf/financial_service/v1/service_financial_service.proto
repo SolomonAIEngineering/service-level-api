@@ -2197,7 +2197,7 @@ service FinancialService {
   }
 
   // This checks if a user can ask the copilot a question
-  rpc AskCopilotQuestion(AskCopilotQuestionRequest) returns (AskCopilotQuestionResponse) {
+  rpc RecordAskCopilotQuestion(RecordAskCopilotQuestionRequest) returns (RecordAskCopilotQuestionResponse) {
       option (google.api.http) = {
           post: "/api/v1/copilot/question/{user_id}" 
           body: "*"

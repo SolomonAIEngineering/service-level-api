@@ -7215,7 +7215,7 @@ class HTe extends St {
     E(this, "code", 0);
     E(this, "err", "");
     E(this, "token", "");
-    E(this, "canAsk", !1);
+    E(this, "success", !1);
     E(this, "remainingQuota", 0);
     r && Object.assign(this, {
       ...r
@@ -7227,13 +7227,6 @@ class HTe extends St {
    */
   isValid() {
     return this.code === 0;
-  }
-  /**
-   * Checks if the user can ask a question.
-   * @returns True if the user can ask a question, otherwise false.
-   */
-  canAskQuestion() {
-    return this.canAsk;
   }
   /**
    * Gets the question quota.
@@ -53754,8 +53747,6 @@ export {
   Sl as AddressClass,
   bm as AnyClass,
   Ux as AprClass,
-  UTe as AskCopilotQuestionRequestClass,
-  HTe as AskCopilotQuestionResponseClass,
   OM as AskSolomon,
   xCe as AskSolomonAILayout,
   A2e as AuthenticateRequestClass,
@@ -53922,6 +53913,8 @@ export {
   Bx as PocketClass,
   C2e as PublicationClass,
   Wx as ReOccuringTransactionClass,
+  UTe as RecordAskCopilotQuestionRequestClass,
+  HTe as RecordAskCopilotQuestionResponseClass,
   eNe as RecurringTransactionCard,
   ATe as RequestPasswordResetResponseClass,
   DTe as ResetPasswordResponseClass,

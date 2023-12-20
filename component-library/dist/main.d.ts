@@ -890,15 +890,6 @@ export interface AskCopilotQuestionPayload {
 	/** @example "username:testuser" */
 	profileType: FinancialUserProfileType;
 }
-export interface AskCopilotQuestionResponse {
-	/** wether or not the user is below quote */
-	canAsk?: boolean;
-	/**
-	 * the remaining quote
-	 * @format double
-	 */
-	remainingQuota?: number;
-}
 export interface BankAccount {
 	/**
 	 * the bank account balance
@@ -3352,6 +3343,15 @@ export type ReOccuringTransactionsStatus = "RE_OCCURING_TRANSACTIONS_STATUS_UNSP
 export type ReadynessCheckData = any;
 export interface ReadynessCheckResponse {
 	healthy?: boolean;
+}
+export interface RecordAskCopilotQuestionResponse {
+	/**
+	 * the remaining quote
+	 * @format double
+	 */
+	remainingQuota?: number;
+	/** wether or not the user is below quote */
+	success?: boolean;
 }
 export type SearchTransactionsData = any;
 export interface SearchTransactionsResponse {
@@ -8825,7 +8825,7 @@ export declare class GetCannyUserSSOTokenResponseClass extends ErrorResponse imp
 /**
  * Represents a request to ask a question to GitHub Copilot.
  */
-export declare class AskCopilotQuestionRequestClass implements IRequest {
+export declare class RecordAskCopilotQuestionRequestClass implements IRequest {
 	/**
 	 * The user ID associated with the request.
 	 */
@@ -8838,34 +8838,29 @@ export declare class AskCopilotQuestionRequestClass implements IRequest {
 	 * Creates an instance of AskCopilotQuestionRequestClass.
 	 * @param data - Optional data to initialize the request.
 	 */
-	constructor(data?: Partial<AskCopilotQuestionRequestClass>);
+	constructor(data?: Partial<RecordAskCopilotQuestionRequestClass>);
 	/**
 	 * Checks if the request is valid.
 	 * @returns True if the user ID is not empty, otherwise false.
 	 */
 	isValid(): boolean;
 }
-export declare class AskCopilotQuestionResponseClass extends ErrorResponse implements AskCopilotQuestionResponse {
+export declare class RecordAskCopilotQuestionResponseClass extends ErrorResponse implements RecordAskCopilotQuestionResponse {
 	code: number;
 	err: string;
 	token: string;
-	canAsk: boolean;
+	success: boolean;
 	remainingQuota: number;
 	/**
 	 * Creates an instance of AskCopilotQuestionResponseClass.
 	 * @param data - Optional data to initialize the response.
 	 */
-	constructor(data?: Partial<AskCopilotQuestionResponse>);
+	constructor(data?: Partial<RecordAskCopilotQuestionResponse>);
 	/**
 	 * Checks if the response is valid.
 	 * @returns True if the response is valid, otherwise false.
 	 */
 	isValid(): boolean;
-	/**
-	 * Checks if the user can ask a question.
-	 * @returns True if the user can ask a question, otherwise false.
-	 */
-	canAskQuestion(): boolean;
 	/**
 	 * Gets the question quota.
 	 * @returns The question quota.

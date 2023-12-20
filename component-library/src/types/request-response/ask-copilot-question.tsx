@@ -1,11 +1,14 @@
 import { IRequest } from './IRequest';
 import { ErrorResponse } from '../error/error-response';
-import { AskCopilotQuestionResponse, FinancialUserProfileType } from 'src/main';
+import {
+  RecordAskCopilotQuestionResponse,
+  FinancialUserProfileType,
+} from 'src/main';
 
 /**
  * Represents a request to ask a question to GitHub Copilot.
  */
-class AskCopilotQuestionRequestClass implements IRequest {
+class RecordAskCopilotQuestionRequestClass implements IRequest {
   /**
    * The user ID associated with the request.
    */
@@ -21,7 +24,7 @@ class AskCopilotQuestionRequestClass implements IRequest {
    * Creates an instance of AskCopilotQuestionRequestClass.
    * @param data - Optional data to initialize the request.
    */
-  constructor(data?: Partial<AskCopilotQuestionRequestClass>) {
+  constructor(data?: Partial<RecordAskCopilotQuestionRequestClass>) {
     if (data) {
       Object.assign(this, {
         ...data,
@@ -41,21 +44,21 @@ class AskCopilotQuestionRequestClass implements IRequest {
   }
 }
 
-class AskCopilotQuestionResponseClass
+class RecordAskCopilotQuestionResponseClass
   extends ErrorResponse
-  implements AskCopilotQuestionResponse
+  implements RecordAskCopilotQuestionResponse
 {
   code = 0;
   err = '';
   token = '';
-  canAsk: boolean = false;
+  success: boolean = false;
   remainingQuota: number = 0;
 
   /**
    * Creates an instance of AskCopilotQuestionResponseClass.
    * @param data - Optional data to initialize the response.
    */
-  constructor(data?: Partial<AskCopilotQuestionResponse>) {
+  constructor(data?: Partial<RecordAskCopilotQuestionResponse>) {
     super();
     if (data) {
       Object.assign(this, {
@@ -73,14 +76,6 @@ class AskCopilotQuestionResponseClass
   }
 
   /**
-   * Checks if the user can ask a question.
-   * @returns True if the user can ask a question, otherwise false.
-   */
-  canAskQuestion(): boolean {
-    return this.canAsk;
-  }
-
-  /**
    * Gets the question quota.
    * @returns The question quota.
    */
@@ -89,4 +84,7 @@ class AskCopilotQuestionResponseClass
   }
 }
 
-export { AskCopilotQuestionResponseClass, AskCopilotQuestionRequestClass };
+export {
+  RecordAskCopilotQuestionResponseClass,
+  RecordAskCopilotQuestionRequestClass,
+};

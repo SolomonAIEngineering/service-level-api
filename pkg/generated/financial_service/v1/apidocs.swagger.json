@@ -6882,20 +6882,6 @@
         }
       }
     },
-    "AskCopilotQuestionResponse": {
-      "type": "object",
-      "properties": {
-        "canAsk": {
-          "type": "boolean",
-          "title": "wether or not the user is below quote"
-        },
-        "remainingQuota": {
-          "type": "number",
-          "format": "double",
-          "title": "the remaining quote"
-        }
-      }
-    },
     "BankAccount": {
       "type": "object",
       "properties": {
@@ -10551,6 +10537,20 @@
       "properties": {
         "healthy": {
           "type": "boolean"
+        }
+      }
+    },
+    "RecordAskCopilotQuestionResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "title": "wether or not the user is below quote"
+        },
+        "remainingQuota": {
+          "type": "number",
+          "format": "double",
+          "title": "the remaining quote"
         }
       }
     },

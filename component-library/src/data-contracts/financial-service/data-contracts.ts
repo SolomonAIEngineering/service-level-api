@@ -268,16 +268,6 @@ export interface AskCopilotQuestionPayload {
   profileType: FinancialUserProfileType;
 }
 
-export interface AskCopilotQuestionResponse {
-  /** wether or not the user is below quote */
-  canAsk?: boolean;
-  /**
-   * the remaining quote
-   * @format double
-   */
-  remainingQuota?: number;
-}
-
 export interface BankAccount {
   /**
    * the bank account balance
@@ -3021,6 +3011,16 @@ export type ReadynessCheckData = any;
 
 export interface ReadynessCheckResponse {
   healthy?: boolean;
+}
+
+export interface RecordAskCopilotQuestionResponse {
+  /**
+   * the remaining quote
+   * @format double
+   */
+  remainingQuota?: number;
+  /** wether or not the user is below quote */
+  success?: boolean;
 }
 
 export type SearchTransactionsData = any;
