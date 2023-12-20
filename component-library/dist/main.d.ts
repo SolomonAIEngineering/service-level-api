@@ -87,13 +87,6 @@ export interface Address {
 	 */
 	zipcode?: string;
 }
-export interface AskCopilotQuestionRequest {
-	/**
-	 * the account id associated with the user
-	 * @format uint64
-	 */
-	userId?: string;
-}
 export interface AskCopilotQuestionResponse {
 	/** wether or not the user is below quote */
 	canAsk?: boolean;
@@ -8827,16 +8820,20 @@ export declare class GetCannyUserSSOTokenResponseClass extends ErrorResponse imp
 /**
  * Represents a request to ask a question to GitHub Copilot.
  */
-export declare class AskCopilotQuestionRequestClass implements IRequest, AskCopilotQuestionRequest {
+export declare class AskCopilotQuestionRequestClass implements IRequest {
 	/**
 	 * The user ID associated with the request.
 	 */
 	userId: string;
 	/**
+	 * The profile type associated with the request.
+	 */
+	profileType: ProfileType;
+	/**
 	 * Creates an instance of AskCopilotQuestionRequestClass.
 	 * @param data - Optional data to initialize the request.
 	 */
-	constructor(data?: Partial<AskCopilotQuestionRequest>);
+	constructor(data?: Partial<AskCopilotQuestionRequestClass>);
 	/**
 	 * Checks if the request is valid.
 	 * @returns True if the user ID is not empty, otherwise false.

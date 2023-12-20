@@ -1,6 +1,6 @@
 import {
-  AskCopilotQuestionRequest,
   AskCopilotQuestionResponse,
+  ProfileType,
 } from 'src/data-contracts/user-service/data-contracts';
 import { IRequest } from './IRequest';
 import { ErrorResponse } from '../error/error-response';
@@ -8,19 +8,22 @@ import { ErrorResponse } from '../error/error-response';
 /**
  * Represents a request to ask a question to GitHub Copilot.
  */
-export class AskCopilotQuestionRequestClass
-  implements IRequest, AskCopilotQuestionRequest
-{
+export class AskCopilotQuestionRequestClass implements IRequest {
   /**
    * The user ID associated with the request.
    */
   userId: string = '';
 
   /**
+   * The profile type associated with the request.
+   */
+  profileType: ProfileType = 'PROFILE_TYPE_UNSPECIFIED';
+
+  /**
    * Creates an instance of AskCopilotQuestionRequestClass.
    * @param data - Optional data to initialize the request.
    */
-  constructor(data?: Partial<AskCopilotQuestionRequest>) {
+  constructor(data?: Partial<AskCopilotQuestionRequestClass>) {
     if (data) {
       Object.assign(this, {
         ...data,
@@ -33,7 +36,9 @@ export class AskCopilotQuestionRequestClass
    * @returns True if the user ID is not empty, otherwise false.
    */
   isValid(): boolean {
-    return this.userId !== '';
+    return (
+      this.userId !== '' && this.profileType !== 'PROFILE_TYPE_UNSPECIFIED'
+    );
   }
 }
 

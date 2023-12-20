@@ -100,12 +100,9 @@ export interface Any {
 
 export type AskCopilotQuestionData = any;
 
-export interface AskCopilotQuestionRequest {
-  /**
-   * the account id associated with the user
-   * @format uint64
-   */
-  userId?: string;
+export interface AskCopilotQuestionPayload {
+  /** @example "username:testuser" */
+  profileType: ProfileType;
 }
 
 export interface AskCopilotQuestionResponse {
