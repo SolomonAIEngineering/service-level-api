@@ -119,6 +119,7 @@ const (
 	FinancialService_ListRecurringTransactionNotes_FullMethodName            = "/financial_service.v1.FinancialService/ListRecurringTransactionNotes"
 	FinancialService_PollAsyncTaskExecutionStatus_FullMethodName             = "/financial_service.v1.FinancialService/PollAsyncTaskExecutionStatus"
 	FinancialService_RecordAskCopilotQuestion_FullMethodName                 = "/financial_service.v1.FinancialService/RecordAskCopilotQuestion"
+	FinancialService_CheckIfQuotaExceeded_FullMethodName                     = "/financial_service.v1.FinancialService/CheckIfQuotaExceeded"
 )
 
 // FinancialServiceClient is the client API for FinancialService service.
@@ -322,6 +323,8 @@ type FinancialServiceClient interface {
 	PollAsyncTaskExecutionStatus(ctx context.Context, in *PollAsyncTaskExecutionStatusRequest, opts ...grpc.CallOption) (*PollAsyncTaskExecutionStatusResponse, error)
 	// This checks if a user can ask the copilot a question
 	RecordAskCopilotQuestion(ctx context.Context, in *RecordAskCopilotQuestionRequest, opts ...grpc.CallOption) (*RecordAskCopilotQuestionResponse, error)
+	// This checks if a user can ask the copilot a question
+	CheckIfQuotaExceeded(ctx context.Context, in *CheckIfQuotaExceededRequest, opts ...grpc.CallOption) (*CheckIfQuotaExceededResponse, error)
 }
 
 type financialServiceClient struct {
@@ -1232,6 +1235,15 @@ func (c *financialServiceClient) RecordAskCopilotQuestion(ctx context.Context, i
 	return out, nil
 }
 
+func (c *financialServiceClient) CheckIfQuotaExceeded(ctx context.Context, in *CheckIfQuotaExceededRequest, opts ...grpc.CallOption) (*CheckIfQuotaExceededResponse, error) {
+	out := new(CheckIfQuotaExceededResponse)
+	err := c.cc.Invoke(ctx, FinancialService_CheckIfQuotaExceeded_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // FinancialServiceServer is the server API for FinancialService service.
 // All implementations must embed UnimplementedFinancialServiceServer
 // for forward compatibility
@@ -1433,6 +1445,8 @@ type FinancialServiceServer interface {
 	PollAsyncTaskExecutionStatus(context.Context, *PollAsyncTaskExecutionStatusRequest) (*PollAsyncTaskExecutionStatusResponse, error)
 	// This checks if a user can ask the copilot a question
 	RecordAskCopilotQuestion(context.Context, *RecordAskCopilotQuestionRequest) (*RecordAskCopilotQuestionResponse, error)
+	// This checks if a user can ask the copilot a question
+	CheckIfQuotaExceeded(context.Context, *CheckIfQuotaExceededRequest) (*CheckIfQuotaExceededResponse, error)
 	mustEmbedUnimplementedFinancialServiceServer()
 }
 
@@ -1739,6 +1753,9 @@ func (UnimplementedFinancialServiceServer) PollAsyncTaskExecutionStatus(context.
 }
 func (UnimplementedFinancialServiceServer) RecordAskCopilotQuestion(context.Context, *RecordAskCopilotQuestionRequest) (*RecordAskCopilotQuestionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RecordAskCopilotQuestion not implemented")
+}
+func (UnimplementedFinancialServiceServer) CheckIfQuotaExceeded(context.Context, *CheckIfQuotaExceededRequest) (*CheckIfQuotaExceededResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CheckIfQuotaExceeded not implemented")
 }
 func (UnimplementedFinancialServiceServer) mustEmbedUnimplementedFinancialServiceServer() {}
 
@@ -3553,6 +3570,24 @@ func _FinancialService_RecordAskCopilotQuestion_Handler(srv interface{}, ctx con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _FinancialService_CheckIfQuotaExceeded_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CheckIfQuotaExceededRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FinancialServiceServer).CheckIfQuotaExceeded(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FinancialService_CheckIfQuotaExceeded_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FinancialServiceServer).CheckIfQuotaExceeded(ctx, req.(*CheckIfQuotaExceededRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // FinancialService_ServiceDesc is the grpc.ServiceDesc for FinancialService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -3959,6 +3994,10 @@ var FinancialService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RecordAskCopilotQuestion",
 			Handler:    _FinancialService_RecordAskCopilotQuestion_Handler,
+		},
+		{
+			MethodName: "CheckIfQuotaExceeded",
+			Handler:    _FinancialService_CheckIfQuotaExceeded_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

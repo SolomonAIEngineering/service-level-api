@@ -2726,7 +2726,72 @@
         ]
       }
     },
-    "/api/v1/copilot/question/{userId}": {
+    "/api/v1/copilot/quota/exceeded/{userId}": {
+      "get": {
+        "summary": "Checks if the question quota has been exceeded",
+        "description": "This endpoint checks if a user has exceeded his/her copilot question quota",
+        "operationId": "CheckIfQuotaExceeded",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v2.CheckIfQuotaExceededResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "description": "the account id associated with the user",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "profileType",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED",
+              "FINANCIAL_USER_PROFILE_TYPE_USER",
+              "FINANCIAL_USER_PROFILE_TYPE_BUSINESS"
+            ],
+            "default": "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED"
+          }
+        ],
+        "tags": [
+          "copilot",
+          "v1"
+        ]
+      }
+    },
+    "/api/v1/copilot/quota/question/{userId}": {
       "post": {
         "summary": "Ask a question to copilot",
         "description": "This endpoint checks if a user can ask his/her copilot a question",
@@ -7231,6 +7296,14 @@
         }
       },
       "description": "CategoryMonthlyTransactionCount\nThis message is used to represent the monthly transaction count of a category."
+    },
+    "CheckIfQuotaExceededResponse": {
+      "type": "object",
+      "properties": {
+        "exceeded": {
+          "type": "boolean"
+        }
+      }
     },
     "CreateBankAccountResponse": {
       "type": "object",

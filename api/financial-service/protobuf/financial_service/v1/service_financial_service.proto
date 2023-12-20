@@ -2199,7 +2199,7 @@ service FinancialService {
   // This checks if a user can ask the copilot a question
   rpc RecordAskCopilotQuestion(RecordAskCopilotQuestionRequest) returns (RecordAskCopilotQuestionResponse) {
       option (google.api.http) = {
-          post: "/api/v1/copilot/question/{user_id}" 
+          post: "/api/v1/copilot/quota/question/{user_id}" 
           body: "*"
       };
       option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -2214,6 +2214,29 @@ service FinancialService {
                   description: "A successful response."
                   schema: {
                       json_schema: {ref: ".api.v2.AskCopilotQuestionResponse"}
+                  }
+              }
+          }
+      };
+    }
+
+  // This checks if a user can ask the copilot a question
+  rpc CheckIfQuotaExceeded(CheckIfQuotaExceededRequest) returns (CheckIfQuotaExceededResponse) {
+      option (google.api.http) = {
+          get: "/api/v1/copilot/quota/exceeded/{user_id}" 
+      };
+      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+          summary: "Checks if the question quota has been exceeded"
+          tags: ["copilot", "v1"]
+          operation_id: "CheckIfQuotaExceeded"
+          description: 
+              "This endpoint checks if a user has exceeded his/her copilot question quota"
+          responses: {
+              key: "200"
+              value: {
+                  description: "A successful response."
+                  schema: {
+                      json_schema: {ref: ".api.v2.CheckIfQuotaExceededResponse"}
                   }
               }
           }

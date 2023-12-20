@@ -8919,6 +8919,109 @@ func (x *RecordAskCopilotQuestionResponse) GetRemainingQuota() float64 {
 	return 0
 }
 
+type CheckIfQuotaExceededRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// the account id associated with the user
+	UserId      uint64                   `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	ProfileType FinancialUserProfileType `protobuf:"varint,2,opt,name=profile_type,json=profileType,proto3,enum=financial_service.v1.FinancialUserProfileType" json:"profile_type,omitempty"`
+}
+
+func (x *CheckIfQuotaExceededRequest) Reset() {
+	*x = CheckIfQuotaExceededRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[158]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CheckIfQuotaExceededRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CheckIfQuotaExceededRequest) ProtoMessage() {}
+
+func (x *CheckIfQuotaExceededRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[158]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CheckIfQuotaExceededRequest.ProtoReflect.Descriptor instead.
+func (*CheckIfQuotaExceededRequest) Descriptor() ([]byte, []int) {
+	return file_financial_service_v1_request_response_financial_service_proto_rawDescGZIP(), []int{158}
+}
+
+func (x *CheckIfQuotaExceededRequest) GetUserId() uint64 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
+}
+
+func (x *CheckIfQuotaExceededRequest) GetProfileType() FinancialUserProfileType {
+	if x != nil {
+		return x.ProfileType
+	}
+	return FinancialUserProfileType_FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED
+}
+
+type CheckIfQuotaExceededResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Exceeded bool `protobuf:"varint,1,opt,name=exceeded,proto3" json:"exceeded,omitempty"`
+}
+
+func (x *CheckIfQuotaExceededResponse) Reset() {
+	*x = CheckIfQuotaExceededResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[159]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CheckIfQuotaExceededResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CheckIfQuotaExceededResponse) ProtoMessage() {}
+
+func (x *CheckIfQuotaExceededResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[159]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CheckIfQuotaExceededResponse.ProtoReflect.Descriptor instead.
+func (*CheckIfQuotaExceededResponse) Descriptor() ([]byte, []int) {
+	return file_financial_service_v1_request_response_financial_service_proto_rawDescGZIP(), []int{159}
+}
+
+func (x *CheckIfQuotaExceededResponse) GetExceeded() bool {
+	if x != nil {
+		return x.Exceeded
+	}
+	return false
+}
+
 type GetReCurringTransactionsResponse_ParticipantReCurringTransactions struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -8933,7 +9036,7 @@ type GetReCurringTransactionsResponse_ParticipantReCurringTransactions struct {
 func (x *GetReCurringTransactionsResponse_ParticipantReCurringTransactions) Reset() {
 	*x = GetReCurringTransactionsResponse_ParticipantReCurringTransactions{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[158]
+		mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[160]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -8946,7 +9049,7 @@ func (x *GetReCurringTransactionsResponse_ParticipantReCurringTransactions) Stri
 func (*GetReCurringTransactionsResponse_ParticipantReCurringTransactions) ProtoMessage() {}
 
 func (x *GetReCurringTransactionsResponse_ParticipantReCurringTransactions) ProtoReflect() protoreflect.Message {
-	mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[158]
+	mi := &file_financial_service_v1_request_response_financial_service_proto_msgTypes[160]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10306,30 +10409,44 @@ var file_financial_service_v1_request_response_financial_service_proto_rawDesc =
 	0x75, 0x63, 0x63, 0x65, 0x73, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x52, 0x07, 0x73, 0x75,
 	0x63, 0x63, 0x65, 0x73, 0x73, 0x12, 0x27, 0x0a, 0x0f, 0x72, 0x65, 0x6d, 0x61, 0x69, 0x6e, 0x69,
 	0x6e, 0x67, 0x5f, 0x71, 0x75, 0x6f, 0x74, 0x61, 0x18, 0x02, 0x20, 0x01, 0x28, 0x01, 0x52, 0x0e,
-	0x72, 0x65, 0x6d, 0x61, 0x69, 0x6e, 0x69, 0x6e, 0x67, 0x51, 0x75, 0x6f, 0x74, 0x61, 0x42, 0xd8,
-	0x02, 0x0a, 0x18, 0x63, 0x6f, 0x6d, 0x2e, 0x66, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c,
-	0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x76, 0x31, 0x42, 0x24, 0x52, 0x65, 0x71,
-	0x75, 0x65, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x46, 0x69, 0x6e, 0x61,
-	0x6e, 0x63, 0x69, 0x61, 0x6c, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x50, 0x72, 0x6f, 0x74,
-	0x6f, 0x50, 0x01, 0x5a, 0x7d, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f,
-	0x53, 0x6f, 0x6c, 0x6f, 0x6d, 0x6f, 0x6e, 0x41, 0x49, 0x45, 0x6e, 0x67, 0x69, 0x6e, 0x65, 0x65,
-	0x72, 0x69, 0x6e, 0x67, 0x2f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2d, 0x6c, 0x65, 0x76,
-	0x65, 0x6c, 0x2d, 0x61, 0x70, 0x69, 0x2f, 0x70, 0x6b, 0x67, 0x2f, 0x67, 0x65, 0x6e, 0x65, 0x72,
-	0x61, 0x74, 0x65, 0x64, 0x2f, 0x66, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x2d, 0x73,
-	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2f, 0x76, 0x31, 0x2f, 0x66, 0x69, 0x6e, 0x61, 0x6e, 0x63,
-	0x69, 0x61, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2f, 0x76, 0x31, 0x3b, 0x66,
-	0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
-	0x76, 0x31, 0xa2, 0x02, 0x03, 0x46, 0x58, 0x58, 0xaa, 0x02, 0x13, 0x46, 0x69, 0x6e, 0x61, 0x6e,
-	0x63, 0x69, 0x61, 0x6c, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x56, 0x31, 0xca, 0x02,
-	0x13, 0x46, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63,
-	0x65, 0x5c, 0x56, 0x31, 0xe2, 0x02, 0x1f, 0x46, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c,
-	0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x5c, 0x56, 0x31, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65,
-	0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x14, 0x46, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69,
-	0x61, 0x6c, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x3a, 0x3a, 0x56, 0x31, 0xd8, 0xe1, 0x1e,
-	0x00, 0xe0, 0xe1, 0x1e, 0x01, 0xf0, 0xe1, 0x1e, 0x01, 0xf8, 0xe1, 0x1e, 0x01, 0x80, 0xe2, 0x1e,
-	0x01, 0xa8, 0xe2, 0x1e, 0x01, 0xb8, 0xe2, 0x1e, 0x01, 0xc0, 0xe2, 0x1e, 0x01, 0xc8, 0xe2, 0x1e,
-	0x01, 0xd0, 0xe2, 0x1e, 0x01, 0xe0, 0xe2, 0x1e, 0x01, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x33,
+	0x72, 0x65, 0x6d, 0x61, 0x69, 0x6e, 0x69, 0x6e, 0x67, 0x51, 0x75, 0x6f, 0x74, 0x61, 0x22, 0xaf,
+	0x01, 0x0a, 0x1b, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x49, 0x66, 0x51, 0x75, 0x6f, 0x74, 0x61, 0x45,
+	0x78, 0x63, 0x65, 0x65, 0x64, 0x65, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x20,
+	0x0a, 0x07, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x42,
+	0x07, 0xfa, 0x42, 0x04, 0x32, 0x02, 0x20, 0x00, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64,
+	0x12, 0x6e, 0x0a, 0x0c, 0x70, 0x72, 0x6f, 0x66, 0x69, 0x6c, 0x65, 0x5f, 0x74, 0x79, 0x70, 0x65,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x2e, 0x2e, 0x66, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69,
+	0x61, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x76, 0x31, 0x2e, 0x46, 0x69,
+	0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x55, 0x73, 0x65, 0x72, 0x50, 0x72, 0x6f, 0x66, 0x69,
+	0x6c, 0x65, 0x54, 0x79, 0x70, 0x65, 0x42, 0x1b, 0x92, 0x41, 0x15, 0x4a, 0x13, 0x22, 0x75, 0x73,
+	0x65, 0x72, 0x6e, 0x61, 0x6d, 0x65, 0x3a, 0x74, 0x65, 0x73, 0x74, 0x75, 0x73, 0x65, 0x72, 0x22,
+	0xe0, 0x41, 0x02, 0x52, 0x0b, 0x70, 0x72, 0x6f, 0x66, 0x69, 0x6c, 0x65, 0x54, 0x79, 0x70, 0x65,
+	0x22, 0x3a, 0x0a, 0x1c, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x49, 0x66, 0x51, 0x75, 0x6f, 0x74, 0x61,
+	0x45, 0x78, 0x63, 0x65, 0x65, 0x64, 0x65, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x12, 0x1a, 0x0a, 0x08, 0x65, 0x78, 0x63, 0x65, 0x65, 0x64, 0x65, 0x64, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x08, 0x52, 0x08, 0x65, 0x78, 0x63, 0x65, 0x65, 0x64, 0x65, 0x64, 0x42, 0xd8, 0x02, 0x0a,
+	0x18, 0x63, 0x6f, 0x6d, 0x2e, 0x66, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x5f, 0x73,
+	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x76, 0x31, 0x42, 0x24, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x46, 0x69, 0x6e, 0x61, 0x6e, 0x63,
+	0x69, 0x61, 0x6c, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50,
+	0x01, 0x5a, 0x7d, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x53, 0x6f,
+	0x6c, 0x6f, 0x6d, 0x6f, 0x6e, 0x41, 0x49, 0x45, 0x6e, 0x67, 0x69, 0x6e, 0x65, 0x65, 0x72, 0x69,
+	0x6e, 0x67, 0x2f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2d, 0x6c, 0x65, 0x76, 0x65, 0x6c,
+	0x2d, 0x61, 0x70, 0x69, 0x2f, 0x70, 0x6b, 0x67, 0x2f, 0x67, 0x65, 0x6e, 0x65, 0x72, 0x61, 0x74,
+	0x65, 0x64, 0x2f, 0x66, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x2d, 0x73, 0x65, 0x72,
+	0x76, 0x69, 0x63, 0x65, 0x2f, 0x76, 0x31, 0x2f, 0x66, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61,
+	0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2f, 0x76, 0x31, 0x3b, 0x66, 0x69, 0x6e,
+	0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x76, 0x31,
+	0xa2, 0x02, 0x03, 0x46, 0x58, 0x58, 0xaa, 0x02, 0x13, 0x46, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69,
+	0x61, 0x6c, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x56, 0x31, 0xca, 0x02, 0x13, 0x46,
+	0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x5c,
+	0x56, 0x31, 0xe2, 0x02, 0x1f, 0x46, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x53, 0x65,
+	0x72, 0x76, 0x69, 0x63, 0x65, 0x5c, 0x56, 0x31, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61,
+	0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x14, 0x46, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c,
+	0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x3a, 0x3a, 0x56, 0x31, 0xd8, 0xe1, 0x1e, 0x00, 0xe0,
+	0xe1, 0x1e, 0x01, 0xf0, 0xe1, 0x1e, 0x01, 0xf8, 0xe1, 0x1e, 0x01, 0x80, 0xe2, 0x1e, 0x01, 0xa8,
+	0xe2, 0x1e, 0x01, 0xb8, 0xe2, 0x1e, 0x01, 0xc0, 0xe2, 0x1e, 0x01, 0xc8, 0xe2, 0x1e, 0x01, 0xd0,
+	0xe2, 0x1e, 0x01, 0xe0, 0xe2, 0x1e, 0x01, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -10344,7 +10461,7 @@ func file_financial_service_v1_request_response_financial_service_proto_rawDescG
 	return file_financial_service_v1_request_response_financial_service_proto_rawDescData
 }
 
-var file_financial_service_v1_request_response_financial_service_proto_msgTypes = make([]protoimpl.MessageInfo, 159)
+var file_financial_service_v1_request_response_financial_service_proto_msgTypes = make([]protoimpl.MessageInfo, 161)
 var file_financial_service_v1_request_response_financial_service_proto_goTypes = []interface{}{
 	(*CreateUserProfileRequest)(nil),                                          // 0: financial_service.v1.CreateUserProfileRequest
 	(*CreateUserProfileResponse)(nil),                                         // 1: financial_service.v1.CreateUserProfileResponse
@@ -10504,156 +10621,159 @@ var file_financial_service_v1_request_response_financial_service_proto_goTypes =
 	(*PollAsyncTaskExecutionStatusResponse)(nil),                              // 155: financial_service.v1.PollAsyncTaskExecutionStatusResponse
 	(*RecordAskCopilotQuestionRequest)(nil),                                   // 156: financial_service.v1.RecordAskCopilotQuestionRequest
 	(*RecordAskCopilotQuestionResponse)(nil),                                  // 157: financial_service.v1.RecordAskCopilotQuestionResponse
-	(*GetReCurringTransactionsResponse_ParticipantReCurringTransactions)(nil), // 158: financial_service.v1.GetReCurringTransactionsResponse.ParticipantReCurringTransactions
-	(*FinancialUserProfile)(nil),                                              // 159: financial_service.v1.FinancialUserProfile
-	(FinancialUserProfileType)(0),                                             // 160: financial_service.v1.FinancialUserProfileType
-	(*MelodyFinancialContext)(nil),                                            // 161: financial_service.v1.MelodyFinancialContext
-	(*BankAccount)(nil),                                                       // 162: financial_service.v1.BankAccount
-	(*Pocket)(nil),                                                            // 163: financial_service.v1.Pocket
-	(*SmartGoal)(nil),                                                         // 164: financial_service.v1.SmartGoal
-	(*Milestone)(nil),                                                         // 165: financial_service.v1.Milestone
-	(*Forecast)(nil),                                                          // 166: financial_service.v1.Forecast
-	(*Budget)(nil),                                                            // 167: financial_service.v1.Budget
-	(*InvestmentAccount)(nil),                                                 // 168: financial_service.v1.InvestmentAccount
-	(*MortgageAccount)(nil),                                                   // 169: financial_service.v1.MortgageAccount
-	(*CreditAccount)(nil),                                                     // 170: financial_service.v1.CreditAccount
-	(*StudentLoanAccount)(nil),                                                // 171: financial_service.v1.StudentLoanAccount
-	(*Link)(nil),                                                              // 172: financial_service.v1.Link
-	(*ReOccuringTransaction)(nil),                                             // 173: financial_service.v1.ReOccuringTransaction
-	(*Transaction)(nil),                                                       // 174: financial_service.v1.Transaction
-	(FinancialAccountType)(0),                                                 // 175: financial_service.v1.FinancialAccountType
-	(*timestamppb.Timestamp)(nil),                                             // 176: google.protobuf.Timestamp
-	(*PlaidAccountTransaction)(nil),                                           // 177: financial_service.v1.PlaidAccountTransaction
-	(*SmartNote)(nil),                                                         // 178: financial_service.v1.SmartNote
-	(*TransactionSplit)(nil),                                                  // 179: financial_service.v1.TransactionSplit
-	(*PlaidAccountRecurringTransaction)(nil),                                  // 180: financial_service.v1.PlaidAccountRecurringTransaction
-	(TaskState)(0),                                                            // 181: financial_service.v1.TaskState
+	(*CheckIfQuotaExceededRequest)(nil),                                       // 158: financial_service.v1.CheckIfQuotaExceededRequest
+	(*CheckIfQuotaExceededResponse)(nil),                                      // 159: financial_service.v1.CheckIfQuotaExceededResponse
+	(*GetReCurringTransactionsResponse_ParticipantReCurringTransactions)(nil), // 160: financial_service.v1.GetReCurringTransactionsResponse.ParticipantReCurringTransactions
+	(*FinancialUserProfile)(nil),                                              // 161: financial_service.v1.FinancialUserProfile
+	(FinancialUserProfileType)(0),                                             // 162: financial_service.v1.FinancialUserProfileType
+	(*MelodyFinancialContext)(nil),                                            // 163: financial_service.v1.MelodyFinancialContext
+	(*BankAccount)(nil),                                                       // 164: financial_service.v1.BankAccount
+	(*Pocket)(nil),                                                            // 165: financial_service.v1.Pocket
+	(*SmartGoal)(nil),                                                         // 166: financial_service.v1.SmartGoal
+	(*Milestone)(nil),                                                         // 167: financial_service.v1.Milestone
+	(*Forecast)(nil),                                                          // 168: financial_service.v1.Forecast
+	(*Budget)(nil),                                                            // 169: financial_service.v1.Budget
+	(*InvestmentAccount)(nil),                                                 // 170: financial_service.v1.InvestmentAccount
+	(*MortgageAccount)(nil),                                                   // 171: financial_service.v1.MortgageAccount
+	(*CreditAccount)(nil),                                                     // 172: financial_service.v1.CreditAccount
+	(*StudentLoanAccount)(nil),                                                // 173: financial_service.v1.StudentLoanAccount
+	(*Link)(nil),                                                              // 174: financial_service.v1.Link
+	(*ReOccuringTransaction)(nil),                                             // 175: financial_service.v1.ReOccuringTransaction
+	(*Transaction)(nil),                                                       // 176: financial_service.v1.Transaction
+	(FinancialAccountType)(0),                                                 // 177: financial_service.v1.FinancialAccountType
+	(*timestamppb.Timestamp)(nil),                                             // 178: google.protobuf.Timestamp
+	(*PlaidAccountTransaction)(nil),                                           // 179: financial_service.v1.PlaidAccountTransaction
+	(*SmartNote)(nil),                                                         // 180: financial_service.v1.SmartNote
+	(*TransactionSplit)(nil),                                                  // 181: financial_service.v1.TransactionSplit
+	(*PlaidAccountRecurringTransaction)(nil),                                  // 182: financial_service.v1.PlaidAccountRecurringTransaction
+	(TaskState)(0),                                                            // 183: financial_service.v1.TaskState
 }
 var file_financial_service_v1_request_response_financial_service_proto_depIdxs = []int32{
-	159, // 0: financial_service.v1.CreateUserProfileRequest.profile:type_name -> financial_service.v1.FinancialUserProfile
-	160, // 1: financial_service.v1.GetUserProfileRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
-	159, // 2: financial_service.v1.GetUserProfileResponse.profile:type_name -> financial_service.v1.FinancialUserProfile
-	161, // 3: financial_service.v1.GetUserProfileResponse.financial_context:type_name -> financial_service.v1.MelodyFinancialContext
-	160, // 4: financial_service.v1.DeleteUserProfileRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
-	159, // 5: financial_service.v1.UpdateUserProfileRequest.profile:type_name -> financial_service.v1.FinancialUserProfile
-	159, // 6: financial_service.v1.UpdateUserProfileResponse.profile:type_name -> financial_service.v1.FinancialUserProfile
-	162, // 7: financial_service.v1.CreateBankAccountRequest.bank_account:type_name -> financial_service.v1.BankAccount
-	160, // 8: financial_service.v1.CreateBankAccountRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
-	162, // 9: financial_service.v1.GetBankAccountResponse.bank_account:type_name -> financial_service.v1.BankAccount
-	160, // 10: financial_service.v1.DeleteBankAccountRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
-	162, // 11: financial_service.v1.UpdateBankAccountRequest.bank_account:type_name -> financial_service.v1.BankAccount
-	162, // 12: financial_service.v1.UpdateBankAccountResponse.bank_account:type_name -> financial_service.v1.BankAccount
-	163, // 13: financial_service.v1.GetPocketResponse.pocket:type_name -> financial_service.v1.Pocket
-	164, // 14: financial_service.v1.GetSmartGoalsByPocketIdResponse.smart_goals:type_name -> financial_service.v1.SmartGoal
-	164, // 15: financial_service.v1.CreateSmartGoalRequest.smart_goal:type_name -> financial_service.v1.SmartGoal
-	164, // 16: financial_service.v1.UpdateSmartGoalRequest.smart_goal:type_name -> financial_service.v1.SmartGoal
-	165, // 17: financial_service.v1.CreateMilestoneRequest.milestone:type_name -> financial_service.v1.Milestone
-	165, // 18: financial_service.v1.UpdateMilestoneRequest.milestone:type_name -> financial_service.v1.Milestone
-	165, // 19: financial_service.v1.UpdateMilestoneResponse.milestone:type_name -> financial_service.v1.Milestone
-	165, // 20: financial_service.v1.GetMilestonesBySmartGoalIdResponse.milestones:type_name -> financial_service.v1.Milestone
-	165, // 21: financial_service.v1.GetMilestoneResponse.milestone:type_name -> financial_service.v1.Milestone
-	166, // 22: financial_service.v1.GetForecastResponse.forecast:type_name -> financial_service.v1.Forecast
-	167, // 23: financial_service.v1.CreateBudgetRequest.budget:type_name -> financial_service.v1.Budget
-	167, // 24: financial_service.v1.UpdateBudgetRequest.budget:type_name -> financial_service.v1.Budget
-	167, // 25: financial_service.v1.UpdateBudgetResponse.budget:type_name -> financial_service.v1.Budget
-	167, // 26: financial_service.v1.GetBudgetResponse.budget:type_name -> financial_service.v1.Budget
-	167, // 27: financial_service.v1.GetAllBudgetsResponse.budgets:type_name -> financial_service.v1.Budget
-	160, // 28: financial_service.v1.PlaidInitiateTokenExchangeRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
-	160, // 29: financial_service.v1.PlaidInitiateTokenUpdateRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
-	160, // 30: financial_service.v1.PlaidExchangeTokenRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
-	160, // 31: financial_service.v1.GetInvestmentAcccountRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
-	168, // 32: financial_service.v1.GetInvestmentAcccountResponse.investment_account:type_name -> financial_service.v1.InvestmentAccount
-	160, // 33: financial_service.v1.GetMortgageAccountRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
-	169, // 34: financial_service.v1.GetMortgageAccountResponse.mortage_account:type_name -> financial_service.v1.MortgageAccount
-	160, // 35: financial_service.v1.GetLiabilityAccountRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
-	170, // 36: financial_service.v1.GetLiabilityAccountResponse.liability_account:type_name -> financial_service.v1.CreditAccount
-	160, // 37: financial_service.v1.GetStudentLoanAccountRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
-	171, // 38: financial_service.v1.GetStudentLoanAccountResponse.student_loan_account:type_name -> financial_service.v1.StudentLoanAccount
-	172, // 39: financial_service.v1.CreateManualLinkRequest.manual_account_link:type_name -> financial_service.v1.Link
-	160, // 40: financial_service.v1.CreateManualLinkRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
-	160, // 41: financial_service.v1.GetLinkRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
-	172, // 42: financial_service.v1.GetLinkResponse.link:type_name -> financial_service.v1.Link
-	160, // 43: financial_service.v1.GetLinksRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
-	172, // 44: financial_service.v1.GetLinksResponse.links:type_name -> financial_service.v1.Link
-	160, // 45: financial_service.v1.DeleteLinkRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
-	160, // 46: financial_service.v1.GetReCurringTransactionsRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
-	173, // 47: financial_service.v1.GetReCurringTransactionsResponse.re_ccuring_transactions:type_name -> financial_service.v1.ReOccuringTransaction
-	160, // 48: financial_service.v1.GetTransactionsRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
-	174, // 49: financial_service.v1.GetTransactionsResponse.transactions:type_name -> financial_service.v1.Transaction
-	160, // 50: financial_service.v1.CreateSubscriptionRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
-	160, // 51: financial_service.v1.GetTransactionsForBankAccountRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
-	174, // 52: financial_service.v1.GetTransactionsForBankAccountResponse.transactions:type_name -> financial_service.v1.Transaction
-	160, // 53: financial_service.v1.AddDefaultPocketsToBankAccountRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
-	175, // 54: financial_service.v1.AddDefaultPocketsToBankAccountRequest.financial_account_type:type_name -> financial_service.v1.FinancialAccountType
-	162, // 55: financial_service.v1.AddDefaultPocketsToBankAccountResponse.bank_account:type_name -> financial_service.v1.BankAccount
-	170, // 56: financial_service.v1.AddDefaultPocketsToBankAccountResponse.credit_account:type_name -> financial_service.v1.CreditAccount
-	163, // 57: financial_service.v1.UpdatePocketRequest.pocket:type_name -> financial_service.v1.Pocket
-	163, // 58: financial_service.v1.UpdatePocketResponse.pocket:type_name -> financial_service.v1.Pocket
-	176, // 59: financial_service.v1.GetTransactionsBetweenTimeRangesRequest.start_date:type_name -> google.protobuf.Timestamp
-	176, // 60: financial_service.v1.GetTransactionsBetweenTimeRangesRequest.end_date:type_name -> google.protobuf.Timestamp
-	160, // 61: financial_service.v1.GetTransactionsBetweenTimeRangesRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
-	175, // 62: financial_service.v1.GetTransactionsBetweenTimeRangesRequest.financial_account_type:type_name -> financial_service.v1.FinancialAccountType
-	177, // 63: financial_service.v1.GetTransactionsBetweenTimeRangesResponse.transactions:type_name -> financial_service.v1.PlaidAccountTransaction
-	160, // 64: financial_service.v1.GetTransactionsForPastWeekRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
-	175, // 65: financial_service.v1.GetTransactionsForPastWeekRequest.financial_account_type:type_name -> financial_service.v1.FinancialAccountType
-	177, // 66: financial_service.v1.GetTransactionsForPastWeekResponse.transactions:type_name -> financial_service.v1.PlaidAccountTransaction
-	160, // 67: financial_service.v1.GetTransactionsForPastMonthRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
-	175, // 68: financial_service.v1.GetTransactionsForPastMonthRequest.financial_account_type:type_name -> financial_service.v1.FinancialAccountType
-	177, // 69: financial_service.v1.GetTransactionsForPastMonthResponse.transactions:type_name -> financial_service.v1.PlaidAccountTransaction
-	178, // 70: financial_service.v1.AddNoteToSmartGoalRequest.note:type_name -> financial_service.v1.SmartNote
-	164, // 71: financial_service.v1.AddNoteToSmartGoalResponse.goal:type_name -> financial_service.v1.SmartGoal
-	178, // 72: financial_service.v1.UpdateNoteToSmartGoalRequest.note:type_name -> financial_service.v1.SmartNote
-	178, // 73: financial_service.v1.UpdateNoteToSmartGoalResponse.note:type_name -> financial_service.v1.SmartNote
-	178, // 74: financial_service.v1.GetNotesFromSmartGoalResponse.notes:type_name -> financial_service.v1.SmartNote
-	178, // 75: financial_service.v1.GetNoteFromSmartGoalResponse.note:type_name -> financial_service.v1.SmartNote
-	160, // 76: financial_service.v1.ListTransactionsRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
-	175, // 77: financial_service.v1.ListTransactionsRequest.financial_account_type:type_name -> financial_service.v1.FinancialAccountType
-	177, // 78: financial_service.v1.ListTransactionsResponse.transactions:type_name -> financial_service.v1.PlaidAccountTransaction
-	160, // 79: financial_service.v1.ListTransactionsAcrossAllAccountsRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
-	177, // 80: financial_service.v1.ListTransactionsAcrossAllAccountsResponse.transactions:type_name -> financial_service.v1.PlaidAccountTransaction
-	177, // 81: financial_service.v1.GetTransactionResponse.transaction:type_name -> financial_service.v1.PlaidAccountTransaction
-	177, // 82: financial_service.v1.UpdateTransactionRequest.transaction:type_name -> financial_service.v1.PlaidAccountTransaction
-	177, // 83: financial_service.v1.UpdateTransactionResponse.transaction:type_name -> financial_service.v1.PlaidAccountTransaction
-	177, // 84: financial_service.v1.BulkUpdateTransactionRequest.transactions:type_name -> financial_service.v1.PlaidAccountTransaction
-	177, // 85: financial_service.v1.BulkUpdateTransactionResponse.transactions:type_name -> financial_service.v1.PlaidAccountTransaction
-	178, // 86: financial_service.v1.AddNoteToTransactionRequest.note:type_name -> financial_service.v1.SmartNote
-	177, // 87: financial_service.v1.AddNoteToTransactionResponse.transaction:type_name -> financial_service.v1.PlaidAccountTransaction
-	178, // 88: financial_service.v1.UpdateNoteToTransactionRequest.note:type_name -> financial_service.v1.SmartNote
-	177, // 89: financial_service.v1.UpdateNoteToTransactionResponse.transaction:type_name -> financial_service.v1.PlaidAccountTransaction
-	178, // 90: financial_service.v1.ListTransactionNotesResponse.notes:type_name -> financial_service.v1.SmartNote
-	178, // 91: financial_service.v1.GetNoteFromTransactionResponse.note:type_name -> financial_service.v1.SmartNote
-	179, // 92: financial_service.v1.SplitTransactionRequest.split_transactions:type_name -> financial_service.v1.TransactionSplit
-	177, // 93: financial_service.v1.SplitTransactionResponse.transaction:type_name -> financial_service.v1.PlaidAccountTransaction
-	177, // 94: financial_service.v1.UnSplitTransactionsResponse.transaction:type_name -> financial_service.v1.PlaidAccountTransaction
-	179, // 95: financial_service.v1.GetSplitTransactionResponse.split_transactions:type_name -> financial_service.v1.TransactionSplit
-	160, // 96: financial_service.v1.SearchTransactionsRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
-	176, // 97: financial_service.v1.SearchTransactionsRequest.start_date:type_name -> google.protobuf.Timestamp
-	176, // 98: financial_service.v1.SearchTransactionsRequest.end_date:type_name -> google.protobuf.Timestamp
-	175, // 99: financial_service.v1.SearchTransactionsRequest.financial_account_type:type_name -> financial_service.v1.FinancialAccountType
-	177, // 100: financial_service.v1.SearchTransactionsResponse.transactions:type_name -> financial_service.v1.PlaidAccountTransaction
-	160, // 101: financial_service.v1.ListRecurringTransactionsRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
-	175, // 102: financial_service.v1.ListRecurringTransactionsRequest.financial_account_type:type_name -> financial_service.v1.FinancialAccountType
-	180, // 103: financial_service.v1.ListRecurringTransactionsResponse.transactions:type_name -> financial_service.v1.PlaidAccountRecurringTransaction
-	160, // 104: financial_service.v1.GetRecurringTransactionsRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
-	180, // 105: financial_service.v1.GetRecurringTransactionsResponse.transactions:type_name -> financial_service.v1.PlaidAccountRecurringTransaction
-	180, // 106: financial_service.v1.UpdateRecurringTransactionRequest.transaction:type_name -> financial_service.v1.PlaidAccountRecurringTransaction
-	180, // 107: financial_service.v1.UpdateRecurringTransactionResponse.transaction:type_name -> financial_service.v1.PlaidAccountRecurringTransaction
-	180, // 108: financial_service.v1.BulkUpdateRecurringTransactionRequest.transactions:type_name -> financial_service.v1.PlaidAccountRecurringTransaction
-	180, // 109: financial_service.v1.BulkUpdateRecurringTransactionResponse.transactions:type_name -> financial_service.v1.PlaidAccountRecurringTransaction
-	178, // 110: financial_service.v1.AddNoteToRecurringTransactionRequest.note:type_name -> financial_service.v1.SmartNote
-	180, // 111: financial_service.v1.AddNoteToRecurringTransactionResponse.transaction:type_name -> financial_service.v1.PlaidAccountRecurringTransaction
-	178, // 112: financial_service.v1.UpdateNoteToRecurringTransactionRequest.note:type_name -> financial_service.v1.SmartNote
-	180, // 113: financial_service.v1.UpdateNoteToRecurringTransactionResponse.transaction:type_name -> financial_service.v1.PlaidAccountRecurringTransaction
-	178, // 114: financial_service.v1.ListRecurringTransactionNotesResponse.notes:type_name -> financial_service.v1.SmartNote
-	180, // 115: financial_service.v1.GetRecurringTransactionResponse.transaction:type_name -> financial_service.v1.PlaidAccountRecurringTransaction
-	181, // 116: financial_service.v1.PollAsyncTaskExecutionStatusResponse.status:type_name -> financial_service.v1.TaskState
-	160, // 117: financial_service.v1.RecordAskCopilotQuestionRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
-	174, // 118: financial_service.v1.GetReCurringTransactionsResponse.ParticipantReCurringTransactions.transactions:type_name -> financial_service.v1.Transaction
-	119, // [119:119] is the sub-list for method output_type
-	119, // [119:119] is the sub-list for method input_type
-	119, // [119:119] is the sub-list for extension type_name
-	119, // [119:119] is the sub-list for extension extendee
-	0,   // [0:119] is the sub-list for field type_name
+	161, // 0: financial_service.v1.CreateUserProfileRequest.profile:type_name -> financial_service.v1.FinancialUserProfile
+	162, // 1: financial_service.v1.GetUserProfileRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
+	161, // 2: financial_service.v1.GetUserProfileResponse.profile:type_name -> financial_service.v1.FinancialUserProfile
+	163, // 3: financial_service.v1.GetUserProfileResponse.financial_context:type_name -> financial_service.v1.MelodyFinancialContext
+	162, // 4: financial_service.v1.DeleteUserProfileRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
+	161, // 5: financial_service.v1.UpdateUserProfileRequest.profile:type_name -> financial_service.v1.FinancialUserProfile
+	161, // 6: financial_service.v1.UpdateUserProfileResponse.profile:type_name -> financial_service.v1.FinancialUserProfile
+	164, // 7: financial_service.v1.CreateBankAccountRequest.bank_account:type_name -> financial_service.v1.BankAccount
+	162, // 8: financial_service.v1.CreateBankAccountRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
+	164, // 9: financial_service.v1.GetBankAccountResponse.bank_account:type_name -> financial_service.v1.BankAccount
+	162, // 10: financial_service.v1.DeleteBankAccountRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
+	164, // 11: financial_service.v1.UpdateBankAccountRequest.bank_account:type_name -> financial_service.v1.BankAccount
+	164, // 12: financial_service.v1.UpdateBankAccountResponse.bank_account:type_name -> financial_service.v1.BankAccount
+	165, // 13: financial_service.v1.GetPocketResponse.pocket:type_name -> financial_service.v1.Pocket
+	166, // 14: financial_service.v1.GetSmartGoalsByPocketIdResponse.smart_goals:type_name -> financial_service.v1.SmartGoal
+	166, // 15: financial_service.v1.CreateSmartGoalRequest.smart_goal:type_name -> financial_service.v1.SmartGoal
+	166, // 16: financial_service.v1.UpdateSmartGoalRequest.smart_goal:type_name -> financial_service.v1.SmartGoal
+	167, // 17: financial_service.v1.CreateMilestoneRequest.milestone:type_name -> financial_service.v1.Milestone
+	167, // 18: financial_service.v1.UpdateMilestoneRequest.milestone:type_name -> financial_service.v1.Milestone
+	167, // 19: financial_service.v1.UpdateMilestoneResponse.milestone:type_name -> financial_service.v1.Milestone
+	167, // 20: financial_service.v1.GetMilestonesBySmartGoalIdResponse.milestones:type_name -> financial_service.v1.Milestone
+	167, // 21: financial_service.v1.GetMilestoneResponse.milestone:type_name -> financial_service.v1.Milestone
+	168, // 22: financial_service.v1.GetForecastResponse.forecast:type_name -> financial_service.v1.Forecast
+	169, // 23: financial_service.v1.CreateBudgetRequest.budget:type_name -> financial_service.v1.Budget
+	169, // 24: financial_service.v1.UpdateBudgetRequest.budget:type_name -> financial_service.v1.Budget
+	169, // 25: financial_service.v1.UpdateBudgetResponse.budget:type_name -> financial_service.v1.Budget
+	169, // 26: financial_service.v1.GetBudgetResponse.budget:type_name -> financial_service.v1.Budget
+	169, // 27: financial_service.v1.GetAllBudgetsResponse.budgets:type_name -> financial_service.v1.Budget
+	162, // 28: financial_service.v1.PlaidInitiateTokenExchangeRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
+	162, // 29: financial_service.v1.PlaidInitiateTokenUpdateRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
+	162, // 30: financial_service.v1.PlaidExchangeTokenRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
+	162, // 31: financial_service.v1.GetInvestmentAcccountRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
+	170, // 32: financial_service.v1.GetInvestmentAcccountResponse.investment_account:type_name -> financial_service.v1.InvestmentAccount
+	162, // 33: financial_service.v1.GetMortgageAccountRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
+	171, // 34: financial_service.v1.GetMortgageAccountResponse.mortage_account:type_name -> financial_service.v1.MortgageAccount
+	162, // 35: financial_service.v1.GetLiabilityAccountRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
+	172, // 36: financial_service.v1.GetLiabilityAccountResponse.liability_account:type_name -> financial_service.v1.CreditAccount
+	162, // 37: financial_service.v1.GetStudentLoanAccountRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
+	173, // 38: financial_service.v1.GetStudentLoanAccountResponse.student_loan_account:type_name -> financial_service.v1.StudentLoanAccount
+	174, // 39: financial_service.v1.CreateManualLinkRequest.manual_account_link:type_name -> financial_service.v1.Link
+	162, // 40: financial_service.v1.CreateManualLinkRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
+	162, // 41: financial_service.v1.GetLinkRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
+	174, // 42: financial_service.v1.GetLinkResponse.link:type_name -> financial_service.v1.Link
+	162, // 43: financial_service.v1.GetLinksRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
+	174, // 44: financial_service.v1.GetLinksResponse.links:type_name -> financial_service.v1.Link
+	162, // 45: financial_service.v1.DeleteLinkRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
+	162, // 46: financial_service.v1.GetReCurringTransactionsRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
+	175, // 47: financial_service.v1.GetReCurringTransactionsResponse.re_ccuring_transactions:type_name -> financial_service.v1.ReOccuringTransaction
+	162, // 48: financial_service.v1.GetTransactionsRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
+	176, // 49: financial_service.v1.GetTransactionsResponse.transactions:type_name -> financial_service.v1.Transaction
+	162, // 50: financial_service.v1.CreateSubscriptionRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
+	162, // 51: financial_service.v1.GetTransactionsForBankAccountRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
+	176, // 52: financial_service.v1.GetTransactionsForBankAccountResponse.transactions:type_name -> financial_service.v1.Transaction
+	162, // 53: financial_service.v1.AddDefaultPocketsToBankAccountRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
+	177, // 54: financial_service.v1.AddDefaultPocketsToBankAccountRequest.financial_account_type:type_name -> financial_service.v1.FinancialAccountType
+	164, // 55: financial_service.v1.AddDefaultPocketsToBankAccountResponse.bank_account:type_name -> financial_service.v1.BankAccount
+	172, // 56: financial_service.v1.AddDefaultPocketsToBankAccountResponse.credit_account:type_name -> financial_service.v1.CreditAccount
+	165, // 57: financial_service.v1.UpdatePocketRequest.pocket:type_name -> financial_service.v1.Pocket
+	165, // 58: financial_service.v1.UpdatePocketResponse.pocket:type_name -> financial_service.v1.Pocket
+	178, // 59: financial_service.v1.GetTransactionsBetweenTimeRangesRequest.start_date:type_name -> google.protobuf.Timestamp
+	178, // 60: financial_service.v1.GetTransactionsBetweenTimeRangesRequest.end_date:type_name -> google.protobuf.Timestamp
+	162, // 61: financial_service.v1.GetTransactionsBetweenTimeRangesRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
+	177, // 62: financial_service.v1.GetTransactionsBetweenTimeRangesRequest.financial_account_type:type_name -> financial_service.v1.FinancialAccountType
+	179, // 63: financial_service.v1.GetTransactionsBetweenTimeRangesResponse.transactions:type_name -> financial_service.v1.PlaidAccountTransaction
+	162, // 64: financial_service.v1.GetTransactionsForPastWeekRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
+	177, // 65: financial_service.v1.GetTransactionsForPastWeekRequest.financial_account_type:type_name -> financial_service.v1.FinancialAccountType
+	179, // 66: financial_service.v1.GetTransactionsForPastWeekResponse.transactions:type_name -> financial_service.v1.PlaidAccountTransaction
+	162, // 67: financial_service.v1.GetTransactionsForPastMonthRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
+	177, // 68: financial_service.v1.GetTransactionsForPastMonthRequest.financial_account_type:type_name -> financial_service.v1.FinancialAccountType
+	179, // 69: financial_service.v1.GetTransactionsForPastMonthResponse.transactions:type_name -> financial_service.v1.PlaidAccountTransaction
+	180, // 70: financial_service.v1.AddNoteToSmartGoalRequest.note:type_name -> financial_service.v1.SmartNote
+	166, // 71: financial_service.v1.AddNoteToSmartGoalResponse.goal:type_name -> financial_service.v1.SmartGoal
+	180, // 72: financial_service.v1.UpdateNoteToSmartGoalRequest.note:type_name -> financial_service.v1.SmartNote
+	180, // 73: financial_service.v1.UpdateNoteToSmartGoalResponse.note:type_name -> financial_service.v1.SmartNote
+	180, // 74: financial_service.v1.GetNotesFromSmartGoalResponse.notes:type_name -> financial_service.v1.SmartNote
+	180, // 75: financial_service.v1.GetNoteFromSmartGoalResponse.note:type_name -> financial_service.v1.SmartNote
+	162, // 76: financial_service.v1.ListTransactionsRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
+	177, // 77: financial_service.v1.ListTransactionsRequest.financial_account_type:type_name -> financial_service.v1.FinancialAccountType
+	179, // 78: financial_service.v1.ListTransactionsResponse.transactions:type_name -> financial_service.v1.PlaidAccountTransaction
+	162, // 79: financial_service.v1.ListTransactionsAcrossAllAccountsRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
+	179, // 80: financial_service.v1.ListTransactionsAcrossAllAccountsResponse.transactions:type_name -> financial_service.v1.PlaidAccountTransaction
+	179, // 81: financial_service.v1.GetTransactionResponse.transaction:type_name -> financial_service.v1.PlaidAccountTransaction
+	179, // 82: financial_service.v1.UpdateTransactionRequest.transaction:type_name -> financial_service.v1.PlaidAccountTransaction
+	179, // 83: financial_service.v1.UpdateTransactionResponse.transaction:type_name -> financial_service.v1.PlaidAccountTransaction
+	179, // 84: financial_service.v1.BulkUpdateTransactionRequest.transactions:type_name -> financial_service.v1.PlaidAccountTransaction
+	179, // 85: financial_service.v1.BulkUpdateTransactionResponse.transactions:type_name -> financial_service.v1.PlaidAccountTransaction
+	180, // 86: financial_service.v1.AddNoteToTransactionRequest.note:type_name -> financial_service.v1.SmartNote
+	179, // 87: financial_service.v1.AddNoteToTransactionResponse.transaction:type_name -> financial_service.v1.PlaidAccountTransaction
+	180, // 88: financial_service.v1.UpdateNoteToTransactionRequest.note:type_name -> financial_service.v1.SmartNote
+	179, // 89: financial_service.v1.UpdateNoteToTransactionResponse.transaction:type_name -> financial_service.v1.PlaidAccountTransaction
+	180, // 90: financial_service.v1.ListTransactionNotesResponse.notes:type_name -> financial_service.v1.SmartNote
+	180, // 91: financial_service.v1.GetNoteFromTransactionResponse.note:type_name -> financial_service.v1.SmartNote
+	181, // 92: financial_service.v1.SplitTransactionRequest.split_transactions:type_name -> financial_service.v1.TransactionSplit
+	179, // 93: financial_service.v1.SplitTransactionResponse.transaction:type_name -> financial_service.v1.PlaidAccountTransaction
+	179, // 94: financial_service.v1.UnSplitTransactionsResponse.transaction:type_name -> financial_service.v1.PlaidAccountTransaction
+	181, // 95: financial_service.v1.GetSplitTransactionResponse.split_transactions:type_name -> financial_service.v1.TransactionSplit
+	162, // 96: financial_service.v1.SearchTransactionsRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
+	178, // 97: financial_service.v1.SearchTransactionsRequest.start_date:type_name -> google.protobuf.Timestamp
+	178, // 98: financial_service.v1.SearchTransactionsRequest.end_date:type_name -> google.protobuf.Timestamp
+	177, // 99: financial_service.v1.SearchTransactionsRequest.financial_account_type:type_name -> financial_service.v1.FinancialAccountType
+	179, // 100: financial_service.v1.SearchTransactionsResponse.transactions:type_name -> financial_service.v1.PlaidAccountTransaction
+	162, // 101: financial_service.v1.ListRecurringTransactionsRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
+	177, // 102: financial_service.v1.ListRecurringTransactionsRequest.financial_account_type:type_name -> financial_service.v1.FinancialAccountType
+	182, // 103: financial_service.v1.ListRecurringTransactionsResponse.transactions:type_name -> financial_service.v1.PlaidAccountRecurringTransaction
+	162, // 104: financial_service.v1.GetRecurringTransactionsRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
+	182, // 105: financial_service.v1.GetRecurringTransactionsResponse.transactions:type_name -> financial_service.v1.PlaidAccountRecurringTransaction
+	182, // 106: financial_service.v1.UpdateRecurringTransactionRequest.transaction:type_name -> financial_service.v1.PlaidAccountRecurringTransaction
+	182, // 107: financial_service.v1.UpdateRecurringTransactionResponse.transaction:type_name -> financial_service.v1.PlaidAccountRecurringTransaction
+	182, // 108: financial_service.v1.BulkUpdateRecurringTransactionRequest.transactions:type_name -> financial_service.v1.PlaidAccountRecurringTransaction
+	182, // 109: financial_service.v1.BulkUpdateRecurringTransactionResponse.transactions:type_name -> financial_service.v1.PlaidAccountRecurringTransaction
+	180, // 110: financial_service.v1.AddNoteToRecurringTransactionRequest.note:type_name -> financial_service.v1.SmartNote
+	182, // 111: financial_service.v1.AddNoteToRecurringTransactionResponse.transaction:type_name -> financial_service.v1.PlaidAccountRecurringTransaction
+	180, // 112: financial_service.v1.UpdateNoteToRecurringTransactionRequest.note:type_name -> financial_service.v1.SmartNote
+	182, // 113: financial_service.v1.UpdateNoteToRecurringTransactionResponse.transaction:type_name -> financial_service.v1.PlaidAccountRecurringTransaction
+	180, // 114: financial_service.v1.ListRecurringTransactionNotesResponse.notes:type_name -> financial_service.v1.SmartNote
+	182, // 115: financial_service.v1.GetRecurringTransactionResponse.transaction:type_name -> financial_service.v1.PlaidAccountRecurringTransaction
+	183, // 116: financial_service.v1.PollAsyncTaskExecutionStatusResponse.status:type_name -> financial_service.v1.TaskState
+	162, // 117: financial_service.v1.RecordAskCopilotQuestionRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
+	162, // 118: financial_service.v1.CheckIfQuotaExceededRequest.profile_type:type_name -> financial_service.v1.FinancialUserProfileType
+	176, // 119: financial_service.v1.GetReCurringTransactionsResponse.ParticipantReCurringTransactions.transactions:type_name -> financial_service.v1.Transaction
+	120, // [120:120] is the sub-list for method output_type
+	120, // [120:120] is the sub-list for method input_type
+	120, // [120:120] is the sub-list for extension type_name
+	120, // [120:120] is the sub-list for extension extendee
+	0,   // [0:120] is the sub-list for field type_name
 }
 
 func init() { file_financial_service_v1_request_response_financial_service_proto_init() }
@@ -12562,6 +12682,30 @@ func file_financial_service_v1_request_response_financial_service_proto_init() {
 			}
 		}
 		file_financial_service_v1_request_response_financial_service_proto_msgTypes[158].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CheckIfQuotaExceededRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_financial_service_v1_request_response_financial_service_proto_msgTypes[159].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CheckIfQuotaExceededResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_financial_service_v1_request_response_financial_service_proto_msgTypes[160].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetReCurringTransactionsResponse_ParticipantReCurringTransactions); i {
 			case 0:
 				return &v.state
@@ -12584,7 +12728,7 @@ func file_financial_service_v1_request_response_financial_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_financial_service_v1_request_response_financial_service_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   159,
+			NumMessages:   161,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

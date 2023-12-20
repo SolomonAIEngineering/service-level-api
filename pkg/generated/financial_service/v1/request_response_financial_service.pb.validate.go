@@ -20302,6 +20302,227 @@ var _ interface {
 	ErrorName() string
 } = RecordAskCopilotQuestionResponseValidationError{}
 
+// Validate checks the field values on CheckIfQuotaExceededRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *CheckIfQuotaExceededRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CheckIfQuotaExceededRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CheckIfQuotaExceededRequestMultiError, or nil if none found.
+func (m *CheckIfQuotaExceededRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CheckIfQuotaExceededRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetUserId() <= 0 {
+		err := CheckIfQuotaExceededRequestValidationError{
+			field:  "UserId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for ProfileType
+
+	if len(errors) > 0 {
+		return CheckIfQuotaExceededRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// CheckIfQuotaExceededRequestMultiError is an error wrapping multiple
+// validation errors returned by CheckIfQuotaExceededRequest.ValidateAll() if
+// the designated constraints aren't met.
+type CheckIfQuotaExceededRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CheckIfQuotaExceededRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CheckIfQuotaExceededRequestMultiError) AllErrors() []error { return m }
+
+// CheckIfQuotaExceededRequestValidationError is the validation error returned
+// by CheckIfQuotaExceededRequest.Validate if the designated constraints
+// aren't met.
+type CheckIfQuotaExceededRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CheckIfQuotaExceededRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CheckIfQuotaExceededRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CheckIfQuotaExceededRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CheckIfQuotaExceededRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CheckIfQuotaExceededRequestValidationError) ErrorName() string {
+	return "CheckIfQuotaExceededRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CheckIfQuotaExceededRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCheckIfQuotaExceededRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CheckIfQuotaExceededRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CheckIfQuotaExceededRequestValidationError{}
+
+// Validate checks the field values on CheckIfQuotaExceededResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *CheckIfQuotaExceededResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CheckIfQuotaExceededResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CheckIfQuotaExceededResponseMultiError, or nil if none found.
+func (m *CheckIfQuotaExceededResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CheckIfQuotaExceededResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Exceeded
+
+	if len(errors) > 0 {
+		return CheckIfQuotaExceededResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// CheckIfQuotaExceededResponseMultiError is an error wrapping multiple
+// validation errors returned by CheckIfQuotaExceededResponse.ValidateAll() if
+// the designated constraints aren't met.
+type CheckIfQuotaExceededResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CheckIfQuotaExceededResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CheckIfQuotaExceededResponseMultiError) AllErrors() []error { return m }
+
+// CheckIfQuotaExceededResponseValidationError is the validation error returned
+// by CheckIfQuotaExceededResponse.Validate if the designated constraints
+// aren't met.
+type CheckIfQuotaExceededResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CheckIfQuotaExceededResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CheckIfQuotaExceededResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CheckIfQuotaExceededResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CheckIfQuotaExceededResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CheckIfQuotaExceededResponseValidationError) ErrorName() string {
+	return "CheckIfQuotaExceededResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CheckIfQuotaExceededResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCheckIfQuotaExceededResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CheckIfQuotaExceededResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CheckIfQuotaExceededResponseValidationError{}
+
 // Validate checks the field values on
 // GetReCurringTransactionsResponse_ParticipantReCurringTransactions with the
 // rules defined in the proto definition for this message. If any rules are

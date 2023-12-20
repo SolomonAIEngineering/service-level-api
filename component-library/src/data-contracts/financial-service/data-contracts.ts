@@ -495,6 +495,12 @@ export interface CategoryMonthlyTransactionCount {
   userId?: string;
 }
 
+export type CheckIfQuotaExceededData = any;
+
+export interface CheckIfQuotaExceededResponse {
+  exceeded?: boolean;
+}
+
 export type CreateBankAccountData = any;
 
 /**

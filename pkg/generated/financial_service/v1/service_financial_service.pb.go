@@ -42,7 +42,7 @@ var file_financial_service_v1_service_financial_service_proto_rawDesc = []byte{
 	0x74, 0x6f, 0x1a, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x2d, 0x67, 0x65, 0x6e, 0x2d, 0x6f,
 	0x70, 0x65, 0x6e, 0x61, 0x70, 0x69, 0x76, 0x32, 0x2f, 0x6f, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x73,
 	0x2f, 0x61, 0x6e, 0x6e, 0x6f, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x2e, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x32, 0x81, 0xb3, 0x02, 0x0a, 0x10, 0x46, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61,
+	0x74, 0x6f, 0x32, 0xa8, 0xb6, 0x02, 0x0a, 0x10, 0x46, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61,
 	0x6c, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0xf8, 0x02, 0x0a, 0x1a, 0x50, 0x6c, 0x61,
 	0x69, 0x64, 0x49, 0x6e, 0x69, 0x74, 0x69, 0x61, 0x74, 0x65, 0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x45,
 	0x78, 0x63, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x12, 0x37, 0x2e, 0x66, 0x69, 0x6e, 0x61, 0x6e, 0x63,
@@ -2474,7 +2474,7 @@ var file_financial_service_v1_service_financial_service_proto_rawDesc = []byte{
 	0x74, 0x75, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x82, 0xd3, 0xe4, 0x93, 0x02,
 	0x1e, 0x12, 0x1c, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x76, 0x31, 0x2f, 0x61, 0x73, 0x79, 0x6e, 0x63,
 	0x2d, 0x74, 0x61, 0x73, 0x6b, 0x2f, 0x7b, 0x74, 0x61, 0x73, 0x6b, 0x5f, 0x69, 0x64, 0x7d, 0x12,
-	0x85, 0x03, 0x0a, 0x18, 0x52, 0x65, 0x63, 0x6f, 0x72, 0x64, 0x41, 0x73, 0x6b, 0x43, 0x6f, 0x70,
+	0x8b, 0x03, 0x0a, 0x18, 0x52, 0x65, 0x63, 0x6f, 0x72, 0x64, 0x41, 0x73, 0x6b, 0x43, 0x6f, 0x70,
 	0x69, 0x6c, 0x6f, 0x74, 0x51, 0x75, 0x65, 0x73, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x35, 0x2e, 0x66,
 	0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
 	0x2e, 0x76, 0x31, 0x2e, 0x52, 0x65, 0x63, 0x6f, 0x72, 0x64, 0x41, 0x73, 0x6b, 0x43, 0x6f, 0x70,
@@ -2482,7 +2482,7 @@ var file_financial_service_v1_service_financial_service_proto_rawDesc = []byte{
 	0x65, 0x73, 0x74, 0x1a, 0x36, 0x2e, 0x66, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x5f,
 	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x76, 0x31, 0x2e, 0x52, 0x65, 0x63, 0x6f, 0x72,
 	0x64, 0x41, 0x73, 0x6b, 0x43, 0x6f, 0x70, 0x69, 0x6c, 0x6f, 0x74, 0x51, 0x75, 0x65, 0x73, 0x74,
-	0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0xf9, 0x01, 0x92, 0x41,
+	0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0xff, 0x01, 0x92, 0x41,
 	0xc8, 0x01, 0x0a, 0x07, 0x63, 0x6f, 0x70, 0x69, 0x6c, 0x6f, 0x74, 0x0a, 0x02, 0x76, 0x31, 0x12,
 	0x19, 0x41, 0x73, 0x6b, 0x20, 0x61, 0x20, 0x71, 0x75, 0x65, 0x73, 0x74, 0x69, 0x6f, 0x6e, 0x20,
 	0x74, 0x6f, 0x20, 0x63, 0x6f, 0x70, 0x69, 0x6c, 0x6f, 0x74, 0x1a, 0x41, 0x54, 0x68, 0x69, 0x73,
@@ -2495,29 +2495,55 @@ var file_financial_service_v1_service_financial_service_proto_rawDesc = []byte{
 	0x63, 0x63, 0x65, 0x73, 0x73, 0x66, 0x75, 0x6c, 0x20, 0x72, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
 	0x65, 0x2e, 0x12, 0x26, 0x0a, 0x24, 0x1a, 0x22, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e,
 	0x41, 0x73, 0x6b, 0x43, 0x6f, 0x70, 0x69, 0x6c, 0x6f, 0x74, 0x51, 0x75, 0x65, 0x73, 0x74, 0x69,
-	0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x27,
-	0x3a, 0x01, 0x2a, 0x22, 0x22, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x76, 0x31, 0x2f, 0x63, 0x6f, 0x70,
-	0x69, 0x6c, 0x6f, 0x74, 0x2f, 0x71, 0x75, 0x65, 0x73, 0x74, 0x69, 0x6f, 0x6e, 0x2f, 0x7b, 0x75,
-	0x73, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x7d, 0x42, 0xa4, 0x02, 0x0a, 0x18, 0x63, 0x6f, 0x6d, 0x2e,
-	0x66, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63,
-	0x65, 0x2e, 0x76, 0x31, 0x42, 0x1c, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x46, 0x69, 0x6e,
-	0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x50, 0x72, 0x6f,
-	0x74, 0x6f, 0x50, 0x01, 0x5a, 0x7d, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d,
-	0x2f, 0x53, 0x6f, 0x6c, 0x6f, 0x6d, 0x6f, 0x6e, 0x41, 0x49, 0x45, 0x6e, 0x67, 0x69, 0x6e, 0x65,
-	0x65, 0x72, 0x69, 0x6e, 0x67, 0x2f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2d, 0x6c, 0x65,
-	0x76, 0x65, 0x6c, 0x2d, 0x61, 0x70, 0x69, 0x2f, 0x70, 0x6b, 0x67, 0x2f, 0x67, 0x65, 0x6e, 0x65,
-	0x72, 0x61, 0x74, 0x65, 0x64, 0x2f, 0x66, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x2d,
-	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2f, 0x76, 0x31, 0x2f, 0x66, 0x69, 0x6e, 0x61, 0x6e,
-	0x63, 0x69, 0x61, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2f, 0x76, 0x31, 0x3b,
-	0x66, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63,
-	0x65, 0x76, 0x31, 0xa2, 0x02, 0x03, 0x46, 0x58, 0x58, 0xaa, 0x02, 0x13, 0x46, 0x69, 0x6e, 0x61,
-	0x6e, 0x63, 0x69, 0x61, 0x6c, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x56, 0x31, 0xca,
-	0x02, 0x13, 0x46, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x53, 0x65, 0x72, 0x76, 0x69,
-	0x63, 0x65, 0x5c, 0x56, 0x31, 0xe2, 0x02, 0x1f, 0x46, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61,
-	0x6c, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x5c, 0x56, 0x31, 0x5c, 0x47, 0x50, 0x42, 0x4d,
-	0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x14, 0x46, 0x69, 0x6e, 0x61, 0x6e, 0x63,
-	0x69, 0x61, 0x6c, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x3a, 0x3a, 0x56, 0x31, 0x62, 0x06,
-	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x2d,
+	0x3a, 0x01, 0x2a, 0x22, 0x28, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x76, 0x31, 0x2f, 0x63, 0x6f, 0x70,
+	0x69, 0x6c, 0x6f, 0x74, 0x2f, 0x71, 0x75, 0x6f, 0x74, 0x61, 0x2f, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x69, 0x6f, 0x6e, 0x2f, 0x7b, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x7d, 0x12, 0x9e, 0x03,
+	0x0a, 0x14, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x49, 0x66, 0x51, 0x75, 0x6f, 0x74, 0x61, 0x45, 0x78,
+	0x63, 0x65, 0x65, 0x64, 0x65, 0x64, 0x12, 0x31, 0x2e, 0x66, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69,
+	0x61, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x76, 0x31, 0x2e, 0x43, 0x68,
+	0x65, 0x63, 0x6b, 0x49, 0x66, 0x51, 0x75, 0x6f, 0x74, 0x61, 0x45, 0x78, 0x63, 0x65, 0x65, 0x64,
+	0x65, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x32, 0x2e, 0x66, 0x69, 0x6e, 0x61,
+	0x6e, 0x63, 0x69, 0x61, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x76, 0x31,
+	0x2e, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x49, 0x66, 0x51, 0x75, 0x6f, 0x74, 0x61, 0x45, 0x78, 0x63,
+	0x65, 0x65, 0x64, 0x65, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x9e, 0x02,
+	0x92, 0x41, 0xea, 0x01, 0x0a, 0x07, 0x63, 0x6f, 0x70, 0x69, 0x6c, 0x6f, 0x74, 0x0a, 0x02, 0x76,
+	0x31, 0x12, 0x2e, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x73, 0x20, 0x69, 0x66, 0x20, 0x74, 0x68, 0x65,
+	0x20, 0x71, 0x75, 0x65, 0x73, 0x74, 0x69, 0x6f, 0x6e, 0x20, 0x71, 0x75, 0x6f, 0x74, 0x61, 0x20,
+	0x68, 0x61, 0x73, 0x20, 0x62, 0x65, 0x65, 0x6e, 0x20, 0x65, 0x78, 0x63, 0x65, 0x65, 0x64, 0x65,
+	0x64, 0x1a, 0x4a, 0x54, 0x68, 0x69, 0x73, 0x20, 0x65, 0x6e, 0x64, 0x70, 0x6f, 0x69, 0x6e, 0x74,
+	0x20, 0x63, 0x68, 0x65, 0x63, 0x6b, 0x73, 0x20, 0x69, 0x66, 0x20, 0x61, 0x20, 0x75, 0x73, 0x65,
+	0x72, 0x20, 0x68, 0x61, 0x73, 0x20, 0x65, 0x78, 0x63, 0x65, 0x65, 0x64, 0x65, 0x64, 0x20, 0x68,
+	0x69, 0x73, 0x2f, 0x68, 0x65, 0x72, 0x20, 0x63, 0x6f, 0x70, 0x69, 0x6c, 0x6f, 0x74, 0x20, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x69, 0x6f, 0x6e, 0x20, 0x71, 0x75, 0x6f, 0x74, 0x61, 0x2a, 0x14, 0x43,
+	0x68, 0x65, 0x63, 0x6b, 0x49, 0x66, 0x51, 0x75, 0x6f, 0x74, 0x61, 0x45, 0x78, 0x63, 0x65, 0x65,
+	0x64, 0x65, 0x64, 0x4a, 0x49, 0x0a, 0x03, 0x32, 0x30, 0x30, 0x12, 0x42, 0x0a, 0x16, 0x41, 0x20,
+	0x73, 0x75, 0x63, 0x63, 0x65, 0x73, 0x73, 0x66, 0x75, 0x6c, 0x20, 0x72, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x2e, 0x12, 0x28, 0x0a, 0x26, 0x1a, 0x24, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76,
+	0x32, 0x2e, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x49, 0x66, 0x51, 0x75, 0x6f, 0x74, 0x61, 0x45, 0x78,
+	0x63, 0x65, 0x65, 0x64, 0x65, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x82, 0xd3,
+	0xe4, 0x93, 0x02, 0x2a, 0x12, 0x28, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x76, 0x31, 0x2f, 0x63, 0x6f,
+	0x70, 0x69, 0x6c, 0x6f, 0x74, 0x2f, 0x71, 0x75, 0x6f, 0x74, 0x61, 0x2f, 0x65, 0x78, 0x63, 0x65,
+	0x65, 0x64, 0x65, 0x64, 0x2f, 0x7b, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x7d, 0x42, 0xa4,
+	0x02, 0x0a, 0x18, 0x63, 0x6f, 0x6d, 0x2e, 0x66, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c,
+	0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x76, 0x31, 0x42, 0x1c, 0x53, 0x65, 0x72,
+	0x76, 0x69, 0x63, 0x65, 0x46, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x53, 0x65, 0x72,
+	0x76, 0x69, 0x63, 0x65, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x7d, 0x67, 0x69, 0x74,
+	0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x53, 0x6f, 0x6c, 0x6f, 0x6d, 0x6f, 0x6e, 0x41,
+	0x49, 0x45, 0x6e, 0x67, 0x69, 0x6e, 0x65, 0x65, 0x72, 0x69, 0x6e, 0x67, 0x2f, 0x73, 0x65, 0x72,
+	0x76, 0x69, 0x63, 0x65, 0x2d, 0x6c, 0x65, 0x76, 0x65, 0x6c, 0x2d, 0x61, 0x70, 0x69, 0x2f, 0x70,
+	0x6b, 0x67, 0x2f, 0x67, 0x65, 0x6e, 0x65, 0x72, 0x61, 0x74, 0x65, 0x64, 0x2f, 0x66, 0x69, 0x6e,
+	0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x2d, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2f, 0x76,
+	0x31, 0x2f, 0x66, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76,
+	0x69, 0x63, 0x65, 0x2f, 0x76, 0x31, 0x3b, 0x66, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c,
+	0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x76, 0x31, 0xa2, 0x02, 0x03, 0x46, 0x58, 0x58,
+	0xaa, 0x02, 0x13, 0x46, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x53, 0x65, 0x72, 0x76,
+	0x69, 0x63, 0x65, 0x2e, 0x56, 0x31, 0xca, 0x02, 0x13, 0x46, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69,
+	0x61, 0x6c, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x5c, 0x56, 0x31, 0xe2, 0x02, 0x1f, 0x46,
+	0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x5c,
+	0x56, 0x31, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02,
+	0x14, 0x46, 0x69, 0x6e, 0x61, 0x6e, 0x63, 0x69, 0x61, 0x6c, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63,
+	0x65, 0x3a, 0x3a, 0x56, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var file_financial_service_v1_service_financial_service_proto_goTypes = []interface{}{
@@ -2621,106 +2647,108 @@ var file_financial_service_v1_service_financial_service_proto_goTypes = []interf
 	(*ListRecurringTransactionNotesRequest)(nil),             // 97: financial_service.v1.ListRecurringTransactionNotesRequest
 	(*PollAsyncTaskExecutionStatusRequest)(nil),              // 98: financial_service.v1.PollAsyncTaskExecutionStatusRequest
 	(*RecordAskCopilotQuestionRequest)(nil),                  // 99: financial_service.v1.RecordAskCopilotQuestionRequest
-	(*PlaidInitiateTokenExchangeResponse)(nil),               // 100: financial_service.v1.PlaidInitiateTokenExchangeResponse
-	(*PlaidInitiateTokenUpdateResponse)(nil),                 // 101: financial_service.v1.PlaidInitiateTokenUpdateResponse
-	(*PlaidExchangeTokenResponse)(nil),                       // 102: financial_service.v1.PlaidExchangeTokenResponse
-	(*CreateUserProfileResponse)(nil),                        // 103: financial_service.v1.CreateUserProfileResponse
-	(*GetUserProfileResponse)(nil),                           // 104: financial_service.v1.GetUserProfileResponse
-	(*DeleteUserProfileResponse)(nil),                        // 105: financial_service.v1.DeleteUserProfileResponse
-	(*UpdateUserProfileResponse)(nil),                        // 106: financial_service.v1.UpdateUserProfileResponse
-	(*CreateBankAccountResponse)(nil),                        // 107: financial_service.v1.CreateBankAccountResponse
-	(*GetBankAccountResponse)(nil),                           // 108: financial_service.v1.GetBankAccountResponse
-	(*UpdateBankAccountResponse)(nil),                        // 109: financial_service.v1.UpdateBankAccountResponse
-	(*DeleteBankAccountResponse)(nil),                        // 110: financial_service.v1.DeleteBankAccountResponse
-	(*GetPocketResponse)(nil),                                // 111: financial_service.v1.GetPocketResponse
-	(*GetSmartGoalsByPocketIdResponse)(nil),                  // 112: financial_service.v1.GetSmartGoalsByPocketIdResponse
-	(*CreateSmartGoalResponse)(nil),                          // 113: financial_service.v1.CreateSmartGoalResponse
-	(*UpdateSmartGoalResponse)(nil),                          // 114: financial_service.v1.UpdateSmartGoalResponse
-	(*DeleteSmartGoalResponse)(nil),                          // 115: financial_service.v1.DeleteSmartGoalResponse
-	(*CreateMilestoneResponse)(nil),                          // 116: financial_service.v1.CreateMilestoneResponse
-	(*DeleteMilestoneResponse)(nil),                          // 117: financial_service.v1.DeleteMilestoneResponse
-	(*UpdateMilestoneResponse)(nil),                          // 118: financial_service.v1.UpdateMilestoneResponse
-	(*GetMilestoneResponse)(nil),                             // 119: financial_service.v1.GetMilestoneResponse
-	(*GetMilestonesBySmartGoalIdResponse)(nil),               // 120: financial_service.v1.GetMilestonesBySmartGoalIdResponse
-	(*GetForecastResponse)(nil),                              // 121: financial_service.v1.GetForecastResponse
-	(*CreateBudgetResponse)(nil),                             // 122: financial_service.v1.CreateBudgetResponse
-	(*UpdateBudgetResponse)(nil),                             // 123: financial_service.v1.UpdateBudgetResponse
-	(*DeleteBudgetResponse)(nil),                             // 124: financial_service.v1.DeleteBudgetResponse
-	(*GetBudgetResponse)(nil),                                // 125: financial_service.v1.GetBudgetResponse
-	(*GetAllBudgetsResponse)(nil),                            // 126: financial_service.v1.GetAllBudgetsResponse
-	(*HealthCheckResponse)(nil),                              // 127: financial_service.v1.HealthCheckResponse
-	(*ReadynessCheckResponse)(nil),                           // 128: financial_service.v1.ReadynessCheckResponse
-	(*GetInvestmentAcccountResponse)(nil),                    // 129: financial_service.v1.GetInvestmentAcccountResponse
-	(*GetMortgageAccountResponse)(nil),                       // 130: financial_service.v1.GetMortgageAccountResponse
-	(*GetLiabilityAccountResponse)(nil),                      // 131: financial_service.v1.GetLiabilityAccountResponse
-	(*GetStudentLoanAccountResponse)(nil),                    // 132: financial_service.v1.GetStudentLoanAccountResponse
-	(*CreateManualLinkResponse)(nil),                         // 133: financial_service.v1.CreateManualLinkResponse
-	(*GetLinkResponse)(nil),                                  // 134: financial_service.v1.GetLinkResponse
-	(*GetLinksResponse)(nil),                                 // 135: financial_service.v1.GetLinksResponse
-	(*DeleteLinkResponse)(nil),                               // 136: financial_service.v1.DeleteLinkResponse
-	(*GetReCurringTransactionsResponse)(nil),                 // 137: financial_service.v1.GetReCurringTransactionsResponse
-	(*GetTransactionsResponse)(nil),                          // 138: financial_service.v1.GetTransactionsResponse
-	(*CreateSubscriptionResponse)(nil),                       // 139: financial_service.v1.CreateSubscriptionResponse
-	(*GetTransactionAggregatesResponse)(nil),                 // 140: financial_service.v1.GetTransactionAggregatesResponse
-	(*GetUserAccountBalanceHistoryResponse)(nil),             // 141: financial_service.v1.GetUserAccountBalanceHistoryResponse
-	(*GetAccountBalanceHistoryResponse)(nil),                 // 142: financial_service.v1.GetAccountBalanceHistoryResponse
-	(*GetUserCategoryMonthlyExpenditureResponse)(nil),        // 143: financial_service.v1.GetUserCategoryMonthlyExpenditureResponse
-	(*GetUserCategoryMonthlyIncomeResponse)(nil),             // 144: financial_service.v1.GetUserCategoryMonthlyIncomeResponse
-	(*GetCategoryMonthlyTransactionCountResponse)(nil),       // 145: financial_service.v1.GetCategoryMonthlyTransactionCountResponse
-	(*GetDebtToIncomeRatioResponse)(nil),                     // 146: financial_service.v1.GetDebtToIncomeRatioResponse
-	(*GetExpenseMetricsResponse)(nil),                        // 147: financial_service.v1.GetExpenseMetricsResponse
-	(*GetFinancialProfileResponse)(nil),                      // 148: financial_service.v1.GetFinancialProfileResponse
-	(*GetIncomeExpenseRatioResponse)(nil),                    // 149: financial_service.v1.GetIncomeExpenseRatioResponse
-	(*GetIncomeMetricsResponse)(nil),                         // 150: financial_service.v1.GetIncomeMetricsResponse
-	(*GetMerchantMonthlyExpenditureResponse)(nil),            // 151: financial_service.v1.GetMerchantMonthlyExpenditureResponse
-	(*GetMonthlyBalanceResponse)(nil),                        // 152: financial_service.v1.GetMonthlyBalanceResponse
-	(*GetMonthlyExpenditureResponse)(nil),                    // 153: financial_service.v1.GetMonthlyExpenditureResponse
-	(*GetMonthlyIncomeResponse)(nil),                         // 154: financial_service.v1.GetMonthlyIncomeResponse
-	(*GetMonthlySavingsResponse)(nil),                        // 155: financial_service.v1.GetMonthlySavingsResponse
-	(*GetMonthlyTotalQuantityBySecurityAndUserResponse)(nil), // 156: financial_service.v1.GetMonthlyTotalQuantityBySecurityAndUserResponse
-	(*GetMonthlyTransactionCountResponse)(nil),               // 157: financial_service.v1.GetMonthlyTransactionCountResponse
-	(*GetPaymentChannelMonthlyExpenditureResponse)(nil),      // 158: financial_service.v1.GetPaymentChannelMonthlyExpenditureResponse
-	(*GetTotalInvestmentBySecurityResponse)(nil),             // 159: financial_service.v1.GetTotalInvestmentBySecurityResponse
-	(*GetMelodyFinancialContextResponse)(nil),                // 160: financial_service.v1.GetMelodyFinancialContextResponse
-	(*GetTransactionsForBankAccountResponse)(nil),            // 161: financial_service.v1.GetTransactionsForBankAccountResponse
-	(*GetHistoricalAccountBalanceResponse)(nil),              // 162: financial_service.v1.GetHistoricalAccountBalanceResponse
-	(*AddDefaultPocketsToBankAccountResponse)(nil),           // 163: financial_service.v1.AddDefaultPocketsToBankAccountResponse
-	(*UpdatePocketResponse)(nil),                             // 164: financial_service.v1.UpdatePocketResponse
-	(*DeletePocketResponse)(nil),                             // 165: financial_service.v1.DeletePocketResponse
-	(*GetTransactionsBetweenTimeRangesResponse)(nil),         // 166: financial_service.v1.GetTransactionsBetweenTimeRangesResponse
-	(*GetTransactionsForPastWeekResponse)(nil),               // 167: financial_service.v1.GetTransactionsForPastWeekResponse
-	(*GetTransactionsForPastMonthResponse)(nil),              // 168: financial_service.v1.GetTransactionsForPastMonthResponse
-	(*AddNoteToSmartGoalResponse)(nil),                       // 169: financial_service.v1.AddNoteToSmartGoalResponse
-	(*UpdateNoteToSmartGoalResponse)(nil),                    // 170: financial_service.v1.UpdateNoteToSmartGoalResponse
-	(*DeleteNoteFromSmartGoalResponse)(nil),                  // 171: financial_service.v1.DeleteNoteFromSmartGoalResponse
-	(*GetNotesFromSmartGoalResponse)(nil),                    // 172: financial_service.v1.GetNotesFromSmartGoalResponse
-	(*GetNoteFromSmartGoalResponse)(nil),                     // 173: financial_service.v1.GetNoteFromSmartGoalResponse
-	(*ListTransactionsResponse)(nil),                         // 174: financial_service.v1.ListTransactionsResponse
-	(*ListTransactionsAcrossAllAccountsResponse)(nil),        // 175: financial_service.v1.ListTransactionsAcrossAllAccountsResponse
-	(*GetTransactionResponse)(nil),                           // 176: financial_service.v1.GetTransactionResponse
-	(*UpdateTransactionResponse)(nil),                        // 177: financial_service.v1.UpdateTransactionResponse
-	(*BulkUpdateTransactionResponse)(nil),                    // 178: financial_service.v1.BulkUpdateTransactionResponse
-	(*DeleteTransactionResponse)(nil),                        // 179: financial_service.v1.DeleteTransactionResponse
-	(*AddNoteToTransactionResponse)(nil),                     // 180: financial_service.v1.AddNoteToTransactionResponse
-	(*UpdateNoteToTransactionResponse)(nil),                  // 181: financial_service.v1.UpdateNoteToTransactionResponse
-	(*DeleteNoteFromTransactionResponse)(nil),                // 182: financial_service.v1.DeleteNoteFromTransactionResponse
-	(*ListTransactionNotesResponse)(nil),                     // 183: financial_service.v1.ListTransactionNotesResponse
-	(*GetNoteFromTransactionResponse)(nil),                   // 184: financial_service.v1.GetNoteFromTransactionResponse
-	(*SplitTransactionResponse)(nil),                         // 185: financial_service.v1.SplitTransactionResponse
-	(*UnSplitTransactionsResponse)(nil),                      // 186: financial_service.v1.UnSplitTransactionsResponse
-	(*GetSplitTransactionResponse)(nil),                      // 187: financial_service.v1.GetSplitTransactionResponse
-	(*SearchTransactionsResponse)(nil),                       // 188: financial_service.v1.SearchTransactionsResponse
-	(*ListRecurringTransactionsResponse)(nil),                // 189: financial_service.v1.ListRecurringTransactionsResponse
-	(*GetRecurringTransactionResponse)(nil),                  // 190: financial_service.v1.GetRecurringTransactionResponse
-	(*UpdateRecurringTransactionResponse)(nil),               // 191: financial_service.v1.UpdateRecurringTransactionResponse
-	(*BulkUpdateRecurringTransactionResponse)(nil),           // 192: financial_service.v1.BulkUpdateRecurringTransactionResponse
-	(*DeleteRecurringTransactionResponse)(nil),               // 193: financial_service.v1.DeleteRecurringTransactionResponse
-	(*AddNoteToRecurringTransactionResponse)(nil),            // 194: financial_service.v1.AddNoteToRecurringTransactionResponse
-	(*UpdateNoteToRecurringTransactionResponse)(nil),         // 195: financial_service.v1.UpdateNoteToRecurringTransactionResponse
-	(*DeleteNoteFromRecurringTransactionResponse)(nil),       // 196: financial_service.v1.DeleteNoteFromRecurringTransactionResponse
-	(*ListRecurringTransactionNotesResponse)(nil),            // 197: financial_service.v1.ListRecurringTransactionNotesResponse
-	(*PollAsyncTaskExecutionStatusResponse)(nil),             // 198: financial_service.v1.PollAsyncTaskExecutionStatusResponse
-	(*RecordAskCopilotQuestionResponse)(nil),                 // 199: financial_service.v1.RecordAskCopilotQuestionResponse
+	(*CheckIfQuotaExceededRequest)(nil),                      // 100: financial_service.v1.CheckIfQuotaExceededRequest
+	(*PlaidInitiateTokenExchangeResponse)(nil),               // 101: financial_service.v1.PlaidInitiateTokenExchangeResponse
+	(*PlaidInitiateTokenUpdateResponse)(nil),                 // 102: financial_service.v1.PlaidInitiateTokenUpdateResponse
+	(*PlaidExchangeTokenResponse)(nil),                       // 103: financial_service.v1.PlaidExchangeTokenResponse
+	(*CreateUserProfileResponse)(nil),                        // 104: financial_service.v1.CreateUserProfileResponse
+	(*GetUserProfileResponse)(nil),                           // 105: financial_service.v1.GetUserProfileResponse
+	(*DeleteUserProfileResponse)(nil),                        // 106: financial_service.v1.DeleteUserProfileResponse
+	(*UpdateUserProfileResponse)(nil),                        // 107: financial_service.v1.UpdateUserProfileResponse
+	(*CreateBankAccountResponse)(nil),                        // 108: financial_service.v1.CreateBankAccountResponse
+	(*GetBankAccountResponse)(nil),                           // 109: financial_service.v1.GetBankAccountResponse
+	(*UpdateBankAccountResponse)(nil),                        // 110: financial_service.v1.UpdateBankAccountResponse
+	(*DeleteBankAccountResponse)(nil),                        // 111: financial_service.v1.DeleteBankAccountResponse
+	(*GetPocketResponse)(nil),                                // 112: financial_service.v1.GetPocketResponse
+	(*GetSmartGoalsByPocketIdResponse)(nil),                  // 113: financial_service.v1.GetSmartGoalsByPocketIdResponse
+	(*CreateSmartGoalResponse)(nil),                          // 114: financial_service.v1.CreateSmartGoalResponse
+	(*UpdateSmartGoalResponse)(nil),                          // 115: financial_service.v1.UpdateSmartGoalResponse
+	(*DeleteSmartGoalResponse)(nil),                          // 116: financial_service.v1.DeleteSmartGoalResponse
+	(*CreateMilestoneResponse)(nil),                          // 117: financial_service.v1.CreateMilestoneResponse
+	(*DeleteMilestoneResponse)(nil),                          // 118: financial_service.v1.DeleteMilestoneResponse
+	(*UpdateMilestoneResponse)(nil),                          // 119: financial_service.v1.UpdateMilestoneResponse
+	(*GetMilestoneResponse)(nil),                             // 120: financial_service.v1.GetMilestoneResponse
+	(*GetMilestonesBySmartGoalIdResponse)(nil),               // 121: financial_service.v1.GetMilestonesBySmartGoalIdResponse
+	(*GetForecastResponse)(nil),                              // 122: financial_service.v1.GetForecastResponse
+	(*CreateBudgetResponse)(nil),                             // 123: financial_service.v1.CreateBudgetResponse
+	(*UpdateBudgetResponse)(nil),                             // 124: financial_service.v1.UpdateBudgetResponse
+	(*DeleteBudgetResponse)(nil),                             // 125: financial_service.v1.DeleteBudgetResponse
+	(*GetBudgetResponse)(nil),                                // 126: financial_service.v1.GetBudgetResponse
+	(*GetAllBudgetsResponse)(nil),                            // 127: financial_service.v1.GetAllBudgetsResponse
+	(*HealthCheckResponse)(nil),                              // 128: financial_service.v1.HealthCheckResponse
+	(*ReadynessCheckResponse)(nil),                           // 129: financial_service.v1.ReadynessCheckResponse
+	(*GetInvestmentAcccountResponse)(nil),                    // 130: financial_service.v1.GetInvestmentAcccountResponse
+	(*GetMortgageAccountResponse)(nil),                       // 131: financial_service.v1.GetMortgageAccountResponse
+	(*GetLiabilityAccountResponse)(nil),                      // 132: financial_service.v1.GetLiabilityAccountResponse
+	(*GetStudentLoanAccountResponse)(nil),                    // 133: financial_service.v1.GetStudentLoanAccountResponse
+	(*CreateManualLinkResponse)(nil),                         // 134: financial_service.v1.CreateManualLinkResponse
+	(*GetLinkResponse)(nil),                                  // 135: financial_service.v1.GetLinkResponse
+	(*GetLinksResponse)(nil),                                 // 136: financial_service.v1.GetLinksResponse
+	(*DeleteLinkResponse)(nil),                               // 137: financial_service.v1.DeleteLinkResponse
+	(*GetReCurringTransactionsResponse)(nil),                 // 138: financial_service.v1.GetReCurringTransactionsResponse
+	(*GetTransactionsResponse)(nil),                          // 139: financial_service.v1.GetTransactionsResponse
+	(*CreateSubscriptionResponse)(nil),                       // 140: financial_service.v1.CreateSubscriptionResponse
+	(*GetTransactionAggregatesResponse)(nil),                 // 141: financial_service.v1.GetTransactionAggregatesResponse
+	(*GetUserAccountBalanceHistoryResponse)(nil),             // 142: financial_service.v1.GetUserAccountBalanceHistoryResponse
+	(*GetAccountBalanceHistoryResponse)(nil),                 // 143: financial_service.v1.GetAccountBalanceHistoryResponse
+	(*GetUserCategoryMonthlyExpenditureResponse)(nil),        // 144: financial_service.v1.GetUserCategoryMonthlyExpenditureResponse
+	(*GetUserCategoryMonthlyIncomeResponse)(nil),             // 145: financial_service.v1.GetUserCategoryMonthlyIncomeResponse
+	(*GetCategoryMonthlyTransactionCountResponse)(nil),       // 146: financial_service.v1.GetCategoryMonthlyTransactionCountResponse
+	(*GetDebtToIncomeRatioResponse)(nil),                     // 147: financial_service.v1.GetDebtToIncomeRatioResponse
+	(*GetExpenseMetricsResponse)(nil),                        // 148: financial_service.v1.GetExpenseMetricsResponse
+	(*GetFinancialProfileResponse)(nil),                      // 149: financial_service.v1.GetFinancialProfileResponse
+	(*GetIncomeExpenseRatioResponse)(nil),                    // 150: financial_service.v1.GetIncomeExpenseRatioResponse
+	(*GetIncomeMetricsResponse)(nil),                         // 151: financial_service.v1.GetIncomeMetricsResponse
+	(*GetMerchantMonthlyExpenditureResponse)(nil),            // 152: financial_service.v1.GetMerchantMonthlyExpenditureResponse
+	(*GetMonthlyBalanceResponse)(nil),                        // 153: financial_service.v1.GetMonthlyBalanceResponse
+	(*GetMonthlyExpenditureResponse)(nil),                    // 154: financial_service.v1.GetMonthlyExpenditureResponse
+	(*GetMonthlyIncomeResponse)(nil),                         // 155: financial_service.v1.GetMonthlyIncomeResponse
+	(*GetMonthlySavingsResponse)(nil),                        // 156: financial_service.v1.GetMonthlySavingsResponse
+	(*GetMonthlyTotalQuantityBySecurityAndUserResponse)(nil), // 157: financial_service.v1.GetMonthlyTotalQuantityBySecurityAndUserResponse
+	(*GetMonthlyTransactionCountResponse)(nil),               // 158: financial_service.v1.GetMonthlyTransactionCountResponse
+	(*GetPaymentChannelMonthlyExpenditureResponse)(nil),      // 159: financial_service.v1.GetPaymentChannelMonthlyExpenditureResponse
+	(*GetTotalInvestmentBySecurityResponse)(nil),             // 160: financial_service.v1.GetTotalInvestmentBySecurityResponse
+	(*GetMelodyFinancialContextResponse)(nil),                // 161: financial_service.v1.GetMelodyFinancialContextResponse
+	(*GetTransactionsForBankAccountResponse)(nil),            // 162: financial_service.v1.GetTransactionsForBankAccountResponse
+	(*GetHistoricalAccountBalanceResponse)(nil),              // 163: financial_service.v1.GetHistoricalAccountBalanceResponse
+	(*AddDefaultPocketsToBankAccountResponse)(nil),           // 164: financial_service.v1.AddDefaultPocketsToBankAccountResponse
+	(*UpdatePocketResponse)(nil),                             // 165: financial_service.v1.UpdatePocketResponse
+	(*DeletePocketResponse)(nil),                             // 166: financial_service.v1.DeletePocketResponse
+	(*GetTransactionsBetweenTimeRangesResponse)(nil),         // 167: financial_service.v1.GetTransactionsBetweenTimeRangesResponse
+	(*GetTransactionsForPastWeekResponse)(nil),               // 168: financial_service.v1.GetTransactionsForPastWeekResponse
+	(*GetTransactionsForPastMonthResponse)(nil),              // 169: financial_service.v1.GetTransactionsForPastMonthResponse
+	(*AddNoteToSmartGoalResponse)(nil),                       // 170: financial_service.v1.AddNoteToSmartGoalResponse
+	(*UpdateNoteToSmartGoalResponse)(nil),                    // 171: financial_service.v1.UpdateNoteToSmartGoalResponse
+	(*DeleteNoteFromSmartGoalResponse)(nil),                  // 172: financial_service.v1.DeleteNoteFromSmartGoalResponse
+	(*GetNotesFromSmartGoalResponse)(nil),                    // 173: financial_service.v1.GetNotesFromSmartGoalResponse
+	(*GetNoteFromSmartGoalResponse)(nil),                     // 174: financial_service.v1.GetNoteFromSmartGoalResponse
+	(*ListTransactionsResponse)(nil),                         // 175: financial_service.v1.ListTransactionsResponse
+	(*ListTransactionsAcrossAllAccountsResponse)(nil),        // 176: financial_service.v1.ListTransactionsAcrossAllAccountsResponse
+	(*GetTransactionResponse)(nil),                           // 177: financial_service.v1.GetTransactionResponse
+	(*UpdateTransactionResponse)(nil),                        // 178: financial_service.v1.UpdateTransactionResponse
+	(*BulkUpdateTransactionResponse)(nil),                    // 179: financial_service.v1.BulkUpdateTransactionResponse
+	(*DeleteTransactionResponse)(nil),                        // 180: financial_service.v1.DeleteTransactionResponse
+	(*AddNoteToTransactionResponse)(nil),                     // 181: financial_service.v1.AddNoteToTransactionResponse
+	(*UpdateNoteToTransactionResponse)(nil),                  // 182: financial_service.v1.UpdateNoteToTransactionResponse
+	(*DeleteNoteFromTransactionResponse)(nil),                // 183: financial_service.v1.DeleteNoteFromTransactionResponse
+	(*ListTransactionNotesResponse)(nil),                     // 184: financial_service.v1.ListTransactionNotesResponse
+	(*GetNoteFromTransactionResponse)(nil),                   // 185: financial_service.v1.GetNoteFromTransactionResponse
+	(*SplitTransactionResponse)(nil),                         // 186: financial_service.v1.SplitTransactionResponse
+	(*UnSplitTransactionsResponse)(nil),                      // 187: financial_service.v1.UnSplitTransactionsResponse
+	(*GetSplitTransactionResponse)(nil),                      // 188: financial_service.v1.GetSplitTransactionResponse
+	(*SearchTransactionsResponse)(nil),                       // 189: financial_service.v1.SearchTransactionsResponse
+	(*ListRecurringTransactionsResponse)(nil),                // 190: financial_service.v1.ListRecurringTransactionsResponse
+	(*GetRecurringTransactionResponse)(nil),                  // 191: financial_service.v1.GetRecurringTransactionResponse
+	(*UpdateRecurringTransactionResponse)(nil),               // 192: financial_service.v1.UpdateRecurringTransactionResponse
+	(*BulkUpdateRecurringTransactionResponse)(nil),           // 193: financial_service.v1.BulkUpdateRecurringTransactionResponse
+	(*DeleteRecurringTransactionResponse)(nil),               // 194: financial_service.v1.DeleteRecurringTransactionResponse
+	(*AddNoteToRecurringTransactionResponse)(nil),            // 195: financial_service.v1.AddNoteToRecurringTransactionResponse
+	(*UpdateNoteToRecurringTransactionResponse)(nil),         // 196: financial_service.v1.UpdateNoteToRecurringTransactionResponse
+	(*DeleteNoteFromRecurringTransactionResponse)(nil),       // 197: financial_service.v1.DeleteNoteFromRecurringTransactionResponse
+	(*ListRecurringTransactionNotesResponse)(nil),            // 198: financial_service.v1.ListRecurringTransactionNotesResponse
+	(*PollAsyncTaskExecutionStatusResponse)(nil),             // 199: financial_service.v1.PollAsyncTaskExecutionStatusResponse
+	(*RecordAskCopilotQuestionResponse)(nil),                 // 200: financial_service.v1.RecordAskCopilotQuestionResponse
+	(*CheckIfQuotaExceededResponse)(nil),                     // 201: financial_service.v1.CheckIfQuotaExceededResponse
 }
 var file_financial_service_v1_service_financial_service_proto_depIdxs = []int32{
 	0,   // 0: financial_service.v1.FinancialService.PlaidInitiateTokenExchange:input_type -> financial_service.v1.PlaidInitiateTokenExchangeRequest
@@ -2823,108 +2851,110 @@ var file_financial_service_v1_service_financial_service_proto_depIdxs = []int32{
 	97,  // 97: financial_service.v1.FinancialService.ListRecurringTransactionNotes:input_type -> financial_service.v1.ListRecurringTransactionNotesRequest
 	98,  // 98: financial_service.v1.FinancialService.PollAsyncTaskExecutionStatus:input_type -> financial_service.v1.PollAsyncTaskExecutionStatusRequest
 	99,  // 99: financial_service.v1.FinancialService.RecordAskCopilotQuestion:input_type -> financial_service.v1.RecordAskCopilotQuestionRequest
-	100, // 100: financial_service.v1.FinancialService.PlaidInitiateTokenExchange:output_type -> financial_service.v1.PlaidInitiateTokenExchangeResponse
-	101, // 101: financial_service.v1.FinancialService.PlaidInitiateTokenUpdate:output_type -> financial_service.v1.PlaidInitiateTokenUpdateResponse
-	102, // 102: financial_service.v1.FinancialService.PlaidExchangeToken:output_type -> financial_service.v1.PlaidExchangeTokenResponse
-	103, // 103: financial_service.v1.FinancialService.CreateUserProfile:output_type -> financial_service.v1.CreateUserProfileResponse
-	104, // 104: financial_service.v1.FinancialService.GetUserProfile:output_type -> financial_service.v1.GetUserProfileResponse
-	105, // 105: financial_service.v1.FinancialService.DeleteUserProfile:output_type -> financial_service.v1.DeleteUserProfileResponse
-	106, // 106: financial_service.v1.FinancialService.UpdateUserProfile:output_type -> financial_service.v1.UpdateUserProfileResponse
-	107, // 107: financial_service.v1.FinancialService.CreateBankAccount:output_type -> financial_service.v1.CreateBankAccountResponse
-	108, // 108: financial_service.v1.FinancialService.GetBankAccount:output_type -> financial_service.v1.GetBankAccountResponse
-	109, // 109: financial_service.v1.FinancialService.UpdateBankAccount:output_type -> financial_service.v1.UpdateBankAccountResponse
-	110, // 110: financial_service.v1.FinancialService.DeleteBankAccount:output_type -> financial_service.v1.DeleteBankAccountResponse
-	111, // 111: financial_service.v1.FinancialService.GetPocket:output_type -> financial_service.v1.GetPocketResponse
-	112, // 112: financial_service.v1.FinancialService.GetSmartGoalsByPocketId:output_type -> financial_service.v1.GetSmartGoalsByPocketIdResponse
-	113, // 113: financial_service.v1.FinancialService.CreateSmartGoal:output_type -> financial_service.v1.CreateSmartGoalResponse
-	114, // 114: financial_service.v1.FinancialService.UpdateSmartGoal:output_type -> financial_service.v1.UpdateSmartGoalResponse
-	115, // 115: financial_service.v1.FinancialService.DeleteSmartGoal:output_type -> financial_service.v1.DeleteSmartGoalResponse
-	116, // 116: financial_service.v1.FinancialService.CreateMilestone:output_type -> financial_service.v1.CreateMilestoneResponse
-	117, // 117: financial_service.v1.FinancialService.DeleteMilestone:output_type -> financial_service.v1.DeleteMilestoneResponse
-	118, // 118: financial_service.v1.FinancialService.UpdateMilestone:output_type -> financial_service.v1.UpdateMilestoneResponse
-	119, // 119: financial_service.v1.FinancialService.GetMilestone:output_type -> financial_service.v1.GetMilestoneResponse
-	120, // 120: financial_service.v1.FinancialService.GetMilestonesBySmartGoalId:output_type -> financial_service.v1.GetMilestonesBySmartGoalIdResponse
-	121, // 121: financial_service.v1.FinancialService.GetForecast:output_type -> financial_service.v1.GetForecastResponse
-	122, // 122: financial_service.v1.FinancialService.CreateBudget:output_type -> financial_service.v1.CreateBudgetResponse
-	123, // 123: financial_service.v1.FinancialService.UpdateBudget:output_type -> financial_service.v1.UpdateBudgetResponse
-	124, // 124: financial_service.v1.FinancialService.DeleteBudget:output_type -> financial_service.v1.DeleteBudgetResponse
-	125, // 125: financial_service.v1.FinancialService.GetBudget:output_type -> financial_service.v1.GetBudgetResponse
-	126, // 126: financial_service.v1.FinancialService.GetAllBudgets:output_type -> financial_service.v1.GetAllBudgetsResponse
-	127, // 127: financial_service.v1.FinancialService.HealthCheck:output_type -> financial_service.v1.HealthCheckResponse
-	128, // 128: financial_service.v1.FinancialService.ReadynessCheck:output_type -> financial_service.v1.ReadynessCheckResponse
-	129, // 129: financial_service.v1.FinancialService.GetInvestmentAcccount:output_type -> financial_service.v1.GetInvestmentAcccountResponse
-	130, // 130: financial_service.v1.FinancialService.GetMortgageAccount:output_type -> financial_service.v1.GetMortgageAccountResponse
-	131, // 131: financial_service.v1.FinancialService.GetLiabilityAccount:output_type -> financial_service.v1.GetLiabilityAccountResponse
-	132, // 132: financial_service.v1.FinancialService.GetStudentLoanAccount:output_type -> financial_service.v1.GetStudentLoanAccountResponse
-	133, // 133: financial_service.v1.FinancialService.CreateManualLink:output_type -> financial_service.v1.CreateManualLinkResponse
-	134, // 134: financial_service.v1.FinancialService.GetLink:output_type -> financial_service.v1.GetLinkResponse
-	135, // 135: financial_service.v1.FinancialService.GetLinks:output_type -> financial_service.v1.GetLinksResponse
-	136, // 136: financial_service.v1.FinancialService.DeleteLink:output_type -> financial_service.v1.DeleteLinkResponse
-	137, // 137: financial_service.v1.FinancialService.GetReCurringTransactions:output_type -> financial_service.v1.GetReCurringTransactionsResponse
-	138, // 138: financial_service.v1.FinancialService.GetTransactions:output_type -> financial_service.v1.GetTransactionsResponse
-	139, // 139: financial_service.v1.FinancialService.CreateSubscription:output_type -> financial_service.v1.CreateSubscriptionResponse
-	140, // 140: financial_service.v1.FinancialService.GetTransactionAggregates:output_type -> financial_service.v1.GetTransactionAggregatesResponse
-	141, // 141: financial_service.v1.FinancialService.GetUserAccountBalanceHistory:output_type -> financial_service.v1.GetUserAccountBalanceHistoryResponse
-	142, // 142: financial_service.v1.FinancialService.GetAccountBalanceHistory:output_type -> financial_service.v1.GetAccountBalanceHistoryResponse
-	143, // 143: financial_service.v1.FinancialService.GetUserCategoryMonthlyExpenditure:output_type -> financial_service.v1.GetUserCategoryMonthlyExpenditureResponse
-	144, // 144: financial_service.v1.FinancialService.GetUserCategoryMonthlyIncome:output_type -> financial_service.v1.GetUserCategoryMonthlyIncomeResponse
-	145, // 145: financial_service.v1.FinancialService.GetCategoryMonthlyTransactionCount:output_type -> financial_service.v1.GetCategoryMonthlyTransactionCountResponse
-	146, // 146: financial_service.v1.FinancialService.GetDebtToIncomeRatio:output_type -> financial_service.v1.GetDebtToIncomeRatioResponse
-	147, // 147: financial_service.v1.FinancialService.GetExpenseMetrics:output_type -> financial_service.v1.GetExpenseMetricsResponse
-	148, // 148: financial_service.v1.FinancialService.GetFinancialProfile:output_type -> financial_service.v1.GetFinancialProfileResponse
-	149, // 149: financial_service.v1.FinancialService.GetIncomeExpenseRatio:output_type -> financial_service.v1.GetIncomeExpenseRatioResponse
-	150, // 150: financial_service.v1.FinancialService.GetIncomeMetrics:output_type -> financial_service.v1.GetIncomeMetricsResponse
-	151, // 151: financial_service.v1.FinancialService.GetMerchantMonthlyExpenditure:output_type -> financial_service.v1.GetMerchantMonthlyExpenditureResponse
-	152, // 152: financial_service.v1.FinancialService.GetMonthlyBalance:output_type -> financial_service.v1.GetMonthlyBalanceResponse
-	153, // 153: financial_service.v1.FinancialService.GetMonthlyExpenditure:output_type -> financial_service.v1.GetMonthlyExpenditureResponse
-	154, // 154: financial_service.v1.FinancialService.GetMonthlyIncome:output_type -> financial_service.v1.GetMonthlyIncomeResponse
-	155, // 155: financial_service.v1.FinancialService.GetMonthlySavings:output_type -> financial_service.v1.GetMonthlySavingsResponse
-	156, // 156: financial_service.v1.FinancialService.GetMonthlyTotalQuantityBySecurityAndUser:output_type -> financial_service.v1.GetMonthlyTotalQuantityBySecurityAndUserResponse
-	157, // 157: financial_service.v1.FinancialService.GetMonthlyTransactionCount:output_type -> financial_service.v1.GetMonthlyTransactionCountResponse
-	158, // 158: financial_service.v1.FinancialService.GetPaymentChannelMonthlyExpenditure:output_type -> financial_service.v1.GetPaymentChannelMonthlyExpenditureResponse
-	159, // 159: financial_service.v1.FinancialService.GetTotalInvestmentBySecurity:output_type -> financial_service.v1.GetTotalInvestmentBySecurityResponse
-	160, // 160: financial_service.v1.FinancialService.GetMelodyFinancialContext:output_type -> financial_service.v1.GetMelodyFinancialContextResponse
-	161, // 161: financial_service.v1.FinancialService.GetTransactionsForBankAccount:output_type -> financial_service.v1.GetTransactionsForBankAccountResponse
-	162, // 162: financial_service.v1.FinancialService.GetHistoricalAccountBalance:output_type -> financial_service.v1.GetHistoricalAccountBalanceResponse
-	163, // 163: financial_service.v1.FinancialService.AddDefaultPocketsToBankAccount:output_type -> financial_service.v1.AddDefaultPocketsToBankAccountResponse
-	164, // 164: financial_service.v1.FinancialService.UpdatePocket:output_type -> financial_service.v1.UpdatePocketResponse
-	165, // 165: financial_service.v1.FinancialService.DeletePocket:output_type -> financial_service.v1.DeletePocketResponse
-	166, // 166: financial_service.v1.FinancialService.GetTransactionsBetweenTimeRanges:output_type -> financial_service.v1.GetTransactionsBetweenTimeRangesResponse
-	167, // 167: financial_service.v1.FinancialService.GetTransactionsForPastWeek:output_type -> financial_service.v1.GetTransactionsForPastWeekResponse
-	168, // 168: financial_service.v1.FinancialService.GetTransactionsForPastMonth:output_type -> financial_service.v1.GetTransactionsForPastMonthResponse
-	169, // 169: financial_service.v1.FinancialService.AddNoteToSmartGoal:output_type -> financial_service.v1.AddNoteToSmartGoalResponse
-	170, // 170: financial_service.v1.FinancialService.UpdateNoteToSmartGoal:output_type -> financial_service.v1.UpdateNoteToSmartGoalResponse
-	171, // 171: financial_service.v1.FinancialService.DeleteNoteFromSmartGoal:output_type -> financial_service.v1.DeleteNoteFromSmartGoalResponse
-	172, // 172: financial_service.v1.FinancialService.GetNotesFromSmartGoal:output_type -> financial_service.v1.GetNotesFromSmartGoalResponse
-	173, // 173: financial_service.v1.FinancialService.GetNoteFromSmartGoal:output_type -> financial_service.v1.GetNoteFromSmartGoalResponse
-	174, // 174: financial_service.v1.FinancialService.ListTransactions:output_type -> financial_service.v1.ListTransactionsResponse
-	175, // 175: financial_service.v1.FinancialService.ListTransactionsAcrossAllAccounts:output_type -> financial_service.v1.ListTransactionsAcrossAllAccountsResponse
-	176, // 176: financial_service.v1.FinancialService.GetTransaction:output_type -> financial_service.v1.GetTransactionResponse
-	177, // 177: financial_service.v1.FinancialService.UpdateTransaction:output_type -> financial_service.v1.UpdateTransactionResponse
-	178, // 178: financial_service.v1.FinancialService.BulkUpdateTransaction:output_type -> financial_service.v1.BulkUpdateTransactionResponse
-	179, // 179: financial_service.v1.FinancialService.DeleteTransaction:output_type -> financial_service.v1.DeleteTransactionResponse
-	180, // 180: financial_service.v1.FinancialService.AddNoteToTransaction:output_type -> financial_service.v1.AddNoteToTransactionResponse
-	181, // 181: financial_service.v1.FinancialService.UpdateNoteToTransaction:output_type -> financial_service.v1.UpdateNoteToTransactionResponse
-	182, // 182: financial_service.v1.FinancialService.DeleteNoteFromTransaction:output_type -> financial_service.v1.DeleteNoteFromTransactionResponse
-	183, // 183: financial_service.v1.FinancialService.ListTransactionNotes:output_type -> financial_service.v1.ListTransactionNotesResponse
-	184, // 184: financial_service.v1.FinancialService.GetNoteFromTransaction:output_type -> financial_service.v1.GetNoteFromTransactionResponse
-	185, // 185: financial_service.v1.FinancialService.SplitTransaction:output_type -> financial_service.v1.SplitTransactionResponse
-	186, // 186: financial_service.v1.FinancialService.UnSplitTransactions:output_type -> financial_service.v1.UnSplitTransactionsResponse
-	187, // 187: financial_service.v1.FinancialService.GetSplitTransaction:output_type -> financial_service.v1.GetSplitTransactionResponse
-	188, // 188: financial_service.v1.FinancialService.SearchTransactions:output_type -> financial_service.v1.SearchTransactionsResponse
-	189, // 189: financial_service.v1.FinancialService.ListRecurringTransactions:output_type -> financial_service.v1.ListRecurringTransactionsResponse
-	190, // 190: financial_service.v1.FinancialService.GetRecurringTransaction:output_type -> financial_service.v1.GetRecurringTransactionResponse
-	191, // 191: financial_service.v1.FinancialService.UpdateRecurringTransaction:output_type -> financial_service.v1.UpdateRecurringTransactionResponse
-	192, // 192: financial_service.v1.FinancialService.BulkUpdateRecurringTransaction:output_type -> financial_service.v1.BulkUpdateRecurringTransactionResponse
-	193, // 193: financial_service.v1.FinancialService.DeleteRecurringTransaction:output_type -> financial_service.v1.DeleteRecurringTransactionResponse
-	194, // 194: financial_service.v1.FinancialService.AddNoteToRecurringTransaction:output_type -> financial_service.v1.AddNoteToRecurringTransactionResponse
-	195, // 195: financial_service.v1.FinancialService.UpdateNoteToRecurringTransaction:output_type -> financial_service.v1.UpdateNoteToRecurringTransactionResponse
-	196, // 196: financial_service.v1.FinancialService.DeleteNoteFromRecurringTransaction:output_type -> financial_service.v1.DeleteNoteFromRecurringTransactionResponse
-	197, // 197: financial_service.v1.FinancialService.ListRecurringTransactionNotes:output_type -> financial_service.v1.ListRecurringTransactionNotesResponse
-	198, // 198: financial_service.v1.FinancialService.PollAsyncTaskExecutionStatus:output_type -> financial_service.v1.PollAsyncTaskExecutionStatusResponse
-	199, // 199: financial_service.v1.FinancialService.RecordAskCopilotQuestion:output_type -> financial_service.v1.RecordAskCopilotQuestionResponse
-	100, // [100:200] is the sub-list for method output_type
-	0,   // [0:100] is the sub-list for method input_type
+	100, // 100: financial_service.v1.FinancialService.CheckIfQuotaExceeded:input_type -> financial_service.v1.CheckIfQuotaExceededRequest
+	101, // 101: financial_service.v1.FinancialService.PlaidInitiateTokenExchange:output_type -> financial_service.v1.PlaidInitiateTokenExchangeResponse
+	102, // 102: financial_service.v1.FinancialService.PlaidInitiateTokenUpdate:output_type -> financial_service.v1.PlaidInitiateTokenUpdateResponse
+	103, // 103: financial_service.v1.FinancialService.PlaidExchangeToken:output_type -> financial_service.v1.PlaidExchangeTokenResponse
+	104, // 104: financial_service.v1.FinancialService.CreateUserProfile:output_type -> financial_service.v1.CreateUserProfileResponse
+	105, // 105: financial_service.v1.FinancialService.GetUserProfile:output_type -> financial_service.v1.GetUserProfileResponse
+	106, // 106: financial_service.v1.FinancialService.DeleteUserProfile:output_type -> financial_service.v1.DeleteUserProfileResponse
+	107, // 107: financial_service.v1.FinancialService.UpdateUserProfile:output_type -> financial_service.v1.UpdateUserProfileResponse
+	108, // 108: financial_service.v1.FinancialService.CreateBankAccount:output_type -> financial_service.v1.CreateBankAccountResponse
+	109, // 109: financial_service.v1.FinancialService.GetBankAccount:output_type -> financial_service.v1.GetBankAccountResponse
+	110, // 110: financial_service.v1.FinancialService.UpdateBankAccount:output_type -> financial_service.v1.UpdateBankAccountResponse
+	111, // 111: financial_service.v1.FinancialService.DeleteBankAccount:output_type -> financial_service.v1.DeleteBankAccountResponse
+	112, // 112: financial_service.v1.FinancialService.GetPocket:output_type -> financial_service.v1.GetPocketResponse
+	113, // 113: financial_service.v1.FinancialService.GetSmartGoalsByPocketId:output_type -> financial_service.v1.GetSmartGoalsByPocketIdResponse
+	114, // 114: financial_service.v1.FinancialService.CreateSmartGoal:output_type -> financial_service.v1.CreateSmartGoalResponse
+	115, // 115: financial_service.v1.FinancialService.UpdateSmartGoal:output_type -> financial_service.v1.UpdateSmartGoalResponse
+	116, // 116: financial_service.v1.FinancialService.DeleteSmartGoal:output_type -> financial_service.v1.DeleteSmartGoalResponse
+	117, // 117: financial_service.v1.FinancialService.CreateMilestone:output_type -> financial_service.v1.CreateMilestoneResponse
+	118, // 118: financial_service.v1.FinancialService.DeleteMilestone:output_type -> financial_service.v1.DeleteMilestoneResponse
+	119, // 119: financial_service.v1.FinancialService.UpdateMilestone:output_type -> financial_service.v1.UpdateMilestoneResponse
+	120, // 120: financial_service.v1.FinancialService.GetMilestone:output_type -> financial_service.v1.GetMilestoneResponse
+	121, // 121: financial_service.v1.FinancialService.GetMilestonesBySmartGoalId:output_type -> financial_service.v1.GetMilestonesBySmartGoalIdResponse
+	122, // 122: financial_service.v1.FinancialService.GetForecast:output_type -> financial_service.v1.GetForecastResponse
+	123, // 123: financial_service.v1.FinancialService.CreateBudget:output_type -> financial_service.v1.CreateBudgetResponse
+	124, // 124: financial_service.v1.FinancialService.UpdateBudget:output_type -> financial_service.v1.UpdateBudgetResponse
+	125, // 125: financial_service.v1.FinancialService.DeleteBudget:output_type -> financial_service.v1.DeleteBudgetResponse
+	126, // 126: financial_service.v1.FinancialService.GetBudget:output_type -> financial_service.v1.GetBudgetResponse
+	127, // 127: financial_service.v1.FinancialService.GetAllBudgets:output_type -> financial_service.v1.GetAllBudgetsResponse
+	128, // 128: financial_service.v1.FinancialService.HealthCheck:output_type -> financial_service.v1.HealthCheckResponse
+	129, // 129: financial_service.v1.FinancialService.ReadynessCheck:output_type -> financial_service.v1.ReadynessCheckResponse
+	130, // 130: financial_service.v1.FinancialService.GetInvestmentAcccount:output_type -> financial_service.v1.GetInvestmentAcccountResponse
+	131, // 131: financial_service.v1.FinancialService.GetMortgageAccount:output_type -> financial_service.v1.GetMortgageAccountResponse
+	132, // 132: financial_service.v1.FinancialService.GetLiabilityAccount:output_type -> financial_service.v1.GetLiabilityAccountResponse
+	133, // 133: financial_service.v1.FinancialService.GetStudentLoanAccount:output_type -> financial_service.v1.GetStudentLoanAccountResponse
+	134, // 134: financial_service.v1.FinancialService.CreateManualLink:output_type -> financial_service.v1.CreateManualLinkResponse
+	135, // 135: financial_service.v1.FinancialService.GetLink:output_type -> financial_service.v1.GetLinkResponse
+	136, // 136: financial_service.v1.FinancialService.GetLinks:output_type -> financial_service.v1.GetLinksResponse
+	137, // 137: financial_service.v1.FinancialService.DeleteLink:output_type -> financial_service.v1.DeleteLinkResponse
+	138, // 138: financial_service.v1.FinancialService.GetReCurringTransactions:output_type -> financial_service.v1.GetReCurringTransactionsResponse
+	139, // 139: financial_service.v1.FinancialService.GetTransactions:output_type -> financial_service.v1.GetTransactionsResponse
+	140, // 140: financial_service.v1.FinancialService.CreateSubscription:output_type -> financial_service.v1.CreateSubscriptionResponse
+	141, // 141: financial_service.v1.FinancialService.GetTransactionAggregates:output_type -> financial_service.v1.GetTransactionAggregatesResponse
+	142, // 142: financial_service.v1.FinancialService.GetUserAccountBalanceHistory:output_type -> financial_service.v1.GetUserAccountBalanceHistoryResponse
+	143, // 143: financial_service.v1.FinancialService.GetAccountBalanceHistory:output_type -> financial_service.v1.GetAccountBalanceHistoryResponse
+	144, // 144: financial_service.v1.FinancialService.GetUserCategoryMonthlyExpenditure:output_type -> financial_service.v1.GetUserCategoryMonthlyExpenditureResponse
+	145, // 145: financial_service.v1.FinancialService.GetUserCategoryMonthlyIncome:output_type -> financial_service.v1.GetUserCategoryMonthlyIncomeResponse
+	146, // 146: financial_service.v1.FinancialService.GetCategoryMonthlyTransactionCount:output_type -> financial_service.v1.GetCategoryMonthlyTransactionCountResponse
+	147, // 147: financial_service.v1.FinancialService.GetDebtToIncomeRatio:output_type -> financial_service.v1.GetDebtToIncomeRatioResponse
+	148, // 148: financial_service.v1.FinancialService.GetExpenseMetrics:output_type -> financial_service.v1.GetExpenseMetricsResponse
+	149, // 149: financial_service.v1.FinancialService.GetFinancialProfile:output_type -> financial_service.v1.GetFinancialProfileResponse
+	150, // 150: financial_service.v1.FinancialService.GetIncomeExpenseRatio:output_type -> financial_service.v1.GetIncomeExpenseRatioResponse
+	151, // 151: financial_service.v1.FinancialService.GetIncomeMetrics:output_type -> financial_service.v1.GetIncomeMetricsResponse
+	152, // 152: financial_service.v1.FinancialService.GetMerchantMonthlyExpenditure:output_type -> financial_service.v1.GetMerchantMonthlyExpenditureResponse
+	153, // 153: financial_service.v1.FinancialService.GetMonthlyBalance:output_type -> financial_service.v1.GetMonthlyBalanceResponse
+	154, // 154: financial_service.v1.FinancialService.GetMonthlyExpenditure:output_type -> financial_service.v1.GetMonthlyExpenditureResponse
+	155, // 155: financial_service.v1.FinancialService.GetMonthlyIncome:output_type -> financial_service.v1.GetMonthlyIncomeResponse
+	156, // 156: financial_service.v1.FinancialService.GetMonthlySavings:output_type -> financial_service.v1.GetMonthlySavingsResponse
+	157, // 157: financial_service.v1.FinancialService.GetMonthlyTotalQuantityBySecurityAndUser:output_type -> financial_service.v1.GetMonthlyTotalQuantityBySecurityAndUserResponse
+	158, // 158: financial_service.v1.FinancialService.GetMonthlyTransactionCount:output_type -> financial_service.v1.GetMonthlyTransactionCountResponse
+	159, // 159: financial_service.v1.FinancialService.GetPaymentChannelMonthlyExpenditure:output_type -> financial_service.v1.GetPaymentChannelMonthlyExpenditureResponse
+	160, // 160: financial_service.v1.FinancialService.GetTotalInvestmentBySecurity:output_type -> financial_service.v1.GetTotalInvestmentBySecurityResponse
+	161, // 161: financial_service.v1.FinancialService.GetMelodyFinancialContext:output_type -> financial_service.v1.GetMelodyFinancialContextResponse
+	162, // 162: financial_service.v1.FinancialService.GetTransactionsForBankAccount:output_type -> financial_service.v1.GetTransactionsForBankAccountResponse
+	163, // 163: financial_service.v1.FinancialService.GetHistoricalAccountBalance:output_type -> financial_service.v1.GetHistoricalAccountBalanceResponse
+	164, // 164: financial_service.v1.FinancialService.AddDefaultPocketsToBankAccount:output_type -> financial_service.v1.AddDefaultPocketsToBankAccountResponse
+	165, // 165: financial_service.v1.FinancialService.UpdatePocket:output_type -> financial_service.v1.UpdatePocketResponse
+	166, // 166: financial_service.v1.FinancialService.DeletePocket:output_type -> financial_service.v1.DeletePocketResponse
+	167, // 167: financial_service.v1.FinancialService.GetTransactionsBetweenTimeRanges:output_type -> financial_service.v1.GetTransactionsBetweenTimeRangesResponse
+	168, // 168: financial_service.v1.FinancialService.GetTransactionsForPastWeek:output_type -> financial_service.v1.GetTransactionsForPastWeekResponse
+	169, // 169: financial_service.v1.FinancialService.GetTransactionsForPastMonth:output_type -> financial_service.v1.GetTransactionsForPastMonthResponse
+	170, // 170: financial_service.v1.FinancialService.AddNoteToSmartGoal:output_type -> financial_service.v1.AddNoteToSmartGoalResponse
+	171, // 171: financial_service.v1.FinancialService.UpdateNoteToSmartGoal:output_type -> financial_service.v1.UpdateNoteToSmartGoalResponse
+	172, // 172: financial_service.v1.FinancialService.DeleteNoteFromSmartGoal:output_type -> financial_service.v1.DeleteNoteFromSmartGoalResponse
+	173, // 173: financial_service.v1.FinancialService.GetNotesFromSmartGoal:output_type -> financial_service.v1.GetNotesFromSmartGoalResponse
+	174, // 174: financial_service.v1.FinancialService.GetNoteFromSmartGoal:output_type -> financial_service.v1.GetNoteFromSmartGoalResponse
+	175, // 175: financial_service.v1.FinancialService.ListTransactions:output_type -> financial_service.v1.ListTransactionsResponse
+	176, // 176: financial_service.v1.FinancialService.ListTransactionsAcrossAllAccounts:output_type -> financial_service.v1.ListTransactionsAcrossAllAccountsResponse
+	177, // 177: financial_service.v1.FinancialService.GetTransaction:output_type -> financial_service.v1.GetTransactionResponse
+	178, // 178: financial_service.v1.FinancialService.UpdateTransaction:output_type -> financial_service.v1.UpdateTransactionResponse
+	179, // 179: financial_service.v1.FinancialService.BulkUpdateTransaction:output_type -> financial_service.v1.BulkUpdateTransactionResponse
+	180, // 180: financial_service.v1.FinancialService.DeleteTransaction:output_type -> financial_service.v1.DeleteTransactionResponse
+	181, // 181: financial_service.v1.FinancialService.AddNoteToTransaction:output_type -> financial_service.v1.AddNoteToTransactionResponse
+	182, // 182: financial_service.v1.FinancialService.UpdateNoteToTransaction:output_type -> financial_service.v1.UpdateNoteToTransactionResponse
+	183, // 183: financial_service.v1.FinancialService.DeleteNoteFromTransaction:output_type -> financial_service.v1.DeleteNoteFromTransactionResponse
+	184, // 184: financial_service.v1.FinancialService.ListTransactionNotes:output_type -> financial_service.v1.ListTransactionNotesResponse
+	185, // 185: financial_service.v1.FinancialService.GetNoteFromTransaction:output_type -> financial_service.v1.GetNoteFromTransactionResponse
+	186, // 186: financial_service.v1.FinancialService.SplitTransaction:output_type -> financial_service.v1.SplitTransactionResponse
+	187, // 187: financial_service.v1.FinancialService.UnSplitTransactions:output_type -> financial_service.v1.UnSplitTransactionsResponse
+	188, // 188: financial_service.v1.FinancialService.GetSplitTransaction:output_type -> financial_service.v1.GetSplitTransactionResponse
+	189, // 189: financial_service.v1.FinancialService.SearchTransactions:output_type -> financial_service.v1.SearchTransactionsResponse
+	190, // 190: financial_service.v1.FinancialService.ListRecurringTransactions:output_type -> financial_service.v1.ListRecurringTransactionsResponse
+	191, // 191: financial_service.v1.FinancialService.GetRecurringTransaction:output_type -> financial_service.v1.GetRecurringTransactionResponse
+	192, // 192: financial_service.v1.FinancialService.UpdateRecurringTransaction:output_type -> financial_service.v1.UpdateRecurringTransactionResponse
+	193, // 193: financial_service.v1.FinancialService.BulkUpdateRecurringTransaction:output_type -> financial_service.v1.BulkUpdateRecurringTransactionResponse
+	194, // 194: financial_service.v1.FinancialService.DeleteRecurringTransaction:output_type -> financial_service.v1.DeleteRecurringTransactionResponse
+	195, // 195: financial_service.v1.FinancialService.AddNoteToRecurringTransaction:output_type -> financial_service.v1.AddNoteToRecurringTransactionResponse
+	196, // 196: financial_service.v1.FinancialService.UpdateNoteToRecurringTransaction:output_type -> financial_service.v1.UpdateNoteToRecurringTransactionResponse
+	197, // 197: financial_service.v1.FinancialService.DeleteNoteFromRecurringTransaction:output_type -> financial_service.v1.DeleteNoteFromRecurringTransactionResponse
+	198, // 198: financial_service.v1.FinancialService.ListRecurringTransactionNotes:output_type -> financial_service.v1.ListRecurringTransactionNotesResponse
+	199, // 199: financial_service.v1.FinancialService.PollAsyncTaskExecutionStatus:output_type -> financial_service.v1.PollAsyncTaskExecutionStatusResponse
+	200, // 200: financial_service.v1.FinancialService.RecordAskCopilotQuestion:output_type -> financial_service.v1.RecordAskCopilotQuestionResponse
+	201, // 201: financial_service.v1.FinancialService.CheckIfQuotaExceeded:output_type -> financial_service.v1.CheckIfQuotaExceededResponse
+	101, // [101:202] is the sub-list for method output_type
+	0,   // [0:101] is the sub-list for method input_type
 	0,   // [0:0] is the sub-list for extension type_name
 	0,   // [0:0] is the sub-list for extension extendee
 	0,   // [0:0] is the sub-list for field type_name

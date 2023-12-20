@@ -1666,3 +1666,19 @@ message RecordAskCopilotQuestionResponse {
   // the remaining quote
   double remaining_quota = 2;
 }
+
+message CheckIfQuotaExceededRequest {
+    // the account id associated with the user
+  uint64 user_id = 1 [(validate.rules).uint64.gt = 0];
+  FinancialUserProfileType profile_type = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"username:testuser\""
+    },
+    (google.api.field_behavior) = REQUIRED   
+  ];
+}
+
+message CheckIfQuotaExceededResponse {
+  bool exceeded = 1;
+}

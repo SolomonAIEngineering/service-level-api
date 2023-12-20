@@ -1096,6 +1096,10 @@ export interface CategoryMonthlyTransactionCount {
 	/** @format uint64 */
 	userId?: string;
 }
+export type CheckIfQuotaExceededData = any;
+export interface CheckIfQuotaExceededResponse {
+	exceeded?: boolean;
+}
 export type CreateBankAccountData = any;
 /**
  * CreateBankAccountRequest: Represents the request object invoked against the financial
