@@ -20558,9 +20558,9 @@ func (m *TriggerSyncRequest) validate(all bool) error {
 
 	// no validation rules for ProfileType
 
-	if m.GetFinancialAccountId() <= 0 {
+	if m.GetLinkId() <= 0 {
 		err := TriggerSyncRequestValidationError{
-			field:  "FinancialAccountId",
+			field:  "LinkId",
 			reason: "value must be greater than 0",
 		}
 		if !all {

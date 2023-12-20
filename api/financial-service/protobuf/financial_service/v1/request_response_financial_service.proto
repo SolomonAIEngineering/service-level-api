@@ -1695,7 +1695,7 @@ message TriggerSyncRequest {
   ];
 
   // the account id associated with the user
-  uint64 financial_account_id = 3 [(validate.rules).uint64.gt = 0];
+  uint64 link_id = 3 [(validate.rules).uint64.gt = 0];
 
   // tha financial account type
   FinancialAccountType financial_account_type = 4 [

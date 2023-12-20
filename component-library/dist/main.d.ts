@@ -3855,15 +3855,15 @@ export interface TransactionSplit {
 export type TriggerSyncData = any;
 export interface TriggerSyncRequest {
 	/**
-	 * the account id associated with the user
-	 * @format uint64
-	 */
-	financialAccountId?: string;
-	/**
 	 * tha financial account type
 	 * @example "username:testuser"
 	 */
 	financialAccountType: FinancialAccountType;
+	/**
+	 * the account id associated with the user
+	 * @format uint64
+	 */
+	linkId?: string;
 	/** @example "username:testuser" */
 	profileType: FinancialUserProfileType;
 	/**
@@ -8905,7 +8905,7 @@ export declare class TriggerSyncRequestClass implements TriggerSyncRequest, IReq
 	 * the account id associated with the user
 	 * @format uint64
 	 */
-	financialAccountId: string;
+	linkId: string;
 	/**
 	 * tha financial account type
 	 * @example "username:testuser"

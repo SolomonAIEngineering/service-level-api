@@ -7247,7 +7247,7 @@ class WTe {
      * the account id associated with the user
      * @format uint64
      */
-    w(this, "financialAccountId", "");
+    w(this, "linkId", "");
     /**
      * tha financial account type
      * @example "username:testuser"
@@ -7260,7 +7260,7 @@ class WTe {
     });
   }
   isValid() {
-    return this.userId !== "" && this.profileType !== "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED" && this.financialAccountId !== "" && this.financialAccountType !== "FINANCIAL_ACCOUNT_TYPE_UNSPECIFIED";
+    return this.userId !== "" && this.profileType !== "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED" && this.linkId !== "" && this.financialAccountType !== "FINANCIAL_ACCOUNT_TYPE_UNSPECIFIED";
   }
 }
 class GTe extends Et {

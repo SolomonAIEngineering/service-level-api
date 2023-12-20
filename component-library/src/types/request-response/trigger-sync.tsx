@@ -17,7 +17,7 @@ class TriggerSyncRequestClass implements TriggerSyncRequest, IRequest {
    * the account id associated with the user
    * @format uint64
    */
-  financialAccountId: string = '';
+  linkId: string = '';
   /**
    * tha financial account type
    * @example "username:testuser"
@@ -41,7 +41,7 @@ class TriggerSyncRequestClass implements TriggerSyncRequest, IRequest {
     return (
       this.userId !== '' &&
       this.profileType !== 'FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED' &&
-      this.financialAccountId !== '' &&
+      this.linkId !== '' &&
       this.financialAccountType !== 'FINANCIAL_ACCOUNT_TYPE_UNSPECIFIED'
     );
   }
