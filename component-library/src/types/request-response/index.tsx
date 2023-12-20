@@ -38,3 +38,4 @@ export * from './update-user-profile';
 export * from './create-account-v2';
 export * from './canny-sso-token';
 export * from './ask-copilot-question';
+export * from './trigger-sync';

@@ -3852,6 +3852,30 @@ export interface TransactionSplit {
 	 */
 	userId?: string;
 }
+export type TriggerSyncData = any;
+export interface TriggerSyncRequest {
+	/**
+	 * the account id associated with the user
+	 * @format uint64
+	 */
+	financialAccountId?: string;
+	/**
+	 * tha financial account type
+	 * @example "username:testuser"
+	 */
+	financialAccountType: FinancialAccountType;
+	/** @example "username:testuser" */
+	profileType: FinancialUserProfileType;
+	/**
+	 * the account id associated with the user
+	 * @format uint64
+	 */
+	userId?: string;
+}
+export interface TriggerSyncResponse {
+	/** the task id */
+	taskId?: string;
+}
 export interface UnSplitTransactionsResponse {
 	/**
 	 * The transaction id
@@ -8870,6 +8894,36 @@ export declare class RecordAskCopilotQuestionResponseClass extends ErrorResponse
 	 * @returns The question quota.
 	 */
 	getRemainingQuota(): number;
+}
+export declare class TriggerSyncRequestClass implements TriggerSyncRequest, IRequest {
+	/**
+	 * the account id associated with the user
+	 * @format uint64
+	 */
+	userId: string;
+	/**
+	 * the account id associated with the user
+	 * @format uint64
+	 */
+	financialAccountId: string;
+	/**
+	 * tha financial account type
+	 * @example "username:testuser"
+	 */
+	financialAccountType: FinancialAccountType;
+	/** @example "username:testuser" */
+	profileType: FinancialUserProfileType;
+	constructor(data?: Partial<TriggerSyncRequestClass>);
+	isValid(): boolean;
+}
+export declare class TriggerSyncResponseClass extends ErrorResponse implements TriggerSyncResponse {
+	code: number;
+	err: string;
+	token: string;
+	taskId: string;
+	constructor(data?: Partial<TriggerSyncResponseClass>);
+	isValid(): boolean;
+	getTaskId(): string;
 }
 /**
  * Represents individual data points for the chart.
