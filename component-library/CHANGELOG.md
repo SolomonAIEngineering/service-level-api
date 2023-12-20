@@ -1,3 +1,10 @@
+# [1.162.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.161.0...v1.162.0) (2023-12-20)
+
+
+### Features
+
+* add endpoint to ask copilot question ([14c8d9d](https://github.com/SolomonAIEngineering/service-level-api/commit/14c8d9d2e05608e939840e0f414c05ea10f84027))
+
 # [1.161.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.160.0...v1.161.0) (2023-12-20)
 
 
