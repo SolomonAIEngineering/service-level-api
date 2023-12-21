@@ -79,6 +79,23 @@ export interface AddDefaultPocketsToBankAccountResponse {
 
 export type AddNoteToRecurringTransactionData = any;
 
+/** AddNoteToTransactionRequest adds a note to a transaction */
+export interface AddNoteToRecurringTransactionRequest {
+  /**
+   * The note to add
+   * Validations:
+   * - cannot be nil hence required
+   */
+  note: SmartNote;
+  /**
+   * The transaction id
+   * Validations:
+   * - transaction_id must be greater than 0
+   * @format uint64
+   */
+  transactionId: string;
+}
+
 /** AddNoteToRecurringTransactionResponse is the responsed obtained after we add a note to a transaction */
 export interface AddNoteToRecurringTransactionResponse {
   /**
@@ -121,6 +138,23 @@ export interface AddNoteToSmartGoalResponse {
 }
 
 export type AddNoteToTransactionData = any;
+
+/** AddNoteToTransactionRequest adds a note to a transaction */
+export interface AddNoteToTransactionRequest {
+  /**
+   * The note to add
+   * Validations:
+   * - cannot be nil hence required
+   */
+  note: SmartNote;
+  /**
+   * The transaction id
+   * Validations:
+   * - transaction_id must be greater than 0
+   * @format uint64
+   */
+  transactionId: string;
+}
 
 /** AddNoteToTransactionResponse is the responsed obtained after we add a note to a transaction */
 export interface AddNoteToTransactionResponse {
@@ -262,11 +296,6 @@ export interface Apr {
 }
 
 export type AskCopilotQuestionData = any;
-
-export interface AskCopilotQuestionPayload {
-  /** @example "username:testuser" */
-  profileType: FinancialUserProfileType;
-}
 
 export interface BankAccount {
   /**
@@ -507,7 +536,7 @@ export type CreateBankAccountData = any;
  * CreateBankAccountRequest: Represents the request object invoked against the financial
  * service to create a bank account for a given user
  */
-export interface CreateBankAccountPayload {
+export interface CreateBankAccountRequest {
   /**
    * The bank account to create
    * Validations:
@@ -520,6 +549,13 @@ export interface CreateBankAccountPayload {
    */
   linkId: string;
   profileType: FinancialUserProfileType;
+  /**
+   * The account ID associated with the user
+   * Validations:
+   * - user_id must be greater than 0
+   * @format uint64
+   */
+  userId: string;
 }
 
 /**
@@ -3019,6 +3055,16 @@ export interface ReadynessCheckResponse {
   healthy?: boolean;
 }
 
+export interface RecordAskCopilotQuestionRequest {
+  /** @example "username:testuser" */
+  profileType: FinancialUserProfileType;
+  /**
+   * the account id associated with the user
+   * @format uint64
+   */
+  userId?: string;
+}
+
 export interface RecordAskCopilotQuestionResponse {
   /**
    * the remaining quote
@@ -3030,6 +3076,51 @@ export interface RecordAskCopilotQuestionResponse {
 }
 
 export type SearchTransactionsData = any;
+
+export interface SearchTransactionsRequest {
+  /** category */
+  category?: string;
+  /**
+   * end date
+   * @format date-time
+   */
+  endDate?: string;
+  financialAccountType?: FinancialAccountType;
+  /**
+   * max amount
+   * @format double
+   */
+  maxAmount?: number;
+  /**
+   * min amount
+   * @format double
+   */
+  minAmount?: number;
+  /**
+   * The page number
+   * @format uint64
+   */
+  pageNumber: string;
+  /**
+   * The page size
+   * @format uint64
+   */
+  pageSize: string;
+  /** the profile type */
+  profileType: FinancialUserProfileType;
+  /**
+   * start date
+   * @format date-time
+   */
+  startDate?: string;
+  /**
+   * The user id
+   * Validations:
+   * - user_id must be greater than 0
+   * @format uint64
+   */
+  userId: string;
+}
 
 export interface SearchTransactionsResponse {
   /** @format uint64 */
@@ -3153,13 +3244,20 @@ export interface SmartNote {
 
 export type SplitTransactionData = any;
 
-export interface SplitTransactionPayload {
+export interface SplitTransactionRequest {
   /**
    * The split transaction
    * Validations:
    * - cannot be nil hence required
    */
   splitTransactions: Array<TransactionSplit>;
+  /**
+   * The transaction id
+   * Validations:
+   * - transaction_id must be greater than 0
+   * @format uint64
+   */
+  transactionId: string;
 }
 
 export interface SplitTransactionResponse {
@@ -3589,6 +3687,16 @@ export interface TriggerSyncResponse {
   taskId?: string;
 }
 
+export interface UnSplitTransactionsRequest {
+  /**
+   * The transaction id
+   * Validations:
+   * - transaction_id must be greater than 0
+   * @format uint64
+   */
+  transactionId: string;
+}
+
 export interface UnSplitTransactionsResponse {
   /**
    * The transaction id
@@ -3598,8 +3706,6 @@ export interface UnSplitTransactionsResponse {
 }
 
 export type UnsplitTransactionsData = any;
-
-export type UnsplitTransactionsPayload = object;
 
 export type UpdateBankAccountData = any;
 

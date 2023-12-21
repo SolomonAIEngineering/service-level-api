@@ -711,6 +711,22 @@ export interface AddDefaultPocketsToBankAccountResponse {
 	creditAccount?: CreditAccount;
 }
 export type AddNoteToRecurringTransactionData = any;
+/** AddNoteToTransactionRequest adds a note to a transaction */
+export interface AddNoteToRecurringTransactionRequest {
+	/**
+	 * The note to add
+	 * Validations:
+	 * - cannot be nil hence required
+	 */
+	note: SmartNote;
+	/**
+	 * The transaction id
+	 * Validations:
+	 * - transaction_id must be greater than 0
+	 * @format uint64
+	 */
+	transactionId: string;
+}
 /** AddNoteToRecurringTransactionResponse is the responsed obtained after we add a note to a transaction */
 export interface AddNoteToRecurringTransactionResponse {
 	/**
@@ -749,6 +765,22 @@ export interface AddNoteToSmartGoalResponse {
 	goal?: SmartGoal;
 }
 export type AddNoteToTransactionData = any;
+/** AddNoteToTransactionRequest adds a note to a transaction */
+export interface AddNoteToTransactionRequest {
+	/**
+	 * The note to add
+	 * Validations:
+	 * - cannot be nil hence required
+	 */
+	note: SmartNote;
+	/**
+	 * The transaction id
+	 * Validations:
+	 * - transaction_id must be greater than 0
+	 * @format uint64
+	 */
+	transactionId: string;
+}
 /** AddNoteToTransactionResponse is the responsed obtained after we add a note to a transaction */
 export interface AddNoteToTransactionResponse {
 	/**
@@ -886,10 +918,6 @@ export interface Apr {
 	type?: string;
 }
 export type AskCopilotQuestionData = any;
-export interface AskCopilotQuestionPayload {
-	/** @example "username:testuser" */
-	profileType: FinancialUserProfileType;
-}
 export interface BankAccount {
 	/**
 	 * the bank account balance
@@ -1105,7 +1133,7 @@ export type CreateBankAccountData = any;
  * CreateBankAccountRequest: Represents the request object invoked against the financial
  * service to create a bank account for a given user
  */
-export interface CreateBankAccountPayload {
+export interface CreateBankAccountRequest {
 	/**
 	 * The bank account to create
 	 * Validations:
@@ -1118,6 +1146,13 @@ export interface CreateBankAccountPayload {
 	 */
 	linkId: string;
 	profileType: FinancialUserProfileType;
+	/**
+	 * The account ID associated with the user
+	 * Validations:
+	 * - user_id must be greater than 0
+	 * @format uint64
+	 */
+	userId: string;
 }
 /**
  * CreateBankAccountResponse: Represents the response object returned as a response to
@@ -3348,6 +3383,15 @@ export type ReadynessCheckData = any;
 export interface ReadynessCheckResponse {
 	healthy?: boolean;
 }
+export interface RecordAskCopilotQuestionRequest {
+	/** @example "username:testuser" */
+	profileType: FinancialUserProfileType;
+	/**
+	 * the account id associated with the user
+	 * @format uint64
+	 */
+	userId?: string;
+}
 export interface RecordAskCopilotQuestionResponse {
 	/**
 	 * the remaining quote
@@ -3358,6 +3402,50 @@ export interface RecordAskCopilotQuestionResponse {
 	success?: boolean;
 }
 export type SearchTransactionsData = any;
+export interface SearchTransactionsRequest {
+	/** category */
+	category?: string;
+	/**
+	 * end date
+	 * @format date-time
+	 */
+	endDate?: string;
+	financialAccountType?: FinancialAccountType;
+	/**
+	 * max amount
+	 * @format double
+	 */
+	maxAmount?: number;
+	/**
+	 * min amount
+	 * @format double
+	 */
+	minAmount?: number;
+	/**
+	 * The page number
+	 * @format uint64
+	 */
+	pageNumber: string;
+	/**
+	 * The page size
+	 * @format uint64
+	 */
+	pageSize: string;
+	/** the profile type */
+	profileType: FinancialUserProfileType;
+	/**
+	 * start date
+	 * @format date-time
+	 */
+	startDate?: string;
+	/**
+	 * The user id
+	 * Validations:
+	 * - user_id must be greater than 0
+	 * @format uint64
+	 */
+	userId: string;
+}
 export interface SearchTransactionsResponse {
 	/** @format uint64 */
 	nextPageNumber?: string;
@@ -3476,13 +3564,20 @@ export interface SmartNote {
 	userId?: string;
 }
 export type SplitTransactionData = any;
-export interface SplitTransactionPayload {
+export interface SplitTransactionRequest {
 	/**
 	 * The split transaction
 	 * Validations:
 	 * - cannot be nil hence required
 	 */
 	splitTransactions: Array<TransactionSplit>;
+	/**
+	 * The transaction id
+	 * Validations:
+	 * - transaction_id must be greater than 0
+	 * @format uint64
+	 */
+	transactionId: string;
 }
 export interface SplitTransactionResponse {
 	/**
@@ -3876,6 +3971,15 @@ export interface TriggerSyncResponse {
 	/** the task id */
 	taskId?: string;
 }
+export interface UnSplitTransactionsRequest {
+	/**
+	 * The transaction id
+	 * Validations:
+	 * - transaction_id must be greater than 0
+	 * @format uint64
+	 */
+	transactionId: string;
+}
 export interface UnSplitTransactionsResponse {
 	/**
 	 * The transaction id
@@ -3884,7 +3988,6 @@ export interface UnSplitTransactionsResponse {
 	transaction?: PlaidAccountTransaction;
 }
 export type UnsplitTransactionsData = any;
-export type UnsplitTransactionsPayload = object;
 export type UpdateBankAccountData = any;
 export interface UpdateBankAccountRequest {
 	/**
@@ -9003,6 +9106,346 @@ export declare class CheckIfQuestionQuotaExceededResponseClass extends ErrorResp
 	 * @returns True if the quota has been exceeded, otherwise false.
 	 */
 	hasExceeded(): boolean;
+}
+export declare class SplitTransactionRequestClass implements IRequest, SplitTransactionRequest {
+	/**
+	 * The user ID associated with the request.
+	 */
+	transactionId: string;
+	splitTransactions: Array<TransactionSplit>;
+	/**
+	 * Creates an instance of AskCopilotQuestionRequestClass.
+	 * @param data - Optional data to initialize the request.
+	 */
+	constructor(data?: Partial<SplitTransactionRequestClass>);
+	/**
+	 * Checks if the request is valid.
+	 * @returns True if the user ID is not empty, otherwise false.
+	 */
+	isValid(): boolean;
+}
+export declare class SplitTransactionResponseClass extends ErrorResponse implements SplitTransactionResponse {
+	code: number;
+	err: string;
+	token: string;
+	transaction: PlaidAccountTransaction;
+	/**
+	 * Creates an instance of SplitTransactionResponseClass.
+	 * @param data - Optional data to initialize the response.
+	 */
+	constructor(data?: Partial<SplitTransactionResponse>);
+	/**
+	 * Checks if the response is valid.
+	 * @returns True if the response is valid, otherwise false.
+	 */
+	isValid(): boolean;
+	getNumberOfTransactionSplit(): number;
+}
+export declare class UnSplitTransactionRequestClass implements IRequest, UnSplitTransactionsRequest {
+	/**
+	 * The user ID associated with the request.
+	 */
+	transactionId: string;
+	/**
+	 * Creates an instance of AskCopilotQuestionRequestClass.
+	 * @param data - Optional data to initialize the request.
+	 */
+	constructor(data?: Partial<UnSplitTransactionRequestClass>);
+	/**
+	 * Checks if the request is valid.
+	 * @returns True if the user ID is not empty, otherwise false.
+	 */
+	isValid(): boolean;
+}
+export declare class UnsplitTransactionResponseClass extends ErrorResponse implements UnSplitTransactionsResponse {
+	code: number;
+	err: string;
+	token: string;
+	transaction: PlaidAccountTransaction;
+	/**
+	 * Creates an instance of AskCopilotQuestionResponseClass.
+	 * @param data - Optional data to initialize the response.
+	 */
+	constructor(data?: Partial<UnSplitTransactionsResponse>);
+	/**
+	 * Checks if the response is valid.
+	 * @returns True if the token is not empty, otherwise false.
+	 */
+	isValid(): boolean;
+}
+export declare class UpdateTransactionRequestClass implements IRequest, UpdateTransactionRequest {
+	transaction: PlaidAccountTransaction;
+	/**
+	 * Creates an instance of AskCopilotQuestionRequestClass.
+	 * @param data - Optional data to initialize the request.
+	 */
+	constructor(data?: Partial<UpdateTransactionRequest>);
+	isValid(): boolean;
+}
+export declare class UpdateTransactionResponseClass extends ErrorResponse implements UpdateTransactionResponse {
+	code: number;
+	err: string;
+	token: string;
+	transaction: PlaidAccountTransaction;
+	/**
+	 * Constructor for UpdateTransactionResponseClass
+	 * @param data - Optional data to initialize the response.
+	 * @param options - Optional options
+	 *
+	 */
+	constructor(data?: Partial<UpdateTransactionResponse>);
+	/**
+	 * Checks if the response is valid.
+	 * @returns True if the token is not empty, otherwise false.
+	 */
+	isValid(): boolean;
+}
+export declare class BulkUpdateTransactionRequestClass implements IRequest, BulkUpdateTransactionRequest {
+	transactions: Array<PlaidAccountTransaction>;
+	/**
+	 * Creates an instance of AskCopilotQuestionRequestClass.
+	 * @param data - Optional data to initialize the request.
+	 */
+	constructor(data?: Partial<BulkUpdateTransactionRequestClass>);
+	/**
+	 * Checks if the request is valid.
+	 * @returns True if the user ID is not empty, otherwise false.
+	 */
+	isValid(): boolean;
+}
+export declare class BulkUpdateTransactionResponseClass extends ErrorResponse implements BulkUpdateTransactionResponse {
+	code: number;
+	err: string;
+	token: string;
+	transactions: Array<PlaidAccountTransaction>;
+	/**
+	 * Creates an instance of AskCopilotQuestionResponseClass.
+	 * @param data - Optional data to initialize the response.
+	 */
+	constructor(data?: Partial<BulkUpdateTransactionResponse>);
+	/**
+	 * Checks if the response is valid.
+	 * @returns True if the token is not empty, otherwise false.
+	 */
+	isValid(): boolean;
+}
+export declare class DeleteTransactionRequestClass implements IRequest {
+	transactionId: string;
+	constructor(data?: Partial<DeleteTransactionRequestClass>);
+	isValid(): boolean;
+}
+export declare class DeleteTransactionResponseClass extends ErrorResponse implements DeleteTransactionResponse {
+	code: number;
+	err: string;
+	token: string;
+	deleted: boolean;
+	constructor(data?: Partial<DeleteTransactionResponseClass>);
+	isValid(): boolean;
+}
+export declare class AddNoteToTransactionRequestClass implements IRequest, AddNoteToTransactionRequest {
+	/**
+	 * The note to add
+	 * Validations:
+	 * - cannot be nil hence required
+	 */
+	note: SmartNote;
+	/**
+	 * The transaction id
+	 * Validations:
+	 * - transaction_id must be greater than 0
+	 * @format uint64
+	 */
+	transactionId: string;
+	/**
+	 * Creates an instance of AddNoteToTransactionRequestClass.
+	 * @param data - Optional data to initialize the request.
+	 */
+	constructor(data?: Partial<AddNoteToTransactionRequestClass>);
+	isValid(): boolean;
+}
+export declare class AddNoteToTransactionResponseClass extends ErrorResponse implements AddNoteToTransactionResponse {
+	code: number;
+	err: string;
+	token: string;
+	transaction: PlaidAccountTransaction;
+	/**
+	 * Creates an instance of AddNoteToTransactionResponseClass.
+	 * @param data - Optional data to initialize the response.
+	 */
+	constructor(data?: Partial<AddNoteToTransactionResponse>);
+	/**
+	 * Checks if the response is valid.
+	 * @returns True if the token is not empty, otherwise false.
+	 */
+	isValid(): boolean;
+}
+export declare class UpdateNoteToTransactionRequestClass implements IRequest, UpdateNoteToTransactionRequest {
+	/**
+	 * The updated note
+	 * Validations:
+	 * - cannot be nil hence required
+	 */
+	note: SmartNote;
+	/**
+	 * Creates an instance of UpdateNoteToTransactionRequestClass.
+	 * @param data - Optional data to initialize the request.
+	 */
+	constructor(data?: Partial<UpdateNoteToTransactionRequestClass>);
+	isValid(): boolean;
+}
+export declare class UpdateNoteToTransactionResponseClass extends ErrorResponse implements UpdateNoteToTransactionResponse {
+	code: number;
+	err: string;
+	token: string;
+	transaction: PlaidAccountTransaction;
+	/**
+	 * Creates an instance of UpdateNoteToTransactionResponseClass.
+	 * @param data - Optional data to initialize the response.
+	 */
+	constructor(data?: Partial<UpdateNoteToTransactionResponse>);
+	/**
+	 * Checks if the response is valid.
+	 * @returns True if the token is not empty, otherwise false.
+	 */
+	isValid(): boolean;
+}
+export declare class DeleteNoteFromTransactionRequestClass implements IRequest {
+	/**
+	 * The transaction id to delete the note from
+	 * Validations:
+	 * - transaction_id must be greater than 0
+	 * @format uint64
+	 */
+	transactionId: string;
+	/**
+	 * The note id to delete
+	 * Validations:
+	 * - note_id must be greater than 0
+	 * @format uint64
+	 */
+	noteId: string;
+	/**
+	 * Creates an instance of DeleteNoteFromTransactionRequestClass.
+	 * @param data - Optional data to initialize the request.
+	 */
+	constructor(data?: Partial<DeleteNoteFromTransactionRequestClass>);
+	isValid(): boolean;
+}
+export declare class DeleteNoteFromTransactionResponseClass extends ErrorResponse implements DeleteNoteFromTransactionResponse {
+	code: number;
+	err: string;
+	token: string;
+	deleted: boolean;
+	/**
+	 * Creates an instance of DeleteNoteFromTransactionResponseClass.
+	 * @param data - Optional data to initialize the response.
+	 */
+	constructor(data?: Partial<DeleteNoteFromTransactionResponse>);
+	/**
+	 * Checks if the response is valid.
+	 * @returns True if the token is not empty, otherwise false.
+	 */
+	isValid(): boolean;
+}
+export declare class ListTransactionNotesRequestClass implements IRequest {
+	/**
+	 * The transaction id to list notes for
+	 * Validations:
+	 * - transaction_id must be greater than 0
+	 * @format uint64
+	 */
+	transactionId: string;
+	/**
+	 * Creates an instance of ListTransactionNotesRequestClass.
+	 * @param data - Optional data to initialize the request.
+	 */
+	constructor(data?: Partial<ListTransactionNotesRequestClass>);
+	isValid(): boolean;
+}
+export declare class ListTransactionNotesResponseClass extends ErrorResponse implements ListTransactionNotesResponse {
+	code: number;
+	err: string;
+	token: string;
+	notes: Array<SmartNote>;
+	/**
+	 * Creates an instance of ListTransactionNotesResponseClass.
+	 * @param data - Optional data to initialize the response.
+	 */
+	constructor(data?: Partial<ListTransactionNotesResponse>);
+	/**
+	 * Checks if the response is valid.
+	 * @returns True if there are notes in the response, otherwise false.
+	 */
+	isValid(): boolean;
+}
+export declare class GetNoteFromTransactionRequestClass implements IRequest {
+	/**
+	 * The transaction id to get the note from
+	 * Validations:
+	 * - transaction_id must be greater than 0
+	 * @format uint64
+	 */
+	transactionId: string;
+	/**
+	 * The note id to retrieve
+	 * Validations:
+	 * - note_id must be greater than 0
+	 * @format uint64
+	 */
+	noteId: string;
+	/**
+	 * Creates an instance of GetNoteFromTransactionRequestClass.
+	 * @param data - Optional data to initialize the request.
+	 */
+	constructor(data?: Partial<GetNoteFromTransactionRequestClass>);
+	isValid(): boolean;
+}
+export declare class GetNoteFromTransactionResponseClass extends ErrorResponse implements GetNoteFromTransactionResponse {
+	code: number;
+	err: string;
+	token: string;
+	note: SmartNote;
+	/**
+	 * Creates an instance of GetNoteFromTransactionResponseClass.
+	 * @param data - Optional data to initialize the response.
+	 */
+	constructor(data?: Partial<GetNoteFromTransactionResponse>);
+	/**
+	 * Checks if the response is valid.
+	 * @returns True if the note is not empty, otherwise false.
+	 */
+	isValid(): boolean;
+}
+export declare class GetSplitTransactionsRequestClass implements IRequest {
+	/**
+	 * The transaction id for which to get split transactions
+	 * Validations:
+	 * - transaction_id must be greater than 0
+	 * @format uint64
+	 */
+	transactionId: string;
+	/**
+	 * Creates an instance of GetSplitTransactionsRequestClass.
+	 * @param data - Optional data to initialize the request.
+	 */
+	constructor(data?: Partial<GetSplitTransactionsRequestClass>);
+	isValid(): boolean;
+}
+export declare class GetSplitTransactionsResponseClass extends ErrorResponse implements GetSplitTransactionResponse {
+	code: number;
+	err: string;
+	token: string;
+	splitTransactions: Array<TransactionSplit>;
+	/**
+	 * Creates an instance of GetSplitTransactionsResponseClass.
+	 * @param data - Optional data to initialize the response.
+	 */
+	constructor(data?: Partial<GetSplitTransactionResponse>);
+	/**
+	 * Checks if the response is valid.
+	 * @returns True if there are split transactions in the response, otherwise false.
+	 */
+	isValid(): boolean;
 }
 /**
  * Represents individual data points for the chart.
