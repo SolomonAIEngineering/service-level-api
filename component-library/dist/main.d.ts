@@ -8960,6 +8960,51 @@ export declare class PollAsyncTaskExecutionResponseClass extends ErrorResponse i
 	isValid(): boolean;
 }
 /**
+ * Represents a request to ask a question to GitHub Copilot.
+ */
+export declare class CheckIfQuestionQuotaExceededRequestClass implements IRequest {
+	/**
+	 * The user ID associated with the request.
+	 */
+	userId: string;
+	/**
+	 * The profile type associated with the request.
+	 */
+	profileType: FinancialUserProfileType;
+	/**
+	 * Creates an instance of AskCopilotQuestionRequestClass.
+	 * @param data - Optional data to initialize the request.
+	 */
+	constructor(data?: Partial<CheckIfQuestionQuotaExceededRequestClass>);
+	/**
+	 * Checks if the request is valid.
+	 * @returns True if the user ID is not empty, otherwise false.
+	 */
+	isValid(): boolean;
+}
+export declare class CheckIfQuestionQuotaExceededResponseClass extends ErrorResponse implements CheckIfQuotaExceededResponse {
+	code: number;
+	err: string;
+	token: string;
+	exceeded: boolean;
+	/**
+	 * Creates an instance of AskCopilotQuestionResponseClass.
+	 * @param data - Optional data to initialize the response.
+	 */
+	constructor(data?: Partial<CheckIfQuotaExceededResponse>);
+	/**
+	 * Checks if the response is valid.
+	 * @returns True if the response is valid, otherwise false.
+	 */
+	isValid(): boolean;
+	/**
+	 * Checks if the quota has been exceeded.
+	 *
+	 * @returns True if the quota has been exceeded, otherwise false.
+	 */
+	hasExceeded(): boolean;
+}
+/**
  * Represents individual data points for the chart.
  */
 export interface ChartData {
