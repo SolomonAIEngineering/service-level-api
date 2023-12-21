@@ -1,3 +1,10 @@
+# [1.167.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.166.0...v1.167.0) (2023-12-21)
+
+
+### Features
+
+* update the search and plaid exchange token ([b04f055](https://github.com/SolomonAIEngineering/service-level-api/commit/b04f055850a67203d55473ef28feb7d9a5eb3b03))
+
 # [1.166.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.165.0...v1.166.0) (2023-12-21)
 
 
