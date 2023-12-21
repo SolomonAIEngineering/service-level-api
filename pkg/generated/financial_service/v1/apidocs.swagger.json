@@ -2254,7 +2254,7 @@
         ]
       }
     },
-    "/api/v1/bank-account/profile/{userId}": {
+    "/api/v1/bank-account/profile": {
       "post": {
         "summary": "create a bank account for a given user profile",
         "description": "This endpoint creates a bank account for a given user profile",
@@ -2293,39 +2293,11 @@
         },
         "parameters": [
           {
-            "name": "userId",
-            "description": "The account ID associated with the user\nValidations:\n- user_id must be greater than 0",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "format": "uint64"
-          },
-          {
             "name": "body",
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "bankAccount": {
-                  "$ref": "#/definitions/BankAccount",
-                  "title": "The bank account to create\nValidations:\n- cannot be nil hence required"
-                },
-                "profileType": {
-                  "$ref": "#/definitions/FinancialUserProfileType"
-                },
-                "linkId": {
-                  "type": "string",
-                  "format": "uint64",
-                  "title": "The linkId to associate this bank account with"
-                }
-              },
-              "title": "CreateBankAccountRequest: Represents the request object invoked against the financial\nservice to create a bank account for a given user",
-              "required": [
-                "bankAccount",
-                "profileType",
-                "linkId"
-              ]
+              "$ref": "#/definitions/CreateBankAccountRequest"
             }
           }
         ],
@@ -2791,7 +2763,7 @@
         ]
       }
     },
-    "/api/v1/copilot/quota/question/{userId}": {
+    "/api/v1/copilot/quota/question": {
       "post": {
         "summary": "Ask a question to copilot",
         "description": "This endpoint checks if a user can ask his/her copilot a question",
@@ -2830,28 +2802,11 @@
         },
         "parameters": [
           {
-            "name": "userId",
-            "description": "the account id associated with the user",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "format": "uint64"
-          },
-          {
             "name": "body",
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "profileType": {
-                  "$ref": "#/definitions/FinancialUserProfileType",
-                  "example": "username:testuser"
-                }
-              },
-              "required": [
-                "profileType"
-              ]
+              "$ref": "#/definitions/RecordAskCopilotQuestionRequest"
             }
           }
         ],
@@ -5093,6 +5048,56 @@
       }
     },
     "/api/v1/transactions/recurring/note": {
+      "post": {
+        "summary": "adds a note to a transaction",
+        "description": "This endpoint adds a note to a transaction",
+        "operationId": "AddNoteToRecurringTransaction",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.AddNoteToRecurringTransactionResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddNoteToRecurringTransactionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "subscription"
+        ]
+      },
       "put": {
         "summary": "Updates a note to a transaction",
         "description": "This endpoint Updates a note to a transaction",
@@ -5239,70 +5244,6 @@
             "required": true,
             "type": "string",
             "format": "uint64"
-          }
-        ],
-        "tags": [
-          "subscription"
-        ]
-      }
-    },
-    "/api/v1/transactions/recurring/{transactionId}/note": {
-      "post": {
-        "summary": "adds a note to a transaction",
-        "description": "This endpoint adds a note to a transaction",
-        "operationId": "AddNoteToRecurringTransaction",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": ".api.v1.AddNoteToRecurringTransactionResponse"
-            }
-          },
-          "400": {
-            "description": "Request failed due to invalid input.",
-            "schema": {
-              "$ref": ".api.v1.ValidationErrorMessageResponse"
-            }
-          },
-          "404": {
-            "description": "Request failed due to incorrect path.",
-            "schema": {
-              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
-            }
-          },
-          "500": {
-            "description": "Request failed due to internal server error.",
-            "schema": {
-              "$ref": ".api.v1.InternalErrorMessageResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/Status"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "transactionId",
-            "description": "The transaction id\nValidations:\n- transaction_id must be greater than 0",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "format": "uint64"
-          },
-          {
-            "name": "note",
-            "description": "The note to add\nValidations:\n- cannot be nil hence required",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/SmartNote",
-              "required": [
-                "note"
-              ]
-            }
           }
         ],
         "tags": [
@@ -5626,6 +5567,56 @@
       }
     },
     "/api/v1/transactions/transaction/note": {
+      "post": {
+        "summary": "adds a note to a transaction",
+        "description": "This endpoint adds a note to a transaction",
+        "operationId": "AddNoteToTransaction",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.AddNoteToTransactionResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddNoteToTransactionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "transactions"
+        ]
+      },
       "put": {
         "summary": "Updates a note to a transaction",
         "description": "This endpoint Updates a note to a transaction",
@@ -5678,7 +5669,7 @@
       }
     },
     "/api/v1/transactions/transaction/search": {
-      "get": {
+      "post": {
         "summary": "searches transactions",
         "description": "This endpoint searches transactions based on a search query and returns a list of transactions that match the search query",
         "operationId": "SearchTransactions",
@@ -5716,95 +5707,116 @@
         },
         "parameters": [
           {
-            "name": "userId",
-            "description": "The user id\nValidations:\n- user_id must be greater than 0",
-            "in": "query",
+            "name": "body",
+            "in": "body",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "schema": {
+              "$ref": "#/definitions/SearchTransactionsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "transactions"
+        ]
+      }
+    },
+    "/api/v1/transactions/transaction/split": {
+      "post": {
+        "summary": "splits a transaction",
+        "description": "This endpoint splits a transaction into multiple transactions",
+        "operationId": "SplitTransaction",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.SplitTransactionResponse"
+            }
           },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
           {
-            "name": "profileType",
-            "description": "the profile type",
-            "in": "query",
+            "name": "body",
+            "in": "body",
             "required": true,
-            "type": "string",
-            "enum": [
-              "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED",
-              "FINANCIAL_USER_PROFILE_TYPE_USER",
-              "FINANCIAL_USER_PROFILE_TYPE_BUSINESS"
-            ],
-            "default": "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED"
+            "schema": {
+              "$ref": "#/definitions/SplitTransactionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "transactions"
+        ]
+      }
+    },
+    "/api/v1/transactions/transaction/unsplit": {
+      "post": {
+        "summary": "unsplit a transaction",
+        "description": "This endpoint unsplit a transaction that was split previously into multiple transactions",
+        "operationId": "UnsplitTransactions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.UnsplitTransactionsResponse"
+            }
           },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
           {
-            "name": "pageNumber",
-            "description": "The page number",
-            "in": "query",
+            "name": "body",
+            "in": "body",
             "required": true,
-            "type": "string",
-            "format": "uint64"
-          },
-          {
-            "name": "pageSize",
-            "description": "The page size",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "format": "uint64"
-          },
-          {
-            "name": "minAmount",
-            "description": "min amount",
-            "in": "query",
-            "required": false,
-            "type": "number",
-            "format": "double"
-          },
-          {
-            "name": "maxAmount",
-            "description": "max amount",
-            "in": "query",
-            "required": false,
-            "type": "number",
-            "format": "double"
-          },
-          {
-            "name": "category",
-            "description": "category",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "startDate",
-            "description": "start date",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "format": "date-time"
-          },
-          {
-            "name": "endDate",
-            "description": "end date",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "format": "date-time"
-          },
-          {
-            "name": "financialAccountType",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "FINANCIAL_ACCOUNT_TYPE_UNSPECIFIED",
-              "FINANCIAL_ACCOUNT_TYPE_BANK",
-              "FINANCIAL_ACCOUNT_TYPE_INVESTMENT",
-              "FINANCIAL_ACCOUNT_TYPE_CREDIT",
-              "FINANCIAL_ACCOUNT_TYPE_MORTGAGE",
-              "FINANCIAL_ACCOUNT_TYPE_STUDENT_LOAN"
-            ],
-            "default": "FINANCIAL_ACCOUNT_TYPE_UNSPECIFIED"
+            "schema": {
+              "$ref": "#/definitions/UnSplitTransactionsRequest"
+            }
           }
         ],
         "tags": [
@@ -5907,70 +5919,6 @@
             "required": true,
             "type": "string",
             "format": "uint64"
-          }
-        ],
-        "tags": [
-          "transactions"
-        ]
-      }
-    },
-    "/api/v1/transactions/transaction/{transactionId}/note": {
-      "post": {
-        "summary": "adds a note to a transaction",
-        "description": "This endpoint adds a note to a transaction",
-        "operationId": "AddNoteToTransaction",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": ".api.v1.AddNoteToTransactionResponse"
-            }
-          },
-          "400": {
-            "description": "Request failed due to invalid input.",
-            "schema": {
-              "$ref": ".api.v1.ValidationErrorMessageResponse"
-            }
-          },
-          "404": {
-            "description": "Request failed due to incorrect path.",
-            "schema": {
-              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
-            }
-          },
-          "500": {
-            "description": "Request failed due to internal server error.",
-            "schema": {
-              "$ref": ".api.v1.InternalErrorMessageResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/Status"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "transactionId",
-            "description": "The transaction id\nValidations:\n- transaction_id must be greater than 0",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "format": "uint64"
-          },
-          {
-            "name": "note",
-            "description": "The note to add\nValidations:\n- cannot be nil hence required",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/SmartNote",
-              "required": [
-                "note"
-              ]
-            }
           }
         ],
         "tags": [
@@ -6193,137 +6141,6 @@
             "required": true,
             "type": "string",
             "format": "uint64"
-          }
-        ],
-        "tags": [
-          "transactions"
-        ]
-      },
-      "post": {
-        "summary": "splits a transaction",
-        "description": "This endpoint splits a transaction into multiple transactions",
-        "operationId": "SplitTransaction",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": ".api.v1.SplitTransactionResponse"
-            }
-          },
-          "400": {
-            "description": "Request failed due to invalid input.",
-            "schema": {
-              "$ref": ".api.v1.ValidationErrorMessageResponse"
-            }
-          },
-          "404": {
-            "description": "Request failed due to incorrect path.",
-            "schema": {
-              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
-            }
-          },
-          "500": {
-            "description": "Request failed due to internal server error.",
-            "schema": {
-              "$ref": ".api.v1.InternalErrorMessageResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/Status"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "transactionId",
-            "description": "The transaction id\nValidations:\n- transaction_id must be greater than 0",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "format": "uint64"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "splitTransactions": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "$ref": "#/definitions/TransactionSplit"
-                  },
-                  "title": "The split transaction\nValidations:\n- cannot be nil hence required"
-                }
-              },
-              "required": [
-                "splitTransactions"
-              ]
-            }
-          }
-        ],
-        "tags": [
-          "transactions"
-        ]
-      }
-    },
-    "/api/v1/transactions/transaction/{transactionId}/unsplit": {
-      "post": {
-        "summary": "unsplit a transaction",
-        "description": "This endpoint unsplit a transaction that was split previously into multiple transactions",
-        "operationId": "UnsplitTransactions",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": ".api.v1.UnsplitTransactionsResponse"
-            }
-          },
-          "400": {
-            "description": "Request failed due to invalid input.",
-            "schema": {
-              "$ref": ".api.v1.ValidationErrorMessageResponse"
-            }
-          },
-          "404": {
-            "description": "Request failed due to incorrect path.",
-            "schema": {
-              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
-            }
-          },
-          "500": {
-            "description": "Request failed due to internal server error.",
-            "schema": {
-              "$ref": ".api.v1.InternalErrorMessageResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/Status"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "transactionId",
-            "description": "The transaction id\nValidations:\n- transaction_id must be greater than 0",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "format": "uint64"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object"
-            }
           }
         ],
         "tags": [
@@ -6918,6 +6735,25 @@
         }
       }
     },
+    "AddNoteToRecurringTransactionRequest": {
+      "type": "object",
+      "properties": {
+        "transactionId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "The transaction id\nValidations:\n- transaction_id must be greater than 0"
+        },
+        "note": {
+          "$ref": "#/definitions/SmartNote",
+          "title": "The note to add\nValidations:\n- cannot be nil hence required"
+        }
+      },
+      "title": "AddNoteToTransactionRequest adds a note to a transaction",
+      "required": [
+        "transactionId",
+        "note"
+      ]
+    },
     "AddNoteToRecurringTransactionResponse": {
       "type": "object",
       "properties": {
@@ -6954,6 +6790,25 @@
           "title": "The smart goal id"
         }
       }
+    },
+    "AddNoteToTransactionRequest": {
+      "type": "object",
+      "properties": {
+        "transactionId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "The transaction id\nValidations:\n- transaction_id must be greater than 0"
+        },
+        "note": {
+          "$ref": "#/definitions/SmartNote",
+          "title": "The note to add\nValidations:\n- cannot be nil hence required"
+        }
+      },
+      "title": "AddNoteToTransactionRequest adds a note to a transaction",
+      "required": [
+        "transactionId",
+        "note"
+      ]
     },
     "AddNoteToTransactionResponse": {
       "type": "object",
@@ -7357,6 +7212,35 @@
           "type": "boolean"
         }
       }
+    },
+    "CreateBankAccountRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "The account ID associated with the user\nValidations:\n- user_id must be greater than 0"
+        },
+        "bankAccount": {
+          "$ref": "#/definitions/BankAccount",
+          "title": "The bank account to create\nValidations:\n- cannot be nil hence required"
+        },
+        "profileType": {
+          "$ref": "#/definitions/FinancialUserProfileType"
+        },
+        "linkId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "The linkId to associate this bank account with"
+        }
+      },
+      "title": "CreateBankAccountRequest: Represents the request object invoked against the financial\nservice to create a bank account for a given user",
+      "required": [
+        "userId",
+        "bankAccount",
+        "profileType",
+        "linkId"
+      ]
     },
     "CreateBankAccountResponse": {
       "type": "object",
@@ -10666,6 +10550,23 @@
         }
       }
     },
+    "RecordAskCopilotQuestionRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "the account id associated with the user"
+        },
+        "profileType": {
+          "$ref": "#/definitions/FinancialUserProfileType",
+          "example": "username:testuser"
+        }
+      },
+      "required": [
+        "profileType"
+      ]
+    },
     "RecordAskCopilotQuestionResponse": {
       "type": "object",
       "properties": {
@@ -10679,6 +10580,63 @@
           "title": "the remaining quote"
         }
       }
+    },
+    "SearchTransactionsRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "The user id\nValidations:\n- user_id must be greater than 0"
+        },
+        "profileType": {
+          "$ref": "#/definitions/FinancialUserProfileType",
+          "title": "the profile type"
+        },
+        "pageNumber": {
+          "type": "string",
+          "format": "uint64",
+          "title": "The page number"
+        },
+        "pageSize": {
+          "type": "string",
+          "format": "uint64",
+          "title": "The page size"
+        },
+        "minAmount": {
+          "type": "number",
+          "format": "double",
+          "title": "min amount"
+        },
+        "maxAmount": {
+          "type": "number",
+          "format": "double",
+          "title": "max amount"
+        },
+        "category": {
+          "type": "string",
+          "title": "category"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date-time",
+          "title": "start date"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date-time",
+          "title": "end date"
+        },
+        "financialAccountType": {
+          "$ref": "#/definitions/FinancialAccountType"
+        }
+      },
+      "required": [
+        "userId",
+        "profileType",
+        "pageNumber",
+        "pageSize"
+      ]
     },
     "SearchTransactionsResponse": {
       "type": "object",
@@ -10807,6 +10765,28 @@
         }
       },
       "title": "Note schema"
+    },
+    "SplitTransactionRequest": {
+      "type": "object",
+      "properties": {
+        "transactionId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "The transaction id\nValidations:\n- transaction_id must be greater than 0"
+        },
+        "splitTransactions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/TransactionSplit"
+          },
+          "title": "The split transaction\nValidations:\n- cannot be nil hence required"
+        }
+      },
+      "required": [
+        "transactionId",
+        "splitTransactions"
+      ]
     },
     "SplitTransactionResponse": {
       "type": "object",
@@ -11396,6 +11376,19 @@
           "title": "the task id"
         }
       }
+    },
+    "UnSplitTransactionsRequest": {
+      "type": "object",
+      "properties": {
+        "transactionId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "The transaction id\nValidations:\n- transaction_id must be greater than 0"
+        }
+      },
+      "required": [
+        "transactionId"
+      ]
     },
     "UnSplitTransactionsResponse": {
       "type": "object",

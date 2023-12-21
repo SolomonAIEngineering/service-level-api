@@ -353,23 +353,6 @@ func request_FinancialService_CreateBankAccount_0(ctx context.Context, marshaler
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["user_id"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user_id")
-	}
-
-	protoReq.UserId, err = runtime.Uint64(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
-	}
-
 	msg, err := client.CreateBankAccount(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
@@ -385,23 +368,6 @@ func local_request_FinancialService_CreateBankAccount_0(ctx context.Context, mar
 	}
 	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["user_id"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user_id")
-	}
-
-	protoReq.UserId, err = runtime.Uint64(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
 	}
 
 	msg, err := server.CreateBankAccount(ctx, &protoReq)
@@ -4783,25 +4749,8 @@ func request_FinancialService_AddNoteToTransaction_0(ctx context.Context, marsha
 	if berr != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
 	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.Note); err != nil && err != io.EOF {
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["transaction_id"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "transaction_id")
-	}
-
-	protoReq.TransactionId, err = runtime.Uint64(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "transaction_id", err)
 	}
 
 	msg, err := client.AddNoteToTransaction(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -4817,25 +4766,8 @@ func local_request_FinancialService_AddNoteToTransaction_0(ctx context.Context, 
 	if berr != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
 	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.Note); err != nil && err != io.EOF {
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["transaction_id"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "transaction_id")
-	}
-
-	protoReq.TransactionId, err = runtime.Uint64(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "transaction_id", err)
 	}
 
 	msg, err := server.AddNoteToTransaction(ctx, &protoReq)
@@ -5085,23 +5017,6 @@ func request_FinancialService_SplitTransaction_0(ctx context.Context, marshaler 
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["transaction_id"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "transaction_id")
-	}
-
-	protoReq.TransactionId, err = runtime.Uint64(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "transaction_id", err)
-	}
-
 	msg, err := client.SplitTransaction(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
@@ -5117,23 +5032,6 @@ func local_request_FinancialService_SplitTransaction_0(ctx context.Context, mars
 	}
 	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["transaction_id"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "transaction_id")
-	}
-
-	protoReq.TransactionId, err = runtime.Uint64(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "transaction_id", err)
 	}
 
 	msg, err := server.SplitTransaction(ctx, &protoReq)
@@ -5153,23 +5051,6 @@ func request_FinancialService_UnSplitTransactions_0(ctx context.Context, marshal
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["transaction_id"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "transaction_id")
-	}
-
-	protoReq.TransactionId, err = runtime.Uint64(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "transaction_id", err)
-	}
-
 	msg, err := client.UnSplitTransactions(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
@@ -5185,23 +5066,6 @@ func local_request_FinancialService_UnSplitTransactions_0(ctx context.Context, m
 	}
 	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["transaction_id"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "transaction_id")
-	}
-
-	protoReq.TransactionId, err = runtime.Uint64(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "transaction_id", err)
 	}
 
 	msg, err := server.UnSplitTransactions(ctx, &protoReq)
@@ -5261,18 +5125,15 @@ func local_request_FinancialService_GetSplitTransaction_0(ctx context.Context, m
 
 }
 
-var (
-	filter_FinancialService_SearchTransactions_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
-)
-
 func request_FinancialService_SearchTransactions_0(ctx context.Context, marshaler runtime.Marshaler, client FinancialServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq SearchTransactionsRequest
 	var metadata runtime.ServerMetadata
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_FinancialService_SearchTransactions_0); err != nil {
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -5285,10 +5146,11 @@ func local_request_FinancialService_SearchTransactions_0(ctx context.Context, ma
 	var protoReq SearchTransactionsRequest
 	var metadata runtime.ServerMetadata
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_FinancialService_SearchTransactions_0); err != nil {
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -5513,25 +5375,8 @@ func request_FinancialService_AddNoteToRecurringTransaction_0(ctx context.Contex
 	if berr != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
 	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.Note); err != nil && err != io.EOF {
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["transaction_id"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "transaction_id")
-	}
-
-	protoReq.TransactionId, err = runtime.Uint64(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "transaction_id", err)
 	}
 
 	msg, err := client.AddNoteToRecurringTransaction(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -5547,25 +5392,8 @@ func local_request_FinancialService_AddNoteToRecurringTransaction_0(ctx context.
 	if berr != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
 	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.Note); err != nil && err != io.EOF {
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["transaction_id"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "transaction_id")
-	}
-
-	protoReq.TransactionId, err = runtime.Uint64(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "transaction_id", err)
 	}
 
 	msg, err := server.AddNoteToRecurringTransaction(ctx, &protoReq)
@@ -5795,23 +5623,6 @@ func request_FinancialService_RecordAskCopilotQuestion_0(ctx context.Context, ma
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["user_id"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user_id")
-	}
-
-	protoReq.UserId, err = runtime.Uint64(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
-	}
-
 	msg, err := client.RecordAskCopilotQuestion(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
@@ -5827,23 +5638,6 @@ func local_request_FinancialService_RecordAskCopilotQuestion_0(ctx context.Conte
 	}
 	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["user_id"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user_id")
-	}
-
-	protoReq.UserId, err = runtime.Uint64(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
 	}
 
 	msg, err := server.RecordAskCopilotQuestion(ctx, &protoReq)
@@ -6144,7 +5938,7 @@ func RegisterFinancialServiceHandlerServer(ctx context.Context, mux *runtime.Ser
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/financial_service.v1.FinancialService/CreateBankAccount", runtime.WithHTTPPathPattern("/api/v1/bank-account/profile/{user_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/financial_service.v1.FinancialService/CreateBankAccount", runtime.WithHTTPPathPattern("/api/v1/bank-account/profile"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7969,7 +7763,7 @@ func RegisterFinancialServiceHandlerServer(ctx context.Context, mux *runtime.Ser
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/financial_service.v1.FinancialService/AddNoteToTransaction", runtime.WithHTTPPathPattern("/api/v1/transactions/transaction/{transaction_id}/note"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/financial_service.v1.FinancialService/AddNoteToTransaction", runtime.WithHTTPPathPattern("/api/v1/transactions/transaction/note"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8094,7 +7888,7 @@ func RegisterFinancialServiceHandlerServer(ctx context.Context, mux *runtime.Ser
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/financial_service.v1.FinancialService/SplitTransaction", runtime.WithHTTPPathPattern("/api/v1/transactions/transaction/{transaction_id}/split"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/financial_service.v1.FinancialService/SplitTransaction", runtime.WithHTTPPathPattern("/api/v1/transactions/transaction/split"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8119,7 +7913,7 @@ func RegisterFinancialServiceHandlerServer(ctx context.Context, mux *runtime.Ser
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/financial_service.v1.FinancialService/UnSplitTransactions", runtime.WithHTTPPathPattern("/api/v1/transactions/transaction/{transaction_id}/unsplit"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/financial_service.v1.FinancialService/UnSplitTransactions", runtime.WithHTTPPathPattern("/api/v1/transactions/transaction/unsplit"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8161,7 +7955,7 @@ func RegisterFinancialServiceHandlerServer(ctx context.Context, mux *runtime.Ser
 
 	})
 
-	mux.Handle("GET", pattern_FinancialService_SearchTransactions_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_FinancialService_SearchTransactions_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -8319,7 +8113,7 @@ func RegisterFinancialServiceHandlerServer(ctx context.Context, mux *runtime.Ser
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/financial_service.v1.FinancialService/AddNoteToRecurringTransaction", runtime.WithHTTPPathPattern("/api/v1/transactions/recurring/{transaction_id}/note"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/financial_service.v1.FinancialService/AddNoteToRecurringTransaction", runtime.WithHTTPPathPattern("/api/v1/transactions/recurring/note"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8444,7 +8238,7 @@ func RegisterFinancialServiceHandlerServer(ctx context.Context, mux *runtime.Ser
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/financial_service.v1.FinancialService/RecordAskCopilotQuestion", runtime.WithHTTPPathPattern("/api/v1/copilot/quota/question/{user_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/financial_service.v1.FinancialService/RecordAskCopilotQuestion", runtime.WithHTTPPathPattern("/api/v1/copilot/quota/question"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8712,7 +8506,7 @@ func RegisterFinancialServiceHandlerClient(ctx context.Context, mux *runtime.Ser
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/financial_service.v1.FinancialService/CreateBankAccount", runtime.WithHTTPPathPattern("/api/v1/bank-account/profile/{user_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/financial_service.v1.FinancialService/CreateBankAccount", runtime.WithHTTPPathPattern("/api/v1/bank-account/profile"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10318,7 +10112,7 @@ func RegisterFinancialServiceHandlerClient(ctx context.Context, mux *runtime.Ser
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/financial_service.v1.FinancialService/AddNoteToTransaction", runtime.WithHTTPPathPattern("/api/v1/transactions/transaction/{transaction_id}/note"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/financial_service.v1.FinancialService/AddNoteToTransaction", runtime.WithHTTPPathPattern("/api/v1/transactions/transaction/note"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10428,7 +10222,7 @@ func RegisterFinancialServiceHandlerClient(ctx context.Context, mux *runtime.Ser
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/financial_service.v1.FinancialService/SplitTransaction", runtime.WithHTTPPathPattern("/api/v1/transactions/transaction/{transaction_id}/split"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/financial_service.v1.FinancialService/SplitTransaction", runtime.WithHTTPPathPattern("/api/v1/transactions/transaction/split"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10450,7 +10244,7 @@ func RegisterFinancialServiceHandlerClient(ctx context.Context, mux *runtime.Ser
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/financial_service.v1.FinancialService/UnSplitTransactions", runtime.WithHTTPPathPattern("/api/v1/transactions/transaction/{transaction_id}/unsplit"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/financial_service.v1.FinancialService/UnSplitTransactions", runtime.WithHTTPPathPattern("/api/v1/transactions/transaction/unsplit"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10488,7 +10282,7 @@ func RegisterFinancialServiceHandlerClient(ctx context.Context, mux *runtime.Ser
 
 	})
 
-	mux.Handle("GET", pattern_FinancialService_SearchTransactions_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_FinancialService_SearchTransactions_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
@@ -10626,7 +10420,7 @@ func RegisterFinancialServiceHandlerClient(ctx context.Context, mux *runtime.Ser
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/financial_service.v1.FinancialService/AddNoteToRecurringTransaction", runtime.WithHTTPPathPattern("/api/v1/transactions/recurring/{transaction_id}/note"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/financial_service.v1.FinancialService/AddNoteToRecurringTransaction", runtime.WithHTTPPathPattern("/api/v1/transactions/recurring/note"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10736,7 +10530,7 @@ func RegisterFinancialServiceHandlerClient(ctx context.Context, mux *runtime.Ser
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/financial_service.v1.FinancialService/RecordAskCopilotQuestion", runtime.WithHTTPPathPattern("/api/v1/copilot/quota/question/{user_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/financial_service.v1.FinancialService/RecordAskCopilotQuestion", runtime.WithHTTPPathPattern("/api/v1/copilot/quota/question"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10814,7 +10608,7 @@ var (
 
 	pattern_FinancialService_UpdateUserProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v1", "profile"}, ""))
 
-	pattern_FinancialService_CreateBankAccount_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v1", "bank-account", "profile", "user_id"}, ""))
+	pattern_FinancialService_CreateBankAccount_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "bank-account", "profile"}, ""))
 
 	pattern_FinancialService_GetBankAccount_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v1", "bank-account", "bank_account_id"}, ""))
 
@@ -10960,7 +10754,7 @@ var (
 
 	pattern_FinancialService_DeleteTransaction_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v1", "transactions", "transaction", "transaction_id"}, ""))
 
-	pattern_FinancialService_AddNoteToTransaction_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"api", "v1", "transactions", "transaction", "transaction_id", "note"}, ""))
+	pattern_FinancialService_AddNoteToTransaction_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v1", "transactions", "transaction", "note"}, ""))
 
 	pattern_FinancialService_UpdateNoteToTransaction_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v1", "transactions", "transaction", "note"}, ""))
 
@@ -10970,9 +10764,9 @@ var (
 
 	pattern_FinancialService_GetNoteFromTransaction_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6}, []string{"api", "v1", "transactions", "transaction", "transaction_id", "note", "note_id"}, ""))
 
-	pattern_FinancialService_SplitTransaction_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"api", "v1", "transactions", "transaction", "transaction_id", "split"}, ""))
+	pattern_FinancialService_SplitTransaction_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v1", "transactions", "transaction", "split"}, ""))
 
-	pattern_FinancialService_UnSplitTransactions_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"api", "v1", "transactions", "transaction", "transaction_id", "unsplit"}, ""))
+	pattern_FinancialService_UnSplitTransactions_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v1", "transactions", "transaction", "unsplit"}, ""))
 
 	pattern_FinancialService_GetSplitTransaction_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"api", "v1", "transactions", "transaction", "transaction_id", "split"}, ""))
 
@@ -10988,7 +10782,7 @@ var (
 
 	pattern_FinancialService_DeleteRecurringTransaction_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v1", "transactions", "recurring", "transaction_id"}, ""))
 
-	pattern_FinancialService_AddNoteToRecurringTransaction_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"api", "v1", "transactions", "recurring", "transaction_id", "note"}, ""))
+	pattern_FinancialService_AddNoteToRecurringTransaction_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v1", "transactions", "recurring", "note"}, ""))
 
 	pattern_FinancialService_UpdateNoteToRecurringTransaction_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v1", "transactions", "recurring", "note"}, ""))
 
@@ -10998,7 +10792,7 @@ var (
 
 	pattern_FinancialService_PollAsyncTaskExecutionStatus_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v1", "async-task", "task_id"}, ""))
 
-	pattern_FinancialService_RecordAskCopilotQuestion_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"api", "v1", "copilot", "quota", "question", "user_id"}, ""))
+	pattern_FinancialService_RecordAskCopilotQuestion_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v1", "copilot", "quota", "question"}, ""))
 
 	pattern_FinancialService_CheckIfQuotaExceeded_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"api", "v1", "copilot", "quota", "exceeded", "user_id"}, ""))
 

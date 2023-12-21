@@ -179,7 +179,7 @@ service FinancialService {
   // CreateBankAccount creates a bank account for a given user profile
   rpc CreateBankAccount(CreateBankAccountRequest) returns (CreateBankAccountResponse) {
     option (google.api.http) = {
-      post: "/api/v1/bank-account/profile/{user_id}"
+      post: "/api/v1/bank-account/profile"
       body: "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -1754,8 +1754,8 @@ service FinancialService {
   // adds a note to a transaction
  rpc AddNoteToTransaction(AddNoteToTransactionRequest) returns (AddNoteToTransactionResponse) {
     option (google.api.http) = {
-      post: "/api/v1/transactions/transaction/{transaction_id}/note"
-      body: "note"
+      post: "/api/v1/transactions/transaction/note"
+      body: "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       summary: "adds a note to a transaction"
@@ -1872,7 +1872,7 @@ service FinancialService {
   // splits a transaction
   rpc SplitTransaction(SplitTransactionRequest) returns (SplitTransactionResponse) {
     option (google.api.http) = {
-      post: "/api/v1/transactions/transaction/{transaction_id}/split"
+      post: "/api/v1/transactions/transaction/split"
       body: "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -1897,7 +1897,7 @@ service FinancialService {
   // unsplits a transaction
   rpc UnSplitTransactions(UnSplitTransactionsRequest) returns (UnSplitTransactionsResponse) {
     option (google.api.http) = {
-      post: "/api/v1/transactions/transaction/{transaction_id}/unsplit"
+      post: "/api/v1/transactions/transaction/unsplit"
       body: "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -1946,7 +1946,8 @@ service FinancialService {
   // searchs for a set of transactions that fit a given filter
   rpc SearchTransactions(SearchTransactionsRequest) returns (SearchTransactionsResponse) {
     option (google.api.http) = {
-      get: "/api/v1/transactions/transaction/search"
+      post: "/api/v1/transactions/transaction/search"
+      body: "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       summary: "searches transactions"
@@ -2086,8 +2087,8 @@ service FinancialService {
   // adds a note to a transaction
  rpc AddNoteToRecurringTransaction(AddNoteToRecurringTransactionRequest) returns (AddNoteToRecurringTransactionResponse) {
     option (google.api.http) = {
-      post: "/api/v1/transactions/recurring/{transaction_id}/note"
-      body: "note"
+      post: "/api/v1/transactions/recurring/note"
+      body: "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       summary: "adds a note to a transaction"
@@ -2199,7 +2200,7 @@ service FinancialService {
   // This checks if a user can ask the copilot a question
   rpc RecordAskCopilotQuestion(RecordAskCopilotQuestionRequest) returns (RecordAskCopilotQuestionResponse) {
       option (google.api.http) = {
-          post: "/api/v1/copilot/quota/question/{user_id}" 
+          post: "/api/v1/copilot/quota/question" 
           body: "*"
       };
       option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
