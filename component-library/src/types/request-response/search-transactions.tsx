@@ -2,11 +2,15 @@ import {
   SearchTransactionsResponse,
   ErrorResponse,
   PlaidAccountTransaction,
-  SearchTransactionsRequest
+  SearchTransactionsRequest,
+  FinancialAccountType,
+  FinancialUserProfileType
 } from 'src/main';
 import { IRequest } from './IRequest';
 
-class SearchTransactionsRequestClass implements IRequest, SearchTransactionsRequest {
+class SearchTransactionsRequestClass
+  implements IRequest, SearchTransactionsRequest
+{
   /**
    * The search query for transactions
    * Validations:
@@ -25,6 +29,17 @@ class SearchTransactionsRequestClass implements IRequest, SearchTransactionsRequ
       });
     }
   }
+  category?: string | undefined;
+  endDate?: string | undefined;
+  financialAccountType?: FinancialAccountType | undefined;
+  maxAmount?: number | undefined;
+  minAmount?: number | undefined;
+  pageNumber: string = '';
+  pageSize: string = '';
+  profileType: FinancialUserProfileType =
+    'FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED';
+  startDate?: string | undefined;
+  userId: string = '';
 
   isValid(): boolean {
     return this.query !== '';

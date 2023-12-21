@@ -1,6 +1,7 @@
 import {
   FinancialUserProfileType,
   PlaidExchangeTokenRequest,
+  PlaidExchangeTokenResponse,
 } from 'src/data-contracts/financial-service/data-contracts';
 import { ErrorResponse } from '../error';
 
@@ -33,9 +34,10 @@ export class PlaidExchangeTokenRequestClass implements PlaidExchangeTokenRequest
   }
 }
 
-export class PlaidExchangeTokenResponseClass extends ErrorResponse {
+export class PlaidExchangeTokenResponseClass extends ErrorResponse implements PlaidExchangeTokenResponse {
   /** wether the operation was successful */
   success = false;
+  taskId: string = ''
 
   constructor(data?: Partial<PlaidExchangeTokenResponseClass>) {
     super();

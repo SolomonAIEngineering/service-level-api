@@ -3,5 +3,5 @@
         "Clickhouse"
     ],
     "prettier.printWidth": 100,
-    "editor.formatOnSave": true
+    "editor.formatOnSave": false
 }

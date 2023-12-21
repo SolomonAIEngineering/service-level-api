@@ -8740,9 +8740,10 @@ export declare class PlaidExchangeTokenRequestClass implements PlaidExchangeToke
 	profileType: FinancialUserProfileType;
 	constructor(data?: Partial<PlaidExchangeTokenRequestClass>);
 }
-export declare class PlaidExchangeTokenResponseClass extends ErrorResponse {
+export declare class PlaidExchangeTokenResponseClass extends ErrorResponse implements PlaidExchangeTokenResponse {
 	/** wether the operation was successful */
 	success: boolean;
+	taskId: string;
 	constructor(data?: Partial<PlaidExchangeTokenResponseClass>);
 }
 export declare class PlaidInitiateTokenExchangeRequestClass implements PlaidInitiateTokenExchangeRequest {
