@@ -40,3 +40,4 @@ export * from './canny-sso-token';
 export * from './ask-copilot-question';
 export * from './trigger-sync';
 export * from './poll-async-task-execution';
+export * from './check-question-quota-exceeded';
