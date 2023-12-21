@@ -7283,7 +7283,7 @@ class GTe extends xt {
 }
 class zTe {
   /**
-   * Creates an instance of PollAsyncTaskExecutionRequest.
+   * Creates an instance of PollAsyncTaskExecutionRequestClass.
    * @param data - Optional data to initialize the request.
    */
   constructor(t) {
@@ -54062,7 +54062,7 @@ export {
   RTe as PlaidLinkResponseClass,
   e2e as PlaidSyncClass,
   Bx as PocketClass,
-  zTe as PollAsyncTaskExecutionRequest,
+  zTe as PollAsyncTaskExecutionRequestClass,
   YTe as PollAsyncTaskExecutionResponseClass,
   C2e as PublicationClass,
   Wx as ReOccuringTransactionClass,

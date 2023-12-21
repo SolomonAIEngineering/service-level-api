@@ -5,17 +5,17 @@ import {
 } from 'src/main';
 import { IRequest } from './IRequest';
 
-class PollAsyncTaskExecutionRequest implements IRequest {
+class PollAsyncTaskExecutionRequestClass implements IRequest {
   /**
    * The user ID associated with the request.
    */
   taskId: string = '';
 
   /**
-   * Creates an instance of PollAsyncTaskExecutionRequest.
+   * Creates an instance of PollAsyncTaskExecutionRequestClass.
    * @param data - Optional data to initialize the request.
    */
-  constructor(data?: Partial<PollAsyncTaskExecutionRequest>) {
+  constructor(data?: Partial<PollAsyncTaskExecutionRequestClass>) {
     if (data) {
       Object.assign(this, {
         ...data,
@@ -65,4 +65,7 @@ class PollAsyncTaskExecutionResponseClass
   }
 }
 
-export { PollAsyncTaskExecutionRequest, PollAsyncTaskExecutionResponseClass };
+export {
+  PollAsyncTaskExecutionRequestClass,
+  PollAsyncTaskExecutionResponseClass,
+};
