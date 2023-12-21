@@ -8925,6 +8925,40 @@ export declare class TriggerSyncResponseClass extends ErrorResponse implements T
 	isValid(): boolean;
 	getTaskId(): string;
 }
+export declare class PollAsyncTaskExecutionRequest implements IRequest {
+	/**
+	 * The user ID associated with the request.
+	 */
+	taskId: string;
+	/**
+	 * Creates an instance of PollAsyncTaskExecutionRequest.
+	 * @param data - Optional data to initialize the request.
+	 */
+	constructor(data?: Partial<PollAsyncTaskExecutionRequest>);
+	/**
+	 * Checks if the request is valid.
+	 * @returns True if the user ID is not empty, otherwise false.
+	 */
+	isValid(): boolean;
+}
+export declare class PollAsyncTaskExecutionResponseClass extends ErrorResponse implements PollAsyncTaskExecutionStatusResponse {
+	code: number;
+	err: string;
+	token: string;
+	status: TaskState;
+	/** The task id */
+	taskId: string;
+	/**
+	 * Creates an instance of PollAsyncTaskExecutionResponseClass.
+	 * @param data - Optional data to initialize the response.
+	 */
+	constructor(data?: Partial<PollAsyncTaskExecutionStatusResponse>);
+	/**
+	 * Checks if the response is valid.
+	 * @returns True if the task id is not empty, otherwise false.
+	 */
+	isValid(): boolean;
+}
 /**
  * Represents individual data points for the chart.
  */

@@ -7,11 +7,10 @@
 
 # [1.164.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.163.0...v1.164.0) (2023-12-20)
 
-
 ### Features
 
-* add trigger sync api ([0db486c](https://github.com/SolomonAIEngineering/service-level-api/commit/0db486cad76d66bcdabe0be915aba40d464c3db8))
-* add trigger sync api ([af1d28f](https://github.com/SolomonAIEngineering/service-level-api/commit/af1d28f2a82b867dcdb96cf42af0a05064ba3497))
+- add trigger sync api ([0db486c](https://github.com/SolomonAIEngineering/service-level-api/commit/0db486cad76d66bcdabe0be915aba40d464c3db8))
+- add trigger sync api ([af1d28f](https://github.com/SolomonAIEngineering/service-level-api/commit/af1d28f2a82b867dcdb96cf42af0a05064ba3497))
 
 # [1.163.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.162.0...v1.163.0) (2023-12-20)
 
