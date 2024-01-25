@@ -1,3 +1,10 @@
+# [1.168.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.167.0...v1.168.0) (2024-01-25)
+
+
+### Features
+
+* update repo wide documentation ([ff22cd6](https://github.com/SolomonAIEngineering/service-level-api/commit/ff22cd6c9aca8f2321fddf594ea476035f76297c))
+
 # [1.167.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.166.0...v1.167.0) (2023-12-21)
 
 ### Features
