@@ -1,17 +1,15 @@
 # [1.167.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.166.0...v1.167.0) (2023-12-21)
 
-
 ### Features
 
-* update the search and plaid exchange token ([b04f055](https://github.com/SolomonAIEngineering/service-level-api/commit/b04f055850a67203d55473ef28feb7d9a5eb3b03))
+- update the search and plaid exchange token ([b04f055](https://github.com/SolomonAIEngineering/service-level-api/commit/b04f055850a67203d55473ef28feb7d9a5eb3b03))
 
 # [1.166.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.165.0...v1.166.0) (2023-12-21)
 
-
 ### Features
 
-* update request and response objects ([7c43099](https://github.com/SolomonAIEngineering/service-level-api/commit/7c430990749ecb24b7b66da6d3438bc6a430c467))
-* update request and response objects ([dfc336f](https://github.com/SolomonAIEngineering/service-level-api/commit/dfc336f4e727304b3fd8e1ef5ba36eaa4abb9fd7))
+- update request and response objects ([7c43099](https://github.com/SolomonAIEngineering/service-level-api/commit/7c430990749ecb24b7b66da6d3438bc6a430c467))
+- update request and response objects ([dfc336f](https://github.com/SolomonAIEngineering/service-level-api/commit/dfc336f4e727304b3fd8e1ef5ba36eaa4abb9fd7))
 
 # [1.165.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.164.0...v1.165.0) (2023-12-20)
 

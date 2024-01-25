@@ -1,0 +1,133 @@
+syntax = "proto3";
+
+package user_service.v1;
+
+import "protoc-gen-gorm/options/gorm.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/generated/user_service/v1";
+
+enum NotificationType {
+    NOTIFICATION_TYPE_UNSPECIFIED = 0;
+    // email based notification
+    NOTIFICATION_TYPE_EMAIL = 1;
+    // sms based notification
+    NOTIFICATION_TYPE_SMS = 2;
+    // app based notification
+    NOTIFICATION_TYPE_IN_APP = 3;
+    // slack based notification
+    NOTIFICATION_TYPE_SLACK = 4;
+}
+
+// Display and interaction preferences.
+enum ApplicationTheme {
+  APPLICATION_THEME_UNSPECIFIED = 0;
+  APPLICATION_THEME_LIGHT = 1;
+  APPLICATION_THEME_DARK = 2;
+}
+
+enum LikedDashboardPanels {
+  LIKED_DASHBOARD_PANELS_TRANSACTIONS_UNSPECIFIED = 0;
+  LIKED_DASHBOARD_PANELS_TRANSACTIONS_OVERVIEW = 1;
+  LIKED_DASHBOARD_PANELS_INVESTMENT_SUMMARY = 2;
+  LIKED_DASHBOARD_PANELS_MONTHLY_SPENDING_REPORT = 3;
+  LIKED_DASHBOARD_PANELS_SAVINGS_TRACKER = 4;
+  LIKED_DASHBOARD_PANELS_CREDIT_SCORE_MONITOR = 5;
+}
+
+ // Risk Tolerance Investment preferences.
+enum RiskToleranceSettings {
+  RISK_TOLERANCE_SETTINGS_UNSPECIFIED = 0;
+  RISK_TOLERANCE_SETTINGS_LOW = 1;
+  RISK_TOLERANCE_SETTINGS_MEDIUM = 2;
+  RISK_TOLERANCE_SETTINGS_HIGH = 3;
+}
+
+enum BusinessType {
+  BUSINESS_TYPE_UNSPECIFIED = 0;
+  BUSINESS_TYPE_SOLE_PROPRIETORSHIP = 1;
+  BUSINESS_TYPE_PARTNERSHIP = 2;
+  BUSINESS_TYPE_LLC = 3;
+  BUSINESS_TYPE_CORPORATION = 4;
+  BUSINESS_TYPE_OTHER = 5;
+}
+
+message NotificationSettings {
+  option (gorm.opts) = {
+    ormable : true,
+  };
+  // address id
+  uint64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: ""
+    }
+  ];
+
+  NotificationType notification_type = 2;
+  bool alerts = 3;  // True if user wants to be alerted for anomalies
+}
+
+// DigitalWorkerToolChainConfiguration defines the overall settings for a digital worker.
+message DigitalWorkerSettings {
+  option (gorm.opts) = {
+    ormable: true,
+  };
+  uint64 id = 1;  // Unique identifier for the toolchain configuration.
+  string worker_name = 2;
+  string worker_version = 3;
+  bool enable_logging = 4;
+}
+
+message FinancialPreferences {
+  option (gorm.opts) = {
+    ormable : true,
+  };
+  // address id
+  uint64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: ""
+    }
+  ];
+
+  string currency_preference = 2;
+  string financial_year_start = 3;
+  double tax_percentage = 4;
+  string tax_code = 5;
+}
+
+// User settings for the fintech application.
+message Settings {
+  option (gorm.opts) = {
+    ormable : true,
+  };
+  // address id
+  uint64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: ""
+    }
+  ];
+
+  // Display and interaction preferences.
+  ApplicationTheme app_theme = 2;
+
+  // Notification preferences.
+  NotificationSettings notification_settings = 3;
+
+  // Language preference.
+  string preferred_language = 4;
+
+  // Risk tolerance settings defined for user settings. 
+  RiskToleranceSettings risk_tolerance = 5;
+  
+  // Dashboard customization, e.g., specific widgets or reports.
+  repeated LikedDashboardPanels liked_dashboard_panels = 13;
+
+  // Settings specific to the user's digital worker.
+  DigitalWorkerSettings digital_worker_settings = 14 [
+    (gorm.field).has_one.preload = true
+  ];
+
+  FinancialPreferences financial_preferences = 15 [
+    (gorm.field).has_one.preload = true
+  ];
+}

@@ -99,7 +99,7 @@ export const businessAccountSchema = z.object({
   confirmPassword: z.string().min(8, {
     message: 'Password must be at least 8 characters.',
   }),
-  profileImage: z.string().optional(),
+  profileImageUrl: z.string().optional(),
   headline: z.string().min(10, {
     message: 'Headline must be at least 10 characters.',
   }),
@@ -112,6 +112,9 @@ export const businessAccountSchema = z.object({
   isEmailVerified: z.boolean().optional(),
   isPrivate: z.boolean().optional(),
   verifiedAt: z.string().optional(),
+  auth0UserId: z.string().min(1, {
+    message: 'Auth0 user id must be defined.',
+  }),
 });
 
 export type Step3ZodSchema = z.infer<typeof Step3Schema>;

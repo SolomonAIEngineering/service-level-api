@@ -138,8 +138,8 @@ export const MultiStepCreateBusinessAccountForm: React.FC<{
     const createUserV2Request = new CreateAccountV2RequestClass({
       businessAccount: businessAcct,
       communityIdsToFollow: [],
-      password: data.password,
-      profileImage: data.profileImage,
+      profileImageUrl: data.profileImageUrl,
+      auth0UserId: data.auth0UserId,
     });
 
     callback(createUserV2Request);

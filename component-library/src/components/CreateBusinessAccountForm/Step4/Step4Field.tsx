@@ -45,7 +45,7 @@ export const Step4ProfileImageField: React.FC<
                 <div
                   onClick={() => {
                     setSelectedAvatar(avatarUrl);
-                    setValue('profileImage', avatarUrl);
+                    setValue('profileImageUrl', avatarUrl);
                   }}
                   key={idx}
                   className="p-2"

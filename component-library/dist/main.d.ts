@@ -6,32 +6,6 @@ import { Component, ReactElement, ReactNode } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import { z } from 'zod';
 
-export interface AIPoweredInsights {
-	/**
-	 * List of areas of interest for insights
-	 * List of areas for insights
-	 */
-	areasOfInterest?: Array<string>;
-	/** True if user agrees to share data for insights */
-	dataSharing?: boolean;
-	/**
-	 * address id
-	 * @format uint64
-	 */
-	id?: string;
-	insightFrequency?: Frequency;
-}
-export interface AccountInformation {
-	businessName?: string;
-	businessRegistrationNumber?: string;
-	businessType?: BusinessType;
-	contactInfo?: ContactInformation;
-	/**
-	 * address id
-	 * @format uint64
-	 */
-	id?: string;
-}
 /** Address: represents an account's address */
 export interface Address {
 	/**
@@ -87,8 +61,15 @@ export interface Address {
 	 */
 	zipcode?: string;
 }
+/**
+ * Display and interaction preferences.
+ * @default "APPLICATION_THEME_UNSPECIFIED"
+ */
+export type ApplicationTheme = "APPLICATION_THEME_UNSPECIFIED" | "APPLICATION_THEME_LIGHT" | "APPLICATION_THEME_DARK";
 /** BusinessAccount represents a business account within the context of solomon-ai. */
 export interface BusinessAccount {
+	/** auth0 user id associated with the business account */
+	auth0UserId?: string;
 	/** The type of profile associated with the business account (e.g., individual, corporate). */
 	accountType?: ProfileType;
 	/** Physical address associated with the business account. */
@@ -103,8 +84,6 @@ export interface BusinessAccount {
 	 * @example "sample description"
 	 */
 	bio?: string;
-	/** Settings specific to the business account. */
-	businessAccountSettings?: BusinessAccountSettings;
 	/**
 	 * Description of the company associated with the business account.
 	 * @example "We help businesses succeed"
@@ -167,6 +146,10 @@ export interface BusinessAccount {
 	 * @example "6513424124"
 	 */
 	phoneNumber?: string;
+	/** Profile image associated with the user account. */
+	profileImageUrl?: string;
+	/** Settings specific to the business account. */
+	settings?: Settings;
 	/** Tags associated with the business account. Between 1 and 10 tags are allowed. */
 	tags?: Array<Tags>;
 	/**
@@ -180,36 +163,16 @@ export interface BusinessAccount {
 	 */
 	verifiedAt?: string;
 }
-/** Business Account Settings */
-export interface BusinessAccountSettings {
-	accountInformation?: AccountInformation;
-	aiPoweredInsights?: AIPoweredInsights;
-	financialPreferences?: FinancialPreferences;
-	/**
-	 * address id
-	 * @format uint64
-	 */
-	id?: string;
-	integrationSettings?: IntegrationSettings;
-	notificationSettings?: NotificationSettings;
-}
-/** @default "BUSINESS_TYPE_UNSPECIFIED" */
-export type BusinessType = "BUSINESS_TYPE_UNSPECIFIED" | "BUSINESS_TYPE_SOLE_PROPRIETORSHIP" | "BUSINESS_TYPE_PARTNERSHIP" | "BUSINESS_TYPE_LLC" | "BUSINESS_TYPE_CORPORATION" | "BUSINESS_TYPE_OTHER";
-export interface ContactInformation {
-	address?: string;
-	email?: string;
-	/**
-	 * address id
-	 * @format uint64
-	 */
-	id?: string;
-	phoneNumber?: string;
-}
 /**
  * CreateUserV2Request: Represents the request object invoked against the user
  * service to create a user account
  */
 export interface CreateUserV2Request {
+	/**
+	 * The auth0 user id of the user
+	 * @example "lksdjhfgsdhfghdsgfhgdh.com"
+	 */
+	auth0UserId: string;
 	/** BusinessAccount represents a business account within the context of solomon-ai. */
 	businessAccount?: BusinessAccount;
 	/**
@@ -219,19 +182,12 @@ export interface CreateUserV2Request {
 	 */
 	communityIdsToFollow?: Array<string>;
 	/**
-	 * The password  of the user
-	 * Validations:
-	 * - must be a at least 10 characters long
-	 * @example "tesdfkdkfhsdgd"
-	 */
-	password: string;
-	/**
 	 * The profile image of the user
 	 * Validations:
 	 * - must be a valid URI
 	 * @example "lksdjhfgsdhfghdsgfhgdh.com"
 	 */
-	profileImage: string;
+	profileImageUrl: string;
 	/** @brief Represents a user account in the context of simfinni. */
 	userAccount?: UserAccount;
 }
@@ -243,8 +199,17 @@ export interface CreateUserV2Response {
 	/** @format uint64 */
 	userId?: string;
 }
-/** @default "DASHBOARD_WIDGET_TRANSACTIONS_UNSPECIFIED" */
-export type DashboardWidget = "DASHBOARD_WIDGET_TRANSACTIONS_UNSPECIFIED" | "DASHBOARD_WIDGET_TRANSACTIONS_OVERVIEW" | "DASHBOARD_WIDGET_INVESTMENT_SUMMARY" | "DASHBOARD_WIDGET_MONTHLY_SPENDING_REPORT" | "DASHBOARD_WIDGET_SAVINGS_TRACKER" | "DASHBOARD_WIDGET_CREDIT_SCORE_MONITOR";
+/** DigitalWorkerToolChainConfiguration defines the overall settings for a digital worker. */
+export interface DigitalWorkerSettings {
+	enableLogging?: boolean;
+	/**
+	 * Unique identifier for the toolchain configuration.
+	 * @format uint64
+	 */
+	id?: string;
+	workerName?: string;
+	workerVersion?: string;
+}
 export interface FinancialPreferences {
 	currencyPreference?: string;
 	financialYearStart?: string;
@@ -253,30 +218,15 @@ export interface FinancialPreferences {
 	 * @format uint64
 	 */
 	id?: string;
-	taxSettings?: TaxSettings;
+	taxCode?: string;
+	/** @format double */
+	taxPercentage?: number;
 }
-/**
- * frequency by which insights should be generated
- * @default "FREQUENCY_UNSPECIFIED"
- */
-export type Frequency = "FREQUENCY_UNSPECIFIED" | "FREQUENCY_DAILY" | "FREQUENCY_WEEKLY" | "FREQUENCY_MONTHLY";
 export interface GetCannyUserSSOTokenResponse {
 	token?: string;
 }
-export interface IntegrationSettings {
-	/** wether to enable linking bank account for account */
-	bankAccountLinking?: boolean;
-	/**
-	 * address id
-	 * @format uint64
-	 */
-	id?: string;
-	/**
-	 * list of supported third party apps of interest
-	 * List of connected third-party apps
-	 */
-	thirdPartyApps?: Array<string>;
-}
+/** @default "LIKED_DASHBOARD_PANELS_TRANSACTIONS_UNSPECIFIED" */
+export type LikedDashboardPanels = "LIKED_DASHBOARD_PANELS_TRANSACTIONS_UNSPECIFIED" | "LIKED_DASHBOARD_PANELS_TRANSACTIONS_OVERVIEW" | "LIKED_DASHBOARD_PANELS_INVESTMENT_SUMMARY" | "LIKED_DASHBOARD_PANELS_MONTHLY_SPENDING_REPORT" | "LIKED_DASHBOARD_PANELS_SAVINGS_TRACKER" | "LIKED_DASHBOARD_PANELS_CREDIT_SCORE_MONITOR";
 export interface NotificationSettings {
 	/** True if user wants to be alerted for anomalies */
 	alerts?: boolean;
@@ -285,31 +235,47 @@ export interface NotificationSettings {
 	 * @format uint64
 	 */
 	id?: string;
-	/**
-	 * - TYPE_EMAIL: email based notification
-	 *  - TYPE_SMS: sms based notification
-	 *  - TYPE_IN_APP: app based notification
-	 */
-	notificationType?: NotificationSettingsType;
+	notificationType?: NotificationType;
 }
 /**
- * type of enabled notification
- * - TYPE_EMAIL: email based notification
- *  - TYPE_SMS: sms based notification
- *  - TYPE_IN_APP: app based notification
- * @default "TYPE_UNSPECIFIED"
+ * - NOTIFICATION_TYPE_EMAIL: email based notification
+ *  - NOTIFICATION_TYPE_SMS: sms based notification
+ *  - NOTIFICATION_TYPE_IN_APP: app based notification
+ *  - NOTIFICATION_TYPE_SLACK: slack based notification
+ * @default "NOTIFICATION_TYPE_UNSPECIFIED"
  */
-export type NotificationSettingsType = "TYPE_UNSPECIFIED" | "TYPE_EMAIL" | "TYPE_SMS" | "TYPE_IN_APP";
+export type NotificationType = "NOTIFICATION_TYPE_UNSPECIFIED" | "NOTIFICATION_TYPE_EMAIL" | "NOTIFICATION_TYPE_SMS" | "NOTIFICATION_TYPE_IN_APP" | "NOTIFICATION_TYPE_SLACK";
 /**
  * ProfileType: represents the type of account tied to a given profile
  * @default "PROFILE_TYPE_UNSPECIFIED"
  */
 export type ProfileType = "PROFILE_TYPE_UNSPECIFIED" | "PROFILE_TYPE_USER" | "PROFILE_TYPE_BUSINESS";
 /**
- * Investment preferences.
- * @default "RISK_TOLERANCE_UNSPECIFIED"
+ * Risk Tolerance Investment preferences.
+ * @default "RISK_TOLERANCE_SETTINGS_UNSPECIFIED"
  */
-export type RiskTolerance = "RISK_TOLERANCE_UNSPECIFIED" | "RISK_TOLERANCE_LOW" | "RISK_TOLERANCE_MEDIUM" | "RISK_TOLERANCE_HIGH";
+export type RiskToleranceSettings = "RISK_TOLERANCE_SETTINGS_UNSPECIFIED" | "RISK_TOLERANCE_SETTINGS_LOW" | "RISK_TOLERANCE_SETTINGS_MEDIUM" | "RISK_TOLERANCE_SETTINGS_HIGH";
+/** User settings for the fintech application. */
+export interface Settings {
+	/** Display and interaction preferences. */
+	appTheme?: ApplicationTheme;
+	/** Settings specific to the user's digital worker. */
+	digitalWorkerSettings?: DigitalWorkerSettings;
+	financialPreferences?: FinancialPreferences;
+	/**
+	 * address id
+	 * @format uint64
+	 */
+	id?: string;
+	/** Dashboard customization, e.g., specific widgets or reports. */
+	likedDashboardPanels?: Array<LikedDashboardPanels>;
+	/** Notification preferences. */
+	notificationSettings?: NotificationSettings;
+	/** Language preference. */
+	preferredLanguage?: string;
+	/** Risk tolerance settings defined for user settings. */
+	riskTolerance?: RiskToleranceSettings;
+}
 /** Tags: represents metadata tags associated to an account */
 export interface Tags {
 	/**
@@ -341,23 +307,10 @@ export interface Tags {
 	 */
 	tagName?: string;
 }
-export interface TaxSettings {
-	/**
-	 * address id
-	 * @format uint64
-	 */
-	id?: string;
-	taxCode?: string;
-	/** @format double */
-	taxPercentage?: number;
-}
-/**
- * Display and interaction preferences.
- * @default "THEME_UNSPECIFIED"
- */
-export type Theme = "THEME_UNSPECIFIED" | "THEME_LIGHT" | "THEME_DARK";
 /** @brief Represents a user account in the context of simfinni. */
 export interface UserAccount {
+	/** Auth0 user id */
+	auth0UserId?: string;
 	/** Enum indicating the type of profile (e.g., individual, corporate). */
 	accountType?: ProfileType;
 	/** Physical address associated with the user. */
@@ -398,10 +351,12 @@ export interface UserAccount {
 	lastname?: string;
 	/** Phone number associated with the account. */
 	phoneNumber?: string;
+	/** Profile image associated with the user account. */
+	profileImageUrl?: string;
+	/** Settings specific to the user account. */
+	settings?: Settings;
 	/** Tags associated with the user account, between 1 and 10. */
 	tags?: Array<Tags>;
-	/** Settings specific to the user account. */
-	userSettings?: UserSettings;
 	/**
 	 * Username associated with the account, minimum of 10 characters.
 	 * @example "testuser9696"
@@ -412,40 +367,6 @@ export interface UserAccount {
 	 * @format date-time
 	 */
 	verifiedAt?: string;
-}
-/** User settings for the fintech application. */
-export interface UserSettings {
-	/** Display and interaction preferences. */
-	appTheme?: Theme;
-	/** Dashboard customization, e.g., specific widgets or reports. */
-	dashboardWidgets?: Array<DashboardWidget>;
-	/** Preferred date-time format. */
-	datetimeFormat?: string;
-	/** Currency preference. */
-	defaultCurrency?: string;
-	/** Notification preferences. */
-	emailNotifications?: boolean;
-	/** Option to share transaction history with friends/family. */
-	enableGoalJournal?: boolean;
-	/**
-	 * address id
-	 * @format uint64
-	 */
-	id?: string;
-	/** Investment preferences. */
-	investmentRiskTolerance?: RiskTolerance;
-	/** Language preference. */
-	preferredLanguage?: string;
-	/**
-	 * Privacy settings.
-	 *
-	 * Whether the user's profile is public.
-	 */
-	publicProfile?: boolean;
-	pushNotifications?: boolean;
-	smsNotifications?: boolean;
-	/** Two-factor authentication status. */
-	twoFactorAuthenticationEnabled?: boolean;
 }
 /**
  * Represents a geographic address.
@@ -6446,56 +6367,11 @@ export declare class UserFinancialHealthMetricsTableClass {
 	 */
 	constructor(data: Partial<UserFinancialHealthMetricsTableClass>);
 }
-export declare class AccountInformationClass implements AccountInformation {
-	businessName?: string;
-	businessRegistrationNumber?: string;
-	businessType?: BusinessType;
-	contactInfo?: ContactInformation;
-	/**
-	 * address id
-	 * @format uint64
-	 */
-	id?: string;
-	constructor(data: Partial<AccountInformation>);
-	static randomInstance(): AccountInformation;
-}
-export declare class AIPoweredInsightsClass implements AIPoweredInsights {
-	/**
-	 * List of areas of interest for insights
-	 * List of areas for insights
-	 */
-	areasOfInterest?: Array<string>;
-	/** True if user agrees to share data for insights */
-	dataSharing?: boolean;
-	/**
-	 * address id
-	 * @format uint64
-	 */
-	id?: string;
-	insightFrequency?: Frequency;
-	constructor(data: Partial<AIPoweredInsights>);
-	static randomInstance(): AIPoweredInsights;
-}
-export declare class BusinessAccountSettingsClass implements BusinessAccountSettings {
-	accountInformation?: AccountInformation;
-	aiPoweredInsights?: AIPoweredInsights;
-	financialPreferences?: FinancialPreferences;
-	/**
-	 * address id
-	 * @format uint64
-	 */
-	id?: string;
-	integrationSettings?: IntegrationSettings;
-	notificationSettings?: NotificationSettings;
-	constructor(data: Partial<BusinessAccountSettings>);
-	static randomInstance(): BusinessAccountSettings;
-}
 export declare class BusinessAccountClass implements BusinessAccount {
 	accountType?: ProfileType;
 	address?: Address;
 	authnAccountId?: string;
 	bio?: string;
-	businessAccountSettings?: BusinessAccountSettings;
 	companyDescription?: string;
 	companyEstablishedDate?: string;
 	companyIndustryType?: string;
@@ -6512,20 +6388,10 @@ export declare class BusinessAccountClass implements BusinessAccount {
 	tags?: Array<Tags>;
 	username?: string;
 	verifiedAt?: string;
+	/** Settings specific to the business account. */
+	settings?: Settings;
 	constructor(data: Partial<BusinessAccount>);
 	static randomInstance(): BusinessAccount;
-}
-export declare class ContactInformationClass implements ContactInformation {
-	address?: string;
-	email?: string;
-	/**
-	 * address id
-	 * @format uint64
-	 */
-	id?: string;
-	phoneNumber?: string;
-	constructor(data: Partial<ContactInformation>);
-	static randomInstance(): ContactInformation;
 }
 export declare class FinancialPreferencesClass implements FinancialPreferences {
 	currencyPreference?: string;
@@ -6535,25 +6401,11 @@ export declare class FinancialPreferencesClass implements FinancialPreferences {
 	 * @format uint64
 	 */
 	id?: string;
-	taxSettings?: TaxSettings;
+	taxCode?: string;
+	/** @format double */
+	taxPercentage?: number;
 	constructor(data: Partial<FinancialPreferences>);
 	static randomInstance(): FinancialPreferences;
-}
-export declare class IntegrationSettingsClass implements IntegrationSettings {
-	/** wether to enable linking bank account for account */
-	bankAccountLinking?: boolean;
-	/**
-	 * address id
-	 * @format uint64
-	 */
-	id?: string;
-	/**
-	 * list of supported third party apps of interest
-	 * List of connected third-party apps
-	 */
-	thirdPartyApps?: Array<string>;
-	constructor(data: Partial<IntegrationSettings>);
-	static randomInstance(): IntegrationSettings;
 }
 export declare class NotificationSettingsClass implements NotificationSettings {
 	/** True if user wants to be alerted for anomalies */
@@ -6568,27 +6420,9 @@ export declare class NotificationSettingsClass implements NotificationSettings {
 	 *  - TYPE_SMS: sms based notification
 	 *  - TYPE_IN_APP: app based notification
 	 */
-	notificationType?: NotificationSettingsType;
+	notificationType?: NotificationType;
 	constructor(data: Partial<NotificationSettings>);
 	static randomInstance(): NotificationSettings;
-}
-/**
- * Represents a tax setting, including an ID, tax code, and tax percentage.
- * @implements {TaxSettings}
- * @class {TaxSettingsClass}
- * @param {Partial<TaxSettings>} data
- * @property {string} id
- * @property {string} taxCode
- * @property {number} taxPercentage
- * @method {randomInstance} {TaxSettings}
- * @returns {TaxSettingsClass}
- */
-export declare class TaxSettingsClass implements TaxSettings {
-	id?: string;
-	taxCode?: string;
-	taxPercentage?: number;
-	constructor(data: Partial<TaxSettings>);
-	static randomInstance(): TaxSettings;
 }
 export declare class TransactionSplitClass implements TransactionSplit {
 	/**
@@ -7408,7 +7242,7 @@ export declare class UserAccountClass implements UserAccount, UserAccountContrac
 	/** Tags associated with the user account, between 1 and 10. */
 	tags?: Array<Tags>;
 	/** Settings specific to the user account. */
-	userSettings?: UserSettings;
+	userSettings?: Settings;
 	/**
 	 * Username associated with the account, minimum of 10 characters.
 	 * @example "testuser9696"
@@ -7421,6 +7255,7 @@ export declare class UserAccountClass implements UserAccount, UserAccountContrac
 	verifiedAt?: string;
 	userAccountID?: string;
 	userAuthnAccountID?: string;
+	auth0AccountID?: string;
 	/**
 	 * A constructor function that takes in a data object and assigns the data to the UserAccount class.
 	 * @param [data] - The data that you want to assign to the object.
@@ -7484,40 +7319,27 @@ export declare class UserAccountClass implements UserAccount, UserAccountContrac
 	getID(): string | undefined;
 	static randomInstance(): UserAccount;
 }
-export declare class UserSettingsClass implements UserSettings {
+export declare class UserSettingsClass implements Settings {
 	/** Display and interaction preferences. */
-	appTheme?: Theme;
-	/** Dashboard customization, e.g., specific widgets or reports. */
-	dashboardWidgets?: Array<DashboardWidget>;
-	/** Preferred date-time format. */
-	datetimeFormat?: string;
-	/** Currency preference. */
-	defaultCurrency?: string;
-	/** Notification preferences. */
-	emailNotifications?: boolean;
-	/** Option to share transaction history with friends/family. */
-	enableGoalJournal?: boolean;
+	appTheme?: ApplicationTheme;
+	/** Settings specific to the user's digital worker. */
+	digitalWorkerSettings?: DigitalWorkerSettings;
+	financialPreferences?: FinancialPreferences;
 	/**
 	 * address id
 	 * @format uint64
 	 */
 	id?: string;
-	/** Investment preferences. */
-	investmentRiskTolerance?: RiskTolerance;
+	/** Dashboard customization, e.g., specific widgets or reports. */
+	likedDashboardPanels?: Array<LikedDashboardPanels>;
+	/** Notification preferences. */
+	notificationSettings?: NotificationSettings;
 	/** Language preference. */
 	preferredLanguage?: string;
-	/**
-	 * Privacy settings.
-	 *
-	 * Whether the user's profile is public.
-	 */
-	publicProfile?: boolean;
-	pushNotifications?: boolean;
-	smsNotifications?: boolean;
-	/** Two-factor authentication status. */
-	twoFactorAuthenticationEnabled?: boolean;
-	constructor(data: Partial<UserSettings>);
-	static randomInstance(): UserSettings;
+	/** Risk tolerance settings defined for user settings. */
+	riskTolerance?: RiskToleranceSettings;
+	constructor(data: Partial<Settings>);
+	static randomInstance(): Settings;
 }
 export interface IRequest {
 	isValid(): boolean;
@@ -8931,8 +8753,9 @@ export declare class CreateAccountV2RequestClass implements IRequest, CreateUser
 	businessAccount?: BusinessAccount;
 	communityIdsToFollow?: Array<string>;
 	password: string;
-	profileImage: string;
 	userAccount?: UserAccount;
+	auth0UserId: string;
+	profileImageUrl: string;
 	constructor(request: Partial<CreateUserV2Request>);
 	isValid(): boolean;
 	static randomInstance(): CreateUserV2Request;

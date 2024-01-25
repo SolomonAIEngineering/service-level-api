@@ -1,8 +1,4 @@
-import {
-  FinancialPreferences,
-  TaxSettings,
-} from 'src/data-contracts/user-service/data-contracts';
-import { TaxSettingsClass } from './tax-settings';
+import { FinancialPreferences } from 'src/data-contracts/user-service/data-contracts';
 
 export class FinancialPreferencesClass implements FinancialPreferences {
   currencyPreference?: string;
@@ -12,7 +8,9 @@ export class FinancialPreferencesClass implements FinancialPreferences {
    * @format uint64
    */
   id?: string;
-  taxSettings?: TaxSettings;
+  taxCode?: string;
+  /** @format double */
+  taxPercentage?: number;
 
   constructor(data: Partial<FinancialPreferences>) {
     if (data) {
@@ -29,7 +27,8 @@ export class FinancialPreferencesClass implements FinancialPreferences {
       currencyPreference: 'USD',
       financialYearStart: '2020-01-01',
       id: '1234567890',
-      taxSettings: TaxSettingsClass.randomInstance(),
+      taxCode: '12345',
+      taxPercentage: 0.5,
     });
   }
 }

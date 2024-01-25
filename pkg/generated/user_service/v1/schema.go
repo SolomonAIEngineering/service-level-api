@@ -7,15 +7,10 @@ func GetDatabaseSchemas() []interface{} {
 		UserAccountORM{},
 		AddressORM{},
 		TagsORM{},
-		UserSettingsORM{},
-		ContactInformationORM{},
-		AccountInformationORM{},
-		TaxSettingsORM{},
-		FinancialPreferencesORM{},
-		AIPoweredInsightsORM{},
-		IntegrationSettingsORM{},
+		SettingsORM{},
 		NotificationSettingsORM{},
-		BusinessAccountSettingsORM{},
+		DigitalWorkerSettingsORM{},
+		FinancialPreferencesORM{},
 		BusinessAccountORM{},
 	)
 	return schemas

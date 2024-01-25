@@ -1,44 +1,33 @@
 import {
-  DashboardWidget,
-  RiskTolerance,
-  Theme,
-  UserSettings,
+  Settings,
+  ApplicationTheme,
+  DigitalWorkerSettings,
+  FinancialPreferences,
+  LikedDashboardPanels,
+  NotificationSettings,
+  RiskToleranceSettings,
 } from 'src/data-contracts/user-service/data-contracts';
 
-export class UserSettingsClass implements UserSettings {
+export class UserSettingsClass implements Settings {
   /** Display and interaction preferences. */
-  appTheme?: Theme;
-  /** Dashboard customization, e.g., specific widgets or reports. */
-  dashboardWidgets?: Array<DashboardWidget>;
-  /** Preferred date-time format. */
-  datetimeFormat?: string;
-  /** Currency preference. */
-  defaultCurrency?: string;
-  /** Notification preferences. */
-  emailNotifications?: boolean;
-  /** Option to share transaction history with friends/family. */
-  enableGoalJournal?: boolean;
+  appTheme?: ApplicationTheme;
+  /** Settings specific to the user's digital worker. */
+  digitalWorkerSettings?: DigitalWorkerSettings;
+  financialPreferences?: FinancialPreferences;
   /**
    * address id
    * @format uint64
    */
   id?: string;
-  /** Investment preferences. */
-  investmentRiskTolerance?: RiskTolerance;
+  /** Dashboard customization, e.g., specific widgets or reports. */
+  likedDashboardPanels?: Array<LikedDashboardPanels>;
+  /** Notification preferences. */
+  notificationSettings?: NotificationSettings;
   /** Language preference. */
   preferredLanguage?: string;
-  /**
-   * Privacy settings.
-   *
-   * Whether the user's profile is public.
-   */
-  publicProfile?: boolean;
-  pushNotifications?: boolean;
-  smsNotifications?: boolean;
-  /** Two-factor authentication status. */
-  twoFactorAuthenticationEnabled?: boolean;
-
-  constructor(data: Partial<UserSettings>) {
+  /** Risk tolerance settings defined for user settings. */
+  riskTolerance?: RiskToleranceSettings;
+  constructor(data: Partial<Settings>) {
     if (data) {
       Object.assign(this, {
         ...data,
@@ -46,26 +35,18 @@ export class UserSettingsClass implements UserSettings {
     }
   }
 
-  static randomInstance(): UserSettings {
+  static randomInstance(): Settings {
     // Placeholder implementation for generating a random UserSettings
     // You will need to create an actual instance with random data here
     return new UserSettingsClass({
-      appTheme: 'THEME_LIGHT',
-      dashboardWidgets: [
-        'DASHBOARD_WIDGET_INVESTMENT_SUMMARY',
-        'DASHBOARD_WIDGET_MONTHLY_SPENDING_REPORT',
+      likedDashboardPanels: [
+        'LIKED_DASHBOARD_PANELS_TRANSACTIONS_OVERVIEW',
+        'LIKED_DASHBOARD_PANELS_CREDIT_SCORE_MONITOR',
       ],
-      datetimeFormat: '2020-01-01',
-      defaultCurrency: 'USD',
-      emailNotifications: true,
-      enableGoalJournal: true,
       id: '1234567890',
-      investmentRiskTolerance: 'RISK_TOLERANCE_HIGH',
+      riskTolerance: 'RISK_TOLERANCE_SETTINGS_LOW',
       preferredLanguage: 'en',
-      publicProfile: true,
-      pushNotifications: true,
-      smsNotifications: true,
-      twoFactorAuthenticationEnabled: true,
+      appTheme: 'APPLICATION_THEME_LIGHT',
     });
   }
 }

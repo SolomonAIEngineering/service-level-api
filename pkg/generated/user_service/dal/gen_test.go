@@ -77,19 +77,14 @@ func Test_WithContext(t *testing.T) {
 	qCtx := query.WithContext(context.WithValue(context.Background(), key, value))
 
 	for _, ctx := range []context.Context{
-		qCtx.AIPoweredInsightsORM.UnderlyingDB().Statement.Context,
-		qCtx.AccountInformationORM.UnderlyingDB().Statement.Context,
 		qCtx.AddressORM.UnderlyingDB().Statement.Context,
 		qCtx.BusinessAccountORM.UnderlyingDB().Statement.Context,
-		qCtx.BusinessAccountSettingsORM.UnderlyingDB().Statement.Context,
-		qCtx.ContactInformationORM.UnderlyingDB().Statement.Context,
+		qCtx.DigitalWorkerSettingsORM.UnderlyingDB().Statement.Context,
 		qCtx.FinancialPreferencesORM.UnderlyingDB().Statement.Context,
-		qCtx.IntegrationSettingsORM.UnderlyingDB().Statement.Context,
 		qCtx.NotificationSettingsORM.UnderlyingDB().Statement.Context,
+		qCtx.SettingsORM.UnderlyingDB().Statement.Context,
 		qCtx.TagsORM.UnderlyingDB().Statement.Context,
-		qCtx.TaxSettingsORM.UnderlyingDB().Statement.Context,
 		qCtx.UserAccountORM.UnderlyingDB().Statement.Context,
-		qCtx.UserSettingsORM.UnderlyingDB().Statement.Context,
 	} {
 		if v := ctx.Value(key); v != value {
 			t.Errorf("get value from context fail, expect %q, got %q", value, v)

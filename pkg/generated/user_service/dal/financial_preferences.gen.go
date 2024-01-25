@@ -28,15 +28,12 @@ func newFinancialPreferencesORM(db *gorm.DB, opts ...gen.DOOption) financialPref
 
 	tableName := _financialPreferencesORM.financialPreferencesORMDo.TableName()
 	_financialPreferencesORM.ALL = field.NewAsterisk(tableName)
-	_financialPreferencesORM.BusinessAccountSettingsId = field.NewUint64(tableName, "business_account_settings_id")
 	_financialPreferencesORM.CurrencyPreference = field.NewString(tableName, "currency_preference")
 	_financialPreferencesORM.FinancialYearStart = field.NewString(tableName, "financial_year_start")
 	_financialPreferencesORM.Id = field.NewUint64(tableName, "id")
-	_financialPreferencesORM.TaxSettings = financialPreferencesORMHasOneTaxSettings{
-		db: db.Session(&gorm.Session{}),
-
-		RelationField: field.NewRelation("TaxSettings", "user_servicev1.TaxSettingsORM"),
-	}
+	_financialPreferencesORM.SettingsId = field.NewUint64(tableName, "settings_id")
+	_financialPreferencesORM.TaxCode = field.NewString(tableName, "tax_code")
+	_financialPreferencesORM.TaxPercentage = field.NewFloat64(tableName, "tax_percentage")
 
 	_financialPreferencesORM.fillFieldMap()
 
@@ -46,12 +43,13 @@ func newFinancialPreferencesORM(db *gorm.DB, opts ...gen.DOOption) financialPref
 type financialPreferencesORM struct {
 	financialPreferencesORMDo
 
-	ALL                       field.Asterisk
-	BusinessAccountSettingsId field.Uint64
-	CurrencyPreference        field.String
-	FinancialYearStart        field.String
-	Id                        field.Uint64
-	TaxSettings               financialPreferencesORMHasOneTaxSettings
+	ALL                field.Asterisk
+	CurrencyPreference field.String
+	FinancialYearStart field.String
+	Id                 field.Uint64
+	SettingsId         field.Uint64
+	TaxCode            field.String
+	TaxPercentage      field.Float64
 
 	fieldMap map[string]field.Expr
 }
@@ -68,10 +66,12 @@ func (f financialPreferencesORM) As(alias string) *financialPreferencesORM {
 
 func (f *financialPreferencesORM) updateTableName(table string) *financialPreferencesORM {
 	f.ALL = field.NewAsterisk(table)
-	f.BusinessAccountSettingsId = field.NewUint64(table, "business_account_settings_id")
 	f.CurrencyPreference = field.NewString(table, "currency_preference")
 	f.FinancialYearStart = field.NewString(table, "financial_year_start")
 	f.Id = field.NewUint64(table, "id")
+	f.SettingsId = field.NewUint64(table, "settings_id")
+	f.TaxCode = field.NewString(table, "tax_code")
+	f.TaxPercentage = field.NewFloat64(table, "tax_percentage")
 
 	f.fillFieldMap()
 
@@ -88,12 +88,13 @@ func (f *financialPreferencesORM) GetFieldByName(fieldName string) (field.OrderE
 }
 
 func (f *financialPreferencesORM) fillFieldMap() {
-	f.fieldMap = make(map[string]field.Expr, 5)
-	f.fieldMap["business_account_settings_id"] = f.BusinessAccountSettingsId
+	f.fieldMap = make(map[string]field.Expr, 6)
 	f.fieldMap["currency_preference"] = f.CurrencyPreference
 	f.fieldMap["financial_year_start"] = f.FinancialYearStart
 	f.fieldMap["id"] = f.Id
-
+	f.fieldMap["settings_id"] = f.SettingsId
+	f.fieldMap["tax_code"] = f.TaxCode
+	f.fieldMap["tax_percentage"] = f.TaxPercentage
 }
 
 func (f financialPreferencesORM) clone(db *gorm.DB) financialPreferencesORM {
@@ -104,77 +105,6 @@ func (f financialPreferencesORM) clone(db *gorm.DB) financialPreferencesORM {
 func (f financialPreferencesORM) replaceDB(db *gorm.DB) financialPreferencesORM {
 	f.financialPreferencesORMDo.ReplaceDB(db)
 	return f
-}
-
-type financialPreferencesORMHasOneTaxSettings struct {
-	db *gorm.DB
-
-	field.RelationField
-}
-
-func (a financialPreferencesORMHasOneTaxSettings) Where(conds ...field.Expr) *financialPreferencesORMHasOneTaxSettings {
-	if len(conds) == 0 {
-		return &a
-	}
-
-	exprs := make([]clause.Expression, 0, len(conds))
-	for _, cond := range conds {
-		exprs = append(exprs, cond.BeCond().(clause.Expression))
-	}
-	a.db = a.db.Clauses(clause.Where{Exprs: exprs})
-	return &a
-}
-
-func (a financialPreferencesORMHasOneTaxSettings) WithContext(ctx context.Context) *financialPreferencesORMHasOneTaxSettings {
-	a.db = a.db.WithContext(ctx)
-	return &a
-}
-
-func (a financialPreferencesORMHasOneTaxSettings) Session(session *gorm.Session) *financialPreferencesORMHasOneTaxSettings {
-	a.db = a.db.Session(session)
-	return &a
-}
-
-func (a financialPreferencesORMHasOneTaxSettings) Model(m *user_servicev1.FinancialPreferencesORM) *financialPreferencesORMHasOneTaxSettingsTx {
-	return &financialPreferencesORMHasOneTaxSettingsTx{a.db.Model(m).Association(a.Name())}
-}
-
-type financialPreferencesORMHasOneTaxSettingsTx struct{ tx *gorm.Association }
-
-func (a financialPreferencesORMHasOneTaxSettingsTx) Find() (result *user_servicev1.TaxSettingsORM, err error) {
-	return result, a.tx.Find(&result)
-}
-
-func (a financialPreferencesORMHasOneTaxSettingsTx) Append(values ...*user_servicev1.TaxSettingsORM) (err error) {
-	targetValues := make([]interface{}, len(values))
-	for i, v := range values {
-		targetValues[i] = v
-	}
-	return a.tx.Append(targetValues...)
-}
-
-func (a financialPreferencesORMHasOneTaxSettingsTx) Replace(values ...*user_servicev1.TaxSettingsORM) (err error) {
-	targetValues := make([]interface{}, len(values))
-	for i, v := range values {
-		targetValues[i] = v
-	}
-	return a.tx.Replace(targetValues...)
-}
-
-func (a financialPreferencesORMHasOneTaxSettingsTx) Delete(values ...*user_servicev1.TaxSettingsORM) (err error) {
-	targetValues := make([]interface{}, len(values))
-	for i, v := range values {
-		targetValues[i] = v
-	}
-	return a.tx.Delete(targetValues...)
-}
-
-func (a financialPreferencesORMHasOneTaxSettingsTx) Clear() error {
-	return a.tx.Clear()
-}
-
-func (a financialPreferencesORMHasOneTaxSettingsTx) Count() int64 {
-	return a.tx.Count()
 }
 
 type financialPreferencesORMDo struct{ gen.DO }

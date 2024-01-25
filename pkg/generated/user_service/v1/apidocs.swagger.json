@@ -1003,6 +1003,58 @@
         ]
       }
     },
+    "/api/v2/user/auth-zero/{auth0UserId}": {
+      "get": {
+        "summary": "Retrieve user account details by auth0 id",
+        "description": "Fetches detailed information about a user account based on the specified authn ID.",
+        "operationId": "GetUserByAuth0ID",
+        "responses": {
+          "200": {
+            "description": "Successful retrieval of user account details.",
+            "schema": {
+              "$ref": ".api.v1.GetUserByAuth0IDResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "auth0UserId",
+            "description": "The account ID associated with the user",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "account",
+          "v2"
+        ]
+      }
+    },
     "/api/v2/user/authn/{authnId}": {
       "get": {
         "summary": "Retrieve user account details by authn id",
@@ -1699,53 +1751,6 @@
     }
   },
   "definitions": {
-    "AIPoweredInsights": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "format": "uint64",
-          "title": "address id"
-        },
-        "insightFrequency": {
-          "$ref": "#/definitions/Frequency"
-        },
-        "areasOfInterest": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "List of areas for insights",
-          "title": "List of areas of interest for insights"
-        },
-        "dataSharing": {
-          "type": "boolean",
-          "title": "True if user agrees to share data for insights"
-        }
-      }
-    },
-    "AccountInformation": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "format": "uint64",
-          "title": "address id"
-        },
-        "businessName": {
-          "type": "string"
-        },
-        "businessType": {
-          "$ref": "#/definitions/BusinessType"
-        },
-        "businessRegistrationNumber": {
-          "type": "string"
-        },
-        "contactInfo": {
-          "$ref": "#/definitions/ContactInformation"
-        }
-      }
-    },
     "Address": {
       "type": "object",
       "properties": {
@@ -1800,6 +1805,16 @@
         }
       },
       "additionalProperties": {}
+    },
+    "ApplicationTheme": {
+      "type": "string",
+      "enum": [
+        "APPLICATION_THEME_UNSPECIFIED",
+        "APPLICATION_THEME_LIGHT",
+        "APPLICATION_THEME_DARK"
+      ],
+      "default": "APPLICATION_THEME_UNSPECIFIED",
+      "description": "Display and interaction preferences."
     },
     "BusinessAccount": {
       "type": "object",
@@ -1900,54 +1915,24 @@
           "example": "Solomon AI",
           "description": "Name of the company associated with the business account."
         },
-        "businessAccountSettings": {
-          "$ref": "#/definitions/BusinessAccountSettings",
+        "settings": {
+          "$ref": "#/definitions/Settings",
           "description": "Settings specific to the business account."
         },
         "accountType": {
           "$ref": "#/definitions/ProfileType",
           "description": "The type of profile associated with the business account (e.g., individual, corporate)."
+        },
+        "profileImageUrl": {
+          "type": "string",
+          "description": "Profile image associated with the user account."
+        },
+        "auth0UserId": {
+          "type": "string",
+          "title": "auth0 user id associated with the business account"
         }
       },
       "description": "BusinessAccount represents a business account within the context of solomon-ai."
-    },
-    "BusinessAccountSettings": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "format": "uint64",
-          "title": "address id"
-        },
-        "accountInformation": {
-          "$ref": "#/definitions/AccountInformation"
-        },
-        "financialPreferences": {
-          "$ref": "#/definitions/FinancialPreferences"
-        },
-        "aiPoweredInsights": {
-          "$ref": "#/definitions/AIPoweredInsights"
-        },
-        "integrationSettings": {
-          "$ref": "#/definitions/IntegrationSettings"
-        },
-        "notificationSettings": {
-          "$ref": "#/definitions/NotificationSettings"
-        }
-      },
-      "title": "Business Account Settings"
-    },
-    "BusinessType": {
-      "type": "string",
-      "enum": [
-        "BUSINESS_TYPE_UNSPECIFIED",
-        "BUSINESS_TYPE_SOLE_PROPRIETORSHIP",
-        "BUSINESS_TYPE_PARTNERSHIP",
-        "BUSINESS_TYPE_LLC",
-        "BUSINESS_TYPE_CORPORATION",
-        "BUSINESS_TYPE_OTHER"
-      ],
-      "default": "BUSINESS_TYPE_UNSPECIFIED"
     },
     "CheckEmailExistsResponse": {
       "type": "object",
@@ -1978,25 +1963,6 @@
       "properties": {
         "exists": {
           "type": "boolean"
-        }
-      }
-    },
-    "ContactInformation": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "format": "uint64",
-          "title": "address id"
-        },
-        "email": {
-          "type": "string"
-        },
-        "phoneNumber": {
-          "type": "string"
-        },
-        "address": {
-          "type": "string"
         }
       }
     },
@@ -2060,21 +2026,21 @@
           },
           "title": "set of community IDs to follow \nValidations:\n- at least 0 and at most 20 community ids supported at one time"
         },
-        "profileImage": {
+        "profileImageUrl": {
           "type": "string",
           "example": "lksdjhfgsdhfghdsgfhgdh.com",
           "title": "The profile image of the user\nValidations:\n- must be a valid URI"
         },
-        "password": {
+        "auth0UserId": {
           "type": "string",
-          "example": "tesdfkdkfhsdgd",
-          "title": "The password  of the user\nValidations:\n- must be a at least 10 characters long"
+          "example": "lksdjhfgsdhfghdsgfhgdh.com",
+          "title": "The auth0 user id of the user"
         }
       },
       "title": "CreateUserV2Request: Represents the request object invoked against the user\nservice to create a user account",
       "required": [
-        "profileImage",
-        "password"
+        "profileImageUrl",
+        "auth0UserId"
       ]
     },
     "CreateUserV2Response": {
@@ -2086,18 +2052,6 @@
         }
       },
       "title": "CreateUserResponse: Represents the response object returned as a response to\nthe `create-user` request"
-    },
-    "DashboardWidget": {
-      "type": "string",
-      "enum": [
-        "DASHBOARD_WIDGET_TRANSACTIONS_UNSPECIFIED",
-        "DASHBOARD_WIDGET_TRANSACTIONS_OVERVIEW",
-        "DASHBOARD_WIDGET_INVESTMENT_SUMMARY",
-        "DASHBOARD_WIDGET_MONTHLY_SPENDING_REPORT",
-        "DASHBOARD_WIDGET_SAVINGS_TRACKER",
-        "DASHBOARD_WIDGET_CREDIT_SCORE_MONITOR"
-      ],
-      "default": "DASHBOARD_WIDGET_TRANSACTIONS_UNSPECIFIED"
     },
     "DeleteUserResponse": {
       "type": "object",
@@ -2117,6 +2071,26 @@
       },
       "title": "DeleteUserResponse: Represents the object returned as a response to\n`delete-user` request"
     },
+    "DigitalWorkerSettings": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "description": "Unique identifier for the toolchain configuration."
+        },
+        "workerName": {
+          "type": "string"
+        },
+        "workerVersion": {
+          "type": "string"
+        },
+        "enableLogging": {
+          "type": "boolean"
+        }
+      },
+      "description": "DigitalWorkerToolChainConfiguration defines the overall settings for a digital worker."
+    },
     "FinancialPreferences": {
       "type": "object",
       "properties": {
@@ -2128,30 +2102,23 @@
         "currencyPreference": {
           "type": "string"
         },
-        "taxSettings": {
-          "$ref": "#/definitions/TaxSettings"
-        },
         "financialYearStart": {
+          "type": "string"
+        },
+        "taxPercentage": {
+          "type": "number",
+          "format": "double"
+        },
+        "taxCode": {
           "type": "string"
         }
       }
     },
-    "Frequency": {
-      "type": "string",
-      "enum": [
-        "FREQUENCY_UNSPECIFIED",
-        "FREQUENCY_DAILY",
-        "FREQUENCY_WEEKLY",
-        "FREQUENCY_MONTHLY"
-      ],
-      "default": "FREQUENCY_UNSPECIFIED",
-      "title": "frequency by which insights should be generated"
-    },
     "GetBusinessSettingsResponse": {
       "type": "object",
       "properties": {
-        "businessSettings": {
-          "$ref": "#/definitions/BusinessAccountSettings"
+        "settings": {
+          "$ref": "#/definitions/Settings"
         }
       }
     },
@@ -2160,6 +2127,17 @@
       "properties": {
         "token": {
           "type": "string"
+        }
+      }
+    },
+    "GetUserByAuth0IDResponse": {
+      "type": "object",
+      "properties": {
+        "userAccount": {
+          "$ref": "#/definitions/UserAccount"
+        },
+        "businessAccount": {
+          "$ref": "#/definitions/BusinessAccount"
         }
       }
     },
@@ -2292,27 +2270,17 @@
         }
       }
     },
-    "IntegrationSettings": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "format": "uint64",
-          "title": "address id"
-        },
-        "bankAccountLinking": {
-          "type": "boolean",
-          "title": "wether to enable linking bank account for account"
-        },
-        "thirdPartyApps": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "List of connected third-party apps",
-          "title": "list of supported third party apps of interest"
-        }
-      }
+    "LikedDashboardPanels": {
+      "type": "string",
+      "enum": [
+        "LIKED_DASHBOARD_PANELS_TRANSACTIONS_UNSPECIFIED",
+        "LIKED_DASHBOARD_PANELS_TRANSACTIONS_OVERVIEW",
+        "LIKED_DASHBOARD_PANELS_INVESTMENT_SUMMARY",
+        "LIKED_DASHBOARD_PANELS_MONTHLY_SPENDING_REPORT",
+        "LIKED_DASHBOARD_PANELS_SAVINGS_TRACKER",
+        "LIKED_DASHBOARD_PANELS_CREDIT_SCORE_MONITOR"
+      ],
+      "default": "LIKED_DASHBOARD_PANELS_TRANSACTIONS_UNSPECIFIED"
     },
     "NotificationSettings": {
       "type": "object",
@@ -2323,7 +2291,7 @@
           "title": "address id"
         },
         "notificationType": {
-          "$ref": "#/definitions/NotificationSettings.Type"
+          "$ref": "#/definitions/NotificationType"
         },
         "alerts": {
           "type": "boolean",
@@ -2331,17 +2299,17 @@
         }
       }
     },
-    "NotificationSettings.Type": {
+    "NotificationType": {
       "type": "string",
       "enum": [
-        "TYPE_UNSPECIFIED",
-        "TYPE_EMAIL",
-        "TYPE_SMS",
-        "TYPE_IN_APP"
+        "NOTIFICATION_TYPE_UNSPECIFIED",
+        "NOTIFICATION_TYPE_EMAIL",
+        "NOTIFICATION_TYPE_SMS",
+        "NOTIFICATION_TYPE_IN_APP",
+        "NOTIFICATION_TYPE_SLACK"
       ],
-      "default": "TYPE_UNSPECIFIED",
-      "description": "- TYPE_EMAIL: email based notification\n - TYPE_SMS: sms based notification\n - TYPE_IN_APP: app based notification",
-      "title": "type of enabled notification"
+      "default": "NOTIFICATION_TYPE_UNSPECIFIED",
+      "title": "- NOTIFICATION_TYPE_EMAIL: email based notification\n - NOTIFICATION_TYPE_SMS: sms based notification\n - NOTIFICATION_TYPE_IN_APP: app based notification\n - NOTIFICATION_TYPE_SLACK: slack based notification"
     },
     "PasswordResetWebhookResponse": {
       "type": "object",
@@ -2377,16 +2345,57 @@
         }
       }
     },
-    "RiskTolerance": {
+    "RiskToleranceSettings": {
       "type": "string",
       "enum": [
-        "RISK_TOLERANCE_UNSPECIFIED",
-        "RISK_TOLERANCE_LOW",
-        "RISK_TOLERANCE_MEDIUM",
-        "RISK_TOLERANCE_HIGH"
+        "RISK_TOLERANCE_SETTINGS_UNSPECIFIED",
+        "RISK_TOLERANCE_SETTINGS_LOW",
+        "RISK_TOLERANCE_SETTINGS_MEDIUM",
+        "RISK_TOLERANCE_SETTINGS_HIGH"
       ],
-      "default": "RISK_TOLERANCE_UNSPECIFIED",
-      "description": "Investment preferences."
+      "default": "RISK_TOLERANCE_SETTINGS_UNSPECIFIED",
+      "description": "Risk Tolerance Investment preferences."
+    },
+    "Settings": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "address id"
+        },
+        "appTheme": {
+          "$ref": "#/definitions/ApplicationTheme",
+          "description": "Display and interaction preferences."
+        },
+        "notificationSettings": {
+          "$ref": "#/definitions/NotificationSettings",
+          "description": "Notification preferences."
+        },
+        "preferredLanguage": {
+          "type": "string",
+          "description": "Language preference."
+        },
+        "riskTolerance": {
+          "$ref": "#/definitions/RiskToleranceSettings",
+          "description": "Risk tolerance settings defined for user settings."
+        },
+        "likedDashboardPanels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LikedDashboardPanels"
+          },
+          "description": "Dashboard customization, e.g., specific widgets or reports."
+        },
+        "digitalWorkerSettings": {
+          "$ref": "#/definitions/DigitalWorkerSettings",
+          "description": "Settings specific to the user's digital worker."
+        },
+        "financialPreferences": {
+          "$ref": "#/definitions/FinancialPreferences"
+        }
+      },
+      "description": "User settings for the fintech application."
     },
     "Status": {
       "type": "object",
@@ -2438,33 +2447,6 @@
         }
       },
       "title": "Tags: represents metadata tags associated to an account"
-    },
-    "TaxSettings": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "format": "uint64",
-          "title": "address id"
-        },
-        "taxPercentage": {
-          "type": "number",
-          "format": "double"
-        },
-        "taxCode": {
-          "type": "string"
-        }
-      }
-    },
-    "Theme": {
-      "type": "string",
-      "enum": [
-        "THEME_UNSPECIFIED",
-        "THEME_LIGHT",
-        "THEME_DARK"
-      ],
-      "default": "THEME_UNSPECIFIED",
-      "description": "Display and interaction preferences."
     },
     "UpdateUserRequest": {
       "type": "object",
@@ -2593,74 +2575,24 @@
           "format": "date-time",
           "description": "Timestamp for when the email was verified."
         },
-        "userSettings": {
-          "$ref": "#/definitions/UserSettings",
+        "settings": {
+          "$ref": "#/definitions/Settings",
           "description": "Settings specific to the user account."
         },
         "accountType": {
           "$ref": "#/definitions/ProfileType",
           "description": "Enum indicating the type of profile (e.g., individual, corporate)."
+        },
+        "profileImageUrl": {
+          "type": "string",
+          "description": "Profile image associated with the user account."
+        },
+        "auth0UserId": {
+          "type": "string",
+          "title": "Auth0 user id"
         }
       },
       "description": "@brief Represents a user account in the context of simfinni."
-    },
-    "UserSettings": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "format": "uint64",
-          "title": "address id"
-        },
-        "appTheme": {
-          "$ref": "#/definitions/Theme"
-        },
-        "emailNotifications": {
-          "type": "boolean",
-          "description": "Notification preferences."
-        },
-        "pushNotifications": {
-          "type": "boolean"
-        },
-        "smsNotifications": {
-          "type": "boolean"
-        },
-        "defaultCurrency": {
-          "type": "string",
-          "description": "Currency preference."
-        },
-        "datetimeFormat": {
-          "type": "string",
-          "description": "Preferred date-time format."
-        },
-        "twoFactorAuthenticationEnabled": {
-          "type": "boolean",
-          "description": "Two-factor authentication status."
-        },
-        "preferredLanguage": {
-          "type": "string",
-          "description": "Language preference."
-        },
-        "publicProfile": {
-          "type": "boolean",
-          "description": "Privacy settings.\n\nWhether the user's profile is public."
-        },
-        "enableGoalJournal": {
-          "type": "boolean",
-          "description": "Option to share transaction history with friends/family."
-        },
-        "investmentRiskTolerance": {
-          "$ref": "#/definitions/RiskTolerance"
-        },
-        "dashboardWidgets": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/DashboardWidget"
-          },
-          "description": "Dashboard customization, e.g., specific widgets or reports."
-        }
-      },
-      "description": "User settings for the fintech application."
     },
     "VerifyUserResponse": {
       "type": "object",
