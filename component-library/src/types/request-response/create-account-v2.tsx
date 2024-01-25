@@ -42,14 +42,13 @@ import { ErrorResponse } from '../error/error-response';
  * console.log(request.isValid()); // Outputs: true
  * console.log(request.randomInstance()); // Outputs: CreateAccountV2RequestClass
  */
-export class CreateAccountV2RequestClass
-  implements IRequest, CreateUserV2Request
-{
+export class CreateAccountV2RequestClass implements IRequest, CreateUserV2Request {
   businessAccount?: BusinessAccount;
   communityIdsToFollow?: Array<string>;
   password: string = '';
-  profileImage: string = '';
   userAccount?: UserAccount;
+  auth0UserId: string = '';
+  profileImageUrl: string = '';
 
   constructor(request: Partial<CreateUserV2Request>) {
     if (request) {
@@ -71,7 +70,7 @@ export class CreateAccountV2RequestClass
     }
 
     // profile image must be present
-    if (!this.profileImage) {
+    if (!this.profileImageUrl) {
       return false;
     }
 
@@ -88,8 +87,8 @@ export class CreateAccountV2RequestClass
         getRandomString(10),
         getRandomString(10),
       ],
-      password: getRandomString(10),
-      profileImage: getRandomString(10),
+      auth0UserId: getRandomString(10),
+      profileImageUrl: getRandomString(10),
       userAccount: UserAccountClass.randomInstance(),
     });
   }

@@ -1,6 +1,6 @@
 import {
   NotificationSettings,
-  NotificationSettingsType,
+  NotificationType,
 } from 'src/data-contracts/user-service/data-contracts';
 
 export class NotificationSettingsClass implements NotificationSettings {
@@ -16,7 +16,7 @@ export class NotificationSettingsClass implements NotificationSettings {
    *  - TYPE_SMS: sms based notification
    *  - TYPE_IN_APP: app based notification
    */
-  notificationType?: NotificationSettingsType;
+  notificationType?: NotificationType;
 
   constructor(data: Partial<NotificationSettings>) {
     if (data) {
@@ -32,7 +32,7 @@ export class NotificationSettingsClass implements NotificationSettings {
     return new NotificationSettingsClass({
       alerts: true,
       id: '1234567890',
-      notificationType: 'TYPE_EMAIL',
+      notificationType: 'NOTIFICATION_TYPE_EMAIL',
     });
   }
 }

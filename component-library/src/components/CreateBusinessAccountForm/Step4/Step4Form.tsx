@@ -16,7 +16,7 @@ export const BusinessAccountOnBoardingStep4Form: React.FC<
           getValue('email') === '' ||
           getValue('confirmPassword') === '' ||
           getValue('password') === '' ||
-          getValue('profileImage') === '')) ||
+          getValue('profileImageUrl') === '')) ||
       !isEmptyObject(errors)
     ) {
       return false;
@@ -53,7 +53,9 @@ export const BusinessAccountOnBoardingStep4Form: React.FC<
           <span>{errors.confirmPassword.message}</span>
         )}
         <Step4ProfileImageField setValue={setValue} register={register} />{' '}
-        {errors.profileImage && <span>{errors.profileImage.message}</span>}
+        {errors.profileImageUrl && (
+          <span>{errors.profileImageUrl.message}</span>
+        )}
       </div>
     </BusinessAccountOnboardingMultiFormItem>
   );

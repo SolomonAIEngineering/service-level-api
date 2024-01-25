@@ -6,7 +6,7 @@ import {
   ProfileType,
   Tags,
   UserAccount,
-  UserSettings,
+  Settings,
 } from 'src/data-contracts/user-service/data-contracts';
 import { UserSettingsClass } from './user-settings';
 
@@ -105,7 +105,7 @@ class UserAccountClass
   /** Tags associated with the user account, between 1 and 10. */
   tags?: Array<Tags>;
   /** Settings specific to the user account. */
-  userSettings?: UserSettings;
+  userSettings?: Settings;
   /**
    * Username associated with the account, minimum of 10 characters.
    * @example "testuser9696"
@@ -118,6 +118,7 @@ class UserAccountClass
   verifiedAt?: string;
   userAccountID?: string;
   userAuthnAccountID?: string;
+  auth0AccountID?: string;
 
   /**
    * A constructor function that takes in a data object and assigns the data to the UserAccount class.

@@ -1,20 +1,18 @@
 import {
   Address,
   BusinessAccount,
-  BusinessAccountSettings,
   ProfileType,
+  Settings,
   Tags,
 } from 'src/data-contracts/user-service/data-contracts';
 import { getRandomString } from 'src/lib-utils/utils';
 import { AddressClass, TagClass } from '../common';
-import { BusinessAccountSettingsClass } from './business-account-settings';
 
 export class BusinessAccountClass implements BusinessAccount {
   accountType?: ProfileType;
   address?: Address;
   authnAccountId?: string;
   bio?: string;
-  businessAccountSettings?: BusinessAccountSettings;
   companyDescription?: string;
   companyEstablishedDate?: string;
   companyIndustryType?: string;
@@ -31,6 +29,8 @@ export class BusinessAccountClass implements BusinessAccount {
   tags?: Array<Tags>;
   username?: string;
   verifiedAt?: string;
+  /** Settings specific to the business account. */
+  settings?: Settings;
 
   constructor(data: Partial<BusinessAccount>) {
     if (data) {
@@ -46,7 +46,6 @@ export class BusinessAccountClass implements BusinessAccount {
       address: AddressClass.randomInstance(),
       authnAccountId: getRandomString(10),
       bio: getRandomString(10),
-      businessAccountSettings: BusinessAccountSettingsClass.randomInstance(),
       companyDescription: getRandomString(10),
       companyEstablishedDate: getRandomString(10),
       companyIndustryType: getRandomString(10),

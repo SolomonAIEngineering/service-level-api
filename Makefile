@@ -30,8 +30,6 @@ lint:
 test: 
 	set -o pipefail && go test -v ./... 
 
-precommit: fmt test
-
 user_service:
 	$(BASE_CMD) -p ./pkg/generated/user_service/v1/apidocs.swagger.json -o ./component-library/src/data-contracts/user-service $(COMMON_OPTS) --api-class-name UserService
 
