@@ -3,17 +3,16 @@ package user_servicev1
 import (
 	context "context"
 	fmt "fmt"
-	strings "strings"
-
 	gorm1 "github.com/infobloxopen/atlas-app-toolkit/gorm"
 	errors "github.com/infobloxopen/protoc-gen-gorm/errors"
 	gorm "github.com/jinzhu/gorm"
 	field_mask "google.golang.org/genproto/protobuf/field_mask"
+	strings "strings"
 )
 
 type NotificationSettingsORM struct {
 	Alerts           bool
-	Id               uint64
+	Id               uint64 `gorm:"unique_index:idx_notification_settings_id"`
 	NotificationType string
 	SettingsId       *uint64
 }
@@ -86,7 +85,7 @@ type NotificationSettingsWithAfterToPB interface {
 
 type DigitalWorkerSettingsORM struct {
 	EnableLogging bool
-	Id            uint64
+	Id            uint64 `gorm:"unique_index:idx_digital_worker_settings_id"`
 	SettingsId    *uint64
 	WorkerName    string
 	WorkerVersion string
@@ -163,7 +162,7 @@ type DigitalWorkerSettingsWithAfterToPB interface {
 type FinancialPreferencesORM struct {
 	CurrencyPreference string
 	FinancialYearStart string
-	Id                 uint64
+	Id                 uint64 `gorm:"unique_index:idx_financial_preferences_id"`
 	SettingsId         *uint64
 	TaxCode            string
 	TaxPercentage      float64
@@ -244,8 +243,8 @@ type SettingsORM struct {
 	BusinessAccountId     *uint64
 	DigitalWorkerSettings *DigitalWorkerSettingsORM `gorm:"foreignkey:SettingsId;association_foreignkey:Id;preload:true"`
 	FinancialPreferences  *FinancialPreferencesORM  `gorm:"foreignkey:SettingsId;association_foreignkey:Id;preload:true"`
-	Id                    uint64
-	NotificationSettings  *NotificationSettingsORM `gorm:"foreignkey:SettingsId;association_foreignkey:Id"`
+	Id                    uint64                    `gorm:"unique_index:idx_settings_id"`
+	NotificationSettings  *NotificationSettingsORM  `gorm:"foreignkey:SettingsId;association_foreignkey:Id"`
 	PreferredLanguage     string
 	RiskTolerance         string
 	UserAccountId         *uint64

@@ -28,14 +28,15 @@ message UserAccount {
   };
 
   // Unique identifier for the account.
-  uint64 id = 1;
+  uint64 id = 1 [(gorm.field).tag = {unique_index: "idx_user_id"}];
 
   // Email associated with the user account.
   string email = 2 [
     (validate.rules).string.email = true,
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       example: "\"sample@example.com\""
-    } 
+    } ,
+    (gorm.field).tag = {unique_index: "idx_user_email"}
   ];
 
   // Physical address associated with the user.
@@ -73,7 +74,8 @@ message UserAccount {
     (validate.rules).string.min_len = 10,
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       example: "\"testuser9696\""
-    }
+    },
+    (gorm.field).tag = {unique_index: "idx_user_username"}
   ];
 
   // Indicates if the account is set to private.
@@ -98,7 +100,9 @@ message UserAccount {
   string profile_image_url = 43;
 
   // Auth0 user id
-  string auth0_user_id = 44;
+  string auth0_user_id = 44 [
+    (gorm.field).tag = {unique_index: "idx_user_auth0_user_id"}
+  ];
 }
 
 // BusinessAccount represents a business account within the context of solomon-ai.
@@ -109,13 +113,15 @@ message BusinessAccount {
 
   // Unique identifier for the business account.
   uint64 id = 1 [
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { example: "" }
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { example: "" },
+    (gorm.field).tag = {unique_index: "idx_business_id"}
   ];
 
   // Email associated with the business account.
   string email = 2 [
     (validate.rules).string.email = true,
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { example: "\"example@gmail.com\"" } 
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { example: "\"example@gmail.com\"" },
+    (gorm.field).tag = {unique_index: "idx_business_email"}
   ];
 
   // Physical address associated with the business account.
@@ -162,7 +168,8 @@ message BusinessAccount {
   // Username for the business account. Must be at least 10 characters long.
   string username = 28 [
     (validate.rules).string.min_len = 10,
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { example: "\"testuser9696\"" }
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { example: "\"testuser9696\"" },
+    (gorm.field).tag = {unique_index: "idx_business_username"}
   ];
 
   // Indicates whether the business account is private.
@@ -192,8 +199,7 @@ message BusinessAccount {
 
   // Website URL of the company associated with the business account.
   string company_website_url = 37 [
-    (validate.rules).string.min_len = 0,
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { example: "\"https://solomon-ai.io\"" } 
+    (validate.rules).string.min_len = 0
   ];
 
   // Description of the company associated with the business account.
@@ -220,7 +226,9 @@ message BusinessAccount {
   string profile_image_url = 43;
 
   // auth0 user id associated with the business account
-  string auth0_user_id = 44;
+  string auth0_user_id = 44 [
+    (gorm.field).tag = {unique_index: "auth0_user_id"}
+  ];
 }
 
 /*
@@ -234,7 +242,8 @@ message Address {
   uint64 id = 1 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       example: ""
-    }
+    },
+    (gorm.field).tag = {unique_index: "idx_address_id"}
   ];
   // the address field
   // Validations:
@@ -308,7 +317,8 @@ message Tags {
   uint64 id = 1 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       example: ""
-    }
+    },
+    (gorm.field).tag = {unique_index: "idx_tags_id"}
   ];
   // name of tag
   // validations: 

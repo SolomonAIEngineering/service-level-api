@@ -60,7 +60,8 @@ message NotificationSettings {
   uint64 id = 1 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       example: ""
-    }
+    },
+    (gorm.field).tag = {unique_index: "idx_notification_settings_id"}
   ];
 
   NotificationType notification_type = 2;
@@ -72,7 +73,12 @@ message DigitalWorkerSettings {
   option (gorm.opts) = {
     ormable: true,
   };
-  uint64 id = 1;  // Unique identifier for the toolchain configuration.
+  uint64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: ""
+    },
+    (gorm.field).tag = {unique_index: "idx_digital_worker_settings_id"}
+  ];  // Unique identifier for the toolchain configuration.
   string worker_name = 2;
   string worker_version = 3;
   bool enable_logging = 4;
@@ -86,7 +92,8 @@ message FinancialPreferences {
   uint64 id = 1 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       example: ""
-    }
+    },
+    (gorm.field).tag = {unique_index: "idx_financial_preferences_id"}
   ];
 
   string currency_preference = 2;
@@ -104,7 +111,8 @@ message Settings {
   uint64 id = 1 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       example: ""
-    }
+    },
+    (gorm.field).tag = {unique_index: "idx_settings_id"}
   ];
 
   // Display and interaction preferences.

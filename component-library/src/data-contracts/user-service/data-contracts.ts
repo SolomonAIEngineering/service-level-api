@@ -66,7 +66,7 @@ export interface Address {
 }
 
 export interface Any {
-  '@type'?: string;
+  "@type"?: string;
   [key: string]: any;
 }
 
@@ -74,10 +74,7 @@ export interface Any {
  * Display and interaction preferences.
  * @default "APPLICATION_THEME_UNSPECIFIED"
  */
-export type ApplicationTheme =
-  | 'APPLICATION_THEME_UNSPECIFIED'
-  | 'APPLICATION_THEME_LIGHT'
-  | 'APPLICATION_THEME_DARK';
+export type ApplicationTheme = "APPLICATION_THEME_UNSPECIFIED" | "APPLICATION_THEME_LIGHT" | "APPLICATION_THEME_DARK";
 
 /** BusinessAccount represents a business account within the context of solomon-ai. */
 export interface BusinessAccount {
@@ -114,10 +111,7 @@ export interface BusinessAccount {
    * @example "Solomon AI"
    */
   companyName?: string;
-  /**
-   * Website URL of the company associated with the business account.
-   * @example "https://solomon-ai.io"
-   */
+  /** Website URL of the company associated with the business account. */
   companyWebsiteUrl?: string;
   /**
    * Timestamp indicating when the business account was created.
@@ -477,12 +471,12 @@ export interface HealthCheckResponse {
 
 /** @default "LIKED_DASHBOARD_PANELS_TRANSACTIONS_UNSPECIFIED" */
 export type LikedDashboardPanels =
-  | 'LIKED_DASHBOARD_PANELS_TRANSACTIONS_UNSPECIFIED'
-  | 'LIKED_DASHBOARD_PANELS_TRANSACTIONS_OVERVIEW'
-  | 'LIKED_DASHBOARD_PANELS_INVESTMENT_SUMMARY'
-  | 'LIKED_DASHBOARD_PANELS_MONTHLY_SPENDING_REPORT'
-  | 'LIKED_DASHBOARD_PANELS_SAVINGS_TRACKER'
-  | 'LIKED_DASHBOARD_PANELS_CREDIT_SCORE_MONITOR';
+  | "LIKED_DASHBOARD_PANELS_TRANSACTIONS_UNSPECIFIED"
+  | "LIKED_DASHBOARD_PANELS_TRANSACTIONS_OVERVIEW"
+  | "LIKED_DASHBOARD_PANELS_INVESTMENT_SUMMARY"
+  | "LIKED_DASHBOARD_PANELS_MONTHLY_SPENDING_REPORT"
+  | "LIKED_DASHBOARD_PANELS_SAVINGS_TRACKER"
+  | "LIKED_DASHBOARD_PANELS_CREDIT_SCORE_MONITOR";
 
 export interface NotificationSettings {
   /** True if user wants to be alerted for anomalies */
@@ -503,11 +497,11 @@ export interface NotificationSettings {
  * @default "NOTIFICATION_TYPE_UNSPECIFIED"
  */
 export type NotificationType =
-  | 'NOTIFICATION_TYPE_UNSPECIFIED'
-  | 'NOTIFICATION_TYPE_EMAIL'
-  | 'NOTIFICATION_TYPE_SMS'
-  | 'NOTIFICATION_TYPE_IN_APP'
-  | 'NOTIFICATION_TYPE_SLACK';
+  | "NOTIFICATION_TYPE_UNSPECIFIED"
+  | "NOTIFICATION_TYPE_EMAIL"
+  | "NOTIFICATION_TYPE_SMS"
+  | "NOTIFICATION_TYPE_IN_APP"
+  | "NOTIFICATION_TYPE_SLACK";
 
 export type PasswordResetData = any;
 
@@ -525,10 +519,7 @@ export interface PasswordResetWebhookV2Response {
  * ProfileType: represents the type of account tied to a given profile
  * @default "PROFILE_TYPE_UNSPECIFIED"
  */
-export type ProfileType =
-  | 'PROFILE_TYPE_UNSPECIFIED'
-  | 'PROFILE_TYPE_USER'
-  | 'PROFILE_TYPE_BUSINESS';
+export type ProfileType = "PROFILE_TYPE_UNSPECIFIED" | "PROFILE_TYPE_USER" | "PROFILE_TYPE_BUSINESS";
 
 export type ReadynessCheckData = any;
 
@@ -543,10 +534,10 @@ export type RetrieveBusinessSettingsData = any;
  * @default "RISK_TOLERANCE_SETTINGS_UNSPECIFIED"
  */
 export type RiskToleranceSettings =
-  | 'RISK_TOLERANCE_SETTINGS_UNSPECIFIED'
-  | 'RISK_TOLERANCE_SETTINGS_LOW'
-  | 'RISK_TOLERANCE_SETTINGS_MEDIUM'
-  | 'RISK_TOLERANCE_SETTINGS_HIGH';
+  | "RISK_TOLERANCE_SETTINGS_UNSPECIFIED"
+  | "RISK_TOLERANCE_SETTINGS_LOW"
+  | "RISK_TOLERANCE_SETTINGS_MEDIUM"
+  | "RISK_TOLERANCE_SETTINGS_HIGH";
 
 /** User settings for the fintech application. */
 export interface Settings {

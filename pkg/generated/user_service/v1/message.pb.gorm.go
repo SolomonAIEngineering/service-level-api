@@ -3,28 +3,27 @@ package user_servicev1
 import (
 	context "context"
 	fmt "fmt"
-	strings "strings"
-	time "time"
-
 	gorm1 "github.com/infobloxopen/atlas-app-toolkit/gorm"
 	errors "github.com/infobloxopen/protoc-gen-gorm/errors"
 	gorm "github.com/jinzhu/gorm"
 	pq "github.com/lib/pq"
 	field_mask "google.golang.org/genproto/protobuf/field_mask"
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
+	strings "strings"
+	time "time"
 )
 
 type UserAccountORM struct {
 	AccountType     string
 	Address         *AddressORM `gorm:"foreignkey:UserAccountId;association_foreignkey:Id"`
-	Auth0UserId     string
+	Auth0UserId     string      `gorm:"unique_index:idx_user_auth0_user_id"`
 	AuthnAccountId  uint64
 	Bio             string
 	CreatedAt       *time.Time
-	Email           string
+	Email           string `gorm:"unique_index:idx_user_email"`
 	Firstname       string
 	Headline        string
-	Id              uint64
+	Id              uint64 `gorm:"unique_index:idx_user_id"`
 	IsActive        bool
 	IsEmailVerified bool
 	IsPrivate       bool
@@ -33,7 +32,7 @@ type UserAccountORM struct {
 	ProfileImageUrl string
 	Settings        *SettingsORM `gorm:"foreignkey:UserAccountId;association_foreignkey:Id"`
 	Tags            []*TagsORM   `gorm:"foreignkey:UserAccountId;association_foreignkey:Id"`
-	Username        string
+	Username        string       `gorm:"unique_index:idx_user_username"`
 	VerifiedAt      *time.Time
 }
 
@@ -194,7 +193,7 @@ type UserAccountWithAfterToPB interface {
 type BusinessAccountORM struct {
 	AccountType            string
 	Address                *AddressORM `gorm:"foreignkey:BusinessAccountId;association_foreignkey:Id;preload:true"`
-	Auth0UserId            string
+	Auth0UserId            string      `gorm:"unique_index:auth0_user_id"`
 	AuthnAccountId         uint64
 	Bio                    string
 	CompanyDescription     string
@@ -203,9 +202,9 @@ type BusinessAccountORM struct {
 	CompanyName            string
 	CompanyWebsiteUrl      string
 	CreatedAt              *time.Time
-	Email                  string
+	Email                  string `gorm:"unique_index:idx_business_email"`
 	Headline               string
-	Id                     uint64
+	Id                     uint64 `gorm:"unique_index:idx_business_id"`
 	IsActive               bool
 	IsEmailVerified        bool
 	IsPrivate              bool
@@ -213,7 +212,7 @@ type BusinessAccountORM struct {
 	ProfileImageUrl        string
 	Settings               *SettingsORM `gorm:"foreignkey:BusinessAccountId;association_foreignkey:Id;preload:true"`
 	Tags                   []*TagsORM   `gorm:"foreignkey:BusinessAccountId;association_foreignkey:Id;preload:true"`
-	Username               string
+	Username               string       `gorm:"unique_index:idx_business_username"`
 	VerifiedAt             *time.Time
 }
 
@@ -381,7 +380,7 @@ type AddressORM struct {
 	Address           string
 	BusinessAccountId *uint64
 	City              string
-	Id                uint64
+	Id                uint64 `gorm:"unique_index:idx_address_id"`
 	Lattitude         string
 	Longitude         string
 	State             string
@@ -468,7 +467,7 @@ type AddressWithAfterToPB interface {
 
 type TagsORM struct {
 	BusinessAccountId *uint64
-	Id                uint64
+	Id                uint64         `gorm:"unique_index:idx_tags_id"`
 	Metadata          pq.StringArray `gorm:"type:text[]"`
 	TagDescription    string
 	TagName           string

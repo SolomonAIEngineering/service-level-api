@@ -1902,7 +1902,6 @@
         },
         "companyWebsiteUrl": {
           "type": "string",
-          "example": "https://solomon-ai.io",
           "description": "Website URL of the company associated with the business account."
         },
         "companyDescription": {
