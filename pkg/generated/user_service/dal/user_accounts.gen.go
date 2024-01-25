@@ -30,6 +30,7 @@ func newUserAccountORM(db *gorm.DB, opts ...gen.DOOption) userAccountORM {
 	tableName := _userAccountORM.userAccountORMDo.TableName()
 	_userAccountORM.ALL = field.NewAsterisk(tableName)
 	_userAccountORM.AccountType = field.NewString(tableName, "account_type")
+	_userAccountORM.Auth0UserId = field.NewString(tableName, "auth0_user_id")
 	_userAccountORM.AuthnAccountId = field.NewUint64(tableName, "authn_account_id")
 	_userAccountORM.Bio = field.NewString(tableName, "bio")
 	_userAccountORM.CreatedAt = field.NewTime(tableName, "created_at")
@@ -42,6 +43,7 @@ func newUserAccountORM(db *gorm.DB, opts ...gen.DOOption) userAccountORM {
 	_userAccountORM.IsPrivate = field.NewBool(tableName, "is_private")
 	_userAccountORM.Lastname = field.NewString(tableName, "lastname")
 	_userAccountORM.PhoneNumber = field.NewString(tableName, "phone_number")
+	_userAccountORM.ProfileImageUrl = field.NewString(tableName, "profile_image_url")
 	_userAccountORM.Username = field.NewString(tableName, "username")
 	_userAccountORM.VerifiedAt = field.NewTime(tableName, "verified_at")
 	_userAccountORM.Address = userAccountORMHasOneAddress{
@@ -50,10 +52,25 @@ func newUserAccountORM(db *gorm.DB, opts ...gen.DOOption) userAccountORM {
 		RelationField: field.NewRelation("Address", "user_servicev1.AddressORM"),
 	}
 
-	_userAccountORM.UserSettings = userAccountORMHasOneUserSettings{
+	_userAccountORM.Settings = userAccountORMHasOneSettings{
 		db: db.Session(&gorm.Session{}),
 
-		RelationField: field.NewRelation("UserSettings", "user_servicev1.UserSettingsORM"),
+		RelationField: field.NewRelation("Settings", "user_servicev1.SettingsORM"),
+		DigitalWorkerSettings: struct {
+			field.RelationField
+		}{
+			RelationField: field.NewRelation("Settings.DigitalWorkerSettings", "user_servicev1.DigitalWorkerSettingsORM"),
+		},
+		FinancialPreferences: struct {
+			field.RelationField
+		}{
+			RelationField: field.NewRelation("Settings.FinancialPreferences", "user_servicev1.FinancialPreferencesORM"),
+		},
+		NotificationSettings: struct {
+			field.RelationField
+		}{
+			RelationField: field.NewRelation("Settings.NotificationSettings", "user_servicev1.NotificationSettingsORM"),
+		},
 	}
 
 	_userAccountORM.Tags = userAccountORMHasManyTags{
@@ -72,6 +89,7 @@ type userAccountORM struct {
 
 	ALL             field.Asterisk
 	AccountType     field.String
+	Auth0UserId     field.String
 	AuthnAccountId  field.Uint64
 	Bio             field.String
 	CreatedAt       field.Time
@@ -84,11 +102,12 @@ type userAccountORM struct {
 	IsPrivate       field.Bool
 	Lastname        field.String
 	PhoneNumber     field.String
+	ProfileImageUrl field.String
 	Username        field.String
 	VerifiedAt      field.Time
 	Address         userAccountORMHasOneAddress
 
-	UserSettings userAccountORMHasOneUserSettings
+	Settings userAccountORMHasOneSettings
 
 	Tags userAccountORMHasManyTags
 
@@ -108,6 +127,7 @@ func (u userAccountORM) As(alias string) *userAccountORM {
 func (u *userAccountORM) updateTableName(table string) *userAccountORM {
 	u.ALL = field.NewAsterisk(table)
 	u.AccountType = field.NewString(table, "account_type")
+	u.Auth0UserId = field.NewString(table, "auth0_user_id")
 	u.AuthnAccountId = field.NewUint64(table, "authn_account_id")
 	u.Bio = field.NewString(table, "bio")
 	u.CreatedAt = field.NewTime(table, "created_at")
@@ -120,6 +140,7 @@ func (u *userAccountORM) updateTableName(table string) *userAccountORM {
 	u.IsPrivate = field.NewBool(table, "is_private")
 	u.Lastname = field.NewString(table, "lastname")
 	u.PhoneNumber = field.NewString(table, "phone_number")
+	u.ProfileImageUrl = field.NewString(table, "profile_image_url")
 	u.Username = field.NewString(table, "username")
 	u.VerifiedAt = field.NewTime(table, "verified_at")
 
@@ -138,8 +159,9 @@ func (u *userAccountORM) GetFieldByName(fieldName string) (field.OrderExpr, bool
 }
 
 func (u *userAccountORM) fillFieldMap() {
-	u.fieldMap = make(map[string]field.Expr, 18)
+	u.fieldMap = make(map[string]field.Expr, 20)
 	u.fieldMap["account_type"] = u.AccountType
+	u.fieldMap["auth0_user_id"] = u.Auth0UserId
 	u.fieldMap["authn_account_id"] = u.AuthnAccountId
 	u.fieldMap["bio"] = u.Bio
 	u.fieldMap["created_at"] = u.CreatedAt
@@ -152,6 +174,7 @@ func (u *userAccountORM) fillFieldMap() {
 	u.fieldMap["is_private"] = u.IsPrivate
 	u.fieldMap["lastname"] = u.Lastname
 	u.fieldMap["phone_number"] = u.PhoneNumber
+	u.fieldMap["profile_image_url"] = u.ProfileImageUrl
 	u.fieldMap["username"] = u.Username
 	u.fieldMap["verified_at"] = u.VerifiedAt
 
@@ -238,13 +261,23 @@ func (a userAccountORMHasOneAddressTx) Count() int64 {
 	return a.tx.Count()
 }
 
-type userAccountORMHasOneUserSettings struct {
+type userAccountORMHasOneSettings struct {
 	db *gorm.DB
 
 	field.RelationField
+
+	DigitalWorkerSettings struct {
+		field.RelationField
+	}
+	FinancialPreferences struct {
+		field.RelationField
+	}
+	NotificationSettings struct {
+		field.RelationField
+	}
 }
 
-func (a userAccountORMHasOneUserSettings) Where(conds ...field.Expr) *userAccountORMHasOneUserSettings {
+func (a userAccountORMHasOneSettings) Where(conds ...field.Expr) *userAccountORMHasOneSettings {
 	if len(conds) == 0 {
 		return &a
 	}
@@ -257,27 +290,27 @@ func (a userAccountORMHasOneUserSettings) Where(conds ...field.Expr) *userAccoun
 	return &a
 }
 
-func (a userAccountORMHasOneUserSettings) WithContext(ctx context.Context) *userAccountORMHasOneUserSettings {
+func (a userAccountORMHasOneSettings) WithContext(ctx context.Context) *userAccountORMHasOneSettings {
 	a.db = a.db.WithContext(ctx)
 	return &a
 }
 
-func (a userAccountORMHasOneUserSettings) Session(session *gorm.Session) *userAccountORMHasOneUserSettings {
+func (a userAccountORMHasOneSettings) Session(session *gorm.Session) *userAccountORMHasOneSettings {
 	a.db = a.db.Session(session)
 	return &a
 }
 
-func (a userAccountORMHasOneUserSettings) Model(m *user_servicev1.UserAccountORM) *userAccountORMHasOneUserSettingsTx {
-	return &userAccountORMHasOneUserSettingsTx{a.db.Model(m).Association(a.Name())}
+func (a userAccountORMHasOneSettings) Model(m *user_servicev1.UserAccountORM) *userAccountORMHasOneSettingsTx {
+	return &userAccountORMHasOneSettingsTx{a.db.Model(m).Association(a.Name())}
 }
 
-type userAccountORMHasOneUserSettingsTx struct{ tx *gorm.Association }
+type userAccountORMHasOneSettingsTx struct{ tx *gorm.Association }
 
-func (a userAccountORMHasOneUserSettingsTx) Find() (result *user_servicev1.UserSettingsORM, err error) {
+func (a userAccountORMHasOneSettingsTx) Find() (result *user_servicev1.SettingsORM, err error) {
 	return result, a.tx.Find(&result)
 }
 
-func (a userAccountORMHasOneUserSettingsTx) Append(values ...*user_servicev1.UserSettingsORM) (err error) {
+func (a userAccountORMHasOneSettingsTx) Append(values ...*user_servicev1.SettingsORM) (err error) {
 	targetValues := make([]interface{}, len(values))
 	for i, v := range values {
 		targetValues[i] = v
@@ -285,7 +318,7 @@ func (a userAccountORMHasOneUserSettingsTx) Append(values ...*user_servicev1.Use
 	return a.tx.Append(targetValues...)
 }
 
-func (a userAccountORMHasOneUserSettingsTx) Replace(values ...*user_servicev1.UserSettingsORM) (err error) {
+func (a userAccountORMHasOneSettingsTx) Replace(values ...*user_servicev1.SettingsORM) (err error) {
 	targetValues := make([]interface{}, len(values))
 	for i, v := range values {
 		targetValues[i] = v
@@ -293,7 +326,7 @@ func (a userAccountORMHasOneUserSettingsTx) Replace(values ...*user_servicev1.Us
 	return a.tx.Replace(targetValues...)
 }
 
-func (a userAccountORMHasOneUserSettingsTx) Delete(values ...*user_servicev1.UserSettingsORM) (err error) {
+func (a userAccountORMHasOneSettingsTx) Delete(values ...*user_servicev1.SettingsORM) (err error) {
 	targetValues := make([]interface{}, len(values))
 	for i, v := range values {
 		targetValues[i] = v
@@ -301,11 +334,11 @@ func (a userAccountORMHasOneUserSettingsTx) Delete(values ...*user_servicev1.Use
 	return a.tx.Delete(targetValues...)
 }
 
-func (a userAccountORMHasOneUserSettingsTx) Clear() error {
+func (a userAccountORMHasOneSettingsTx) Clear() error {
 	return a.tx.Clear()
 }
 
-func (a userAccountORMHasOneUserSettingsTx) Count() int64 {
+func (a userAccountORMHasOneSettingsTx) Count() int64 {
 	return a.tx.Count()
 }
 

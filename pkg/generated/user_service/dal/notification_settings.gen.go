@@ -29,9 +29,9 @@ func newNotificationSettingsORM(db *gorm.DB, opts ...gen.DOOption) notificationS
 	tableName := _notificationSettingsORM.notificationSettingsORMDo.TableName()
 	_notificationSettingsORM.ALL = field.NewAsterisk(tableName)
 	_notificationSettingsORM.Alerts = field.NewBool(tableName, "alerts")
-	_notificationSettingsORM.BusinessAccountSettingsId = field.NewUint64(tableName, "business_account_settings_id")
 	_notificationSettingsORM.Id = field.NewUint64(tableName, "id")
 	_notificationSettingsORM.NotificationType = field.NewString(tableName, "notification_type")
+	_notificationSettingsORM.SettingsId = field.NewUint64(tableName, "settings_id")
 
 	_notificationSettingsORM.fillFieldMap()
 
@@ -41,11 +41,11 @@ func newNotificationSettingsORM(db *gorm.DB, opts ...gen.DOOption) notificationS
 type notificationSettingsORM struct {
 	notificationSettingsORMDo
 
-	ALL                       field.Asterisk
-	Alerts                    field.Bool
-	BusinessAccountSettingsId field.Uint64
-	Id                        field.Uint64
-	NotificationType          field.String
+	ALL              field.Asterisk
+	Alerts           field.Bool
+	Id               field.Uint64
+	NotificationType field.String
+	SettingsId       field.Uint64
 
 	fieldMap map[string]field.Expr
 }
@@ -63,9 +63,9 @@ func (n notificationSettingsORM) As(alias string) *notificationSettingsORM {
 func (n *notificationSettingsORM) updateTableName(table string) *notificationSettingsORM {
 	n.ALL = field.NewAsterisk(table)
 	n.Alerts = field.NewBool(table, "alerts")
-	n.BusinessAccountSettingsId = field.NewUint64(table, "business_account_settings_id")
 	n.Id = field.NewUint64(table, "id")
 	n.NotificationType = field.NewString(table, "notification_type")
+	n.SettingsId = field.NewUint64(table, "settings_id")
 
 	n.fillFieldMap()
 
@@ -84,9 +84,9 @@ func (n *notificationSettingsORM) GetFieldByName(fieldName string) (field.OrderE
 func (n *notificationSettingsORM) fillFieldMap() {
 	n.fieldMap = make(map[string]field.Expr, 4)
 	n.fieldMap["alerts"] = n.Alerts
-	n.fieldMap["business_account_settings_id"] = n.BusinessAccountSettingsId
 	n.fieldMap["id"] = n.Id
 	n.fieldMap["notification_type"] = n.NotificationType
+	n.fieldMap["settings_id"] = n.SettingsId
 }
 
 func (n notificationSettingsORM) clone(db *gorm.DB) notificationSettingsORM {

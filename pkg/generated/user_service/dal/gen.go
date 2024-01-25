@@ -16,94 +16,69 @@ import (
 )
 
 var (
-	Q                          = new(Query)
-	AIPoweredInsightsORM       *aIPoweredInsightsORM
-	AccountInformationORM      *accountInformationORM
-	AddressORM                 *addressORM
-	BusinessAccountORM         *businessAccountORM
-	BusinessAccountSettingsORM *businessAccountSettingsORM
-	ContactInformationORM      *contactInformationORM
-	FinancialPreferencesORM    *financialPreferencesORM
-	IntegrationSettingsORM     *integrationSettingsORM
-	NotificationSettingsORM    *notificationSettingsORM
-	TagsORM                    *tagsORM
-	TaxSettingsORM             *taxSettingsORM
-	UserAccountORM             *userAccountORM
-	UserSettingsORM            *userSettingsORM
+	Q                        = new(Query)
+	AddressORM               *addressORM
+	BusinessAccountORM       *businessAccountORM
+	DigitalWorkerSettingsORM *digitalWorkerSettingsORM
+	FinancialPreferencesORM  *financialPreferencesORM
+	NotificationSettingsORM  *notificationSettingsORM
+	SettingsORM              *settingsORM
+	TagsORM                  *tagsORM
+	UserAccountORM           *userAccountORM
 )
 
 func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
 	*Q = *Use(db, opts...)
-	AIPoweredInsightsORM = &Q.AIPoweredInsightsORM
-	AccountInformationORM = &Q.AccountInformationORM
 	AddressORM = &Q.AddressORM
 	BusinessAccountORM = &Q.BusinessAccountORM
-	BusinessAccountSettingsORM = &Q.BusinessAccountSettingsORM
-	ContactInformationORM = &Q.ContactInformationORM
+	DigitalWorkerSettingsORM = &Q.DigitalWorkerSettingsORM
 	FinancialPreferencesORM = &Q.FinancialPreferencesORM
-	IntegrationSettingsORM = &Q.IntegrationSettingsORM
 	NotificationSettingsORM = &Q.NotificationSettingsORM
+	SettingsORM = &Q.SettingsORM
 	TagsORM = &Q.TagsORM
-	TaxSettingsORM = &Q.TaxSettingsORM
 	UserAccountORM = &Q.UserAccountORM
-	UserSettingsORM = &Q.UserSettingsORM
 }
 
 func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 	return &Query{
-		db:                         db,
-		AIPoweredInsightsORM:       newAIPoweredInsightsORM(db, opts...),
-		AccountInformationORM:      newAccountInformationORM(db, opts...),
-		AddressORM:                 newAddressORM(db, opts...),
-		BusinessAccountORM:         newBusinessAccountORM(db, opts...),
-		BusinessAccountSettingsORM: newBusinessAccountSettingsORM(db, opts...),
-		ContactInformationORM:      newContactInformationORM(db, opts...),
-		FinancialPreferencesORM:    newFinancialPreferencesORM(db, opts...),
-		IntegrationSettingsORM:     newIntegrationSettingsORM(db, opts...),
-		NotificationSettingsORM:    newNotificationSettingsORM(db, opts...),
-		TagsORM:                    newTagsORM(db, opts...),
-		TaxSettingsORM:             newTaxSettingsORM(db, opts...),
-		UserAccountORM:             newUserAccountORM(db, opts...),
-		UserSettingsORM:            newUserSettingsORM(db, opts...),
+		db:                       db,
+		AddressORM:               newAddressORM(db, opts...),
+		BusinessAccountORM:       newBusinessAccountORM(db, opts...),
+		DigitalWorkerSettingsORM: newDigitalWorkerSettingsORM(db, opts...),
+		FinancialPreferencesORM:  newFinancialPreferencesORM(db, opts...),
+		NotificationSettingsORM:  newNotificationSettingsORM(db, opts...),
+		SettingsORM:              newSettingsORM(db, opts...),
+		TagsORM:                  newTagsORM(db, opts...),
+		UserAccountORM:           newUserAccountORM(db, opts...),
 	}
 }
 
 type Query struct {
 	db *gorm.DB
 
-	AIPoweredInsightsORM       aIPoweredInsightsORM
-	AccountInformationORM      accountInformationORM
-	AddressORM                 addressORM
-	BusinessAccountORM         businessAccountORM
-	BusinessAccountSettingsORM businessAccountSettingsORM
-	ContactInformationORM      contactInformationORM
-	FinancialPreferencesORM    financialPreferencesORM
-	IntegrationSettingsORM     integrationSettingsORM
-	NotificationSettingsORM    notificationSettingsORM
-	TagsORM                    tagsORM
-	TaxSettingsORM             taxSettingsORM
-	UserAccountORM             userAccountORM
-	UserSettingsORM            userSettingsORM
+	AddressORM               addressORM
+	BusinessAccountORM       businessAccountORM
+	DigitalWorkerSettingsORM digitalWorkerSettingsORM
+	FinancialPreferencesORM  financialPreferencesORM
+	NotificationSettingsORM  notificationSettingsORM
+	SettingsORM              settingsORM
+	TagsORM                  tagsORM
+	UserAccountORM           userAccountORM
 }
 
 func (q *Query) Available() bool { return q.db != nil }
 
 func (q *Query) clone(db *gorm.DB) *Query {
 	return &Query{
-		db:                         db,
-		AIPoweredInsightsORM:       q.AIPoweredInsightsORM.clone(db),
-		AccountInformationORM:      q.AccountInformationORM.clone(db),
-		AddressORM:                 q.AddressORM.clone(db),
-		BusinessAccountORM:         q.BusinessAccountORM.clone(db),
-		BusinessAccountSettingsORM: q.BusinessAccountSettingsORM.clone(db),
-		ContactInformationORM:      q.ContactInformationORM.clone(db),
-		FinancialPreferencesORM:    q.FinancialPreferencesORM.clone(db),
-		IntegrationSettingsORM:     q.IntegrationSettingsORM.clone(db),
-		NotificationSettingsORM:    q.NotificationSettingsORM.clone(db),
-		TagsORM:                    q.TagsORM.clone(db),
-		TaxSettingsORM:             q.TaxSettingsORM.clone(db),
-		UserAccountORM:             q.UserAccountORM.clone(db),
-		UserSettingsORM:            q.UserSettingsORM.clone(db),
+		db:                       db,
+		AddressORM:               q.AddressORM.clone(db),
+		BusinessAccountORM:       q.BusinessAccountORM.clone(db),
+		DigitalWorkerSettingsORM: q.DigitalWorkerSettingsORM.clone(db),
+		FinancialPreferencesORM:  q.FinancialPreferencesORM.clone(db),
+		NotificationSettingsORM:  q.NotificationSettingsORM.clone(db),
+		SettingsORM:              q.SettingsORM.clone(db),
+		TagsORM:                  q.TagsORM.clone(db),
+		UserAccountORM:           q.UserAccountORM.clone(db),
 	}
 }
 
@@ -117,54 +92,39 @@ func (q *Query) WriteDB() *Query {
 
 func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 	return &Query{
-		db:                         db,
-		AIPoweredInsightsORM:       q.AIPoweredInsightsORM.replaceDB(db),
-		AccountInformationORM:      q.AccountInformationORM.replaceDB(db),
-		AddressORM:                 q.AddressORM.replaceDB(db),
-		BusinessAccountORM:         q.BusinessAccountORM.replaceDB(db),
-		BusinessAccountSettingsORM: q.BusinessAccountSettingsORM.replaceDB(db),
-		ContactInformationORM:      q.ContactInformationORM.replaceDB(db),
-		FinancialPreferencesORM:    q.FinancialPreferencesORM.replaceDB(db),
-		IntegrationSettingsORM:     q.IntegrationSettingsORM.replaceDB(db),
-		NotificationSettingsORM:    q.NotificationSettingsORM.replaceDB(db),
-		TagsORM:                    q.TagsORM.replaceDB(db),
-		TaxSettingsORM:             q.TaxSettingsORM.replaceDB(db),
-		UserAccountORM:             q.UserAccountORM.replaceDB(db),
-		UserSettingsORM:            q.UserSettingsORM.replaceDB(db),
+		db:                       db,
+		AddressORM:               q.AddressORM.replaceDB(db),
+		BusinessAccountORM:       q.BusinessAccountORM.replaceDB(db),
+		DigitalWorkerSettingsORM: q.DigitalWorkerSettingsORM.replaceDB(db),
+		FinancialPreferencesORM:  q.FinancialPreferencesORM.replaceDB(db),
+		NotificationSettingsORM:  q.NotificationSettingsORM.replaceDB(db),
+		SettingsORM:              q.SettingsORM.replaceDB(db),
+		TagsORM:                  q.TagsORM.replaceDB(db),
+		UserAccountORM:           q.UserAccountORM.replaceDB(db),
 	}
 }
 
 type queryCtx struct {
-	AIPoweredInsightsORM       IAIPoweredInsightsORMDo
-	AccountInformationORM      IAccountInformationORMDo
-	AddressORM                 IAddressORMDo
-	BusinessAccountORM         IBusinessAccountORMDo
-	BusinessAccountSettingsORM IBusinessAccountSettingsORMDo
-	ContactInformationORM      IContactInformationORMDo
-	FinancialPreferencesORM    IFinancialPreferencesORMDo
-	IntegrationSettingsORM     IIntegrationSettingsORMDo
-	NotificationSettingsORM    INotificationSettingsORMDo
-	TagsORM                    ITagsORMDo
-	TaxSettingsORM             ITaxSettingsORMDo
-	UserAccountORM             IUserAccountORMDo
-	UserSettingsORM            IUserSettingsORMDo
+	AddressORM               IAddressORMDo
+	BusinessAccountORM       IBusinessAccountORMDo
+	DigitalWorkerSettingsORM IDigitalWorkerSettingsORMDo
+	FinancialPreferencesORM  IFinancialPreferencesORMDo
+	NotificationSettingsORM  INotificationSettingsORMDo
+	SettingsORM              ISettingsORMDo
+	TagsORM                  ITagsORMDo
+	UserAccountORM           IUserAccountORMDo
 }
 
 func (q *Query) WithContext(ctx context.Context) *queryCtx {
 	return &queryCtx{
-		AIPoweredInsightsORM:       q.AIPoweredInsightsORM.WithContext(ctx),
-		AccountInformationORM:      q.AccountInformationORM.WithContext(ctx),
-		AddressORM:                 q.AddressORM.WithContext(ctx),
-		BusinessAccountORM:         q.BusinessAccountORM.WithContext(ctx),
-		BusinessAccountSettingsORM: q.BusinessAccountSettingsORM.WithContext(ctx),
-		ContactInformationORM:      q.ContactInformationORM.WithContext(ctx),
-		FinancialPreferencesORM:    q.FinancialPreferencesORM.WithContext(ctx),
-		IntegrationSettingsORM:     q.IntegrationSettingsORM.WithContext(ctx),
-		NotificationSettingsORM:    q.NotificationSettingsORM.WithContext(ctx),
-		TagsORM:                    q.TagsORM.WithContext(ctx),
-		TaxSettingsORM:             q.TaxSettingsORM.WithContext(ctx),
-		UserAccountORM:             q.UserAccountORM.WithContext(ctx),
-		UserSettingsORM:            q.UserSettingsORM.WithContext(ctx),
+		AddressORM:               q.AddressORM.WithContext(ctx),
+		BusinessAccountORM:       q.BusinessAccountORM.WithContext(ctx),
+		DigitalWorkerSettingsORM: q.DigitalWorkerSettingsORM.WithContext(ctx),
+		FinancialPreferencesORM:  q.FinancialPreferencesORM.WithContext(ctx),
+		NotificationSettingsORM:  q.NotificationSettingsORM.WithContext(ctx),
+		SettingsORM:              q.SettingsORM.WithContext(ctx),
+		TagsORM:                  q.TagsORM.WithContext(ctx),
+		UserAccountORM:           q.UserAccountORM.WithContext(ctx),
 	}
 }
 

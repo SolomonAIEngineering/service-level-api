@@ -31,14 +31,12 @@ func newUserSettingsORM(db *gorm.DB, opts ...gen.DOOption) userSettingsORM {
 	_userSettingsORM.AppTheme = field.NewString(tableName, "app_theme")
 	_userSettingsORM.DatetimeFormat = field.NewString(tableName, "datetime_format")
 	_userSettingsORM.DefaultCurrency = field.NewString(tableName, "default_currency")
-	_userSettingsORM.EmailNotifications = field.NewBool(tableName, "email_notifications")
 	_userSettingsORM.EnableGoalJournal = field.NewBool(tableName, "enable_goal_journal")
 	_userSettingsORM.Id = field.NewUint64(tableName, "id")
 	_userSettingsORM.InvestmentRiskTolerance = field.NewString(tableName, "investment_risk_tolerance")
+	_userSettingsORM.NotificationType = field.NewString(tableName, "notification_type")
 	_userSettingsORM.PreferredLanguage = field.NewString(tableName, "preferred_language")
 	_userSettingsORM.PublicProfile = field.NewBool(tableName, "public_profile")
-	_userSettingsORM.PushNotifications = field.NewBool(tableName, "push_notifications")
-	_userSettingsORM.SmsNotifications = field.NewBool(tableName, "sms_notifications")
 	_userSettingsORM.TwoFactorAuthenticationEnabled = field.NewBool(tableName, "two_factor_authentication_enabled")
 	_userSettingsORM.UserAccountId = field.NewUint64(tableName, "user_account_id")
 
@@ -54,14 +52,12 @@ type userSettingsORM struct {
 	AppTheme                       field.String
 	DatetimeFormat                 field.String
 	DefaultCurrency                field.String
-	EmailNotifications             field.Bool
 	EnableGoalJournal              field.Bool
 	Id                             field.Uint64
 	InvestmentRiskTolerance        field.String
+	NotificationType               field.String
 	PreferredLanguage              field.String
 	PublicProfile                  field.Bool
-	PushNotifications              field.Bool
-	SmsNotifications               field.Bool
 	TwoFactorAuthenticationEnabled field.Bool
 	UserAccountId                  field.Uint64
 
@@ -83,14 +79,12 @@ func (u *userSettingsORM) updateTableName(table string) *userSettingsORM {
 	u.AppTheme = field.NewString(table, "app_theme")
 	u.DatetimeFormat = field.NewString(table, "datetime_format")
 	u.DefaultCurrency = field.NewString(table, "default_currency")
-	u.EmailNotifications = field.NewBool(table, "email_notifications")
 	u.EnableGoalJournal = field.NewBool(table, "enable_goal_journal")
 	u.Id = field.NewUint64(table, "id")
 	u.InvestmentRiskTolerance = field.NewString(table, "investment_risk_tolerance")
+	u.NotificationType = field.NewString(table, "notification_type")
 	u.PreferredLanguage = field.NewString(table, "preferred_language")
 	u.PublicProfile = field.NewBool(table, "public_profile")
-	u.PushNotifications = field.NewBool(table, "push_notifications")
-	u.SmsNotifications = field.NewBool(table, "sms_notifications")
 	u.TwoFactorAuthenticationEnabled = field.NewBool(table, "two_factor_authentication_enabled")
 	u.UserAccountId = field.NewUint64(table, "user_account_id")
 
@@ -109,18 +103,16 @@ func (u *userSettingsORM) GetFieldByName(fieldName string) (field.OrderExpr, boo
 }
 
 func (u *userSettingsORM) fillFieldMap() {
-	u.fieldMap = make(map[string]field.Expr, 13)
+	u.fieldMap = make(map[string]field.Expr, 11)
 	u.fieldMap["app_theme"] = u.AppTheme
 	u.fieldMap["datetime_format"] = u.DatetimeFormat
 	u.fieldMap["default_currency"] = u.DefaultCurrency
-	u.fieldMap["email_notifications"] = u.EmailNotifications
 	u.fieldMap["enable_goal_journal"] = u.EnableGoalJournal
 	u.fieldMap["id"] = u.Id
 	u.fieldMap["investment_risk_tolerance"] = u.InvestmentRiskTolerance
+	u.fieldMap["notification_type"] = u.NotificationType
 	u.fieldMap["preferred_language"] = u.PreferredLanguage
 	u.fieldMap["public_profile"] = u.PublicProfile
-	u.fieldMap["push_notifications"] = u.PushNotifications
-	u.fieldMap["sms_notifications"] = u.SmsNotifications
 	u.fieldMap["two_factor_authentication_enabled"] = u.TwoFactorAuthenticationEnabled
 	u.fieldMap["user_account_id"] = u.UserAccountId
 }

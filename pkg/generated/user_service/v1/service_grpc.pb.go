@@ -48,6 +48,7 @@ const (
 	UserService_GetBusinessSettings_FullMethodName        = "/user_service.v1.UserService/GetBusinessSettings"
 	UserService_GetUserByAuthnIDV2_FullMethodName         = "/user_service.v1.UserService/GetUserByAuthnIDV2"
 	UserService_GetCannyUserSSOToken_FullMethodName       = "/user_service.v1.UserService/GetCannyUserSSOToken"
+	UserService_GetUserByAuth0ID_FullMethodName           = "/user_service.v1.UserService/GetUserByAuth0ID"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -128,6 +129,7 @@ type UserServiceClient interface {
 	GetUserByAuthnIDV2(ctx context.Context, in *GetUserByAuthnIDV2Request, opts ...grpc.CallOption) (*GetUserByAuthnIDV2Response, error)
 	// the following endpoints are for the canny integration. it returns the sso token for a given user
 	GetCannyUserSSOToken(ctx context.Context, in *GetCannyUserSSOTokenRequest, opts ...grpc.CallOption) (*GetCannyUserSSOTokenResponse, error)
+	GetUserByAuth0ID(ctx context.Context, in *GetUserByAuth0IDRequest, opts ...grpc.CallOption) (*GetUserByAuth0IDResponse, error)
 }
 
 type userServiceClient struct {
@@ -399,6 +401,15 @@ func (c *userServiceClient) GetCannyUserSSOToken(ctx context.Context, in *GetCan
 	return out, nil
 }
 
+func (c *userServiceClient) GetUserByAuth0ID(ctx context.Context, in *GetUserByAuth0IDRequest, opts ...grpc.CallOption) (*GetUserByAuth0IDResponse, error) {
+	out := new(GetUserByAuth0IDResponse)
+	err := c.cc.Invoke(ctx, UserService_GetUserByAuth0ID_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServiceServer is the server API for UserService service.
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility
@@ -477,6 +488,7 @@ type UserServiceServer interface {
 	GetUserByAuthnIDV2(context.Context, *GetUserByAuthnIDV2Request) (*GetUserByAuthnIDV2Response, error)
 	// the following endpoints are for the canny integration. it returns the sso token for a given user
 	GetCannyUserSSOToken(context.Context, *GetCannyUserSSOTokenRequest) (*GetCannyUserSSOTokenResponse, error)
+	GetUserByAuth0ID(context.Context, *GetUserByAuth0IDRequest) (*GetUserByAuth0IDResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -570,6 +582,9 @@ func (UnimplementedUserServiceServer) GetUserByAuthnIDV2(context.Context, *GetUs
 }
 func (UnimplementedUserServiceServer) GetCannyUserSSOToken(context.Context, *GetCannyUserSSOTokenRequest) (*GetCannyUserSSOTokenResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCannyUserSSOToken not implemented")
+}
+func (UnimplementedUserServiceServer) GetUserByAuth0ID(context.Context, *GetUserByAuth0IDRequest) (*GetUserByAuth0IDResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserByAuth0ID not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 
@@ -1106,6 +1121,24 @@ func _UserService_GetCannyUserSSOToken_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_GetUserByAuth0ID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserByAuth0IDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).GetUserByAuth0ID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_GetUserByAuth0ID_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).GetUserByAuth0ID(ctx, req.(*GetUserByAuth0IDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1228,6 +1261,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetCannyUserSSOToken",
 			Handler:    _UserService_GetCannyUserSSOToken_Handler,
+		},
+		{
+			MethodName: "GetUserByAuth0ID",
+			Handler:    _UserService_GetUserByAuth0ID_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

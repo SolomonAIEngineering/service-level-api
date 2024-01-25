@@ -30,6 +30,7 @@ func newBusinessAccountORM(db *gorm.DB, opts ...gen.DOOption) businessAccountORM
 	tableName := _businessAccountORM.businessAccountORMDo.TableName()
 	_businessAccountORM.ALL = field.NewAsterisk(tableName)
 	_businessAccountORM.AccountType = field.NewString(tableName, "account_type")
+	_businessAccountORM.Auth0UserId = field.NewString(tableName, "auth0_user_id")
 	_businessAccountORM.AuthnAccountId = field.NewUint64(tableName, "authn_account_id")
 	_businessAccountORM.Bio = field.NewString(tableName, "bio")
 	_businessAccountORM.CompanyDescription = field.NewString(tableName, "company_description")
@@ -45,6 +46,7 @@ func newBusinessAccountORM(db *gorm.DB, opts ...gen.DOOption) businessAccountORM
 	_businessAccountORM.IsEmailVerified = field.NewBool(tableName, "is_email_verified")
 	_businessAccountORM.IsPrivate = field.NewBool(tableName, "is_private")
 	_businessAccountORM.PhoneNumber = field.NewString(tableName, "phone_number")
+	_businessAccountORM.ProfileImageUrl = field.NewString(tableName, "profile_image_url")
 	_businessAccountORM.Username = field.NewString(tableName, "username")
 	_businessAccountORM.VerifiedAt = field.NewTime(tableName, "verified_at")
 	_businessAccountORM.Address = businessAccountORMHasOneAddress{
@@ -53,50 +55,24 @@ func newBusinessAccountORM(db *gorm.DB, opts ...gen.DOOption) businessAccountORM
 		RelationField: field.NewRelation("Address", "user_servicev1.AddressORM"),
 	}
 
-	_businessAccountORM.BusinessAccountSettings = businessAccountORMHasOneBusinessAccountSettings{
+	_businessAccountORM.Settings = businessAccountORMHasOneSettings{
 		db: db.Session(&gorm.Session{}),
 
-		RelationField: field.NewRelation("BusinessAccountSettings", "user_servicev1.BusinessAccountSettingsORM"),
-		AccountInformation: struct {
-			field.RelationField
-			ContactInfo struct {
-				field.RelationField
-			}
-		}{
-			RelationField: field.NewRelation("BusinessAccountSettings.AccountInformation", "user_servicev1.AccountInformationORM"),
-			ContactInfo: struct {
-				field.RelationField
-			}{
-				RelationField: field.NewRelation("BusinessAccountSettings.AccountInformation.ContactInfo", "user_servicev1.ContactInformationORM"),
-			},
-		},
-		AiPoweredInsights: struct {
+		RelationField: field.NewRelation("Settings", "user_servicev1.SettingsORM"),
+		DigitalWorkerSettings: struct {
 			field.RelationField
 		}{
-			RelationField: field.NewRelation("BusinessAccountSettings.AiPoweredInsights", "user_servicev1.AIPoweredInsightsORM"),
+			RelationField: field.NewRelation("Settings.DigitalWorkerSettings", "user_servicev1.DigitalWorkerSettingsORM"),
 		},
 		FinancialPreferences: struct {
 			field.RelationField
-			TaxSettings struct {
-				field.RelationField
-			}
 		}{
-			RelationField: field.NewRelation("BusinessAccountSettings.FinancialPreferences", "user_servicev1.FinancialPreferencesORM"),
-			TaxSettings: struct {
-				field.RelationField
-			}{
-				RelationField: field.NewRelation("BusinessAccountSettings.FinancialPreferences.TaxSettings", "user_servicev1.TaxSettingsORM"),
-			},
-		},
-		IntegrationSettings: struct {
-			field.RelationField
-		}{
-			RelationField: field.NewRelation("BusinessAccountSettings.IntegrationSettings", "user_servicev1.IntegrationSettingsORM"),
+			RelationField: field.NewRelation("Settings.FinancialPreferences", "user_servicev1.FinancialPreferencesORM"),
 		},
 		NotificationSettings: struct {
 			field.RelationField
 		}{
-			RelationField: field.NewRelation("BusinessAccountSettings.NotificationSettings", "user_servicev1.NotificationSettingsORM"),
+			RelationField: field.NewRelation("Settings.NotificationSettings", "user_servicev1.NotificationSettingsORM"),
 		},
 	}
 
@@ -116,6 +92,7 @@ type businessAccountORM struct {
 
 	ALL                    field.Asterisk
 	AccountType            field.String
+	Auth0UserId            field.String
 	AuthnAccountId         field.Uint64
 	Bio                    field.String
 	CompanyDescription     field.String
@@ -131,11 +108,12 @@ type businessAccountORM struct {
 	IsEmailVerified        field.Bool
 	IsPrivate              field.Bool
 	PhoneNumber            field.String
+	ProfileImageUrl        field.String
 	Username               field.String
 	VerifiedAt             field.Time
 	Address                businessAccountORMHasOneAddress
 
-	BusinessAccountSettings businessAccountORMHasOneBusinessAccountSettings
+	Settings businessAccountORMHasOneSettings
 
 	Tags businessAccountORMHasManyTags
 
@@ -155,6 +133,7 @@ func (b businessAccountORM) As(alias string) *businessAccountORM {
 func (b *businessAccountORM) updateTableName(table string) *businessAccountORM {
 	b.ALL = field.NewAsterisk(table)
 	b.AccountType = field.NewString(table, "account_type")
+	b.Auth0UserId = field.NewString(table, "auth0_user_id")
 	b.AuthnAccountId = field.NewUint64(table, "authn_account_id")
 	b.Bio = field.NewString(table, "bio")
 	b.CompanyDescription = field.NewString(table, "company_description")
@@ -170,6 +149,7 @@ func (b *businessAccountORM) updateTableName(table string) *businessAccountORM {
 	b.IsEmailVerified = field.NewBool(table, "is_email_verified")
 	b.IsPrivate = field.NewBool(table, "is_private")
 	b.PhoneNumber = field.NewString(table, "phone_number")
+	b.ProfileImageUrl = field.NewString(table, "profile_image_url")
 	b.Username = field.NewString(table, "username")
 	b.VerifiedAt = field.NewTime(table, "verified_at")
 
@@ -188,8 +168,9 @@ func (b *businessAccountORM) GetFieldByName(fieldName string) (field.OrderExpr, 
 }
 
 func (b *businessAccountORM) fillFieldMap() {
-	b.fieldMap = make(map[string]field.Expr, 21)
+	b.fieldMap = make(map[string]field.Expr, 23)
 	b.fieldMap["account_type"] = b.AccountType
+	b.fieldMap["auth0_user_id"] = b.Auth0UserId
 	b.fieldMap["authn_account_id"] = b.AuthnAccountId
 	b.fieldMap["bio"] = b.Bio
 	b.fieldMap["company_description"] = b.CompanyDescription
@@ -205,6 +186,7 @@ func (b *businessAccountORM) fillFieldMap() {
 	b.fieldMap["is_email_verified"] = b.IsEmailVerified
 	b.fieldMap["is_private"] = b.IsPrivate
 	b.fieldMap["phone_number"] = b.PhoneNumber
+	b.fieldMap["profile_image_url"] = b.ProfileImageUrl
 	b.fieldMap["username"] = b.Username
 	b.fieldMap["verified_at"] = b.VerifiedAt
 
@@ -291,27 +273,15 @@ func (a businessAccountORMHasOneAddressTx) Count() int64 {
 	return a.tx.Count()
 }
 
-type businessAccountORMHasOneBusinessAccountSettings struct {
+type businessAccountORMHasOneSettings struct {
 	db *gorm.DB
 
 	field.RelationField
 
-	AccountInformation struct {
-		field.RelationField
-		ContactInfo struct {
-			field.RelationField
-		}
-	}
-	AiPoweredInsights struct {
+	DigitalWorkerSettings struct {
 		field.RelationField
 	}
 	FinancialPreferences struct {
-		field.RelationField
-		TaxSettings struct {
-			field.RelationField
-		}
-	}
-	IntegrationSettings struct {
 		field.RelationField
 	}
 	NotificationSettings struct {
@@ -319,7 +289,7 @@ type businessAccountORMHasOneBusinessAccountSettings struct {
 	}
 }
 
-func (a businessAccountORMHasOneBusinessAccountSettings) Where(conds ...field.Expr) *businessAccountORMHasOneBusinessAccountSettings {
+func (a businessAccountORMHasOneSettings) Where(conds ...field.Expr) *businessAccountORMHasOneSettings {
 	if len(conds) == 0 {
 		return &a
 	}
@@ -332,27 +302,27 @@ func (a businessAccountORMHasOneBusinessAccountSettings) Where(conds ...field.Ex
 	return &a
 }
 
-func (a businessAccountORMHasOneBusinessAccountSettings) WithContext(ctx context.Context) *businessAccountORMHasOneBusinessAccountSettings {
+func (a businessAccountORMHasOneSettings) WithContext(ctx context.Context) *businessAccountORMHasOneSettings {
 	a.db = a.db.WithContext(ctx)
 	return &a
 }
 
-func (a businessAccountORMHasOneBusinessAccountSettings) Session(session *gorm.Session) *businessAccountORMHasOneBusinessAccountSettings {
+func (a businessAccountORMHasOneSettings) Session(session *gorm.Session) *businessAccountORMHasOneSettings {
 	a.db = a.db.Session(session)
 	return &a
 }
 
-func (a businessAccountORMHasOneBusinessAccountSettings) Model(m *user_servicev1.BusinessAccountORM) *businessAccountORMHasOneBusinessAccountSettingsTx {
-	return &businessAccountORMHasOneBusinessAccountSettingsTx{a.db.Model(m).Association(a.Name())}
+func (a businessAccountORMHasOneSettings) Model(m *user_servicev1.BusinessAccountORM) *businessAccountORMHasOneSettingsTx {
+	return &businessAccountORMHasOneSettingsTx{a.db.Model(m).Association(a.Name())}
 }
 
-type businessAccountORMHasOneBusinessAccountSettingsTx struct{ tx *gorm.Association }
+type businessAccountORMHasOneSettingsTx struct{ tx *gorm.Association }
 
-func (a businessAccountORMHasOneBusinessAccountSettingsTx) Find() (result *user_servicev1.BusinessAccountSettingsORM, err error) {
+func (a businessAccountORMHasOneSettingsTx) Find() (result *user_servicev1.SettingsORM, err error) {
 	return result, a.tx.Find(&result)
 }
 
-func (a businessAccountORMHasOneBusinessAccountSettingsTx) Append(values ...*user_servicev1.BusinessAccountSettingsORM) (err error) {
+func (a businessAccountORMHasOneSettingsTx) Append(values ...*user_servicev1.SettingsORM) (err error) {
 	targetValues := make([]interface{}, len(values))
 	for i, v := range values {
 		targetValues[i] = v
@@ -360,7 +330,7 @@ func (a businessAccountORMHasOneBusinessAccountSettingsTx) Append(values ...*use
 	return a.tx.Append(targetValues...)
 }
 
-func (a businessAccountORMHasOneBusinessAccountSettingsTx) Replace(values ...*user_servicev1.BusinessAccountSettingsORM) (err error) {
+func (a businessAccountORMHasOneSettingsTx) Replace(values ...*user_servicev1.SettingsORM) (err error) {
 	targetValues := make([]interface{}, len(values))
 	for i, v := range values {
 		targetValues[i] = v
@@ -368,7 +338,7 @@ func (a businessAccountORMHasOneBusinessAccountSettingsTx) Replace(values ...*us
 	return a.tx.Replace(targetValues...)
 }
 
-func (a businessAccountORMHasOneBusinessAccountSettingsTx) Delete(values ...*user_servicev1.BusinessAccountSettingsORM) (err error) {
+func (a businessAccountORMHasOneSettingsTx) Delete(values ...*user_servicev1.SettingsORM) (err error) {
 	targetValues := make([]interface{}, len(values))
 	for i, v := range values {
 		targetValues[i] = v
@@ -376,11 +346,11 @@ func (a businessAccountORMHasOneBusinessAccountSettingsTx) Delete(values ...*use
 	return a.tx.Delete(targetValues...)
 }
 
-func (a businessAccountORMHasOneBusinessAccountSettingsTx) Clear() error {
+func (a businessAccountORMHasOneSettingsTx) Clear() error {
 	return a.tx.Clear()
 }
 
-func (a businessAccountORMHasOneBusinessAccountSettingsTx) Count() int64 {
+func (a businessAccountORMHasOneSettingsTx) Count() int64 {
 	return a.tx.Count()
 }
 

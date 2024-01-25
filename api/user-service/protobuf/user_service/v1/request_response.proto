@@ -3,6 +3,8 @@ syntax = "proto3";
 package user_service.v1;
 
 import "user_service/v1/message.proto";
+import "user_service/v1/settings.proto";
+
 import "validate/validate.proto";
 import "google/api/field_behavior.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
@@ -248,7 +250,7 @@ message GetBusinessSettingsRequest {
 }
 
 message GetBusinessSettingsResponse {
-  BusinessAccountSettings business_settings = 1;
+  Settings settings = 1;
 }
 
 
@@ -356,25 +358,23 @@ message CreateUserV2Request {
   // The profile image of the user
   // Validations:
   // - must be a valid URI
-  string profile_image = 4 [
+  string profile_image_url = 4 [
     (validate.rules).string.uri_ref = true,
     (google.api.field_behavior) = REQUIRED,
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       example: "\"lksdjhfgsdhfghdsgfhgdh.com\""
     } 
   ];
-  // The password  of the user
-  // Validations:
-  // - must be a at least 10 characters long
-  string password = 5 [
+
+  // The auth0 user id of the user
+  string auth0_user_id = 5 [
     (validate.rules).string = {
-      min_bytes: 10,
+      min_bytes: 1,
     },
-     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      min_length: 0,
-      example: "\"tesdfkdkfhsdgd\""
-    },
-    (google.api.field_behavior) = REQUIRED  
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"lksdjhfgsdhfghdsgfhgdh.com\""
+    } 
   ];
 }
 
@@ -641,3 +641,23 @@ message GetCannyUserSSOTokenRequest {
 }
 
 message GetCannyUserSSOTokenResponse { string token = 1; }
+
+message GetUserByAuth0IDRequest {
+  // The account ID associated with the user
+  string auth0_user_id = 1 [
+    (validate.rules).string = {
+      min_bytes: 1,
+    },
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"lksdjhfgsdhfghdsgfhgdh.com\""
+    } 
+  ];
+}
+
+message GetUserByAuth0IDResponse {
+  oneof account {
+    UserAccount user_account = 1;
+    BusinessAccount business_account = 2;
+  }  
+}
