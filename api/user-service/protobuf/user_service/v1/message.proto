@@ -7,6 +7,7 @@ import "google/protobuf/timestamp.proto";
 import "validate/validate.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 import "user_service/v1/settings.proto";
+import "user_service/v1/roles.proto";
 
 option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/generated/user_service/v1";
 
@@ -102,6 +103,10 @@ message UserAccount {
   // Auth0 user id
   string auth0_user_id = 44 [
     (gorm.field).tag = {unique_index: "idx_user_auth0_user_id"}
+  ];
+
+  Role role = 45 [
+    (gorm.field).has_one.preload = true
   ];
 }
 
@@ -228,6 +233,10 @@ message BusinessAccount {
   // auth0 user id associated with the business account
   string auth0_user_id = 44 [
     (gorm.field).tag = {unique_index: "auth0_user_id"}
+  ];
+
+  Role role = 45 [
+    (gorm.field).has_one.preload = true
   ];
 }
 

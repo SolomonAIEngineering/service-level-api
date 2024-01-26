@@ -29,6 +29,242 @@
     "application/json"
   ],
   "paths": {
+    "/api/v1/role/{id}": {
+      "delete": {
+        "summary": "Deletes a role",
+        "description": "This endpoint deletes a role from the system based on the provided role ID.The deletion process ensures that all related data and permissions are properly removed.",
+        "operationId": "DeleteRole",
+        "responses": {
+          "200": {
+            "description": "Role deleted successfully.",
+            "schema": {
+              "$ref": "#/definitions/DeleteRoleResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "role"
+        ]
+      }
+    },
+    "/api/v1/role/{role.id}": {
+      "patch": {
+        "summary": "Updates an existing role",
+        "description": "This endpoint updates the details of an existing role. The role ID is used to identify the role to be updated.The update operation can modify the role's name, type, and permissions.",
+        "operationId": "UpdateRole",
+        "responses": {
+          "200": {
+            "description": "Role updated successfully.",
+            "schema": {
+              "$ref": "#/definitions/UpdateRoleResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "role.id",
+            "description": "Unique identifier for the role.",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "role",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Name of the role."
+                },
+                "type": {
+                  "$ref": "#/definitions/RoleType",
+                  "description": "Type of the role."
+                },
+                "canCreateUsers": {
+                  "type": "boolean",
+                  "description": "Permissions related to user management."
+                },
+                "canReadUsers": {
+                  "type": "boolean"
+                },
+                "canUpdateUsers": {
+                  "type": "boolean"
+                },
+                "canDeleteUsers": {
+                  "type": "boolean"
+                },
+                "canCreateProjects": {
+                  "type": "boolean",
+                  "description": "Permissions related to project management."
+                },
+                "canReadProjects": {
+                  "type": "boolean"
+                },
+                "canUpdateProjects": {
+                  "type": "boolean"
+                },
+                "canDeleteProjects": {
+                  "type": "boolean"
+                },
+                "canCreateReports": {
+                  "type": "boolean",
+                  "description": "Permissions related to report management."
+                },
+                "canReadReports": {
+                  "type": "boolean"
+                },
+                "canUpdateReports": {
+                  "type": "boolean"
+                },
+                "canDeleteReports": {
+                  "type": "boolean"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Add more permissions as necessary for other modules or features.\nTimestamps for tracking creation and modification times."
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "auditLog": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "$ref": "#/definitions/RoleAuditEvents"
+                  },
+                  "description": "Audit log for this role."
+                }
+              },
+              "description": "Role defines the role of a user in the system with specific permissions."
+            }
+          }
+        ],
+        "tags": [
+          "role"
+        ]
+      }
+    },
+    "/api/v1/roles": {
+      "get": {
+        "summary": "Lists all roles",
+        "description": "This endpoint retrieves a list of all roles in the system. It supports pagination to handle large sets of data.Each role in the list includes details like name, type, and permissions.",
+        "operationId": "ListRoles",
+        "responses": {
+          "200": {
+            "description": "Roles list retrieved successfully.",
+            "schema": {
+              "$ref": "#/definitions/ListRolesResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "role"
+        ]
+      }
+    },
     "/api/v1/user": {
       "get": {
         "summary": "get a user account id",
@@ -705,6 +941,109 @@
         "tags": [
           "account",
           "v1"
+        ]
+      }
+    },
+    "/api/v2/role": {
+      "post": {
+        "summary": "Creates a new role",
+        "description": "This endpoint adds a new role to the system. It requires role details such as name, type, and permissions.The creation process involves adding the role to the database and initializing its permissions.",
+        "operationId": "CreateRole",
+        "responses": {
+          "200": {
+            "description": "Role created successfully.",
+            "schema": {
+              "$ref": "#/definitions/CreateRoleResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "role",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Role"
+            }
+          }
+        ],
+        "tags": [
+          "role"
+        ]
+      }
+    },
+    "/api/v2/role/{id}": {
+      "get": {
+        "summary": "Retrieves a role",
+        "description": "This endpoint fetches details of a specific role using the role ID.It retrieves the role's name, type, permissions, and audit history.",
+        "operationId": "GetRole",
+        "responses": {
+          "200": {
+            "description": "Role retrieval successful.",
+            "schema": {
+              "$ref": "#/definitions/Role"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "role"
         ]
       }
     },
@@ -1778,6 +2117,17 @@
       "default": "APPLICATION_THEME_UNSPECIFIED",
       "description": "Display and interaction preferences."
     },
+    "AuditAction": {
+      "type": "string",
+      "enum": [
+        "AUDIT_ACTION_UNSPECIFIED",
+        "AUDIT_ACTION_CREATED",
+        "AUDIT_ACTION_UPDATED",
+        "AUDIT_ACTION_DELETED"
+      ],
+      "default": "AUDIT_ACTION_UNSPECIFIED",
+      "description": "AuditAction defines the types of actions that can be audited."
+    },
     "BusinessAccount": {
       "type": "object",
       "properties": {
@@ -1891,6 +2241,9 @@
         "auth0UserId": {
           "type": "string",
           "title": "auth0 user id associated with the business account"
+        },
+        "role": {
+          "$ref": "#/definitions/Role"
         }
       },
       "description": "BusinessAccount represents a business account within the context of solomon-ai."
@@ -1924,6 +2277,14 @@
       "properties": {
         "exists": {
           "type": "boolean"
+        }
+      }
+    },
+    "CreateRoleResponse": {
+      "type": "object",
+      "properties": {
+        "role": {
+          "$ref": "#/definitions/Role"
         }
       }
     },
@@ -1970,6 +2331,14 @@
         }
       },
       "title": "CreateUserResponse: Represents the response object returned as a response to\nthe `create-user` request"
+    },
+    "DeleteRoleResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        }
+      }
     },
     "DeleteUserResponse": {
       "type": "object",
@@ -2045,6 +2414,14 @@
       "properties": {
         "token": {
           "type": "string"
+        }
+      }
+    },
+    "GetRoleResponse": {
+      "type": "object",
+      "properties": {
+        "role": {
+          "$ref": "#/definitions/Role"
         }
       }
     },
@@ -2200,6 +2577,22 @@
       ],
       "default": "LIKED_DASHBOARD_PANELS_TRANSACTIONS_UNSPECIFIED"
     },
+    "ListRolesResponse": {
+      "type": "object",
+      "properties": {
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/Role"
+          }
+        },
+        "totalCount": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
     "NotificationSettings": {
       "type": "object",
       "properties": {
@@ -2273,6 +2666,142 @@
       ],
       "default": "RISK_TOLERANCE_SETTINGS_UNSPECIFIED",
       "description": "Risk Tolerance Investment preferences."
+    },
+    "Role": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "description": "Unique identifier for the role."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the role."
+        },
+        "type": {
+          "$ref": "#/definitions/RoleType",
+          "description": "Type of the role."
+        },
+        "canCreateUsers": {
+          "type": "boolean",
+          "description": "Permissions related to user management."
+        },
+        "canReadUsers": {
+          "type": "boolean"
+        },
+        "canUpdateUsers": {
+          "type": "boolean"
+        },
+        "canDeleteUsers": {
+          "type": "boolean"
+        },
+        "canCreateProjects": {
+          "type": "boolean",
+          "description": "Permissions related to project management."
+        },
+        "canReadProjects": {
+          "type": "boolean"
+        },
+        "canUpdateProjects": {
+          "type": "boolean"
+        },
+        "canDeleteProjects": {
+          "type": "boolean"
+        },
+        "canCreateReports": {
+          "type": "boolean",
+          "description": "Permissions related to report management."
+        },
+        "canReadReports": {
+          "type": "boolean"
+        },
+        "canUpdateReports": {
+          "type": "boolean"
+        },
+        "canDeleteReports": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Add more permissions as necessary for other modules or features.\nTimestamps for tracking creation and modification times."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "auditLog": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/RoleAuditEvents"
+          },
+          "description": "Audit log for this role."
+        }
+      },
+      "description": "Role defines the role of a user in the system with specific permissions."
+    },
+    "RoleAuditEvents": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "action": {
+          "$ref": "#/definitions/AuditAction",
+          "title": "The type of action (created, updated, deleted)"
+        },
+        "performedBy": {
+          "type": "string",
+          "title": "Identifier of the user who performed the action"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Time of the event"
+        },
+        "affectedFields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Specific fields that were changed (if applicable)",
+          "title": "Additional fields for enhanced auditing:"
+        },
+        "previousValues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Values of those fields before the change"
+        },
+        "clientIp": {
+          "type": "string",
+          "title": "IP address of the client that initiated the change"
+        },
+        "userAgent": {
+          "type": "string",
+          "title": "User agent string of the client"
+        },
+        "context": {
+          "type": "string",
+          "title": "Additional context about the change (e.g., reason for change)"
+        }
+      },
+      "description": "RoleAuditEvents defines the audit record for any changes made to a role."
+    },
+    "RoleType": {
+      "type": "string",
+      "enum": [
+        "ROLE_TYPE_UNSPECIFIED",
+        "ROLE_TYPE_SUPER_ADMIN",
+        "ROLE_TYPE_TEAM_ADMIN",
+        "ROLE_TYPE_REGULAR"
+      ],
+      "default": "ROLE_TYPE_UNSPECIFIED",
+      "description": "RoleType defines the different types of roles."
     },
     "Settings": {
       "type": "object",
@@ -2365,6 +2894,14 @@
         }
       },
       "title": "Tags: represents metadata tags associated to an account"
+    },
+    "UpdateRoleResponse": {
+      "type": "object",
+      "properties": {
+        "role": {
+          "$ref": "#/definitions/Role"
+        }
+      }
     },
     "UpdateUserRequest": {
       "type": "object",
@@ -2508,6 +3045,9 @@
         "auth0UserId": {
           "type": "string",
           "title": "Auth0 user id"
+        },
+        "role": {
+          "$ref": "#/definitions/Role"
         }
       },
       "description": "@brief Represents a user account in the context of simfinni."

@@ -66,6 +66,11 @@ export interface Address {
  * @default "APPLICATION_THEME_UNSPECIFIED"
  */
 export type ApplicationTheme = "APPLICATION_THEME_UNSPECIFIED" | "APPLICATION_THEME_LIGHT" | "APPLICATION_THEME_DARK";
+/**
+ * AuditAction defines the types of actions that can be audited.
+ * @default "AUDIT_ACTION_UNSPECIFIED"
+ */
+export type AuditAction = "AUDIT_ACTION_UNSPECIFIED" | "AUDIT_ACTION_CREATED" | "AUDIT_ACTION_UPDATED" | "AUDIT_ACTION_DELETED";
 /** BusinessAccount represents a business account within the context of solomon-ai. */
 export interface BusinessAccount {
 	/** auth0 user id associated with the business account */
@@ -145,6 +150,8 @@ export interface BusinessAccount {
 	phoneNumber?: string;
 	/** Profile image associated with the user account. */
 	profileImageUrl?: string;
+	/** Role defines the role of a user in the system with specific permissions. */
+	role?: Role;
 	/** Settings specific to the business account. */
 	settings?: Settings;
 	/** Tags associated with the business account. Between 1 and 10 tags are allowed. */
@@ -252,6 +259,78 @@ export type ProfileType = "PROFILE_TYPE_UNSPECIFIED" | "PROFILE_TYPE_USER" | "PR
  * @default "RISK_TOLERANCE_SETTINGS_UNSPECIFIED"
  */
 export type RiskToleranceSettings = "RISK_TOLERANCE_SETTINGS_UNSPECIFIED" | "RISK_TOLERANCE_SETTINGS_LOW" | "RISK_TOLERANCE_SETTINGS_MEDIUM" | "RISK_TOLERANCE_SETTINGS_HIGH";
+/** Role defines the role of a user in the system with specific permissions. */
+export interface Role {
+	/** Audit log for this role. */
+	auditLog?: Array<RoleAuditEvents>;
+	/** Permissions related to project management. */
+	canCreateProjects?: boolean;
+	/** Permissions related to report management. */
+	canCreateReports?: boolean;
+	/** Permissions related to user management. */
+	canCreateUsers?: boolean;
+	canDeleteProjects?: boolean;
+	canDeleteReports?: boolean;
+	canDeleteUsers?: boolean;
+	canReadProjects?: boolean;
+	canReadReports?: boolean;
+	canReadUsers?: boolean;
+	canUpdateProjects?: boolean;
+	canUpdateReports?: boolean;
+	canUpdateUsers?: boolean;
+	/**
+	 * Add more permissions as necessary for other modules or features.
+	 * Timestamps for tracking creation and modification times.
+	 * @format date-time
+	 */
+	createdAt?: string;
+	/**
+	 * Unique identifier for the role.
+	 * @format int64
+	 */
+	id?: string;
+	/** Name of the role. */
+	name?: string;
+	/** Type of the role. */
+	type?: RoleType;
+	/** @format date-time */
+	updatedAt?: string;
+}
+/** RoleAuditEvents defines the audit record for any changes made to a role. */
+export interface RoleAuditEvents {
+	/**
+	 * The type of action (created, updated, deleted)
+	 * AuditAction defines the types of actions that can be audited.
+	 */
+	action?: AuditAction;
+	/**
+	 * Additional fields for enhanced auditing:
+	 * Specific fields that were changed (if applicable)
+	 */
+	affectedFields?: Array<string>;
+	/** IP address of the client that initiated the change */
+	clientIp?: string;
+	/** Additional context about the change (e.g., reason for change) */
+	context?: string;
+	/** @format int64 */
+	id?: string;
+	/** Identifier of the user who performed the action */
+	performedBy?: string;
+	/** Values of those fields before the change */
+	previousValues?: Array<string>;
+	/**
+	 * Time of the event
+	 * @format date-time
+	 */
+	timestamp?: string;
+	/** User agent string of the client */
+	userAgent?: string;
+}
+/**
+ * RoleType defines the different types of roles.
+ * @default "ROLE_TYPE_UNSPECIFIED"
+ */
+export type RoleType = "ROLE_TYPE_UNSPECIFIED" | "ROLE_TYPE_SUPER_ADMIN" | "ROLE_TYPE_TEAM_ADMIN" | "ROLE_TYPE_REGULAR";
 /** User settings for the fintech application. */
 export interface Settings {
 	/** Display and interaction preferences. */
@@ -350,6 +429,8 @@ export interface UserAccount {
 	phoneNumber?: string;
 	/** Profile image associated with the user account. */
 	profileImageUrl?: string;
+	/** Role defines the role of a user in the system with specific permissions. */
+	role?: Role;
 	/** Settings specific to the user account. */
 	settings?: Settings;
 	/** Tags associated with the user account, between 1 and 10. */
@@ -1460,10 +1541,7 @@ export interface FinancialUserProfile {
 	stripeCustomerId?: string;
 	/** the stripe subscriptions the user profile actively maintains */
 	stripeSubscriptions?: StripeSubscription;
-	/**
-	 * the user id tied to the profile
-	 * @format uint64
-	 */
+	/** @format uint64 */
 	userId?: string;
 }
 /** @default "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED" */
@@ -2443,7 +2521,6 @@ export interface PersonalActionableInsight {
 	generatedTime?: string;
 	/** @format uint64 */
 	id?: string;
-	/** insight name */
 	insightName?: PersonalActionableInsightName;
 	/** metrics to optimize for */
 	metricsToOptimizeFor?: Array<string>;

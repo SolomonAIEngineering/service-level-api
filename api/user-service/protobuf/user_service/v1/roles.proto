@@ -1,0 +1,104 @@
+syntax = "proto3";
+
+package user_service.v1;
+
+import "protoc-gen-gorm/options/gorm.proto";
+import "google/protobuf/timestamp.proto";
+import "validate/validate.proto";
+
+option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/generated/user_service/v1";
+
+// RoleType defines the different types of roles.
+enum RoleType {
+  ROLE_TYPE_UNSPECIFIED = 0;
+  ROLE_TYPE_SUPER_ADMIN = 1;
+  ROLE_TYPE_TEAM_ADMIN = 2;
+  ROLE_TYPE_REGULAR = 3;
+}
+
+
+// AuditAction defines the types of actions that can be audited.
+enum AuditAction {
+  AUDIT_ACTION_UNSPECIFIED = 0;
+  AUDIT_ACTION_CREATED = 1;
+  AUDIT_ACTION_UPDATED = 2;
+  AUDIT_ACTION_DELETED = 3;
+}
+
+// Role defines the role of a user in the system with specific permissions.
+message Role {
+  option (gorm.opts) = {
+    ormable: true,
+  };
+
+  // Unique identifier for the role.
+  int64 id = 1 [
+    (gorm.field).tag = {unique_index: "idx_role_id"}
+  ];
+
+  // Name of the role.
+  string name = 2 [
+    // Creating a unique index on name to ensure no duplicate roles are created.
+    (gorm.field).tag = {unique_index: "idx_role_name"}
+  ];
+
+  // Type of the role.
+  RoleType type = 3;
+
+  // Permissions related to user management.
+  bool can_create_users = 4;
+  bool can_read_users = 5;
+  bool can_update_users = 6;
+  bool can_delete_users = 7;
+
+  // Permissions related to project management.
+  bool can_create_projects = 8;
+  bool can_read_projects = 9;
+  bool can_update_projects = 10;
+  bool can_delete_projects = 11;
+
+  // Permissions related to report management.
+  bool can_create_reports = 12;
+  bool can_read_reports = 13;
+  bool can_update_reports = 14;
+  bool can_delete_reports = 15;
+
+  // Add more permissions as necessary for other modules or features.
+    // Timestamps for tracking creation and modification times.
+  google.protobuf.Timestamp created_at = 16;
+  google.protobuf.Timestamp updated_at = 17;
+
+  // Audit log for this role.
+  repeated RoleAuditEvents audit_log = 18 [
+    (gorm.field).has_many.preload = true,
+    (validate.rules).repeated.min_items = 0
+  ];
+}
+
+
+// RoleAuditEvents defines the audit record for any changes made to a role.
+message RoleAuditEvents {
+  option (gorm.opts) = {
+    ormable: true,
+  };
+
+  int64 id = 1 [
+    (gorm.field).tag = {unique_index: "idx_role_audit_events_id"}
+  ];
+  AuditAction action = 3 [
+    (gorm.field).tag = {index: "idx_role_audit_events_action"}
+  ]; // The type of action (created, updated, deleted)
+  string performed_by = 4 [
+    (gorm.field).tag = {index: "idx_role_audit_events_performed_by"}
+  ]; // Identifier of the user who performed the action
+  google.protobuf.Timestamp timestamp = 5 [
+    (gorm.field).tag = {index: "idx_role_audit_events_timestamp"}
+  ]; // Time of the event
+
+  // Additional fields for enhanced auditing:
+  repeated string affected_fields = 6;   // Specific fields that were changed (if applicable)
+  repeated string previous_values = 7;   // Values of those fields before the change
+  string client_ip = 8;                  // IP address of the client that initiated the change
+  string user_agent = 9;                 // User agent string of the client
+  string context = 10;                   // Additional context about the change (e.g., reason for change)
+}

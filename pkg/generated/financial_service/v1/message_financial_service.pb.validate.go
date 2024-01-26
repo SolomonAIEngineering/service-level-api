@@ -2295,16 +2295,7 @@ func (m *BankAccount) validate(all bool) error {
 
 	// no validation rules for Id
 
-	if m.GetUserId() <= 0 {
-		err := BankAccountValidationError{
-			field:  "UserId",
-			reason: "value must be greater than 0",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for UserId
 
 	// no validation rules for Name
 
@@ -2667,16 +2658,7 @@ func (m *SmartGoal) validate(all bool) error {
 
 	// no validation rules for UserId
 
-	if len(m.GetName()) < 3 {
-		err := SmartGoalValidationError{
-			field:  "Name",
-			reason: "value length must be at least 3 bytes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for Name
 
 	if len(m.GetDescription()) < 3 {
 		err := SmartGoalValidationError{

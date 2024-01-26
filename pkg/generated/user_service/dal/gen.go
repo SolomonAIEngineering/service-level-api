@@ -22,6 +22,8 @@ var (
 	DigitalWorkerSettingsORM *digitalWorkerSettingsORM
 	FinancialPreferencesORM  *financialPreferencesORM
 	NotificationSettingsORM  *notificationSettingsORM
+	RoleAuditEventsORM       *roleAuditEventsORM
+	RoleORM                  *roleORM
 	SettingsORM              *settingsORM
 	TagsORM                  *tagsORM
 	UserAccountORM           *userAccountORM
@@ -34,6 +36,8 @@ func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
 	DigitalWorkerSettingsORM = &Q.DigitalWorkerSettingsORM
 	FinancialPreferencesORM = &Q.FinancialPreferencesORM
 	NotificationSettingsORM = &Q.NotificationSettingsORM
+	RoleAuditEventsORM = &Q.RoleAuditEventsORM
+	RoleORM = &Q.RoleORM
 	SettingsORM = &Q.SettingsORM
 	TagsORM = &Q.TagsORM
 	UserAccountORM = &Q.UserAccountORM
@@ -47,6 +51,8 @@ func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 		DigitalWorkerSettingsORM: newDigitalWorkerSettingsORM(db, opts...),
 		FinancialPreferencesORM:  newFinancialPreferencesORM(db, opts...),
 		NotificationSettingsORM:  newNotificationSettingsORM(db, opts...),
+		RoleAuditEventsORM:       newRoleAuditEventsORM(db, opts...),
+		RoleORM:                  newRoleORM(db, opts...),
 		SettingsORM:              newSettingsORM(db, opts...),
 		TagsORM:                  newTagsORM(db, opts...),
 		UserAccountORM:           newUserAccountORM(db, opts...),
@@ -61,6 +67,8 @@ type Query struct {
 	DigitalWorkerSettingsORM digitalWorkerSettingsORM
 	FinancialPreferencesORM  financialPreferencesORM
 	NotificationSettingsORM  notificationSettingsORM
+	RoleAuditEventsORM       roleAuditEventsORM
+	RoleORM                  roleORM
 	SettingsORM              settingsORM
 	TagsORM                  tagsORM
 	UserAccountORM           userAccountORM
@@ -76,6 +84,8 @@ func (q *Query) clone(db *gorm.DB) *Query {
 		DigitalWorkerSettingsORM: q.DigitalWorkerSettingsORM.clone(db),
 		FinancialPreferencesORM:  q.FinancialPreferencesORM.clone(db),
 		NotificationSettingsORM:  q.NotificationSettingsORM.clone(db),
+		RoleAuditEventsORM:       q.RoleAuditEventsORM.clone(db),
+		RoleORM:                  q.RoleORM.clone(db),
 		SettingsORM:              q.SettingsORM.clone(db),
 		TagsORM:                  q.TagsORM.clone(db),
 		UserAccountORM:           q.UserAccountORM.clone(db),
@@ -98,6 +108,8 @@ func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 		DigitalWorkerSettingsORM: q.DigitalWorkerSettingsORM.replaceDB(db),
 		FinancialPreferencesORM:  q.FinancialPreferencesORM.replaceDB(db),
 		NotificationSettingsORM:  q.NotificationSettingsORM.replaceDB(db),
+		RoleAuditEventsORM:       q.RoleAuditEventsORM.replaceDB(db),
+		RoleORM:                  q.RoleORM.replaceDB(db),
 		SettingsORM:              q.SettingsORM.replaceDB(db),
 		TagsORM:                  q.TagsORM.replaceDB(db),
 		UserAccountORM:           q.UserAccountORM.replaceDB(db),
@@ -110,6 +122,8 @@ type queryCtx struct {
 	DigitalWorkerSettingsORM IDigitalWorkerSettingsORMDo
 	FinancialPreferencesORM  IFinancialPreferencesORMDo
 	NotificationSettingsORM  INotificationSettingsORMDo
+	RoleAuditEventsORM       IRoleAuditEventsORMDo
+	RoleORM                  IRoleORMDo
 	SettingsORM              ISettingsORMDo
 	TagsORM                  ITagsORMDo
 	UserAccountORM           IUserAccountORMDo
@@ -122,6 +136,8 @@ func (q *Query) WithContext(ctx context.Context) *queryCtx {
 		DigitalWorkerSettingsORM: q.DigitalWorkerSettingsORM.WithContext(ctx),
 		FinancialPreferencesORM:  q.FinancialPreferencesORM.WithContext(ctx),
 		NotificationSettingsORM:  q.NotificationSettingsORM.WithContext(ctx),
+		RoleAuditEventsORM:       q.RoleAuditEventsORM.WithContext(ctx),
+		RoleORM:                  q.RoleORM.WithContext(ctx),
 		SettingsORM:              q.SettingsORM.WithContext(ctx),
 		TagsORM:                  q.TagsORM.WithContext(ctx),
 		UserAccountORM:           q.UserAccountORM.WithContext(ctx),

@@ -3,15 +3,14 @@ package user_servicev1
 import (
 	context "context"
 	fmt "fmt"
-	strings "strings"
-	time "time"
-
 	gorm1 "github.com/infobloxopen/atlas-app-toolkit/gorm"
 	errors "github.com/infobloxopen/protoc-gen-gorm/errors"
 	gorm "github.com/jinzhu/gorm"
 	pq "github.com/lib/pq"
 	field_mask "google.golang.org/genproto/protobuf/field_mask"
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
+	strings "strings"
+	time "time"
 )
 
 type UserAccountORM struct {
@@ -31,6 +30,7 @@ type UserAccountORM struct {
 	Lastname        string
 	PhoneNumber     string
 	ProfileImageUrl string
+	Role            *RoleORM     `gorm:"foreignkey:UserAccountId;association_foreignkey:Id;preload:true"`
 	Settings        *SettingsORM `gorm:"foreignkey:UserAccountId;association_foreignkey:Id"`
 	Tags            []*TagsORM   `gorm:"foreignkey:UserAccountId;association_foreignkey:Id"`
 	Username        string       `gorm:"unique_index:idx_user_username"`
@@ -100,6 +100,13 @@ func (m *UserAccount) ToORM(ctx context.Context) (UserAccountORM, error) {
 	to.AccountType = ProfileType_name[int32(m.AccountType)]
 	to.ProfileImageUrl = m.ProfileImageUrl
 	to.Auth0UserId = m.Auth0UserId
+	if m.Role != nil {
+		tempRole, err := m.Role.ToORM(ctx)
+		if err != nil {
+			return to, err
+		}
+		to.Role = &tempRole
+	}
 	if posthook, ok := interface{}(m).(UserAccountWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -162,6 +169,13 @@ func (m *UserAccountORM) ToPB(ctx context.Context) (UserAccount, error) {
 	to.AccountType = ProfileType(ProfileType_value[m.AccountType])
 	to.ProfileImageUrl = m.ProfileImageUrl
 	to.Auth0UserId = m.Auth0UserId
+	if m.Role != nil {
+		tempRole, err := m.Role.ToPB(ctx)
+		if err != nil {
+			return to, err
+		}
+		to.Role = &tempRole
+	}
 	if posthook, ok := interface{}(m).(UserAccountWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -211,6 +225,7 @@ type BusinessAccountORM struct {
 	IsPrivate              bool
 	PhoneNumber            string
 	ProfileImageUrl        string
+	Role                   *RoleORM     `gorm:"foreignkey:BusinessAccountId;association_foreignkey:Id;preload:true"`
 	Settings               *SettingsORM `gorm:"foreignkey:BusinessAccountId;association_foreignkey:Id;preload:true"`
 	Tags                   []*TagsORM   `gorm:"foreignkey:BusinessAccountId;association_foreignkey:Id;preload:true"`
 	Username               string       `gorm:"unique_index:idx_business_username"`
@@ -283,6 +298,13 @@ func (m *BusinessAccount) ToORM(ctx context.Context) (BusinessAccountORM, error)
 	to.AccountType = ProfileType_name[int32(m.AccountType)]
 	to.ProfileImageUrl = m.ProfileImageUrl
 	to.Auth0UserId = m.Auth0UserId
+	if m.Role != nil {
+		tempRole, err := m.Role.ToORM(ctx)
+		if err != nil {
+			return to, err
+		}
+		to.Role = &tempRole
+	}
 	if posthook, ok := interface{}(m).(BusinessAccountWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -348,6 +370,13 @@ func (m *BusinessAccountORM) ToPB(ctx context.Context) (BusinessAccount, error) 
 	to.AccountType = ProfileType(ProfileType_value[m.AccountType])
 	to.ProfileImageUrl = m.ProfileImageUrl
 	to.Auth0UserId = m.Auth0UserId
+	if m.Role != nil {
+		tempRole, err := m.Role.ToPB(ctx)
+		if err != nil {
+			return to, err
+		}
+		to.Role = &tempRole
+	}
 	if posthook, ok := interface{}(m).(BusinessAccountWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -725,6 +754,15 @@ func DefaultStrictUpdateUserAccount(ctx context.Context, in *UserAccount, db *go
 	if err = db.Where(filterAddress).Delete(AddressORM{}).Error; err != nil {
 		return nil, err
 	}
+	filterRole := RoleORM{}
+	if ormObj.Id == 0 {
+		return nil, errors.EmptyIdError
+	}
+	filterRole.UserAccountId = new(uint64)
+	*filterRole.UserAccountId = ormObj.Id
+	if err = db.Where(filterRole).Delete(RoleORM{}).Error; err != nil {
+		return nil, err
+	}
 	filterSettings := SettingsORM{}
 	if ormObj.Id == 0 {
 		return nil, errors.EmptyIdError
@@ -859,6 +897,7 @@ func DefaultApplyFieldMaskUserAccount(ctx context.Context, patchee *UserAccount,
 	var updatedCreatedAt bool
 	var updatedVerifiedAt bool
 	var updatedSettings bool
+	var updatedRole bool
 	for i, f := range updateMask.Paths {
 		if f == prefix+"Id" {
 			patchee.Id = patcher.Id
@@ -1010,6 +1049,27 @@ func DefaultApplyFieldMaskUserAccount(ctx context.Context, patchee *UserAccount,
 		}
 		if f == prefix+"Auth0UserId" {
 			patchee.Auth0UserId = patcher.Auth0UserId
+			continue
+		}
+		if !updatedRole && strings.HasPrefix(f, prefix+"Role.") {
+			updatedRole = true
+			if patcher.Role == nil {
+				patchee.Role = nil
+				continue
+			}
+			if patchee.Role == nil {
+				patchee.Role = &Role{}
+			}
+			if o, err := DefaultApplyFieldMaskRole(ctx, patchee.Role, patcher.Role, &field_mask.FieldMask{Paths: updateMask.Paths[i:]}, prefix+"Role.", db); err != nil {
+				return nil, err
+			} else {
+				patchee.Role = o
+			}
+			continue
+		}
+		if f == prefix+"Role" {
+			updatedRole = true
+			patchee.Role = patcher.Role
 			continue
 		}
 	}
@@ -1248,6 +1308,15 @@ func DefaultStrictUpdateBusinessAccount(ctx context.Context, in *BusinessAccount
 	if err = db.Where(filterAddress).Delete(AddressORM{}).Error; err != nil {
 		return nil, err
 	}
+	filterRole := RoleORM{}
+	if ormObj.Id == 0 {
+		return nil, errors.EmptyIdError
+	}
+	filterRole.BusinessAccountId = new(uint64)
+	*filterRole.BusinessAccountId = ormObj.Id
+	if err = db.Where(filterRole).Delete(RoleORM{}).Error; err != nil {
+		return nil, err
+	}
 	filterSettings := SettingsORM{}
 	if ormObj.Id == 0 {
 		return nil, errors.EmptyIdError
@@ -1382,6 +1451,7 @@ func DefaultApplyFieldMaskBusinessAccount(ctx context.Context, patchee *Business
 	var updatedCreatedAt bool
 	var updatedVerifiedAt bool
 	var updatedSettings bool
+	var updatedRole bool
 	for i, f := range updateMask.Paths {
 		if f == prefix+"Id" {
 			patchee.Id = patcher.Id
@@ -1545,6 +1615,27 @@ func DefaultApplyFieldMaskBusinessAccount(ctx context.Context, patchee *Business
 		}
 		if f == prefix+"Auth0UserId" {
 			patchee.Auth0UserId = patcher.Auth0UserId
+			continue
+		}
+		if !updatedRole && strings.HasPrefix(f, prefix+"Role.") {
+			updatedRole = true
+			if patcher.Role == nil {
+				patchee.Role = nil
+				continue
+			}
+			if patchee.Role == nil {
+				patchee.Role = &Role{}
+			}
+			if o, err := DefaultApplyFieldMaskRole(ctx, patchee.Role, patcher.Role, &field_mask.FieldMask{Paths: updateMask.Paths[i:]}, prefix+"Role.", db); err != nil {
+				return nil, err
+			} else {
+				patchee.Role = o
+			}
+			continue
+		}
+		if f == prefix+"Role" {
+			updatedRole = true
+			patchee.Role = patcher.Role
 			continue
 		}
 	}
