@@ -1,3 +1,10 @@
+# [1.172.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.171.0...v1.172.0) (2024-01-26)
+
+
+### Features
+
+* add indexes every where ([#80](https://github.com/SolomonAIEngineering/service-level-api/issues/80)) ([9611b46](https://github.com/SolomonAIEngineering/service-level-api/commit/9611b46153b3a758994c3d65820c646d0c87837c))
+
 # [1.171.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.170.0...v1.171.0) (2024-01-26)
 
 ### Features
