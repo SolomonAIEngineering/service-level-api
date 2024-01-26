@@ -101,10 +101,7 @@ export interface BusinessAccount {
 	 * @example "Solomon AI"
 	 */
 	companyName?: string;
-	/**
-	 * Website URL of the company associated with the business account.
-	 * @example "https://solomon-ai.io"
-	 */
+	/** Website URL of the company associated with the business account. */
 	companyWebsiteUrl?: string;
 	/**
 	 * Timestamp indicating when the business account was created.

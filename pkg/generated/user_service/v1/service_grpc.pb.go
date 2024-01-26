@@ -26,7 +26,6 @@ const (
 	UserService_CheckEmailExists_FullMethodName           = "/user_service.v1.UserService/CheckEmailExists"
 	UserService_DeleteUser_FullMethodName                 = "/user_service.v1.UserService/DeleteUser"
 	UserService_UpdateUser_FullMethodName                 = "/user_service.v1.UserService/UpdateUser"
-	UserService_CreateUser_FullMethodName                 = "/user_service.v1.UserService/CreateUser"
 	UserService_GetUserId_FullMethodName                  = "/user_service.v1.UserService/GetUserId"
 	UserService_HealthCheck_FullMethodName                = "/user_service.v1.UserService/HealthCheck"
 	UserService_ReadynessCheck_FullMethodName             = "/user_service.v1.UserService/ReadynessCheck"
@@ -62,7 +61,6 @@ type UserServiceClient interface {
 	CheckEmailExists(ctx context.Context, in *CheckEmailExistsRequest, opts ...grpc.CallOption) (*CheckEmailExistsResponse, error)
 	DeleteUser(ctx context.Context, in *DeleteUserRequest, opts ...grpc.CallOption) (*DeleteUserResponse, error)
 	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserResponse, error)
-	CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
 	GetUserId(ctx context.Context, in *GetUserIdRequest, opts ...grpc.CallOption) (*GetUserIdResponse, error)
 	HealthCheck(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error)
 	ReadynessCheck(ctx context.Context, in *ReadynessCheckRequest, opts ...grpc.CallOption) (*ReadynessCheckResponse, error)
@@ -197,15 +195,6 @@ func (c *userServiceClient) DeleteUser(ctx context.Context, in *DeleteUserReques
 func (c *userServiceClient) UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserResponse, error) {
 	out := new(UpdateUserResponse)
 	err := c.cc.Invoke(ctx, UserService_UpdateUser_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *userServiceClient) CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error) {
-	out := new(CreateUserResponse)
-	err := c.cc.Invoke(ctx, UserService_CreateUser_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -421,7 +410,6 @@ type UserServiceServer interface {
 	CheckEmailExists(context.Context, *CheckEmailExistsRequest) (*CheckEmailExistsResponse, error)
 	DeleteUser(context.Context, *DeleteUserRequest) (*DeleteUserResponse, error)
 	UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserResponse, error)
-	CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error)
 	GetUserId(context.Context, *GetUserIdRequest) (*GetUserIdResponse, error)
 	HealthCheck(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error)
 	ReadynessCheck(context.Context, *ReadynessCheckRequest) (*ReadynessCheckResponse, error)
@@ -516,9 +504,6 @@ func (UnimplementedUserServiceServer) DeleteUser(context.Context, *DeleteUserReq
 }
 func (UnimplementedUserServiceServer) UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateUser not implemented")
-}
-func (UnimplementedUserServiceServer) CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateUser not implemented")
 }
 func (UnimplementedUserServiceServer) GetUserId(context.Context, *GetUserIdRequest) (*GetUserIdResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserId not implemented")
@@ -721,24 +706,6 @@ func _UserService_UpdateUser_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UserServiceServer).UpdateUser(ctx, req.(*UpdateUserRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _UserService_CreateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateUserRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(UserServiceServer).CreateUser(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: UserService_CreateUser_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).CreateUser(ctx, req.(*CreateUserRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1173,10 +1140,6 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateUser",
 			Handler:    _UserService_UpdateUser_Handler,
-		},
-		{
-			MethodName: "CreateUser",
-			Handler:    _UserService_CreateUser_Handler,
 		},
 		{
 			MethodName: "GetUserId",

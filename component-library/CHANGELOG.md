@@ -1,16 +1,14 @@
 # [1.169.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.168.0...v1.169.0) (2024-01-25)
 
-
 ### Features
 
-* add indexes to the data schemas ([33a41c4](https://github.com/SolomonAIEngineering/service-level-api/commit/33a41c42ca7153899ff3e48f7c780bd31e1897a2))
+- add indexes to the data schemas ([33a41c4](https://github.com/SolomonAIEngineering/service-level-api/commit/33a41c42ca7153899ff3e48f7c780bd31e1897a2))
 
 # [1.168.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.167.0...v1.168.0) (2024-01-25)
 
-
 ### Features
 
-* update repo wide documentation ([ff22cd6](https://github.com/SolomonAIEngineering/service-level-api/commit/ff22cd6c9aca8f2321fddf594ea476035f76297c))
+- update repo wide documentation ([ff22cd6](https://github.com/SolomonAIEngineering/service-level-api/commit/ff22cd6c9aca8f2321fddf594ea476035f76297c))
 
 # [1.167.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.166.0...v1.167.0) (2023-12-21)
 

@@ -66,7 +66,7 @@ export interface Address {
 }
 
 export interface Any {
-  "@type"?: string;
+  '@type'?: string;
   [key: string]: any;
 }
 
@@ -74,7 +74,10 @@ export interface Any {
  * Display and interaction preferences.
  * @default "APPLICATION_THEME_UNSPECIFIED"
  */
-export type ApplicationTheme = "APPLICATION_THEME_UNSPECIFIED" | "APPLICATION_THEME_LIGHT" | "APPLICATION_THEME_DARK";
+export type ApplicationTheme =
+  | 'APPLICATION_THEME_UNSPECIFIED'
+  | 'APPLICATION_THEME_LIGHT'
+  | 'APPLICATION_THEME_DARK';
 
 /** BusinessAccount represents a business account within the context of solomon-ai. */
 export interface BusinessAccount {
@@ -193,51 +196,6 @@ export type CheckUsernameExistsV2Data = any;
 
 export interface CheckUsernameExistsV2Response {
   exists?: boolean;
-}
-
-export type CreateUserData = any;
-
-/**
- * CreateUserRequest: Represents the request object invoked against the user
- * service to create a user account
- */
-export interface CreateUserRequest {
-  /**
-   * User account to create
-   * Validations:
-   * - cannot be nil hence required
-   * @brief Represents a user account in the context of simfinni.
-   */
-  account: UserAccount;
-  /**
-   * set of community IDs to follow
-   * Validations:
-   * - at least 0 and at most 20 community ids supported at one time
-   */
-  communityIdsToFollow?: Array<string>;
-  /**
-   * The password  of the user
-   * Validations:
-   * - must be a at least 10 characters long
-   * @example "tesdfkdkfhsdgd"
-   */
-  password: string;
-  /**
-   * The profile image of the user
-   * Validations:
-   * - must be a valid URI
-   * @example "lksdjhfgsdhfghdsgfhgdh.com"
-   */
-  profileImage: string;
-}
-
-/**
- * CreateUserResponse: Represents the response object returned as a response to
- * the `create-user` request
- */
-export interface CreateUserResponse {
-  /** @format uint64 */
-  userId?: string;
 }
 
 export type CreateUserV2Data = any;
@@ -471,12 +429,12 @@ export interface HealthCheckResponse {
 
 /** @default "LIKED_DASHBOARD_PANELS_TRANSACTIONS_UNSPECIFIED" */
 export type LikedDashboardPanels =
-  | "LIKED_DASHBOARD_PANELS_TRANSACTIONS_UNSPECIFIED"
-  | "LIKED_DASHBOARD_PANELS_TRANSACTIONS_OVERVIEW"
-  | "LIKED_DASHBOARD_PANELS_INVESTMENT_SUMMARY"
-  | "LIKED_DASHBOARD_PANELS_MONTHLY_SPENDING_REPORT"
-  | "LIKED_DASHBOARD_PANELS_SAVINGS_TRACKER"
-  | "LIKED_DASHBOARD_PANELS_CREDIT_SCORE_MONITOR";
+  | 'LIKED_DASHBOARD_PANELS_TRANSACTIONS_UNSPECIFIED'
+  | 'LIKED_DASHBOARD_PANELS_TRANSACTIONS_OVERVIEW'
+  | 'LIKED_DASHBOARD_PANELS_INVESTMENT_SUMMARY'
+  | 'LIKED_DASHBOARD_PANELS_MONTHLY_SPENDING_REPORT'
+  | 'LIKED_DASHBOARD_PANELS_SAVINGS_TRACKER'
+  | 'LIKED_DASHBOARD_PANELS_CREDIT_SCORE_MONITOR';
 
 export interface NotificationSettings {
   /** True if user wants to be alerted for anomalies */
@@ -497,11 +455,11 @@ export interface NotificationSettings {
  * @default "NOTIFICATION_TYPE_UNSPECIFIED"
  */
 export type NotificationType =
-  | "NOTIFICATION_TYPE_UNSPECIFIED"
-  | "NOTIFICATION_TYPE_EMAIL"
-  | "NOTIFICATION_TYPE_SMS"
-  | "NOTIFICATION_TYPE_IN_APP"
-  | "NOTIFICATION_TYPE_SLACK";
+  | 'NOTIFICATION_TYPE_UNSPECIFIED'
+  | 'NOTIFICATION_TYPE_EMAIL'
+  | 'NOTIFICATION_TYPE_SMS'
+  | 'NOTIFICATION_TYPE_IN_APP'
+  | 'NOTIFICATION_TYPE_SLACK';
 
 export type PasswordResetData = any;
 
@@ -519,7 +477,10 @@ export interface PasswordResetWebhookV2Response {
  * ProfileType: represents the type of account tied to a given profile
  * @default "PROFILE_TYPE_UNSPECIFIED"
  */
-export type ProfileType = "PROFILE_TYPE_UNSPECIFIED" | "PROFILE_TYPE_USER" | "PROFILE_TYPE_BUSINESS";
+export type ProfileType =
+  | 'PROFILE_TYPE_UNSPECIFIED'
+  | 'PROFILE_TYPE_USER'
+  | 'PROFILE_TYPE_BUSINESS';
 
 export type ReadynessCheckData = any;
 
@@ -534,10 +495,10 @@ export type RetrieveBusinessSettingsData = any;
  * @default "RISK_TOLERANCE_SETTINGS_UNSPECIFIED"
  */
 export type RiskToleranceSettings =
-  | "RISK_TOLERANCE_SETTINGS_UNSPECIFIED"
-  | "RISK_TOLERANCE_SETTINGS_LOW"
-  | "RISK_TOLERANCE_SETTINGS_MEDIUM"
-  | "RISK_TOLERANCE_SETTINGS_HIGH";
+  | 'RISK_TOLERANCE_SETTINGS_UNSPECIFIED'
+  | 'RISK_TOLERANCE_SETTINGS_LOW'
+  | 'RISK_TOLERANCE_SETTINGS_MEDIUM'
+  | 'RISK_TOLERANCE_SETTINGS_HIGH';
 
 /** User settings for the fintech application. */
 export interface Settings {

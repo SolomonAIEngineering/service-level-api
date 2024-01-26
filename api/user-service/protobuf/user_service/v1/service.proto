@@ -154,29 +154,7 @@ service UserService {
             }
         };
     }
-    rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {
-        option (google.api.http) = {
-            post: "/api/v1/user" 
-            body: "*"
-        };
-        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-            summary: "create a user account"
-            tags: ["account", "v1"]
-            operation_id: "CreateUser"
-            description: 
-                "This endpoint performs an a creation operation of a user account based on the provided parameters"
-                "This operation is implemented as a distributed transactions as this operation spans multiple services"
-            responses: {
-                key: "200"
-                value: {
-                    description: "A successful response."
-                    schema: {
-                        json_schema: {ref: ".api.v1.CreateUserResponse"}
-                    }
-                }
-            }
-        };
-    }
+
     rpc GetUserId(GetUserIdRequest) returns (GetUserIdResponse) {
         option (google.api.http) = {
             get: "/api/v1/user" 
@@ -201,6 +179,7 @@ service UserService {
         };
        
     }
+    
     rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse) {
         option (google.api.http) = {
             get: "/api/v1/user/health" 

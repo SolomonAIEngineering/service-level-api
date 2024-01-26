@@ -87,57 +87,6 @@
           "v1"
         ]
       },
-      "post": {
-        "summary": "create a user account",
-        "description": "This endpoint performs an a creation operation of a user account based on the provided parametersThis operation is implemented as a distributed transactions as this operation spans multiple services",
-        "operationId": "CreateUser",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": ".api.v1.CreateUserResponse"
-            }
-          },
-          "400": {
-            "description": "Request failed due to invalid input.",
-            "schema": {
-              "$ref": ".api.v1.ValidationErrorMessageResponse"
-            }
-          },
-          "404": {
-            "description": "Request failed due to incorrect path.",
-            "schema": {
-              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
-            }
-          },
-          "500": {
-            "description": "Request failed due to internal server error.",
-            "schema": {
-              "$ref": ".api.v1.InternalErrorMessageResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/Status"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/CreateUserRequest"
-            }
-          }
-        ],
-        "tags": [
-          "account",
-          "v1"
-        ]
-      },
       "put": {
         "summary": "update a user account",
         "description": "This endpoint performs an updates operation on a user account based on the provided parametersThis update operation can span multiple services on specific cases (such as when the client is explicitly attempting to update the email of the user)All update operations are atomic by nature hence we should not expect any form of divergent state",
@@ -1964,49 +1913,6 @@
           "type": "boolean"
         }
       }
-    },
-    "CreateUserRequest": {
-      "type": "object",
-      "properties": {
-        "account": {
-          "$ref": "#/definitions/UserAccount",
-          "title": "User account to create \nValidations:\n- cannot be nil hence required"
-        },
-        "communityIdsToFollow": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "format": "uint64"
-          },
-          "title": "set of community IDs to follow \nValidations:\n- at least 0 and at most 20 community ids supported at one time"
-        },
-        "profileImage": {
-          "type": "string",
-          "example": "lksdjhfgsdhfghdsgfhgdh.com",
-          "title": "The profile image of the user\nValidations:\n- must be a valid URI"
-        },
-        "password": {
-          "type": "string",
-          "example": "tesdfkdkfhsdgd",
-          "title": "The password  of the user\nValidations:\n- must be a at least 10 characters long"
-        }
-      },
-      "title": "CreateUserRequest: Represents the request object invoked against the user\nservice to create a user account",
-      "required": [
-        "account",
-        "profileImage",
-        "password"
-      ]
-    },
-    "CreateUserResponse": {
-      "type": "object",
-      "properties": {
-        "userId": {
-          "type": "string",
-          "format": "uint64"
-        }
-      },
-      "title": "CreateUserResponse: Represents the response object returned as a response to\nthe `create-user` request"
     },
     "CreateUserV2Request": {
       "type": "object",
