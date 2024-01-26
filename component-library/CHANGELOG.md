@@ -1,3 +1,10 @@
+# [1.170.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.169.0...v1.170.0) (2024-01-26)
+
+
+### Features
+
+* remove the original create user endpoint from the service ([de673ed](https://github.com/SolomonAIEngineering/service-level-api/commit/de673ed1bdc747836ae15ee043b680d2263e6d40))
+
 # [1.169.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.168.0...v1.169.0) (2024-01-25)
 
 ### Features
