@@ -653,6 +653,18 @@ message GetUserByAuth0IDRequest {
       example: "\"lksdjhfgsdhfghdsgfhgdh.com\""
     } 
   ];
+  
+  /**
+   * Indicates the profile type to be queried.
+   * For example: "username:testuser"
+   */
+   ProfileType profile_type = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"username:testuser\""
+    },
+    (google.api.field_behavior) = REQUIRED   
+  ];
 }
 
 message GetUserByAuth0IDResponse {

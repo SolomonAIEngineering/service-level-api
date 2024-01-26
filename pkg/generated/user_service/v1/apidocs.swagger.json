@@ -954,7 +954,7 @@
     },
     "/api/v2/user/auth-zero/{auth0UserId}": {
       "get": {
-        "summary": "Retrieve user account details by auth0 id",
+        "summary": "Retrieve user account details by auth0 id and profile type",
         "description": "Fetches detailed information about a user account based on the specified authn ID.",
         "operationId": "GetUserByAuth0ID",
         "responses": {
@@ -996,6 +996,19 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "profileType",
+            "description": "Indicates the profile type to be queried.\nFor example: \"username:testuser\"",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "PROFILE_TYPE_UNSPECIFIED",
+              "PROFILE_TYPE_USER",
+              "PROFILE_TYPE_BUSINESS"
+            ],
+            "default": "PROFILE_TYPE_UNSPECIFIED"
           }
         ],
         "tags": [

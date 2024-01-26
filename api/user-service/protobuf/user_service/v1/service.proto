@@ -179,7 +179,7 @@ service UserService {
         };
        
     }
-    
+
     rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse) {
         option (google.api.http) = {
             get: "/api/v1/user/health" 
@@ -679,7 +679,7 @@ service UserService {
     rpc GetUserByAuth0ID(GetUserByAuth0IDRequest) returns (GetUserByAuth0IDResponse) {
         option (google.api.http) = {get: "/api/v2/user/auth-zero/{auth0_user_id}"};
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-            summary: "Retrieve user account details by auth0 id",
+            summary: "Retrieve user account details by auth0 id and profile type",
             tags: ["account", "v2"],
             operation_id: "GetUserByAuth0ID",
             description: "Fetches detailed information about a user account based on the specified authn ID.",

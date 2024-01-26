@@ -7512,6 +7512,8 @@ func (m *GetUserByAuth0IDRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	// no validation rules for ProfileType
+
 	if len(errors) > 0 {
 		return GetUserByAuth0IDRequestMultiError(errors)
 	}
