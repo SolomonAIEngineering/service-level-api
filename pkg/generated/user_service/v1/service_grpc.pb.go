@@ -48,6 +48,11 @@ const (
 	UserService_GetUserByAuthnIDV2_FullMethodName         = "/user_service.v1.UserService/GetUserByAuthnIDV2"
 	UserService_GetCannyUserSSOToken_FullMethodName       = "/user_service.v1.UserService/GetCannyUserSSOToken"
 	UserService_GetUserByAuth0ID_FullMethodName           = "/user_service.v1.UserService/GetUserByAuth0ID"
+	UserService_CreateRole_FullMethodName                 = "/user_service.v1.UserService/CreateRole"
+	UserService_GetRole_FullMethodName                    = "/user_service.v1.UserService/GetRole"
+	UserService_UpdateRole_FullMethodName                 = "/user_service.v1.UserService/UpdateRole"
+	UserService_DeleteRole_FullMethodName                 = "/user_service.v1.UserService/DeleteRole"
+	UserService_ListRoles_FullMethodName                  = "/user_service.v1.UserService/ListRoles"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -128,6 +133,26 @@ type UserServiceClient interface {
 	// the following endpoints are for the canny integration. it returns the sso token for a given user
 	GetCannyUserSSOToken(ctx context.Context, in *GetCannyUserSSOTokenRequest, opts ...grpc.CallOption) (*GetCannyUserSSOTokenResponse, error)
 	GetUserByAuth0ID(ctx context.Context, in *GetUserByAuth0IDRequest, opts ...grpc.CallOption) (*GetUserByAuth0IDResponse, error)
+	// @brief Creates a new role with the given details.
+	// This RPC adds a new role to the system with the provided information.
+	// URI - /api/v1/role
+	CreateRole(ctx context.Context, in *CreateRoleRequest, opts ...grpc.CallOption) (*CreateRoleResponse, error)
+	// @brief Retrieves a role based on the provided role ID.
+	// This RPC fetches role details based on the role ID.
+	// URI - /api/v1/role/{id}
+	GetRole(ctx context.Context, in *GetRoleRequest, opts ...grpc.CallOption) (*GetRoleResponse, error)
+	// @brief Updates an existing role based on the provided role details.
+	// This RPC updates role details in the system.
+	// URI - /api/v1/role/{id}
+	UpdateRole(ctx context.Context, in *UpdateRoleRequest, opts ...grpc.CallOption) (*UpdateRoleResponse, error)
+	// @brief Deletes a role based on the provided role ID.
+	// This RPC performs deletion of a role in the system.
+	// URI - /api/v1/role/{id}
+	DeleteRole(ctx context.Context, in *DeleteRoleRequest, opts ...grpc.CallOption) (*DeleteRoleResponse, error)
+	// @brief Lists all roles in the system.
+	// This RPC fetches a list of all roles, with optional pagination.
+	// URI - /api/v1/roles
+	ListRoles(ctx context.Context, in *ListRolesRequest, opts ...grpc.CallOption) (*ListRolesResponse, error)
 }
 
 type userServiceClient struct {
@@ -399,6 +424,51 @@ func (c *userServiceClient) GetUserByAuth0ID(ctx context.Context, in *GetUserByA
 	return out, nil
 }
 
+func (c *userServiceClient) CreateRole(ctx context.Context, in *CreateRoleRequest, opts ...grpc.CallOption) (*CreateRoleResponse, error) {
+	out := new(CreateRoleResponse)
+	err := c.cc.Invoke(ctx, UserService_CreateRole_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) GetRole(ctx context.Context, in *GetRoleRequest, opts ...grpc.CallOption) (*GetRoleResponse, error) {
+	out := new(GetRoleResponse)
+	err := c.cc.Invoke(ctx, UserService_GetRole_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) UpdateRole(ctx context.Context, in *UpdateRoleRequest, opts ...grpc.CallOption) (*UpdateRoleResponse, error) {
+	out := new(UpdateRoleResponse)
+	err := c.cc.Invoke(ctx, UserService_UpdateRole_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) DeleteRole(ctx context.Context, in *DeleteRoleRequest, opts ...grpc.CallOption) (*DeleteRoleResponse, error) {
+	out := new(DeleteRoleResponse)
+	err := c.cc.Invoke(ctx, UserService_DeleteRole_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) ListRoles(ctx context.Context, in *ListRolesRequest, opts ...grpc.CallOption) (*ListRolesResponse, error) {
+	out := new(ListRolesResponse)
+	err := c.cc.Invoke(ctx, UserService_ListRoles_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServiceServer is the server API for UserService service.
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility
@@ -477,6 +547,26 @@ type UserServiceServer interface {
 	// the following endpoints are for the canny integration. it returns the sso token for a given user
 	GetCannyUserSSOToken(context.Context, *GetCannyUserSSOTokenRequest) (*GetCannyUserSSOTokenResponse, error)
 	GetUserByAuth0ID(context.Context, *GetUserByAuth0IDRequest) (*GetUserByAuth0IDResponse, error)
+	// @brief Creates a new role with the given details.
+	// This RPC adds a new role to the system with the provided information.
+	// URI - /api/v1/role
+	CreateRole(context.Context, *CreateRoleRequest) (*CreateRoleResponse, error)
+	// @brief Retrieves a role based on the provided role ID.
+	// This RPC fetches role details based on the role ID.
+	// URI - /api/v1/role/{id}
+	GetRole(context.Context, *GetRoleRequest) (*GetRoleResponse, error)
+	// @brief Updates an existing role based on the provided role details.
+	// This RPC updates role details in the system.
+	// URI - /api/v1/role/{id}
+	UpdateRole(context.Context, *UpdateRoleRequest) (*UpdateRoleResponse, error)
+	// @brief Deletes a role based on the provided role ID.
+	// This RPC performs deletion of a role in the system.
+	// URI - /api/v1/role/{id}
+	DeleteRole(context.Context, *DeleteRoleRequest) (*DeleteRoleResponse, error)
+	// @brief Lists all roles in the system.
+	// This RPC fetches a list of all roles, with optional pagination.
+	// URI - /api/v1/roles
+	ListRoles(context.Context, *ListRolesRequest) (*ListRolesResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -570,6 +660,21 @@ func (UnimplementedUserServiceServer) GetCannyUserSSOToken(context.Context, *Get
 }
 func (UnimplementedUserServiceServer) GetUserByAuth0ID(context.Context, *GetUserByAuth0IDRequest) (*GetUserByAuth0IDResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserByAuth0ID not implemented")
+}
+func (UnimplementedUserServiceServer) CreateRole(context.Context, *CreateRoleRequest) (*CreateRoleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateRole not implemented")
+}
+func (UnimplementedUserServiceServer) GetRole(context.Context, *GetRoleRequest) (*GetRoleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRole not implemented")
+}
+func (UnimplementedUserServiceServer) UpdateRole(context.Context, *UpdateRoleRequest) (*UpdateRoleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateRole not implemented")
+}
+func (UnimplementedUserServiceServer) DeleteRole(context.Context, *DeleteRoleRequest) (*DeleteRoleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteRole not implemented")
+}
+func (UnimplementedUserServiceServer) ListRoles(context.Context, *ListRolesRequest) (*ListRolesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListRoles not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 
@@ -1106,6 +1211,96 @@ func _UserService_GetUserByAuth0ID_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_CreateRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateRoleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).CreateRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_CreateRole_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).CreateRole(ctx, req.(*CreateRoleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_GetRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRoleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).GetRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_GetRole_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).GetRole(ctx, req.(*GetRoleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_UpdateRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateRoleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).UpdateRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_UpdateRole_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).UpdateRole(ctx, req.(*UpdateRoleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_DeleteRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteRoleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).DeleteRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_DeleteRole_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).DeleteRole(ctx, req.(*DeleteRoleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_ListRoles_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListRolesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).ListRoles(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_ListRoles_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).ListRoles(ctx, req.(*ListRolesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1228,6 +1423,26 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetUserByAuth0ID",
 			Handler:    _UserService_GetUserByAuth0ID_Handler,
+		},
+		{
+			MethodName: "CreateRole",
+			Handler:    _UserService_CreateRole_Handler,
+		},
+		{
+			MethodName: "GetRole",
+			Handler:    _UserService_GetRole_Handler,
+		},
+		{
+			MethodName: "UpdateRole",
+			Handler:    _UserService_UpdateRole_Handler,
+		},
+		{
+			MethodName: "DeleteRole",
+			Handler:    _UserService_DeleteRole_Handler,
+		},
+		{
+			MethodName: "ListRoles",
+			Handler:    _UserService_ListRoles_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

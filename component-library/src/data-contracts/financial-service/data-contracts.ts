@@ -279,7 +279,7 @@ export interface Any {
    * Schemes other than `http`, `https` (or the empty scheme) might be
    * used with implementation specific semantics.
    */
-  '@type'?: string;
+  "@type"?: string;
   [key: string]: any;
 }
 
@@ -309,16 +309,10 @@ export interface BankAccount {
   currency: string;
   /** @format double */
   currentFunds: number;
-  /**
-   * id
-   * @format uint64
-   */
+  /** @format uint64 */
   id?: string;
-  /** the bank account name */
-  name: string;
-  /** the bank account number */
-  number: string;
-  /** plaid account id mapped to this bank account */
+  name?: string;
+  number?: string;
   plaidAccountId?: string;
   /**
    * the set of "virtualized accounts this user witholds"
@@ -330,30 +324,23 @@ export interface BankAccount {
   recurringTransactions?: Array<PlaidAccountRecurringTransaction>;
   /** the bank account status */
   status?: BankAccountStatus;
-  /** account subtype */
   subtype?: string;
   /** the set of transactions tied to this account */
   transactions?: Array<PlaidAccountTransaction>;
   /** the bank account type */
   type: BankAccountType;
-  /**
-   * the user id to which this bank account is tied to
-   * @format uint64
-   */
+  /** @format uint64 */
   userId?: string;
 }
 
 /** @default "BANK_ACCOUNT_STATUS_UNSPECIFIED" */
 export type BankAccountStatus =
-  | 'BANK_ACCOUNT_STATUS_UNSPECIFIED'
-  | 'BANK_ACCOUNT_STATUS_ACTIVE'
-  | 'BANK_ACCOUNT_STATUS_INACTIVE';
+  | "BANK_ACCOUNT_STATUS_UNSPECIFIED"
+  | "BANK_ACCOUNT_STATUS_ACTIVE"
+  | "BANK_ACCOUNT_STATUS_INACTIVE";
 
 /** @default "BANK_ACCOUNT_TYPE_UNSPECIFIED" */
-export type BankAccountType =
-  | 'BANK_ACCOUNT_TYPE_UNSPECIFIED'
-  | 'BANK_ACCOUNT_TYPE_PLAID'
-  | 'BANK_ACCOUNT_TYPE_MANUAL';
+export type BankAccountType = "BANK_ACCOUNT_TYPE_UNSPECIFIED" | "BANK_ACCOUNT_TYPE_PLAID" | "BANK_ACCOUNT_TYPE_MANUAL";
 
 /**
  * The Budgets table stores information about each budget created by the user,
@@ -745,10 +732,7 @@ export interface CreditAccount {
    * @format double
    */
   currentFunds?: number;
-  /**
-   * id
-   * @format uint64
-   */
+  /** @format uint64 */
   id?: string;
   /** wether the account is overdue */
   isOverdue?: boolean;
@@ -776,13 +760,11 @@ export interface CreditAccount {
    * @format double
    */
   minimumPaymentAmount?: number;
-  /** the account name */
   name?: string;
   /** the next payment date */
   nextPaymentDate?: string;
   /** the next payment due date */
   nextPaymentDueDate?: string;
-  /** the bank account number */
   number?: string;
   /** plaid account id mapped to this bank account */
   plaidAccountId?: string;
@@ -798,10 +780,7 @@ export interface CreditAccount {
   transactions?: Array<PlaidAccountTransaction>;
   /** the bank account type */
   type?: string;
-  /**
-   * the user id to which this bank account is tied to
-   * @format uint64
-   */
+  /** @format uint64 */
   userId?: string;
 }
 
@@ -957,12 +936,12 @@ export interface ExpenseMetricsFinancialSubProfileMetrics {
 
 /** @default "FINANCIAL_ACCOUNT_TYPE_UNSPECIFIED" */
 export type FinancialAccountType =
-  | 'FINANCIAL_ACCOUNT_TYPE_UNSPECIFIED'
-  | 'FINANCIAL_ACCOUNT_TYPE_BANK'
-  | 'FINANCIAL_ACCOUNT_TYPE_INVESTMENT'
-  | 'FINANCIAL_ACCOUNT_TYPE_CREDIT'
-  | 'FINANCIAL_ACCOUNT_TYPE_MORTGAGE'
-  | 'FINANCIAL_ACCOUNT_TYPE_STUDENT_LOAN';
+  | "FINANCIAL_ACCOUNT_TYPE_UNSPECIFIED"
+  | "FINANCIAL_ACCOUNT_TYPE_BANK"
+  | "FINANCIAL_ACCOUNT_TYPE_INVESTMENT"
+  | "FINANCIAL_ACCOUNT_TYPE_CREDIT"
+  | "FINANCIAL_ACCOUNT_TYPE_MORTGAGE"
+  | "FINANCIAL_ACCOUNT_TYPE_STUDENT_LOAN";
 
 /**
  * FinancialProfile
@@ -1002,18 +981,15 @@ export interface FinancialUserProfile {
   stripeCustomerId?: string;
   /** the stripe subscriptions the user profile actively maintains */
   stripeSubscriptions?: StripeSubscription;
-  /**
-   * the user id tied to the profile
-   * @format uint64
-   */
+  /** @format uint64 */
   userId?: string;
 }
 
 /** @default "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED" */
 export type FinancialUserProfileType =
-  | 'FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED'
-  | 'FINANCIAL_USER_PROFILE_TYPE_USER'
-  | 'FINANCIAL_USER_PROFILE_TYPE_BUSINESS';
+  | "FINANCIAL_USER_PROFILE_TYPE_UNSPECIFIED"
+  | "FINANCIAL_USER_PROFILE_TYPE_USER"
+  | "FINANCIAL_USER_PROFILE_TYPE_BUSINESS";
 
 /**
  * The Forecast table stores information about each forecast generated for a particular goal,
@@ -1495,11 +1471,11 @@ export interface GetUserProfileResponse {
 
 /** @default "GOAL_TYPE_UNSPECIFIED" */
 export type GoalType =
-  | 'GOAL_TYPE_UNSPECIFIED'
-  | 'GOAL_TYPE_SAVINGS'
-  | 'GOAL_TYPE_INVESTMENT'
-  | 'GOAL_TYPE_DEBT'
-  | 'GOAL_TYPE_EXPENSE';
+  | "GOAL_TYPE_UNSPECIFIED"
+  | "GOAL_TYPE_SAVINGS"
+  | "GOAL_TYPE_INVESTMENT"
+  | "GOAL_TYPE_DEBT"
+  | "GOAL_TYPE_EXPENSE";
 
 export type HealthCheckData = any;
 
@@ -1625,14 +1601,9 @@ export interface InvestmentAccount {
   currentFunds?: number;
   /** invesment holding is the set of securities this account witholds */
   holdings?: Array<InvesmentHolding>;
-  /**
-   * id
-   * @format uint64
-   */
+  /** @format uint64 */
   id?: string;
-  /** the account name */
   name?: string;
-  /** the bank account number */
   number?: string;
   /** plaid account id mapped to this bank account */
   plaidAccountId?: string;
@@ -1640,16 +1611,12 @@ export interface InvestmentAccount {
   securities?: Array<InvestmentSecurity>;
   /** the bank account status */
   status?: BankAccountStatus;
-  /** accoint subtype */
   subtype?: string;
   /** the set of transactions tied to this account */
   transactions?: Array<PlaidAccountInvestmentTransaction>;
   /** the bank account type */
   type?: string;
-  /**
-   * the user id to which this bank account is tied to
-   * @format uint64
-   */
+  /** @format uint64 */
   userId?: string;
 }
 
@@ -1761,20 +1728,17 @@ export interface Link {
 
 /** @default "LINK_STATUS_UNSPECIFIED" */
 export type LinkStatus =
-  | 'LINK_STATUS_UNSPECIFIED'
-  | 'LINK_STATUS_SETUP'
-  | 'LINK_STATUS_PENDING'
-  | 'LINK_STATUS_ERROR'
-  | 'LINK_STATUS_SUCCESS'
-  | 'LINK_STATUS_PENDING_EXPIRATION'
-  | 'LINK_STATUS_REVOKED'
-  | 'LINK_STATUS_ITEM_LOGIN_REQUIRED';
+  | "LINK_STATUS_UNSPECIFIED"
+  | "LINK_STATUS_SETUP"
+  | "LINK_STATUS_PENDING"
+  | "LINK_STATUS_ERROR"
+  | "LINK_STATUS_SUCCESS"
+  | "LINK_STATUS_PENDING_EXPIRATION"
+  | "LINK_STATUS_REVOKED"
+  | "LINK_STATUS_ITEM_LOGIN_REQUIRED";
 
 /** @default "LINK_TYPE_UNSPECIFIED" */
-export type LinkType =
-  | 'LINK_TYPE_UNSPECIFIED'
-  | 'LINK_TYPE_PLAID'
-  | 'LINK_TYPE_MANUAL';
+export type LinkType = "LINK_TYPE_UNSPECIFIED" | "LINK_TYPE_PLAID" | "LINK_TYPE_MANUAL";
 
 export type ListRecurringTransactionNotesData = any;
 
@@ -2142,7 +2106,6 @@ export interface PersonalActionableInsight {
   generatedTime?: string;
   /** @format uint64 */
   id?: string;
-  /** insight name */
   insightName?: PersonalActionableInsightName;
   /** metrics to optimize for */
   metricsToOptimizeFor?: Array<string>;
@@ -2154,13 +2117,13 @@ export interface PersonalActionableInsight {
 
 /** @default "PERSONAL_ACTIONABLE_INSIGHT_NAME_UNSPECIFIED" */
 export type PersonalActionableInsightName =
-  | 'PERSONAL_ACTIONABLE_INSIGHT_NAME_UNSPECIFIED'
-  | 'PERSONAL_ACTIONABLE_INSIGHT_NAME_EXPENSE'
-  | 'PERSONAL_ACTIONABLE_INSIGHT_NAME_EMERGENCY_FUND'
-  | 'PERSONAL_ACTIONABLE_INSIGHT_NAME_DEBT_PRIORITIZATION'
-  | 'PERSONAL_ACTIONABLE_INSIGHT_NAME_NON_ESSENTIAL_EXPENSES'
-  | 'PERSONAL_ACTIONABLE_INSIGHT_NAME_NON_SUBSCRIPTIONS'
-  | 'PERSONAL_ACTIONABLE_INSIGHT_NAME_DISCRETIONARY_SPENDING';
+  | "PERSONAL_ACTIONABLE_INSIGHT_NAME_UNSPECIFIED"
+  | "PERSONAL_ACTIONABLE_INSIGHT_NAME_EXPENSE"
+  | "PERSONAL_ACTIONABLE_INSIGHT_NAME_EMERGENCY_FUND"
+  | "PERSONAL_ACTIONABLE_INSIGHT_NAME_DEBT_PRIORITIZATION"
+  | "PERSONAL_ACTIONABLE_INSIGHT_NAME_NON_ESSENTIAL_EXPENSES"
+  | "PERSONAL_ACTIONABLE_INSIGHT_NAME_NON_SUBSCRIPTIONS"
+  | "PERSONAL_ACTIONABLE_INSIGHT_NAME_DISCRETIONARY_SPENDING";
 
 /** Message representing investment transactions associated with a Plaid account. */
 export interface PlaidAccountInvestmentTransaction {
@@ -2462,10 +2425,6 @@ export interface PlaidAccountRecurringTransaction {
    * @gotag: ch:"status"
    */
   status?: string;
-  /**
-   * The identifier for the recurring transaction stream.
-   * @gotag: ch:"stream_id"
-   */
   streamId?: string;
   /**
    * The timestamp associated with this recurring transaction.
@@ -2493,11 +2452,7 @@ export interface PlaidAccountRecurringTransaction {
 
 /** Message representing Plaid account transactions. */
 export interface PlaidAccountTransaction {
-  /**
-   * The bank account ID associated with the transaction.
-   *
-   * @gotag: ch:"account_id"
-   */
+  /** The bank account ID associated with the transaction. */
   accountId?: string;
   /**
    * The account owner associated with the transaction.
@@ -2820,31 +2775,27 @@ export interface PlaidSync {
 export interface Pocket {
   /** the set of smart goals this user witholds */
   goals?: Array<SmartGoal>;
-  /**
-   * id
-   * @format uint64
-   */
+  /** @format uint64 */
   id?: string;
   /** the tags tied to this pocket */
   tags?: Array<string>;
-  /** The type of the pocket */
   type?: PocketType;
 }
 
 /** @default "POCKET_TYPE_UNSPECIFIED" */
 export type PocketType =
-  | 'POCKET_TYPE_UNSPECIFIED'
-  | 'POCKET_TYPE_DISCRETIONARY_SPENDING'
-  | 'POCKET_TYPE_FUN_MONEY'
-  | 'POCKET_TYPE_DEBT_REDUCTION'
-  | 'POCKET_TYPE_EMERGENCY_FUND'
-  | 'POCKET_TYPE_INVESTMENT'
-  | 'POCKET_TYPE_SHORT_TERM_SAVINGS'
-  | 'POCKET_TYPE_LONG_TERM_SAVINGS'
-  | 'POCKET_TYPE_IMPROVE_CREDIT_SCORE'
-  | 'POCKET_TYPE_DEBT_CONSOLIDATION'
-  | 'POCKET_TYPE_CREDIT_CARD_MANAGEMENT'
-  | 'POCKET_TYPE_LOAN_REPAYMENT';
+  | "POCKET_TYPE_UNSPECIFIED"
+  | "POCKET_TYPE_DISCRETIONARY_SPENDING"
+  | "POCKET_TYPE_FUN_MONEY"
+  | "POCKET_TYPE_DEBT_REDUCTION"
+  | "POCKET_TYPE_EMERGENCY_FUND"
+  | "POCKET_TYPE_INVESTMENT"
+  | "POCKET_TYPE_SHORT_TERM_SAVINGS"
+  | "POCKET_TYPE_LONG_TERM_SAVINGS"
+  | "POCKET_TYPE_IMPROVE_CREDIT_SCORE"
+  | "POCKET_TYPE_DEBT_CONSOLIDATION"
+  | "POCKET_TYPE_CREDIT_CARD_MANAGEMENT"
+  | "POCKET_TYPE_LOAN_REPAYMENT";
 
 export type PollAsyncTaskExecutionStatusData = any;
 
@@ -2868,10 +2819,7 @@ export interface PollAsyncTaskExecutionStatusResponse {
 }
 
 /** @default "RE_CURRING_FLOW_UNSPECIFIED" */
-export type ReCurringFlow =
-  | 'RE_CURRING_FLOW_UNSPECIFIED'
-  | 'RE_CURRING_FLOW_INFLOW'
-  | 'RE_CURRING_FLOW_OUTFLOW';
+export type ReCurringFlow = "RE_CURRING_FLOW_UNSPECIFIED" | "RE_CURRING_FLOW_INFLOW" | "RE_CURRING_FLOW_OUTFLOW";
 
 export interface ReOccuringTransaction {
   /** @gotag: ch:"account_id" */
@@ -3027,12 +2975,12 @@ export interface ReOccuringTransaction {
 
 /** @default "RE_OCCURING_TRANSACTIONS_FREQUENCY_UNSPECIFIED" */
 export type ReOccuringTransactionsFrequency =
-  | 'RE_OCCURING_TRANSACTIONS_FREQUENCY_UNSPECIFIED'
-  | 'RE_OCCURING_TRANSACTIONS_FREQUENCY_WEEKLY'
-  | 'RE_OCCURING_TRANSACTIONS_FREQUENCY_BIWEEKLY'
-  | 'RE_OCCURING_TRANSACTIONS_FREQUENCY_SEMI_MONTHLY'
-  | 'RE_OCCURING_TRANSACTIONS_FREQUENCY_MONTHLY'
-  | 'RE_OCCURING_TRANSACTIONS_FREQUENCY_ANNUALLY';
+  | "RE_OCCURING_TRANSACTIONS_FREQUENCY_UNSPECIFIED"
+  | "RE_OCCURING_TRANSACTIONS_FREQUENCY_WEEKLY"
+  | "RE_OCCURING_TRANSACTIONS_FREQUENCY_BIWEEKLY"
+  | "RE_OCCURING_TRANSACTIONS_FREQUENCY_SEMI_MONTHLY"
+  | "RE_OCCURING_TRANSACTIONS_FREQUENCY_MONTHLY"
+  | "RE_OCCURING_TRANSACTIONS_FREQUENCY_ANNUALLY";
 
 /**
  *  - RE_OCCURING_TRANSACTIONS_STATUS_MATURE: A MATURE recurring stream should have at least 3 transactions and happen
@@ -3044,10 +2992,10 @@ export type ReOccuringTransactionsFrequency =
  * @default "RE_OCCURING_TRANSACTIONS_STATUS_UNSPECIFIED"
  */
 export type ReOccuringTransactionsStatus =
-  | 'RE_OCCURING_TRANSACTIONS_STATUS_UNSPECIFIED'
-  | 'RE_OCCURING_TRANSACTIONS_STATUS_MATURE'
-  | 'RE_OCCURING_TRANSACTIONS_STATUS_EARLY_DETECTION'
-  | 'RE_OCCURING_TRANSACTIONS_STATUS_TOMBSTONED';
+  | "RE_OCCURING_TRANSACTIONS_STATUS_UNSPECIFIED"
+  | "RE_OCCURING_TRANSACTIONS_STATUS_MATURE"
+  | "RE_OCCURING_TRANSACTIONS_STATUS_EARLY_DETECTION"
+  | "RE_OCCURING_TRANSACTIONS_STATUS_TOMBSTONED";
 
 export type ReadynessCheckData = any;
 
@@ -3172,10 +3120,7 @@ export interface SmartGoal {
   forecasts?: Forecast;
   /** The type of the goal */
   goalType?: GoalType;
-  /**
-   * id
-   * @format uint64
-   */
+  /** @format uint64 */
   id?: string;
   /**
    * wether the goal has been achieved or not
@@ -3184,12 +3129,6 @@ export interface SmartGoal {
   isCompleted?: boolean;
   /** Milestones associated with the goal */
   milestones?: Array<Milestone>;
-  /**
-   * The name of the goal
-   * Validations:
-   * - must be at least 3 characters long
-   * @example "Buy a car"
-   */
   name?: string;
   /** Notes associated with the goal */
   notes?: Array<SmartNote>;
@@ -3204,10 +3143,7 @@ export interface SmartGoal {
    * @example "Active"
    */
   targetAmount?: string;
-  /**
-   * the user id to which this goal is tied to
-   * @format uint64
-   */
+  /** @format uint64 */
   userId?: string;
 }
 
@@ -3235,10 +3171,7 @@ export interface SmartNote {
    * @format date-time
    */
   updatedAt?: string;
-  /**
-   * The user id who created the note. This can be useful if in the future you allow multiple users to add notes to the same goal.
-   * @format uint64
-   */
+  /** @format uint64 */
   userId?: string;
 }
 
@@ -3293,17 +3226,17 @@ export interface StripeSubscription {
 
 /** @default "STRIPE_SUBSCRIPTION_STATUS_UNSPECIFIED" */
 export type StripeSubscriptionStatus =
-  | 'STRIPE_SUBSCRIPTION_STATUS_UNSPECIFIED'
-  | 'STRIPE_SUBSCRIPTION_STATUS_TRIALING'
-  | 'STRIPE_SUBSCRIPTION_STATUS_ACTIVE'
-  | 'STRIPE_SUBSCRIPTION_STATUS_PAST_DUE'
-  | 'STRIPE_SUBSCRIPTION_STATUS_CANCELED'
-  | 'STRIPE_SUBSCRIPTION_STATUS_UNPAID'
-  | 'STRIPE_SUBSCRIPTION_STATUS_COMPLETE'
-  | 'STRIPE_SUBSCRIPTION_STATUS_INCOMPLETE'
-  | 'STRIPE_SUBSCRIPTION_STATUS_INCOMPLETE_EXPIRED'
-  | 'STRIPE_SUBSCRIPTION_STATUS_CREATED'
-  | 'STRIPE_SUBSCRIPTION_STATUS_PAUSED';
+  | "STRIPE_SUBSCRIPTION_STATUS_UNSPECIFIED"
+  | "STRIPE_SUBSCRIPTION_STATUS_TRIALING"
+  | "STRIPE_SUBSCRIPTION_STATUS_ACTIVE"
+  | "STRIPE_SUBSCRIPTION_STATUS_PAST_DUE"
+  | "STRIPE_SUBSCRIPTION_STATUS_CANCELED"
+  | "STRIPE_SUBSCRIPTION_STATUS_UNPAID"
+  | "STRIPE_SUBSCRIPTION_STATUS_COMPLETE"
+  | "STRIPE_SUBSCRIPTION_STATUS_INCOMPLETE"
+  | "STRIPE_SUBSCRIPTION_STATUS_INCOMPLETE_EXPIRED"
+  | "STRIPE_SUBSCRIPTION_STATUS_CREATED"
+  | "STRIPE_SUBSCRIPTION_STATUS_PAUSED";
 
 export interface StudentLoanAccount {
   disbursementDates?: Array<string>;
@@ -3377,15 +3310,15 @@ export interface StudentLoanAccount {
  * @default "TASK_STATE_UNSPECIFIED"
  */
 export type TaskState =
-  | 'TASK_STATE_UNSPECIFIED'
-  | 'TASK_STATE_ACTIVE'
-  | 'TASK_STATE_PENDING'
-  | 'TASK_STATE_SCHEDULED'
-  | 'TASK_STATE_RETRY'
-  | 'TASK_STATE_ARCHIVED'
-  | 'TASK_STATE_COMPLETED'
-  | 'TASK_STATE_AGGREGATING'
-  | 'TASK_STATE_FAILED';
+  | "TASK_STATE_UNSPECIFIED"
+  | "TASK_STATE_ACTIVE"
+  | "TASK_STATE_PENDING"
+  | "TASK_STATE_SCHEDULED"
+  | "TASK_STATE_RETRY"
+  | "TASK_STATE_ARCHIVED"
+  | "TASK_STATE_COMPLETED"
+  | "TASK_STATE_AGGREGATING"
+  | "TASK_STATE_FAILED";
 
 export interface Token {
   accessToken?: string;

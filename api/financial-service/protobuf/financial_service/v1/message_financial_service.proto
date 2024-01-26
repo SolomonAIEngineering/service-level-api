@@ -141,22 +141,30 @@ message FinancialUserProfile {
 
   // id
   uint64 id = 1 [
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
-    ];
-  // the user id tied to the profile
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {unique_index: "idx_financial_user_profile_id"}
+  ];
   uint64 user_id = 2 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
-    (validate.rules).uint64.gt = 0
+    (validate.rules).uint64.gt = 0,
+    (gorm.field).tag = {index: "idx_financial_user_profile_user_id"}
   ];
-  string stripe_customer_id = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+  string stripe_customer_id = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {index: "idx_financial_user_profile_stripe_customer_id"}
+  ];
   // the stripe subscriptions the user profile actively maintains
   StripeSubscription stripe_subscriptions = 4 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
   // a user profile can have many links (connected institutions) of which finanical accounts are tied to (checking, savings, etc)
   repeated Link link = 6 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
   repeated ActionableInsight actionable_insights = 7 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
-  string email = 8;
+  string email = 8 [
+    (gorm.field).tag = {index: "idx_financial_user_profile_email"}
+  ];
   repeated PersonalActionableInsight actionable_personal_insights = 10 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
-  FinancialUserProfileType profile_type = 11;
+  FinancialUserProfileType profile_type = 11 [
+    (gorm.field).tag = {index: "idx_financial_user_profile_type"}
+  ];
 }
 
 
@@ -164,22 +172,31 @@ message FinancialUserProfile {
 // can leverage and act upon and is typically generated based off of their financial contexts
 message ActionableInsight {
   option (gorm.opts) = {ormable: true};
-  uint64 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+  uint64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {unique_index: "idx_actionable_insight_id"}
+  ];
   // for each user we generate a detailed actionable insights for them to see
   string detailed_action = 2;
   // for each user we generate a summarized insight targeted at optimizing a certain condition
   string summarized_action = 3;
   // the time the insight was generated
-  google.protobuf.Timestamp generated_time = 4;
+  google.protobuf.Timestamp generated_time = 4 [
+    (gorm.field).tag = {index: "idx_actionable_insight_generated_time"}
+  ];
   // associated tags with the generated insights
   repeated string tags = 5;
 }
 
 message PersonalActionableInsight {
   option (gorm.opts) = {ormable: true};
-  uint64 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
-  // insight name
-  PersonalActionableInsightName insight_name = 2;
+  uint64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {unique_index: "idx_personal_actionable_insight_id"}
+  ];
+  PersonalActionableInsightName insight_name = 2 [
+    (gorm.field).tag = {index: "idx_personal_actionable_insight_name"}
+  ];
   // insight description
   string description = 3;
   // insight takeaway
@@ -191,7 +208,9 @@ message PersonalActionableInsight {
   // insight tags
   repeated string tags = 7;
   // insight generated time
-  google.protobuf.Timestamp generated_time = 8;
+  google.protobuf.Timestamp generated_time = 8 [
+    (gorm.field).tag = {index: "idx_personal_actionable_insight_generated_time"}
+  ];
   // metrics to optimize for
   repeated string metrics_to_optimize_for = 9;
 }
@@ -208,8 +227,9 @@ message Link {
 
   // id
   uint64 id = 1 [
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
-    ];
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {unique_index: "idx_link_id"}
+  ];
   PlaidSync plaid_sync = 2 [
     (gorm.field).has_one = {disable_association_autocreate: false disable_association_autoupdate: false preload: true},
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
@@ -218,8 +238,13 @@ message Link {
   PlaidLink plaid_link = 4 [(gorm.field).has_one = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
   bool plaid_new_accounts_available = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
   string expiration_date = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
-  string institution_name = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
-  string custom_institution_name = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+   string institution_name = 7 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {index: "idx_link_institution_name"}
+  ];
+  string custom_institution_name = 8 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+  ];
   string description = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
   string last_manual_sync = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
   string last_successful_update = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
@@ -246,11 +271,20 @@ message Link {
   // student loan accounts tied to a link
   repeated StudentLoanAccount student_loan_accounts = 17 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
   // the id of the institution this link is tied to and against
-  string plaid_institution_id = 18 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+  string plaid_institution_id = 18 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {index: "idx_link_institution_id"}
+  ];
   // the type of link this is ... can be either a manual or plaid link type
-  LinkType link_type = 19 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}]; 
+  LinkType link_type = 19 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {index: "idx_link_type"}
+  ]; 
   string error_code = 20 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
-  string updated_at = 21 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+  string updated_at = 21 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {index: "idx_link_updated_at"}
+  ];
   bool new_accounts_available = 22 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
   bool should_be_updated = 23 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
 }
@@ -260,9 +294,12 @@ message PlaidSync {
    option (gorm.opts) = {ormable: true};
     // id
     uint64 id = 1 [
-      (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+      (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+      (gorm.field).tag = {unique_index: "idx_plaid_sync_id"}
     ];
-    string time_stamp = 3;
+    string time_stamp = 3 [
+      (gorm.field).tag = {index: "idx_plaid_sync_time_stamp"}
+    ];    
     string trigger = 4;
     string next_cursor = 5;
     int64 added = 6;
@@ -273,9 +310,15 @@ message PlaidSync {
 message Token {
   option (gorm.opts) = {ormable: true};
   // id
-  uint64 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+  uint64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {unique_index: "idx_token_id"}
+  ];
   // the id of the item the token is tied to 
-  string item_id = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+  string item_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {index: "idx_token_item_id"}
+  ];
   string key_id = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
   string access_token = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
   string version = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
@@ -293,14 +336,18 @@ message PlaidLink {
 
   // id
   uint64 id = 1 [
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
-    ];
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {unique_index: "idx_plaid_link_id"}
+  ];
   repeated string products = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
   string webhook_url = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
   string institution_id = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
   string institution_name = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
   bool use_plaid_sync = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
-  string item_id = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+  string item_id = 7 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {index: "idx_plaid_link_item_id"}
+  ];
 }
 
 message StudentLoanAccount {
@@ -308,9 +355,13 @@ message StudentLoanAccount {
 
   // id
   uint64 id = 1 [
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
-    ];
-  string plaid_account_id = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {unique_index: "idx_student_loan_id_id"}
+  ];
+  string plaid_account_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {index: "idx_student_loan_plaid_account_id"}
+  ];
   repeated string disbursement_dates = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
   string expected_payoff_date = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
   string guarantor = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
@@ -353,17 +404,23 @@ message StudentLoanAccount {
 message CreditAccount {
   option (gorm.opts) = {ormable: true};
 
-  // id
-  uint64 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
 
-  // the user id to which this bank account is tied to
-  uint64 user_id = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
-
-  // the account name
-  string name = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
-
-  // the bank account number
-  string number = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+  uint64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {unique_index: "idx_credit_account_id"}
+  ];
+  uint64 user_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {index: "idx_credit_account_user_id"}
+  ];
+  string name = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {index: "idx_credit_account_name"}
+  ];
+  string number = 4 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {index: "idx_credit_account_number"}
+  ];
 
   // the bank account type
   string type = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
@@ -377,7 +434,10 @@ message CreditAccount {
   uint64 balance_limit = 10;
 
   // plaid account id mapped to this bank account
-  string plaid_account_id = 12;
+  string plaid_account_id = 12 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {index: "idx_credit_account_plaid_account_id"}
+  ];
   // accoint subtype
   string subtype = 13;
   // wether the account is overdue
@@ -415,9 +475,18 @@ message CreditAccount {
 
 message MortgageAccount {
   option (gorm.opts) = {ormable: true};
-  uint64 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
-  string plaid_account_id = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
-  string account_number = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+  uint64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {unique_index: "idx_mortgage_account_id"}
+  ];
+  string plaid_account_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {index: "idx_mortgage_account_plaid_account_id"}
+  ];
+  string account_number = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {index: "idx_mortgage_account_number"}
+  ];
   double current_late_fee = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
   double escrow_balance = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
   bool has_pmi = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
@@ -454,17 +523,22 @@ message MortgageAccount {
 message InvestmentAccount {
   option (gorm.opts) = {ormable: true};
 
-  // id
-  uint64 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
-
-  // the user id to which this bank account is tied to
-  uint64 user_id = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
-
-  // the account name
-  string name = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
-
-  // the bank account number
-  string number = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+  uint64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {unique_index: "idx_investment_account_id"}
+  ];
+  uint64 user_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {index: "idx_investment_account_user_id"}
+  ];
+  string name = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {index: "idx_investment_account_name"}
+  ];
+  string number = 4 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {index: "idx_investment_account_number"}
+  ];
 
   // the bank account type
   string type = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
@@ -476,9 +550,14 @@ message InvestmentAccount {
   uint64 balance_limit = 10;
 
   // plaid account id mapped to this bank account
-  string plaid_account_id = 12;
-  // accoint subtype
-  string subtype = 13;
+  string plaid_account_id = 12 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {index: "idx_investment_account_plaid_account_id"}
+  ];
+  string subtype = 13 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {index: "idx_investment_account_subtype"}
+  ];
   // invesment holding is the set of securities this account witholds
   repeated InvesmentHolding holdings = 7 [ (gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];  
   // the set of securities this account witholds
@@ -492,25 +571,21 @@ message InvestmentAccount {
 message BankAccount {
   option (gorm.opts) = {ormable: true};
 
-  // id
-  uint64 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
-
-  // the user id to which this bank account is tied to
+  uint64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {unique_index: "idx_bank_account_id"}
+  ];
   uint64 user_id = 2 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
-    (validate.rules).uint64.gt = 0
+    (gorm.field).tag = {index: "idx_bank_account_user_id"}
   ];
-
-  // the bank account name
   string name = 3 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
-    (google.api.field_behavior) = REQUIRED
+    (gorm.field).tag = {index: "idx_bank_account_name"}
   ];
-
-  // the bank account number
   string number = 4 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
-    (google.api.field_behavior) = REQUIRED
+    (gorm.field).tag = {index: "idx_bank_account_number"}
   ];
 
   // the bank account type
@@ -546,10 +621,14 @@ message BankAccount {
     (validate.rules).repeated.min_items = 0
   ];
 
-  // plaid account id mapped to this bank account
-  string plaid_account_id = 13;
-  // account subtype
-  string subtype = 14;
+  string plaid_account_id = 13 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {index: "idx_bank_account_plaid_account_id"}
+  ];
+  string subtype = 14 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {index: "idx_bank_account_subtype"}
+  ];
 
   // the bank account status
   BankAccountStatus status = 15;
@@ -570,8 +649,11 @@ message BankAccount {
 message Pocket {
   option (gorm.opts) = {ormable: true};
 
-  // id
-  uint64 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+  uint64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {unique_index: "idx_pocket_id"}
+  ];
+
 
   // the set of smart goals this user witholds
   repeated SmartGoal goals = 3 [
@@ -579,8 +661,9 @@ message Pocket {
     (validate.rules).repeated.min_items = 0
   ];
 
-  // The type of the pocket
-  PocketType type = 4;
+  PocketType type = 4 [
+    (gorm.field).tag = {index: "idx_pocket_type"}
+  ];
 
   // the tags tied to this pocket
   repeated string tags = 5;
@@ -598,20 +681,19 @@ message Pocket {
 message SmartGoal {
   option (gorm.opts) = {ormable: true};
 
-  // id
-  uint64 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
-  // the user id to which this goal is tied to
-  uint64 user_id = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+  uint64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {unique_index: "idx_smart_goal_id"}
+  ];
 
-  // The name of the goal
-  // Validations:
-  // - must be at least 3 characters long
+  uint64 user_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {index: "idx_smart_goal_user_id"}
+  ];
+
   string name = 3 [
-    (validate.rules).string = {min_bytes: 3},
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      min_length: 0,
-      example: "\"Buy a car\""
-    }
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {index: "idx_smart_goal_name"}
   ];
 
   // The description of the goal
@@ -629,7 +711,9 @@ message SmartGoal {
   bool is_completed = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "true"}];
 
   // The type of the goal
-  GoalType goal_type = 9;
+  GoalType goal_type = 9 [
+    (gorm.field).tag = {index: "idx_smart_goal_type"}
+  ];
 
   // The duration of the goal
   string duration = 10 [
@@ -701,9 +785,10 @@ message SmartNote {
   // Unique identifier for the note
   uint64 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
 
-  // The user id who created the note. This can be useful if in the future you allow multiple users to add notes to the same goal.
-  uint64 user_id = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
-
+  uint64 user_id = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {index: "idx_smart_note_user_id"}
+  ];
   // The content of the note
   // Validations:
   // - must be at least 3 characters long
@@ -1090,7 +1175,9 @@ message PlaidAccountInvestmentTransaction {
 
     // The unique identifier for the associated investment account.
     // @gotag: ch:"account_id"
-    string account_id = 1;
+    string account_id = 1 [
+        (gorm.field).tag = {index: "idx_investment_transaction_account_id"}
+    ];
 
     // The amount of the investment transaction.
     // @gotag: ch:"amount"
@@ -1098,7 +1185,9 @@ message PlaidAccountInvestmentTransaction {
 
     // The unique identifier for the investment transaction.
     // @gotag: ch:"investment_transaction_id"
-    string investment_transaction_id = 3;
+    string investment_transaction_id = 3 [
+        (gorm.field).tag = {index: "idx_investment_transaction_id"}
+    ];
 
     // The security or asset identifier associated with the investment transaction.
     // @gotag: ch:"security_id"
@@ -1161,7 +1250,8 @@ message PlaidAccountInvestmentTransaction {
     // @gotag: ch:"user_id"
     uint64 user_id = 17 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
-        (validate.rules).uint64.gt = 0
+        (validate.rules).uint64.gt = 0,
+        (gorm.field).tag = {index: "idx_investment_transaction_user_id"}
     ];
 
     // The date and time when this investment transaction was created.
@@ -1190,11 +1280,12 @@ message PlaidAccountRecurringTransaction {
 
     // The unique identifier for the associated bank account.
     // @gotag: ch:"account_id"
-    string account_id = 1;
-
-    // The identifier for the recurring transaction stream.
-    // @gotag: ch:"stream_id"
-    string stream_id = 2;
+    string account_id = 1 [
+        (gorm.field).tag = {index: "idx_recurring_transaction_account_id"}
+    ];
+    string stream_id = 2 [
+        (gorm.field).tag = {index: "idx_recurring_transaction_stream_id"}
+    ];
 
     // The category ID associated with the recurring transaction.
     // @gotag: ch:"category_id"
@@ -1264,14 +1355,16 @@ message PlaidAccountRecurringTransaction {
     // @gotag: ch:"user_id"
     uint64 user_id = 20 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
-        (validate.rules).uint64.gt = 0
+        (validate.rules).uint64.gt = 0,
+        (gorm.field).tag = {index: "idx_recurring_transaction_user_id"}
     ];
 
     // The link ID associated with this recurring transaction.
     // @gotag: ch:"link_id"
     uint64 link_id = 21 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
-        (validate.rules).uint64.gt = 0
+        (validate.rules).uint64.gt = 0,
+        (gorm.field).tag = {index: "idx_recurring_transaction_link_id"}
     ];
 
     // The unique identifier for this recurring transaction.
@@ -1303,7 +1396,9 @@ message PlaidAccountTransaction {
     // Basic transaction details
     
     // The bank account ID associated with the transaction.
-    string account_id = 1; // @gotag: ch:"account_id"
+    string account_id = 1 [
+        (gorm.field).tag = {index: "idx_transaction_account_id"}
+    ];; // @gotag: ch:"account_id"
     
     // The amount of the transaction.
     double amount = 2; // @gotag: ch:"amount"
@@ -1315,7 +1410,9 @@ message PlaidAccountTransaction {
     string unofficial_currency_code = 4; // @gotag: ch:"unofficial_currency_code"
     
     // The transaction ID of interest.
-    string transaction_id = 20; // @gotag: ch:"transaction_id"
+    string transaction_id = 20 [
+        (gorm.field).tag = {index: "idx_transaction_id"}
+    ]; // @gotag: ch:"transaction_id"
     
     // The transaction code.
     string transaction_code = 21; // @gotag: ch:"transaction_code"
@@ -1354,7 +1451,9 @@ message PlaidAccountTransaction {
     string transaction_name = 13; // @gotag: ch:"name"
     
     // The merchant name of the transaction.
-    string merchant_name = 14; // @gotag: ch:"merchant_name"
+    string merchant_name = 14 [
+        (gorm.field).tag = {index: "idx_transaction_merchant_name"}
+    ]; // @gotag: ch:"merchant_name"
     
     // Payment details
     
@@ -1443,7 +1542,8 @@ message PlaidAccountTransaction {
     // The user ID associated with this transaction.
     uint64 user_id = 23 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
-        (validate.rules).uint64.gt = 0
+        (validate.rules).uint64.gt = 0,
+        (gorm.field).tag = {index: "idx_transaction_user_id"}
     ];
     
     // The link ID associated with this transaction.

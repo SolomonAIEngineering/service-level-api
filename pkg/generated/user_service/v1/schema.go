@@ -12,6 +12,8 @@ func GetDatabaseSchemas() []interface{} {
 		DigitalWorkerSettingsORM{},
 		FinancialPreferencesORM{},
 		BusinessAccountORM{},
+		RoleAuditEventsORM{},
+		RoleORM{},
 	)
 	return schemas
 }

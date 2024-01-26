@@ -55,6 +55,17 @@ func newBusinessAccountORM(db *gorm.DB, opts ...gen.DOOption) businessAccountORM
 		RelationField: field.NewRelation("Address", "user_servicev1.AddressORM"),
 	}
 
+	_businessAccountORM.Role = businessAccountORMHasOneRole{
+		db: db.Session(&gorm.Session{}),
+
+		RelationField: field.NewRelation("Role", "user_servicev1.RoleORM"),
+		AuditLog: struct {
+			field.RelationField
+		}{
+			RelationField: field.NewRelation("Role.AuditLog", "user_servicev1.RoleAuditEventsORM"),
+		},
+	}
+
 	_businessAccountORM.Settings = businessAccountORMHasOneSettings{
 		db: db.Session(&gorm.Session{}),
 
@@ -113,6 +124,8 @@ type businessAccountORM struct {
 	VerifiedAt             field.Time
 	Address                businessAccountORMHasOneAddress
 
+	Role businessAccountORMHasOneRole
+
 	Settings businessAccountORMHasOneSettings
 
 	Tags businessAccountORMHasManyTags
@@ -168,7 +181,7 @@ func (b *businessAccountORM) GetFieldByName(fieldName string) (field.OrderExpr, 
 }
 
 func (b *businessAccountORM) fillFieldMap() {
-	b.fieldMap = make(map[string]field.Expr, 23)
+	b.fieldMap = make(map[string]field.Expr, 24)
 	b.fieldMap["account_type"] = b.AccountType
 	b.fieldMap["auth0_user_id"] = b.Auth0UserId
 	b.fieldMap["authn_account_id"] = b.AuthnAccountId
@@ -270,6 +283,81 @@ func (a businessAccountORMHasOneAddressTx) Clear() error {
 }
 
 func (a businessAccountORMHasOneAddressTx) Count() int64 {
+	return a.tx.Count()
+}
+
+type businessAccountORMHasOneRole struct {
+	db *gorm.DB
+
+	field.RelationField
+
+	AuditLog struct {
+		field.RelationField
+	}
+}
+
+func (a businessAccountORMHasOneRole) Where(conds ...field.Expr) *businessAccountORMHasOneRole {
+	if len(conds) == 0 {
+		return &a
+	}
+
+	exprs := make([]clause.Expression, 0, len(conds))
+	for _, cond := range conds {
+		exprs = append(exprs, cond.BeCond().(clause.Expression))
+	}
+	a.db = a.db.Clauses(clause.Where{Exprs: exprs})
+	return &a
+}
+
+func (a businessAccountORMHasOneRole) WithContext(ctx context.Context) *businessAccountORMHasOneRole {
+	a.db = a.db.WithContext(ctx)
+	return &a
+}
+
+func (a businessAccountORMHasOneRole) Session(session *gorm.Session) *businessAccountORMHasOneRole {
+	a.db = a.db.Session(session)
+	return &a
+}
+
+func (a businessAccountORMHasOneRole) Model(m *user_servicev1.BusinessAccountORM) *businessAccountORMHasOneRoleTx {
+	return &businessAccountORMHasOneRoleTx{a.db.Model(m).Association(a.Name())}
+}
+
+type businessAccountORMHasOneRoleTx struct{ tx *gorm.Association }
+
+func (a businessAccountORMHasOneRoleTx) Find() (result *user_servicev1.RoleORM, err error) {
+	return result, a.tx.Find(&result)
+}
+
+func (a businessAccountORMHasOneRoleTx) Append(values ...*user_servicev1.RoleORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Append(targetValues...)
+}
+
+func (a businessAccountORMHasOneRoleTx) Replace(values ...*user_servicev1.RoleORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Replace(targetValues...)
+}
+
+func (a businessAccountORMHasOneRoleTx) Delete(values ...*user_servicev1.RoleORM) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Delete(targetValues...)
+}
+
+func (a businessAccountORMHasOneRoleTx) Clear() error {
+	return a.tx.Clear()
+}
+
+func (a businessAccountORMHasOneRoleTx) Count() int64 {
 	return a.tx.Count()
 }
 

@@ -6860,21 +6860,17 @@
       "properties": {
         "id": {
           "type": "string",
-          "format": "uint64",
-          "title": "id"
+          "format": "uint64"
         },
         "userId": {
           "type": "string",
-          "format": "uint64",
-          "title": "the user id to which this bank account is tied to"
+          "format": "uint64"
         },
         "name": {
-          "type": "string",
-          "title": "the bank account name"
+          "type": "string"
         },
         "number": {
-          "type": "string",
-          "title": "the bank account number"
+          "type": "string"
         },
         "type": {
           "$ref": "#/definitions/BankAccountType",
@@ -6906,12 +6902,10 @@
           "title": "the set of \"virtualized accounts this user witholds\"\nNOTE: these pockets are automatically created by the system\nwhen a user connects a bank account"
         },
         "plaidAccountId": {
-          "type": "string",
-          "title": "plaid account id mapped to this bank account"
+          "type": "string"
         },
         "subtype": {
-          "type": "string",
-          "title": "account subtype"
+          "type": "string"
         },
         "status": {
           "$ref": "#/definitions/BankAccountStatus",
@@ -6935,8 +6929,6 @@
         }
       },
       "required": [
-        "name",
-        "number",
         "type",
         "balance",
         "currency",
@@ -7433,21 +7425,17 @@
       "properties": {
         "id": {
           "type": "string",
-          "format": "uint64",
-          "title": "id"
+          "format": "uint64"
         },
         "userId": {
           "type": "string",
-          "format": "uint64",
-          "title": "the user id to which this bank account is tied to"
+          "format": "uint64"
         },
         "name": {
-          "type": "string",
-          "title": "the account name"
+          "type": "string"
         },
         "number": {
-          "type": "string",
-          "title": "the bank account number"
+          "type": "string"
         },
         "type": {
           "type": "string",
@@ -7806,8 +7794,7 @@
         },
         "userId": {
           "type": "string",
-          "format": "uint64",
-          "title": "the user id tied to the profile"
+          "format": "uint64"
         },
         "stripeCustomerId": {
           "type": "string"
@@ -8740,21 +8727,17 @@
       "properties": {
         "id": {
           "type": "string",
-          "format": "uint64",
-          "title": "id"
+          "format": "uint64"
         },
         "userId": {
           "type": "string",
-          "format": "uint64",
-          "title": "the user id to which this bank account is tied to"
+          "format": "uint64"
         },
         "name": {
-          "type": "string",
-          "title": "the account name"
+          "type": "string"
         },
         "number": {
-          "type": "string",
-          "title": "the bank account number"
+          "type": "string"
         },
         "type": {
           "type": "string",
@@ -8778,8 +8761,7 @@
           "title": "plaid account id mapped to this bank account"
         },
         "subtype": {
-          "type": "string",
-          "title": "accoint subtype"
+          "type": "string"
         },
         "holdings": {
           "type": "array",
@@ -9659,8 +9641,7 @@
           "format": "uint64"
         },
         "insightName": {
-          "$ref": "#/definitions/PersonalActionableInsightName",
-          "title": "insight name"
+          "$ref": "#/definitions/PersonalActionableInsightName"
         },
         "description": {
           "type": "string",
@@ -9823,8 +9804,7 @@
           "title": "The unique identifier for the associated bank account.\n@gotag: ch:\"account_id\""
         },
         "streamId": {
-          "type": "string",
-          "title": "The identifier for the recurring transaction stream.\n@gotag: ch:\"stream_id\""
+          "type": "string"
         },
         "categoryId": {
           "type": "string",
@@ -9937,7 +9917,7 @@
       "properties": {
         "accountId": {
           "type": "string",
-          "description": "The bank account ID associated with the transaction.\n\n@gotag: ch:\"account_id\""
+          "description": "The bank account ID associated with the transaction."
         },
         "amount": {
           "type": "number",
@@ -10344,8 +10324,7 @@
       "properties": {
         "id": {
           "type": "string",
-          "format": "uint64",
-          "title": "id"
+          "format": "uint64"
         },
         "goals": {
           "type": "array",
@@ -10356,8 +10335,7 @@
           "title": "the set of smart goals this user witholds"
         },
         "type": {
-          "$ref": "#/definitions/PocketType",
-          "title": "The type of the pocket"
+          "$ref": "#/definitions/PocketType"
         },
         "tags": {
           "type": "array",
@@ -10660,18 +10638,14 @@
       "properties": {
         "id": {
           "type": "string",
-          "format": "uint64",
-          "title": "id"
+          "format": "uint64"
         },
         "userId": {
           "type": "string",
-          "format": "uint64",
-          "title": "the user id to which this goal is tied to"
+          "format": "uint64"
         },
         "name": {
-          "type": "string",
-          "example": "Buy a car",
-          "title": "The name of the goal\nValidations:\n- must be at least 3 characters long"
+          "type": "string"
         },
         "description": {
           "type": "string",
@@ -10745,8 +10719,7 @@
         },
         "userId": {
           "type": "string",
-          "format": "uint64",
-          "description": "The user id who created the note. This can be useful if in the future you allow multiple users to add notes to the same goal."
+          "format": "uint64"
         },
         "content": {
           "type": "string",

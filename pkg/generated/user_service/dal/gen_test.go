@@ -82,6 +82,8 @@ func Test_WithContext(t *testing.T) {
 		qCtx.DigitalWorkerSettingsORM.UnderlyingDB().Statement.Context,
 		qCtx.FinancialPreferencesORM.UnderlyingDB().Statement.Context,
 		qCtx.NotificationSettingsORM.UnderlyingDB().Statement.Context,
+		qCtx.RoleAuditEventsORM.UnderlyingDB().Statement.Context,
+		qCtx.RoleORM.UnderlyingDB().Statement.Context,
 		qCtx.SettingsORM.UnderlyingDB().Statement.Context,
 		qCtx.TagsORM.UnderlyingDB().Statement.Context,
 		qCtx.UserAccountORM.UnderlyingDB().Statement.Context,

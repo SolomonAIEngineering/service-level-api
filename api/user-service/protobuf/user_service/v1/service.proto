@@ -694,4 +694,146 @@ service UserService {
             }
         };
     }
+
+     /**
+    * @brief Creates a new role with the given details.
+    * This RPC adds a new role to the system with the provided information.
+    * URI - /api/v1/role
+    */
+    rpc CreateRole(CreateRoleRequest) returns (CreateRoleResponse) {
+        option (google.api.http) = {
+            post: "/api/v2/role"
+            body: "role"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Creates a new role"
+            tags: ["role"]
+            operation_id: "CreateRole"
+            description: 
+                "This endpoint adds a new role to the system. It requires role details such as name, type, and permissions."
+                "The creation process involves adding the role to the database and initializing its permissions."
+            responses: {
+                key: "200"
+                value: {
+                    description: "Role created successfully."
+                    schema: {
+                        json_schema: {ref: ".user_service.v1.CreateRoleResponse"}
+                    }
+                }
+            }
+        };
+    }
+
+    /**
+    * @brief Retrieves a role based on the provided role ID.
+    * This RPC fetches role details based on the role ID.
+    * URI - /api/v1/role/{id}
+    */
+    rpc GetRole(GetRoleRequest) returns (GetRoleResponse) {
+        option (google.api.http) = {
+            get: "/api/v2/role/{id}"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Retrieves a role"
+            tags: ["role"]
+            operation_id: "GetRole"
+            description: 
+                "This endpoint fetches details of a specific role using the role ID."
+                "It retrieves the role's name, type, permissions, and audit history."
+            responses: {
+                key: "200"
+                value: {
+                    description: "Role retrieval successful."
+                    schema: {
+                        json_schema: {ref: ".user_service.v1.Role"}
+                    }
+                }
+            }
+        };
+    }
+
+    /**
+    * @brief Updates an existing role based on the provided role details.
+    * This RPC updates role details in the system.
+    * URI - /api/v1/role/{id}
+    */
+    rpc UpdateRole(UpdateRoleRequest) returns (UpdateRoleResponse) {
+        option (google.api.http) = {
+            patch: "/api/v1/role/{role.id}"
+            body: "role"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Updates an existing role"
+            tags: ["role"]
+            operation_id: "UpdateRole"
+            description: 
+                "This endpoint updates the details of an existing role. The role ID is used to identify the role to be updated."
+                "The update operation can modify the role's name, type, and permissions."
+            responses: {
+                key: "200"
+                value: {
+                    description: "Role updated successfully."
+                    schema: {
+                        json_schema: {ref: ".user_service.v1.UpdateRoleResponse"}
+                    }
+                }
+            }
+        };
+    }
+
+    /**
+    * @brief Deletes a role based on the provided role ID.
+    * This RPC performs deletion of a role in the system.
+    * URI - /api/v1/role/{id}
+    */
+    rpc DeleteRole(DeleteRoleRequest) returns (DeleteRoleResponse) {
+        option (google.api.http) = {
+            delete: "/api/v1/role/{id}"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Deletes a role"
+            tags: ["role"]
+            operation_id: "DeleteRole"
+            description: 
+                "This endpoint deletes a role from the system based on the provided role ID."
+                "The deletion process ensures that all related data and permissions are properly removed."
+            responses: {
+                key: "200"
+                value: {
+                    description: "Role deleted successfully."
+                    schema: {
+                        json_schema: {ref: ".user_service.v1.DeleteRoleResponse"}
+                    }
+                }
+            }
+        };
+    }
+
+    /**
+    * @brief Lists all roles in the system.
+    * This RPC fetches a list of all roles, with optional pagination.
+    * URI - /api/v1/roles
+    */
+    rpc ListRoles(ListRolesRequest) returns (ListRolesResponse) {
+        option (google.api.http) = {
+            get: "/api/v1/roles"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Lists all roles"
+            tags: ["role"]
+            operation_id: "ListRoles"
+            description: 
+                "This endpoint retrieves a list of all roles in the system. It supports pagination to handle large sets of data."
+                "Each role in the list includes details like name, type, and permissions."
+            responses: {
+                key: "200"
+                value: {
+                    description: "Roles list retrieved successfully."
+                    schema: {
+                        json_schema: {ref: ".user_service.v1.ListRolesResponse"}
+                    }
+                }
+            }
+        };
+    }
 }
