@@ -110,13 +110,6 @@ message DeleteFileResponse {
 }
 
 message UpdateFileRequest {
-    string auth_zero_user_id = 1  [
-      (validate.rules).string.min_len = 1,
-      (google.api.field_behavior) = REQUIRED  
-    ];
-    uint64 file_id = 2;
-    uint64 folder_id = 3;
-    uint64 workspace_id = 4;
     FileMetadata metadata = 5;
 }
 
@@ -154,12 +147,6 @@ message ListFolderResponse {
 }
 
 message UpdateFolderRequest {
-    string auth_zero_user_id = 1  [
-      (validate.rules).string.min_len = 1,
-      (google.api.field_behavior) = REQUIRED  
-    ];
-    uint64 folder_id = 2;
-    uint64 workspace_id = 3;
     FolderMetadata folder = 4;
 }
 
@@ -207,11 +194,6 @@ message ListWorkspaceResponse {
 }
 
 message UpdateWorkspaceRequest {
-    string auth_zero_user_id = 1  [
-      (validate.rules).string.min_len = 1,
-      (google.api.field_behavior) = REQUIRED  
-    ];
-    uint64 workspace_id = 2;
     Workspace workspace = 3;
 }
 

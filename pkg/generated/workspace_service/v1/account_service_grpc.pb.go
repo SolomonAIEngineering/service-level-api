@@ -25,12 +25,15 @@ const (
 	WorkspaceService_UploadFile_FullMethodName      = "/workspace_service.v1.WorkspaceService/UploadFile"
 	WorkspaceService_DownloadFile_FullMethodName    = "/workspace_service.v1.WorkspaceService/DownloadFile"
 	WorkspaceService_DeleteFile_FullMethodName      = "/workspace_service.v1.WorkspaceService/DeleteFile"
+	WorkspaceService_UpdateFile_FullMethodName      = "/workspace_service.v1.WorkspaceService/UpdateFile"
 	WorkspaceService_CreateFolder_FullMethodName    = "/workspace_service.v1.WorkspaceService/CreateFolder"
 	WorkspaceService_ListFolder_FullMethodName      = "/workspace_service.v1.WorkspaceService/ListFolder"
+	WorkspaceService_UpdateFolder_FullMethodName    = "/workspace_service.v1.WorkspaceService/UpdateFolder"
 	WorkspaceService_DeleteFolder_FullMethodName    = "/workspace_service.v1.WorkspaceService/DeleteFolder"
 	WorkspaceService_CreateWorkspace_FullMethodName = "/workspace_service.v1.WorkspaceService/CreateWorkspace"
 	WorkspaceService_ListWorkspace_FullMethodName   = "/workspace_service.v1.WorkspaceService/ListWorkspace"
 	WorkspaceService_DeleteWorkspace_FullMethodName = "/workspace_service.v1.WorkspaceService/DeleteWorkspace"
+	WorkspaceService_UpdateWorkspace_FullMethodName = "/workspace_service.v1.WorkspaceService/UpdateWorkspace"
 )
 
 // WorkspaceServiceClient is the client API for WorkspaceService service.
@@ -47,10 +50,14 @@ type WorkspaceServiceClient interface {
 	DownloadFile(ctx context.Context, in *DownloadFileRequest, opts ...grpc.CallOption) (WorkspaceService_DownloadFileClient, error)
 	// Delete a File
 	DeleteFile(ctx context.Context, in *DeleteFileRequest, opts ...grpc.CallOption) (*DeleteFileResponse, error)
+	// Update a File
+	UpdateFile(ctx context.Context, in *UpdateFileRequest, opts ...grpc.CallOption) (*UpdateFileResponse, error)
 	// Create a Folder Metadata
 	CreateFolder(ctx context.Context, in *CreateFolderRequest, opts ...grpc.CallOption) (*CreateFolderResponse, error)
 	// Read a Folder Metadata
 	ListFolder(ctx context.Context, in *ListFolderRequest, opts ...grpc.CallOption) (*ListFolderResponse, error)
+	// Update a Folder Metadata
+	UpdateFolder(ctx context.Context, in *UpdateFolderRequest, opts ...grpc.CallOption) (*UpdateFolderResponse, error)
 	// Delete a Folder Metadata
 	DeleteFolder(ctx context.Context, in *DeleteFolderRequest, opts ...grpc.CallOption) (*DeleteFolderResponse, error)
 	// Create a Workspace
@@ -59,6 +66,8 @@ type WorkspaceServiceClient interface {
 	ListWorkspace(ctx context.Context, in *ListWorkspaceRequest, opts ...grpc.CallOption) (*ListWorkspaceResponse, error)
 	// Delete a Workspace
 	DeleteWorkspace(ctx context.Context, in *DeleteWorkspaceRequest, opts ...grpc.CallOption) (*DeleteWorkspaceResponse, error)
+	// Update a Workspace
+	UpdateWorkspace(ctx context.Context, in *UpdateWorkspaceRequest, opts ...grpc.CallOption) (*UpdateWorkspaceResponse, error)
 }
 
 type workspaceServiceClient struct {
@@ -171,6 +180,15 @@ func (c *workspaceServiceClient) DeleteFile(ctx context.Context, in *DeleteFileR
 	return out, nil
 }
 
+func (c *workspaceServiceClient) UpdateFile(ctx context.Context, in *UpdateFileRequest, opts ...grpc.CallOption) (*UpdateFileResponse, error) {
+	out := new(UpdateFileResponse)
+	err := c.cc.Invoke(ctx, WorkspaceService_UpdateFile_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *workspaceServiceClient) CreateFolder(ctx context.Context, in *CreateFolderRequest, opts ...grpc.CallOption) (*CreateFolderResponse, error) {
 	out := new(CreateFolderResponse)
 	err := c.cc.Invoke(ctx, WorkspaceService_CreateFolder_FullMethodName, in, out, opts...)
@@ -183,6 +201,15 @@ func (c *workspaceServiceClient) CreateFolder(ctx context.Context, in *CreateFol
 func (c *workspaceServiceClient) ListFolder(ctx context.Context, in *ListFolderRequest, opts ...grpc.CallOption) (*ListFolderResponse, error) {
 	out := new(ListFolderResponse)
 	err := c.cc.Invoke(ctx, WorkspaceService_ListFolder_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workspaceServiceClient) UpdateFolder(ctx context.Context, in *UpdateFolderRequest, opts ...grpc.CallOption) (*UpdateFolderResponse, error) {
+	out := new(UpdateFolderResponse)
+	err := c.cc.Invoke(ctx, WorkspaceService_UpdateFolder_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -225,6 +252,15 @@ func (c *workspaceServiceClient) DeleteWorkspace(ctx context.Context, in *Delete
 	return out, nil
 }
 
+func (c *workspaceServiceClient) UpdateWorkspace(ctx context.Context, in *UpdateWorkspaceRequest, opts ...grpc.CallOption) (*UpdateWorkspaceResponse, error) {
+	out := new(UpdateWorkspaceResponse)
+	err := c.cc.Invoke(ctx, WorkspaceService_UpdateWorkspace_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // WorkspaceServiceServer is the server API for WorkspaceService service.
 // All implementations must embed UnimplementedWorkspaceServiceServer
 // for forward compatibility
@@ -239,10 +275,14 @@ type WorkspaceServiceServer interface {
 	DownloadFile(*DownloadFileRequest, WorkspaceService_DownloadFileServer) error
 	// Delete a File
 	DeleteFile(context.Context, *DeleteFileRequest) (*DeleteFileResponse, error)
+	// Update a File
+	UpdateFile(context.Context, *UpdateFileRequest) (*UpdateFileResponse, error)
 	// Create a Folder Metadata
 	CreateFolder(context.Context, *CreateFolderRequest) (*CreateFolderResponse, error)
 	// Read a Folder Metadata
 	ListFolder(context.Context, *ListFolderRequest) (*ListFolderResponse, error)
+	// Update a Folder Metadata
+	UpdateFolder(context.Context, *UpdateFolderRequest) (*UpdateFolderResponse, error)
 	// Delete a Folder Metadata
 	DeleteFolder(context.Context, *DeleteFolderRequest) (*DeleteFolderResponse, error)
 	// Create a Workspace
@@ -251,6 +291,8 @@ type WorkspaceServiceServer interface {
 	ListWorkspace(context.Context, *ListWorkspaceRequest) (*ListWorkspaceResponse, error)
 	// Delete a Workspace
 	DeleteWorkspace(context.Context, *DeleteWorkspaceRequest) (*DeleteWorkspaceResponse, error)
+	// Update a Workspace
+	UpdateWorkspace(context.Context, *UpdateWorkspaceRequest) (*UpdateWorkspaceResponse, error)
 	mustEmbedUnimplementedWorkspaceServiceServer()
 }
 
@@ -276,11 +318,17 @@ func (UnimplementedWorkspaceServiceServer) DownloadFile(*DownloadFileRequest, Wo
 func (UnimplementedWorkspaceServiceServer) DeleteFile(context.Context, *DeleteFileRequest) (*DeleteFileResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteFile not implemented")
 }
+func (UnimplementedWorkspaceServiceServer) UpdateFile(context.Context, *UpdateFileRequest) (*UpdateFileResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateFile not implemented")
+}
 func (UnimplementedWorkspaceServiceServer) CreateFolder(context.Context, *CreateFolderRequest) (*CreateFolderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateFolder not implemented")
 }
 func (UnimplementedWorkspaceServiceServer) ListFolder(context.Context, *ListFolderRequest) (*ListFolderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListFolder not implemented")
+}
+func (UnimplementedWorkspaceServiceServer) UpdateFolder(context.Context, *UpdateFolderRequest) (*UpdateFolderResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateFolder not implemented")
 }
 func (UnimplementedWorkspaceServiceServer) DeleteFolder(context.Context, *DeleteFolderRequest) (*DeleteFolderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteFolder not implemented")
@@ -293,6 +341,9 @@ func (UnimplementedWorkspaceServiceServer) ListWorkspace(context.Context, *ListW
 }
 func (UnimplementedWorkspaceServiceServer) DeleteWorkspace(context.Context, *DeleteWorkspaceRequest) (*DeleteWorkspaceResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteWorkspace not implemented")
+}
+func (UnimplementedWorkspaceServiceServer) UpdateWorkspace(context.Context, *UpdateWorkspaceRequest) (*UpdateWorkspaceResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateWorkspace not implemented")
 }
 func (UnimplementedWorkspaceServiceServer) mustEmbedUnimplementedWorkspaceServiceServer() {}
 
@@ -426,6 +477,24 @@ func _WorkspaceService_DeleteFile_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _WorkspaceService_UpdateFile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateFileRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkspaceServiceServer).UpdateFile(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WorkspaceService_UpdateFile_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkspaceServiceServer).UpdateFile(ctx, req.(*UpdateFileRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _WorkspaceService_CreateFolder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateFolderRequest)
 	if err := dec(in); err != nil {
@@ -458,6 +527,24 @@ func _WorkspaceService_ListFolder_Handler(srv interface{}, ctx context.Context, 
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(WorkspaceServiceServer).ListFolder(ctx, req.(*ListFolderRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _WorkspaceService_UpdateFolder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateFolderRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkspaceServiceServer).UpdateFolder(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WorkspaceService_UpdateFolder_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkspaceServiceServer).UpdateFolder(ctx, req.(*UpdateFolderRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -534,6 +621,24 @@ func _WorkspaceService_DeleteWorkspace_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _WorkspaceService_UpdateWorkspace_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateWorkspaceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkspaceServiceServer).UpdateWorkspace(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WorkspaceService_UpdateWorkspace_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkspaceServiceServer).UpdateWorkspace(ctx, req.(*UpdateWorkspaceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // WorkspaceService_ServiceDesc is the grpc.ServiceDesc for WorkspaceService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -558,12 +663,20 @@ var WorkspaceService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _WorkspaceService_DeleteFile_Handler,
 		},
 		{
+			MethodName: "UpdateFile",
+			Handler:    _WorkspaceService_UpdateFile_Handler,
+		},
+		{
 			MethodName: "CreateFolder",
 			Handler:    _WorkspaceService_CreateFolder_Handler,
 		},
 		{
 			MethodName: "ListFolder",
 			Handler:    _WorkspaceService_ListFolder_Handler,
+		},
+		{
+			MethodName: "UpdateFolder",
+			Handler:    _WorkspaceService_UpdateFolder_Handler,
 		},
 		{
 			MethodName: "DeleteFolder",
@@ -580,6 +693,10 @@ var WorkspaceService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteWorkspace",
 			Handler:    _WorkspaceService_DeleteWorkspace_Handler,
+		},
+		{
+			MethodName: "UpdateWorkspace",
+			Handler:    _WorkspaceService_UpdateWorkspace_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{

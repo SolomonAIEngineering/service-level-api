@@ -1923,23 +1923,6 @@ func (m *UpdateFileRequest) validate(all bool) error {
 
 	var errors []error
 
-	if utf8.RuneCountInString(m.GetAuthZeroUserId()) < 1 {
-		err := UpdateFileRequestValidationError{
-			field:  "AuthZeroUserId",
-			reason: "value length must be at least 1 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	// no validation rules for FileId
-
-	// no validation rules for FolderId
-
-	// no validation rules for WorkspaceId
-
 	if all {
 		switch v := interface{}(m.GetMetadata()).(type) {
 		case interface{ ValidateAll() error }:
@@ -2706,21 +2689,6 @@ func (m *UpdateFolderRequest) validate(all bool) error {
 	}
 
 	var errors []error
-
-	if utf8.RuneCountInString(m.GetAuthZeroUserId()) < 1 {
-		err := UpdateFolderRequestValidationError{
-			field:  "AuthZeroUserId",
-			reason: "value length must be at least 1 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	// no validation rules for FolderId
-
-	// no validation rules for WorkspaceId
 
 	if all {
 		switch v := interface{}(m.GetFolder()).(type) {
@@ -3703,19 +3671,6 @@ func (m *UpdateWorkspaceRequest) validate(all bool) error {
 	}
 
 	var errors []error
-
-	if utf8.RuneCountInString(m.GetAuthZeroUserId()) < 1 {
-		err := UpdateWorkspaceRequestValidationError{
-			field:  "AuthZeroUserId",
-			reason: "value length must be at least 1 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	// no validation rules for WorkspaceId
 
 	if all {
 		switch v := interface{}(m.GetWorkspace()).(type) {

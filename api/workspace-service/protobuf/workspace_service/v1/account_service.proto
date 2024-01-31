@@ -148,6 +148,29 @@ service WorkspaceService {
         };
     }
 
+// Update a File
+    rpc UpdateFile(UpdateFileRequest) returns (UpdateFileResponse) {
+        option (google.api.http) = {
+            put: "/api/v1/files"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Update a file"
+            tags: ["File"]
+            operation_id: "UpdateFile"
+            description: "This endpoint updates a file by ID"
+            responses: {
+                key: "200"
+                value: {
+                    description: "File update successful"
+                    schema: {
+                        json_schema: { ref: ".workspace_service.v1.UpdateFileResponse" }
+                    }
+                }
+            }
+        };
+    }
+
     // Create a Folder Metadata
     rpc CreateFolder(CreateFolderRequest) returns (CreateFolderResponse) {
         option (google.api.http) = {
@@ -187,6 +210,29 @@ service WorkspaceService {
                     description: "Folder list retrieved successfully"
                     schema: {
                         json_schema: { ref: ".workspace_service.v1.ListFolderResponse" }
+                    }
+                }
+            }
+        };
+    }
+
+    // Update a Folder Metadata
+    rpc UpdateFolder(UpdateFolderRequest) returns (UpdateFolderResponse) {
+        option (google.api.http) = {
+            put: "/api/v1/folders"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Update a folder"
+            tags: ["Folder"]
+            operation_id: "UpdateFolder"
+            description: "This endpoint updates a folder by ID"
+            responses: {
+                key: "200"
+                value: {
+                    description: "Folder update successful"
+                    schema: {
+                        json_schema: { ref: ".workspace_service.v1.UpdateFolderResponse" }
                     }
                 }
             }
@@ -277,6 +323,29 @@ service WorkspaceService {
                     description: "Workspace deletion successful"
                     schema: {
                         json_schema: { ref: ".workspace_service.v1.DeleteWorkspaceResponse" }
+                    }
+                }
+            }
+        };
+    }
+
+    // Update a Workspace
+    rpc UpdateWorkspace(UpdateWorkspaceRequest) returns (UpdateWorkspaceResponse) {
+        option (google.api.http) = {
+            put: "/api/v1/workspaces"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Update a workspace"
+            tags: ["Workspace"]
+            operation_id: "UpdateWorkspace"
+            description: "This endpoint updates a workspace by ID"
+            responses: {
+                key: "200"
+                value: {
+                    description: "Workspace update successful"
+                    schema: {
+                        json_schema: { ref: ".workspace_service.v1.UpdateWorkspaceResponse" }
                     }
                 }
             }

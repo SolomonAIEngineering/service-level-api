@@ -179,6 +179,58 @@
         ]
       }
     },
+    "/api/v1/files": {
+      "put": {
+        "summary": "Update a file",
+        "description": "This endpoint updates a file by ID",
+        "operationId": "UpdateFile",
+        "responses": {
+          "200": {
+            "description": "File update successful",
+            "schema": {
+              "$ref": "#/definitions/UpdateFileResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateFileRequest"
+            }
+          }
+        ],
+        "tags": [
+          "File"
+        ]
+      }
+    },
     "/api/v1/files/upload": {
       "post": {
         "summary": "Upload a file",
@@ -484,6 +536,56 @@
         "tags": [
           "Folder"
         ]
+      },
+      "put": {
+        "summary": "Update a folder",
+        "description": "This endpoint updates a folder by ID",
+        "operationId": "UpdateFolder",
+        "responses": {
+          "200": {
+            "description": "Folder update successful",
+            "schema": {
+              "$ref": "#/definitions/UpdateFolderResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateFolderRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Folder"
+        ]
       }
     },
     "/api/v1/folders/{folderId}": {
@@ -642,6 +744,56 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/CreateWorkspaceRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Workspace"
+        ]
+      },
+      "put": {
+        "summary": "Update a workspace",
+        "description": "This endpoint updates a workspace by ID",
+        "operationId": "UpdateWorkspace",
+        "responses": {
+          "200": {
+            "description": "Workspace update successful",
+            "schema": {
+              "$ref": "#/definitions/UpdateWorkspaceResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateWorkspaceRequest"
             }
           }
         ],
@@ -1068,6 +1220,54 @@
             "type": "object",
             "$ref": "#/definitions/Any"
           }
+        }
+      }
+    },
+    "UpdateFileRequest": {
+      "type": "object",
+      "properties": {
+        "metadata": {
+          "$ref": "#/definitions/FileMetadata"
+        }
+      }
+    },
+    "UpdateFileResponse": {
+      "type": "object",
+      "properties": {
+        "metadata": {
+          "$ref": "#/definitions/FileMetadata"
+        }
+      }
+    },
+    "UpdateFolderRequest": {
+      "type": "object",
+      "properties": {
+        "folder": {
+          "$ref": "#/definitions/FolderMetadata"
+        }
+      }
+    },
+    "UpdateFolderResponse": {
+      "type": "object",
+      "properties": {
+        "folder": {
+          "$ref": "#/definitions/FolderMetadata"
+        }
+      }
+    },
+    "UpdateWorkspaceRequest": {
+      "type": "object",
+      "properties": {
+        "workspace": {
+          "$ref": "#/definitions/Workspace"
+        }
+      }
+    },
+    "UpdateWorkspaceResponse": {
+      "type": "object",
+      "properties": {
+        "workspace": {
+          "$ref": "#/definitions/Workspace"
         }
       }
     },
