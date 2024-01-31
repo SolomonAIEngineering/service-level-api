@@ -1,0 +1,174 @@
+syntax = "proto3";
+
+package workspace_service.v1;
+
+import "protoc-gen-gorm/options/gorm.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/generated/workspace_service/v1";
+
+/**
+ * @brief Represents an account in the context of the service.
+ */
+message Account {
+  option (gorm.opts) = {
+    ormable: true
+  };
+
+  // Unique identifier for the account.
+  uint64 id = 1 [(gorm.field).tag = {unique_index: "idx_user_id"}];
+
+  // Auth0 user id
+  string auth0_user_id = 2 [
+    (gorm.field).tag = {unique_index: "idx_user_auth0_user_id"}
+  ];
+
+  // user account of interest can have many workspaces
+  repeated Workspace workspace = 3 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+}
+
+
+// File Metadata
+message FileMetadata {
+    option (gorm.opts) = {
+     ormable: true
+    };
+
+    uint64 id = 1  [(gorm.field).tag = {unique_index: "idx_file_id"}];
+    string name = 2;
+
+    // Timestamp when the file was created.
+    google.protobuf.Timestamp created_at = 4;
+
+    // Timestamp when the file was last updated.
+    google.protobuf.Timestamp updated_at = 5;
+
+    // Size of the file in bytes.
+    int64 size = 6;
+
+    // Type of the file (e.g., 'text', 'image', 'video').
+    string file_type = 7;
+
+
+    // Tags associated with the file.
+    repeated string tags = 9;
+
+    // Flag indicating if the file is marked as deleted.
+    bool is_deleted = 10;
+
+    // Version of the file metadata format.
+    int32 version = 11;
+
+    // s3 key path
+    // S3 key (path within the S3 bucket) for the file.
+    string s3_key = 12;
+
+    // Name of the S3 bucket where the file is stored.
+    string s3_bucket_name = 13;
+
+    // AWS region where the S3 bucket is located.
+    string s3_region = 14;
+
+    // Version ID of the file, used when versioning is enabled in the S3 bucket.
+    string s3_version_id = 15;
+
+    // Entity tag (ETag) of the file, a hash of the file used for change detection.
+    string s3_etag = 16;
+
+    // MIME type of the file.
+    string s3_content_type = 17;
+
+    // Size of the file in bytes.
+    int64 s3_content_length = 18;
+
+    // Encoding format used on the file, if any (e.g., gzip).
+    string s3_content_encoding = 19;
+
+    // How the file is to be presented in a web browser (attachment, inline).
+    string s3_content_disposition = 20;
+
+    // The date and time when the file was last modified in S3.
+    google.protobuf.Timestamp s3_last_modified = 21;
+
+    // S3 storage class of the file (e.g., STANDARD, INTELLIGENT_TIERING, GLACIER).
+    string s3_storage_class = 22;
+
+    // Details of server-side encryption used on the file, if any (e.g., AES256, aws:kms).
+    string s3_server_side_encryption = 23;
+
+    // Access control list (ACL) permissions for the file in S3.
+    string s3_acl = 24;
+
+    // Custom metadata added to the file in S3 as key-value pairs.
+    map<string, string> s3_metadata = 25;
+}
+
+// Folder Metadata
+message FolderMetadata {
+    option (gorm.opts) = {
+     ormable: true
+    };
+    uint64 id = 1  [(gorm.field).tag = {unique_index: "idx_folder_id"}];
+    string name = 2;
+    // folders can have many children folders
+    repeated FolderMetadata child_folder = 4 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+    google.protobuf.Timestamp created_at = 5;
+    google.protobuf.Timestamp updated_at = 6;
+
+    // files present in the folder of the workspace
+    repeated FileMetadata files = 7 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+    bool is_deleted = 8;
+    
+    // The S3 bucket name where the folder is located.
+    string s3_bucket_name = 12;
+
+    // The prefix path representing the folder in the S3 bucket.
+    string s3_folder_path = 13;
+
+    // AWS region where the S3 bucket containing the folder is located.
+    string s3_region = 14;
+
+    // Custom metadata for the folder, represented as key-value pairs.
+    map<string, string> s3_metadata = 15;
+
+    // Access control list (ACL) permissions for the folder in S3.
+    string s3_acl = 16;
+
+    // The date and time when the folder was last modified in S3.
+    // This might represent the last time a file was added, removed, or changed in the folder.
+    google.protobuf.Timestamp s3_last_modified = 17;
+}
+
+// Workspace
+message Workspace {
+    option (gorm.opts) = {
+     ormable: true
+    };
+    string id = 1  [(gorm.field).tag = {unique_index: "idx_workspace_id"}];
+    string name = 2;
+    google.protobuf.Timestamp created_at = 3;
+    google.protobuf.Timestamp updated_at = 4;
+    repeated string tags = 5;
+    repeated FolderMetadata folders = 6 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+    int32 version = 7;
+    bool is_deleted = 8;
+    
+    // The S3 bucket name where the folder is located.
+    string s3_bucket_name = 12;
+
+    // The prefix path representing the folder in the S3 bucket.
+    string s3_folder_path = 13;
+
+    // AWS region where the S3 bucket containing the folder is located.
+    string s3_region = 14;
+
+    // Custom metadata for the folder, represented as key-value pairs.
+    map<string, string> s3_metadata = 15;
+
+    // Access control list (ACL) permissions for the folder in S3.
+    string s3_acl = 16;
+
+    // The date and time when the folder was last modified in S3.
+    // This might represent the last time a file was added, removed, or changed in the folder.
+    google.protobuf.Timestamp s3_last_modified = 17;
+}

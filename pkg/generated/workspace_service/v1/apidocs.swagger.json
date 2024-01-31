@@ -1,0 +1,1174 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "User Service",
+    "description": "With our AI-driven financial recommendations track your spending, create a budget, save for the future, all while connecting with others who are on the same financial journey as you !",
+    "version": "0.1",
+    "contact": {
+      "name": "YoanYomba",
+      "url": "https://solomon-ai.io",
+      "email": "yoanyomba@solomon-ai.co"
+    },
+    "license": {
+      "name": "Apache-2.0",
+      "url": "https://github.com/openfga/openfga/blob/main/LICENSE"
+    }
+  },
+  "tags": [
+    {
+      "name": "WorkspaceService"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v1/accounts": {
+      "post": {
+        "summary": "Create a new account",
+        "description": "This endpoint creates a new user account",
+        "operationId": "CreateAccount",
+        "responses": {
+          "200": {
+            "description": "Account creation successful",
+            "schema": {
+              "$ref": "#/definitions/Account"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateAccountRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Account"
+        ]
+      }
+    },
+    "/api/v1/accounts/{authZeroUserId}": {
+      "get": {
+        "summary": "Get account by ID",
+        "description": "This endpoint retrieves account details by ID",
+        "operationId": "GetAccount",
+        "responses": {
+          "200": {
+            "description": "Account retrieval successful",
+            "schema": {
+              "$ref": "#/definitions/Account"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "authZeroUserId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Account"
+        ]
+      },
+      "delete": {
+        "summary": "Delete an account",
+        "description": "This endpoint deletes an account by ID",
+        "operationId": "DeleteAccount",
+        "responses": {
+          "200": {
+            "description": "Account deletion successful",
+            "schema": {
+              "$ref": "#/definitions/DeleteAccountResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "authZeroUserId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Account"
+        ]
+      }
+    },
+    "/api/v1/files/upload": {
+      "post": {
+        "summary": "Upload a file",
+        "description": "This endpoint uploads a file",
+        "operationId": "UploadFile",
+        "responses": {
+          "200": {
+            "description": "File upload successful",
+            "schema": {
+              "$ref": "#/definitions/UploadFileResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": " (streaming inputs)",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UploadFileRequest"
+            }
+          }
+        ],
+        "tags": [
+          "File"
+        ]
+      }
+    },
+    "/api/v1/files/{fileId}": {
+      "get": {
+        "summary": "Download a file",
+        "description": "This endpoint downloads a file by ID",
+        "operationId": "DownloadFile",
+        "responses": {
+          "200": {
+            "description": "File download successful",
+            "schema": {
+              "$ref": "#/definitions/DownloadFileResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "fileId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "authZeroUserId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "folderId",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "workspaceId",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "File"
+        ]
+      },
+      "delete": {
+        "summary": "Delete a file",
+        "description": "This endpoint deletes a file by ID",
+        "operationId": "DeleteFile",
+        "responses": {
+          "200": {
+            "description": "File deletion successful",
+            "schema": {
+              "$ref": "#/definitions/DeleteFileResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "fileId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "authZeroUserId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "folderId",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "workspaceId",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "File"
+        ]
+      }
+    },
+    "/api/v1/folders": {
+      "get": {
+        "summary": "List folders",
+        "description": "This endpoint lists all folders",
+        "operationId": "ListFolder",
+        "responses": {
+          "200": {
+            "description": "Folder list retrieved successfully",
+            "schema": {
+              "$ref": "#/definitions/ListFolderResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "authZeroUserId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "folderId",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "workspaceId",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "Folder"
+        ]
+      },
+      "post": {
+        "summary": "Create a folder",
+        "description": "This endpoint creates a new folder",
+        "operationId": "CreateFolder",
+        "responses": {
+          "200": {
+            "description": "Folder creation successful",
+            "schema": {
+              "$ref": "#/definitions/CreateFolderResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateFolderRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Folder"
+        ]
+      }
+    },
+    "/api/v1/folders/{folderId}": {
+      "delete": {
+        "summary": "Delete a folder",
+        "description": "This endpoint deletes a folder by ID",
+        "operationId": "DeleteFolder",
+        "responses": {
+          "200": {
+            "description": "Folder deletion successful",
+            "schema": {
+              "$ref": "#/definitions/DeleteFolderResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "folderId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "authZeroUserId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "workspaceId",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "Folder"
+        ]
+      }
+    },
+    "/api/v1/workspaces": {
+      "get": {
+        "summary": "List workspaces",
+        "description": "This endpoint lists all workspaces",
+        "operationId": "ListWorkspace",
+        "responses": {
+          "200": {
+            "description": "Workspace list retrieved successfully",
+            "schema": {
+              "$ref": "#/definitions/ListWorkspaceResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "authZeroUserId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Workspace"
+        ]
+      },
+      "post": {
+        "summary": "Create a workspace",
+        "description": "This endpoint creates a new workspace",
+        "operationId": "CreateWorkspace",
+        "responses": {
+          "200": {
+            "description": "Workspace creation successful",
+            "schema": {
+              "$ref": "#/definitions/CreateWorkspaceResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateWorkspaceRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Workspace"
+        ]
+      }
+    },
+    "/api/v1/workspaces/{workspaceId}": {
+      "delete": {
+        "summary": "Delete a workspace",
+        "description": "This endpoint deletes a workspace by ID",
+        "operationId": "DeleteWorkspace",
+        "responses": {
+          "200": {
+            "description": "Workspace deletion successful",
+            "schema": {
+              "$ref": "#/definitions/DeleteWorkspaceResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "authZeroUserId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Workspace"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "Account": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64",
+          "description": "Unique identifier for the account."
+        },
+        "auth0UserId": {
+          "type": "string",
+          "title": "Auth0 user id"
+        },
+        "workspace": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/Workspace"
+          },
+          "title": "user account of interest can have many workspaces"
+        }
+      },
+      "description": "@brief Represents an account in the context of the service."
+    },
+    "Any": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "CreateAccountRequest": {
+      "type": "object",
+      "properties": {
+        "authZeroUserId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "authZeroUserId"
+      ]
+    },
+    "CreateAccountResponse": {
+      "type": "object",
+      "properties": {
+        "account": {
+          "$ref": "#/definitions/Account"
+        }
+      }
+    },
+    "CreateFolderRequest": {
+      "type": "object",
+      "properties": {
+        "authZeroUserId": {
+          "type": "string"
+        },
+        "workspaceId": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "authZeroUserId",
+        "name"
+      ]
+    },
+    "CreateFolderResponse": {
+      "type": "object",
+      "properties": {
+        "folder": {
+          "$ref": "#/definitions/FolderMetadata"
+        }
+      }
+    },
+    "CreateWorkspaceRequest": {
+      "type": "object",
+      "properties": {
+        "authZeroUserId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "authZeroUserId",
+        "name"
+      ]
+    },
+    "CreateWorkspaceResponse": {
+      "type": "object",
+      "properties": {
+        "workspace": {
+          "$ref": "#/definitions/Workspace"
+        }
+      }
+    },
+    "DeleteAccountResponse": {
+      "type": "object",
+      "properties": {
+        "isDeleted": {
+          "type": "boolean"
+        }
+      }
+    },
+    "DeleteFileResponse": {
+      "type": "object",
+      "properties": {
+        "isDeleted": {
+          "type": "boolean"
+        }
+      }
+    },
+    "DeleteFolderResponse": {
+      "type": "object",
+      "properties": {
+        "isDeleted": {
+          "type": "boolean"
+        }
+      }
+    },
+    "DeleteWorkspaceResponse": {
+      "type": "object",
+      "properties": {
+        "isDeleted": {
+          "type": "boolean"
+        }
+      }
+    },
+    "DownloadFileResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "FileMetadata": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the file was created."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the file was last updated."
+        },
+        "size": {
+          "type": "string",
+          "format": "int64",
+          "description": "Size of the file in bytes."
+        },
+        "fileType": {
+          "type": "string",
+          "description": "Type of the file (e.g., 'text', 'image', 'video')."
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Tags associated with the file."
+        },
+        "isDeleted": {
+          "type": "boolean",
+          "description": "Flag indicating if the file is marked as deleted."
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Version of the file metadata format."
+        },
+        "s3Key": {
+          "type": "string",
+          "description": "s3 key path\nS3 key (path within the S3 bucket) for the file."
+        },
+        "s3BucketName": {
+          "type": "string",
+          "description": "Name of the S3 bucket where the file is stored."
+        },
+        "s3Region": {
+          "type": "string",
+          "description": "AWS region where the S3 bucket is located."
+        },
+        "s3VersionId": {
+          "type": "string",
+          "description": "Version ID of the file, used when versioning is enabled in the S3 bucket."
+        },
+        "s3Etag": {
+          "type": "string",
+          "description": "Entity tag (ETag) of the file, a hash of the file used for change detection."
+        },
+        "s3ContentType": {
+          "type": "string",
+          "description": "MIME type of the file."
+        },
+        "s3ContentLength": {
+          "type": "string",
+          "format": "int64",
+          "description": "Size of the file in bytes."
+        },
+        "s3ContentEncoding": {
+          "type": "string",
+          "description": "Encoding format used on the file, if any (e.g., gzip)."
+        },
+        "s3ContentDisposition": {
+          "type": "string",
+          "description": "How the file is to be presented in a web browser (attachment, inline)."
+        },
+        "s3LastModified": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date and time when the file was last modified in S3."
+        },
+        "s3StorageClass": {
+          "type": "string",
+          "description": "S3 storage class of the file (e.g., STANDARD, INTELLIGENT_TIERING, GLACIER)."
+        },
+        "s3ServerSideEncryption": {
+          "type": "string",
+          "description": "Details of server-side encryption used on the file, if any (e.g., AES256, aws:kms)."
+        },
+        "s3Acl": {
+          "type": "string",
+          "description": "Access control list (ACL) permissions for the file in S3."
+        },
+        "s3Metadata": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Custom metadata added to the file in S3 as key-value pairs."
+        }
+      },
+      "title": "File Metadata"
+    },
+    "FolderMetadata": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "childFolder": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/FolderMetadata"
+          },
+          "title": "folders can have many children folders"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/FileMetadata"
+          },
+          "title": "files present in the folder of the workspace"
+        },
+        "isDeleted": {
+          "type": "boolean"
+        },
+        "s3BucketName": {
+          "type": "string",
+          "description": "The S3 bucket name where the folder is located."
+        },
+        "s3FolderPath": {
+          "type": "string",
+          "description": "The prefix path representing the folder in the S3 bucket."
+        },
+        "s3Region": {
+          "type": "string",
+          "description": "AWS region where the S3 bucket containing the folder is located."
+        },
+        "s3Metadata": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Custom metadata for the folder, represented as key-value pairs."
+        },
+        "s3Acl": {
+          "type": "string",
+          "description": "Access control list (ACL) permissions for the folder in S3."
+        },
+        "s3LastModified": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date and time when the folder was last modified in S3.\nThis might represent the last time a file was added, removed, or changed in the folder."
+        }
+      },
+      "title": "Folder Metadata"
+    },
+    "GetAccountResponse": {
+      "type": "object",
+      "properties": {
+        "account": {
+          "$ref": "#/definitions/Account"
+        }
+      }
+    },
+    "ListFolderResponse": {
+      "type": "object",
+      "properties": {
+        "folder": {
+          "$ref": "#/definitions/FolderMetadata"
+        }
+      }
+    },
+    "ListWorkspaceResponse": {
+      "type": "object",
+      "properties": {
+        "workspace": {
+          "$ref": "#/definitions/Workspace"
+        }
+      }
+    },
+    "Status": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/Any"
+          }
+        }
+      }
+    },
+    "UploadFileRequest": {
+      "type": "object",
+      "properties": {
+        "authZeroUserId": {
+          "type": "string"
+        },
+        "folderId": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "data": {
+          "type": "string",
+          "format": "byte"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "authZeroUserId",
+        "name"
+      ]
+    },
+    "UploadFileResponse": {
+      "type": "object",
+      "properties": {
+        "metadata": {
+          "$ref": "#/definitions/FileMetadata"
+        }
+      }
+    },
+    "Workspace": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "folders": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/FolderMetadata"
+          }
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "isDeleted": {
+          "type": "boolean"
+        },
+        "s3BucketName": {
+          "type": "string",
+          "description": "The S3 bucket name where the folder is located."
+        },
+        "s3FolderPath": {
+          "type": "string",
+          "description": "The prefix path representing the folder in the S3 bucket."
+        },
+        "s3Region": {
+          "type": "string",
+          "description": "AWS region where the S3 bucket containing the folder is located."
+        },
+        "s3Metadata": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Custom metadata for the folder, represented as key-value pairs."
+        },
+        "s3Acl": {
+          "type": "string",
+          "description": "Access control list (ACL) permissions for the folder in S3."
+        },
+        "s3LastModified": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date and time when the folder was last modified in S3.\nThis might represent the last time a file was added, removed, or changed in the folder."
+        }
+      },
+      "title": "Workspace"
+    }
+  }
+}

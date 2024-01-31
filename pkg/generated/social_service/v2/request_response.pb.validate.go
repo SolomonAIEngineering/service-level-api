@@ -568,10 +568,10 @@ func (m *GetUserProfileRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := GetUserProfileRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -1136,10 +1136,10 @@ func (m *DeleteUserProfileRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := DeleteUserProfileRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -1249,10 +1249,10 @@ func (m *DeleteCommunityProfileRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := DeleteCommunityProfileRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -1374,10 +1374,10 @@ func (m *EditUserProfileRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := EditUserProfileRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -2178,10 +2178,10 @@ func (m *CreatePostRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := CreatePostRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -2335,10 +2335,10 @@ func (m *DeletePostRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := DeletePostRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -2640,10 +2640,10 @@ func (m *GetPostRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := GetPostRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -2916,10 +2916,10 @@ func (m *GetUserFeedRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := GetUserFeedRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -3764,10 +3764,10 @@ func (m *GetPendingFollowsRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := GetPendingFollowsRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -3878,10 +3878,10 @@ func (m *GetCommunitiesUserFollowsRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := GetCommunitiesUserFollowsRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -4006,10 +4006,10 @@ func (m *GetTopicsOfCommunitiesUserFollowsRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := GetTopicsOfCommunitiesUserFollowsRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -4763,10 +4763,10 @@ func (m *ReportPostRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := ReportPostRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -4902,10 +4902,10 @@ func (m *ReportCommentRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := ReportCommentRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -5294,10 +5294,10 @@ func (m *DiscoverProfilesRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := DiscoverProfilesRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -10414,10 +10414,10 @@ func (m *CreatePollRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := CreatePollRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -10671,10 +10671,10 @@ func (m *DeletePollRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := DeletePollRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -10899,10 +10899,10 @@ func (m *GetPollRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := GetPollRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -11150,10 +11150,10 @@ func (m *GetPollsRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := GetPollsRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -11395,10 +11395,10 @@ func (m *RespondToPollRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := RespondToPollRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -11672,10 +11672,10 @@ func (m *CreateNoteRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := CreateNoteRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -12081,10 +12081,10 @@ func (m *DeleteNoteRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := DeleteNoteRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -12335,10 +12335,10 @@ func (m *EditNoteRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := EditNoteRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -12751,10 +12751,10 @@ func (m *CreatePublicationRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := CreatePublicationRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -13008,10 +13008,10 @@ func (m *GetPublicationRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := GetPublicationRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -14557,10 +14557,10 @@ func (m *AddPostToThreadRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := AddPostToThreadRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -14966,10 +14966,10 @@ func (m *RemovePostFromThreadRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := RemovePostFromThreadRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -15222,10 +15222,10 @@ func (m *GetPostThreadRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := GetPostThreadRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -15497,10 +15497,10 @@ func (m *BookmarkPostRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := BookmarkPostRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -15752,10 +15752,10 @@ func (m *RemoveBookmarkedPostRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := RemoveBookmarkedPostRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -16024,10 +16024,10 @@ func (m *BookmarkPublicationRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := BookmarkPublicationRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -16281,10 +16281,10 @@ func (m *RemoveBookmarkedPublicationRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := RemoveBookmarkedPublicationRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -16541,10 +16541,10 @@ func (m *GetFollowersRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := GetFollowersRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -16812,10 +16812,10 @@ func (m *GetAccountsFollowingRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := GetAccountsFollowingRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -17121,10 +17121,10 @@ func (m *ReactToPostRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := ReactToPostRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -17485,10 +17485,10 @@ func (m *ReactToCommentRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := ReactToCommentRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -17770,10 +17770,10 @@ func (m *ReactToCommentReplyRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := ReactToCommentReplyRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -18067,10 +18067,10 @@ func (m *CreateCommentReplyRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := CreateCommentReplyRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -18388,10 +18388,10 @@ func (m *DeleteCommentReplyRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := DeleteCommentReplyRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -18680,10 +18680,10 @@ func (m *EditCommentReplyRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := EditCommentReplyRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -19012,10 +19012,10 @@ func (m *GetCommentRepliesRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := GetCommentRepliesRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -19298,10 +19298,10 @@ func (m *ReportCommentReplyRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := ReportCommentReplyRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -19590,10 +19590,10 @@ func (m *SharePostRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := SharePostRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err

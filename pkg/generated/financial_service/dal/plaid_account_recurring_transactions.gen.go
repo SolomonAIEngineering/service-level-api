@@ -52,7 +52,7 @@ func newPlaidAccountRecurringTransactionORM(db *gorm.DB, opts ...gen.DOOption) p
 	_plaidAccountRecurringTransactionORM.Time = field.NewTime(tableName, "time")
 	_plaidAccountRecurringTransactionORM.TransactionIds = field.NewString(tableName, "transaction_ids")
 	_plaidAccountRecurringTransactionORM.UpdatedTime = field.NewTime(tableName, "updated_time")
-	_plaidAccountRecurringTransactionORM.UserId = field.NewUint64(tableName, "user_id")
+	_plaidAccountRecurringTransactionORM.UserId = field.NewString(tableName, "user_id")
 	_plaidAccountRecurringTransactionORM.Notes = plaidAccountRecurringTransactionORMHasManyNotes{
 		db: db.Session(&gorm.Session{}),
 
@@ -92,7 +92,7 @@ type plaidAccountRecurringTransactionORM struct {
 	Time                            field.Time
 	TransactionIds                  field.String
 	UpdatedTime                     field.Time
-	UserId                          field.Uint64
+	UserId                          field.String
 	Notes                           plaidAccountRecurringTransactionORMHasManyNotes
 
 	fieldMap map[string]field.Expr
@@ -134,7 +134,7 @@ func (p *plaidAccountRecurringTransactionORM) updateTableName(table string) *pla
 	p.Time = field.NewTime(table, "time")
 	p.TransactionIds = field.NewString(table, "transaction_ids")
 	p.UpdatedTime = field.NewTime(table, "updated_time")
-	p.UserId = field.NewUint64(table, "user_id")
+	p.UserId = field.NewString(table, "user_id")
 
 	p.fillFieldMap()
 

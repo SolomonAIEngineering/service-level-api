@@ -13,43 +13,75 @@ option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/gener
 message AccountingIntegrationMergeLink {
     option (gorm.opts) = {ormable: true};
 
-    // id
+    // Unique identifier for the merge link.
     uint64 id = 1 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+        (gorm.field).tag = {unique_index: "idx_accounting_integration_merge_link_id"}
     ];
 
+    // The integration name.
     string integration = 2;
-    string integration_slug = 3;
-    string category = 4;
-    string end_user_origin_id = 5;
-    string end_user_organization_name = 6;
-    string end_user_email_address = 7;
-    string status = 8;
-    string webhook_listener_url = 9;
-    bool is_duplicate = 10;
-    MergeLinkedAccountToken token = 11 [(gorm.field).has_one = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
-    string integration_name = 12;
-    string integration_image = 13;
-    string integration_square_image = 14;
-    /**
-        When you request a link token to initiate a Merge Link session, Merge determines whether to create a new linked account or modify
-         an existing linked account based on a combination of the end_user_origin_id and the category. If you want to support multiple
-          connections, you simply need to provide a different end_user_origin_id for each company.
 
-        This approach enables you to link multiple instances of the same integration (like QuickBooks) for the same end user.
-         It also has the added security benefit of not exposing any internal end_user_origin_ids.
-    **/
-    LinkedAccountingAccount account = 15 [(gorm.field).has_one = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];
+    // The slug for the integration.
+    string integration_slug = 3;
+
+    // The category of the integration.
+    string category = 4;
+
+    // Identifier of the end user's origin.
+    string end_user_origin_id = 5;
+
+    // Name of the end user's organization.
+    string end_user_organization_name = 6;
+
+    // Email address of the end user.
+    string end_user_email_address = 7;
+
+    // Status of the merge link.
+    string status = 8;
+
+    // URL for the webhook listener associated with the merge link.
+    string webhook_listener_url = 9;
+
+    // Indicates whether the merge link is a duplicate.
+    bool is_duplicate = 10;
+
+    // Token used for merging linked accounts.
+    MergeLinkedAccountToken token = 11 [(gorm.field).has_one = {disable_association_autocreate: false, disable_association_autoupdate: false, preload: true}];
+
+    // Name of the integration.
+    string integration_name = 12;
+
+    // URL of the integration's image.
+    string integration_image = 13;
+
+    // URL of the integration's square image.
+    string integration_square_image = 14;
+
+    /**
+     * When you request a link token to initiate a Merge Link session, Merge determines whether to create a new linked account
+     * or modify an existing linked account based on a combination of the end_user_origin_id and the category. If you want to
+     * support multiple connections, you simply need to provide a different end_user_origin_id for each company.
+     *
+     * This approach enables you to link multiple instances of the same integration (like QuickBooks) for the same end user.
+     * It also has the added security benefit of not exposing any internal end_user_origin_ids.
+     **/
+    LinkedAccountingAccount account = 15 [(gorm.field).has_one = {disable_association_autocreate: false, disable_association_autoupdate: false, preload: true}];
+
+    // Identifier of the merged linked account.
     string merge_linked_account_id = 16;
+
+    // Timestamp indicating when the merge link was last modified.
     google.protobuf.Timestamp last_modified_at = 17;
-  }
+}
 
 message LinkedAccountingAccount {
     option (gorm.opts) = {ormable: true};
 
     // id
     uint64 id = 1 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+        (gorm.field).tag = {unique_index: "idx_linked_accounting_account_id"}
     ];
 
     // Represent a company's attachments. a business can have many attachments
@@ -119,13 +151,15 @@ message BusinessChartOfAccount {
 
   // the database record's id 
   uint64 id = 1 [
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {unique_index: "idx_business_chart_of_account_id"}
   ];
 
   // the account id as stored in merge-api. this is a required field
   string merge_record_id = 2 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
-    (google.api.field_behavior) = REQUIRED
+    (google.api.field_behavior) = REQUIRED,
+    (gorm.field).tag = {index: "idx_business_chart_of_account_merge_record_id"}
   ];
   // The third-party matching id for the object. For example, this field will be the id 
   // as seen in quickbooks for a sample remote connection against quickbookks
@@ -167,7 +201,8 @@ message CompanyAddress {
 
     // the database record's id 
     uint64 id = 1 [
-        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+        (gorm.field).tag = {unique_index: "idx_company_address_id"}
     ];
 
     string type = 2;
@@ -196,7 +231,7 @@ message CompanyAddress {
 **/
 message BalanceSheet {
     option (gorm.opts) = {ormable: true};
-    uint64 id = 1;
+    uint64 id = 1 [(gorm.field).tag = {unique_index: "idx_balance_sheet_id"}];
     // The third-party API ID of the matching object.
     string remote_id = 2;
     // The balance sheet's name.
@@ -223,7 +258,7 @@ message BalanceSheet {
     // This is the datetime that this object was last updated by Merge
     google.protobuf.Timestamp modified_at = 13;  // Consider using google.protobuf.Timestamp
     // the id as stored in merge
-    string merge_record_id = 14;
+    string merge_record_id = 14 [(gorm.field).tag = {index: "idx_balance_sheet_merge_record_id"}];
     // the time the record was created at
     google.protobuf.Timestamp created_at = 15;
 }
@@ -234,7 +269,7 @@ message BalanceSheet {
 **/
 message ReportItem {
     option (gorm.opts) = {ormable: true};
-    uint64 id = 1;
+    uint64 id = 1 [(gorm.field).tag = {unique_index: "idx_report_item_id"}];
     // the id as stored in the third-party system
     string remote_id = 2;
     // The report item's name.
@@ -253,7 +288,7 @@ message ReportItem {
 **/
 message CashFlowStatement {
     option (gorm.opts) = {ormable: true};
-    uint64 id = 1;
+    uint64 id = 1  [(gorm.field).tag = {unique_index: "idx_cash_flow_statement_id"}];
     // The third-party API ID of the matching object.
     string remote_id = 2;
     // The cash flow statement's name.
@@ -283,7 +318,7 @@ message CashFlowStatement {
     // This is the datetime that this object was last updated by Merge
     google.protobuf.Timestamp modified_at = 15;          // Consider using google.protobuf.Timestamp
      // the cashflow statements id as stored in merge
-    string merge_record_id = 16;
+    string merge_record_id = 16 [(gorm.field).tag = {index: "idx_cash_flow_statement_merge_record_id"}];
 }
 
 /**
@@ -292,7 +327,7 @@ message CashFlowStatement {
 message CompanyInfo {
     option (gorm.opts) = {ormable: true};
     // the id of the record in our system
-    uint64 id = 1;
+    uint64 id = 1 [(gorm.field).tag = {unique_index: "idx_company_info_id"}];
     // The third-party API ID of the matching object.
     string remote_id = 2;
     // The company's name.
@@ -320,7 +355,7 @@ message CompanyInfo {
     // This is the datetime that this object was last updated by Merge
     google.protobuf.Timestamp modified_at = 14;   
     // the id of the record as stored in merge
-    string merge_record_id = 15;
+    string merge_record_id = 15 [(gorm.field).tag = {index: "idx_company_info_merge_record_id"}];
 }
 
 /**
@@ -329,7 +364,7 @@ message CompanyInfo {
 message AccountingAttachment {
     option (gorm.opts) = {ormable: true};
 
-    uint64 id = 1;
+    uint64 id = 1 [(gorm.field).tag = {unique_index: "idx_accounting_attachment_id"}];
     // The third-party API ID of the matching object.
     string remote_id = 2;
     // The attachment's name.
@@ -342,7 +377,7 @@ message AccountingAttachment {
     // This is the datetime that this object was last updated by Merge
     google.protobuf.Timestamp  modified_at = 7;  // Consider using google.protobuf.Timestamp if precise time manipulation is required
     // The third-party API ID of the matching object.
-    string merge_record_id = 8;
+    string merge_record_id = 8 [(gorm.field).tag = {index:"index_accounting_attachment_merge_record_id"}];
     google.protobuf.Timestamp created_at = 9;
 }
 
@@ -352,7 +387,7 @@ message AccountingAttachment {
 **/
 message Contacts {
     option (gorm.opts) = {ormable: true};
-    uint64 id = 1;
+    uint64 id = 1 [(gorm.field).tag = {unique_index: "idx_contact_id"}];
     // The third-party API ID of the matching object.
     string remote_id = 2;
     // The contact's name.
@@ -382,7 +417,7 @@ message Contacts {
     // This is the datetime that this object was last updated by Merge
     google.protobuf.Timestamp modified_at = 15;        // Consider using google.protobuf.Timestamp
     // The account id as seen in merge
-    string merge_record_id = 16;
+    string merge_record_id = 16 [(gorm.field).tag = {index: "idx_contact_merge_record_id"}];
 }
 
 // A CreditNote is transaction issued to a customer, indicating a reduction or cancellation of the amount owed by the customer. 
@@ -391,7 +426,7 @@ message Contacts {
 message CreditNote {
     option (gorm.opts) = {ormable: true};
     // the database record id as stored in our systems
-    uint64 id = 1;
+    uint64 id = 1 [(gorm.field).tag = {unique_index: "idx_credit_note_id"}];
     // The third-party API ID of the matching object.
     string remote_id = 2;
     // The credit note's transaction date.
@@ -422,15 +457,15 @@ message CreditNote {
     string accounting_period = 18;
     google.protobuf.Timestamp modified_at = 19;        // Consider using google.protobuf.Timestamp
     // the id as stored in merge
-    string merge_record_id = 20;
+    string merge_record_id = 20 [(gorm.field).tag = {index: "idx_credit_note_merge_record_id"}];
     google.protobuf.Timestamp created_at = 21;
 }
 
 // CreditNoteLineItem is used to represent a credit note's line items.
 message CreditNoteLineItem {
     option (gorm.opts) = {ormable: true};
-    uint64 id = 1;
-    string name = 2;
+    uint64 id = 1  [(gorm.field).tag = {unique_index: "idx_credit_note_line_item_id"}];
+    string name = 2 [(gorm.field).tag = {index: "idx_credit_note_line_item_name"}];
     string description = 3;
     string quantity = 4;
     string unit_price = 6;  // Consider using double or float if this represents a number
@@ -454,7 +489,7 @@ message CreditNoteLineItem {
 // with a positive amount are refunds to those purchases.
 message Expense {
     option (gorm.opts) = {ormable: true};
-    uint64 id = 1;
+    uint64 id = 1 [(gorm.field).tag = {unique_index: "idx_expense_id"}];
     // The third-party API ID of the matching object.
     string remote_id = 2;
     // When the transaction occurred.
@@ -488,19 +523,19 @@ message Expense {
     string accounting_period = 17;
     // This is the datetime that this object was last updated by Merge
     google.protobuf.Timestamp modified_at = 18;  // Consider using google.protobuf.Timestamp
-    string merge_record_id = 19;
+    string merge_record_id = 19 [(gorm.field).tag = {index: "idx_expense_merge_record_id"}];
 }
 
 // The ExpenseLine object is used to represent an expense's line items.
 message ExpenseLine {
     option (gorm.opts) = {ormable: true};
-    uint64 id = 1;
+    uint64 id = 1 [(gorm.field).tag = {unique_index: "idx_expense_line_id"}];
     // The line's net amount.
     double net_amount = 2;
     string tracking_category = 3;  // This seems to be an ID
     repeated string tracking_categories = 4;  // These are IDs
     // The company the line belongs to.
-    string company = 5;
+    string company = 5 [(gorm.field).tag = {index: "idx_expense_line_company"}];
     // The line's item.
     string item = 6;  // This seems to be an ID
     // The expense's payment account.
@@ -526,7 +561,7 @@ message ExpenseLine {
 // gross operating profit, and net income. This represents a period of time (month, quarter, or year).
 message IncomeStatement {
     option (gorm.opts) = {ormable: true};
-    uint64 id = 1;
+    uint64 id = 1 [(gorm.field).tag = {unique_index: "idx_income_statement_id"}];
     // The third-party API ID of the matching object.
     string remote_id = 2;
     // The income statement's name.
@@ -556,14 +591,14 @@ message IncomeStatement {
     bool remote_was_deleted = 15;
     // This is the datetime that this object was last updated by Merge
     google.protobuf.Timestamp modified_at = 16;
-    string merge_record_id = 17;
+    string merge_record_id = 17 [(gorm.field).tag = {index: "idx_income_statement_merge_record_id"}];
     google.protobuf.Timestamp created_at = 18;
 }
 
 // The Invoice object represents an itemized record of goods and/or services sold to a customer.
 message Invoice {
     option (gorm.opts) = {ormable: true};
-    uint64 id = 1;
+    uint64 id = 1 [(gorm.field).tag = {unique_index: "idx_invoice_id"}];
     // Whether the invoice is an accounts receivable or accounts payable
     //  If type is accounts_payable, the invoice is a bill. If type is
     //  accounts_receivable, it is an invoice. Possible values include: ACCOUNTS_RECEIVABLE, ACCOUNTS_PAYABLE.
@@ -611,7 +646,7 @@ message Invoice {
     string remote_id = 25;
     google.protobuf.Timestamp modified_at = 26;
     // the account id as stored in merge
-    string merge_record_id = 27;
+    string merge_record_id = 27 [(gorm.field).tag = {index: "idx_invoice_merge_record_id"}];
 }
 
 /**
@@ -620,7 +655,7 @@ message Invoice {
 message InvoiceLineItem {
     option (gorm.opts) = {ormable: true};
 
-    uint64 id = 1;
+    uint64 id = 1 [(gorm.field).tag = {unique_index: "idx_invoice_line_item_id"}];
     // The third-party API ID of the matching object.
     string remote_id = 2;
     // The line item's description.
@@ -636,13 +671,13 @@ message InvoiceLineItem {
     // The line item's exchange rate.
     string exchange_rate = 8;
     string item = 9;
-    string account = 10;
+    string account = 10 [(gorm.field).tag = {index: "idx_invoice_line_item_account"}];
     string tracking_category = 11;
     repeated string tracking_categories = 12;
     // The company the line item belongs to.
     string company = 13;
     // the id of the record as stored in merge
-    string merge_record_id = 14;
+    string merge_record_id = 14 [(gorm.field).tag = {index: "idx_invoice_line_item_merge_record_id"}];
     // This is the datetime that this object was last updated by Merge
     google.protobuf.Timestamp modified_at = 15;  // Consider using google.protobuf.Timestamp
 }
@@ -653,11 +688,11 @@ message InvoiceLineItem {
 message Item {
     option (gorm.opts) = {ormable: true};
 
-    uint64 id = 1;
+    uint64 id = 1 [(gorm.field).tag = {unique_index: "idx_item_id"}];
     // The third-party API ID of the matching object.
     string remote_id = 2;
     // The item's name.
-    string name = 3;
+    string name = 3 [(gorm.field).tag = {index: "idx_item_name"}];
     string status = 4;
     // The item's unit price.
     float unit_price = 5;
@@ -668,7 +703,7 @@ message Item {
     // References the default account used to record a sale.
     string sales_account = 8;
     // The company the item belongs to.
-    string company = 9;
+    string company = 9 [(gorm.field).tag = {unique_index: "idx_item_company"}];
     // When the third party's item note was updated.
     google.protobuf.Timestamp remote_updated_at = 10;
     // Indicates whether or not this object has been deleted by third party webhooks.
@@ -689,7 +724,7 @@ message Item {
 message JournalEntry {
     option (gorm.opts) = {ormable: true};
 
-    uint64 id = 1;
+    uint64 id = 1 [(gorm.field).tag = {unique_index: "idx_journal_entry_id"}];
     string remote_id = 2;
     // The journal entry's transaction date.
     google.protobuf.Timestamp transaction_date = 3;
@@ -703,7 +738,7 @@ message JournalEntry {
     // The journal entry's exchange rate.
     string exchange_rate = 9; // Assuming string due to the example provided, but could be float or double.
     // The company the journal entry belongs to.
-    string company = 10;
+    string company = 10 [(gorm.field).tag = {index: "idx_journal_entry_company"}];
     // The JournalLine object is used to represent a journal entry's line items.
     repeated JournalLine lines = 11;
     // Reference number for identifying journal entries.
@@ -715,7 +750,7 @@ message JournalEntry {
     string accounting_period = 16;
     google.protobuf.Timestamp modified_at = 17;
     // the id of the record as stored in merge
-    string merge_record_id = 18;
+    string merge_record_id = 18 [(gorm.field).tag = {index: "idx_journal_entry_merge_record_id"}];
     // A list of the Payment Applied to Lines common models 
     // related to a given Invoice, Credit Note, or Journal Entry.
     repeated string applied_payments = 19;
@@ -726,17 +761,17 @@ message JournalEntry {
 // The JournalLine object is used to represent a journal entry's line items.
 message JournalLine {
     option (gorm.opts) = {ormable: true};
-    uint64 id = 1;
+    uint64 id = 1 [(gorm.field).tag = {unique_index: "idx_journal_line_id"}];
     // The third-party API ID of the matching object.
     string remote_id = 2;
-    string account = 4;
+    string account = 4 [(gorm.field).tag = {index: "idx_journal_line_account"}];
     // The value of the line item including taxes and other fees.
     float net_amount = 5; // Might want to use double or a more precise type
     string tracking_category = 6;
     repeated string tracking_categories = 7;
     string contact = 8;
     // The company the journal entry belongs to.
-    string company = 9;
+    string company = 9 [(gorm.field).tag = {index: "idx_journal_line_company"}];
     // The line's description.
     string description = 10;
     // The journal line item's exchange rate.
@@ -751,19 +786,19 @@ message JournalLine {
 message Payment {
     option (gorm.opts) = {ormable: true};
 
-    uint64 id = 1;
+    uint64 id = 1 [(gorm.field).tag = {unique_index: "idx_payment_id"}];
     string remote_id = 2;
     // The payment's transaction date.
     google.protobuf.Timestamp transaction_date = 3;
     // The supplier, or customer involved in the payment.
     string contact = 4;
     // The supplier’s or customer’s account in which the payment is made.
-    string account = 5;
+    string account = 5 [(gorm.field).tag = {index: "idx_payment_account"}];
     string currency = 6;
     // The payment's exchange rate.
     string exchange_rate = 7; // Assuming string due to the example provided, but could be float or double.
     // The company the payment belongs to.
-    string company = 8;
+    string company = 8 [(gorm.field).tag = {index: "idx_payment_company"}];
     // The total amount of money being paid to the supplier, or customer, after taxes.
     float total_amount = 9; // Might want to use double or a more precise type
     repeated string tracking_categories = 10;
@@ -774,7 +809,7 @@ message Payment {
     // This is the datetime that this object was last updated by Merge
     google.protobuf.Timestamp modified_at = 14;
     // the id as stored in merge
-    string merge_record_id = 15;
+    string merge_record_id = 15 [(gorm.field).tag = {index: "idx_payment_merge_record_id"}];
     google.protobuf.Timestamp created_at = 16;
 }
 
@@ -782,7 +817,7 @@ message Payment {
 // can either be a Invoice, CreditNote, or JournalEntry.
 message PaymentLineItem {
   option (gorm.opts) = {ormable: true};
-  uint64 id = 1;
+  uint64 id = 1 [(gorm.field).tag = {unique_index: "idx_payment_line_item_id"}];
   // The amount being applied to the transaction.
   float applied_amount = 2;
   // The date the payment portion is applied.
@@ -794,7 +829,7 @@ message PaymentLineItem {
   // The type of transaction the payment portion is being applied to. Possible values include: INVOICE, JOURNAL_ENTRY, or CREDIT_NOTE.
   string related_object_type = 6;
   // The record id as seen on merge platform
-  string merge_record_id = 7;
+  string merge_record_id = 7 [(gorm.field).tag = {index: "idx_payment_line_item_merge_record_id"}];
   google.protobuf.Timestamp created_at = 8;
   google.protobuf.Timestamp modified_at = 9;
 }
@@ -805,7 +840,7 @@ message PaymentLineItem {
 message PurchaseOrder {
     option (gorm.opts) = {ormable: true};
 
-    uint64 id = 1;
+    uint64 id = 1 [(gorm.field).tag = {unique_index: "idx_purchase_order_id"}];
     string merge_record_id = 2;
 
     string status = 3;
@@ -824,7 +859,7 @@ message PurchaseOrder {
     // A memo attached to the purchase order.
     string memo = 10;
     // The company the purchase order belongs to.
-    string company = 11;
+    string company = 11 [(gorm.field).tag = {index: "idx_purchase_order_company"}];
     // The purchase order's total amount.
     float total_amount = 12; // Might be better as double.
     // The purchase order's currency.
@@ -847,14 +882,14 @@ message PurchaseOrder {
 **/
 message PurchaseOrderLineItem {
     option (gorm.opts) = {ormable: true};
-    uint64 id = 1;
+    uint64 id = 1 [(gorm.field).tag = {unique_index: "idx_purchase_order_line_item_id"}];
 
     string remote_id = 2;
     string description = 3;
     int32 quantity = 4;
     string unit_price = 5; // Assuming string, but might be better as float or double.
     string item = 6;
-    string account = 7;
+    string account = 7 [(gorm.field).tag = {index: "idx_purchase_order_line_item_account"}];
     string tracking_category = 8;
     repeated string tracking_categories = 9;
     string tax_amount = 10;
@@ -870,7 +905,7 @@ message PurchaseOrderLineItem {
 // The TaxRate object is used to represent a tax rate.
 message TaxRate {
     option (gorm.opts) = {ormable: true};
-    uint64 id = 1;
+    uint64 id = 1 [(gorm.field).tag = {unique_index: "idx_tax_rate_id"}];
     // The third-party API ID of the matching object.
     string remote_id = 2;
     // The tax rate's description.
@@ -880,12 +915,12 @@ message TaxRate {
     // The tax rate's effective tax rate.
     double effective_tax_rate = 5;
     // The company the tax rate belongs to.
-    string company = 6;
+    string company = 6 [(gorm.field).tag = {index: "idx_tax_rate_company"}];
     // Indicates whether or not this object has been deleted in the third party platform.
     bool remote_was_deleted = 7;
     // This is the datetime that this object was last updated by Merge
     google.protobuf.Timestamp modified_at = 8;
-    string merge_record_id = 9;
+    string merge_record_id = 9 [(gorm.field).tag = {index: "idx_tax_rate_merge_record_id"}];
     google.protobuf.Timestamp created_at = 10;
 }
 
@@ -899,17 +934,17 @@ message TrackingCategory {
 
   option (gorm.opts) = {ormable: true};
 
-  uint64 id = 1;
+  uint64 id = 1 [(gorm.field).tag = {unique_index: "idx_tracking_category_id"}];
 
   string remote_id = 2;
-  string merge_record_id = 3;
+  string merge_record_id = 3 [(gorm.field).tag = {index: "idx_tracking_category_merge_record_id"}];
   // The tracking category’s type. Possible values include: CLASS, DEPARTMENT.
   // In cases where there is no clear mapping, the original value passed through will be returned.
   CategoryType category_type = 4;
   // ID of the parent tracking category.
   string parent_category = 5;
   // The company the tracking category belongs to.
-  string company = 6;
+  string company = 6 [(gorm.field).tag = {index: "idx_tracking_category_company"}];
   // Indicates whether or not this object has been deleted in the third party platform.
   bool remote_was_deleted = 7;
   // This is the datetime that this object was last updated by Merge
@@ -935,7 +970,7 @@ message TrackingCategory {
 // * Vendor Credits
 message BusinessTransaction {
     option (gorm.opts) = {ormable: true};
-    uint64 id = 1;
+    uint64 id = 1 [(gorm.field).tag = {unique_index: "idx_transaction_id"}];
     // The type of transaction, which can by any transaction object not already included in Merge’s common model.
     string transaction_type = 2;
     // The transaction's number used for identifying purposes.
@@ -943,7 +978,7 @@ message BusinessTransaction {
     // The date upon which the transaction occurred.
     google.protobuf.Timestamp transaction_date = 4;
     // The transaction's account.
-    string account = 5;
+    string account = 5 [(gorm.field).tag = {index: "idx_transaction_account"}];
     // The contact to whom the transaction relates to.
     string contact = 6;
     // The total amount being paid after taxes.
@@ -952,7 +987,7 @@ message BusinessTransaction {
     // The transaction's exchange rate.
     string exchange_rate = 9; // Assuming string, but might be better as float or double.
     // The company the transaction belongs to.
-    string company = 10;
+    string company = 10 [(gorm.field).tag = {index: "idx_transaction_company"}];
     repeated string tracking_categories = 11;
     // The TransactionLineItem object is used to represent a transaction's line item
     repeated TransactionLineItem line_items = 12;
@@ -960,7 +995,7 @@ message BusinessTransaction {
     bool remote_was_deleted = 13;
     // The accounting period that the Transaction was generated in.
     string accounting_period = 14;
-    string merge_record_id = 15;
+    string merge_record_id = 15 [(gorm.field).tag = {index: "idx_transaction_merge_record_id"}];
     string remote_id = 16;
     // This is the datetime that this object was last updated by Merge
     google.protobuf.Timestamp modified_at = 17;
@@ -970,7 +1005,7 @@ message BusinessTransaction {
 // The TransactionLineItem object is used to represent a transaction's line items.
 message TransactionLineItem {
     option (gorm.opts) = {ormable: true};
-    uint64 id = 1;
+    uint64 id = 1 [(gorm.field).tag = {unique_index: "idx_transaction_line_id"}];
 
     string remote_id = 2;
     // An internal note used by the business to clarify purpose of the transaction.
@@ -981,7 +1016,7 @@ message TransactionLineItem {
     string quantity = 5;
     string item = 6;
     // The line item's account.
-    string account = 7;
+    string account = 7 [(gorm.field).tag = {index: "idx_transaction_line_account"}];
     // The line's associated tracking category.
     string tracking_category = 8;
     repeated string tracking_categories = 9;
@@ -994,7 +1029,7 @@ message TransactionLineItem {
     // The line item's exchange rate.
     string exchange_rate = 13; // Assuming string, but might be better as float or double.
     // The company the line belongs to.
-    string company = 14;
+    string company = 14 [(gorm.field).tag = {index: "idx_transaction_line_company"}];
     google.protobuf.Timestamp modified_at = 15;
     // Indicates whether or not this object has been deleted in the third party platform.
     bool remote_was_deleted = 16;
@@ -1008,7 +1043,7 @@ message VendorCredit {
     option (gorm.opts) = {ormable: true};
 
     // Unique identifier for the Merge account
-    string merge_record_id = 1;
+    string merge_record_id = 1 [(gorm.field).tag = {index: "idx_vendor_credit_merge_record_id"}];
 
     // Identifier for the VendorCredit in the remote system
     string remote_id = 2;
@@ -1032,7 +1067,7 @@ message VendorCredit {
     string exchange_rate = 8;
 
     // Identifier or name of the associated company
-    string company = 9;
+    string company = 9 [(gorm.field).tag = {index: "idx_vendor_credit_company"}];
 
     // Line items associated with the vendor credit
     repeated VendorCreditLine lines = 10;
@@ -1050,7 +1085,7 @@ message VendorCredit {
     google.protobuf.Timestamp modified_at = 14;
 
     // Unique identifier for the VendorCredit
-    uint64 id = 15;
+    uint64 id = 15 [(gorm.field).tag = {unique_index: "idx_vendor_credit_id"}];
 }
 
 /**
@@ -1066,7 +1101,7 @@ message VendorCreditLine {
     double net_amount = 2;
 
     // Single tracking category for this line item
-    string tracking_category = 3;
+    string tracking_category = 3 [(gorm.field).tag = {index: "idx_vendor_credit_line_tracking_category"}];
 
     // Multiple tracking categories for detailed accounting
     repeated string tracking_categories = 4;
@@ -1075,10 +1110,10 @@ message VendorCreditLine {
     string description = 5;
 
     // Account associated with the line item
-    string account = 6;
+    string account = 6 [(gorm.field).tag = {index: "idx_vendor_credit_line_account"}];
 
     // Identifier or name of the associated company
-    string company = 7;
+    string company = 7 [(gorm.field).tag = {index: "idx_vendor_credit_line_company"}];
 
     // Exchange rate used for currency conversion, potentially as a float or double for precision
     string exchange_rate = 8;
@@ -1087,5 +1122,5 @@ message VendorCreditLine {
     google.protobuf.Timestamp modified_at = 9;
 
     // Unique identifier for the VendorCreditLine
-    uint64 id = 10;
+    uint64 id = 10 [(gorm.field).tag = {unique_index: "idx_vendor_credit_line_id"}];
 }

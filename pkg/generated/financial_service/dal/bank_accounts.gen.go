@@ -40,7 +40,7 @@ func newBankAccountORM(db *gorm.DB, opts ...gen.DOOption) bankAccountORM {
 	_bankAccountORM.Status = field.NewString(tableName, "status")
 	_bankAccountORM.Subtype = field.NewString(tableName, "subtype")
 	_bankAccountORM.Type = field.NewString(tableName, "type")
-	_bankAccountORM.UserId = field.NewUint64(tableName, "user_id")
+	_bankAccountORM.UserId = field.NewString(tableName, "user_id")
 	_bankAccountORM.Pockets = bankAccountORMHasManyPockets{
 		db: db.Session(&gorm.Session{}),
 
@@ -149,7 +149,7 @@ type bankAccountORM struct {
 	Status         field.String
 	Subtype        field.String
 	Type           field.String
-	UserId         field.Uint64
+	UserId         field.String
 	Pockets        bankAccountORMHasManyPockets
 
 	RecurringTransactions bankAccountORMHasManyRecurringTransactions
@@ -183,7 +183,7 @@ func (b *bankAccountORM) updateTableName(table string) *bankAccountORM {
 	b.Status = field.NewString(table, "status")
 	b.Subtype = field.NewString(table, "subtype")
 	b.Type = field.NewString(table, "type")
-	b.UserId = field.NewUint64(table, "user_id")
+	b.UserId = field.NewString(table, "user_id")
 
 	b.fillFieldMap()
 

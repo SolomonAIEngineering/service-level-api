@@ -62,7 +62,7 @@ func newStudentLoanAccountORM(db *gorm.DB, opts ...gen.DOOption) studentLoanAcco
 	_studentLoanAccountORM.ServicerAddressState = field.NewString(tableName, "servicer_address_state")
 	_studentLoanAccountORM.ServicerAddressStreet = field.NewString(tableName, "servicer_address_street")
 	_studentLoanAccountORM.Status = field.NewString(tableName, "status")
-	_studentLoanAccountORM.UserId = field.NewUint64(tableName, "user_id")
+	_studentLoanAccountORM.UserId = field.NewString(tableName, "user_id")
 	_studentLoanAccountORM.YtdInterestPaid = field.NewFloat64(tableName, "ytd_interest_paid")
 	_studentLoanAccountORM.YtdPrincipalPaid = field.NewFloat64(tableName, "ytd_principal_paid")
 
@@ -109,7 +109,7 @@ type studentLoanAccountORM struct {
 	ServicerAddressState               field.String
 	ServicerAddressStreet              field.String
 	Status                             field.String
-	UserId                             field.Uint64
+	UserId                             field.String
 	YtdInterestPaid                    field.Float64
 	YtdPrincipalPaid                   field.Float64
 
@@ -162,7 +162,7 @@ func (s *studentLoanAccountORM) updateTableName(table string) *studentLoanAccoun
 	s.ServicerAddressState = field.NewString(table, "servicer_address_state")
 	s.ServicerAddressStreet = field.NewString(table, "servicer_address_street")
 	s.Status = field.NewString(table, "status")
-	s.UserId = field.NewUint64(table, "user_id")
+	s.UserId = field.NewString(table, "user_id")
 	s.YtdInterestPaid = field.NewFloat64(table, "ytd_interest_paid")
 	s.YtdPrincipalPaid = field.NewFloat64(table, "ytd_principal_paid")
 

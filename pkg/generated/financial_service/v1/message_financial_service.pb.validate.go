@@ -173,10 +173,10 @@ func (m *FinancialUserProfile) validate(all bool) error {
 
 	// no validation rules for Id
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := FinancialUserProfileValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -4241,10 +4241,10 @@ func (m *PlaidAccountInvestmentTransaction) validate(all bool) error {
 
 	// no validation rules for Id
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := PlaidAccountInvestmentTransactionValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -4595,10 +4595,10 @@ func (m *PlaidAccountRecurringTransaction) validate(all bool) error {
 		}
 	}
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := PlaidAccountRecurringTransactionValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -5057,10 +5057,10 @@ func (m *PlaidAccountTransaction) validate(all bool) error {
 
 	// no validation rules for Id
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := PlaidAccountTransactionValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -5255,10 +5255,10 @@ func (m *TransactionSplit) validate(all bool) error {
 
 	// no validation rules for Id
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := TransactionSplitValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err

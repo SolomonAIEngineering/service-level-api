@@ -47,7 +47,7 @@ func newPlaidAccountInvestmentTransactionORM(db *gorm.DB, opts ...gen.DOOption) 
 	_plaidAccountInvestmentTransactionORM.Time = field.NewTime(tableName, "time")
 	_plaidAccountInvestmentTransactionORM.Type = field.NewString(tableName, "type")
 	_plaidAccountInvestmentTransactionORM.UnofficialCurrencyCode = field.NewString(tableName, "unofficial_currency_code")
-	_plaidAccountInvestmentTransactionORM.UserId = field.NewUint64(tableName, "user_id")
+	_plaidAccountInvestmentTransactionORM.UserId = field.NewString(tableName, "user_id")
 	_plaidAccountInvestmentTransactionORM.Notes = plaidAccountInvestmentTransactionORMHasManyNotes{
 		db: db.Session(&gorm.Session{}),
 
@@ -82,7 +82,7 @@ type plaidAccountInvestmentTransactionORM struct {
 	Time                    field.Time
 	Type                    field.String
 	UnofficialCurrencyCode  field.String
-	UserId                  field.Uint64
+	UserId                  field.String
 	Notes                   plaidAccountInvestmentTransactionORMHasManyNotes
 
 	fieldMap map[string]field.Expr
@@ -119,7 +119,7 @@ func (p *plaidAccountInvestmentTransactionORM) updateTableName(table string) *pl
 	p.Time = field.NewTime(table, "time")
 	p.Type = field.NewString(table, "type")
 	p.UnofficialCurrencyCode = field.NewString(table, "unofficial_currency_code")
-	p.UserId = field.NewUint64(table, "user_id")
+	p.UserId = field.NewString(table, "user_id")
 
 	p.fillFieldMap()
 

@@ -36,7 +36,7 @@ func newSmartNoteORM(db *gorm.DB, opts ...gen.DOOption) smartNoteORM {
 	_smartNoteORM.PlaidAccountTransactionId = field.NewUint64(tableName, "plaid_account_transaction_id")
 	_smartNoteORM.SmartGoalId = field.NewUint64(tableName, "smart_goal_id")
 	_smartNoteORM.UpdatedAt = field.NewTime(tableName, "updated_at")
-	_smartNoteORM.UserId = field.NewUint64(tableName, "user_id")
+	_smartNoteORM.UserId = field.NewString(tableName, "user_id")
 
 	_smartNoteORM.fillFieldMap()
 
@@ -55,7 +55,7 @@ type smartNoteORM struct {
 	PlaidAccountTransactionId           field.Uint64
 	SmartGoalId                         field.Uint64
 	UpdatedAt                           field.Time
-	UserId                              field.Uint64
+	UserId                              field.String
 
 	fieldMap map[string]field.Expr
 }
@@ -80,7 +80,7 @@ func (s *smartNoteORM) updateTableName(table string) *smartNoteORM {
 	s.PlaidAccountTransactionId = field.NewUint64(table, "plaid_account_transaction_id")
 	s.SmartGoalId = field.NewUint64(table, "smart_goal_id")
 	s.UpdatedAt = field.NewTime(table, "updated_at")
-	s.UserId = field.NewUint64(table, "user_id")
+	s.UserId = field.NewString(table, "user_id")
 
 	s.fillFieldMap()
 

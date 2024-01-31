@@ -18,7 +18,7 @@ type BusinessActionableInsightORM struct {
 	Description            string
 	ExpectedBenefit        string
 	GeneratedTime          *time.Time
-	Id                     uint64
+	Id                     uint64 `gorm:"unique_index:idx_merge_business_profiles_id"`
 	MergeBusinessProfileId *uint64
 	MetricsToOptimizeFor   pq.StringArray `gorm:"type:text[]"`
 	Tags                   pq.StringArray `gorm:"type:text[]"`

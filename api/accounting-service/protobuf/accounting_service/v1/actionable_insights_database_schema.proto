@@ -13,7 +13,10 @@ message BusinessActionableInsight {
   option (gorm.opts) = {ormable: true};
 
   // Unique identifier for the insight
-  uint64 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"1234567890\""}];
+  uint64 id = 1 [
+      (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"1234567890\""},    
+      (gorm.field).tag = {unique_index: "idx_merge_business_profiles_id"}
+  ];
 
   // Type of the actionable insight
   BusinessActionableInsightType type = 2;

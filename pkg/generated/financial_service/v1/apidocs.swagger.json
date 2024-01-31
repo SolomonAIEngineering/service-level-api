@@ -73,8 +73,7 @@
             "description": "The user id\nValidations:\n- user_id must be greater than 0",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "investmentAccountId",
@@ -145,8 +144,7 @@
             "description": "The user id\nValidations:\n- user_id must be greater than 0",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "liabilityAccountId",
@@ -217,8 +215,7 @@
             "description": "The user id\nValidations:\n- user_id must be greater than 0",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "mortgageAccountId",
@@ -289,8 +286,7 @@
             "description": "The user id\nValidations:\n- user_id must be greater than 0",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "studentLoanAccountId",
@@ -428,8 +424,7 @@
             "description": "User ID",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "pageNumber",
@@ -508,8 +503,7 @@
             "description": "User ID",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "personalFinanceCategoryPrimary",
@@ -602,8 +596,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "personalFinanceCategoryPrimary",
@@ -695,8 +688,7 @@
             "description": "has to be present and defined",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "month",
@@ -789,8 +781,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "month",
@@ -875,8 +866,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "month",
@@ -968,8 +958,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "month",
@@ -1054,8 +1043,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "month",
@@ -1140,8 +1128,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "month",
@@ -1233,8 +1220,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "profileType",
@@ -1296,8 +1282,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "month",
@@ -1389,8 +1374,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "month",
@@ -1475,8 +1459,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "month",
@@ -1560,8 +1543,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "month",
@@ -1645,8 +1627,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "month",
@@ -1730,8 +1711,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "month",
@@ -1821,8 +1801,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "month",
@@ -1906,8 +1885,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "month",
@@ -1997,8 +1975,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "securityId",
@@ -2082,8 +2059,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "month",
@@ -2407,8 +2383,7 @@
             "description": "The account ID associated with the user\nValidations:\n- user_id must be greater than 0",
             "in": "query",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "profileType",
@@ -2741,8 +2716,7 @@
             "description": "the account id associated with the user",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "profileType",
@@ -2952,8 +2926,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "plaidAccountId",
@@ -3083,8 +3056,7 @@
             "description": "The user id\nValidations:\n- user_id must be greater than 0",
             "in": "query",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "profileType",
@@ -3155,8 +3127,7 @@
             "description": "The user id\nValidations:\n- user_id must be greater than 0",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "profileType",
@@ -3219,8 +3190,7 @@
             "description": "The user id\nValidations:\n- user_id must be greater than 0",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "profileType",
@@ -4003,8 +3973,7 @@
             "description": "The account ID associated with the user.\nNOTE: This user_id is the simfiny backend platform wide user id\nValidations:\n- user_id must be greater than 0",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "profileType",
@@ -4065,8 +4034,7 @@
             "description": "The account ID associated with the user.\nNOTE: This user_id is the simfiny backend platform wide user id\nValidations:\n- user_id must be greater than 0",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "profileType",
@@ -4752,8 +4720,7 @@
             "name": "userId",
             "in": "query",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "pageNumber",
@@ -4844,8 +4811,7 @@
             "name": "userId",
             "in": "query",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "pageNumber",
@@ -4974,8 +4940,7 @@
             "description": "The user id\nValidations:\n- user_id must be greater than 0",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "profileType",
@@ -5412,8 +5377,7 @@
             "name": "userId",
             "in": "query",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "pageNumber",
@@ -6191,8 +6155,7 @@
             "description": "The user id\nValidations:\n- user_id must be greater than 0",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "plaidAccountId",
@@ -6276,8 +6239,7 @@
             "description": "The user id\nValidations:\n- user_id must be greater than 0",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "pageNumber",
@@ -6353,8 +6315,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "plaidAccountId",
@@ -6455,8 +6416,7 @@
             "description": "The user id\nValidations:\n- user_id must be greater than 0",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "plaidAccountId",
@@ -6572,8 +6532,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "plaidAccountId",
@@ -6651,8 +6610,7 @@
           "format": "double"
         },
         "userId": {
-          "type": "string",
-          "format": "uint64"
+          "type": "string"
         },
         "sign": {
           "type": "integer",
@@ -6702,7 +6660,6 @@
       "properties": {
         "userId": {
           "type": "string",
-          "format": "uint64",
           "title": "The user id\nValidations:\n- user_id must be greater than 0"
         },
         "plaidAccountId": {
@@ -6863,8 +6820,7 @@
           "format": "uint64"
         },
         "userId": {
-          "type": "string",
-          "format": "uint64"
+          "type": "string"
         },
         "name": {
           "type": "string"
@@ -7116,8 +7072,7 @@
           "format": "double"
         },
         "userId": {
-          "type": "string",
-          "format": "uint64"
+          "type": "string"
         },
         "profileType": {
           "$ref": "#/definitions/FinancialUserProfileType"
@@ -7140,8 +7095,7 @@
           "format": "double"
         },
         "userId": {
-          "type": "string",
-          "format": "uint64"
+          "type": "string"
         },
         "profileType": {
           "$ref": "#/definitions/FinancialUserProfileType"
@@ -7164,8 +7118,7 @@
           "format": "double"
         },
         "userId": {
-          "type": "string",
-          "format": "uint64"
+          "type": "string"
         },
         "profileType": {
           "$ref": "#/definitions/FinancialUserProfileType"
@@ -7188,8 +7141,7 @@
           "format": "int64"
         },
         "userId": {
-          "type": "string",
-          "format": "uint64"
+          "type": "string"
         },
         "profileType": {
           "$ref": "#/definitions/FinancialUserProfileType"
@@ -7210,7 +7162,6 @@
       "properties": {
         "userId": {
           "type": "string",
-          "format": "uint64",
           "title": "The account ID associated with the user\nValidations:\n- user_id must be greater than 0"
         },
         "bankAccount": {
@@ -7278,7 +7229,6 @@
       "properties": {
         "userId": {
           "type": "string",
-          "format": "uint64",
           "title": "The user id\nValidations:\n- user_id must be greater than 0"
         },
         "manualAccountLink": {
@@ -7365,8 +7315,7 @@
       "type": "object",
       "properties": {
         "userId": {
-          "type": "string",
-          "format": "uint64"
+          "type": "string"
         },
         "priceId": {
           "type": "string"
@@ -7414,8 +7363,7 @@
       "type": "object",
       "properties": {
         "userId": {
-          "type": "string",
-          "format": "uint64"
+          "type": "string"
         }
       },
       "title": "CreateUserProfileResponse: Represents the response object returned as a response to\nthe `create user profile` request"
@@ -7428,8 +7376,7 @@
           "format": "uint64"
         },
         "userId": {
-          "type": "string",
-          "format": "uint64"
+          "type": "string"
         },
         "name": {
           "type": "string"
@@ -7554,8 +7501,7 @@
           "format": "double"
         },
         "userId": {
-          "type": "string",
-          "format": "uint64"
+          "type": "string"
         },
         "profileType": {
           "$ref": "#/definitions/FinancialUserProfileType"
@@ -7694,8 +7640,7 @@
           "format": "double"
         },
         "userId": {
-          "type": "string",
-          "format": "uint64"
+          "type": "string"
         },
         "profileType": {
           "$ref": "#/definitions/FinancialUserProfileType"
@@ -7731,8 +7676,7 @@
           "format": "double"
         },
         "userId": {
-          "type": "string",
-          "format": "uint64"
+          "type": "string"
         },
         "profileType": {
           "$ref": "#/definitions/FinancialUserProfileType"
@@ -7775,8 +7719,7 @@
           "type": "string"
         },
         "userId": {
-          "type": "string",
-          "format": "uint64"
+          "type": "string"
         },
         "profileType": {
           "$ref": "#/definitions/FinancialUserProfileType"
@@ -7794,7 +7737,7 @@
         },
         "userId": {
           "type": "string",
-          "format": "uint64"
+          "title": "NOTE: this user id refers to the id provided by auth0 as it is the source of truth on the platform. Please remember this"
         },
         "stripeCustomerId": {
           "type": "string"
@@ -8587,8 +8530,7 @@
           "format": "double"
         },
         "userId": {
-          "type": "string",
-          "format": "uint64"
+          "type": "string"
         },
         "profileType": {
           "$ref": "#/definitions/FinancialUserProfileType"
@@ -8615,8 +8557,7 @@
           "format": "double"
         },
         "userId": {
-          "type": "string",
-          "format": "uint64"
+          "type": "string"
         },
         "profileType": {
           "$ref": "#/definitions/FinancialUserProfileType"
@@ -8652,8 +8593,7 @@
           "format": "double"
         },
         "userId": {
-          "type": "string",
-          "format": "uint64"
+          "type": "string"
         },
         "profileType": {
           "$ref": "#/definitions/FinancialUserProfileType"
@@ -8730,8 +8670,7 @@
           "format": "uint64"
         },
         "userId": {
-          "type": "string",
-          "format": "uint64"
+          "type": "string"
         },
         "name": {
           "type": "string"
@@ -9106,8 +9045,7 @@
           "format": "double"
         },
         "userId": {
-          "type": "string",
-          "format": "uint64"
+          "type": "string"
         },
         "month": {
           "type": "integer",
@@ -9236,8 +9174,7 @@
           "format": "double"
         },
         "userId": {
-          "type": "string",
-          "format": "uint64"
+          "type": "string"
         },
         "month": {
           "type": "integer",
@@ -9264,8 +9201,7 @@
           "format": "double"
         },
         "userId": {
-          "type": "string",
-          "format": "uint64"
+          "type": "string"
         },
         "profileType": {
           "$ref": "#/definitions/FinancialUserProfileType"
@@ -9325,8 +9261,7 @@
           "format": "double"
         },
         "userId": {
-          "type": "string",
-          "format": "uint64"
+          "type": "string"
         },
         "profileType": {
           "$ref": "#/definitions/FinancialUserProfileType"
@@ -9346,8 +9281,7 @@
           "format": "double"
         },
         "userId": {
-          "type": "string",
-          "format": "uint64"
+          "type": "string"
         },
         "profileType": {
           "$ref": "#/definitions/FinancialUserProfileType"
@@ -9367,8 +9301,7 @@
           "format": "double"
         },
         "userId": {
-          "type": "string",
-          "format": "uint64"
+          "type": "string"
         },
         "profileType": {
           "$ref": "#/definitions/FinancialUserProfileType"
@@ -9388,8 +9321,7 @@
           "format": "double"
         },
         "userId": {
-          "type": "string",
-          "format": "uint64"
+          "type": "string"
         },
         "profileType": {
           "$ref": "#/definitions/FinancialUserProfileType"
@@ -9412,8 +9344,7 @@
           "format": "double"
         },
         "userId": {
-          "type": "string",
-          "format": "uint64"
+          "type": "string"
         },
         "profileType": {
           "$ref": "#/definitions/FinancialUserProfileType"
@@ -9433,8 +9364,7 @@
           "format": "uint64"
         },
         "userId": {
-          "type": "string",
-          "format": "uint64"
+          "type": "string"
         },
         "profileType": {
           "$ref": "#/definitions/FinancialUserProfileType"
@@ -9592,8 +9522,7 @@
           "format": "double"
         },
         "userId": {
-          "type": "string",
-          "format": "uint64"
+          "type": "string"
         },
         "month": {
           "type": "integer",
@@ -9624,8 +9553,7 @@
           "format": "double"
         },
         "userId": {
-          "type": "string",
-          "format": "uint64"
+          "type": "string"
         },
         "profileType": {
           "$ref": "#/definitions/FinancialUserProfileType"
@@ -9768,7 +9696,6 @@
         },
         "userId": {
           "type": "string",
-          "format": "uint64",
           "title": "The user ID associated with this investment transaction.\n@gotag: ch:\"user_id\""
         },
         "createdAt": {
@@ -9875,7 +9802,6 @@
         },
         "userId": {
           "type": "string",
-          "format": "uint64",
           "title": "The user ID associated with this recurring transaction.\n@gotag: ch:\"user_id\""
         },
         "linkId": {
@@ -10089,7 +10015,6 @@
         },
         "userId": {
           "type": "string",
-          "format": "uint64",
           "description": "The user ID associated with this transaction."
         },
         "linkId": {
@@ -10136,7 +10061,6 @@
       "properties": {
         "userId": {
           "type": "string",
-          "format": "uint64",
           "title": "The user id\nValidations:\n- user_id must be greater than 0"
         },
         "publicToken": {
@@ -10182,7 +10106,6 @@
       "properties": {
         "userId": {
           "type": "string",
-          "format": "uint64",
           "title": "A unique ID representing the end user. Typically this will be a user ID number from your application.\nPersonally identifiable information, such as an email address or phone number, \nshould not be used in the `client_user_id`. It is currently used as a means of searching logs \nfor the given user in the Plaid Dashboard.\nValidations:\n- user_id must be greater than 0"
         },
         "fullName": {
@@ -10228,7 +10151,6 @@
       "properties": {
         "userId": {
           "type": "string",
-          "format": "uint64",
           "title": "The user id\nValidations:\n- user_id must be greater than 0"
         },
         "linkId": {
@@ -10464,7 +10386,6 @@
         },
         "userId": {
           "type": "string",
-          "format": "uint64",
           "title": "@gotag: ch:\"user_id\""
         },
         "linkId": {
@@ -10533,7 +10454,6 @@
       "properties": {
         "userId": {
           "type": "string",
-          "format": "uint64",
           "title": "the account id associated with the user"
         },
         "profileType": {
@@ -10564,7 +10484,6 @@
       "properties": {
         "userId": {
           "type": "string",
-          "format": "uint64",
           "title": "The user id\nValidations:\n- user_id must be greater than 0"
         },
         "profileType": {
@@ -10641,8 +10560,7 @@
           "format": "uint64"
         },
         "userId": {
-          "type": "string",
-          "format": "uint64"
+          "type": "string"
         },
         "name": {
           "type": "string"
@@ -10718,8 +10636,7 @@
           "title": "Unique identifier for the note"
         },
         "userId": {
-          "type": "string",
-          "format": "uint64"
+          "type": "string"
         },
         "content": {
           "type": "string",
@@ -10954,7 +10871,6 @@
         },
         "userId": {
           "type": "string",
-          "format": "uint64",
           "title": "the user id to which this bank account is tied to"
         },
         "name": {
@@ -11030,8 +10946,7 @@
           "format": "double"
         },
         "userId": {
-          "type": "string",
-          "format": "uint64"
+          "type": "string"
         },
         "profileType": {
           "$ref": "#/definitions/FinancialUserProfileType"
@@ -11120,7 +11035,6 @@
         },
         "userId": {
           "type": "string",
-          "format": "uint64",
           "title": "@gotag: ch:\"user_id\""
         },
         "linkId": {
@@ -11237,8 +11151,7 @@
           "format": "double"
         },
         "userId": {
-          "type": "string",
-          "format": "uint64"
+          "type": "string"
         },
         "profileType": {
           "$ref": "#/definitions/FinancialUserProfileType"
@@ -11256,7 +11169,6 @@
         },
         "userId": {
           "type": "string",
-          "format": "uint64",
           "description": "The user ID associated with this transaction."
         },
         "linkId": {
@@ -11318,7 +11230,6 @@
       "properties": {
         "userId": {
           "type": "string",
-          "format": "uint64",
           "title": "the account id associated with the user"
         },
         "profileType": {

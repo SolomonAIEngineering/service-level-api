@@ -159,10 +159,10 @@ message Post {
   // @gotag: bson:"comments"
   repeated Comment comments = 10;
   // ID of the user creating the post
-  // @gotag: bson:"simfinyPlatformUserId"
-  uint64 simfiny_platform_user_id = 11 [
+  // @gotag: bson:"backendPlatformUserId"
+  string backend_platform_user_id = 11 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
-    (validate.rules).uint64.gt = 0
+    (validate.rules).string.min_len = 1
   ];
   // @gotag: bson:"profileId"
   uint64 profile_id = 12 [
@@ -274,10 +274,10 @@ message PollPost {
   // @gotag: bson:"comments"
   repeated Comment comments = 10;
   // ID of the user creating the post
-  // @gotag: bson:"simfinyPlatformUserId"
-  uint64 simfiny_platform_user_id = 11 [
+  // @gotag: bson:"backendPlatformUserId"
+  string backend_platform_user_id = 11 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
-    (validate.rules).uint64.gt = 0
+    (validate.rules).string.min_len = 1
   ];
   // ID of the profile creating the post
   // @gotag: bson:"profileId"
@@ -429,10 +429,10 @@ message SharedPost {
   // @gotag: bson:"comments"
   repeated Comment comments = 11;
   // ID of the user resharing the post
-  // @gotag: bson:"simfinyPlatformUserId"
-  uint64 simfiny_platform_user_id = 12 [
+  // @gotag: bson:"backendPlatformUserId"
+  string backend_platform_user_id = 12 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
-    (validate.rules).uint64.gt = 0
+    (validate.rules).string.min_len = 1
   ];
   // ID of the profile resharing the post
   // @gotag: bson:"profileId"
@@ -498,9 +498,9 @@ message SharedPost {
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
     (validate.rules).uint64.gt = 0
   ];
-  // The simfiny wide user id of the profile who owned the original post
-  // @gotag: bson:"originalPostUserSimfinyPlaformId"
-  uint64 originalPostUserSimfinyPlaformId = 37 [
+  // The backend wide user id of the profile who owned the original post
+  // @gotag: bson:"originalPostUserbackendPlaformId"
+  uint64 originalPostUserbackendPlaformId = 37 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
     (validate.rules).uint64.gt = 0
   ];
@@ -539,10 +539,10 @@ message Note {
   // @gotag: bson:"_id,omitempty"
   string id = 1;
   // Platform wide ID of the user creating the note
-  // @gotag: bson:"simfinyPlatformUserId"
-  uint64 simfiny_platform_user_id = 2 [
+  // @gotag: bson:"backendPlatformUserId"
+  string backend_platform_user_id = 2 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
-    (validate.rules).uint64.gt = 0
+    (validate.rules).string.min_len = 1
   ];
   // ID of either the user profile or the community profile creating the note
   // @gotag: bson:"profileId"
@@ -596,10 +596,10 @@ message Comment {
   // @gotag: bson:"_id,omitempty"
   string id = 1;
   // Platform wide ID of the user creating the comment
-  // @gotag: bson:"simfinyPlatformUserId"
-  uint64 simfiny_platform_user_id = 2 [
+  // @gotag: bson:"backendPlatformUserId"
+  string backend_platform_user_id = 2 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
-    (validate.rules).uint64.gt = 0
+    (validate.rules).string.min_len = 1
   ];
   // ID of either the user profile or the community profile creating the comment
   // @gotag: bson:"profileId"
@@ -685,10 +685,10 @@ message CommentReply {
   // @gotag: bson:"_id,omitempty"
   string id = 1;
   // ID of the user creating the comment response
-  // @gotag: bson:"simfinyPlatformUserId"
-  uint64 simfiny_platform_user_id = 2 [
+  // @gotag: bson:"backendPlatformUserId"
+  string backend_platform_user_id = 2 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
-    (validate.rules).uint64.gt = 0
+    (validate.rules).string.min_len = 1
   ];
   // ID of either the user profile or the community profile creating the comment response
   // @gotag: bson:"profileId"

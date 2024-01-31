@@ -8,6 +8,7 @@ import "protoc-gen-openapiv2/options/annotations.proto";
 import "accounting_service/v1/actionable_insights_database_schema.proto";
 import "accounting_service/v1/payroll_database_schema.proto";
 import "accounting_service/v1/accounting_database_schema.proto";
+import "google/api/field_behavior.proto";
 
 option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/generated/accounting_service/v1";
 
@@ -18,17 +19,23 @@ message MergeBusinessProfile {
 
   // id
   uint64 id = 1 [
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
-    ];
-  // the user id tied to the profile
-  uint64 user_id = 2 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
-    (validate.rules).uint64.gt = 0
+    (gorm.field).tag = {unique_index: "idx_merge_business_profiles_id"}
+  ];
+
+  // the auth0 user id is required to create an account as it will be the source of truth used across the platform
+  string auth_zero_user_id = 2 [
+    (validate.rules).string.min_len = 1, // Validation rule: auth0UserId must have a minimum length of 1.
+    (google.api.field_behavior) = REQUIRED // Field behavior: auth0UserId is required.
   ];
 
   string company_name = 3;
+  
   // a user profile can have many links (connected institutions) of which finanical accounts are tied to (checking, savings, etc)
-  string email = 8;
+  string email = 8 [
+    (validate.rules).string.email = true, // Validation rule: email must be valid.
+    (google.api.field_behavior) = REQUIRED // Field behavior: email is required.
+  ];
 
   // this is the accounting integration the business has decided to authorize
   repeated AccountingIntegrationMergeLink accounting_integration_merge_link = 9 [(gorm.field).has_many = {disable_association_autocreate: false disable_association_autoupdate: false preload: true}];

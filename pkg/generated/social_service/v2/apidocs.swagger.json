@@ -156,8 +156,7 @@
             "description": "the user ID trying to update this user profile (NOTE: userID refers to the\nID from the vantage point of the user service. This ID is the single source\nof truth for a given user across our suite of services) | type: uint64",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "profile",
@@ -1388,8 +1387,7 @@
             "description": "The user ID associated with the profile we want to get | type: uint64",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "requestorProfileId",
@@ -1459,8 +1457,7 @@
             "description": "the user ID trying to delete this user profile (NOTE: userID refers to the\nID from the vantage point of the user service. This ID is the single source\nof truth for a given user across our suite of services) | type: uint64",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           }
         ],
         "tags": [
@@ -1671,8 +1668,7 @@
             "description": "the user ID trying to delete this community profile (NOTE: userID refers to\nthe ID from the vantage point of the user service. This ID is the single\nsource of truth for a given user across our suite of services) | type:\nuint64",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "communityProfileId",
@@ -1871,8 +1867,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "limit",
@@ -1930,8 +1925,7 @@
             "description": "the user ID who's communities follow set we want to obtain (NOTE: userID\nrefers to the ID from the vantage point of the user service. This ID is the\nsingle source of truth for a given user across our suite of services) |\ntype: uint64",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "limit",
@@ -1990,8 +1984,7 @@
             "description": "the user ID who's pending request we want to obtain (NOTE: userID refers to\nthe ID from the vantage point of the user service. This ID is the single\nsource of truth for a given user across our suite of services) | type:\nuint64",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           }
         ],
         "tags": [
@@ -2042,8 +2035,7 @@
             "description": "the user ID trying to create a post (NOTE: userID refers to the\nID from the vantage point of the user service. This ID is the single source\nof truth for a given user across our suite of services) | type: uint64",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "poll",
@@ -2105,8 +2097,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "pollId",
@@ -2186,8 +2177,7 @@
             "description": "the user ID trying to delete this user profile (NOTE: userID refers to the\nID from the vantage point of the user service. This ID is the single source\nof truth for a given user across our suite of services) | type: uint64",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "postId",
@@ -2243,8 +2233,7 @@
             "description": "the user ID trying to delete this user profile (NOTE: userID refers to the\nID from the vantage point of the user service. This ID is the single source\nof truth for a given user across our suite of services) | type: uint64",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "postId",
@@ -2302,8 +2291,7 @@
             "description": "the user ID trying to delete this user profile (NOTE: userID refers to the\nID from the vantage point of the user service. This ID is the single source\nof truth for a given user across our suite of services) | type: uint64",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           }
         ],
         "tags": [
@@ -2354,8 +2342,7 @@
             "description": "the user ID trying to create a post (NOTE: userID refers to the\nID from the vantage point of the user service. This ID is the single source\nof truth for a given user across our suite of services) | type: uint64",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "post",
@@ -2438,8 +2425,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "parentPostId",
@@ -2523,8 +2509,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "parentPostId",
@@ -2605,8 +2590,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "parentPostId",
@@ -2685,8 +2669,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "postId",
@@ -2787,8 +2770,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "postId",
@@ -2860,8 +2842,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "postId",
@@ -2917,8 +2898,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "postId",
@@ -3119,8 +3099,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "postId",
@@ -3200,8 +3179,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "postId",
@@ -3282,8 +3260,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "postId",
@@ -3367,8 +3344,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "postId",
@@ -3455,8 +3431,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "postId",
@@ -3569,8 +3544,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "postId",
@@ -3654,8 +3628,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "postId",
@@ -3735,8 +3708,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "postId",
@@ -3811,8 +3783,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "postId",
@@ -3890,8 +3861,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "postId",
@@ -4067,8 +4037,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "postId",
@@ -4143,8 +4112,7 @@
             "description": "the user ID trying to obtain a post (NOTE: userID refers to the\nID from the vantage point of the user service. This ID is the single source\nof truth for a given user across our suite of services) | type: uint64",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "postId",
@@ -4217,8 +4185,7 @@
             "description": "the user ID trying to delete a post (NOTE: userID refers to the\nID from the vantage point of the user service. This ID is the single source\nof truth for a given user across our suite of services) | type: uint64",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "postId",
@@ -4292,8 +4259,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "postId",
@@ -4366,8 +4332,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "profileId",
@@ -4443,8 +4408,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "profileId",
@@ -4508,8 +4472,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "publication",
@@ -4567,8 +4530,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "publicationId",
@@ -4625,8 +4587,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "publicationId",
@@ -4681,8 +4642,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "publicationId",
@@ -4740,8 +4700,7 @@
             "description": "the user ID trying to obtain a given feed (NOTE: userID refers to the\nID from the vantage point of the user service. This ID is the single source\nof truth for a given user across our suite of services) | type: uint64",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "feedType",
@@ -4825,8 +4784,7 @@
             "description": "the user ID whose communities topics follow set we want to obtain (NOTE:\nuserID refers to the ID from the vantage point of the user service. This ID\nis the single source of truth for a given user across our suite of\nservices) | type: uint64",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "limit",
@@ -5182,10 +5140,9 @@
           "type": "string",
           "title": "Comment ID\n@gotag: bson:\"_id,omitempty\""
         },
-        "simfinyPlatformUserId": {
+        "backendPlatformUserId": {
           "type": "string",
-          "format": "uint64",
-          "title": "Platform wide ID of the user creating the comment\n@gotag: bson:\"simfinyPlatformUserId\""
+          "title": "Platform wide ID of the user creating the comment\n@gotag: bson:\"backendPlatformUserId\""
         },
         "profileId": {
           "type": "string",
@@ -5303,10 +5260,9 @@
           "type": "string",
           "title": "Response ID\n@gotag: bson:\"_id,omitempty\""
         },
-        "simfinyPlatformUserId": {
+        "backendPlatformUserId": {
           "type": "string",
-          "format": "uint64",
-          "title": "ID of the user creating the comment response\n@gotag: bson:\"simfinyPlatformUserId\""
+          "title": "ID of the user creating the comment response\n@gotag: bson:\"backendPlatformUserId\""
         },
         "profileId": {
           "type": "string",
@@ -6228,10 +6184,9 @@
           "type": "string",
           "title": "Note ID\n@gotag: bson:\"_id,omitempty\""
         },
-        "simfinyPlatformUserId": {
+        "backendPlatformUserId": {
           "type": "string",
-          "format": "uint64",
-          "title": "Platform wide ID of the user creating the note\n@gotag: bson:\"simfinyPlatformUserId\""
+          "title": "Platform wide ID of the user creating the note\n@gotag: bson:\"backendPlatformUserId\""
         },
         "profileId": {
           "type": "string",
@@ -6441,10 +6396,9 @@
           },
           "title": "Comments tied to the post\n@gotag: bson:\"comments\""
         },
-        "simfinyPlatformUserId": {
+        "backendPlatformUserId": {
           "type": "string",
-          "format": "uint64",
-          "title": "ID of the user creating the post\n@gotag: bson:\"simfinyPlatformUserId\""
+          "title": "ID of the user creating the post\n@gotag: bson:\"backendPlatformUserId\""
         },
         "profileId": {
           "type": "string",
@@ -6644,10 +6598,9 @@
           },
           "title": "Comments tied to the post\n@gotag: bson:\"comments\""
         },
-        "simfinyPlatformUserId": {
+        "backendPlatformUserId": {
           "type": "string",
-          "format": "uint64",
-          "title": "ID of the user creating the post\n@gotag: bson:\"simfinyPlatformUserId\""
+          "title": "ID of the user creating the post\n@gotag: bson:\"backendPlatformUserId\""
         },
         "profileId": {
           "type": "string",
@@ -6786,9 +6739,8 @@
         "admin": {
           "$ref": "#/definitions/UserProfile"
         },
-        "adminSimfinyPlatformUserId": {
-          "type": "string",
-          "format": "uint64"
+        "adminBackendPlatformUserId": {
+          "type": "string"
         },
         "tags": {
           "type": "array",
@@ -6825,7 +6777,7 @@
       "description": "Use Case\n- An online magazine, a publication with a fixed publication staff that posts stories around a specific topic\n- A community publication, a publication that accepts stories published around Medium\n- A company blog, a publication that is created specifically to share company news\n- A collection of individual stories by a single author that are parts of a larger whole",
       "title": "A Publication is a collections of stories based around a common theme. Anyone can create them\nAs the creator of a publication, you're an editor by default, which means you have the ability to\na) add writers to your publication,\nb) edit and publish the stories that are submitted by your writers, and\nc) review the metrics for all of the stories that are part of your publication.\nAs the publication's creator, you'll also have the ability\nto appoint new editors (so they can do all of that stuff I just mentioned)",
       "required": [
-        "adminSimfinyPlatformUserId",
+        "adminBackendPlatformUserId",
         "tags",
         "subjects",
         "type",
@@ -6842,7 +6794,7 @@
         "PUBLICATION_TYPE_SUBJECTS"
       ],
       "default": "PUBLICATION_TYPE_UNSPECIFIED",
-      "title": "- PUBLICATION_TYPE_MAGAZINE: a publication with a fixed publication staff that posts stories around a specific topic\n - PUBLICATION_TYPE_PLATFORM: a publication that accepts stories published around simfiny\n - PUBLICATION_TYPE_BLOG: A community blog, a publication that is created specifically to share subset (community) news\n - PUBLICATION_TYPE_SUBJECTS: A collection of individual stories by a set of authors that are part of a whole"
+      "title": "- PUBLICATION_TYPE_MAGAZINE: a publication with a fixed publication staff that posts stories around a specific topic\n - PUBLICATION_TYPE_PLATFORM: a publication that accepts stories published around solomon\n - PUBLICATION_TYPE_BLOG: A community blog, a publication that is created specifically to share subset (community) news\n - PUBLICATION_TYPE_SUBJECTS: A collection of individual stories by a set of authors that are part of a whole"
     },
     "ReactToCommentReplyResponse": {
       "type": "object",
@@ -7041,10 +6993,9 @@
           },
           "title": "Comments tied to the post\n@gotag: bson:\"comments\""
         },
-        "simfinyPlatformUserId": {
+        "backendPlatformUserId": {
           "type": "string",
-          "format": "uint64",
-          "title": "ID of the user resharing the post\n@gotag: bson:\"simfinyPlatformUserId\""
+          "title": "ID of the user resharing the post\n@gotag: bson:\"backendPlatformUserId\""
         },
         "profileId": {
           "type": "string",
@@ -7121,10 +7072,10 @@
           "format": "uint64",
           "title": "The profile Id of the user who owned the original post\n@gotag: bson:\"originalPostUserProfileId\""
         },
-        "originalPostUserSimfinyPlaformId": {
+        "originalPostUserbackendPlaformId": {
           "type": "string",
           "format": "uint64",
-          "title": "The simfiny wide user id of the profile who owned the original post\n@gotag: bson:\"originalPostUserSimfinyPlaformId\""
+          "title": "The backend wide user id of the profile who owned the original post\n@gotag: bson:\"originalPostUserbackendPlaformId\""
         },
         "originalPostAction": {
           "$ref": "#/definitions/PostType",

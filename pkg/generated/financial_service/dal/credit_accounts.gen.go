@@ -48,7 +48,7 @@ func newCreditAccountORM(db *gorm.DB, opts ...gen.DOOption) creditAccountORM {
 	_creditAccountORM.Status = field.NewString(tableName, "status")
 	_creditAccountORM.Subtype = field.NewString(tableName, "subtype")
 	_creditAccountORM.Type = field.NewString(tableName, "type")
-	_creditAccountORM.UserId = field.NewUint64(tableName, "user_id")
+	_creditAccountORM.UserId = field.NewString(tableName, "user_id")
 	_creditAccountORM.Aprs = creditAccountORMHasManyAprs{
 		db: db.Session(&gorm.Session{}),
 
@@ -171,7 +171,7 @@ type creditAccountORM struct {
 	Status                 field.String
 	Subtype                field.String
 	Type                   field.String
-	UserId                 field.Uint64
+	UserId                 field.String
 	Aprs                   creditAccountORMHasManyAprs
 
 	Pockets creditAccountORMHasManyPockets
@@ -215,7 +215,7 @@ func (c *creditAccountORM) updateTableName(table string) *creditAccountORM {
 	c.Status = field.NewString(table, "status")
 	c.Subtype = field.NewString(table, "subtype")
 	c.Type = field.NewString(table, "type")
-	c.UserId = field.NewUint64(table, "user_id")
+	c.UserId = field.NewString(table, "user_id")
 
 	c.fillFieldMap()
 
