@@ -144,6 +144,8 @@ message FinancialUserProfile {
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
     (gorm.field).tag = {unique_index: "idx_financial_user_profile_id"}
   ];
+
+  // NOTE: this user id refers to the id provided by auth0 as it is the source of truth on the platform. Please remember this
   string user_id = 2 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
     (validate.rules).string.min_len = 1,
