@@ -20,7 +20,7 @@ message Account {
 
   // Auth0 user id
   string auth0_user_id = 2 [
-    (gorm.field).tag = {unique_index: "idx_user_auth0_user_id"}
+    (gorm.field).tag = {index: "idx_user_auth0_user_id"}
   ];
 
   // user account of interest can have many workspaces
@@ -144,7 +144,7 @@ message Workspace {
     option (gorm.opts) = {
      ormable: true
     };
-    string id = 1  [(gorm.field).tag = {unique_index: "idx_workspace_id"}];
+    uint64 id = 1  [(gorm.field).tag = {unique_index: "idx_workspace_id"}];
     string name = 2;
     google.protobuf.Timestamp created_at = 3;
     google.protobuf.Timestamp updated_at = 4;

@@ -8,6 +8,7 @@ import (
 	"context"
 	"strings"
 
+	workspace_servicev1 "github.com/SolomonAIEngineering/service-level-api/pkg/generated/workspace_service/v1"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 	"gorm.io/gorm/schema"
@@ -17,8 +18,6 @@ import (
 	"gorm.io/gen/helper"
 
 	"gorm.io/plugin/dbresolver"
-
-	workspace_servicev1 "github.com/SolomonAIEngineering/service-level-api/pkg/generated/workspace_service/v1"
 )
 
 func newFolderMetadataORM(db *gorm.DB, opts ...gen.DOOption) folderMetadataORM {
@@ -40,7 +39,7 @@ func newFolderMetadataORM(db *gorm.DB, opts ...gen.DOOption) folderMetadataORM {
 	_folderMetadataORM.S3LastModified = field.NewTime(tableName, "s3_last_modified")
 	_folderMetadataORM.S3Region = field.NewString(tableName, "s3_region")
 	_folderMetadataORM.UpdatedAt = field.NewTime(tableName, "updated_at")
-	_folderMetadataORM.WorkspaceId = field.NewString(tableName, "workspace_id")
+	_folderMetadataORM.WorkspaceId = field.NewUint64(tableName, "workspace_id")
 	_folderMetadataORM.ChildFolder = folderMetadataORMHasManyChildFolder{
 		db: db.Session(&gorm.Session{}),
 
@@ -83,7 +82,7 @@ type folderMetadataORM struct {
 	S3LastModified   field.Time
 	S3Region         field.String
 	UpdatedAt        field.Time
-	WorkspaceId      field.String
+	WorkspaceId      field.Uint64
 	ChildFolder      folderMetadataORMHasManyChildFolder
 
 	Files folderMetadataORMHasManyFiles
@@ -114,7 +113,7 @@ func (f *folderMetadataORM) updateTableName(table string) *folderMetadataORM {
 	f.S3LastModified = field.NewTime(table, "s3_last_modified")
 	f.S3Region = field.NewString(table, "s3_region")
 	f.UpdatedAt = field.NewTime(table, "updated_at")
-	f.WorkspaceId = field.NewString(table, "workspace_id")
+	f.WorkspaceId = field.NewUint64(table, "workspace_id")
 
 	f.fillFieldMap()
 

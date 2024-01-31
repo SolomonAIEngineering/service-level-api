@@ -8,6 +8,7 @@ import (
 	"context"
 	"strings"
 
+	workspace_servicev1 "github.com/SolomonAIEngineering/service-level-api/pkg/generated/workspace_service/v1"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 	"gorm.io/gorm/schema"
@@ -17,8 +18,6 @@ import (
 	"gorm.io/gen/helper"
 
 	"gorm.io/plugin/dbresolver"
-
-	workspace_servicev1 "github.com/SolomonAIEngineering/service-level-api/pkg/generated/workspace_service/v1"
 )
 
 func newWorkspaceORM(db *gorm.DB, opts ...gen.DOOption) workspaceORM {
@@ -31,7 +30,7 @@ func newWorkspaceORM(db *gorm.DB, opts ...gen.DOOption) workspaceORM {
 	_workspaceORM.ALL = field.NewAsterisk(tableName)
 	_workspaceORM.AccountId = field.NewUint64(tableName, "account_id")
 	_workspaceORM.CreatedAt = field.NewTime(tableName, "created_at")
-	_workspaceORM.Id = field.NewString(tableName, "id")
+	_workspaceORM.Id = field.NewUint64(tableName, "id")
 	_workspaceORM.IsDeleted = field.NewBool(tableName, "is_deleted")
 	_workspaceORM.Name = field.NewString(tableName, "name")
 	_workspaceORM.S3Acl = field.NewString(tableName, "s3_acl")
@@ -69,7 +68,7 @@ type workspaceORM struct {
 	ALL            field.Asterisk
 	AccountId      field.Uint64
 	CreatedAt      field.Time
-	Id             field.String
+	Id             field.Uint64
 	IsDeleted      field.Bool
 	Name           field.String
 	S3Acl          field.String
@@ -99,7 +98,7 @@ func (w *workspaceORM) updateTableName(table string) *workspaceORM {
 	w.ALL = field.NewAsterisk(table)
 	w.AccountId = field.NewUint64(table, "account_id")
 	w.CreatedAt = field.NewTime(table, "created_at")
-	w.Id = field.NewString(table, "id")
+	w.Id = field.NewUint64(table, "id")
 	w.IsDeleted = field.NewBool(table, "is_deleted")
 	w.Name = field.NewString(table, "name")
 	w.S3Acl = field.NewString(table, "s3_acl")
