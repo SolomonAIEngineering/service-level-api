@@ -102,7 +102,7 @@ func local_request_AccountingService_CreateAccountingProfile_0(ctx context.Conte
 }
 
 var (
-	filter_AccountingService_ReadAccountingProfile_0 = &utilities.DoubleArray{Encoding: map[string]int{"user_id": 0, "userId": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
+	filter_AccountingService_ReadAccountingProfile_0 = &utilities.DoubleArray{Encoding: map[string]int{"auth_zero_user_id": 0, "authZeroUserId": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
 )
 
 func request_AccountingService_ReadAccountingProfile_0(ctx context.Context, marshaler runtime.Marshaler, client AccountingServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -116,14 +116,14 @@ func request_AccountingService_ReadAccountingProfile_0(ctx context.Context, mars
 		_   = err
 	)
 
-	val, ok = pathParams["user_id"]
+	val, ok = pathParams["auth_zero_user_id"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "auth_zero_user_id")
 	}
 
-	protoReq.UserId, err = runtime.Uint64(val)
+	protoReq.AuthZeroUserId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "auth_zero_user_id", err)
 	}
 
 	if err := req.ParseForm(); err != nil {
@@ -149,14 +149,14 @@ func local_request_AccountingService_ReadAccountingProfile_0(ctx context.Context
 		_   = err
 	)
 
-	val, ok = pathParams["user_id"]
+	val, ok = pathParams["auth_zero_user_id"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "auth_zero_user_id")
 	}
 
-	protoReq.UserId, err = runtime.Uint64(val)
+	protoReq.AuthZeroUserId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "auth_zero_user_id", err)
 	}
 
 	if err := req.ParseForm(); err != nil {
@@ -182,14 +182,14 @@ func request_AccountingService_DeleteAccountingProfile_0(ctx context.Context, ma
 		_   = err
 	)
 
-	val, ok = pathParams["user_id"]
+	val, ok = pathParams["auth_zero_user_id"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "auth_zero_user_id")
 	}
 
-	protoReq.UserId, err = runtime.Uint64(val)
+	protoReq.AuthZeroUserId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "auth_zero_user_id", err)
 	}
 
 	msg, err := client.DeleteAccountingProfile(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -208,14 +208,14 @@ func local_request_AccountingService_DeleteAccountingProfile_0(ctx context.Conte
 		_   = err
 	)
 
-	val, ok = pathParams["user_id"]
+	val, ok = pathParams["auth_zero_user_id"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "auth_zero_user_id")
 	}
 
-	protoReq.UserId, err = runtime.Uint64(val)
+	protoReq.AuthZeroUserId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "auth_zero_user_id", err)
 	}
 
 	msg, err := server.DeleteAccountingProfile(ctx, &protoReq)
@@ -550,7 +550,7 @@ func RegisterAccountingServiceHandlerServer(ctx context.Context, mux *runtime.Se
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/accounting_service.v1.AccountingService/ReadAccountingProfile", runtime.WithHTTPPathPattern("/api/v1/profile/{user_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/accounting_service.v1.AccountingService/ReadAccountingProfile", runtime.WithHTTPPathPattern("/api/v1/profile/{auth_zero_user_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -575,7 +575,7 @@ func RegisterAccountingServiceHandlerServer(ctx context.Context, mux *runtime.Se
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/accounting_service.v1.AccountingService/DeleteAccountingProfile", runtime.WithHTTPPathPattern("/api/v1/profile/{user_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/accounting_service.v1.AccountingService/DeleteAccountingProfile", runtime.WithHTTPPathPattern("/api/v1/profile/{auth_zero_user_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -880,7 +880,7 @@ func RegisterAccountingServiceHandlerClient(ctx context.Context, mux *runtime.Se
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/accounting_service.v1.AccountingService/ReadAccountingProfile", runtime.WithHTTPPathPattern("/api/v1/profile/{user_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/accounting_service.v1.AccountingService/ReadAccountingProfile", runtime.WithHTTPPathPattern("/api/v1/profile/{auth_zero_user_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -902,7 +902,7 @@ func RegisterAccountingServiceHandlerClient(ctx context.Context, mux *runtime.Se
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/accounting_service.v1.AccountingService/DeleteAccountingProfile", runtime.WithHTTPPathPattern("/api/v1/profile/{user_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/accounting_service.v1.AccountingService/DeleteAccountingProfile", runtime.WithHTTPPathPattern("/api/v1/profile/{auth_zero_user_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1082,9 +1082,9 @@ var (
 
 	pattern_AccountingService_CreateAccountingProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v1", "profile"}, ""))
 
-	pattern_AccountingService_ReadAccountingProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v1", "profile", "user_id"}, ""))
+	pattern_AccountingService_ReadAccountingProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v1", "profile", "auth_zero_user_id"}, ""))
 
-	pattern_AccountingService_DeleteAccountingProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v1", "profile", "user_id"}, ""))
+	pattern_AccountingService_DeleteAccountingProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v1", "profile", "auth_zero_user_id"}, ""))
 
 	pattern_AccountingService_UpdateAccountingProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v1", "profile"}, ""))
 

@@ -29,10 +29,10 @@ func newMergeBusinessProfileORM(db *gorm.DB, opts ...gen.DOOption) mergeBusiness
 
 	tableName := _mergeBusinessProfileORM.mergeBusinessProfileORMDo.TableName()
 	_mergeBusinessProfileORM.ALL = field.NewAsterisk(tableName)
+	_mergeBusinessProfileORM.AuthZeroUserId = field.NewString(tableName, "auth_zero_user_id")
 	_mergeBusinessProfileORM.CompanyName = field.NewString(tableName, "company_name")
 	_mergeBusinessProfileORM.Email = field.NewString(tableName, "email")
 	_mergeBusinessProfileORM.Id = field.NewUint64(tableName, "id")
-	_mergeBusinessProfileORM.UserId = field.NewUint64(tableName, "user_id")
 	_mergeBusinessProfileORM.AccountingIntegrationMergeLink = mergeBusinessProfileORMHasManyAccountingIntegrationMergeLink{
 		db: db.Session(&gorm.Session{}),
 
@@ -645,10 +645,10 @@ type mergeBusinessProfileORM struct {
 	mergeBusinessProfileORMDo
 
 	ALL                            field.Asterisk
+	AuthZeroUserId                 field.String
 	CompanyName                    field.String
 	Email                          field.String
 	Id                             field.Uint64
-	UserId                         field.Uint64
 	AccountingIntegrationMergeLink mergeBusinessProfileORMHasManyAccountingIntegrationMergeLink
 
 	ActionablePersonalInsights mergeBusinessProfileORMHasManyActionablePersonalInsights
@@ -670,10 +670,10 @@ func (m mergeBusinessProfileORM) As(alias string) *mergeBusinessProfileORM {
 
 func (m *mergeBusinessProfileORM) updateTableName(table string) *mergeBusinessProfileORM {
 	m.ALL = field.NewAsterisk(table)
+	m.AuthZeroUserId = field.NewString(table, "auth_zero_user_id")
 	m.CompanyName = field.NewString(table, "company_name")
 	m.Email = field.NewString(table, "email")
 	m.Id = field.NewUint64(table, "id")
-	m.UserId = field.NewUint64(table, "user_id")
 
 	m.fillFieldMap()
 
@@ -691,10 +691,10 @@ func (m *mergeBusinessProfileORM) GetFieldByName(fieldName string) (field.OrderE
 
 func (m *mergeBusinessProfileORM) fillFieldMap() {
 	m.fieldMap = make(map[string]field.Expr, 7)
+	m.fieldMap["auth_zero_user_id"] = m.AuthZeroUserId
 	m.fieldMap["company_name"] = m.CompanyName
 	m.fieldMap["email"] = m.Email
 	m.fieldMap["id"] = m.Id
-	m.fieldMap["user_id"] = m.UserId
 
 }
 

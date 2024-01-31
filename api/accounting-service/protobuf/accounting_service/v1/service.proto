@@ -80,7 +80,7 @@ service AccountingService {
   // gets business accounting profile
   rpc ReadAccountingProfile(ReadAccountingProfileRequest) returns (ReadAccountingProfileResponse) {
     option (google.api.http) = {
-      get: "/api/v1/profile/{user_id}"
+      get: "/api/v1/profile/{auth_zero_user_id}"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       summary: "Get Business Account Profile",
@@ -102,7 +102,7 @@ service AccountingService {
   // delete business payroll profile
   rpc DeleteAccountingProfile(DeleteAccountingProfileRequest) returns (DeleteAccountingProfileResponse) {
     option (google.api.http) = {
-      delete: "/api/v1/profile/{user_id}"
+      delete: "/api/v1/profile/{auth_zero_user_id}"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       summary: "Delete Payroll Profile",

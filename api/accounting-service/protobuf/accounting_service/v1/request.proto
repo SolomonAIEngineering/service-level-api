@@ -27,15 +27,26 @@ message HealthCheckRequest {} // Defines an empty message named HealthCheckReque
 message ReadynessCheckRequest {} // Defines an empty message named ReadynessCheckRequest.
 
 message CreateAccountingProfileRequest { // Defines a message named CreateAccountingProfileRequest.
-   uint64 user_id = 1  [
-    (validate.rules).uint64.gt = 0, // Validation rule: user_id must be greater than 0.
-    (google.api.field_behavior) = REQUIRED // Field behavior: user_id is required.
+  // the auth0 user id is required to create an account as it will be the source of truth used across the platform
+  string auth_zero_user_id = 1 [
+    (validate.rules).string.min_len = 1, // Validation rule: auth0UserId must have a minimum length of 1.
+    (google.api.field_behavior) = REQUIRED // Field behavior: auth0UserId is required.
+  ];
+
+  string email = 2 [
+    (validate.rules).string.email = true, // Validation rule: email must be valid.
+    (google.api.field_behavior) = REQUIRED // Field behavior: email is required.
+  ];
+
+  string company_name = 3 [
+    (validate.rules).string.min_len = 1, // Validation rule: company_name must have a minimum length of 1.
+    (google.api.field_behavior) = REQUIRED // Field behavior: company_name is required.
   ];
 }
 
 message ReadAccountingProfileRequest { // Defines a message named ReadAccountingProfileRequest.
-    uint64 user_id = 1  [
-    (validate.rules).uint64.gt = 0, // Validation rule: user_id must be greater than 0.
+  string auth_zero_user_id = 1  [
+    (validate.rules).string.min_len = 1, // Validation rule: auth0UserId must have a minimum length of 1.
     (google.api.field_behavior) = REQUIRED // Field behavior: user_id is required.
   ];
   uint64 linked_accounting_account_id = 2 [
@@ -45,8 +56,8 @@ message ReadAccountingProfileRequest { // Defines a message named ReadAccounting
 }
 
 message DeleteAccountingProfileRequest { // Defines a message named DeleteProfile.
-    uint64 user_id = 1  [
-    (validate.rules).uint64.gt = 0, // Validation rule: user_id must be greater than 0.
+  string auth_zero_user_id = 1  [
+    (validate.rules).string.min_len = 1, // Validation rule: auth0UserId must have a minimum length of 1.
     (google.api.field_behavior) = REQUIRED // Field behavior: user_id is required.
   ];
 }
@@ -57,13 +68,10 @@ message UpdateAccountingProfileRequest { // Defines a message named UpdateAccoun
 }
 
 message GetMergeLinkTokenRequest { // Defines a message named GetMergeLinkTokenRequest.
-  // The user id
-  // Validations:
-  // - user_id must be greater than 0
-  // This unique identifier typically represents the ID for your end user in your product's database.
+  // This unique identifier typically represents the ID for your end user across all services.
   // This value must be distinct from other Linked Accounts' unique identifiers.
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0, // Validation rule: user_id must be greater than 0.
+  string auth_zero_user_id = 1  [
+    (validate.rules).string.min_len = 1, // Validation rule: auth0UserId must have a minimum length of 1.
     (google.api.field_behavior) = REQUIRED // Field behavior: user_id is required.
   ];
 
@@ -82,12 +90,10 @@ message GetMergeLinkTokenRequest { // Defines a message named GetMergeLinkTokenR
 }
 
 message ExchangePublicLinkTokenForAccountTokenRequest {
-  // The user id
-  // Validations:
-  // - user_id must be greater than 0
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
-    (google.api.field_behavior) = REQUIRED
+  // the platform wide auth user id
+  string auth_zero_user_id = 1  [
+    (validate.rules).string.min_len = 1, // Validation rule: auth0UserId must have a minimum length of 1.
+    (google.api.field_behavior) = REQUIRED // Field behavior: user_id is required.
   ];
 
   // the public link token
@@ -107,12 +113,10 @@ message ExchangePublicLinkTokenForAccountTokenRequest {
 }
 
 message ReadBalanceSheetsRequest {
-  // The user id
-  // Validations:
-  // - user_id must be greater than 0
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
-    (google.api.field_behavior) = REQUIRED
+  // The platform wide end user id
+  string auth_zero_user_id = 1  [
+    (validate.rules).string.min_len = 1, // Validation rule: auth0UserId must have a minimum length of 1.
+    (google.api.field_behavior) = REQUIRED // Field behavior: user_id is required.
   ];
 
   // The accounting integration merge link id
@@ -151,12 +155,10 @@ message ReadBalanceSheetsRequest {
 }
 
 message ReadCashFlowStatementsRequest {
-  // The user id
-  // Validations:
-  // - user_id must be greater than 0
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
-    (google.api.field_behavior) = REQUIRED
+  // The platform wide end user id
+  string auth_zero_user_id = 1  [
+    (validate.rules).string.min_len = 1, // Validation rule: auth0UserId must have a minimum length of 1.
+    (google.api.field_behavior) = REQUIRED // Field behavior: user_id is required.
   ];
 
   // The accounting integration merge link id
@@ -195,12 +197,10 @@ message ReadCashFlowStatementsRequest {
 }
 
 message ReadIncomeStatementsRequest {
-  // The user id
-  // Validations:
-  // - user_id must be greater than 0
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
-    (google.api.field_behavior) = REQUIRED
+  // The platform wide end user id
+  string auth_zero_user_id = 1  [
+    (validate.rules).string.min_len = 1, // Validation rule: auth0UserId must have a minimum length of 1.
+    (google.api.field_behavior) = REQUIRED // Field behavior: user_id is required.
   ];
 
   // The accounting integration merge link id
@@ -239,12 +239,10 @@ message ReadIncomeStatementsRequest {
 }
 
 message ReadBusinessChartOfAccountsRequest {
-  // The user id
-  // Validations:
-  // - user_id must be greater than 0
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
-    (google.api.field_behavior) = REQUIRED
+  // The platform wide end user id
+  string auth_zero_user_id = 1  [
+    (validate.rules).string.min_len = 1, // Validation rule: auth0UserId must have a minimum length of 1.
+    (google.api.field_behavior) = REQUIRED // Field behavior: user_id is required.
   ];
 
   // The accounting integration merge link id

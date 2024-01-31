@@ -36,34 +36,51 @@ export interface AccountingAttachment {
 
 export interface AccountingIntegrationMergeLink {
   /**
-   * When you request a link token to initiate a Merge Link session, Merge determines whether to create a new linked account or modify
-   * an existing linked account based on a combination of the end_user_origin_id and the category. If you want to support multiple
-   * connections, you simply need to provide a different end_user_origin_id for each company.
+   * When you request a link token to initiate a Merge Link session, Merge determines whether to create a new linked account
+   * or modify an existing linked account based on a combination of the end_user_origin_id and the category. If you want to
+   * support multiple connections, you simply need to provide a different end_user_origin_id for each company.
    *
    * This approach enables you to link multiple instances of the same integration (like QuickBooks) for the same end user.
    * It also has the added security benefit of not exposing any internal end_user_origin_ids.
    */
   account?: LinkedAccountingAccount;
+  /** The category of the integration. */
   category?: string;
+  /** Email address of the end user. */
   endUserEmailAddress?: string;
+  /** Name of the end user's organization. */
   endUserOrganizationName?: string;
+  /** Identifier of the end user's origin. */
   endUserOriginId?: string;
   /**
-   * id
+   * Unique identifier for the merge link.
    * @format uint64
    */
   id?: string;
+  /** The integration name. */
   integration?: string;
+  /** URL of the integration's image. */
   integrationImage?: string;
+  /** Name of the integration. */
   integrationName?: string;
+  /** The slug for the integration. */
   integrationSlug?: string;
+  /** URL of the integration's square image. */
   integrationSquareImage?: string;
+  /** Indicates whether the merge link is a duplicate. */
   isDuplicate?: boolean;
-  /** @format date-time */
+  /**
+   * Timestamp indicating when the merge link was last modified.
+   * @format date-time
+   */
   lastModifiedAt?: string;
+  /** Identifier of the merged linked account. */
   mergeLinkedAccountId?: string;
+  /** Status of the merge link. */
   status?: string;
+  /** Token used for merging linked accounts. */
   token?: MergeLinkedAccountToken;
+  /** URL for the webhook listener associated with the merge link. */
   webhookListenerUrl?: string;
 }
 
@@ -627,8 +644,10 @@ export interface Contacts {
 
 /** Defines a message named CreateAccountingProfileRequest. */
 export interface CreateAccountingProfileRequest {
-  /** @format uint64 */
-  userId: string;
+  /** the auth0 user id is required to create an account as it will be the source of truth used across the platform */
+  authZeroUserId: string;
+  companyName: string;
+  email: string;
 }
 
 /** Defines a message named CreatesAccountingProfileResponse. */
@@ -1388,19 +1407,14 @@ export type Ethnicity =
   | "ETHNICITY_PREFER_NOT_TO_DISCLOSE";
 
 export interface ExchangePublicLinkTokenForAccountTokenRequest {
+  /** the platform wide auth user id */
+  authZeroUserId: string;
   /** the end user's origin id */
   endUserOriginId: string;
   /** the organization name */
   organizationName: string;
   /** the public link token */
   publicToken: string;
-  /**
-   * The user id
-   * Validations:
-   * - user_id must be greater than 0
-   * @format uint64
-   */
-  userId: string;
 }
 
 /** Defines a message named ExchangePublicLinkTokenForAccountTokenResponse. */
@@ -1570,21 +1584,17 @@ export type GetLinkTokenData = any;
 /** Defines a message named GetMergeLinkTokenRequest. */
 export interface GetMergeLinkTokenRequest {
   /**
+   * This unique identifier typically represents the ID for your end user across all services.
+   * This value must be distinct from other Linked Accounts' unique identifiers.
+   */
+  authZeroUserId: string;
+  /**
    * Your end user's email address. This is purely for
    * identification purposes - setting this value will not cause any emails to be sent.
    */
   email: string;
   /** Your end user's organization. */
   organizationName: string;
-  /**
-   * The user id
-   * Validations:
-   * - user_id must be greater than 0
-   * This unique identifier typically represents the ID for your end user in your product's database.
-   * This value must be distinct from other Linked Accounts' unique identifiers.
-   * @format uint64
-   */
-  userId: string;
 }
 
 /** Defines a message named GetLinkTokenResponse. */
@@ -2150,9 +2160,11 @@ export interface MergeBusinessProfile {
   accountingIntegrationMergeLink?: Array<AccountingIntegrationMergeLink>;
   /** ths is the actionable inisghts the business has be provided with */
   actionablePersonalInsights?: Array<BusinessActionableInsight>;
+  /** the auth0 user id is required to create an account as it will be the source of truth used across the platform */
+  authZeroUserId: string;
   companyName?: string;
   /** a user profile can have many links (connected institutions) of which finanical accounts are tied to (checking, savings, etc) */
-  email?: string;
+  email: string;
   /**
    * id
    * @format uint64
@@ -2160,11 +2172,6 @@ export interface MergeBusinessProfile {
   id?: string;
   /** this is the payroll integration the business has decided to authorize */
   payrollIntegrationMergeLink?: Array<HrisIntegrationMergeLink>;
-  /**
-   * the user id tied to the profile
-   * @format uint64
-   */
-  userId?: string;
 }
 
 export interface MergeLinkedAccountToken {
@@ -2425,6 +2432,8 @@ export interface ReadBalanceSheetsRequest {
    * @format uint64
    */
   acountingIntegrationMergeLinkId: string;
+  /** The platform wide end user id */
+  authZeroUserId: string;
   /**
    * The end date
    * Validations:
@@ -2449,13 +2458,6 @@ export interface ReadBalanceSheetsRequest {
    * @format date-time
    */
   startDate: string;
-  /**
-   * The user id
-   * Validations:
-   * - user_id must be greater than 0
-   * @format uint64
-   */
-  userId: string;
 }
 
 export interface ReadBalanceSheetsResponse {
@@ -2478,13 +2480,8 @@ export interface ReadBusinessChartOfAccountsRequest {
    * @format uint64
    */
   acountingIntegrationMergeLinkId: string;
-  /**
-   * The user id
-   * Validations:
-   * - user_id must be greater than 0
-   * @format uint64
-   */
-  userId: string;
+  /** The platform wide end user id */
+  authZeroUserId: string;
 }
 
 export interface ReadBusinessChartOfAccountsResponse {
@@ -2502,6 +2499,8 @@ export interface ReadCashFlowStatementsRequest {
    * @format uint64
    */
   acountingIntegrationMergeLinkId: string;
+  /** The platform wide end user id */
+  authZeroUserId: string;
   /**
    * The end date
    * Validations:
@@ -2526,13 +2525,6 @@ export interface ReadCashFlowStatementsRequest {
    * @format date-time
    */
   startDate: string;
-  /**
-   * The user id
-   * Validations:
-   * - user_id must be greater than 0
-   * @format uint64
-   */
-  userId: string;
 }
 
 export interface ReadCashFlowStatementsResponse {
@@ -2555,6 +2547,8 @@ export interface ReadIncomeStatementsRequest {
    * @format uint64
    */
   acountingIntegrationMergeLinkId: string;
+  /** The platform wide end user id */
+  authZeroUserId: string;
   /**
    * The end date
    * Validations:
@@ -2579,13 +2573,6 @@ export interface ReadIncomeStatementsRequest {
    * @format date-time
    */
   startDate: string;
-  /**
-   * The user id
-   * Validations:
-   * - user_id must be greater than 0
-   * @format uint64
-   */
-  userId: string;
 }
 
 export interface ReadIncomeStatementsResponse {
