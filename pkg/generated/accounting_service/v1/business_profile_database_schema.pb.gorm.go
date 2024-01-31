@@ -15,7 +15,7 @@ type MergeBusinessProfileORM struct {
 	AuthZeroUserId                 string
 	CompanyName                    string
 	Email                          string
-	Id                             uint64
+	Id                             uint64                         `gorm:"unique_index:idx_merge_business_profiles_id"`
 	PayrollIntegrationMergeLink    []*HrisIntegrationMergeLinkORM `gorm:"foreignkey:MergeBusinessProfileId;association_foreignkey:Id;preload:true"`
 }
 

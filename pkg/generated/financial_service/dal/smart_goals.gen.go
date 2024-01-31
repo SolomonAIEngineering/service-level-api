@@ -39,7 +39,7 @@ func newSmartGoalORM(db *gorm.DB, opts ...gen.DOOption) smartGoalORM {
 	_smartGoalORM.PocketId = field.NewUint64(tableName, "pocket_id")
 	_smartGoalORM.StartDate = field.NewString(tableName, "start_date")
 	_smartGoalORM.TargetAmount = field.NewString(tableName, "target_amount")
-	_smartGoalORM.UserId = field.NewUint64(tableName, "user_id")
+	_smartGoalORM.UserId = field.NewString(tableName, "user_id")
 	_smartGoalORM.Forecasts = smartGoalORMHasOneForecasts{
 		db: db.Session(&gorm.Session{}),
 
@@ -91,7 +91,7 @@ type smartGoalORM struct {
 	PocketId      field.Uint64
 	StartDate     field.String
 	TargetAmount  field.String
-	UserId        field.Uint64
+	UserId        field.String
 	Forecasts     smartGoalORMHasOneForecasts
 
 	Milestones smartGoalORMHasManyMilestones
@@ -124,7 +124,7 @@ func (s *smartGoalORM) updateTableName(table string) *smartGoalORM {
 	s.PocketId = field.NewUint64(table, "pocket_id")
 	s.StartDate = field.NewString(table, "start_date")
 	s.TargetAmount = field.NewString(table, "target_amount")
-	s.UserId = field.NewUint64(table, "user_id")
+	s.UserId = field.NewString(table, "user_id")
 
 	s.fillFieldMap()
 

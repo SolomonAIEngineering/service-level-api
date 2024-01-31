@@ -47,7 +47,7 @@ message CreateUserProfileRequest {
 // CreateUserProfileResponse: Represents the response object returned as a response to
 // the `create user profile` request
 message CreateUserProfileResponse {
-  uint64 user_id = 1;
+  string user_id = 1;
 }
 
 // GetUserProfileRequest: Represents the request object invoked against the user
@@ -57,8 +57,8 @@ message GetUserProfileRequest {
   // NOTE: This user_id is the simfiny backend platform wide user id
   // Validations:
   // - user_id must be greater than 0
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   FinancialUserProfileType profile_type = 9 [
@@ -84,8 +84,8 @@ message DeleteUserProfileRequest {
   // NOTE: This user_id is the simfiny backend platform wide user id
   // Validations:
   // - user_id must be greater than 0
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   FinancialUserProfileType profile_type = 9 [
@@ -124,8 +124,8 @@ message CreateBankAccountRequest {
   // The account ID associated with the user
   // Validations:
   // - user_id must be greater than 0
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   // The bank account to create
@@ -176,8 +176,8 @@ message DeleteBankAccountRequest {
   // The account ID associated with the user
   // Validations:
   // - user_id must be greater than 0
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   // The bank account id
@@ -512,8 +512,8 @@ message PlaidInitiateTokenExchangeRequest {
   // for the given user in the Plaid Dashboard.
   // Validations:
   // - user_id must be greater than 0
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
 
@@ -549,8 +549,8 @@ message PlaidInitiateTokenUpdateRequest {
   // The user id
   // Validations:
   // - user_id must be greater than 0
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   // The link id we want to update for
@@ -574,8 +574,8 @@ message PlaidExchangeTokenRequest {
   // The user id
   // Validations:
   // - user_id must be greater than 0
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   // The public token
@@ -609,8 +609,8 @@ message GetInvestmentAcccountRequest {
   // The user id
   // Validations:
   // - user_id must be greater than 0
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   // The investment account id
@@ -634,8 +634,8 @@ message GetMortgageAccountRequest {
   // The user id
   // Validations:
   // - user_id must be greater than 0
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   // The mortage account id
@@ -659,8 +659,8 @@ message GetLiabilityAccountRequest {
   // The user id
   // Validations:
   // - user_id must be greater than 0
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   // The liability account id
@@ -684,8 +684,8 @@ message GetStudentLoanAccountRequest {
   // The user id
   // Validations:
   // - user_id must be greater than 0
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   // The student loan account id
@@ -709,8 +709,8 @@ message CreateManualLinkRequest {
   // The user id
   // Validations:
   // - user_id must be greater than 0
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
 
@@ -733,8 +733,8 @@ message GetLinkRequest {
   // The user id
   // Validations:
   // - user_id must be greater than 0
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
 
@@ -760,8 +760,8 @@ message GetLinksRequest {
   // The user id
   // Validations:
   // - user_id must be greater than 0
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   FinancialUserProfileType profile_type = 9 [
@@ -778,8 +778,8 @@ message DeleteLinkRequest {
   // The user id
   // Validations:
   // - user_id must be greater than 0
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
 
@@ -804,8 +804,8 @@ message GetReCurringTransactionsRequest {
   // The user id
   // Validations:
   // - user_id must be greater than 0
-  uint64 user_id = 2 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 2 [
+    (validate.rules).string.min_len = 0,
     (google.api.field_behavior) = REQUIRED
   ];
   FinancialUserProfileType profile_type = 9 [
@@ -828,8 +828,8 @@ message GetTransactionsRequest {
   // The user id
   // Validations:
   // - user_id must be greater than 0
-  uint64 user_id = 2 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 2 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
 
@@ -847,8 +847,8 @@ message GetTransactionsResponse {
 }
 
 message CreateSubscriptionRequest {
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   string price_id = 2[
@@ -870,8 +870,8 @@ message GetTransactionsForBankAccountRequest {
   // The user id
   // Validations:
   // - user_id must be greater than 0
-  uint64 user_id = 2 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 2 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
 
@@ -898,8 +898,8 @@ message AddDefaultPocketsToBankAccountRequest {
     // The user id
   // Validations:
   // - user_id must be greater than 0
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   // The bank account id
@@ -966,8 +966,8 @@ message GetTransactionsBetweenTimeRangesRequest {
   // The user id
   // Validations:
   // - user_id must be greater than 0
-  uint64 user_id = 2 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 2 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
 
@@ -997,8 +997,8 @@ message GetTransactionsForPastWeekRequest {
     (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
-  uint64 user_id = 2 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 2 [
+        (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   uint32 page = 3;   // Current page number
@@ -1021,8 +1021,8 @@ message GetTransactionsForPastMonthRequest {
     (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
-  uint64 user_id = 2 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 2 [
+        (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   uint32 page = 3;   // Current page number
@@ -1137,8 +1137,8 @@ message ListTransactionsRequest {
     (validate.rules).uint64.gt = 0,
     (google.api.field_behavior) = REQUIRED
   ];
-  uint64 user_id = 2 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 2 [
+        (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   uint64 page_number = 3;
@@ -1156,8 +1156,8 @@ message ListTransactionsResponse {
 }
 
 message ListTransactionsAcrossAllAccountsRequest {
-  uint64 user_id = 2 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 2 [
+        (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   uint64 page_number = 3;
@@ -1397,8 +1397,8 @@ message SearchTransactionsRequest {
   // The user id
   // Validations:
   // - user_id must be greater than 0
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
 
@@ -1448,8 +1448,8 @@ message ListRecurringTransactionsRequest {
     (validate.rules).uint64.gt = 0,
     (google.api.field_behavior) = REQUIRED
   ];
-  uint64 user_id = 2 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 2 [
+        (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   uint64 page_number = 3;
@@ -1470,8 +1470,8 @@ message GetRecurringTransactionsRequest {
   // The user id
   // Validations:
   // - user_id must be greater than 0
-  uint64 user_id = 2 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 2 [
+        (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
 
@@ -1650,7 +1650,7 @@ message PollAsyncTaskExecutionStatusResponse {
 
 message RecordAskCopilotQuestionRequest {
   // the account id associated with the user
-  uint64 user_id = 1 [(validate.rules).uint64.gt = 0];
+  string user_id = 1 [(validate.rules).string.min_len = 1];
   FinancialUserProfileType profile_type = 2 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       min_length: 0,
@@ -1669,7 +1669,7 @@ message RecordAskCopilotQuestionResponse {
 
 message CheckIfQuotaExceededRequest {
     // the account id associated with the user
-  uint64 user_id = 1 [(validate.rules).uint64.gt = 0];
+  string user_id = 1 [(validate.rules).string.min_len = 1];
   FinancialUserProfileType profile_type = 2 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       min_length: 0,
@@ -1685,7 +1685,7 @@ message CheckIfQuotaExceededResponse {
 
 message TriggerSyncRequest {
   // the account id associated with the user
-  uint64 user_id = 1 [(validate.rules).uint64.gt = 0];
+  string user_id = 1 [(validate.rules).string.min_len = 1];
   FinancialUserProfileType profile_type = 2 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       min_length: 0,

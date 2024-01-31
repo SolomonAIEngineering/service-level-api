@@ -10,7 +10,10 @@ option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/gener
 message MergeLinkedAccountToken {
   option (gorm.opts) = {ormable: true};
   // id
-  uint64 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+  uint64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {unique_index: "idx_merge_linked_account_tokens_id"}
+  ];
   // the id of the item the token is tied to 
   string item_id = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
   string key_id = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];

@@ -91,10 +91,11 @@ message InvestmentTransaction {
     string id = 16 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
     ];
-        // @gotag: ch:"user_id"
-    uint64 user_id = 17 [
+    
+    // @gotag: ch:"user_id"
+    string user_id = 17 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
-        (validate.rules).uint64.gt = 0
+        (validate.rules).string.min_len = 1
     ];
 
     string created_at = 18;
@@ -144,9 +145,9 @@ message ReOccuringTransaction {
     // @gotag: ch:"updated_time"
     string updated_time = 19;
     // @gotag: ch:"user_id"
-    uint64 user_id = 20 [
+    string user_id = 20 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
-        (validate.rules).uint64.gt = 0
+        (validate.rules).string.min_len = 1
     ];
     // @gotag: ch:"link_id"
     uint64 link_id = 21 [
@@ -208,9 +209,9 @@ message Transaction {
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
     ];
     // @gotag: ch:"user_id"
-    uint64 user_id = 23 [
+    string user_id = 23 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
-        (validate.rules).uint64.gt = 0
+        (validate.rules).string.min_len = 1
     ];
     // @gotag: ch:"link_id"
     uint64 link_id = 24 [
@@ -254,7 +255,7 @@ message AccountBalanceHistory {
     string account_id = 2;
     string iso_currency_code = 3;
     double balance = 4;
-    uint64 user_id = 5;
+    string user_id = 5;
     uint32 sign = 6;
     string id = 7 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
@@ -275,7 +276,7 @@ message CategoryMetricsFinancialSubProfile {
     double spent_last_six_months = 7;
     double spent_last_year = 8;
     double spent_last_two_years = 9;
-    uint64 user_id = 10;
+    string user_id = 10;
     FinancialUserProfileType profile_type = 22;
 }
 
@@ -286,7 +287,7 @@ message CategoryMonthlyExpenditure {
     uint32 month = 1;
     string personal_finance_category_primary = 2;
     double total_spending = 3;
-    uint64 user_id = 4;
+    string user_id = 4;
     FinancialUserProfileType profile_type = 22;
 }
 
@@ -297,7 +298,7 @@ message CategoryMonthlyIncome {
     uint32 month = 1;
     string personal_finance_category_primary = 2;
     double total_income = 3;
-    uint64 user_id = 4;
+    string user_id = 4;
     FinancialUserProfileType profile_type = 22;
 }
 
@@ -308,7 +309,7 @@ message CategoryMonthlyTransactionCount {
     uint32 month = 1;
     string personal_finance_category_primary = 2;
     uint32 transaction_count = 3;
-    uint64 user_id = 4;
+    string user_id = 4;
     FinancialUserProfileType profile_type = 22;
 }
 
@@ -318,7 +319,7 @@ message DebtToIncomeRatio {
     option (gorm.opts) = {ormable: true};
     uint32 month = 1;
     double ratio = 2;
-    uint64 user_id = 3;
+    string user_id = 3;
     FinancialUserProfileType profile_type = 22;
 }
 
@@ -330,7 +331,7 @@ message ExpenseMetrics {
     string personal_finance_category_primary = 2;
     uint64 transaction_count = 3;
     double total_expenses = 4;
-    uint64 user_id = 8;
+    string user_id = 8;
     FinancialUserProfileType profile_type = 22;
 }
 
@@ -345,7 +346,7 @@ message ExpenseMetricsFinancialSubProfileMetrics {
     double spent_last_six_months = 7;
     double average_monthly_discretionary_spending = 8;
     double average_monthly_recurring_spending = 9;
-    uint64 user_id = 10;
+    string user_id = 10;
     FinancialUserProfileType profile_type = 22;
 }
 
@@ -358,7 +359,7 @@ message FinancialProfile {
     double total_expenses = 3;
     uint64 number_of_transactions = 5;
     string most_expensive_category = 6;
-    uint64 user_id = 9;
+    string user_id = 9;
     FinancialUserProfileType profile_type = 22;
 }
 
@@ -368,7 +369,7 @@ message IncomeExpenseRatio {
     option (gorm.opts) = {ormable: true};
     uint32 month = 1;
     double ratio = 2;
-    uint64 user_id = 3;
+    string user_id = 3;
     FinancialUserProfileType profile_type = 22;
 }
 
@@ -380,7 +381,7 @@ message IncomeMetrics {
     string personal_finance_category_primary = 2;
     uint64 transaction_count = 3;
     double total_income = 4;
-    uint64 user_id = 8;
+    string user_id = 8;
     FinancialUserProfileType profile_type = 22;
 }
 
@@ -394,7 +395,7 @@ message IncomeMetricsFinancialSubProfile {
     double income_last_two_months = 4;
     double income_last_six_months = 5;
     double income_last_year = 6;
-    uint64 user_id = 8;
+    string user_id = 8;
     FinancialUserProfileType profile_type = 22;
 }
 
@@ -410,7 +411,7 @@ message LocationFinancialSubProfile {
     double spent_last_six_months = 6;
     double spent_last_year = 7;
     double spent_last_two_years = 8;
-    uint64 user_id = 9;
+    string user_id = 9;
     uint32 month = 10;
     FinancialUserProfileType profile_type = 22;
 }
@@ -426,7 +427,7 @@ message MerchantMetricsFinancialSubProfile {
     double spent_last_six_months = 6;
     double spent_last_year = 7;
     double spent_last_two_years = 8;
-    uint64 user_id = 9;
+    string user_id = 9;
     uint32 month = 10;
     FinancialUserProfileType profile_type = 22;
 }
@@ -438,7 +439,7 @@ message MerchantMonthlyExpenditure {
     uint32 month = 1;
     string merchant_name = 2;
     double total_spending = 3;
-    uint64 user_id = 4;
+    string user_id = 4;
     FinancialUserProfileType profile_type = 22;
 }
 
@@ -448,7 +449,7 @@ message MonthlyBalance {
     option (gorm.opts) = {ormable: true};
     uint32 month = 1;
     double net_balance = 2;
-    uint64 user_id = 3;
+    string user_id = 3;
     FinancialUserProfileType profile_type = 22;
 }
 
@@ -458,7 +459,7 @@ message MonthlyExpenditure {
     option (gorm.opts) = {ormable: true};
     uint32 month = 1;
     double total_spending = 2;
-    uint64 user_id = 3;
+    string user_id = 3;
     FinancialUserProfileType profile_type = 22;
 }
 
@@ -468,7 +469,7 @@ message MonthlyIncome {
     option (gorm.opts) = {ormable: true};
     uint32 month = 1;
     double total_income = 2;
-    uint64 user_id = 3;
+    string user_id = 3;
     FinancialUserProfileType profile_type = 22;
 }
 
@@ -478,7 +479,7 @@ message MonthlySavings {
     option (gorm.opts) = {ormable: true};
     uint32 month = 1;
     double net_savings = 2;
-    uint64 user_id = 3;
+    string user_id = 3;
     FinancialUserProfileType profile_type = 22;
 }
 
@@ -489,7 +490,7 @@ message MonthlyTotalQuantityBySecurityAndUser {
     uint32 month = 1;
     string security_id = 2;
     double total_quantity = 3;
-    uint64 user_id = 4;
+    string user_id = 4;
     FinancialUserProfileType profile_type = 22;
 }
 
@@ -499,7 +500,7 @@ message MonthlyTransactionCount {
     option (gorm.opts) = {ormable: true};
     uint32 month = 1;
     uint64 transaction_count = 2;
-    uint64 user_id = 3;
+    string user_id = 3;
     FinancialUserProfileType profile_type = 22;
 }
 
@@ -514,7 +515,7 @@ message PaymentChannelMetricsFinancialSubProfile {
     double spent_last_six_months = 5;
     double spent_last_year = 6;
     double spent_last_two_years = 7;
-    uint64 user_id = 8;
+    string user_id = 8;
     uint32 month = 9;
     uint64 transaction_count = 10;
     FinancialUserProfileType profile_type = 22;
@@ -527,7 +528,7 @@ message PaymentChannelMonthlyExpenditure {
     uint32 month = 1;
     string payment_channel = 2;
     double total_spending = 3;
-    uint64 user_id = 4;
+    string user_id = 4;
     FinancialUserProfileType profile_type = 22;
 }
 
@@ -537,7 +538,7 @@ message TotalInvestmentBySecurity {
     option (gorm.opts) = {ormable: true};
     string security_id = 1;
     double total_investment = 2;
-    uint64 user_id = 3;
+    string user_id = 3;
     FinancialUserProfileType profile_type = 22;
 }
 
@@ -553,7 +554,7 @@ message TransactionAggregatesByMonth {
     string merchant_name = 5;
     uint64 transaction_count = 6;
     double total_amount = 7;
-    uint64 user_id = 8;
+    string user_id = 8;
     FinancialUserProfileType profile_type = 22;
 }
 
@@ -562,7 +563,7 @@ message TransactionAggregatesByMonth {
 message UserFinancialHealthMetricsTable {
     option (gorm.opts) = {ormable: true};
     google.protobuf.Timestamp time = 1;
-    uint64 user_id = 2;
+    string user_id = 2;
     double monthly_income = 3;
     double monthly_expenses = 4;
     uint64 transaction_diversity = 5;

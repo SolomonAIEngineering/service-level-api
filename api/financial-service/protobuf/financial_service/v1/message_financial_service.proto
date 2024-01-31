@@ -144,9 +144,9 @@ message FinancialUserProfile {
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
     (gorm.field).tag = {unique_index: "idx_financial_user_profile_id"}
   ];
-  uint64 user_id = 2 [
+  string user_id = 2 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
-    (validate.rules).uint64.gt = 0,
+    (validate.rules).string.min_len = 1,
     (gorm.field).tag = {index: "idx_financial_user_profile_user_id"}
   ];
   string stripe_customer_id = 3 [
@@ -394,7 +394,7 @@ message StudentLoanAccount {
   string servicer_address_region = 35 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
   string servicer_address_country = 36 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
   // the user id to which this bank account is tied to
-  uint64 user_id = 37 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
+  string user_id = 37 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
   // the account name
   string name = 38 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
    // the bank account status
@@ -409,7 +409,7 @@ message CreditAccount {
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
     (gorm.field).tag = {unique_index: "idx_credit_account_id"}
   ];
-  uint64 user_id = 2 [
+  string user_id = 2 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
     (gorm.field).tag = {index: "idx_credit_account_user_id"}
   ];
@@ -527,7 +527,7 @@ message InvestmentAccount {
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
     (gorm.field).tag = {unique_index: "idx_investment_account_id"}
   ];
-  uint64 user_id = 2 [
+  string user_id = 2 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
     (gorm.field).tag = {index: "idx_investment_account_user_id"}
   ];
@@ -575,7 +575,7 @@ message BankAccount {
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
     (gorm.field).tag = {unique_index: "idx_bank_account_id"}
   ];
-  uint64 user_id = 2 [
+  string user_id = 2 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
     (gorm.field).tag = {index: "idx_bank_account_user_id"}
   ];
@@ -686,7 +686,7 @@ message SmartGoal {
     (gorm.field).tag = {unique_index: "idx_smart_goal_id"}
   ];
 
-  uint64 user_id = 2 [
+  string user_id = 2 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
     (gorm.field).tag = {index: "idx_smart_goal_user_id"}
   ];
@@ -785,7 +785,7 @@ message SmartNote {
   // Unique identifier for the note
   uint64 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
 
-  uint64 user_id = 3 [
+  string user_id = 3 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
     (gorm.field).tag = {index: "idx_smart_note_user_id"}
   ];
@@ -1248,9 +1248,9 @@ message PlaidAccountInvestmentTransaction {
 
     // The user ID associated with this investment transaction.
     // @gotag: ch:"user_id"
-    uint64 user_id = 17 [
+    string user_id = 17 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
-        (validate.rules).uint64.gt = 0,
+        (validate.rules).string.min_len = 1,
         (gorm.field).tag = {index: "idx_investment_transaction_user_id"}
     ];
 
@@ -1353,9 +1353,9 @@ message PlaidAccountRecurringTransaction {
 
     // The user ID associated with this recurring transaction.
     // @gotag: ch:"user_id"
-    uint64 user_id = 20 [
+    string user_id = 20 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
-        (validate.rules).uint64.gt = 0,
+        (validate.rules).string.min_len = 1,
         (gorm.field).tag = {index: "idx_recurring_transaction_user_id"}
     ];
 
@@ -1540,9 +1540,9 @@ message PlaidAccountTransaction {
     ];
     
     // The user ID associated with this transaction.
-    uint64 user_id = 23 [
+    string user_id = 23 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
-        (validate.rules).uint64.gt = 0,
+        (validate.rules).string.min_len = 1,
         (gorm.field).tag = {index: "idx_transaction_user_id"}
     ];
     
@@ -1588,9 +1588,9 @@ message TransactionSplit {
   ];
 
   // The user ID associated with this transaction.
-  uint64 user_id = 3 [
+  string user_id = 3 [
       (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
-      (validate.rules).uint64.gt = 0
+      (validate.rules).string.min_len = 1
   ];
 
   // The link ID associated with this transaction.

@@ -40,7 +40,7 @@ func newTransactionSplitORM(db *gorm.DB, opts ...gen.DOOption) transactionSplitO
 	_transactionSplitORM.PlaidAccountTransactionId = field.NewUint64(tableName, "plaid_account_transaction_id")
 	_transactionSplitORM.Tags = field.NewField(tableName, "tags")
 	_transactionSplitORM.TimeOfSplit = field.NewTime(tableName, "time_of_split")
-	_transactionSplitORM.UserId = field.NewUint64(tableName, "user_id")
+	_transactionSplitORM.UserId = field.NewString(tableName, "user_id")
 
 	_transactionSplitORM.fillFieldMap()
 
@@ -63,7 +63,7 @@ type transactionSplitORM struct {
 	PlaidAccountTransactionId       field.Uint64
 	Tags                            field.Field
 	TimeOfSplit                     field.Time
-	UserId                          field.Uint64
+	UserId                          field.String
 
 	fieldMap map[string]field.Expr
 }
@@ -92,7 +92,7 @@ func (t *transactionSplitORM) updateTableName(table string) *transactionSplitORM
 	t.PlaidAccountTransactionId = field.NewUint64(table, "plaid_account_transaction_id")
 	t.Tags = field.NewField(table, "tags")
 	t.TimeOfSplit = field.NewTime(table, "time_of_split")
-	t.UserId = field.NewUint64(table, "user_id")
+	t.UserId = field.NewString(table, "user_id")
 
 	t.fillFieldMap()
 

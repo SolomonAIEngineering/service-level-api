@@ -13,7 +13,7 @@ type MergeLinkedAccountTokenORM struct {
 	AccessToken                      string
 	AccountingIntegrationMergeLinkId *uint64
 	HrisIntegrationMergeLinkId       *uint64
-	Id                               uint64
+	Id                               uint64 `gorm:"unique_index:idx_merge_linked_account_tokens_id"`
 	ItemId                           string
 	KeyId                            string
 	MergeEndUserOriginId             string

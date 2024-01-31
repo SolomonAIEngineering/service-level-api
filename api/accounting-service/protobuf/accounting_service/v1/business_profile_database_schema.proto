@@ -19,8 +19,9 @@ message MergeBusinessProfile {
 
   // id
   uint64 id = 1 [
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}
-    ];
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
+    (gorm.field).tag = {unique_index: "idx_merge_business_profiles_id"}
+  ];
 
   // the auth0 user id is required to create an account as it will be the source of truth used across the platform
   string auth_zero_user_id = 2 [

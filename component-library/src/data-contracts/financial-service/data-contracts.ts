@@ -24,7 +24,6 @@ export interface AccountBalanceHistory {
   sign?: number;
   /** @format date-time */
   time?: string;
-  /** @format uint64 */
   userId?: string;
 }
 
@@ -67,7 +66,6 @@ export interface AddDefaultPocketsToBankAccountRequest {
    * The user id
    * Validations:
    * - user_id must be greater than 0
-   * @format uint64
    */
   userId: string;
 }
@@ -329,7 +327,6 @@ export interface BankAccount {
   transactions?: Array<PlaidAccountTransaction>;
   /** the bank account type */
   type: BankAccountType;
-  /** @format uint64 */
   userId?: string;
 }
 
@@ -462,7 +459,6 @@ export interface CategoryMetricsFinancialSubProfile {
   spentLastYear?: number;
   /** @format uint64 */
   transactionCount?: string;
-  /** @format uint64 */
   userId?: string;
 }
 
@@ -477,7 +473,6 @@ export interface CategoryMonthlyExpenditure {
   profileType?: FinancialUserProfileType;
   /** @format double */
   totalSpending?: number;
-  /** @format uint64 */
   userId?: string;
 }
 
@@ -492,7 +487,6 @@ export interface CategoryMonthlyIncome {
   profileType?: FinancialUserProfileType;
   /** @format double */
   totalIncome?: number;
-  /** @format uint64 */
   userId?: string;
 }
 
@@ -507,7 +501,6 @@ export interface CategoryMonthlyTransactionCount {
   profileType?: FinancialUserProfileType;
   /** @format int64 */
   transactionCount?: number;
-  /** @format uint64 */
   userId?: string;
 }
 
@@ -540,7 +533,6 @@ export interface CreateBankAccountRequest {
    * The account ID associated with the user
    * Validations:
    * - user_id must be greater than 0
-   * @format uint64
    */
   userId: string;
 }
@@ -602,7 +594,6 @@ export interface CreateManualLinkRequest {
    * The user id
    * Validations:
    * - user_id must be greater than 0
-   * @format uint64
    */
   userId: string;
 }
@@ -679,7 +670,6 @@ export type CreateSubscriptionData = any;
 export interface CreateSubscriptionRequest {
   priceId: string;
   profileType: FinancialUserProfileType;
-  /** @format uint64 */
   userId: string;
 }
 
@@ -710,7 +700,6 @@ export interface CreateUserProfileRequest {
  * the `create user profile` request
  */
 export interface CreateUserProfileResponse {
-  /** @format uint64 */
   userId?: string;
 }
 
@@ -780,7 +769,6 @@ export interface CreditAccount {
   transactions?: Array<PlaidAccountTransaction>;
   /** the bank account type */
   type?: string;
-  /** @format uint64 */
   userId?: string;
 }
 
@@ -794,7 +782,6 @@ export interface DebtToIncomeRatio {
   profileType?: FinancialUserProfileType;
   /** @format double */
   ratio?: number;
-  /** @format uint64 */
   userId?: string;
 }
 
@@ -908,7 +895,6 @@ export interface ExpenseMetrics {
   totalExpenses?: number;
   /** @format uint64 */
   transactionCount?: string;
-  /** @format uint64 */
   userId?: string;
 }
 
@@ -930,7 +916,6 @@ export interface ExpenseMetricsFinancialSubProfileMetrics {
   spentLastSixMonths?: number;
   /** @format double */
   spentLastWeek?: number;
-  /** @format uint64 */
   userId?: string;
 }
 
@@ -958,7 +943,6 @@ export interface FinancialProfile {
   totalExpenses?: number;
   /** @format double */
   totalIncome?: number;
-  /** @format uint64 */
   userId?: string;
 }
 
@@ -981,7 +965,6 @@ export interface FinancialUserProfile {
   stripeCustomerId?: string;
   /** the stripe subscriptions the user profile actively maintains */
   stripeSubscriptions?: StripeSubscription;
-  /** @format uint64 */
   userId?: string;
 }
 
@@ -1493,7 +1476,6 @@ export interface IncomeExpenseRatio {
   profileType?: FinancialUserProfileType;
   /** @format double */
   ratio?: number;
-  /** @format uint64 */
   userId?: string;
 }
 
@@ -1510,7 +1492,6 @@ export interface IncomeMetrics {
   totalIncome?: number;
   /** @format uint64 */
   transactionCount?: string;
-  /** @format uint64 */
   userId?: string;
 }
 
@@ -1532,7 +1513,6 @@ export interface IncomeMetricsFinancialSubProfile {
   /** @format int64 */
   month?: number;
   profileType?: FinancialUserProfileType;
-  /** @format uint64 */
   userId?: string;
 }
 
@@ -1616,7 +1596,6 @@ export interface InvestmentAccount {
   transactions?: Array<PlaidAccountInvestmentTransaction>;
   /** the bank account type */
   type?: string;
-  /** @format uint64 */
   userId?: string;
 }
 
@@ -1802,7 +1781,6 @@ export interface LocationFinancialSubProfile {
   spentLastYear?: number;
   /** @format uint64 */
   transactionCount?: string;
-  /** @format uint64 */
   userId?: string;
 }
 
@@ -1846,7 +1824,6 @@ export interface MerchantMetricsFinancialSubProfile {
   spentLastWeek?: number;
   /** @format double */
   spentLastYear?: number;
-  /** @format uint64 */
   userId?: string;
 }
 
@@ -1861,7 +1838,6 @@ export interface MerchantMonthlyExpenditure {
   profileType?: FinancialUserProfileType;
   /** @format double */
   totalSpending?: number;
-  /** @format uint64 */
   userId?: string;
 }
 
@@ -1924,7 +1900,6 @@ export interface MonthlyBalance {
   /** @format double */
   netBalance?: number;
   profileType?: FinancialUserProfileType;
-  /** @format uint64 */
   userId?: string;
 }
 
@@ -1938,7 +1913,6 @@ export interface MonthlyExpenditure {
   profileType?: FinancialUserProfileType;
   /** @format double */
   totalSpending?: number;
-  /** @format uint64 */
   userId?: string;
 }
 
@@ -1952,7 +1926,6 @@ export interface MonthlyIncome {
   profileType?: FinancialUserProfileType;
   /** @format double */
   totalIncome?: number;
-  /** @format uint64 */
   userId?: string;
 }
 
@@ -1966,7 +1939,6 @@ export interface MonthlySavings {
   /** @format double */
   netSavings?: number;
   profileType?: FinancialUserProfileType;
-  /** @format uint64 */
   userId?: string;
 }
 
@@ -1981,7 +1953,6 @@ export interface MonthlyTotalQuantityBySecurityAndUser {
   securityId?: string;
   /** @format double */
   totalQuantity?: number;
-  /** @format uint64 */
   userId?: string;
 }
 
@@ -1995,7 +1966,6 @@ export interface MonthlyTransactionCount {
   profileType?: FinancialUserProfileType;
   /** @format uint64 */
   transactionCount?: string;
-  /** @format uint64 */
   userId?: string;
 }
 
@@ -2073,7 +2043,6 @@ export interface PaymentChannelMetricsFinancialSubProfile {
   spentLastYear?: number;
   /** @format uint64 */
   transactionCount?: string;
-  /** @format uint64 */
   userId?: string;
 }
 
@@ -2088,7 +2057,6 @@ export interface PaymentChannelMonthlyExpenditure {
   profileType?: FinancialUserProfileType;
   /** @format double */
   totalSpending?: number;
-  /** @format uint64 */
   userId?: string;
 }
 
@@ -2320,7 +2288,6 @@ export interface PlaidAccountInvestmentTransaction {
   /**
    * The user ID associated with this investment transaction.
    * @gotag: ch:"user_id"
-   * @format uint64
    */
   userId?: string;
 }
@@ -2445,7 +2412,6 @@ export interface PlaidAccountRecurringTransaction {
   /**
    * The user ID associated with this recurring transaction.
    * @gotag: ch:"user_id"
-   * @format uint64
    */
   userId?: string;
 }
@@ -2640,10 +2606,7 @@ export interface PlaidAccountTransaction {
    * @gotag: ch:"unofficial_currency_code"
    */
   unofficialCurrencyCode?: string;
-  /**
-   * The user ID associated with this transaction.
-   * @format uint64
-   */
+  /** The user ID associated with this transaction. */
   userId?: string;
 }
 
@@ -2663,7 +2626,6 @@ export interface PlaidExchangeTokenRequest {
    * The user id
    * Validations:
    * - user_id must be greater than 0
-   * @format uint64
    */
   userId: string;
 }
@@ -2699,7 +2661,6 @@ export interface PlaidInitiateTokenExchangeRequest {
    * for the given user in the Plaid Dashboard.
    * Validations:
    * - user_id must be greater than 0
-   * @format uint64
    */
   userId: string;
 }
@@ -2723,7 +2684,6 @@ export interface PlaidInitiateTokenUpdateRequest {
    * The user id
    * Validations:
    * - user_id must be greater than 0
-   * @format uint64
    */
   userId: string;
 }
@@ -2966,10 +2926,7 @@ export interface ReOccuringTransaction {
   transactionIds?: string;
   /** @gotag: ch:"updated_time" */
   updatedTime?: string;
-  /**
-   * @gotag: ch:"user_id"
-   * @format uint64
-   */
+  /** @gotag: ch:"user_id" */
   userId?: string;
 }
 
@@ -3006,10 +2963,7 @@ export interface ReadynessCheckResponse {
 export interface RecordAskCopilotQuestionRequest {
   /** @example "username:testuser" */
   profileType: FinancialUserProfileType;
-  /**
-   * the account id associated with the user
-   * @format uint64
-   */
+  /** the account id associated with the user */
   userId?: string;
 }
 
@@ -3065,7 +3019,6 @@ export interface SearchTransactionsRequest {
    * The user id
    * Validations:
    * - user_id must be greater than 0
-   * @format uint64
    */
   userId: string;
 }
@@ -3143,7 +3096,6 @@ export interface SmartGoal {
    * @example "Active"
    */
   targetAmount?: string;
-  /** @format uint64 */
   userId?: string;
 }
 
@@ -3171,7 +3123,6 @@ export interface SmartNote {
    * @format date-time
    */
   updatedAt?: string;
-  /** @format uint64 */
   userId?: string;
 }
 
@@ -3285,10 +3236,7 @@ export interface StudentLoanAccount {
   servicerAddressStreet?: string;
   /** the bank account status */
   status?: BankAccountStatus;
-  /**
-   * the user id to which this bank account is tied to
-   * @format uint64
-   */
+  /** the user id to which this bank account is tied to */
   userId?: string;
   /** @format double */
   ytdInterestPaid?: number;
@@ -3351,7 +3299,6 @@ export interface TotalInvestmentBySecurity {
   securityId?: string;
   /** @format double */
   totalInvestment?: number;
-  /** @format uint64 */
   userId?: string;
 }
 
@@ -3515,10 +3462,7 @@ export interface Transaction {
   transactionId?: string;
   /** @gotag: ch:"unofficial_currency_code" */
   unofficialCurrencyCode?: string;
-  /**
-   * @gotag: ch:"user_id"
-   * @format uint64
-   */
+  /** @gotag: ch:"user_id" */
   userId?: string;
 }
 
@@ -3538,7 +3482,6 @@ export interface TransactionAggregatesByMonth {
   totalAmount?: number;
   /** @format uint64 */
   transactionCount?: string;
-  /** @format uint64 */
   userId?: string;
 }
 
@@ -3586,10 +3529,7 @@ export interface TransactionSplit {
    * @format date-time
    */
   timeOfSplit?: string;
-  /**
-   * The user ID associated with this transaction.
-   * @format uint64
-   */
+  /** The user ID associated with this transaction. */
   userId?: string;
 }
 
@@ -3608,10 +3548,7 @@ export interface TriggerSyncRequest {
   linkId?: string;
   /** @example "username:testuser" */
   profileType: FinancialUserProfileType;
-  /**
-   * the account id associated with the user
-   * @format uint64
-   */
+  /** the account id associated with the user */
   userId?: string;
 }
 

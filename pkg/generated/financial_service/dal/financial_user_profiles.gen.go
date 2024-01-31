@@ -33,7 +33,7 @@ func newFinancialUserProfileORM(db *gorm.DB, opts ...gen.DOOption) financialUser
 	_financialUserProfileORM.Id = field.NewUint64(tableName, "id")
 	_financialUserProfileORM.ProfileType = field.NewString(tableName, "profile_type")
 	_financialUserProfileORM.StripeCustomerId = field.NewString(tableName, "stripe_customer_id")
-	_financialUserProfileORM.UserId = field.NewUint64(tableName, "user_id")
+	_financialUserProfileORM.UserId = field.NewString(tableName, "user_id")
 	_financialUserProfileORM.StripeSubscriptions = financialUserProfileORMHasOneStripeSubscriptions{
 		db: db.Session(&gorm.Session{}),
 
@@ -325,7 +325,7 @@ type financialUserProfileORM struct {
 	Id                  field.Uint64
 	ProfileType         field.String
 	StripeCustomerId    field.String
-	UserId              field.Uint64
+	UserId              field.String
 	StripeSubscriptions financialUserProfileORMHasOneStripeSubscriptions
 
 	ActionableInsights financialUserProfileORMHasManyActionableInsights
@@ -353,7 +353,7 @@ func (f *financialUserProfileORM) updateTableName(table string) *financialUserPr
 	f.Id = field.NewUint64(table, "id")
 	f.ProfileType = field.NewString(table, "profile_type")
 	f.StripeCustomerId = field.NewString(table, "stripe_customer_id")
-	f.UserId = field.NewUint64(table, "user_id")
+	f.UserId = field.NewString(table, "user_id")
 
 	f.fillFieldMap()
 

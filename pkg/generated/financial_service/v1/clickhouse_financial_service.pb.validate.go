@@ -98,10 +98,10 @@ func (m *InvestmentTransaction) validate(all bool) error {
 
 	// no validation rules for Id
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := InvestmentTransactionValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -311,10 +311,10 @@ func (m *ReOccuringTransaction) validate(all bool) error {
 
 	// no validation rules for UpdatedTime
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := ReOccuringTransactionValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -539,10 +539,10 @@ func (m *Transaction) validate(all bool) error {
 
 	// no validation rules for Id
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := TransactionValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
