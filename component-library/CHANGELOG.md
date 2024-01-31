@@ -1,3 +1,10 @@
+# [1.174.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.173.0...v1.174.0) (2024-01-31)
+
+
+### Features
+
+* add new endpoints ([b17e1b5](https://github.com/SolomonAIEngineering/service-level-api/commit/b17e1b50bdfcb3b2bd4a0c4a15935f8b794b8704))
+
 # [1.173.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.172.0...v1.173.0) (2024-01-31)
 
 
