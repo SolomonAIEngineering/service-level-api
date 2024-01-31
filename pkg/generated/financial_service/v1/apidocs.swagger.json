@@ -7736,7 +7736,8 @@
           "title": "id"
         },
         "userId": {
-          "type": "string"
+          "type": "string",
+          "title": "NOTE: this user id refers to the id provided by auth0 as it is the source of truth on the platform. Please remember this"
         },
         "stripeCustomerId": {
           "type": "string"

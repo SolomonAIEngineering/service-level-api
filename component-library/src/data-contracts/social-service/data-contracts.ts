@@ -155,6 +155,11 @@ export interface Comment {
    */
   authorUsername: string;
   /**
+   * Platform wide ID of the user creating the comment
+   * @gotag: bson:"backendPlatformUserId"
+   */
+  backendPlatformUserId?: string;
+  /**
    * Content defining the comment
    * @gotag: bson:"content"
    */
@@ -214,12 +219,6 @@ export interface Comment {
    */
   replies?: Array<CommentReply>;
   /**
-   * Platform wide ID of the user creating the comment
-   * @gotag: bson:"simfinyPlatformUserId"
-   * @format uint64
-   */
-  simfinyPlatformUserId?: string;
-  /**
    * UserIDToAffinityScoreMap witholds a mapping of all user profiles who left
    * an affinity score
    * @gotag: bson:"userIdToAffinityScoreMap"
@@ -269,6 +268,11 @@ export interface CommentReply {
    */
   authorUsername: string;
   /**
+   * ID of the user creating the comment response
+   * @gotag: bson:"backendPlatformUserId"
+   */
+  backendPlatformUserId?: string;
+  /**
    * Content defining the comment
    * @gotag: bson:"content"
    */
@@ -317,12 +321,6 @@ export interface CommentReply {
    * @format uint64
    */
   qualityScore?: string;
-  /**
-   * ID of the user creating the comment response
-   * @gotag: bson:"simfinyPlatformUserId"
-   * @format uint64
-   */
-  simfinyPlatformUserId?: string;
   /**
    * UserIDToAffinityScoreMap witholds a mapping of all user profiles who left
    * an affinity score
@@ -990,6 +988,11 @@ export interface Note {
    */
   authorUserName: string;
   /**
+   * Platform wide ID of the user creating the note
+   * @gotag: bson:"backendPlatformUserId"
+   */
+  backendPlatformUserId?: string;
+  /**
    * Content defining the note
    * @gotag: bson:"content"
    */
@@ -1027,12 +1030,6 @@ export interface Note {
    * @format uint64
    */
   profileId?: string;
-  /**
-   * Platform wide ID of the user creating the note
-   * @gotag: bson:"simfinyPlatformUserId"
-   * @format uint64
-   */
-  simfinyPlatformUserId?: string;
 }
 
 export interface NotificationActivity {
@@ -1111,6 +1108,11 @@ export interface PollPost {
    * @gotag: bson:"authorUsername"
    */
   authorUsername?: string;
+  /**
+   * ID of the user creating the post
+   * @gotag: bson:"backendPlatformUserId"
+   */
+  backendPlatformUserId?: string;
   /**
    * BackgroundImageUrl signifies an image to associate to a post object.
    * Such urls are only associated when a post is an article or short story
@@ -1198,12 +1200,6 @@ export interface PollPost {
    * @format uint64
    */
   qualityScore?: string;
-  /**
-   * ID of the user creating the post
-   * @gotag: bson:"simfinyPlatformUserId"
-   * @format uint64
-   */
-  simfinyPlatformUserId?: string;
   /**
    * Tags associated with the post
    * @gotag: bson:"tags"
@@ -1322,6 +1318,11 @@ export interface Post {
    */
   authorUsername?: string;
   /**
+   * ID of the user creating the post
+   * @gotag: bson:"backendPlatformUserId"
+   */
+  backendPlatformUserId?: string;
+  /**
    * BackgroundImageUrl signifies an image to associate to a post object.
    * Such urls are only associated when a post is an article or short story
    * @gotag: bson:"backgroundImageUrl"
@@ -1392,12 +1393,6 @@ export interface Post {
    * @gotag: bson:"readingTime"
    */
   readingTime?: string;
-  /**
-   * ID of the user creating the post
-   * @gotag: bson:"simfinyPlatformUserId"
-   * @format uint64
-   */
-  simfinyPlatformUserId?: string;
   /** @gotag: bson:"tags" */
   tags?: Array<string>;
   /**
@@ -1471,8 +1466,7 @@ export type PostType =
  */
 export interface Publication {
   admin?: UserProfile;
-  /** @format uint64 */
-  adminSimfinyPlatformUserId: string;
+  adminBackendPlatformUserId: string;
   createdAt?: string;
   description?: string;
   editors?: Array<UserProfile>;
@@ -1488,7 +1482,7 @@ export interface Publication {
 
 /**
  * - PUBLICATION_TYPE_MAGAZINE: a publication with a fixed publication staff that posts stories around a specific topic
- *  - PUBLICATION_TYPE_PLATFORM: a publication that accepts stories published around simfiny
+ *  - PUBLICATION_TYPE_PLATFORM: a publication that accepts stories published around solomon
  *  - PUBLICATION_TYPE_BLOG: A community blog, a publication that is created specifically to share subset (community) news
  *  - PUBLICATION_TYPE_SUBJECTS: A collection of individual stories by a set of authors that are part of a whole
  * @default "PUBLICATION_TYPE_UNSPECIFIED"
@@ -1667,6 +1661,11 @@ export interface SharedPost {
    */
   authorUsername?: string;
   /**
+   * ID of the user resharing the post
+   * @gotag: bson:"backendPlatformUserId"
+   */
+  backendPlatformUserId?: string;
+  /**
    * Comments tied to the post
    * @gotag: bson:"comments"
    */
@@ -1731,11 +1730,11 @@ export interface SharedPost {
    */
   originalPostUserProfileId?: string;
   /**
-   * The simfiny wide user id of the profile who owned the original post
-   * @gotag: bson:"originalPostUserSimfinyPlaformId"
+   * The backend wide user id of the profile who owned the original post
+   * @gotag: bson:"originalPostUserbackendPlaformId"
    * @format uint64
    */
-  originalPostUserSimfinyPlaformId?: string;
+  originalPostUserbackendPlaformId?: string;
   /**
    * ID of the profile resharing the post
    * @gotag: bson:"profileId"
@@ -1750,12 +1749,6 @@ export interface SharedPost {
    * @format uint64
    */
   qualityScore?: string;
-  /**
-   * ID of the user resharing the post
-   * @gotag: bson:"simfinyPlatformUserId"
-   * @format uint64
-   */
-  simfinyPlatformUserId?: string;
   /**
    * Tags associated with the post
    * @gotag: bson:"tags"

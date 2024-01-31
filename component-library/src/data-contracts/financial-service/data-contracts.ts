@@ -965,6 +965,7 @@ export interface FinancialUserProfile {
   stripeCustomerId?: string;
   /** the stripe subscriptions the user profile actively maintains */
   stripeSubscriptions?: StripeSubscription;
+  /** NOTE: this user id refers to the id provided by auth0 as it is the source of truth on the platform. Please remember this */
   userId?: string;
 }
 

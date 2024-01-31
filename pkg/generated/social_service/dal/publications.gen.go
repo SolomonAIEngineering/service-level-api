@@ -28,7 +28,7 @@ func newPublicationORM(db *gorm.DB, opts ...gen.DOOption) publicationORM {
 
 	tableName := _publicationORM.publicationORMDo.TableName()
 	_publicationORM.ALL = field.NewAsterisk(tableName)
-	_publicationORM.AdminSimfinyPlatformUserId = field.NewUint64(tableName, "admin_simfiny_platform_user_id")
+	_publicationORM.AdminBackendPlatformUserId = field.NewString(tableName, "admin_backend_platform_user_id")
 	_publicationORM.BookmarkId = field.NewUint64(tableName, "bookmark_id")
 	_publicationORM.CreatedAt = field.NewString(tableName, "created_at")
 	_publicationORM.Description = field.NewString(tableName, "description")
@@ -99,7 +99,7 @@ type publicationORM struct {
 	publicationORMDo
 
 	ALL                        field.Asterisk
-	AdminSimfinyPlatformUserId field.Uint64
+	AdminBackendPlatformUserId field.String
 	BookmarkId                 field.Uint64
 	CreatedAt                  field.String
 	Description                field.String
@@ -128,7 +128,7 @@ func (p publicationORM) As(alias string) *publicationORM {
 
 func (p *publicationORM) updateTableName(table string) *publicationORM {
 	p.ALL = field.NewAsterisk(table)
-	p.AdminSimfinyPlatformUserId = field.NewUint64(table, "admin_simfiny_platform_user_id")
+	p.AdminBackendPlatformUserId = field.NewString(table, "admin_backend_platform_user_id")
 	p.BookmarkId = field.NewUint64(table, "bookmark_id")
 	p.CreatedAt = field.NewString(table, "created_at")
 	p.Description = field.NewString(table, "description")
@@ -155,7 +155,7 @@ func (p *publicationORM) GetFieldByName(fieldName string) (field.OrderExpr, bool
 
 func (p *publicationORM) fillFieldMap() {
 	p.fieldMap = make(map[string]field.Expr, 12)
-	p.fieldMap["admin_simfiny_platform_user_id"] = p.AdminSimfinyPlatformUserId
+	p.fieldMap["admin_backend_platform_user_id"] = p.AdminBackendPlatformUserId
 	p.fieldMap["bookmark_id"] = p.BookmarkId
 	p.fieldMap["created_at"] = p.CreatedAt
 	p.fieldMap["description"] = p.Description

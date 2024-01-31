@@ -59,10 +59,10 @@ func (m *VirtualProfile) validate(all bool) error {
 
 	// no validation rules for Id
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := VirtualProfileValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -1417,10 +1417,10 @@ func (m *Publication) validate(all bool) error {
 		}
 	}
 
-	if m.GetAdminSimfinyPlatformUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetAdminBackendPlatformUserId()) < 1 {
 		err := PublicationValidationError{
-			field:  "AdminSimfinyPlatformUserId",
-			reason: "value must be greater than 0",
+			field:  "AdminBackendPlatformUserId",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err

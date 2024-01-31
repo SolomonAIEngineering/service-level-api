@@ -35,9 +35,9 @@ message VirtualProfile {
   // UserID id from the context of the user service (UserID is relegated across
   // all services and is maintained as the source of truth from an indentity
   // perspective)
-  uint64 user_id = 2 [
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
-    (validate.rules).uint64.gt = 0
+   string user_id = 2 [
+    (validate.rules).string.min_len = 1,
+    (google.api.field_behavior) = REQUIRED
   ];
   // ID of the user profile tied to this virtual account
   UserProfile user = 7 [(gorm.field).has_one = {
@@ -418,7 +418,7 @@ enum PublicationType {
   PUBLICATION_TYPE_UNSPECIFIED = 0;
   // a publication with a fixed publication staff that posts stories around a specific topic
   PUBLICATION_TYPE_MAGAZINE = 1;
-  // a publication that accepts stories published around simfiny
+  // a publication that accepts stories published around solomon
   PUBLICATION_TYPE_PLATFORM = 2;
   // A community blog, a publication that is created specifically to share subset (community) news
   PUBLICATION_TYPE_BLOG = 3;
@@ -451,7 +451,7 @@ message Publication {
       disable_association_autoupdate: false
       preload: true
     }];
-  uint64 admin_simfiny_platform_user_id = 4 [(validate.rules).uint64.gt = 0,  (google.api.field_behavior) = REQUIRED];
+  string admin_backend_platform_user_id = 4 [(validate.rules).string.min_len = 1,  (google.api.field_behavior) = REQUIRED];
   repeated string tags = 6 [(validate.rules).repeated = {min_items: 3},  (google.api.field_behavior) = REQUIRED];
   repeated UserProfile editors = 7  [
     (gorm.field).has_many = {

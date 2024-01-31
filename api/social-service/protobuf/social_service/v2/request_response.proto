@@ -38,8 +38,8 @@ message ReadynessCheckResponse {
 // social service to obtain a user's social profile
 message GetUserProfileRequest {
   // The user ID associated with the profile we want to get | type: uint64
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   // The RequestorProfileID is an optional parameter used to check if the
@@ -126,8 +126,8 @@ message DeleteUserProfileRequest {
   // the user ID trying to delete this user profile (NOTE: userID refers to the
   // ID from the vantage point of the user service. This ID is the single source
   // of truth for a given user across our suite of services) | type: uint64
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
 }
@@ -139,8 +139,8 @@ message DeleteCommunityProfileRequest {
   // the ID from the vantage point of the user service. This ID is the single
   // source of truth for a given user across our suite of services) | type:
   // uint64
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   uint64 community_profile_id = 2 [
@@ -155,8 +155,8 @@ message EditUserProfileRequest {
   // the user ID trying to update this user profile (NOTE: userID refers to the
   // ID from the vantage point of the user service. This ID is the single source
   // of truth for a given user across our suite of services) | type: uint64
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
 
@@ -261,8 +261,8 @@ message CreatePostRequest {
   // the user ID trying to create a post (NOTE: userID refers to the
   // ID from the vantage point of the user service. This ID is the single source
   // of truth for a given user across our suite of services) | type: uint64
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   // The ID of the community profile attempting to create the post  | type:
@@ -283,8 +283,8 @@ message DeletePostRequest {
   // the user ID trying to delete a post (NOTE: userID refers to the
   // ID from the vantage point of the user service. This ID is the single source
   // of truth for a given user across our suite of services) | type: uint64
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   // The ID of the post attempted to be delete | type: string
@@ -324,8 +324,8 @@ message GetPostRequest {
   // the user ID trying to obtain a post (NOTE: userID refers to the
   // ID from the vantage point of the user service. This ID is the single source
   // of truth for a given user across our suite of services) | type: uint64
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   // The ID of the post to obtain | type: string
@@ -370,8 +370,8 @@ message GetUserFeedRequest {
   // the user ID trying to obtain a given feed (NOTE: userID refers to the
   // ID from the vantage point of the user service. This ID is the single source
   // of truth for a given user across our suite of services) | type: uint64
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   // The type of feed aiming to be obtained | type: string
@@ -492,8 +492,8 @@ message GetPendingFollowsRequest {
   // the ID from the vantage point of the user service. This ID is the single
   // source of truth for a given user across our suite of services) | type:
   // uint64
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
 }
@@ -505,8 +505,8 @@ message GetCommunitiesUserFollowsRequest {
   // refers to the ID from the vantage point of the user service. This ID is the
   // single source of truth for a given user across our suite of services) |
   // type: uint64
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
 
@@ -525,8 +525,8 @@ message GetTopicsOfCommunitiesUserFollowsRequest {
   // userID refers to the ID from the vantage point of the user service. This ID
   // is the single source of truth for a given user across our suite of
   // services) | type: uint64
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
 
@@ -608,8 +608,8 @@ message AddCommentQualityScoreRequest {
 // ReportPostRequest: Represents the request object invoked against the
 // social service to report a post
 message ReportPostRequest {
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   string post_id = 2 [
@@ -626,8 +626,8 @@ message ReportPostRequest {
 // ReportCommentRequest: Represents the request object invoked against the
 // social service to report a comment
 message ReportCommentRequest {
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   string post_id = 2 [
@@ -671,8 +671,8 @@ message GetCommunityBlogPostsRequest {
 // DiscoverRequest: Represents the request object invoked against the
 // social service to discover posts
 message DiscoverProfilesRequest {
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   uint64 limit = 2;
@@ -913,8 +913,8 @@ message CreatePollRequest {
   // the user ID trying to create a post (NOTE: userID refers to the
   // ID from the vantage point of the user service. This ID is the single source
   // of truth for a given user across our suite of services) | type: uint64
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   // The post payload | type: json_object
@@ -932,8 +932,8 @@ message DeletePollRequest {
   // the user ID trying to delete this user profile (NOTE: userID refers to the
   // ID from the vantage point of the user service. This ID is the single source
   // of truth for a given user across our suite of services) | type: uint64
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
 
@@ -952,8 +952,8 @@ message GetPollRequest {
   // the user ID trying to delete this user profile (NOTE: userID refers to the
   // ID from the vantage point of the user service. This ID is the single source
   // of truth for a given user across our suite of services) | type: uint64
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
 
@@ -972,8 +972,8 @@ message GetPollsRequest {
   // the user ID trying to delete this user profile (NOTE: userID refers to the
   // ID from the vantage point of the user service. This ID is the single source
   // of truth for a given user across our suite of services) | type: uint64
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
 }
@@ -983,8 +983,8 @@ message GetPollsResponse {
 }
 
 message RespondToPollRequest {
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
 
@@ -1011,8 +1011,8 @@ message RespondToPollResponse {
 }
 
 message CreateNoteRequest {
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   string post_id = 2 [
@@ -1035,8 +1035,8 @@ message CreateNoteResponse {
 }
 
 message DeleteNoteRequest {
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
 
@@ -1060,8 +1060,8 @@ message DeleteNoteResponse {
 }
 
 message EditNoteRequest {
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
 
@@ -1091,8 +1091,8 @@ message EditNoteResponse {
 }
 
 message CreatePublicationRequest {
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   Publication publication = 2 [(validate.rules).message.required = true];
@@ -1103,8 +1103,8 @@ message CreatePublicationResponse {
 }
 
 message GetPublicationRequest {
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   uint64 publication_id = 2 [
@@ -1210,8 +1210,8 @@ message DeletePostFromPublicationResponse {
 }
 
 message AddPostToThreadRequest {
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   string parent_post_id = 2 [
@@ -1234,8 +1234,8 @@ message AddPostToThreadResponse {
 }
 
 message RemovePostFromThreadRequest {
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   string parent_post_id = 2 [
@@ -1257,8 +1257,8 @@ message RemovePostFromThreadResponse {
 }
 
 message GetPostThreadRequest {
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   string post_id = 2 [
@@ -1275,8 +1275,8 @@ message GetPostThreadResponse {
 }
 
 message BookmarkPostRequest {
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   string post_id = 2 [
@@ -1290,8 +1290,8 @@ message BookmarkPostResponse {
 }
 
 message RemoveBookmarkedPostRequest {
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   string post_id = 2 [
@@ -1309,8 +1309,8 @@ message RemoveBookmarkedPostResponse {
 }
 
 message BookmarkPublicationRequest {
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   uint64 publication_id = 2 [
@@ -1324,8 +1324,8 @@ message BookmarkPublicationResponse {
 }
 
 message RemoveBookmarkedPublicationRequest {
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   uint64 publication_id = 2 [
@@ -1339,8 +1339,8 @@ message RemoveBookmarkedPublicationResponse {
 }
 
 message GetFollowersRequest {
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   uint64 profile_id = 2 [
@@ -1359,8 +1359,8 @@ message GetFollowersResponse {
 }
 
 message GetAccountsFollowingRequest {
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   uint64 profile_id = 2 [
@@ -1381,8 +1381,8 @@ message GetAccountsFollowingResponse {
 }
 
 message ReactToPostRequest {
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   string post_id = 2;
@@ -1403,8 +1403,8 @@ message ReactToPostResponse {
 }
 
 message ReactToCommentRequest {
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   string post_id = 2 [
@@ -1428,8 +1428,8 @@ message ReactToCommentResponse {
 }
 
 message ReactToCommentReplyRequest {
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   string post_id = 2 [
@@ -1457,8 +1457,8 @@ message ReactToCommentReplyResponse {
 }
 
 message CreateCommentReplyRequest {
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   string post_id = 2 [
@@ -1481,8 +1481,8 @@ message CreateCommentReplyResponse {
 }
 
 message DeleteCommentReplyRequest {
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   string post_id = 2 [
@@ -1508,8 +1508,8 @@ message DeleteCommentReplyResponse {
 }
 
 message EditCommentReplyRequest {
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   string post_id = 2 [
@@ -1536,8 +1536,8 @@ message EditCommentReplyResponse {
 }
 
 message GetCommentRepliesRequest {
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   string post_id = 2 [
@@ -1559,8 +1559,8 @@ message GetCommentRepliesResponse {
 }
 
 message ReportCommentReplyRequest {
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   string post_id = 2 [
@@ -1586,8 +1586,8 @@ message ReportCommentReplyResponse {
 }
 
 message SharePostRequest {
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   string parent_post_id = 2 [

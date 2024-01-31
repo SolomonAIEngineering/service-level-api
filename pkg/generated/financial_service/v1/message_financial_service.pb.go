@@ -814,7 +814,8 @@ type FinancialUserProfile struct {
 	unknownFields protoimpl.UnknownFields
 
 	// id
-	Id               uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Id uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	// NOTE: this user id refers to the id provided by auth0 as it is the source of truth on the platform. Please remember this
 	UserId           string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	StripeCustomerId string `protobuf:"bytes,3,opt,name=stripe_customer_id,json=stripeCustomerId,proto3" json:"stripe_customer_id,omitempty"`
 	// the stripe subscriptions the user profile actively maintains

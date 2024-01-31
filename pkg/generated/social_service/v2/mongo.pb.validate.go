@@ -784,10 +784,10 @@ func (m *Post) validate(all bool) error {
 
 	}
 
-	if m.GetSimfinyPlatformUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetBackendPlatformUserId()) < 1 {
 		err := PostValidationError{
-			field:  "SimfinyPlatformUserId",
-			reason: "value must be greater than 0",
+			field:  "BackendPlatformUserId",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -1145,10 +1145,10 @@ func (m *PollPost) validate(all bool) error {
 
 	}
 
-	if m.GetSimfinyPlatformUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetBackendPlatformUserId()) < 1 {
 		err := PollPostValidationError{
-			field:  "SimfinyPlatformUserId",
-			reason: "value must be greater than 0",
+			field:  "BackendPlatformUserId",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -1668,10 +1668,10 @@ func (m *SharedPost) validate(all bool) error {
 
 	}
 
-	if m.GetSimfinyPlatformUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetBackendPlatformUserId()) < 1 {
 		err := SharedPostValidationError{
-			field:  "SimfinyPlatformUserId",
-			reason: "value must be greater than 0",
+			field:  "BackendPlatformUserId",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -1809,9 +1809,9 @@ func (m *SharedPost) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if m.GetOriginalPostUserSimfinyPlaformId() <= 0 {
+	if m.GetOriginalPostUserbackendPlaformId() <= 0 {
 		err := SharedPostValidationError{
-			field:  "OriginalPostUserSimfinyPlaformId",
+			field:  "OriginalPostUserbackendPlaformId",
 			reason: "value must be greater than 0",
 		}
 		if !all {
@@ -2067,10 +2067,10 @@ func (m *Note) validate(all bool) error {
 
 	// no validation rules for Id
 
-	if m.GetSimfinyPlatformUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetBackendPlatformUserId()) < 1 {
 		err := NoteValidationError{
-			field:  "SimfinyPlatformUserId",
-			reason: "value must be greater than 0",
+			field:  "BackendPlatformUserId",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -2255,10 +2255,10 @@ func (m *Comment) validate(all bool) error {
 
 	// no validation rules for Id
 
-	if m.GetSimfinyPlatformUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetBackendPlatformUserId()) < 1 {
 		err := CommentValidationError{
-			field:  "SimfinyPlatformUserId",
-			reason: "value must be greater than 0",
+			field:  "BackendPlatformUserId",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -2515,10 +2515,10 @@ func (m *CommentReply) validate(all bool) error {
 
 	// no validation rules for Id
 
-	if m.GetSimfinyPlatformUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetBackendPlatformUserId()) < 1 {
 		err := CommentReplyValidationError{
-			field:  "SimfinyPlatformUserId",
-			reason: "value must be greater than 0",
+			field:  "BackendPlatformUserId",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err

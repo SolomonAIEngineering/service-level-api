@@ -32,7 +32,7 @@ func newVirtualProfileORM(db *gorm.DB, opts ...gen.DOOption) virtualProfileORM {
 	_virtualProfileORM.Activated = field.NewBool(tableName, "activated")
 	_virtualProfileORM.Id = field.NewUint64(tableName, "id")
 	_virtualProfileORM.ProfileType = field.NewString(tableName, "profile_type")
-	_virtualProfileORM.UserId = field.NewUint64(tableName, "user_id")
+	_virtualProfileORM.UserId = field.NewString(tableName, "user_id")
 	_virtualProfileORM.User = virtualProfileORMHasOneUser{
 		db: db.Session(&gorm.Session{}),
 
@@ -102,7 +102,7 @@ type virtualProfileORM struct {
 	Activated   field.Bool
 	Id          field.Uint64
 	ProfileType field.String
-	UserId      field.Uint64
+	UserId      field.String
 	User        virtualProfileORMHasOneUser
 
 	Communities virtualProfileORMHasManyCommunities
@@ -125,7 +125,7 @@ func (v *virtualProfileORM) updateTableName(table string) *virtualProfileORM {
 	v.Activated = field.NewBool(table, "activated")
 	v.Id = field.NewUint64(table, "id")
 	v.ProfileType = field.NewString(table, "profile_type")
-	v.UserId = field.NewUint64(table, "user_id")
+	v.UserId = field.NewString(table, "user_id")
 
 	v.fillFieldMap()
 
