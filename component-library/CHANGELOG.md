@@ -1,3 +1,10 @@
+# [1.175.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.174.0...v1.175.0) (2024-01-31)
+
+
+### Features
+
+* update schema ([996870f](https://github.com/SolomonAIEngineering/service-level-api/commit/996870f4b524c41c6b4c6708d63f3b62ad2f5520))
+
 # [1.174.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.173.0...v1.174.0) (2024-01-31)
 
 
