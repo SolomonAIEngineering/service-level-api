@@ -1,3 +1,11 @@
+# [1.173.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.172.0...v1.173.0) (2024-01-31)
+
+
+### Features
+
+* add auth0 id across all services ([#84](https://github.com/SolomonAIEngineering/service-level-api/issues/84)) ([d79f34b](https://github.com/SolomonAIEngineering/service-level-api/commit/d79f34b6ac48cf7f09e0047bd241ba344f407460))
+* fix unique constraint directive ([2c3f145](https://github.com/SolomonAIEngineering/service-level-api/commit/2c3f145654b42a5d336bd4d6eb1515c2371be315))
+
 # [1.172.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.171.0...v1.172.0) (2024-01-26)
 
 
