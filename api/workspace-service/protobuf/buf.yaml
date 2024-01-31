@@ -1,0 +1,24 @@
+version: v1
+lint:
+  use:
+    - DEFAULT
+  ignore_only:
+    ENUM_VALUE_UPPER_SNAKE_CASE:
+      - workspace_service/v1/errors_ignore.proto
+    ENUM_VALUE_PREFIX:
+      - workspace_service/v1/errors_ignore.proto
+    ENUM_ZERO_VALUE_SUFFIX:
+      - workspace_service/v1/errors_ignore.proto
+  ignore:
+    - github.com/infobloxopen
+    - github.com/grpc-ecosystem
+    - protoc-gen-openapiv2
+    - github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2/options/openapiv2.proto
+    - google
+breaking:
+  use:
+    - FILE
+deps:
+  - buf.build/googleapis/googleapis
+  - buf.build/envoyproxy/protoc-gen-validate
+  - buf.build/grpc-ecosystem/grpc-gateway

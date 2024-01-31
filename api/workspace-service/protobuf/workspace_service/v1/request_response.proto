@@ -1,0 +1,233 @@
+syntax = "proto3";
+
+package workspace_service.v1;
+
+import "workspace_service/v1/schema.proto";
+
+import "validate/validate.proto";
+import "google/api/field_behavior.proto";
+
+option go_package = "github.com/SolomonAIEngineering/service-level-api/pkg/generated/workspace_service/v1";
+
+// File Operations
+message FileUploadRequest {
+    string folder_id = 1;
+    bytes content = 2;
+    string name = 3  [
+    (validate.rules).string.min_len = 5,
+    (google.api.field_behavior) = REQUIRED  
+  ];
+}
+
+message FileUploadResponse {
+    FileMetadata metadata = 1;
+}
+
+message FileDownloadRequest {
+    uint64 file_id = 1;
+}
+
+message FileDownloadResponse {
+    bytes content = 1;
+}
+
+message CreateAccountRequest {
+    string auth_zero_user_id = 1  [
+    (validate.rules).string.min_len = 1,
+    (google.api.field_behavior) = REQUIRED  
+  ];
+}
+
+message CreateAccountResponse {
+    Account account = 1;
+}
+
+message GetAccountRequest{
+  string auth_zero_user_id = 1  [
+    (validate.rules).string.min_len = 1,
+    (google.api.field_behavior) = REQUIRED  
+  ];
+}
+
+message GetAccountResponse {
+    Account account = 1;
+}
+
+message DeleteAccountRequest {
+    string auth_zero_user_id = 1  [
+    (validate.rules).string.min_len = 1,
+    (google.api.field_behavior) = REQUIRED  
+  ];
+}
+
+message DeleteAccountResponse {
+    bool is_deleted = 1;
+}
+
+message UploadFileRequest {
+    string auth_zero_user_id = 1 [
+      (validate.rules).string.min_len = 1,
+      (google.api.field_behavior) = REQUIRED  
+    ];
+    uint64 folder_id = 2;
+    bytes data = 3;
+    string name = 4  [
+      (validate.rules).string.min_len = 5,
+      (google.api.field_behavior) = REQUIRED  
+    ];
+}
+
+message UploadFileResponse {
+    FileMetadata metadata = 1;
+}
+
+message DownloadFileRequest {
+    string auth_zero_user_id = 1  [
+      (validate.rules).string.min_len = 1,
+      (google.api.field_behavior) = REQUIRED  
+    ];
+    uint64 file_id = 2;
+    uint64 folder_id = 3;
+    uint64 workspace_id = 4;
+}
+
+message DownloadFileResponse {
+    bytes data = 1;
+}
+
+message DeleteFileRequest {
+    string auth_zero_user_id = 1  [
+      (validate.rules).string.min_len = 1,
+      (google.api.field_behavior) = REQUIRED  
+    ];
+    uint64 file_id = 2;
+    uint64 folder_id = 3;
+    uint64 workspace_id = 4;
+}
+
+message DeleteFileResponse {
+    bool is_deleted = 1;
+}
+
+message UpdateFileRequest {
+    string auth_zero_user_id = 1  [
+      (validate.rules).string.min_len = 1,
+      (google.api.field_behavior) = REQUIRED  
+    ];
+    uint64 file_id = 2;
+    uint64 folder_id = 3;
+    uint64 workspace_id = 4;
+    FileMetadata metadata = 5;
+}
+
+message UpdateFileResponse {
+    FileMetadata metadata = 1;
+}
+
+message CreateFolderRequest {
+    string auth_zero_user_id = 1  [
+      (validate.rules).string.min_len = 1,
+      (google.api.field_behavior) = REQUIRED  
+    ];
+    uint64 workspace_id = 2;
+    string name = 3  [
+      (validate.rules).string.min_len = 5,
+      (google.api.field_behavior) = REQUIRED  
+    ];
+}
+
+message CreateFolderResponse {
+    FolderMetadata folder = 1;
+}
+
+message ListFolderRequest {
+    string auth_zero_user_id = 1  [
+      (validate.rules).string.min_len = 1,
+      (google.api.field_behavior) = REQUIRED  
+    ];
+    uint64 folder_id = 2;
+    uint64 workspace_id = 3;
+}
+
+message ListFolderResponse {
+    FolderMetadata folder = 1;
+}
+
+message UpdateFolderRequest {
+    string auth_zero_user_id = 1  [
+      (validate.rules).string.min_len = 1,
+      (google.api.field_behavior) = REQUIRED  
+    ];
+    uint64 folder_id = 2;
+    uint64 workspace_id = 3;
+    FolderMetadata folder = 4;
+}
+
+message UpdateFolderResponse {
+    FolderMetadata folder = 1;
+}
+
+message DeleteFolderRequest {
+    string auth_zero_user_id = 1  [
+      (validate.rules).string.min_len = 1,
+      (google.api.field_behavior) = REQUIRED  
+    ];
+    uint64 folder_id = 2;
+    uint64 workspace_id = 3;
+}
+
+message DeleteFolderResponse {
+    bool is_deleted = 1;
+}
+
+message CreateWorkspaceRequest {
+    string auth_zero_user_id = 1  [
+      (validate.rules).string.min_len = 1,
+      (google.api.field_behavior) = REQUIRED  
+    ];
+    string name = 2  [
+      (validate.rules).string.min_len = 5,
+      (google.api.field_behavior) = REQUIRED  
+    ];
+}
+
+message CreateWorkspaceResponse {
+    Workspace workspace = 1;
+}
+
+message ListWorkspaceRequest {
+    string auth_zero_user_id = 1  [
+      (validate.rules).string.min_len = 1,
+      (google.api.field_behavior) = REQUIRED  
+    ];
+}
+
+message ListWorkspaceResponse {
+    Workspace workspace = 1;
+}
+
+message UpdateWorkspaceRequest {
+    string auth_zero_user_id = 1  [
+      (validate.rules).string.min_len = 1,
+      (google.api.field_behavior) = REQUIRED  
+    ];
+    uint64 workspace_id = 2;
+    Workspace workspace = 3;
+}
+
+message UpdateWorkspaceResponse {
+    Workspace workspace = 1;
+}
+
+message DeleteWorkspaceRequest {
+    string auth_zero_user_id = 1  [
+      (validate.rules).string.min_len = 1,
+      (google.api.field_behavior) = REQUIRED  
+    ];
+    uint64 workspace_id = 2;
+}
+
+message DeleteWorkspaceResponse {
+    bool is_deleted = 1;
+}
+

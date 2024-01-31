@@ -42,9 +42,12 @@ social_service:
 accounting_service:
 	$(BASE_CMD) -p ./pkg/generated/accounting_service/v1/apidocs.swagger.json -o ./component-library/src/data-contracts/accounting-service $(COMMON_OPTS) --api-class-name AccountingService
 
+workspace_service:
+	$(BASE_CMD) -p ./pkg/generated/workspace_service/v1/apidocs.swagger.json -o ./component-library/src/data-contracts/workspace-service $(COMMON_OPTS) --api-class-name WorkspaceService
+
 # New gen target to incorporate the build process of different services
 gen:
-	for service in financial-service social-service user-service accounting-service; do \
+	for service in financial-service social-service user-service accounting-service workspace-service; do \
 		cd api/$$service && make && cd ../..; \
 	done
 	make all
