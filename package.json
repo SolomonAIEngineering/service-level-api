@@ -14,7 +14,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "husky": "^8.0.0"
+    "husky": "^9.0.10"
   },
   "dependencies": {
     "@solomon-ai/component-library": "^1.122.0",
