@@ -19842,10 +19842,10 @@ func (m *GetBookmarkedPostsRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := GetBookmarkedPostsRequestValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err

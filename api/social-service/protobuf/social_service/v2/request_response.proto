@@ -1610,8 +1610,8 @@ message SharePostResponse {
 }
 
 message GetBookmarkedPostsRequest {
-  uint64 user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED];
 }
 

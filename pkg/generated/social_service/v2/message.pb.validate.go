@@ -716,10 +716,10 @@ func (m *Follower) validate(all bool) error {
 
 	// no validation rules for Id
 
-	if m.GetProfileFollowedId() <= 0 {
+	if utf8.RuneCountInString(m.GetBackendWideUserFollowedId()) < 1 {
 		err := FollowerValidationError{
-			field:  "ProfileFollowedId",
-			reason: "value must be greater than 0",
+			field:  "BackendWideUserFollowedId",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
@@ -727,10 +727,10 @@ func (m *Follower) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if m.GetProfileFollowingId() <= 0 {
+	if utf8.RuneCountInString(m.GetBackendWideUserFollowingId()) < 1 {
 		err := FollowerValidationError{
-			field:  "ProfileFollowingId",
-			reason: "value must be greater than 0",
+			field:  "BackendWideUserFollowingId",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err

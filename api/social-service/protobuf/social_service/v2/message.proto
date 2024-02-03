@@ -269,16 +269,16 @@ message Follower {
   // the id of the follower
   uint64 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""}];
   // the id of the profile being followed
-  uint64 profile_followed_id = 2 [
+  string backend_wide_user_followed_id = 2 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
-    (validate.rules).uint64.gt = 0,
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
 
   // the id of the profile following the profile being followed
-  uint64 profile_following_id = 3 [
+  string backend_wide_user_following_id = 3 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
-    (validate.rules).uint64.gt = 0,
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
 

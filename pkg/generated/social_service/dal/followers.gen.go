@@ -30,10 +30,10 @@ func newFollowerORM(db *gorm.DB, opts ...gen.DOOption) followerORM {
 	tableName := _followerORM.followerORMDo.TableName()
 	_followerORM.ALL = field.NewAsterisk(tableName)
 	_followerORM.ApprovedAt = field.NewString(tableName, "approved_at")
+	_followerORM.BackendWideUserFollowedId = field.NewString(tableName, "backend_wide_user_followed_id")
+	_followerORM.BackendWideUserFollowingId = field.NewString(tableName, "backend_wide_user_following_id")
 	_followerORM.CreatedAt = field.NewString(tableName, "created_at")
 	_followerORM.Id = field.NewUint64(tableName, "id")
-	_followerORM.ProfileFollowedId = field.NewUint64(tableName, "profile_followed_id")
-	_followerORM.ProfileFollowingId = field.NewUint64(tableName, "profile_following_id")
 	_followerORM.RequestApproved = field.NewBool(tableName, "request_approved")
 	_followerORM.TargetFollowerType = field.NewString(tableName, "target_follower_type")
 
@@ -45,14 +45,14 @@ func newFollowerORM(db *gorm.DB, opts ...gen.DOOption) followerORM {
 type followerORM struct {
 	followerORMDo
 
-	ALL                field.Asterisk
-	ApprovedAt         field.String
-	CreatedAt          field.String
-	Id                 field.Uint64
-	ProfileFollowedId  field.Uint64
-	ProfileFollowingId field.Uint64
-	RequestApproved    field.Bool
-	TargetFollowerType field.String
+	ALL                        field.Asterisk
+	ApprovedAt                 field.String
+	BackendWideUserFollowedId  field.String
+	BackendWideUserFollowingId field.String
+	CreatedAt                  field.String
+	Id                         field.Uint64
+	RequestApproved            field.Bool
+	TargetFollowerType         field.String
 
 	fieldMap map[string]field.Expr
 }
@@ -70,10 +70,10 @@ func (f followerORM) As(alias string) *followerORM {
 func (f *followerORM) updateTableName(table string) *followerORM {
 	f.ALL = field.NewAsterisk(table)
 	f.ApprovedAt = field.NewString(table, "approved_at")
+	f.BackendWideUserFollowedId = field.NewString(table, "backend_wide_user_followed_id")
+	f.BackendWideUserFollowingId = field.NewString(table, "backend_wide_user_following_id")
 	f.CreatedAt = field.NewString(table, "created_at")
 	f.Id = field.NewUint64(table, "id")
-	f.ProfileFollowedId = field.NewUint64(table, "profile_followed_id")
-	f.ProfileFollowingId = field.NewUint64(table, "profile_following_id")
 	f.RequestApproved = field.NewBool(table, "request_approved")
 	f.TargetFollowerType = field.NewString(table, "target_follower_type")
 
@@ -94,10 +94,10 @@ func (f *followerORM) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 func (f *followerORM) fillFieldMap() {
 	f.fieldMap = make(map[string]field.Expr, 7)
 	f.fieldMap["approved_at"] = f.ApprovedAt
+	f.fieldMap["backend_wide_user_followed_id"] = f.BackendWideUserFollowedId
+	f.fieldMap["backend_wide_user_following_id"] = f.BackendWideUserFollowingId
 	f.fieldMap["created_at"] = f.CreatedAt
 	f.fieldMap["id"] = f.Id
-	f.fieldMap["profile_followed_id"] = f.ProfileFollowedId
-	f.fieldMap["profile_following_id"] = f.ProfileFollowingId
 	f.fieldMap["request_approved"] = f.RequestApproved
 	f.fieldMap["target_follower_type"] = f.TargetFollowerType
 }
