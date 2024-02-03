@@ -5570,14 +5570,24 @@ func request_FinancialService_PollAsyncTaskExecutionStatus_0(ctx context.Context
 		_   = err
 	)
 
-	val, ok = pathParams["task_id"]
+	val, ok = pathParams["workflow_id"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "task_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "workflow_id")
 	}
 
-	protoReq.TaskId, err = runtime.String(val)
+	protoReq.WorkflowId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "task_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "workflow_id", err)
+	}
+
+	val, ok = pathParams["run_id"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "run_id")
+	}
+
+	protoReq.RunId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "run_id", err)
 	}
 
 	msg, err := client.PollAsyncTaskExecutionStatus(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -5596,14 +5606,24 @@ func local_request_FinancialService_PollAsyncTaskExecutionStatus_0(ctx context.C
 		_   = err
 	)
 
-	val, ok = pathParams["task_id"]
+	val, ok = pathParams["workflow_id"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "task_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "workflow_id")
 	}
 
-	protoReq.TaskId, err = runtime.String(val)
+	protoReq.WorkflowId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "task_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "workflow_id", err)
+	}
+
+	val, ok = pathParams["run_id"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "run_id")
+	}
+
+	protoReq.RunId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "run_id", err)
 	}
 
 	msg, err := server.PollAsyncTaskExecutionStatus(ctx, &protoReq)
@@ -8213,7 +8233,7 @@ func RegisterFinancialServiceHandlerServer(ctx context.Context, mux *runtime.Ser
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/financial_service.v1.FinancialService/PollAsyncTaskExecutionStatus", runtime.WithHTTPPathPattern("/api/v1/async-task/{task_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/financial_service.v1.FinancialService/PollAsyncTaskExecutionStatus", runtime.WithHTTPPathPattern("/api/v1/async-task/{workflow_id}/run/{run_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10508,7 +10528,7 @@ func RegisterFinancialServiceHandlerClient(ctx context.Context, mux *runtime.Ser
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/financial_service.v1.FinancialService/PollAsyncTaskExecutionStatus", runtime.WithHTTPPathPattern("/api/v1/async-task/{task_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/financial_service.v1.FinancialService/PollAsyncTaskExecutionStatus", runtime.WithHTTPPathPattern("/api/v1/async-task/{workflow_id}/run/{run_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10790,7 +10810,7 @@ var (
 
 	pattern_FinancialService_ListRecurringTransactionNotes_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"api", "v1", "transactions", "recurring", "transaction_id", "notes"}, ""))
 
-	pattern_FinancialService_PollAsyncTaskExecutionStatus_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v1", "async-task", "task_id"}, ""))
+	pattern_FinancialService_PollAsyncTaskExecutionStatus_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"api", "v1", "async-task", "workflow_id", "run", "run_id"}, ""))
 
 	pattern_FinancialService_RecordAskCopilotQuestion_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v1", "copilot", "quota", "question"}, ""))
 

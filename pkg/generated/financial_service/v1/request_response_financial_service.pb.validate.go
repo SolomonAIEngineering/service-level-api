@@ -19884,7 +19884,9 @@ func (m *PollAsyncTaskExecutionStatusRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for TaskId
+	// no validation rules for WorkflowId
+
+	// no validation rules for RunId
 
 	if len(errors) > 0 {
 		return PollAsyncTaskExecutionStatusRequestMultiError(errors)
@@ -19991,9 +19993,11 @@ func (m *PollAsyncTaskExecutionStatusResponse) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for TaskId
+	// no validation rules for WorkflowId
 
 	// no validation rules for Status
+
+	// no validation rules for RunId
 
 	if len(errors) > 0 {
 		return PollAsyncTaskExecutionStatusResponseMultiError(errors)

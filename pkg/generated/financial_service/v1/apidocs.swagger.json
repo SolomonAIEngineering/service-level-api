@@ -2127,7 +2127,7 @@
         ]
       }
     },
-    "/api/v1/async-task/{taskId}": {
+    "/api/v1/async-task/{workflowId}/run/{runId}": {
       "get": {
         "summary": "polls the status of an async task",
         "description": "This endpoint polls the status of an async task",
@@ -2166,8 +2166,15 @@
         },
         "parameters": [
           {
-            "name": "taskId",
-            "description": "The task id\nValidations:\n- task_id must be greater than 0",
+            "name": "workflowId",
+            "description": "The task id\nValidations:\n- workflow id cannot be empty",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "runId",
+            "description": "The run id\nValidations:\n- run id cannot be empty",
             "in": "path",
             "required": true,
             "type": "string"
@@ -10290,13 +10297,17 @@
     "PollAsyncTaskExecutionStatusResponse": {
       "type": "object",
       "properties": {
-        "taskId": {
+        "workflowId": {
           "type": "string",
-          "title": "The task id"
+          "title": "The workflow id"
         },
         "status": {
           "$ref": "#/definitions/TaskState",
           "title": "The task status"
+        },
+        "runId": {
+          "type": "string",
+          "title": "The run id"
         }
       }
     },

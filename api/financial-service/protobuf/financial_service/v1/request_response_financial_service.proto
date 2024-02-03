@@ -1635,17 +1635,26 @@ message GetRecurringTransactionResponse {
 message PollAsyncTaskExecutionStatusRequest {
   // The task id
   // Validations:
-  // - task_id must be greater than 0
-  string task_id = 1 [
+  // - workflow id cannot be empty
+  string workflow_id = 1 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The run id
+  // Validations:
+  // - run id cannot be empty
+  string run_id = 2 [
     (google.api.field_behavior) = REQUIRED
   ];
 }
 
 message PollAsyncTaskExecutionStatusResponse {
-  // The task id
-  string task_id = 1;
+  // The workflow id
+  string workflow_id = 1;
   // The task status
   TaskState status = 2;
+  // The run id
+  string run_id = 3;
 }
 
 message RecordAskCopilotQuestionRequest {

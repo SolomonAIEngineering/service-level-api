@@ -2761,6 +2761,8 @@ export type PocketType =
 export type PollAsyncTaskExecutionStatusData = any;
 
 export interface PollAsyncTaskExecutionStatusResponse {
+  /** The run id */
+  runId?: string;
   /**
    * The task status
    *  - TASK_STATE_UNSPECIFIED: The zero value is omitted in proto3 by convention if it's not used.
@@ -2775,8 +2777,8 @@ export interface PollAsyncTaskExecutionStatusResponse {
    *  - TASK_STATE_FAILED: Indicates that the task has failed and will not be retried.
    */
   status?: TaskState;
-  /** The task id */
-  taskId?: string;
+  /** The workflow id */
+  workflowId?: string;
 }
 
 /** @default "RE_CURRING_FLOW_UNSPECIFIED" */
