@@ -500,9 +500,9 @@ message SharedPost {
   ];
   // The backend wide user id of the profile who owned the original post
   // @gotag: bson:"originalPostUserbackendPlaformId"
-  uint64 originalPostUserbackendPlaformId = 37 [
+  string originalPostUserbackendPlaformId = 37 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
-    (validate.rules).uint64.gt = 0
+    (validate.rules).string.min_len = 1
   ];
 
     // originalPostType defines the intent of the post

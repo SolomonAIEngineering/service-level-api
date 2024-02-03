@@ -7074,7 +7074,6 @@
         },
         "originalPostUserbackendPlaformId": {
           "type": "string",
-          "format": "uint64",
           "title": "The backend wide user id of the profile who owned the original post\n@gotag: bson:\"originalPostUserbackendPlaformId\""
         },
         "originalPostAction": {

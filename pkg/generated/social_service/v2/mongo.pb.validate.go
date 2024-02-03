@@ -1809,10 +1809,10 @@ func (m *SharedPost) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if m.GetOriginalPostUserbackendPlaformId() <= 0 {
+	if utf8.RuneCountInString(m.GetOriginalPostUserbackendPlaformId()) < 1 {
 		err := SharedPostValidationError{
 			field:  "OriginalPostUserbackendPlaformId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err

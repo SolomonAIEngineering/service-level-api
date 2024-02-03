@@ -1732,7 +1732,6 @@ export interface SharedPost {
   /**
    * The backend wide user id of the profile who owned the original post
    * @gotag: bson:"originalPostUserbackendPlaformId"
-   * @format uint64
    */
   originalPostUserbackendPlaformId?: string;
   /**
