@@ -1,3 +1,10 @@
+# [1.177.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.176.0...v1.177.0) (2024-02-03)
+
+
+### Features
+
+* update exchange token response ([29f2296](https://github.com/SolomonAIEngineering/service-level-api/commit/29f229610c2a223b6cea142adec434683ca50b85))
+
 # [1.176.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.175.0...v1.176.0) (2024-02-03)
 
 
