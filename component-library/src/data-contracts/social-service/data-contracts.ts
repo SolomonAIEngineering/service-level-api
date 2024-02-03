@@ -24,7 +24,10 @@ export type AcceptFollowRequestData = any;
  * is being performed against
  * @default "ACCOUNT_TYPE_UNSPECIFIED"
  */
-export type AccountType = "ACCOUNT_TYPE_UNSPECIFIED" | "ACCOUNT_TYPE_USER" | "ACCOUNT_TYPE_COMMUNITY";
+export type AccountType =
+  | 'ACCOUNT_TYPE_UNSPECIFIED'
+  | 'ACCOUNT_TYPE_USER'
+  | 'ACCOUNT_TYPE_COMMUNITY';
 
 /** Actor references the profile performing an operation */
 export interface Actor {
@@ -85,7 +88,7 @@ export interface AddPublicationEditorResponse {
 export type AddQualityScoreData = any;
 
 export interface Any {
-  "@type"?: string;
+  '@type'?: string;
   [key: string]: any;
 }
 
@@ -715,7 +718,11 @@ export interface FeedActivity {
  *  - FEED_TYPE_NOTIFICATION: NotificationFeed encompasses a profile's notification feed
  * @default "FEED_TYPE_UNSPECIFIED"
  */
-export type FeedType = "FEED_TYPE_UNSPECIFIED" | "FEED_TYPE_PERSONAL" | "FEED_TYPE_NEWS" | "FEED_TYPE_NOTIFICATION";
+export type FeedType =
+  | 'FEED_TYPE_UNSPECIFIED'
+  | 'FEED_TYPE_PERSONAL'
+  | 'FEED_TYPE_NEWS'
+  | 'FEED_TYPE_NOTIFICATION';
 
 export type FollowCommunityProfileData = any;
 
@@ -941,12 +948,12 @@ export interface Media {
 
 /** @default "MEDIA_CROP_UNSPECIFIED" */
 export type MediaCrop =
-  | "MEDIA_CROP_UNSPECIFIED"
-  | "MEDIA_CROP_TOP"
-  | "MEDIA_CROP_BOTTOM"
-  | "MEDIA_CROP_LEFT"
-  | "MEDIA_CROP_RIGHT"
-  | "MEDIA_CROP_CENTER";
+  | 'MEDIA_CROP_UNSPECIFIED'
+  | 'MEDIA_CROP_TOP'
+  | 'MEDIA_CROP_BOTTOM'
+  | 'MEDIA_CROP_LEFT'
+  | 'MEDIA_CROP_RIGHT'
+  | 'MEDIA_CROP_CENTER';
 
 export interface MediaMetadata {
   crop?: MediaCrop;
@@ -960,10 +967,17 @@ export interface MediaMetadata {
 }
 
 /** @default "MEDIA_RESIZE_UNSPECIFIED" */
-export type MediaResize = "MEDIA_RESIZE_UNSPECIFIED" | "MEDIA_RESIZE_CLIP" | "MEDIA_RESIZE_CROP" | "MEDIA_RESIZE_SCALE";
+export type MediaResize =
+  | 'MEDIA_RESIZE_UNSPECIFIED'
+  | 'MEDIA_RESIZE_CLIP'
+  | 'MEDIA_RESIZE_CROP'
+  | 'MEDIA_RESIZE_SCALE';
 
 /** @default "MEDIA_TYPE_UNSPECIFIED" */
-export type MediaType = "MEDIA_TYPE_UNSPECIFIED" | "MEDIA_TYPE_IMAGE" | "MEDIA_TYPE_VIDEO";
+export type MediaType =
+  | 'MEDIA_TYPE_UNSPECIFIED'
+  | 'MEDIA_TYPE_IMAGE'
+  | 'MEDIA_TYPE_VIDEO';
 
 /**
  * A note is a response a user can leave on another user's piece of content. Notes can
@@ -1440,15 +1454,15 @@ export interface Post {
  * @default "POST_TYPE_UNSPECIFIED"
  */
 export type PostType =
-  | "POST_TYPE_UNSPECIFIED"
-  | "POST_TYPE_POST"
-  | "POST_TYPE_REPOST"
-  | "POST_TYPE_QUESTION"
-  | "POST_TYPE_ACHIEVEMENT"
-  | "POST_TYPE_ANNOUNCEMENT"
-  | "POST_TYPE_POLL"
-  | "POST_TYPE_ARTICLE"
-  | "POST_TYPE_SHORT_STORY";
+  | 'POST_TYPE_UNSPECIFIED'
+  | 'POST_TYPE_POST'
+  | 'POST_TYPE_REPOST'
+  | 'POST_TYPE_QUESTION'
+  | 'POST_TYPE_ACHIEVEMENT'
+  | 'POST_TYPE_ANNOUNCEMENT'
+  | 'POST_TYPE_POLL'
+  | 'POST_TYPE_ARTICLE'
+  | 'POST_TYPE_SHORT_STORY';
 
 /**
  * A Publication is a collections of stories based around a common theme. Anyone can create them
@@ -1488,11 +1502,11 @@ export interface Publication {
  * @default "PUBLICATION_TYPE_UNSPECIFIED"
  */
 export type PublicationType =
-  | "PUBLICATION_TYPE_UNSPECIFIED"
-  | "PUBLICATION_TYPE_MAGAZINE"
-  | "PUBLICATION_TYPE_PLATFORM"
-  | "PUBLICATION_TYPE_BLOG"
-  | "PUBLICATION_TYPE_SUBJECTS";
+  | 'PUBLICATION_TYPE_UNSPECIFIED'
+  | 'PUBLICATION_TYPE_MAGAZINE'
+  | 'PUBLICATION_TYPE_PLATFORM'
+  | 'PUBLICATION_TYPE_BLOG'
+  | 'PUBLICATION_TYPE_SUBJECTS';
 
 export type ReactToComment2Data = any;
 
@@ -1516,14 +1530,14 @@ export interface ReactToPostResponse {
 
 /** @default "REACTION_UNSPECIFIED" */
 export type Reaction =
-  | "REACTION_UNSPECIFIED"
-  | "REACTION_LIKE"
-  | "REACTION_LOVE"
-  | "REACTION_HAHA"
-  | "REACTION_WOW"
-  | "REACTION_SAD"
-  | "REACTION_ANGRY"
-  | "REACTION_DISLIKE";
+  | 'REACTION_UNSPECIFIED'
+  | 'REACTION_LIKE'
+  | 'REACTION_LOVE'
+  | 'REACTION_HAHA'
+  | 'REACTION_WOW'
+  | 'REACTION_SAD'
+  | 'REACTION_ANGRY'
+  | 'REACTION_DISLIKE';
 
 export type ReadynessCheckData = any;
 
@@ -1824,9 +1838,9 @@ export interface Thread {
 
 /** @default "THREAD_PARTICIPANT_TYPE_UNSPECIFIED" */
 export type ThreadParticipantType =
-  | "THREAD_PARTICIPANT_TYPE_UNSPECIFIED"
-  | "THREAD_PARTICIPANT_TYPE_PARENT"
-  | "THREAD_PARTICIPANT_TYPE_PARTICIPANT";
+  | 'THREAD_PARTICIPANT_TYPE_UNSPECIFIED'
+  | 'THREAD_PARTICIPANT_TYPE_PARENT'
+  | 'THREAD_PARTICIPANT_TYPE_PARTICIPANT';
 
 /** Topic: topic that can be associated to a record */
 export interface Topic {

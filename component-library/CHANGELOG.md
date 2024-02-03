@@ -1,52 +1,45 @@
 # [1.178.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.177.0...v1.178.0) (2024-02-03)
 
-
 ### Features
 
-* checkpoint ([a9af418](https://github.com/SolomonAIEngineering/service-level-api/commit/a9af418b416b031d12239cc02da1b739c1e88a7e))
+- checkpoint ([a9af418](https://github.com/SolomonAIEngineering/service-level-api/commit/a9af418b416b031d12239cc02da1b739c1e88a7e))
 
 # [1.177.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.176.0...v1.177.0) (2024-02-03)
 
-
 ### Features
 
-* update exchange token response ([29f2296](https://github.com/SolomonAIEngineering/service-level-api/commit/29f229610c2a223b6cea142adec434683ca50b85))
+- update exchange token response ([29f2296](https://github.com/SolomonAIEngineering/service-level-api/commit/29f229610c2a223b6cea142adec434683ca50b85))
 
 # [1.176.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.175.0...v1.176.0) (2024-02-03)
 
-
 ### Features
 
-* update workflow api ([574d2ed](https://github.com/SolomonAIEngineering/service-level-api/commit/574d2ed44184b0be56271417ff4e74411522eeb1))
+- update workflow api ([574d2ed](https://github.com/SolomonAIEngineering/service-level-api/commit/574d2ed44184b0be56271417ff4e74411522eeb1))
 
 # [1.175.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.174.0...v1.175.0) (2024-01-31)
 
-
 ### Features
 
-* update schema ([996870f](https://github.com/SolomonAIEngineering/service-level-api/commit/996870f4b524c41c6b4c6708d63f3b62ad2f5520))
+- update schema ([996870f](https://github.com/SolomonAIEngineering/service-level-api/commit/996870f4b524c41c6b4c6708d63f3b62ad2f5520))
 
 # [1.174.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.173.0...v1.174.0) (2024-01-31)
 
-
 ### Features
 
-* add new endpoints ([b17e1b5](https://github.com/SolomonAIEngineering/service-level-api/commit/b17e1b50bdfcb3b2bd4a0c4a15935f8b794b8704))
+- add new endpoints ([b17e1b5](https://github.com/SolomonAIEngineering/service-level-api/commit/b17e1b50bdfcb3b2bd4a0c4a15935f8b794b8704))
 
 # [1.173.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.172.0...v1.173.0) (2024-01-31)
 
-
 ### Features
 
-* add auth0 id across all services ([#84](https://github.com/SolomonAIEngineering/service-level-api/issues/84)) ([d79f34b](https://github.com/SolomonAIEngineering/service-level-api/commit/d79f34b6ac48cf7f09e0047bd241ba344f407460))
-* fix unique constraint directive ([2c3f145](https://github.com/SolomonAIEngineering/service-level-api/commit/2c3f145654b42a5d336bd4d6eb1515c2371be315))
+- add auth0 id across all services ([#84](https://github.com/SolomonAIEngineering/service-level-api/issues/84)) ([d79f34b](https://github.com/SolomonAIEngineering/service-level-api/commit/d79f34b6ac48cf7f09e0047bd241ba344f407460))
+- fix unique constraint directive ([2c3f145](https://github.com/SolomonAIEngineering/service-level-api/commit/2c3f145654b42a5d336bd4d6eb1515c2371be315))
 
 # [1.172.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.171.0...v1.172.0) (2024-01-26)
 
-
 ### Features
 
-* add indexes every where ([#80](https://github.com/SolomonAIEngineering/service-level-api/issues/80)) ([9611b46](https://github.com/SolomonAIEngineering/service-level-api/commit/9611b46153b3a758994c3d65820c646d0c87837c))
+- add indexes every where ([#80](https://github.com/SolomonAIEngineering/service-level-api/issues/80)) ([9611b46](https://github.com/SolomonAIEngineering/service-level-api/commit/9611b46153b3a758994c3d65820c646d0c87837c))
 
 # [1.171.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.170.0...v1.171.0) (2024-01-26)
 
