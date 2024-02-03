@@ -2632,10 +2632,11 @@ export interface PlaidExchangeTokenRequest {
 }
 
 export interface PlaidExchangeTokenResponse {
+  runId?: string;
   /** wether the operation was successful */
   success: boolean;
   /** the id of the async task triggered to sync plaid records */
-  taskId?: string;
+  workflowId?: string;
 }
 
 export interface PlaidInitiateTokenExchangeRequest {

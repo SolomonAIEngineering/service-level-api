@@ -10099,9 +10099,12 @@
           "type": "boolean",
           "title": "wether the operation was successful"
         },
-        "taskId": {
+        "workflowId": {
           "type": "string",
           "title": "the id of the async task triggered to sync plaid records"
+        },
+        "runId": {
+          "type": "string"
         }
       },
       "required": [
