@@ -229,7 +229,7 @@ func request_SocialService_CreateUserProfile_0(ctx context.Context, marshaler ru
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user_id")
 	}
 
-	protoReq.UserId, err = runtime.Uint64(val)
+	protoReq.UserId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
 	}
@@ -263,7 +263,7 @@ func local_request_SocialService_CreateUserProfile_0(ctx context.Context, marsha
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user_id")
 	}
 
-	protoReq.UserId, err = runtime.Uint64(val)
+	protoReq.UserId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
 	}
@@ -341,7 +341,7 @@ func request_SocialService_BlockUserProfile_0(ctx context.Context, marshaler run
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "source_user_id")
 	}
 
-	protoReq.SourceUserId, err = runtime.Uint64(val)
+	protoReq.SourceUserId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "source_user_id", err)
 	}
@@ -351,7 +351,7 @@ func request_SocialService_BlockUserProfile_0(ctx context.Context, marshaler run
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "target_user_id")
 	}
 
-	protoReq.TargetUserId, err = runtime.Uint64(val)
+	protoReq.TargetUserId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "target_user_id", err)
 	}
@@ -377,7 +377,7 @@ func local_request_SocialService_BlockUserProfile_0(ctx context.Context, marshal
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "source_user_id")
 	}
 
-	protoReq.SourceUserId, err = runtime.Uint64(val)
+	protoReq.SourceUserId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "source_user_id", err)
 	}
@@ -387,7 +387,7 @@ func local_request_SocialService_BlockUserProfile_0(ctx context.Context, marshal
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "target_user_id")
 	}
 
-	protoReq.TargetUserId, err = runtime.Uint64(val)
+	protoReq.TargetUserId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "target_user_id", err)
 	}
@@ -413,7 +413,7 @@ func request_SocialService_FollowProfile_0(ctx context.Context, marshaler runtim
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "source_user_id")
 	}
 
-	protoReq.SourceUserId, err = runtime.Uint64(val)
+	protoReq.SourceUserId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "source_user_id", err)
 	}
@@ -423,7 +423,7 @@ func request_SocialService_FollowProfile_0(ctx context.Context, marshaler runtim
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "target_user_id")
 	}
 
-	protoReq.TargetUserId, err = runtime.Uint64(val)
+	protoReq.TargetUserId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "target_user_id", err)
 	}
@@ -449,7 +449,7 @@ func local_request_SocialService_FollowProfile_0(ctx context.Context, marshaler 
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "source_user_id")
 	}
 
-	protoReq.SourceUserId, err = runtime.Uint64(val)
+	protoReq.SourceUserId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "source_user_id", err)
 	}
@@ -459,7 +459,7 @@ func local_request_SocialService_FollowProfile_0(ctx context.Context, marshaler 
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "target_user_id")
 	}
 
-	protoReq.TargetUserId, err = runtime.Uint64(val)
+	protoReq.TargetUserId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "target_user_id", err)
 	}
@@ -787,7 +787,7 @@ func request_SocialService_CreateCommunityProfile_0(ctx context.Context, marshal
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user_id")
 	}
 
-	protoReq.UserId, err = runtime.Uint64(val)
+	protoReq.UserId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
 	}
@@ -821,7 +821,7 @@ func local_request_SocialService_CreateCommunityProfile_0(ctx context.Context, m
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user_id")
 	}
 
-	protoReq.UserId, err = runtime.Uint64(val)
+	protoReq.UserId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
 	}
@@ -917,7 +917,7 @@ func request_SocialService_FollowCommunityProfile_0(ctx context.Context, marshal
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "source_user_id")
 	}
 
-	protoReq.SourceUserId, err = runtime.Uint64(val)
+	protoReq.SourceUserId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "source_user_id", err)
 	}
@@ -953,7 +953,7 @@ func local_request_SocialService_FollowCommunityProfile_0(ctx context.Context, m
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "source_user_id")
 	}
 
-	protoReq.SourceUserId, err = runtime.Uint64(val)
+	protoReq.SourceUserId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "source_user_id", err)
 	}
@@ -1141,7 +1141,7 @@ func request_SocialService_EditCommunityProfile_0(ctx context.Context, marshaler
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user_id")
 	}
 
-	protoReq.UserId, err = runtime.Uint64(val)
+	protoReq.UserId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
 	}
@@ -1185,7 +1185,7 @@ func local_request_SocialService_EditCommunityProfile_0(ctx context.Context, mar
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user_id")
 	}
 
-	protoReq.UserId, err = runtime.Uint64(val)
+	protoReq.UserId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
 	}
@@ -2215,7 +2215,7 @@ func request_SocialService_AddPostQualityScore_0(ctx context.Context, marshaler 
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user_id")
 	}
 
-	protoReq.UserId, err = runtime.Uint64(val)
+	protoReq.UserId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
 	}
@@ -2266,7 +2266,7 @@ func local_request_SocialService_AddPostQualityScore_0(ctx context.Context, mars
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user_id")
 	}
 
-	protoReq.UserId, err = runtime.Uint64(val)
+	protoReq.UserId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
 	}
@@ -3063,7 +3063,7 @@ func request_SocialService_CreateComment_0(ctx context.Context, marshaler runtim
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user_id")
 	}
 
-	protoReq.UserId, err = runtime.Uint64(val)
+	protoReq.UserId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
 	}
@@ -3114,7 +3114,7 @@ func local_request_SocialService_CreateComment_0(ctx context.Context, marshaler 
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user_id")
 	}
 
-	protoReq.UserId, err = runtime.Uint64(val)
+	protoReq.UserId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
 	}
@@ -3367,7 +3367,7 @@ func request_SocialService_AddCommentQualityScore_0(ctx context.Context, marshal
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user_id")
 	}
 
-	protoReq.UserId, err = runtime.Uint64(val)
+	protoReq.UserId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
 	}
@@ -3428,7 +3428,7 @@ func local_request_SocialService_AddCommentQualityScore_0(ctx context.Context, m
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user_id")
 	}
 
-	protoReq.UserId, err = runtime.Uint64(val)
+	protoReq.UserId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
 	}
@@ -4093,7 +4093,7 @@ func request_SocialService_CreateTopic_0(ctx context.Context, marshaler runtime.
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user_id")
 	}
 
-	protoReq.UserId, err = runtime.Uint64(val)
+	protoReq.UserId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
 	}
@@ -4137,7 +4137,7 @@ func local_request_SocialService_CreateTopic_0(ctx context.Context, marshaler ru
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user_id")
 	}
 
-	protoReq.UserId, err = runtime.Uint64(val)
+	protoReq.UserId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
 	}
@@ -5317,7 +5317,7 @@ func request_SocialService_DeletePublication_0(ctx context.Context, marshaler ru
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "admin_user_id")
 	}
 
-	protoReq.AdminUserId, err = runtime.Uint64(val)
+	protoReq.AdminUserId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "admin_user_id", err)
 	}
@@ -5353,7 +5353,7 @@ func local_request_SocialService_DeletePublication_0(ctx context.Context, marsha
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "admin_user_id")
 	}
 
-	protoReq.AdminUserId, err = runtime.Uint64(val)
+	protoReq.AdminUserId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "admin_user_id", err)
 	}
@@ -5389,7 +5389,7 @@ func request_SocialService_AddPublicationEditor_0(ctx context.Context, marshaler
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "admin_user_id")
 	}
 
-	protoReq.AdminUserId, err = runtime.Uint64(val)
+	protoReq.AdminUserId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "admin_user_id", err)
 	}
@@ -5409,7 +5409,7 @@ func request_SocialService_AddPublicationEditor_0(ctx context.Context, marshaler
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "editor_user_id")
 	}
 
-	protoReq.EditorUserId, err = runtime.Uint64(val)
+	protoReq.EditorUserId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "editor_user_id", err)
 	}
@@ -5435,7 +5435,7 @@ func local_request_SocialService_AddPublicationEditor_0(ctx context.Context, mar
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "admin_user_id")
 	}
 
-	protoReq.AdminUserId, err = runtime.Uint64(val)
+	protoReq.AdminUserId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "admin_user_id", err)
 	}
@@ -5455,7 +5455,7 @@ func local_request_SocialService_AddPublicationEditor_0(ctx context.Context, mar
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "editor_user_id")
 	}
 
-	protoReq.EditorUserId, err = runtime.Uint64(val)
+	protoReq.EditorUserId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "editor_user_id", err)
 	}
@@ -5481,7 +5481,7 @@ func request_SocialService_DeletePublicationEditor_0(ctx context.Context, marsha
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "admin_user_id")
 	}
 
-	protoReq.AdminUserId, err = runtime.Uint64(val)
+	protoReq.AdminUserId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "admin_user_id", err)
 	}
@@ -5501,7 +5501,7 @@ func request_SocialService_DeletePublicationEditor_0(ctx context.Context, marsha
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "editor_user_id")
 	}
 
-	protoReq.EditorUserId, err = runtime.Uint64(val)
+	protoReq.EditorUserId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "editor_user_id", err)
 	}
@@ -5527,7 +5527,7 @@ func local_request_SocialService_DeletePublicationEditor_0(ctx context.Context, 
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "admin_user_id")
 	}
 
-	protoReq.AdminUserId, err = runtime.Uint64(val)
+	protoReq.AdminUserId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "admin_user_id", err)
 	}
@@ -5547,7 +5547,7 @@ func local_request_SocialService_DeletePublicationEditor_0(ctx context.Context, 
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "editor_user_id")
 	}
 
-	protoReq.EditorUserId, err = runtime.Uint64(val)
+	protoReq.EditorUserId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "editor_user_id", err)
 	}
@@ -5581,7 +5581,7 @@ func request_SocialService_AddPostToPublication_0(ctx context.Context, marshaler
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "editor_user_id")
 	}
 
-	protoReq.EditorUserId, err = runtime.Uint64(val)
+	protoReq.EditorUserId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "editor_user_id", err)
 	}
@@ -5625,7 +5625,7 @@ func local_request_SocialService_AddPostToPublication_0(ctx context.Context, mar
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "editor_user_id")
 	}
 
-	protoReq.EditorUserId, err = runtime.Uint64(val)
+	protoReq.EditorUserId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "editor_user_id", err)
 	}
@@ -5665,7 +5665,7 @@ func request_SocialService_DeletePostFromPublication_0(ctx context.Context, mars
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "editor_user_id")
 	}
 
-	protoReq.EditorUserId, err = runtime.Uint64(val)
+	protoReq.EditorUserId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "editor_user_id", err)
 	}
@@ -5718,7 +5718,7 @@ func local_request_SocialService_DeletePostFromPublication_0(ctx context.Context
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "editor_user_id")
 	}
 
-	protoReq.EditorUserId, err = runtime.Uint64(val)
+	protoReq.EditorUserId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "editor_user_id", err)
 	}

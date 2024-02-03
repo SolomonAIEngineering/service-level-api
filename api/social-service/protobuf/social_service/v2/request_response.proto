@@ -79,8 +79,8 @@ message CreateUserProfileRequest {
   // the user ID trying to create this user profile (NOTE: userID refers to the
   // ID from the vantage point of the user service. This ID is the single source
   // of truth for a given user across our suite of services) | type: uint64
-  uint64 user_id = 2 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 2 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   // the set of ids of community profiles to follow
@@ -114,8 +114,8 @@ message CreateCommunityProfileRequest {
   // the ID from the vantage point of the user service. This ID is the single
   // source of truth for a given user across our suite of services) | type:
   // uint64
-  uint64 user_id = 2 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 2 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
 }
@@ -179,8 +179,8 @@ message EditCommunityProfileRequest {
   // the ID from the vantage point of the user service. This ID is the single
   // source of truth for a given user across our suite of services) | type:
   // uint64
-  uint64 user_id = 2 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 2 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   // The community profile ID of the community being updated | type: uint64
@@ -196,15 +196,15 @@ message BlockUserProfileRequest {
   // the user ID trying to block another user (NOTE: userID refers to the
   // ID from the vantage point of the user service. This ID is the single source
   // of truth for a given user across our suite of services) | type: uint64
-  uint64 source_user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string source_user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   // the user ID being blocked by another user (NOTE: userID refers to the
   // ID from the vantage point of the user service. This ID is the single source
   // of truth for a given user across our suite of services) | type: uint64
-  uint64 target_user_id = 2 [
-    (validate.rules).uint64.gt = 0,
+  string target_user_id = 2 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
 }
@@ -215,15 +215,15 @@ message FollowProfileRequest {
   // the user ID trying to follow another user (NOTE: userID refers to the
   // ID from the vantage point of the user service. This ID is the single source
   // of truth for a given user across our suite of services) | type: uint64
-  uint64 source_user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string source_user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   // the user ID being followed by another user (NOTE: userID refers to the
   // ID from the vantage point of the user service. This ID is the single source
   // of truth for a given user across our suite of services) | type: uint64
-  uint64 target_user_id = 2 [
-    (validate.rules).uint64.gt = 0,
+  string target_user_id = 2 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
 }
@@ -234,8 +234,8 @@ message FollowCommunityProfileRequest {
   // the user ID trying to follow another user (NOTE: userID refers to the
   // ID from the vantage point of the user service. This ID is the single source
   // of truth for a given user across our suite of services) | type: uint64
-  uint64 source_user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string source_user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   // the targetCommunityProfileID ID being followed by another user
@@ -351,8 +351,8 @@ message ReactionRequest {
   // the user ID trying to add a reaction (NOTE: user_id refers to the
   // ID from the vantage point of the user service. This ID is the single source
   // of truth for a given user across our suite of services) | type: uint64
-  uint64 user_id = 2 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 2 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   // The type of reaction to add to a post or comment | type: string
@@ -408,8 +408,8 @@ message CreateCommentRequest {
   // the user ID trying to create a comment (NOTE: userID refers to the
   // ID from the vantage point of the user service. This ID is the single source
   // of truth for a given user across our suite of services) | type: uint64
-  uint64 user_id = 2 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 2 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   // The ID of the community trying to create a comment | type: uint64
@@ -459,8 +459,8 @@ message CreateTopicRequest {
   // the ID from the vantage point of the user service. This ID is the single
   // source of truth for a given user across our suite of services) | type:
   // uint64
-  uint64 user_id = 2 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 2 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   // topic payload | type: json_object
@@ -568,8 +568,8 @@ message AddPostQualityScoreRequest {
     (validate.rules).uint64.gt = 0,
     (google.api.field_behavior) = REQUIRED
   ];
-  uint64 user_id = 3 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 3 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   // The type of post being reacted to | type: string
@@ -594,8 +594,8 @@ message AddCommentQualityScoreRequest {
     (validate.rules).uint64.gt = 0,
     (google.api.field_behavior) = REQUIRED
   ];
-  uint64 user_id = 4 [
-    (validate.rules).uint64.gt = 0,
+  string user_id = 4 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   // The type of post being reacted to | type: string
@@ -1118,8 +1118,8 @@ message GetPublicationResponse {
 }
 
 message DeletePublicationRequest {
-  uint64 admin_user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string admin_user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   uint64 publication_id = 2 [
@@ -1133,12 +1133,12 @@ message DeletePublicationResponse {
 }
 
 message AddPublicationEditorRequest {
-  uint64 admin_user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string admin_user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
-  uint64 editor_user_id = 2 [
-    (validate.rules).uint64.gt = 0,
+  string editor_user_id = 2 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   uint64 publication_id = 3 [
@@ -1152,12 +1152,12 @@ message AddPublicationEditorResponse {
 }
 
 message DeletePublicationEditorRequest {
-  uint64 admin_user_id = 1 [
-    (validate.rules).uint64.gt = 0,
+  string admin_user_id = 1 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
-  uint64 editor_user_id = 2 [
-    (validate.rules).uint64.gt = 0,
+  string editor_user_id = 2 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   uint64 publication_id = 3 [
@@ -1171,8 +1171,8 @@ message DeletePublicationEditorResponse {
 }
 
 message AddPostToPublicationRequest {
-  uint64 editor_user_id = 2 [
-    (validate.rules).uint64.gt = 0,
+  string editor_user_id = 2 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   uint64 publication_id = 3 [
@@ -1187,8 +1187,8 @@ message AddPostToPublicationResponse {
 }
 
 message DeletePostFromPublicationRequest {
-  uint64 editor_user_id = 2 [
-    (validate.rules).uint64.gt = 0,
+  string editor_user_id = 2 [
+    (validate.rules).string.min_len = 1,
     (google.api.field_behavior) = REQUIRED
   ];
   uint64 publication_id = 3 [

@@ -872,8 +872,7 @@
             "name": "adminUserId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "publicationId",
@@ -930,8 +929,7 @@
             "name": "adminUserId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "publicationId",
@@ -944,8 +942,7 @@
             "name": "editorUserId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           }
         ],
         "tags": [
@@ -993,8 +990,7 @@
             "name": "adminUserId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "publicationId",
@@ -1007,8 +1003,7 @@
             "name": "editorUserId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           }
         ],
         "tags": [
@@ -1058,8 +1053,7 @@
             "name": "editorUserId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "publicationId",
@@ -1124,8 +1118,7 @@
             "name": "editorUserId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "publicationId",
@@ -1207,16 +1200,14 @@
             "description": "the user ID trying to block another user (NOTE: userID refers to the\nID from the vantage point of the user service. This ID is the single source\nof truth for a given user across our suite of services) | type: uint64",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "targetUserId",
             "description": "the user ID being blocked by another user (NOTE: userID refers to the\nID from the vantage point of the user service. This ID is the single source\nof truth for a given user across our suite of services) | type: uint64",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           }
         ],
         "tags": [
@@ -1267,8 +1258,7 @@
             "description": "the user ID trying to follow another user (NOTE: userID refers to the\nID from the vantage point of the user service. This ID is the single source\nof truth for a given user across our suite of services) | type: uint64",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "targetCommunityProfileId",
@@ -1327,16 +1317,14 @@
             "description": "the user ID trying to follow another user (NOTE: userID refers to the\nID from the vantage point of the user service. This ID is the single source\nof truth for a given user across our suite of services) | type: uint64",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "targetUserId",
             "description": "the user ID being followed by another user (NOTE: userID refers to the\nID from the vantage point of the user service. This ID is the single source\nof truth for a given user across our suite of services) | type: uint64",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           }
         ],
         "tags": [
@@ -1506,8 +1494,7 @@
             "description": "the user ID trying to create this user profile (NOTE: userID refers to the\nID from the vantage point of the user service. This ID is the single source\nof truth for a given user across our suite of services) | type: uint64",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "body",
@@ -1598,8 +1585,7 @@
             "description": "the user ID trying to create this community profile (NOTE: userID refers to\nthe ID from the vantage point of the user service. This ID is the single\nsource of truth for a given user across our suite of services) | type:\nuint64",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "body",
@@ -1724,8 +1710,7 @@
             "description": "the user ID trying to update this community profile (NOTE: userID refers to\nthe ID from the vantage point of the user service. This ID is the single\nsource of truth for a given user across our suite of services) | type:\nuint64",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "communityProfileId",
@@ -1796,8 +1781,7 @@
             "description": "the user ID trying to whom the community is tied to (NOTE: userID refers to\nthe ID from the vantage point of the user service. This ID is the single\nsource of truth for a given user across our suite of services) | type:\nuint64",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "communityProfileId",
@@ -3005,8 +2989,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "postId",
@@ -3949,8 +3932,7 @@
             "name": "userId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "postId",
@@ -4900,8 +4882,7 @@
             "description": "the user ID trying to create a comment (NOTE: userID refers to the\nID from the vantage point of the user service. This ID is the single source\nof truth for a given user across our suite of services) | type: uint64",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "postId",
