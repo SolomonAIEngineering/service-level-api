@@ -45,7 +45,7 @@ message GetUserProfileRequest {
   // The RequestorProfileID is an optional parameter used to check if the
   // profileID (requestor) making a request for the record actually follows the
   // record
-  uint64 requestor_profile_id = 2;
+  string requestor_profile_id = 2;
   // The RequestorProfileType is an optional parameter which tells us what type
   // of profile is the requestor
   AccountType requestor_profile_type = 3;

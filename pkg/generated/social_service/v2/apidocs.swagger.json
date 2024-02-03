@@ -1381,8 +1381,7 @@
             "description": "The RequestorProfileID is an optional parameter used to check if the\nprofileID (requestor) making a request for the record actually follows the\nrecord",
             "in": "query",
             "required": false,
-            "type": "string",
-            "format": "uint64"
+            "type": "string"
           },
           {
             "name": "requestorProfileType",
