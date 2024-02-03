@@ -1,3 +1,10 @@
+# [1.176.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.175.0...v1.176.0) (2024-02-03)
+
+
+### Features
+
+* update workflow api ([574d2ed](https://github.com/SolomonAIEngineering/service-level-api/commit/574d2ed44184b0be56271417ff4e74411522eeb1))
+
 # [1.175.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.174.0...v1.175.0) (2024-01-31)
 
 
