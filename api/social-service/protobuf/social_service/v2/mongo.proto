@@ -195,14 +195,14 @@ message Post {
   // UserIDToAffinityScoreMap witholds a mapping of all user profiles who left
   // an affinity score
   // @gotag: bson:"userIdToAffinityScoreMap"
-  map<uint64, uint64> user_id_to_affinity_score_map = 20;
+  map<string, uint64> user_id_to_affinity_score_map = 20;
   // @gotag: bson:"insights"
   ContentInsights insights = 21;
   // ReportCount details the number of reports were associated with a post
   // A report is used as a signal to disclose the post's content are in
   // violation of platform rules
   // @gotag: bson:"userIdToReportsMap"
-  map<uint64, uint64> user_id_to_reports_map = 22;
+  map<string, uint64> user_id_to_reports_map = 22;
   // ReadingTime outlines the number of minutes it would take to read the
   // contents of this post
   // @gotag: bson:"readingTime"
@@ -230,7 +230,7 @@ message Post {
 
   // a map of user ids to reactions left by users
   // @gotag: bson:"userIdToReactionMap"
-  map<uint64, Reaction> user_id_to_reaction_map = 33;
+  map<string, Reaction> user_id_to_reaction_map = 33;
 
   // if the post is a question, this field will hold the response to the question by the ai
   // @gotag: bson:"aiGeneratedQuestionResponse"
@@ -315,7 +315,7 @@ message PollPost {
   // UserIDToAffinityScoreMap witholds a mapping of all user profiles who left
   // an affinity score
   // @gotag: bson:"userIdToAffinityScoreMap"
-  map<uint64, uint64> user_id_to_affinity_score_map = 20;
+  map<string, uint64> user_id_to_affinity_score_map = 20;
   // Insights is a map of all insights associated to a post
   // @gotag: bson:"insights"
   ContentInsights insights = 21;
@@ -323,7 +323,7 @@ message PollPost {
   // A report is used as a signal to disclose the post's content are in
   // violation of platform rules
   // @gotag: bson:"userIdToReportsMap"
-  map<uint64, uint64> user_id_to_reports_map = 22;
+  map<string, uint64> user_id_to_reports_map = 22;
   // BackgroundImageUrl signifies an image to associate to a post object.
   // Such urls are only associated when a post is an article or short story
   // @gotag: bson:"backgroundImageUrl"
@@ -335,7 +335,7 @@ message PollPost {
 
   // A hash map of user ids to poll responses left by users
   // @gotag: bson:"userIdToPollResponseMap"
-  map<uint64, PollResponse> user_id_to_poll_responses_map = 26;
+  map<string, PollResponse> user_id_to_poll_responses_map = 26;
 
   // the set of options the poll witholds
   // @gotag: bson:"pollOptions"
@@ -366,7 +366,7 @@ message PollPost {
 
   // a map of user ids to reactions left by users
   // @gotag: bson:"userIdToReactionMap"
-  map<uint64, Reaction> user_id_to_reaction_map = 33;
+  map<string, Reaction> user_id_to_reaction_map = 33;
 }
 
 message PollResponse {
@@ -375,9 +375,9 @@ message PollResponse {
   string id = 1;
   // the user id who left the poll response
   // @gotag: bson:"userId"
-  uint64 user_id = 2 [
+  string user_id = 2 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: ""},
-    (validate.rules).uint64.gt = 0
+    (validate.rules).string = {min_len: 1}
   ];
   // the actual poll response left by the user
   // @gotag: bson:"responseValue"
@@ -459,12 +459,12 @@ message SharedPost {
   // UserIDToAffinityScoreMap witholds a mapping of all user profiles who left
   // an affinity score
   // @gotag: bson:"userIdToAffinityScoreMap"
-  map<uint64, uint64> user_id_to_affinity_score_map = 21;
+  map<string, uint64> user_id_to_affinity_score_map = 21;
   // ReportCount details the number of reports were associated with a post
   // A report is used as a signal to disclose the post's content are in
   // violation of platform rules
   // @gotag: bson:"userIdToReportsMap"
-  map<uint64, uint64> user_id_to_reports_map = 23;
+  map<string, uint64> user_id_to_reports_map = 23;
   // AccountType is the account type of the creator of this piece of
   // content
 
@@ -483,7 +483,7 @@ message SharedPost {
 
   // a map of user ids to reactions left by users
   // @gotag: bson:"userIdToReactionMap"
-  map<uint64, Reaction> user_id_to_reaction_map = 34;
+  map<string, Reaction> user_id_to_reaction_map = 34;
 
   // PostType defines the intent of the post
   // @gotag: bson:"action"
@@ -661,12 +661,12 @@ message Comment {
   // UserIDToAffinityScoreMap witholds a mapping of all user profiles who left
   // an affinity score
   // @gotag: bson:"userIdToAffinityScoreMap"
-  map<uint64, uint64> user_id_to_affinity_score_map = 16;
+  map<string, uint64> user_id_to_affinity_score_map = 16;
   // ReportCount details the number of reports were associated with a post
   // A report is used as a signal to disclose the post's content are in
   // violation of platform rules
   // @gotag: bson:"userIdToReportsMap"
-  map<uint64, uint64> user_id_to_reports_map = 22;
+  map<string, uint64> user_id_to_reports_map = 22;
   // AccountType is the account type of the creator of this piece of
   // content
   // @gotag: bson:"authorAccountType"
@@ -674,7 +674,7 @@ message Comment {
 
   // a map of user ids to reactions left by users
   // @gotag: bson:"userIdToReactionMap"
-  map<uint64, Reaction> user_id_to_reaction_map = 24;
+  map<string, Reaction> user_id_to_reaction_map = 24;
   // the set of notes associated to this piece of content
   // @gotag: bson:"notes"
   repeated Note notes = 25;
@@ -747,7 +747,7 @@ message CommentReply {
   // UserIDToAffinityScoreMap witholds a mapping of all user profiles who left
   // an affinity score
   // @gotag: bson:"userIdToAffinityScoreMap"
-  map<uint64, uint64> user_id_to_affinity_score_map = 16;
+  map<string, uint64> user_id_to_affinity_score_map = 16;
   // AccountType is the account type of the creator of this piece of
   // content
   // @gotag: bson:"authorAccountType"
@@ -755,9 +755,9 @@ message CommentReply {
 
   // a map of user ids to reactions left by users
   // @gotag: bson:"userIdToReactionMap"
-  map<uint64, Reaction> user_id_to_reaction_map = 18;
+  map<string, Reaction> user_id_to_reaction_map = 18;
 
   // the report count for this comment reply
   // @gotag: bson:"userIdToReportsMap"
-  map<uint64, uint64> user_id_to_reports_map = 22;
+  map<string, uint64> user_id_to_reports_map = 22;
 }

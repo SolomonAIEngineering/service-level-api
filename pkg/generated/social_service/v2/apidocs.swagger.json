@@ -6513,7 +6513,6 @@
         },
         "userId": {
           "type": "string",
-          "format": "uint64",
           "title": "the user id who left the poll response\n@gotag: bson:\"userId\""
         },
         "responseValue": {

@@ -1226,7 +1226,7 @@ func (m *PollPost) validate(all bool) error {
 	// no validation rules for AuthorAccountType
 
 	{
-		sorted_keys := make([]uint64, len(m.GetUserIdToPollResponsesMap()))
+		sorted_keys := make([]string, len(m.GetUserIdToPollResponsesMap()))
 		i := 0
 		for key := range m.GetUserIdToPollResponsesMap() {
 			sorted_keys[i] = key
@@ -1481,10 +1481,10 @@ func (m *PollResponse) validate(all bool) error {
 
 	// no validation rules for Id
 
-	if m.GetUserId() <= 0 {
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := PollResponseValidationError{
 			field:  "UserId",
-			reason: "value must be greater than 0",
+			reason: "value length must be at least 1 runes",
 		}
 		if !all {
 			return err
