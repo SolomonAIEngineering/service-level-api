@@ -8,32 +8,28 @@
 
 # [1.182.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.181.0...v1.182.0) (2024-02-03)
 
-
 ### Features
 
-* checkpoint ([852fb6e](https://github.com/SolomonAIEngineering/service-level-api/commit/852fb6e62043e8f1c2a2d41ce265ef3228978f34))
+- checkpoint ([852fb6e](https://github.com/SolomonAIEngineering/service-level-api/commit/852fb6e62043e8f1c2a2d41ce265ef3228978f34))
 
 # [1.181.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.180.0...v1.181.0) (2024-02-03)
 
-
 ### Features
 
-* checkpoint ([8fcd164](https://github.com/SolomonAIEngineering/service-level-api/commit/8fcd164764452c5b5da69a963e030de964fda01b))
+- checkpoint ([8fcd164](https://github.com/SolomonAIEngineering/service-level-api/commit/8fcd164764452c5b5da69a963e030de964fda01b))
 
 # [1.180.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.179.0...v1.180.0) (2024-02-03)
 
-
 ### Features
 
-* checkpoint ([2eb227e](https://github.com/SolomonAIEngineering/service-level-api/commit/2eb227e028d82eeab4115ba5fbf263827288e1a4))
+- checkpoint ([2eb227e](https://github.com/SolomonAIEngineering/service-level-api/commit/2eb227e028d82eeab4115ba5fbf263827288e1a4))
 
 # [1.179.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.178.0...v1.179.0) (2024-02-03)
 
-
 ### Features
 
-* checkpoint ([d86c504](https://github.com/SolomonAIEngineering/service-level-api/commit/d86c504799b6b00778fb4c3ffedc201cd63c94ad))
-* checkpoint ([e359b45](https://github.com/SolomonAIEngineering/service-level-api/commit/e359b4515867ab50bd83220774bc314b808544e6))
+- checkpoint ([d86c504](https://github.com/SolomonAIEngineering/service-level-api/commit/d86c504799b6b00778fb4c3ffedc201cd63c94ad))
+- checkpoint ([e359b45](https://github.com/SolomonAIEngineering/service-level-api/commit/e359b4515867ab50bd83220774bc314b808544e6))
 
 # [1.178.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.177.0...v1.178.0) (2024-02-03)
 
