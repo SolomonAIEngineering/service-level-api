@@ -3557,8 +3557,9 @@ export interface TriggerSyncRequest {
 }
 
 export interface TriggerSyncResponse {
+  runId?: string;
   /** the task id */
-  taskId?: string;
+  workflowId?: string;
 }
 
 export interface UnSplitTransactionsRequest {

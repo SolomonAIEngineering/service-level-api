@@ -20679,7 +20679,9 @@ func (m *TriggerSyncResponse) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for TaskId
+	// no validation rules for WorkflowId
+
+	// no validation rules for RunId
 
 	if len(errors) > 0 {
 		return TriggerSyncResponseMultiError(errors)

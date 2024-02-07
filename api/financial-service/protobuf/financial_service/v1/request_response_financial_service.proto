@@ -1719,5 +1719,6 @@ message TriggerSyncRequest {
 
 message TriggerSyncResponse {
   // the task id
-  string task_id = 1;
+  string workflow_id = 1;
+  string run_id = 2;
 }

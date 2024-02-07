@@ -11269,9 +11269,12 @@
     "TriggerSyncResponse": {
       "type": "object",
       "properties": {
-        "taskId": {
+        "workflowId": {
           "type": "string",
           "title": "the task id"
+        },
+        "runId": {
+          "type": "string"
         }
       }
     },
