@@ -108,6 +108,9 @@ message UserAccount {
   Role role = 45 [
     (gorm.field).has_one.preload = true
   ];
+
+  // Algolia user id
+  string algolia_user_id = 46;
 }
 
 // BusinessAccount represents a business account within the context of solomon-ai.
@@ -238,6 +241,9 @@ message BusinessAccount {
   Role role = 45 [
     (gorm.field).has_one.preload = true
   ];
+
+  // Algolia user id
+  string algolia_user_id = 46;
 }
 
 /*

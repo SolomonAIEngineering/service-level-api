@@ -296,6 +296,8 @@ func (m *UserAccount) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for AlgoliaUserId
+
 	if len(errors) > 0 {
 		return UserAccountMultiError(errors)
 	}
@@ -752,6 +754,8 @@ func (m *BusinessAccount) validate(all bool) error {
 			}
 		}
 	}
+
+	// no validation rules for AlgoliaUserId
 
 	if len(errors) > 0 {
 		return BusinessAccountMultiError(errors)

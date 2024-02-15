@@ -3,21 +3,21 @@ package user_servicev1
 import (
 	context "context"
 	fmt "fmt"
-	strings "strings"
-	time "time"
-
 	gorm1 "github.com/infobloxopen/atlas-app-toolkit/gorm"
 	errors "github.com/infobloxopen/protoc-gen-gorm/errors"
 	gorm "github.com/jinzhu/gorm"
 	pq "github.com/lib/pq"
 	field_mask "google.golang.org/genproto/protobuf/field_mask"
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
+	strings "strings"
+	time "time"
 )
 
 type UserAccountORM struct {
 	AccountType     string
 	Address         *AddressORM `gorm:"foreignkey:UserAccountId;association_foreignkey:Id"`
-	Auth0UserId     string      `gorm:"unique_index:idx_user_auth0_user_id"`
+	AlgoliaUserId   string
+	Auth0UserId     string `gorm:"unique_index:idx_user_auth0_user_id"`
 	AuthnAccountId  uint64
 	Bio             string
 	CreatedAt       *time.Time
@@ -108,6 +108,7 @@ func (m *UserAccount) ToORM(ctx context.Context) (UserAccountORM, error) {
 		}
 		to.Role = &tempRole
 	}
+	to.AlgoliaUserId = m.AlgoliaUserId
 	if posthook, ok := interface{}(m).(UserAccountWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -177,6 +178,7 @@ func (m *UserAccountORM) ToPB(ctx context.Context) (UserAccount, error) {
 		}
 		to.Role = &tempRole
 	}
+	to.AlgoliaUserId = m.AlgoliaUserId
 	if posthook, ok := interface{}(m).(UserAccountWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -209,7 +211,8 @@ type UserAccountWithAfterToPB interface {
 type BusinessAccountORM struct {
 	AccountType            string
 	Address                *AddressORM `gorm:"foreignkey:BusinessAccountId;association_foreignkey:Id;preload:true"`
-	Auth0UserId            string      `gorm:"unique_index:auth0_user_id"`
+	AlgoliaUserId          string
+	Auth0UserId            string `gorm:"unique_index:auth0_user_id"`
 	AuthnAccountId         uint64
 	Bio                    string
 	CompanyDescription     string
@@ -306,6 +309,7 @@ func (m *BusinessAccount) ToORM(ctx context.Context) (BusinessAccountORM, error)
 		}
 		to.Role = &tempRole
 	}
+	to.AlgoliaUserId = m.AlgoliaUserId
 	if posthook, ok := interface{}(m).(BusinessAccountWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -378,6 +382,7 @@ func (m *BusinessAccountORM) ToPB(ctx context.Context) (BusinessAccount, error) 
 		}
 		to.Role = &tempRole
 	}
+	to.AlgoliaUserId = m.AlgoliaUserId
 	if posthook, ok := interface{}(m).(BusinessAccountWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}
@@ -1073,6 +1078,10 @@ func DefaultApplyFieldMaskUserAccount(ctx context.Context, patchee *UserAccount,
 			patchee.Role = patcher.Role
 			continue
 		}
+		if f == prefix+"AlgoliaUserId" {
+			patchee.AlgoliaUserId = patcher.AlgoliaUserId
+			continue
+		}
 	}
 	if err != nil {
 		return nil, err
@@ -1637,6 +1646,10 @@ func DefaultApplyFieldMaskBusinessAccount(ctx context.Context, patchee *Business
 		if f == prefix+"Role" {
 			updatedRole = true
 			patchee.Role = patcher.Role
+			continue
+		}
+		if f == prefix+"AlgoliaUserId" {
+			patchee.AlgoliaUserId = patcher.AlgoliaUserId
 			continue
 		}
 	}

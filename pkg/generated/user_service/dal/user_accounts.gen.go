@@ -30,6 +30,7 @@ func newUserAccountORM(db *gorm.DB, opts ...gen.DOOption) userAccountORM {
 	tableName := _userAccountORM.userAccountORMDo.TableName()
 	_userAccountORM.ALL = field.NewAsterisk(tableName)
 	_userAccountORM.AccountType = field.NewString(tableName, "account_type")
+	_userAccountORM.AlgoliaUserId = field.NewString(tableName, "algolia_user_id")
 	_userAccountORM.Auth0UserId = field.NewString(tableName, "auth0_user_id")
 	_userAccountORM.AuthnAccountId = field.NewUint64(tableName, "authn_account_id")
 	_userAccountORM.Bio = field.NewString(tableName, "bio")
@@ -100,6 +101,7 @@ type userAccountORM struct {
 
 	ALL             field.Asterisk
 	AccountType     field.String
+	AlgoliaUserId   field.String
 	Auth0UserId     field.String
 	AuthnAccountId  field.Uint64
 	Bio             field.String
@@ -140,6 +142,7 @@ func (u userAccountORM) As(alias string) *userAccountORM {
 func (u *userAccountORM) updateTableName(table string) *userAccountORM {
 	u.ALL = field.NewAsterisk(table)
 	u.AccountType = field.NewString(table, "account_type")
+	u.AlgoliaUserId = field.NewString(table, "algolia_user_id")
 	u.Auth0UserId = field.NewString(table, "auth0_user_id")
 	u.AuthnAccountId = field.NewUint64(table, "authn_account_id")
 	u.Bio = field.NewString(table, "bio")
@@ -172,8 +175,9 @@ func (u *userAccountORM) GetFieldByName(fieldName string) (field.OrderExpr, bool
 }
 
 func (u *userAccountORM) fillFieldMap() {
-	u.fieldMap = make(map[string]field.Expr, 21)
+	u.fieldMap = make(map[string]field.Expr, 22)
 	u.fieldMap["account_type"] = u.AccountType
+	u.fieldMap["algolia_user_id"] = u.AlgoliaUserId
 	u.fieldMap["auth0_user_id"] = u.Auth0UserId
 	u.fieldMap["authn_account_id"] = u.AuthnAccountId
 	u.fieldMap["bio"] = u.Bio
