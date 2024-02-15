@@ -10555,15 +10555,8 @@
         },
         "auth0UserId": {
           "type": "string"
-        },
-        "profileType": {
-          "$ref": "#/definitions/FinancialUserProfileType",
-          "example": "username:testuser"
         }
-      },
-      "required": [
-        "profileType"
-      ]
+      }
     },
     "RefactorEmailAndAuth0UserIdExistsResponse": {
       "type": "object",

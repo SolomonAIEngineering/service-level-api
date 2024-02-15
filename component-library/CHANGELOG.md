@@ -7,18 +7,16 @@
 
 # [1.186.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.185.0...v1.186.0) (2024-02-15)
 
-
 ### Features
 
-* update check email api ([3f65b98](https://github.com/SolomonAIEngineering/service-level-api/commit/3f65b988c437bce1c7a91c89eed2eac4a7913753))
+- update check email api ([3f65b98](https://github.com/SolomonAIEngineering/service-level-api/commit/3f65b988c437bce1c7a91c89eed2eac4a7913753))
 
 # [1.185.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.184.0...v1.185.0) (2024-02-15)
 
-
 ### Features
 
-* add algolia user id ([41e3ce2](https://github.com/SolomonAIEngineering/service-level-api/commit/41e3ce275b9c835a8008a8c90c01f514a89fdfc9))
-* add algolia user id to the profile records ([ab00d11](https://github.com/SolomonAIEngineering/service-level-api/commit/ab00d113b335a0e6c2b87de114dbb4a098d255ca))
+- add algolia user id ([41e3ce2](https://github.com/SolomonAIEngineering/service-level-api/commit/41e3ce275b9c835a8008a8c90c01f514a89fdfc9))
+- add algolia user id to the profile records ([ab00d11](https://github.com/SolomonAIEngineering/service-level-api/commit/ab00d113b335a0e6c2b87de114dbb4a098d255ca))
 
 # [1.184.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.183.0...v1.184.0) (2024-02-07)
 
