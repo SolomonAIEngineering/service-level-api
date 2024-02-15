@@ -1,3 +1,10 @@
+# [1.188.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.187.0...v1.188.0) (2024-02-15)
+
+
+### Features
+
+* update refactor email api ([350b45f](https://github.com/SolomonAIEngineering/service-level-api/commit/350b45ffa1ad6b117d86af6670a94e73a5c66b17))
+
 # [1.187.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.186.0...v1.187.0) (2024-02-15)
 
 
