@@ -1722,3 +1722,20 @@ message TriggerSyncResponse {
   string workflow_id = 1;
   string run_id = 2;
 }
+
+message RefactorEmailAndAuth0UserIdExistsRequest {
+  // the account id associated with the user
+  string email = 1 [(validate.rules).string.min_len = 1];
+  string auth0_user_id = 2 [(validate.rules).string.min_len = 1];
+  FinancialUserProfileType profile_type = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"username:testuser\""
+    },
+    (google.api.field_behavior) = REQUIRED   
+  ];
+}
+
+message RefactorEmailAndAuth0UserIdExistsResponse {
+  bool success = 1;
+}

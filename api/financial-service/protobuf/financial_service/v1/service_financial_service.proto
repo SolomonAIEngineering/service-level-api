@@ -2266,4 +2266,27 @@ service FinancialService {
           }
       };
     } 
+
+    rpc RefactorEmailAndAuth0UserIdExists(RefactorEmailAndAuth0UserIdExistsRequest) returns (RefactorEmailAndAuth0UserIdExistsResponse) {
+      option (google.api.http) = {
+          put: "/api/v1/auth0/user-id" 
+          body: "*"
+      };
+      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+          summary: "Updates the auth0 user id by email"
+          tags: ["auth0", "v1"]
+          operation_id: "UpdateAuth0UserIdByEmail"
+          description: 
+              "This endpoint updates the auth0 user id by email"
+          responses: {
+              key: "200"
+              value: {
+                  description: "A successful response."
+                  schema: {
+                      json_schema: {ref: ".api.v2.UpdateAuth0UserIdByEmailResponse"}
+                  }
+              }
+          }
+      };
+    }
 }

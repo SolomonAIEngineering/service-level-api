@@ -2185,6 +2185,59 @@
         ]
       }
     },
+    "/api/v1/auth0/user-id": {
+      "put": {
+        "summary": "Updates the auth0 user id by email",
+        "description": "This endpoint updates the auth0 user id by email",
+        "operationId": "UpdateAuth0UserIdByEmail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v2.UpdateAuth0UserIdByEmailResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RefactorEmailAndAuth0UserIdExistsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "auth0",
+          "v1"
+        ]
+      }
+    },
     "/api/v1/bank-account": {
       "put": {
         "summary": "update a bank account for a given user profile",
@@ -10490,6 +10543,33 @@
           "type": "number",
           "format": "double",
           "title": "the remaining quote"
+        }
+      }
+    },
+    "RefactorEmailAndAuth0UserIdExistsRequest": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "title": "the account id associated with the user"
+        },
+        "auth0UserId": {
+          "type": "string"
+        },
+        "profileType": {
+          "$ref": "#/definitions/FinancialUserProfileType",
+          "example": "username:testuser"
+        }
+      },
+      "required": [
+        "profileType"
+      ]
+    },
+    "RefactorEmailAndAuth0UserIdExistsResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
         }
       }
     },

@@ -3,12 +3,11 @@ package user_servicev1
 import (
 	context "context"
 	fmt "fmt"
-	strings "strings"
-
 	gorm1 "github.com/infobloxopen/atlas-app-toolkit/gorm"
 	errors "github.com/infobloxopen/protoc-gen-gorm/errors"
 	gorm "github.com/jinzhu/gorm"
 	field_mask "google.golang.org/genproto/protobuf/field_mask"
+	strings "strings"
 )
 
 type NotificationSettingsORM struct {

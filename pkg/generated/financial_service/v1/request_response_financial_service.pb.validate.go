@@ -20763,6 +20763,244 @@ var _ interface {
 	ErrorName() string
 } = TriggerSyncResponseValidationError{}
 
+// Validate checks the field values on RefactorEmailAndAuth0UserIdExistsRequest
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
+func (m *RefactorEmailAndAuth0UserIdExistsRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RefactorEmailAndAuth0UserIdExistsRequest with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in
+// RefactorEmailAndAuth0UserIdExistsRequestMultiError, or nil if none found.
+func (m *RefactorEmailAndAuth0UserIdExistsRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RefactorEmailAndAuth0UserIdExistsRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetEmail()) < 1 {
+		err := RefactorEmailAndAuth0UserIdExistsRequestValidationError{
+			field:  "Email",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetAuth0UserId()) < 1 {
+		err := RefactorEmailAndAuth0UserIdExistsRequestValidationError{
+			field:  "Auth0UserId",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for ProfileType
+
+	if len(errors) > 0 {
+		return RefactorEmailAndAuth0UserIdExistsRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// RefactorEmailAndAuth0UserIdExistsRequestMultiError is an error wrapping
+// multiple validation errors returned by
+// RefactorEmailAndAuth0UserIdExistsRequest.ValidateAll() if the designated
+// constraints aren't met.
+type RefactorEmailAndAuth0UserIdExistsRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RefactorEmailAndAuth0UserIdExistsRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RefactorEmailAndAuth0UserIdExistsRequestMultiError) AllErrors() []error { return m }
+
+// RefactorEmailAndAuth0UserIdExistsRequestValidationError is the validation
+// error returned by RefactorEmailAndAuth0UserIdExistsRequest.Validate if the
+// designated constraints aren't met.
+type RefactorEmailAndAuth0UserIdExistsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RefactorEmailAndAuth0UserIdExistsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RefactorEmailAndAuth0UserIdExistsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RefactorEmailAndAuth0UserIdExistsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RefactorEmailAndAuth0UserIdExistsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RefactorEmailAndAuth0UserIdExistsRequestValidationError) ErrorName() string {
+	return "RefactorEmailAndAuth0UserIdExistsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RefactorEmailAndAuth0UserIdExistsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRefactorEmailAndAuth0UserIdExistsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RefactorEmailAndAuth0UserIdExistsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RefactorEmailAndAuth0UserIdExistsRequestValidationError{}
+
+// Validate checks the field values on
+// RefactorEmailAndAuth0UserIdExistsResponse with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *RefactorEmailAndAuth0UserIdExistsResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RefactorEmailAndAuth0UserIdExistsResponse with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in
+// RefactorEmailAndAuth0UserIdExistsResponseMultiError, or nil if none found.
+func (m *RefactorEmailAndAuth0UserIdExistsResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RefactorEmailAndAuth0UserIdExistsResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Success
+
+	if len(errors) > 0 {
+		return RefactorEmailAndAuth0UserIdExistsResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// RefactorEmailAndAuth0UserIdExistsResponseMultiError is an error wrapping
+// multiple validation errors returned by
+// RefactorEmailAndAuth0UserIdExistsResponse.ValidateAll() if the designated
+// constraints aren't met.
+type RefactorEmailAndAuth0UserIdExistsResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RefactorEmailAndAuth0UserIdExistsResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RefactorEmailAndAuth0UserIdExistsResponseMultiError) AllErrors() []error { return m }
+
+// RefactorEmailAndAuth0UserIdExistsResponseValidationError is the validation
+// error returned by RefactorEmailAndAuth0UserIdExistsResponse.Validate if the
+// designated constraints aren't met.
+type RefactorEmailAndAuth0UserIdExistsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RefactorEmailAndAuth0UserIdExistsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RefactorEmailAndAuth0UserIdExistsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RefactorEmailAndAuth0UserIdExistsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RefactorEmailAndAuth0UserIdExistsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RefactorEmailAndAuth0UserIdExistsResponseValidationError) ErrorName() string {
+	return "RefactorEmailAndAuth0UserIdExistsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RefactorEmailAndAuth0UserIdExistsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRefactorEmailAndAuth0UserIdExistsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RefactorEmailAndAuth0UserIdExistsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RefactorEmailAndAuth0UserIdExistsResponseValidationError{}
+
 // Validate checks the field values on
 // GetReCurringTransactionsResponse_ParticipantReCurringTransactions with the
 // rules defined in the proto definition for this message. If any rules are

@@ -121,6 +121,7 @@ const (
 	FinancialService_RecordAskCopilotQuestion_FullMethodName                 = "/financial_service.v1.FinancialService/RecordAskCopilotQuestion"
 	FinancialService_CheckIfQuotaExceeded_FullMethodName                     = "/financial_service.v1.FinancialService/CheckIfQuotaExceeded"
 	FinancialService_TriggerSync_FullMethodName                              = "/financial_service.v1.FinancialService/TriggerSync"
+	FinancialService_RefactorEmailAndAuth0UserIdExists_FullMethodName        = "/financial_service.v1.FinancialService/RefactorEmailAndAuth0UserIdExists"
 )
 
 // FinancialServiceClient is the client API for FinancialService service.
@@ -327,6 +328,7 @@ type FinancialServiceClient interface {
 	// This checks if a user can ask the copilot a question
 	CheckIfQuotaExceeded(ctx context.Context, in *CheckIfQuotaExceededRequest, opts ...grpc.CallOption) (*CheckIfQuotaExceededResponse, error)
 	TriggerSync(ctx context.Context, in *TriggerSyncRequest, opts ...grpc.CallOption) (*TriggerSyncResponse, error)
+	RefactorEmailAndAuth0UserIdExists(ctx context.Context, in *RefactorEmailAndAuth0UserIdExistsRequest, opts ...grpc.CallOption) (*RefactorEmailAndAuth0UserIdExistsResponse, error)
 }
 
 type financialServiceClient struct {
@@ -1255,6 +1257,15 @@ func (c *financialServiceClient) TriggerSync(ctx context.Context, in *TriggerSyn
 	return out, nil
 }
 
+func (c *financialServiceClient) RefactorEmailAndAuth0UserIdExists(ctx context.Context, in *RefactorEmailAndAuth0UserIdExistsRequest, opts ...grpc.CallOption) (*RefactorEmailAndAuth0UserIdExistsResponse, error) {
+	out := new(RefactorEmailAndAuth0UserIdExistsResponse)
+	err := c.cc.Invoke(ctx, FinancialService_RefactorEmailAndAuth0UserIdExists_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // FinancialServiceServer is the server API for FinancialService service.
 // All implementations must embed UnimplementedFinancialServiceServer
 // for forward compatibility
@@ -1459,6 +1470,7 @@ type FinancialServiceServer interface {
 	// This checks if a user can ask the copilot a question
 	CheckIfQuotaExceeded(context.Context, *CheckIfQuotaExceededRequest) (*CheckIfQuotaExceededResponse, error)
 	TriggerSync(context.Context, *TriggerSyncRequest) (*TriggerSyncResponse, error)
+	RefactorEmailAndAuth0UserIdExists(context.Context, *RefactorEmailAndAuth0UserIdExistsRequest) (*RefactorEmailAndAuth0UserIdExistsResponse, error)
 	mustEmbedUnimplementedFinancialServiceServer()
 }
 
@@ -1771,6 +1783,9 @@ func (UnimplementedFinancialServiceServer) CheckIfQuotaExceeded(context.Context,
 }
 func (UnimplementedFinancialServiceServer) TriggerSync(context.Context, *TriggerSyncRequest) (*TriggerSyncResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method TriggerSync not implemented")
+}
+func (UnimplementedFinancialServiceServer) RefactorEmailAndAuth0UserIdExists(context.Context, *RefactorEmailAndAuth0UserIdExistsRequest) (*RefactorEmailAndAuth0UserIdExistsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RefactorEmailAndAuth0UserIdExists not implemented")
 }
 func (UnimplementedFinancialServiceServer) mustEmbedUnimplementedFinancialServiceServer() {}
 
@@ -3621,6 +3636,24 @@ func _FinancialService_TriggerSync_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _FinancialService_RefactorEmailAndAuth0UserIdExists_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RefactorEmailAndAuth0UserIdExistsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FinancialServiceServer).RefactorEmailAndAuth0UserIdExists(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FinancialService_RefactorEmailAndAuth0UserIdExists_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FinancialServiceServer).RefactorEmailAndAuth0UserIdExists(ctx, req.(*RefactorEmailAndAuth0UserIdExistsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // FinancialService_ServiceDesc is the grpc.ServiceDesc for FinancialService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -4035,6 +4068,10 @@ var FinancialService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "TriggerSync",
 			Handler:    _FinancialService_TriggerSync_Handler,
+		},
+		{
+			MethodName: "RefactorEmailAndAuth0UserIdExists",
+			Handler:    _FinancialService_RefactorEmailAndAuth0UserIdExists_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
