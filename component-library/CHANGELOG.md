@@ -1,3 +1,10 @@
+# [1.186.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.185.0...v1.186.0) (2024-02-15)
+
+
+### Features
+
+* update check email api ([3f65b98](https://github.com/SolomonAIEngineering/service-level-api/commit/3f65b988c437bce1c7a91c89eed2eac4a7913753))
+
 # [1.185.0](https://github.com/SolomonAIEngineering/service-level-api/compare/v1.184.0...v1.185.0) (2024-02-15)
 
 
