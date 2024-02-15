@@ -1604,6 +1604,65 @@
         ]
       }
     },
+    "/api/v2/user/email/{email}/auth0/{auth0UserId}/exists": {
+      "get": {
+        "summary": "Checks that an email and auth0 user id exists or not",
+        "description": "Checks if an email and auth0 user id exists or not",
+        "operationId": "CheckEmailAndAuth0UserIdExists",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": ".api.v1.CheckEmailAndAuth0UserIdExistsResponse"
+            }
+          },
+          "400": {
+            "description": "Request failed due to invalid input.",
+            "schema": {
+              "$ref": ".api.v1.ValidationErrorMessageResponse"
+            }
+          },
+          "404": {
+            "description": "Request failed due to incorrect path.",
+            "schema": {
+              "$ref": ".api.v1.PathUnknownErrorMessageResponse"
+            }
+          },
+          "500": {
+            "description": "Request failed due to internal server error.",
+            "schema": {
+              "$ref": ".api.v1.InternalErrorMessageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "email",
+            "description": "The email of the user of interest",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "auth0UserId",
+            "description": "The auth0 user id of the user",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "account",
+          "v2"
+        ]
+      }
+    },
     "/api/v2/user/email/{email}/exists": {
       "get": {
         "summary": "Checks that an email exists or not",
@@ -2251,6 +2310,20 @@
         }
       },
       "description": "BusinessAccount represents a business account within the context of solomon-ai."
+    },
+    "CheckEmailAndAuth0UserIdExistsResponse": {
+      "type": "object",
+      "properties": {
+        "userAccount": {
+          "$ref": "#/definitions/UserAccount"
+        },
+        "businessAccount": {
+          "$ref": "#/definitions/BusinessAccount"
+        },
+        "exists": {
+          "type": "boolean"
+        }
+      }
     },
     "CheckEmailExistsResponse": {
       "type": "object",

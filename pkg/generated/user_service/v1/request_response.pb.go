@@ -3974,6 +3974,154 @@ func (x *ListRolesResponse) GetTotalCount() int32 {
 	return 0
 }
 
+type CheckEmailAndAuth0UserIdExistsRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// The email of the user of interest
+	Email string `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
+	// The auth0 user id of the user
+	Auth0UserId string `protobuf:"bytes,2,opt,name=auth0_user_id,json=auth0UserId,proto3" json:"auth0_user_id,omitempty"`
+}
+
+func (x *CheckEmailAndAuth0UserIdExistsRequest) Reset() {
+	*x = CheckEmailAndAuth0UserIdExistsRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_user_service_v1_request_response_proto_msgTypes[70]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CheckEmailAndAuth0UserIdExistsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CheckEmailAndAuth0UserIdExistsRequest) ProtoMessage() {}
+
+func (x *CheckEmailAndAuth0UserIdExistsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_user_service_v1_request_response_proto_msgTypes[70]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CheckEmailAndAuth0UserIdExistsRequest.ProtoReflect.Descriptor instead.
+func (*CheckEmailAndAuth0UserIdExistsRequest) Descriptor() ([]byte, []int) {
+	return file_user_service_v1_request_response_proto_rawDescGZIP(), []int{70}
+}
+
+func (x *CheckEmailAndAuth0UserIdExistsRequest) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
+func (x *CheckEmailAndAuth0UserIdExistsRequest) GetAuth0UserId() string {
+	if x != nil {
+		return x.Auth0UserId
+	}
+	return ""
+}
+
+type CheckEmailAndAuth0UserIdExistsResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// Types that are assignable to Account:
+	//
+	//	*CheckEmailAndAuth0UserIdExistsResponse_UserAccount
+	//	*CheckEmailAndAuth0UserIdExistsResponse_BusinessAccount
+	Account isCheckEmailAndAuth0UserIdExistsResponse_Account `protobuf_oneof:"account"`
+	Exists  bool                                             `protobuf:"varint,3,opt,name=exists,proto3" json:"exists,omitempty"`
+}
+
+func (x *CheckEmailAndAuth0UserIdExistsResponse) Reset() {
+	*x = CheckEmailAndAuth0UserIdExistsResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_user_service_v1_request_response_proto_msgTypes[71]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CheckEmailAndAuth0UserIdExistsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CheckEmailAndAuth0UserIdExistsResponse) ProtoMessage() {}
+
+func (x *CheckEmailAndAuth0UserIdExistsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_user_service_v1_request_response_proto_msgTypes[71]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CheckEmailAndAuth0UserIdExistsResponse.ProtoReflect.Descriptor instead.
+func (*CheckEmailAndAuth0UserIdExistsResponse) Descriptor() ([]byte, []int) {
+	return file_user_service_v1_request_response_proto_rawDescGZIP(), []int{71}
+}
+
+func (m *CheckEmailAndAuth0UserIdExistsResponse) GetAccount() isCheckEmailAndAuth0UserIdExistsResponse_Account {
+	if m != nil {
+		return m.Account
+	}
+	return nil
+}
+
+func (x *CheckEmailAndAuth0UserIdExistsResponse) GetUserAccount() *UserAccount {
+	if x, ok := x.GetAccount().(*CheckEmailAndAuth0UserIdExistsResponse_UserAccount); ok {
+		return x.UserAccount
+	}
+	return nil
+}
+
+func (x *CheckEmailAndAuth0UserIdExistsResponse) GetBusinessAccount() *BusinessAccount {
+	if x, ok := x.GetAccount().(*CheckEmailAndAuth0UserIdExistsResponse_BusinessAccount); ok {
+		return x.BusinessAccount
+	}
+	return nil
+}
+
+func (x *CheckEmailAndAuth0UserIdExistsResponse) GetExists() bool {
+	if x != nil {
+		return x.Exists
+	}
+	return false
+}
+
+type isCheckEmailAndAuth0UserIdExistsResponse_Account interface {
+	isCheckEmailAndAuth0UserIdExistsResponse_Account()
+}
+
+type CheckEmailAndAuth0UserIdExistsResponse_UserAccount struct {
+	UserAccount *UserAccount `protobuf:"bytes,1,opt,name=user_account,json=userAccount,proto3,oneof"`
+}
+
+type CheckEmailAndAuth0UserIdExistsResponse_BusinessAccount struct {
+	BusinessAccount *BusinessAccount `protobuf:"bytes,2,opt,name=business_account,json=businessAccount,proto3,oneof"`
+}
+
+func (*CheckEmailAndAuth0UserIdExistsResponse_UserAccount) isCheckEmailAndAuth0UserIdExistsResponse_Account() {
+}
+
+func (*CheckEmailAndAuth0UserIdExistsResponse_BusinessAccount) isCheckEmailAndAuth0UserIdExistsResponse_Account() {
+}
+
 var File_user_service_v1_request_response_proto protoreflect.FileDescriptor
 
 var file_user_service_v1_request_response_proto_rawDesc = []byte{
@@ -4486,23 +4634,48 @@ var file_user_service_v1_request_response_proto_rawDesc = []byte{
 	0x65, 0x72, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x76, 0x31, 0x2e, 0x52, 0x6f,
 	0x6c, 0x65, 0x52, 0x05, 0x72, 0x6f, 0x6c, 0x65, 0x73, 0x12, 0x1f, 0x0a, 0x0b, 0x74, 0x6f, 0x74,
 	0x61, 0x6c, 0x5f, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x0a,
-	0x74, 0x6f, 0x74, 0x61, 0x6c, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x42, 0xf4, 0x01, 0x0a, 0x13, 0x63,
-	0x6f, 0x6d, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e,
-	0x76, 0x31, 0x42, 0x14, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f,
-	0x6e, 0x73, 0x65, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x6e, 0x67, 0x69, 0x74, 0x68,
-	0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x53, 0x6f, 0x6c, 0x6f, 0x6d, 0x6f, 0x6e, 0x41, 0x49,
-	0x45, 0x6e, 0x67, 0x69, 0x6e, 0x65, 0x65, 0x72, 0x69, 0x6e, 0x67, 0x2f, 0x73, 0x65, 0x72, 0x76,
-	0x69, 0x63, 0x65, 0x2d, 0x6c, 0x65, 0x76, 0x65, 0x6c, 0x2d, 0x61, 0x70, 0x69, 0x2f, 0x70, 0x6b,
-	0x67, 0x2f, 0x67, 0x65, 0x6e, 0x65, 0x72, 0x61, 0x74, 0x65, 0x64, 0x2f, 0x75, 0x73, 0x65, 0x72,
-	0x2d, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2f, 0x76, 0x31, 0x2f, 0x75, 0x73, 0x65, 0x72,
-	0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2f, 0x76, 0x31, 0x3b, 0x75, 0x73, 0x65, 0x72,
-	0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x76, 0x31, 0xa2, 0x02, 0x03, 0x55, 0x58, 0x58,
-	0xaa, 0x02, 0x0e, 0x55, 0x73, 0x65, 0x72, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x56,
-	0x31, 0xca, 0x02, 0x0e, 0x55, 0x73, 0x65, 0x72, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x5c,
-	0x56, 0x31, 0xe2, 0x02, 0x1a, 0x55, 0x73, 0x65, 0x72, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
-	0x5c, 0x56, 0x31, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea,
-	0x02, 0x0f, 0x55, 0x73, 0x65, 0x72, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x3a, 0x3a, 0x56,
-	0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x74, 0x6f, 0x74, 0x61, 0x6c, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x22, 0xb3, 0x01, 0x0a, 0x25, 0x43,
+	0x68, 0x65, 0x63, 0x6b, 0x45, 0x6d, 0x61, 0x69, 0x6c, 0x41, 0x6e, 0x64, 0x41, 0x75, 0x74, 0x68,
+	0x30, 0x55, 0x73, 0x65, 0x72, 0x49, 0x64, 0x45, 0x78, 0x69, 0x73, 0x74, 0x73, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x12, 0x3c, 0x0a, 0x05, 0x65, 0x6d, 0x61, 0x69, 0x6c, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x09, 0x42, 0x26, 0x92, 0x41, 0x1c, 0x4a, 0x1a, 0x22, 0x65, 0x6d, 0x61, 0x69, 0x6c,
+	0x3a, 0x74, 0x65, 0x73, 0x74, 0x75, 0x73, 0x65, 0x72, 0x40, 0x67, 0x6d, 0x61, 0x69, 0x6c, 0x2e,
+	0x63, 0x6f, 0x6d, 0x22, 0xfa, 0x42, 0x04, 0x72, 0x02, 0x20, 0x00, 0x52, 0x05, 0x65, 0x6d, 0x61,
+	0x69, 0x6c, 0x12, 0x4c, 0x0a, 0x0d, 0x61, 0x75, 0x74, 0x68, 0x30, 0x5f, 0x75, 0x73, 0x65, 0x72,
+	0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x42, 0x28, 0x92, 0x41, 0x1e, 0x4a, 0x1c,
+	0x22, 0x6c, 0x6b, 0x73, 0x64, 0x6a, 0x68, 0x66, 0x67, 0x73, 0x64, 0x68, 0x66, 0x67, 0x68, 0x64,
+	0x73, 0x67, 0x66, 0x68, 0x67, 0x64, 0x68, 0x2e, 0x63, 0x6f, 0x6d, 0x22, 0xfa, 0x42, 0x04, 0x72,
+	0x02, 0x20, 0x01, 0x52, 0x0b, 0x61, 0x75, 0x74, 0x68, 0x30, 0x55, 0x73, 0x65, 0x72, 0x49, 0x64,
+	0x22, 0xdd, 0x01, 0x0a, 0x26, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x45, 0x6d, 0x61, 0x69, 0x6c, 0x41,
+	0x6e, 0x64, 0x41, 0x75, 0x74, 0x68, 0x30, 0x55, 0x73, 0x65, 0x72, 0x49, 0x64, 0x45, 0x78, 0x69,
+	0x73, 0x74, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x41, 0x0a, 0x0c, 0x75,
+	0x73, 0x65, 0x72, 0x5f, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x0b, 0x32, 0x1c, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
+	0x2e, 0x76, 0x31, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x41, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x48,
+	0x00, 0x52, 0x0b, 0x75, 0x73, 0x65, 0x72, 0x41, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x4d,
+	0x0a, 0x10, 0x62, 0x75, 0x73, 0x69, 0x6e, 0x65, 0x73, 0x73, 0x5f, 0x61, 0x63, 0x63, 0x6f, 0x75,
+	0x6e, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x20, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x5f,
+	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x76, 0x31, 0x2e, 0x42, 0x75, 0x73, 0x69, 0x6e,
+	0x65, 0x73, 0x73, 0x41, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x48, 0x00, 0x52, 0x0f, 0x62, 0x75,
+	0x73, 0x69, 0x6e, 0x65, 0x73, 0x73, 0x41, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x16, 0x0a,
+	0x06, 0x65, 0x78, 0x69, 0x73, 0x74, 0x73, 0x18, 0x03, 0x20, 0x01, 0x28, 0x08, 0x52, 0x06, 0x65,
+	0x78, 0x69, 0x73, 0x74, 0x73, 0x42, 0x09, 0x0a, 0x07, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74,
+	0x42, 0xf4, 0x01, 0x0a, 0x13, 0x63, 0x6f, 0x6d, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x73, 0x65,
+	0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x76, 0x31, 0x42, 0x14, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01,
+	0x5a, 0x6e, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x53, 0x6f, 0x6c,
+	0x6f, 0x6d, 0x6f, 0x6e, 0x41, 0x49, 0x45, 0x6e, 0x67, 0x69, 0x6e, 0x65, 0x65, 0x72, 0x69, 0x6e,
+	0x67, 0x2f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2d, 0x6c, 0x65, 0x76, 0x65, 0x6c, 0x2d,
+	0x61, 0x70, 0x69, 0x2f, 0x70, 0x6b, 0x67, 0x2f, 0x67, 0x65, 0x6e, 0x65, 0x72, 0x61, 0x74, 0x65,
+	0x64, 0x2f, 0x75, 0x73, 0x65, 0x72, 0x2d, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2f, 0x76,
+	0x31, 0x2f, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2f, 0x76,
+	0x31, 0x3b, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x76, 0x31,
+	0xa2, 0x02, 0x03, 0x55, 0x58, 0x58, 0xaa, 0x02, 0x0e, 0x55, 0x73, 0x65, 0x72, 0x53, 0x65, 0x72,
+	0x76, 0x69, 0x63, 0x65, 0x2e, 0x56, 0x31, 0xca, 0x02, 0x0e, 0x55, 0x73, 0x65, 0x72, 0x53, 0x65,
+	0x72, 0x76, 0x69, 0x63, 0x65, 0x5c, 0x56, 0x31, 0xe2, 0x02, 0x1a, 0x55, 0x73, 0x65, 0x72, 0x53,
+	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x5c, 0x56, 0x31, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74,
+	0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x0f, 0x55, 0x73, 0x65, 0x72, 0x53, 0x65, 0x72, 0x76,
+	0x69, 0x63, 0x65, 0x3a, 0x3a, 0x56, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -4517,134 +4690,138 @@ func file_user_service_v1_request_response_proto_rawDescGZIP() []byte {
 	return file_user_service_v1_request_response_proto_rawDescData
 }
 
-var file_user_service_v1_request_response_proto_msgTypes = make([]protoimpl.MessageInfo, 70)
+var file_user_service_v1_request_response_proto_msgTypes = make([]protoimpl.MessageInfo, 72)
 var file_user_service_v1_request_response_proto_goTypes = []interface{}{
-	(*GetUserRequest)(nil),                     // 0: user_service.v1.GetUserRequest
-	(*GetUserResponse)(nil),                    // 1: user_service.v1.GetUserResponse
-	(*DeleteUserRequest)(nil),                  // 2: user_service.v1.DeleteUserRequest
-	(*DeleteUserResponse)(nil),                 // 3: user_service.v1.DeleteUserResponse
-	(*UpdateUserRequest)(nil),                  // 4: user_service.v1.UpdateUserRequest
-	(*UpdateUserResponse)(nil),                 // 5: user_service.v1.UpdateUserResponse
-	(*CreateUserRequest)(nil),                  // 6: user_service.v1.CreateUserRequest
-	(*CreateUserResponse)(nil),                 // 7: user_service.v1.CreateUserResponse
-	(*GetUserIdRequest)(nil),                   // 8: user_service.v1.GetUserIdRequest
-	(*GetUserIdResponse)(nil),                  // 9: user_service.v1.GetUserIdResponse
-	(*HealthCheckRequest)(nil),                 // 10: user_service.v1.HealthCheckRequest
-	(*HealthCheckResponse)(nil),                // 11: user_service.v1.HealthCheckResponse
-	(*ReadynessCheckRequest)(nil),              // 12: user_service.v1.ReadynessCheckRequest
-	(*ReadynessCheckResponse)(nil),             // 13: user_service.v1.ReadynessCheckResponse
-	(*GetUserByEmailOrUsernameRequest)(nil),    // 14: user_service.v1.GetUserByEmailOrUsernameRequest
-	(*GetUserByEmailOrUsernameResponse)(nil),   // 15: user_service.v1.GetUserByEmailOrUsernameResponse
-	(*VerifyUserRequest)(nil),                  // 16: user_service.v1.VerifyUserRequest
-	(*VerifyUserResponse)(nil),                 // 17: user_service.v1.VerifyUserResponse
-	(*GetUserByUsernameRequest)(nil),           // 18: user_service.v1.GetUserByUsernameRequest
-	(*GetUserByUsernameResponse)(nil),          // 19: user_service.v1.GetUserByUsernameResponse
-	(*CheckUsernameExistsRequest)(nil),         // 20: user_service.v1.CheckUsernameExistsRequest
-	(*CheckUsernameExistsResponse)(nil),        // 21: user_service.v1.CheckUsernameExistsResponse
-	(*CheckEmailExistsRequest)(nil),            // 22: user_service.v1.CheckEmailExistsRequest
-	(*CheckEmailExistsResponse)(nil),           // 23: user_service.v1.CheckEmailExistsResponse
-	(*GetUserByEmailRequest)(nil),              // 24: user_service.v1.GetUserByEmailRequest
-	(*GetUserByEmailResponse)(nil),             // 25: user_service.v1.GetUserByEmailResponse
-	(*PasswordResetWebhookRequest)(nil),        // 26: user_service.v1.PasswordResetWebhookRequest
-	(*PasswordResetWebhookResponse)(nil),       // 27: user_service.v1.PasswordResetWebhookResponse
-	(*GetBusinessSettingsRequest)(nil),         // 28: user_service.v1.GetBusinessSettingsRequest
-	(*GetBusinessSettingsResponse)(nil),        // 29: user_service.v1.GetBusinessSettingsResponse
-	(*GetUserV2Request)(nil),                   // 30: user_service.v1.GetUserV2Request
-	(*GetUserV2Response)(nil),                  // 31: user_service.v1.GetUserV2Response
-	(*DeleteUserV2Request)(nil),                // 32: user_service.v1.DeleteUserV2Request
-	(*DeleteUserV2Response)(nil),               // 33: user_service.v1.DeleteUserV2Response
-	(*UpdateUserV2Request)(nil),                // 34: user_service.v1.UpdateUserV2Request
-	(*UpdateUserV2Response)(nil),               // 35: user_service.v1.UpdateUserV2Response
-	(*CreateUserV2Request)(nil),                // 36: user_service.v1.CreateUserV2Request
-	(*CreateUserV2Response)(nil),               // 37: user_service.v1.CreateUserV2Response
-	(*GetUserIdV2Request)(nil),                 // 38: user_service.v1.GetUserIdV2Request
-	(*GetUserIdV2Response)(nil),                // 39: user_service.v1.GetUserIdV2Response
-	(*GetUserByEmailOrUsernameV2Request)(nil),  // 40: user_service.v1.GetUserByEmailOrUsernameV2Request
-	(*GetUserByEmailOrUsernameV2Response)(nil), // 41: user_service.v1.GetUserByEmailOrUsernameV2Response
-	(*VerifyUserV2Request)(nil),                // 42: user_service.v1.VerifyUserV2Request
-	(*VerifyUserV2Response)(nil),               // 43: user_service.v1.VerifyUserV2Response
-	(*GetUserByUsernameV2Request)(nil),         // 44: user_service.v1.GetUserByUsernameV2Request
-	(*GetUserByUsernameV2Response)(nil),        // 45: user_service.v1.GetUserByUsernameV2Response
-	(*CheckUsernameExistsV2Request)(nil),       // 46: user_service.v1.CheckUsernameExistsV2Request
-	(*CheckUsernameExistsV2Response)(nil),      // 47: user_service.v1.CheckUsernameExistsV2Response
-	(*CheckEmailExistsV2Request)(nil),          // 48: user_service.v1.CheckEmailExistsV2Request
-	(*CheckEmailExistsV2Response)(nil),         // 49: user_service.v1.CheckEmailExistsV2Response
-	(*GetUserByEmailV2Request)(nil),            // 50: user_service.v1.GetUserByEmailV2Request
-	(*GetUserByEmailV2Response)(nil),           // 51: user_service.v1.GetUserByEmailV2Response
-	(*PasswordResetWebhookV2Request)(nil),      // 52: user_service.v1.PasswordResetWebhookV2Request
-	(*PasswordResetWebhookV2Response)(nil),     // 53: user_service.v1.PasswordResetWebhookV2Response
-	(*GetUserByAuthnIDV2Request)(nil),          // 54: user_service.v1.GetUserByAuthnIDV2Request
-	(*GetUserByAuthnIDV2Response)(nil),         // 55: user_service.v1.GetUserByAuthnIDV2Response
-	(*GetCannyUserSSOTokenRequest)(nil),        // 56: user_service.v1.GetCannyUserSSOTokenRequest
-	(*GetCannyUserSSOTokenResponse)(nil),       // 57: user_service.v1.GetCannyUserSSOTokenResponse
-	(*GetUserByAuth0IDRequest)(nil),            // 58: user_service.v1.GetUserByAuth0IDRequest
-	(*GetUserByAuth0IDResponse)(nil),           // 59: user_service.v1.GetUserByAuth0IDResponse
-	(*CreateRoleRequest)(nil),                  // 60: user_service.v1.CreateRoleRequest
-	(*CreateRoleResponse)(nil),                 // 61: user_service.v1.CreateRoleResponse
-	(*GetRoleRequest)(nil),                     // 62: user_service.v1.GetRoleRequest
-	(*GetRoleResponse)(nil),                    // 63: user_service.v1.GetRoleResponse
-	(*UpdateRoleRequest)(nil),                  // 64: user_service.v1.UpdateRoleRequest
-	(*UpdateRoleResponse)(nil),                 // 65: user_service.v1.UpdateRoleResponse
-	(*DeleteRoleRequest)(nil),                  // 66: user_service.v1.DeleteRoleRequest
-	(*DeleteRoleResponse)(nil),                 // 67: user_service.v1.DeleteRoleResponse
-	(*ListRolesRequest)(nil),                   // 68: user_service.v1.ListRolesRequest
-	(*ListRolesResponse)(nil),                  // 69: user_service.v1.ListRolesResponse
-	(*UserAccount)(nil),                        // 70: user_service.v1.UserAccount
-	(*Settings)(nil),                           // 71: user_service.v1.Settings
-	(ProfileType)(0),                           // 72: user_service.v1.ProfileType
-	(*BusinessAccount)(nil),                    // 73: user_service.v1.BusinessAccount
-	(*Role)(nil),                               // 74: user_service.v1.Role
+	(*GetUserRequest)(nil),                         // 0: user_service.v1.GetUserRequest
+	(*GetUserResponse)(nil),                        // 1: user_service.v1.GetUserResponse
+	(*DeleteUserRequest)(nil),                      // 2: user_service.v1.DeleteUserRequest
+	(*DeleteUserResponse)(nil),                     // 3: user_service.v1.DeleteUserResponse
+	(*UpdateUserRequest)(nil),                      // 4: user_service.v1.UpdateUserRequest
+	(*UpdateUserResponse)(nil),                     // 5: user_service.v1.UpdateUserResponse
+	(*CreateUserRequest)(nil),                      // 6: user_service.v1.CreateUserRequest
+	(*CreateUserResponse)(nil),                     // 7: user_service.v1.CreateUserResponse
+	(*GetUserIdRequest)(nil),                       // 8: user_service.v1.GetUserIdRequest
+	(*GetUserIdResponse)(nil),                      // 9: user_service.v1.GetUserIdResponse
+	(*HealthCheckRequest)(nil),                     // 10: user_service.v1.HealthCheckRequest
+	(*HealthCheckResponse)(nil),                    // 11: user_service.v1.HealthCheckResponse
+	(*ReadynessCheckRequest)(nil),                  // 12: user_service.v1.ReadynessCheckRequest
+	(*ReadynessCheckResponse)(nil),                 // 13: user_service.v1.ReadynessCheckResponse
+	(*GetUserByEmailOrUsernameRequest)(nil),        // 14: user_service.v1.GetUserByEmailOrUsernameRequest
+	(*GetUserByEmailOrUsernameResponse)(nil),       // 15: user_service.v1.GetUserByEmailOrUsernameResponse
+	(*VerifyUserRequest)(nil),                      // 16: user_service.v1.VerifyUserRequest
+	(*VerifyUserResponse)(nil),                     // 17: user_service.v1.VerifyUserResponse
+	(*GetUserByUsernameRequest)(nil),               // 18: user_service.v1.GetUserByUsernameRequest
+	(*GetUserByUsernameResponse)(nil),              // 19: user_service.v1.GetUserByUsernameResponse
+	(*CheckUsernameExistsRequest)(nil),             // 20: user_service.v1.CheckUsernameExistsRequest
+	(*CheckUsernameExistsResponse)(nil),            // 21: user_service.v1.CheckUsernameExistsResponse
+	(*CheckEmailExistsRequest)(nil),                // 22: user_service.v1.CheckEmailExistsRequest
+	(*CheckEmailExistsResponse)(nil),               // 23: user_service.v1.CheckEmailExistsResponse
+	(*GetUserByEmailRequest)(nil),                  // 24: user_service.v1.GetUserByEmailRequest
+	(*GetUserByEmailResponse)(nil),                 // 25: user_service.v1.GetUserByEmailResponse
+	(*PasswordResetWebhookRequest)(nil),            // 26: user_service.v1.PasswordResetWebhookRequest
+	(*PasswordResetWebhookResponse)(nil),           // 27: user_service.v1.PasswordResetWebhookResponse
+	(*GetBusinessSettingsRequest)(nil),             // 28: user_service.v1.GetBusinessSettingsRequest
+	(*GetBusinessSettingsResponse)(nil),            // 29: user_service.v1.GetBusinessSettingsResponse
+	(*GetUserV2Request)(nil),                       // 30: user_service.v1.GetUserV2Request
+	(*GetUserV2Response)(nil),                      // 31: user_service.v1.GetUserV2Response
+	(*DeleteUserV2Request)(nil),                    // 32: user_service.v1.DeleteUserV2Request
+	(*DeleteUserV2Response)(nil),                   // 33: user_service.v1.DeleteUserV2Response
+	(*UpdateUserV2Request)(nil),                    // 34: user_service.v1.UpdateUserV2Request
+	(*UpdateUserV2Response)(nil),                   // 35: user_service.v1.UpdateUserV2Response
+	(*CreateUserV2Request)(nil),                    // 36: user_service.v1.CreateUserV2Request
+	(*CreateUserV2Response)(nil),                   // 37: user_service.v1.CreateUserV2Response
+	(*GetUserIdV2Request)(nil),                     // 38: user_service.v1.GetUserIdV2Request
+	(*GetUserIdV2Response)(nil),                    // 39: user_service.v1.GetUserIdV2Response
+	(*GetUserByEmailOrUsernameV2Request)(nil),      // 40: user_service.v1.GetUserByEmailOrUsernameV2Request
+	(*GetUserByEmailOrUsernameV2Response)(nil),     // 41: user_service.v1.GetUserByEmailOrUsernameV2Response
+	(*VerifyUserV2Request)(nil),                    // 42: user_service.v1.VerifyUserV2Request
+	(*VerifyUserV2Response)(nil),                   // 43: user_service.v1.VerifyUserV2Response
+	(*GetUserByUsernameV2Request)(nil),             // 44: user_service.v1.GetUserByUsernameV2Request
+	(*GetUserByUsernameV2Response)(nil),            // 45: user_service.v1.GetUserByUsernameV2Response
+	(*CheckUsernameExistsV2Request)(nil),           // 46: user_service.v1.CheckUsernameExistsV2Request
+	(*CheckUsernameExistsV2Response)(nil),          // 47: user_service.v1.CheckUsernameExistsV2Response
+	(*CheckEmailExistsV2Request)(nil),              // 48: user_service.v1.CheckEmailExistsV2Request
+	(*CheckEmailExistsV2Response)(nil),             // 49: user_service.v1.CheckEmailExistsV2Response
+	(*GetUserByEmailV2Request)(nil),                // 50: user_service.v1.GetUserByEmailV2Request
+	(*GetUserByEmailV2Response)(nil),               // 51: user_service.v1.GetUserByEmailV2Response
+	(*PasswordResetWebhookV2Request)(nil),          // 52: user_service.v1.PasswordResetWebhookV2Request
+	(*PasswordResetWebhookV2Response)(nil),         // 53: user_service.v1.PasswordResetWebhookV2Response
+	(*GetUserByAuthnIDV2Request)(nil),              // 54: user_service.v1.GetUserByAuthnIDV2Request
+	(*GetUserByAuthnIDV2Response)(nil),             // 55: user_service.v1.GetUserByAuthnIDV2Response
+	(*GetCannyUserSSOTokenRequest)(nil),            // 56: user_service.v1.GetCannyUserSSOTokenRequest
+	(*GetCannyUserSSOTokenResponse)(nil),           // 57: user_service.v1.GetCannyUserSSOTokenResponse
+	(*GetUserByAuth0IDRequest)(nil),                // 58: user_service.v1.GetUserByAuth0IDRequest
+	(*GetUserByAuth0IDResponse)(nil),               // 59: user_service.v1.GetUserByAuth0IDResponse
+	(*CreateRoleRequest)(nil),                      // 60: user_service.v1.CreateRoleRequest
+	(*CreateRoleResponse)(nil),                     // 61: user_service.v1.CreateRoleResponse
+	(*GetRoleRequest)(nil),                         // 62: user_service.v1.GetRoleRequest
+	(*GetRoleResponse)(nil),                        // 63: user_service.v1.GetRoleResponse
+	(*UpdateRoleRequest)(nil),                      // 64: user_service.v1.UpdateRoleRequest
+	(*UpdateRoleResponse)(nil),                     // 65: user_service.v1.UpdateRoleResponse
+	(*DeleteRoleRequest)(nil),                      // 66: user_service.v1.DeleteRoleRequest
+	(*DeleteRoleResponse)(nil),                     // 67: user_service.v1.DeleteRoleResponse
+	(*ListRolesRequest)(nil),                       // 68: user_service.v1.ListRolesRequest
+	(*ListRolesResponse)(nil),                      // 69: user_service.v1.ListRolesResponse
+	(*CheckEmailAndAuth0UserIdExistsRequest)(nil),  // 70: user_service.v1.CheckEmailAndAuth0UserIdExistsRequest
+	(*CheckEmailAndAuth0UserIdExistsResponse)(nil), // 71: user_service.v1.CheckEmailAndAuth0UserIdExistsResponse
+	(*UserAccount)(nil),                            // 72: user_service.v1.UserAccount
+	(*Settings)(nil),                               // 73: user_service.v1.Settings
+	(ProfileType)(0),                               // 74: user_service.v1.ProfileType
+	(*BusinessAccount)(nil),                        // 75: user_service.v1.BusinessAccount
+	(*Role)(nil),                                   // 76: user_service.v1.Role
 }
 var file_user_service_v1_request_response_proto_depIdxs = []int32{
-	70, // 0: user_service.v1.GetUserResponse.account:type_name -> user_service.v1.UserAccount
-	70, // 1: user_service.v1.UpdateUserRequest.account:type_name -> user_service.v1.UserAccount
-	70, // 2: user_service.v1.UpdateUserResponse.account:type_name -> user_service.v1.UserAccount
-	70, // 3: user_service.v1.CreateUserRequest.account:type_name -> user_service.v1.UserAccount
-	70, // 4: user_service.v1.GetUserByEmailOrUsernameResponse.account:type_name -> user_service.v1.UserAccount
-	70, // 5: user_service.v1.GetUserByUsernameResponse.account:type_name -> user_service.v1.UserAccount
-	70, // 6: user_service.v1.GetUserByEmailResponse.account:type_name -> user_service.v1.UserAccount
-	71, // 7: user_service.v1.GetBusinessSettingsResponse.settings:type_name -> user_service.v1.Settings
-	72, // 8: user_service.v1.GetUserV2Request.profile_type:type_name -> user_service.v1.ProfileType
-	70, // 9: user_service.v1.GetUserV2Response.user_account:type_name -> user_service.v1.UserAccount
-	73, // 10: user_service.v1.GetUserV2Response.business_account:type_name -> user_service.v1.BusinessAccount
-	72, // 11: user_service.v1.DeleteUserV2Request.profile_type:type_name -> user_service.v1.ProfileType
-	70, // 12: user_service.v1.UpdateUserV2Request.user_account:type_name -> user_service.v1.UserAccount
-	73, // 13: user_service.v1.UpdateUserV2Request.business_account:type_name -> user_service.v1.BusinessAccount
-	70, // 14: user_service.v1.UpdateUserV2Response.user_account:type_name -> user_service.v1.UserAccount
-	73, // 15: user_service.v1.UpdateUserV2Response.business_account:type_name -> user_service.v1.BusinessAccount
-	70, // 16: user_service.v1.CreateUserV2Request.user_account:type_name -> user_service.v1.UserAccount
-	73, // 17: user_service.v1.CreateUserV2Request.business_account:type_name -> user_service.v1.BusinessAccount
-	72, // 18: user_service.v1.GetUserIdV2Request.profile_type:type_name -> user_service.v1.ProfileType
-	72, // 19: user_service.v1.GetUserByEmailOrUsernameV2Request.profile_type:type_name -> user_service.v1.ProfileType
-	70, // 20: user_service.v1.GetUserByEmailOrUsernameV2Response.user_account:type_name -> user_service.v1.UserAccount
-	73, // 21: user_service.v1.GetUserByEmailOrUsernameV2Response.business_account:type_name -> user_service.v1.BusinessAccount
-	72, // 22: user_service.v1.VerifyUserV2Request.profile_type:type_name -> user_service.v1.ProfileType
-	72, // 23: user_service.v1.GetUserByUsernameV2Request.profile_type:type_name -> user_service.v1.ProfileType
-	70, // 24: user_service.v1.GetUserByUsernameV2Response.user_account:type_name -> user_service.v1.UserAccount
-	73, // 25: user_service.v1.GetUserByUsernameV2Response.business_account:type_name -> user_service.v1.BusinessAccount
-	72, // 26: user_service.v1.CheckUsernameExistsV2Request.profile_type:type_name -> user_service.v1.ProfileType
-	72, // 27: user_service.v1.CheckEmailExistsV2Request.profile_type:type_name -> user_service.v1.ProfileType
-	72, // 28: user_service.v1.GetUserByEmailV2Request.profile_type:type_name -> user_service.v1.ProfileType
-	70, // 29: user_service.v1.GetUserByEmailV2Response.user_account:type_name -> user_service.v1.UserAccount
-	73, // 30: user_service.v1.GetUserByEmailV2Response.business_account:type_name -> user_service.v1.BusinessAccount
-	72, // 31: user_service.v1.GetUserByAuthnIDV2Request.profile_type:type_name -> user_service.v1.ProfileType
-	70, // 32: user_service.v1.GetUserByAuthnIDV2Response.user_account:type_name -> user_service.v1.UserAccount
-	73, // 33: user_service.v1.GetUserByAuthnIDV2Response.business_account:type_name -> user_service.v1.BusinessAccount
-	72, // 34: user_service.v1.GetCannyUserSSOTokenRequest.profile_type:type_name -> user_service.v1.ProfileType
-	72, // 35: user_service.v1.GetUserByAuth0IDRequest.profile_type:type_name -> user_service.v1.ProfileType
-	70, // 36: user_service.v1.GetUserByAuth0IDResponse.user_account:type_name -> user_service.v1.UserAccount
-	73, // 37: user_service.v1.GetUserByAuth0IDResponse.business_account:type_name -> user_service.v1.BusinessAccount
-	74, // 38: user_service.v1.CreateRoleRequest.role:type_name -> user_service.v1.Role
-	74, // 39: user_service.v1.CreateRoleResponse.role:type_name -> user_service.v1.Role
-	74, // 40: user_service.v1.GetRoleResponse.role:type_name -> user_service.v1.Role
-	74, // 41: user_service.v1.UpdateRoleRequest.role:type_name -> user_service.v1.Role
-	74, // 42: user_service.v1.UpdateRoleResponse.role:type_name -> user_service.v1.Role
-	74, // 43: user_service.v1.ListRolesResponse.roles:type_name -> user_service.v1.Role
-	44, // [44:44] is the sub-list for method output_type
-	44, // [44:44] is the sub-list for method input_type
-	44, // [44:44] is the sub-list for extension type_name
-	44, // [44:44] is the sub-list for extension extendee
-	0,  // [0:44] is the sub-list for field type_name
+	72, // 0: user_service.v1.GetUserResponse.account:type_name -> user_service.v1.UserAccount
+	72, // 1: user_service.v1.UpdateUserRequest.account:type_name -> user_service.v1.UserAccount
+	72, // 2: user_service.v1.UpdateUserResponse.account:type_name -> user_service.v1.UserAccount
+	72, // 3: user_service.v1.CreateUserRequest.account:type_name -> user_service.v1.UserAccount
+	72, // 4: user_service.v1.GetUserByEmailOrUsernameResponse.account:type_name -> user_service.v1.UserAccount
+	72, // 5: user_service.v1.GetUserByUsernameResponse.account:type_name -> user_service.v1.UserAccount
+	72, // 6: user_service.v1.GetUserByEmailResponse.account:type_name -> user_service.v1.UserAccount
+	73, // 7: user_service.v1.GetBusinessSettingsResponse.settings:type_name -> user_service.v1.Settings
+	74, // 8: user_service.v1.GetUserV2Request.profile_type:type_name -> user_service.v1.ProfileType
+	72, // 9: user_service.v1.GetUserV2Response.user_account:type_name -> user_service.v1.UserAccount
+	75, // 10: user_service.v1.GetUserV2Response.business_account:type_name -> user_service.v1.BusinessAccount
+	74, // 11: user_service.v1.DeleteUserV2Request.profile_type:type_name -> user_service.v1.ProfileType
+	72, // 12: user_service.v1.UpdateUserV2Request.user_account:type_name -> user_service.v1.UserAccount
+	75, // 13: user_service.v1.UpdateUserV2Request.business_account:type_name -> user_service.v1.BusinessAccount
+	72, // 14: user_service.v1.UpdateUserV2Response.user_account:type_name -> user_service.v1.UserAccount
+	75, // 15: user_service.v1.UpdateUserV2Response.business_account:type_name -> user_service.v1.BusinessAccount
+	72, // 16: user_service.v1.CreateUserV2Request.user_account:type_name -> user_service.v1.UserAccount
+	75, // 17: user_service.v1.CreateUserV2Request.business_account:type_name -> user_service.v1.BusinessAccount
+	74, // 18: user_service.v1.GetUserIdV2Request.profile_type:type_name -> user_service.v1.ProfileType
+	74, // 19: user_service.v1.GetUserByEmailOrUsernameV2Request.profile_type:type_name -> user_service.v1.ProfileType
+	72, // 20: user_service.v1.GetUserByEmailOrUsernameV2Response.user_account:type_name -> user_service.v1.UserAccount
+	75, // 21: user_service.v1.GetUserByEmailOrUsernameV2Response.business_account:type_name -> user_service.v1.BusinessAccount
+	74, // 22: user_service.v1.VerifyUserV2Request.profile_type:type_name -> user_service.v1.ProfileType
+	74, // 23: user_service.v1.GetUserByUsernameV2Request.profile_type:type_name -> user_service.v1.ProfileType
+	72, // 24: user_service.v1.GetUserByUsernameV2Response.user_account:type_name -> user_service.v1.UserAccount
+	75, // 25: user_service.v1.GetUserByUsernameV2Response.business_account:type_name -> user_service.v1.BusinessAccount
+	74, // 26: user_service.v1.CheckUsernameExistsV2Request.profile_type:type_name -> user_service.v1.ProfileType
+	74, // 27: user_service.v1.CheckEmailExistsV2Request.profile_type:type_name -> user_service.v1.ProfileType
+	74, // 28: user_service.v1.GetUserByEmailV2Request.profile_type:type_name -> user_service.v1.ProfileType
+	72, // 29: user_service.v1.GetUserByEmailV2Response.user_account:type_name -> user_service.v1.UserAccount
+	75, // 30: user_service.v1.GetUserByEmailV2Response.business_account:type_name -> user_service.v1.BusinessAccount
+	74, // 31: user_service.v1.GetUserByAuthnIDV2Request.profile_type:type_name -> user_service.v1.ProfileType
+	72, // 32: user_service.v1.GetUserByAuthnIDV2Response.user_account:type_name -> user_service.v1.UserAccount
+	75, // 33: user_service.v1.GetUserByAuthnIDV2Response.business_account:type_name -> user_service.v1.BusinessAccount
+	74, // 34: user_service.v1.GetCannyUserSSOTokenRequest.profile_type:type_name -> user_service.v1.ProfileType
+	74, // 35: user_service.v1.GetUserByAuth0IDRequest.profile_type:type_name -> user_service.v1.ProfileType
+	72, // 36: user_service.v1.GetUserByAuth0IDResponse.user_account:type_name -> user_service.v1.UserAccount
+	75, // 37: user_service.v1.GetUserByAuth0IDResponse.business_account:type_name -> user_service.v1.BusinessAccount
+	76, // 38: user_service.v1.CreateRoleRequest.role:type_name -> user_service.v1.Role
+	76, // 39: user_service.v1.CreateRoleResponse.role:type_name -> user_service.v1.Role
+	76, // 40: user_service.v1.GetRoleResponse.role:type_name -> user_service.v1.Role
+	76, // 41: user_service.v1.UpdateRoleRequest.role:type_name -> user_service.v1.Role
+	76, // 42: user_service.v1.UpdateRoleResponse.role:type_name -> user_service.v1.Role
+	76, // 43: user_service.v1.ListRolesResponse.roles:type_name -> user_service.v1.Role
+	72, // 44: user_service.v1.CheckEmailAndAuth0UserIdExistsResponse.user_account:type_name -> user_service.v1.UserAccount
+	75, // 45: user_service.v1.CheckEmailAndAuth0UserIdExistsResponse.business_account:type_name -> user_service.v1.BusinessAccount
+	46, // [46:46] is the sub-list for method output_type
+	46, // [46:46] is the sub-list for method input_type
+	46, // [46:46] is the sub-list for extension type_name
+	46, // [46:46] is the sub-list for extension extendee
+	0,  // [0:46] is the sub-list for field type_name
 }
 
 func init() { file_user_service_v1_request_response_proto_init() }
@@ -5496,6 +5673,30 @@ func file_user_service_v1_request_response_proto_init() {
 				return nil
 			}
 		}
+		file_user_service_v1_request_response_proto_msgTypes[70].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CheckEmailAndAuth0UserIdExistsRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_user_service_v1_request_response_proto_msgTypes[71].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CheckEmailAndAuth0UserIdExistsResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	file_user_service_v1_request_response_proto_msgTypes[31].OneofWrappers = []interface{}{
 		(*GetUserV2Response_UserAccount)(nil),
@@ -5533,13 +5734,17 @@ func file_user_service_v1_request_response_proto_init() {
 		(*GetUserByAuth0IDResponse_UserAccount)(nil),
 		(*GetUserByAuth0IDResponse_BusinessAccount)(nil),
 	}
+	file_user_service_v1_request_response_proto_msgTypes[71].OneofWrappers = []interface{}{
+		(*CheckEmailAndAuth0UserIdExistsResponse_UserAccount)(nil),
+		(*CheckEmailAndAuth0UserIdExistsResponse_BusinessAccount)(nil),
+	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_user_service_v1_request_response_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   70,
+			NumMessages:   72,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

@@ -19,40 +19,41 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	UserService_GetUser_FullMethodName                    = "/user_service.v1.UserService/GetUser"
-	UserService_GetUserByUsername_FullMethodName          = "/user_service.v1.UserService/GetUserByUsername"
-	UserService_GetUserByEmail_FullMethodName             = "/user_service.v1.UserService/GetUserByEmail"
-	UserService_CheckUsernameExists_FullMethodName        = "/user_service.v1.UserService/CheckUsernameExists"
-	UserService_CheckEmailExists_FullMethodName           = "/user_service.v1.UserService/CheckEmailExists"
-	UserService_DeleteUser_FullMethodName                 = "/user_service.v1.UserService/DeleteUser"
-	UserService_UpdateUser_FullMethodName                 = "/user_service.v1.UserService/UpdateUser"
-	UserService_GetUserId_FullMethodName                  = "/user_service.v1.UserService/GetUserId"
-	UserService_HealthCheck_FullMethodName                = "/user_service.v1.UserService/HealthCheck"
-	UserService_ReadynessCheck_FullMethodName             = "/user_service.v1.UserService/ReadynessCheck"
-	UserService_GetUserByEmailOrUsername_FullMethodName   = "/user_service.v1.UserService/GetUserByEmailOrUsername"
-	UserService_VerifyUser_FullMethodName                 = "/user_service.v1.UserService/VerifyUser"
-	UserService_PasswordResetWebhook_FullMethodName       = "/user_service.v1.UserService/PasswordResetWebhook"
-	UserService_GetUserV2_FullMethodName                  = "/user_service.v1.UserService/GetUserV2"
-	UserService_GetUserByUsernameV2_FullMethodName        = "/user_service.v1.UserService/GetUserByUsernameV2"
-	UserService_GetUserByEmailV2_FullMethodName           = "/user_service.v1.UserService/GetUserByEmailV2"
-	UserService_GetUserByEmailOrUsernameV2_FullMethodName = "/user_service.v1.UserService/GetUserByEmailOrUsernameV2"
-	UserService_CheckUsernameExistsV2_FullMethodName      = "/user_service.v1.UserService/CheckUsernameExistsV2"
-	UserService_CheckEmailExistsV2_FullMethodName         = "/user_service.v1.UserService/CheckEmailExistsV2"
-	UserService_DeleteUserV2_FullMethodName               = "/user_service.v1.UserService/DeleteUserV2"
-	UserService_UpdateUserV2_FullMethodName               = "/user_service.v1.UserService/UpdateUserV2"
-	UserService_CreateUserV2_FullMethodName               = "/user_service.v1.UserService/CreateUserV2"
-	UserService_GetUserIdV2_FullMethodName                = "/user_service.v1.UserService/GetUserIdV2"
-	UserService_VerifyUserV2_FullMethodName               = "/user_service.v1.UserService/VerifyUserV2"
-	UserService_PasswordResetWebhookV2_FullMethodName     = "/user_service.v1.UserService/PasswordResetWebhookV2"
-	UserService_GetBusinessSettings_FullMethodName        = "/user_service.v1.UserService/GetBusinessSettings"
-	UserService_GetUserByAuthnIDV2_FullMethodName         = "/user_service.v1.UserService/GetUserByAuthnIDV2"
-	UserService_GetCannyUserSSOToken_FullMethodName       = "/user_service.v1.UserService/GetCannyUserSSOToken"
-	UserService_GetUserByAuth0ID_FullMethodName           = "/user_service.v1.UserService/GetUserByAuth0ID"
-	UserService_CreateRole_FullMethodName                 = "/user_service.v1.UserService/CreateRole"
-	UserService_GetRole_FullMethodName                    = "/user_service.v1.UserService/GetRole"
-	UserService_UpdateRole_FullMethodName                 = "/user_service.v1.UserService/UpdateRole"
-	UserService_DeleteRole_FullMethodName                 = "/user_service.v1.UserService/DeleteRole"
-	UserService_ListRoles_FullMethodName                  = "/user_service.v1.UserService/ListRoles"
+	UserService_GetUser_FullMethodName                        = "/user_service.v1.UserService/GetUser"
+	UserService_GetUserByUsername_FullMethodName              = "/user_service.v1.UserService/GetUserByUsername"
+	UserService_GetUserByEmail_FullMethodName                 = "/user_service.v1.UserService/GetUserByEmail"
+	UserService_CheckUsernameExists_FullMethodName            = "/user_service.v1.UserService/CheckUsernameExists"
+	UserService_CheckEmailExists_FullMethodName               = "/user_service.v1.UserService/CheckEmailExists"
+	UserService_DeleteUser_FullMethodName                     = "/user_service.v1.UserService/DeleteUser"
+	UserService_UpdateUser_FullMethodName                     = "/user_service.v1.UserService/UpdateUser"
+	UserService_GetUserId_FullMethodName                      = "/user_service.v1.UserService/GetUserId"
+	UserService_HealthCheck_FullMethodName                    = "/user_service.v1.UserService/HealthCheck"
+	UserService_ReadynessCheck_FullMethodName                 = "/user_service.v1.UserService/ReadynessCheck"
+	UserService_GetUserByEmailOrUsername_FullMethodName       = "/user_service.v1.UserService/GetUserByEmailOrUsername"
+	UserService_VerifyUser_FullMethodName                     = "/user_service.v1.UserService/VerifyUser"
+	UserService_PasswordResetWebhook_FullMethodName           = "/user_service.v1.UserService/PasswordResetWebhook"
+	UserService_GetUserV2_FullMethodName                      = "/user_service.v1.UserService/GetUserV2"
+	UserService_GetUserByUsernameV2_FullMethodName            = "/user_service.v1.UserService/GetUserByUsernameV2"
+	UserService_GetUserByEmailV2_FullMethodName               = "/user_service.v1.UserService/GetUserByEmailV2"
+	UserService_GetUserByEmailOrUsernameV2_FullMethodName     = "/user_service.v1.UserService/GetUserByEmailOrUsernameV2"
+	UserService_CheckUsernameExistsV2_FullMethodName          = "/user_service.v1.UserService/CheckUsernameExistsV2"
+	UserService_CheckEmailExistsV2_FullMethodName             = "/user_service.v1.UserService/CheckEmailExistsV2"
+	UserService_DeleteUserV2_FullMethodName                   = "/user_service.v1.UserService/DeleteUserV2"
+	UserService_UpdateUserV2_FullMethodName                   = "/user_service.v1.UserService/UpdateUserV2"
+	UserService_CreateUserV2_FullMethodName                   = "/user_service.v1.UserService/CreateUserV2"
+	UserService_GetUserIdV2_FullMethodName                    = "/user_service.v1.UserService/GetUserIdV2"
+	UserService_VerifyUserV2_FullMethodName                   = "/user_service.v1.UserService/VerifyUserV2"
+	UserService_PasswordResetWebhookV2_FullMethodName         = "/user_service.v1.UserService/PasswordResetWebhookV2"
+	UserService_GetBusinessSettings_FullMethodName            = "/user_service.v1.UserService/GetBusinessSettings"
+	UserService_GetUserByAuthnIDV2_FullMethodName             = "/user_service.v1.UserService/GetUserByAuthnIDV2"
+	UserService_GetCannyUserSSOToken_FullMethodName           = "/user_service.v1.UserService/GetCannyUserSSOToken"
+	UserService_GetUserByAuth0ID_FullMethodName               = "/user_service.v1.UserService/GetUserByAuth0ID"
+	UserService_CreateRole_FullMethodName                     = "/user_service.v1.UserService/CreateRole"
+	UserService_GetRole_FullMethodName                        = "/user_service.v1.UserService/GetRole"
+	UserService_UpdateRole_FullMethodName                     = "/user_service.v1.UserService/UpdateRole"
+	UserService_DeleteRole_FullMethodName                     = "/user_service.v1.UserService/DeleteRole"
+	UserService_ListRoles_FullMethodName                      = "/user_service.v1.UserService/ListRoles"
+	UserService_CheckEmailAndAuth0UserIdExists_FullMethodName = "/user_service.v1.UserService/CheckEmailAndAuth0UserIdExists"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -153,6 +154,7 @@ type UserServiceClient interface {
 	// This RPC fetches a list of all roles, with optional pagination.
 	// URI - /api/v1/roles
 	ListRoles(ctx context.Context, in *ListRolesRequest, opts ...grpc.CallOption) (*ListRolesResponse, error)
+	CheckEmailAndAuth0UserIdExists(ctx context.Context, in *CheckEmailAndAuth0UserIdExistsRequest, opts ...grpc.CallOption) (*CheckEmailAndAuth0UserIdExistsResponse, error)
 }
 
 type userServiceClient struct {
@@ -469,6 +471,15 @@ func (c *userServiceClient) ListRoles(ctx context.Context, in *ListRolesRequest,
 	return out, nil
 }
 
+func (c *userServiceClient) CheckEmailAndAuth0UserIdExists(ctx context.Context, in *CheckEmailAndAuth0UserIdExistsRequest, opts ...grpc.CallOption) (*CheckEmailAndAuth0UserIdExistsResponse, error) {
+	out := new(CheckEmailAndAuth0UserIdExistsResponse)
+	err := c.cc.Invoke(ctx, UserService_CheckEmailAndAuth0UserIdExists_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServiceServer is the server API for UserService service.
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility
@@ -567,6 +578,7 @@ type UserServiceServer interface {
 	// This RPC fetches a list of all roles, with optional pagination.
 	// URI - /api/v1/roles
 	ListRoles(context.Context, *ListRolesRequest) (*ListRolesResponse, error)
+	CheckEmailAndAuth0UserIdExists(context.Context, *CheckEmailAndAuth0UserIdExistsRequest) (*CheckEmailAndAuth0UserIdExistsResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -675,6 +687,9 @@ func (UnimplementedUserServiceServer) DeleteRole(context.Context, *DeleteRoleReq
 }
 func (UnimplementedUserServiceServer) ListRoles(context.Context, *ListRolesRequest) (*ListRolesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListRoles not implemented")
+}
+func (UnimplementedUserServiceServer) CheckEmailAndAuth0UserIdExists(context.Context, *CheckEmailAndAuth0UserIdExistsRequest) (*CheckEmailAndAuth0UserIdExistsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CheckEmailAndAuth0UserIdExists not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 
@@ -1301,6 +1316,24 @@ func _UserService_ListRoles_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_CheckEmailAndAuth0UserIdExists_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CheckEmailAndAuth0UserIdExistsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).CheckEmailAndAuth0UserIdExists(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_CheckEmailAndAuth0UserIdExists_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).CheckEmailAndAuth0UserIdExists(ctx, req.(*CheckEmailAndAuth0UserIdExistsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1443,6 +1476,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListRoles",
 			Handler:    _UserService_ListRoles_Handler,
+		},
+		{
+			MethodName: "CheckEmailAndAuth0UserIdExists",
+			Handler:    _UserService_CheckEmailAndAuth0UserIdExists_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -8987,3 +8987,325 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ListRolesResponseValidationError{}
+
+// Validate checks the field values on CheckEmailAndAuth0UserIdExistsRequest
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
+func (m *CheckEmailAndAuth0UserIdExistsRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CheckEmailAndAuth0UserIdExistsRequest
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// CheckEmailAndAuth0UserIdExistsRequestMultiError, or nil if none found.
+func (m *CheckEmailAndAuth0UserIdExistsRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CheckEmailAndAuth0UserIdExistsRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(m.GetEmail()) < 0 {
+		err := CheckEmailAndAuth0UserIdExistsRequestValidationError{
+			field:  "Email",
+			reason: "value length must be at least 0 bytes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(m.GetAuth0UserId()) < 1 {
+		err := CheckEmailAndAuth0UserIdExistsRequestValidationError{
+			field:  "Auth0UserId",
+			reason: "value length must be at least 1 bytes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return CheckEmailAndAuth0UserIdExistsRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// CheckEmailAndAuth0UserIdExistsRequestMultiError is an error wrapping
+// multiple validation errors returned by
+// CheckEmailAndAuth0UserIdExistsRequest.ValidateAll() if the designated
+// constraints aren't met.
+type CheckEmailAndAuth0UserIdExistsRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CheckEmailAndAuth0UserIdExistsRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CheckEmailAndAuth0UserIdExistsRequestMultiError) AllErrors() []error { return m }
+
+// CheckEmailAndAuth0UserIdExistsRequestValidationError is the validation error
+// returned by CheckEmailAndAuth0UserIdExistsRequest.Validate if the
+// designated constraints aren't met.
+type CheckEmailAndAuth0UserIdExistsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CheckEmailAndAuth0UserIdExistsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CheckEmailAndAuth0UserIdExistsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CheckEmailAndAuth0UserIdExistsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CheckEmailAndAuth0UserIdExistsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CheckEmailAndAuth0UserIdExistsRequestValidationError) ErrorName() string {
+	return "CheckEmailAndAuth0UserIdExistsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CheckEmailAndAuth0UserIdExistsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCheckEmailAndAuth0UserIdExistsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CheckEmailAndAuth0UserIdExistsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CheckEmailAndAuth0UserIdExistsRequestValidationError{}
+
+// Validate checks the field values on CheckEmailAndAuth0UserIdExistsResponse
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
+func (m *CheckEmailAndAuth0UserIdExistsResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// CheckEmailAndAuth0UserIdExistsResponse with the rules defined in the proto
+// definition for this message. If any rules are violated, the result is a
+// list of violation errors wrapped in
+// CheckEmailAndAuth0UserIdExistsResponseMultiError, or nil if none found.
+func (m *CheckEmailAndAuth0UserIdExistsResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CheckEmailAndAuth0UserIdExistsResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Exists
+
+	switch v := m.Account.(type) {
+	case *CheckEmailAndAuth0UserIdExistsResponse_UserAccount:
+		if v == nil {
+			err := CheckEmailAndAuth0UserIdExistsResponseValidationError{
+				field:  "Account",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetUserAccount()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, CheckEmailAndAuth0UserIdExistsResponseValidationError{
+						field:  "UserAccount",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, CheckEmailAndAuth0UserIdExistsResponseValidationError{
+						field:  "UserAccount",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetUserAccount()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return CheckEmailAndAuth0UserIdExistsResponseValidationError{
+					field:  "UserAccount",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *CheckEmailAndAuth0UserIdExistsResponse_BusinessAccount:
+		if v == nil {
+			err := CheckEmailAndAuth0UserIdExistsResponseValidationError{
+				field:  "Account",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetBusinessAccount()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, CheckEmailAndAuth0UserIdExistsResponseValidationError{
+						field:  "BusinessAccount",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, CheckEmailAndAuth0UserIdExistsResponseValidationError{
+						field:  "BusinessAccount",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetBusinessAccount()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return CheckEmailAndAuth0UserIdExistsResponseValidationError{
+					field:  "BusinessAccount",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+
+	if len(errors) > 0 {
+		return CheckEmailAndAuth0UserIdExistsResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// CheckEmailAndAuth0UserIdExistsResponseMultiError is an error wrapping
+// multiple validation errors returned by
+// CheckEmailAndAuth0UserIdExistsResponse.ValidateAll() if the designated
+// constraints aren't met.
+type CheckEmailAndAuth0UserIdExistsResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CheckEmailAndAuth0UserIdExistsResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CheckEmailAndAuth0UserIdExistsResponseMultiError) AllErrors() []error { return m }
+
+// CheckEmailAndAuth0UserIdExistsResponseValidationError is the validation
+// error returned by CheckEmailAndAuth0UserIdExistsResponse.Validate if the
+// designated constraints aren't met.
+type CheckEmailAndAuth0UserIdExistsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CheckEmailAndAuth0UserIdExistsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CheckEmailAndAuth0UserIdExistsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CheckEmailAndAuth0UserIdExistsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CheckEmailAndAuth0UserIdExistsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CheckEmailAndAuth0UserIdExistsResponseValidationError) ErrorName() string {
+	return "CheckEmailAndAuth0UserIdExistsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CheckEmailAndAuth0UserIdExistsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCheckEmailAndAuth0UserIdExistsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CheckEmailAndAuth0UserIdExistsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CheckEmailAndAuth0UserIdExistsResponseValidationError{}

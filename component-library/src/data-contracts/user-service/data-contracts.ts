@@ -188,6 +188,16 @@ export interface BusinessAccount {
   verifiedAt?: string;
 }
 
+export type CheckEmailAndAuth0UserIdExistsData = any;
+
+export interface CheckEmailAndAuth0UserIdExistsResponse {
+  /** BusinessAccount represents a business account within the context of solomon-ai. */
+  businessAccount?: BusinessAccount;
+  exists?: boolean;
+  /** @brief Represents a user account in the context of simfinni. */
+  userAccount?: UserAccount;
+}
+
 export type CheckEmailExistsData = any;
 
 export interface CheckEmailExistsResponse {

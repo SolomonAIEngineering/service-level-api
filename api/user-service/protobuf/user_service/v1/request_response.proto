@@ -722,3 +722,33 @@ message ListRolesResponse {
   repeated Role roles = 1;
   int32 total_count = 2;
 }
+
+message CheckEmailAndAuth0UserIdExistsRequest {
+  // The email of the user of interest
+  string email = 1 [
+    (validate.rules).string = {
+      min_bytes: 0,
+    },
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      min_length: 0,
+      example: "\"email:testuser@gmail.com\""
+    }
+  ];
+  // The auth0 user id of the user
+  string auth0_user_id = 2 [
+    (validate.rules).string = {
+      min_bytes: 1,
+    },
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"lksdjhfgsdhfghdsgfhgdh.com\""
+    } 
+  ];
+}
+
+message CheckEmailAndAuth0UserIdExistsResponse {
+  oneof account {
+    UserAccount user_account = 1;
+    BusinessAccount business_account = 2;
+  } 
+  bool exists = 3;
+}

@@ -1,10 +1,10 @@
-import { IRequest } from './IRequest';
+import { getRandomString } from 'src/lib-utils/utils';
 import {
   CreateAccountingProfileRequest,
   CreateAccountingProfileResponse,
 } from '../../data-contracts/accounting-service/data-contracts';
 import { ErrorResponse } from '../error';
-import { getRandomString } from 'src/lib-utils/utils';
+import { IRequest } from './IRequest';
 
 export class CreateAccountingProfileRequestClass
   implements IRequest, CreateAccountingProfileRequest
@@ -30,6 +30,9 @@ export class CreateAccountingProfileResponseClass
 {
   /** @format uint64 */
   profileId: string = '';
+  authZeroUserId: string = '';
+  companyName: string = '';
+  email: string = '';
 
   constructor(data?: Partial<CreateAccountingProfileResponse>) {
     super();

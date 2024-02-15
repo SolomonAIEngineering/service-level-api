@@ -836,4 +836,23 @@ service UserService {
             }
         };
     }
+
+    rpc CheckEmailAndAuth0UserIdExists(CheckEmailAndAuth0UserIdExistsRequest) returns (CheckEmailAndAuth0UserIdExistsResponse) {
+        option (google.api.http) = {get: "/api/v2/user/email/{email}/auth0/{auth0_user_id}/exists"};
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Checks that an email and auth0 user id exists or not"
+            tags: ["account", "v2"]
+            operation_id: "CheckEmailAndAuth0UserIdExists"
+            description: "Checks if an email and auth0 user id exists or not"
+            responses: {
+                key: "200"
+                value: {
+                    description: "A successful response."
+                    schema: {
+                        json_schema: {ref: ".api.v1.CheckEmailAndAuth0UserIdExistsResponse"}
+                    }
+                }
+            }
+        };
+    }
 }
